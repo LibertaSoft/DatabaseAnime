@@ -19,3 +19,6 @@ FORMS += \
 HEADERS += \
     mainwindow.h \
     formsettings.h
+
+RESOURCES += \
+    resource.qrc

@@ -15,19 +15,19 @@ FormSettings::FormSettings(QWidget *parent) :
 
     QSettings settings;
 
-    bool a1 = settings.value( "enableElem/BtnSwitchSection/Anime",      true ).toBool();
-    bool a2 = settings.value( "enableElem/BtnSwitchSection/Manga",      true ).toBool();
-    bool a3 = settings.value( "enableElem/BtnSwitchSection/AMV",          false ).toBool();
-    bool a4 = settings.value( "enableElem/BtnSwitchSection/Dorea",       false ).toBool();
-    bool a5 = settings.value( "enableElem/BtnSwitchSection/Editable",    true ).toBool();
+    bool a1 = settings.value( "enableElem/BtnSwitchSection/Anime",     true ).toBool();
+    bool a2 = settings.value( "enableElem/BtnSwitchSection/Manga",     true ).toBool();
+    bool a3 = settings.value( "enableElem/BtnSwitchSection/AMV",       false ).toBool();
+    bool a4 = settings.value( "enableElem/BtnSwitchSection/Dorea",     false ).toBool();
+    bool a5 = settings.value( "enableElem/BtnSwitchSection/Editable",  true ).toBool();
     bool a6 = settings.value( "enableElem/BtnSwitchSection/LookLater", true ).toBool();
 
-    bool b1 = settings.value( "enableElem/FieldsForEdit/OrigTitle",        true ).toBool();
-    bool b2 = settings.value( "enableElem/FieldsForEdit/Director",        true ).toBool();
-    bool b3 = settings.value( "enableElem/FieldsForEdit/PostScoring",  true ).toBool();
-    bool b4 = settings.value( "enableElem/FieldsForEdit/Studio",           true ).toBool();
-    bool b5 = settings.value( "enableElem/FieldsForEdit/URL",               true ).toBool();
-    bool b6 = settings.value( "enableElem/FieldsForEdit/Dir",                 true ).toBool();
+    bool b1 = settings.value( "enableElem/FieldsForEdit/OrigTitle",   true ).toBool();
+    bool b2 = settings.value( "enableElem/FieldsForEdit/Director",    true ).toBool();
+    bool b3 = settings.value( "enableElem/FieldsForEdit/PostScoring", true ).toBool();
+    bool b4 = settings.value( "enableElem/FieldsForEdit/Studio",      true ).toBool();
+    bool b5 = settings.value( "enableElem/FieldsForEdit/URL",         true ).toBool();
+    bool b6 = settings.value( "enableElem/FieldsForEdit/Dir",         true ).toBool();
 
     ui->CheckBox_EnableAnime->setChecked( a1 );
     ui->CheckBox_EnableManga->setChecked( a2 );
@@ -54,19 +54,19 @@ void FormSettings::on_BtnBox_accepted()
     QSettings settings;
 
     settings.setValue( "configExist", true );
-    settings.setValue( "enableElem/BtnSwitchSection/Anime",      ui->CheckBox_EnableAnime->isChecked() );
-    settings.setValue( "enableElem/BtnSwitchSection/Manga",      ui->CheckBox_EnableManga->isChecked() );
-    settings.setValue( "enableElem/BtnSwitchSection/AMV",          ui->CheckBox_EnableAMV->isChecked() );
-    settings.setValue( "enableElem/BtnSwitchSection/Dorea",       ui->CheckBox_EnableDorea->isChecked() );
-    settings.setValue( "enableElem/BtnSwitchSection/Editable",    ui->CheckBox_EnableEditing->isChecked() );
+    settings.setValue( "enableElem/BtnSwitchSection/Anime",     ui->CheckBox_EnableAnime->isChecked() );
+    settings.setValue( "enableElem/BtnSwitchSection/Manga",     ui->CheckBox_EnableManga->isChecked() );
+    settings.setValue( "enableElem/BtnSwitchSection/AMV",       ui->CheckBox_EnableAMV->isChecked() );
+    settings.setValue( "enableElem/BtnSwitchSection/Dorea",     ui->CheckBox_EnableDorea->isChecked() );
+    settings.setValue( "enableElem/BtnSwitchSection/Editable",  ui->CheckBox_EnableEditing->isChecked() );
     settings.setValue( "enableElem/BtnSwitchSection/LookLater", ui->CheckBox_EnableLookLater->isChecked() );
 
-    settings.setValue( "enableElem/FieldsForEdit/OrigTitle",        ui->CheckBox_OrigTitle->isChecked() );
-    settings.setValue( "enableElem/FieldsForEdit/Director",        ui->CheckBox_Director->isChecked() );
-    settings.setValue( "enableElem/FieldsForEdit/PostScoring",  ui->CheckBox_PostScoring->isChecked() );
-    settings.setValue( "enableElem/FieldsForEdit/Studio",           ui->CheckBox_Studio->isChecked() );
-    settings.setValue( "enableElem/FieldsForEdit/URL",                ui->CheckBox_URL->isChecked() );
-    settings.setValue( "enableElem/FieldsForEdit/Dir",                 ui->CheckBox_Dir->isChecked() );
+    settings.setValue( "enableElem/FieldsForEdit/OrigTitle",   ui->CheckBox_OrigTitle->isChecked() );
+    settings.setValue( "enableElem/FieldsForEdit/Director",    ui->CheckBox_Director->isChecked() );
+    settings.setValue( "enableElem/FieldsForEdit/PostScoring", ui->CheckBox_PostScoring->isChecked() );
+    settings.setValue( "enableElem/FieldsForEdit/Studio",      ui->CheckBox_Studio->isChecked() );
+    settings.setValue( "enableElem/FieldsForEdit/URL",         ui->CheckBox_URL->isChecked() );
+    settings.setValue( "enableElem/FieldsForEdit/Dir",         ui->CheckBox_Dir->isChecked() );
 
     //save tags in database
 

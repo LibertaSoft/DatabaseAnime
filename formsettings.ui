@@ -88,7 +88,8 @@
            <string>+</string>
           </property>
           <property name="icon">
-           <iconset theme="add"/>
+           <iconset resource="resource.qrc">
+            <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
           </property>
          </widget>
         </item>
@@ -121,7 +122,8 @@
            <string>-</string>
           </property>
           <property name="icon">
-           <iconset theme="remove"/>
+           <iconset resource="resource.qrc">
+            <normaloff>:/images/list-remove.png</normaloff>:/images/list-remove.png</iconset>
           </property>
          </widget>
         </item>
@@ -199,7 +201,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>BtnBox</sender>

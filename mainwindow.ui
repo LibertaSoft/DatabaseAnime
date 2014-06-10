@@ -70,9 +70,8 @@
              <string comment="Настройки приложения" extracomment="Options">Настройки</string>
             </property>
             <property name="icon">
-             <iconset theme="emblem-system">
-              <normaloff/>
-             </iconset>
+             <iconset resource="resource.qrc">
+              <normaloff>:/images/config.png</normaloff>:/images/config.png</iconset>
             </property>
             <property name="shortcut">
              <string>Ctrl+O</string>
@@ -323,7 +322,7 @@
              <item row="0" column="1">
               <widget class="QLabel" name="Lbl_VGitHub">
                <property name="text">
-                <string extracomment="Link to sire GitHub">&lt;a href=&quot;https://github.com&quot;&gt;https://GitHub.com&lt;/a&gt;</string>
+                <string extracomment="Link to sire GitHub">&lt;a href=&quot;https://github.com/LibertaSoft/DatabaseAnime&quot;&gt;https://github.com/LibertaSoft/DatabaseAnime&lt;/a&gt;</string>
                </property>
                <property name="openExternalLinks">
                 <bool>true</bool>
@@ -564,9 +563,8 @@
           <string>+</string>
          </property>
          <property name="icon">
-          <iconset theme="add">
-           <normaloff/>
-          </iconset>
+          <iconset resource="resource.qrc">
+           <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
          </property>
         </widget>
        </item>
@@ -598,9 +596,8 @@
           <string>*</string>
          </property>
          <property name="icon">
-          <iconset theme="edit-find-replace">
-           <normaloff/>
-          </iconset>
+          <iconset resource="resource.qrc">
+           <normaloff>:/images/edit.png</normaloff>:/images/edit.png</iconset>
          </property>
         </widget>
        </item>
@@ -632,9 +629,8 @@
           <string>-</string>
          </property>
          <property name="icon">
-          <iconset theme="remove">
-           <normaloff/>
-          </iconset>
+          <iconset resource="resource.qrc">
+           <normaloff>:/images/list-remove.png</normaloff>:/images/list-remove.png</iconset>
          </property>
         </widget>
        </item>
@@ -644,6 +640,8 @@
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -4,9 +4,9 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    app.setOrganizationName("LibreSoft");
-    app.setOrganizationDomain("https://github/libresoft");
-    app.setApplicationName("Database Anime");
+    app.setOrganizationName("LibertaSoft");
+    app.setOrganizationDomain("https://github.com/LibertaSoft");
+    app.setApplicationName("DatabaseAnime");
 
     MainWindow wnd;
     wnd.show();

@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    //void closeEvent(QCloseEvent *);
+    void closeEvent(QCloseEvent *);
     ~MainWindow();
 
 private slots:
