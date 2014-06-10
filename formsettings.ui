@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FormSettings</class>
+ <widget class="QWidget" name="FormSettings">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>655</width>
+    <height>501</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QGroupBox" name="GBox_ActiveMenuItem">
+     <property name="title">
+      <string>Активные пункты меню:</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QCheckBox" name="CheckBox_EnableAnime">
+        <property name="text">
+         <string>Аниме</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="CheckBox_EnableManga">
+        <property name="text">
+         <string>Манга</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="CheckBox_EnableAMV">
+        <property name="text">
+         <string>AMV</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="CheckBox_EnableDorea">
+        <property name="text">
+         <string>Дореа</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="CheckBox_EnableEditing">
+        <property name="text">
+         <string>Редактируемые</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="CheckBox_EnableLookLater">
+        <property name="text">
+         <string>Хочу посмотреть</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="GBox_EditTags">
+     <property name="title">
+      <string>Редактирование тегов:</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLineEdit" name="LineEdit_AddTag"/>
+        </item>
+        <item>
+         <widget class="QToolButton" name="TButton_AddTag">
+          <property name="toolTip">
+           <string>Добавить в список ниже, тег из поля слева</string>
+          </property>
+          <property name="text">
+           <string>+</string>
+          </property>
+          <property name="icon">
+           <iconset theme="add"/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="TButton_DeleteTag">
+          <property name="toolTip">
+           <string>Удалить выбраный в списке ниже тег</string>
+          </property>
+          <property name="text">
+           <string>-</string>
+          </property>
+          <property name="icon">
+           <iconset theme="remove"/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QListView" name="ListView_Tags"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="GBox_FieldsForEdit">
+     <property name="title">
+      <string>Опциональные поля при редактировании:</string>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="CheckBox_OrigTitle">
+        <property name="text">
+         <string>Оригинальное название</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QCheckBox" name="CheckBox_URL">
+        <property name="text">
+         <string>Ссылка</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QCheckBox" name="CheckBox_Studio">
+        <property name="text">
+         <string>Студия</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QCheckBox" name="CheckBox_Dir">
+        <property name="text">
+         <string>Директория</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="CheckBox_PostScoring">
+        <property name="text">
+         <string>Озвучка</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="CheckBox_Director">
+        <property name="text">
+         <string>Режиссёр</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="BtnBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::RestoreDefaults</set>
+     </property>
+     <property name="centerButtons">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>BtnBox</sender>
+   <signal>rejected()</signal>
+   <receiver>FormSettings</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>327</x>
+     <y>476</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>327</x>
+     <y>250</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

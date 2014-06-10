@@ -5,12 +5,17 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = DatabaseAnime
 TEMPLATE = app
 
+#CCFLAG = -wall
+
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    formsettings.cpp
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    formsettings.ui
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    formsettings.h

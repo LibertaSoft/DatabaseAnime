@@ -30,7 +30,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="StartPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -70,7 +70,9 @@
              <string comment="Настройки приложения" extracomment="Options">Настройки</string>
             </property>
             <property name="icon">
-             <iconset theme="emblem-system"/>
+             <iconset theme="emblem-system">
+              <normaloff/>
+             </iconset>
             </property>
             <property name="shortcut">
              <string>Ctrl+O</string>
@@ -107,7 +109,7 @@
           </property>
          </widget>
         </item>
-        <item>
+        <item alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="lbl_AppTitle">
           <property name="font">
            <font>
@@ -121,7 +123,7 @@
            </font>
           </property>
           <property name="text">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Database Anime&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>Database Anime</string>
           </property>
          </widget>
         </item>
@@ -398,7 +400,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>420</width>
+                 <width>389</width>
                  <height>295</height>
                 </rect>
                </property>
@@ -439,7 +441,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>420</width>
+                 <width>389</width>
                  <height>198</height>
                 </rect>
                </property>
@@ -527,7 +529,7 @@
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QVBoxLayout" name="VLay_SectonSwapBtns"/>
+      <layout class="QVBoxLayout" name="VLay_SectionSwapBtns"/>
      </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_Search">
@@ -562,7 +564,9 @@
           <string>+</string>
          </property>
          <property name="icon">
-          <iconset theme="add"/>
+          <iconset theme="add">
+           <normaloff/>
+          </iconset>
          </property>
         </widget>
        </item>
@@ -594,7 +598,9 @@
           <string>*</string>
          </property>
          <property name="icon">
-          <iconset theme="edit-find-replace"/>
+          <iconset theme="edit-find-replace">
+           <normaloff/>
+          </iconset>
          </property>
         </widget>
        </item>
@@ -626,7 +632,9 @@
           <string>-</string>
          </property>
          <property name="icon">
-          <iconset theme="remove"/>
+          <iconset theme="remove">
+           <normaloff/>
+          </iconset>
          </property>
         </widget>
        </item>
