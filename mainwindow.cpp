@@ -11,18 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
 //    ui->lbl_AppTitle->setText( QApplication::applicationName() );
 
     QSettings settings;
-
-    // Если настроек нету - создаём их
-    if( !settings.contains("configExist") ){
-        settings.setValue("configExist", true);
-        settings.setValue("enableElem/BtnSwitchSection/Anime",     true);
-        settings.setValue("enableElem/BtnSwitchSection/Manga",     true);
-        settings.setValue("enableElem/BtnSwitchSection/AMV",       false);
-        settings.setValue("enableElem/BtnSwitchSection/Dorea",     false);
-        settings.setValue("enableElem/BtnSwitchSection/Editable",  true);
-        settings.setValue("enableElem/BtnSwitchSection/LookLater", true);
-    }
-
     bool set_enableBtnAnime     = settings.value("enableElem/BtnSwitchSection/Anime",     true).toBool();
     bool set_enableBtnManga     = settings.value("enableElem/BtnSwitchSection/Manga",     true).toBool();
     bool set_enableBtnAMV       = settings.value("enableElem/BtnSwitchSection/AMV",      false).toBool();
@@ -31,27 +19,27 @@ MainWindow::MainWindow(QWidget *parent) :
     bool set_enableBtnLookLater = settings.value("enableElem/BtnSwitchSection/LookLater", true).toBool();
 
     if( set_enableBtnAnime ){
-        btnAnime = new QPushButton( trUtf8("Аниме") );
+        btnAnime = new QPushButton( tr("Аниме") );
         ui->VLay_SectionSwapBtns->addWidget(btnAnime);
     }
     if( set_enableBtnManga ){
-        btnManga = new QPushButton( trUtf8("Манга") );
+        btnManga = new QPushButton( tr("Манга") );
         ui->VLay_SectionSwapBtns->addWidget(btnManga);
     }
     if( set_enableBtnAMV ){
-        btnAMV = new QPushButton( trUtf8("AMV") );
+        btnAMV = new QPushButton( tr("AMV") );
         ui->VLay_SectionSwapBtns->addWidget(btnAMV);
     }
     if( set_enableBtnDorea ){
-        btnDorea = new QPushButton( trUtf8("Дореа") );
+        btnDorea = new QPushButton( tr("Дореа") );
         ui->VLay_SectionSwapBtns->addWidget(btnDorea);
     }
     if( set_enableBtnEditable ){
-        btnEditable = new QPushButton( trUtf8("Ещё редактируется") );
+        btnEditable = new QPushButton( tr("Ещё редактируется") );
         ui->VLay_SectionSwapBtns->addWidget(btnEditable);
     }
     if( set_enableBtnLookLater ){
-        btnLookLater = new QPushButton( trUtf8("Хочу посмотреть") );
+        btnLookLater = new QPushButton( tr("Хочу посмотреть") );
         ui->VLay_SectionSwapBtns->addWidget(btnLookLater);
     }
 

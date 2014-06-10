@@ -9,12 +9,11 @@ namespace Ui {
 class FormSettings;
 }
 
-class FormSettings : public QDialog//QWidget
+class FormSettings : public QDialog
 {
     Q_OBJECT
 
 public:
-    //explicit FormSettings(QWidget *parent = 0);
     explicit FormSettings(QWidget *parent = 0);
     ~FormSettings();
 
