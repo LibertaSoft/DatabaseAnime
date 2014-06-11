@@ -45,9 +45,9 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="CheckBox_EnableDorea">
+       <widget class="QCheckBox" name="CheckBox_EnableDorama">
         <property name="text">
-         <string>Дореа</string>
+         <string>Дорама</string>
         </property>
        </widget>
       </item>

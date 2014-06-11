@@ -17,8 +17,8 @@ FormSettings::FormSettings(QWidget *parent) :
 
     bool a1 = settings.value( "enableElem/BtnSwitchSection/Anime",     true ).toBool();
     bool a2 = settings.value( "enableElem/BtnSwitchSection/Manga",     true ).toBool();
-    bool a3 = settings.value( "enableElem/BtnSwitchSection/AMV",       false ).toBool();
-    bool a4 = settings.value( "enableElem/BtnSwitchSection/Dorea",     false ).toBool();
+    bool a3 = settings.value( "enableElem/BtnSwitchSection/AMV",      false ).toBool();
+    bool a4 = settings.value( "enableElem/BtnSwitchSection/Dorama",   false ).toBool();
     bool a5 = settings.value( "enableElem/BtnSwitchSection/Editable",  true ).toBool();
     bool a6 = settings.value( "enableElem/BtnSwitchSection/LookLater", true ).toBool();
 
@@ -32,7 +32,7 @@ FormSettings::FormSettings(QWidget *parent) :
     ui->CheckBox_EnableAnime->setChecked( a1 );
     ui->CheckBox_EnableManga->setChecked( a2 );
     ui->CheckBox_EnableAMV->setChecked( a3 );
-    ui->CheckBox_EnableDorea->setChecked( a4 );
+    ui->CheckBox_EnableDorama->setChecked( a4 );
     ui->CheckBox_EnableEditing->setChecked( a5 );
     ui->CheckBox_EnableLookLater->setChecked( a6 );
 
@@ -57,7 +57,7 @@ void FormSettings::on_BtnBox_accepted()
     settings.setValue( "enableElem/BtnSwitchSection/Anime",     ui->CheckBox_EnableAnime->isChecked() );
     settings.setValue( "enableElem/BtnSwitchSection/Manga",     ui->CheckBox_EnableManga->isChecked() );
     settings.setValue( "enableElem/BtnSwitchSection/AMV",       ui->CheckBox_EnableAMV->isChecked() );
-    settings.setValue( "enableElem/BtnSwitchSection/Dorea",     ui->CheckBox_EnableDorea->isChecked() );
+    settings.setValue( "enableElem/BtnSwitchSection/Dorama",    ui->CheckBox_EnableDorama->isChecked() );
     settings.setValue( "enableElem/BtnSwitchSection/Editable",  ui->CheckBox_EnableEditing->isChecked() );
     settings.setValue( "enableElem/BtnSwitchSection/LookLater", ui->CheckBox_EnableLookLater->isChecked() );
 
@@ -76,7 +76,7 @@ void FormSettings::on_BtnBox_resetDefaults(){
     ui->CheckBox_EnableAnime->setChecked( true );
     ui->CheckBox_EnableManga->setChecked( true );
     ui->CheckBox_EnableAMV->setChecked( false );
-    ui->CheckBox_EnableDorea->setChecked( false );
+    ui->CheckBox_EnableDorama->setChecked( false );
     ui->CheckBox_EnableEditing->setChecked( true );
     ui->CheckBox_EnableLookLater->setChecked( true );
 

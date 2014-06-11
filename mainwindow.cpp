@@ -8,13 +8,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-//    ui->lbl_AppTitle->setText( QApplication::applicationName() );
+    ui->lbl_AppTitle->setText( QApplication::applicationDisplayName() );
+    ui->Lbl_VVersion->setText( QApplication::applicationVersion() );
+    //ui->Lbl_VVersion->setText( QApplication::platformName() );
 
     QSettings settings;
     bool set_enableBtnAnime     = settings.value("enableElem/BtnSwitchSection/Anime",     true).toBool();
     bool set_enableBtnManga     = settings.value("enableElem/BtnSwitchSection/Manga",     true).toBool();
     bool set_enableBtnAMV       = settings.value("enableElem/BtnSwitchSection/AMV",      false).toBool();
-    bool set_enableBtnDorea     = settings.value("enableElem/BtnSwitchSection/Dorea",    false).toBool();
+    bool set_enableBtnDorama    = settings.value("enableElem/BtnSwitchSection/Dorama",   false).toBool();
     bool set_enableBtnEditable  = settings.value("enableElem/BtnSwitchSection/Editable",  true).toBool();
     bool set_enableBtnLookLater = settings.value("enableElem/BtnSwitchSection/LookLater", true).toBool();
 
@@ -30,9 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
         btnAMV = new QPushButton( tr("AMV") );
         ui->VLay_SectionSwapBtns->addWidget(btnAMV);
     }
-    if( set_enableBtnDorea ){
-        btnDorea = new QPushButton( tr("Дореа") );
-        ui->VLay_SectionSwapBtns->addWidget(btnDorea);
+    if( set_enableBtnDorama ){
+        btnDorama = new QPushButton( tr("Дорама") );
+        ui->VLay_SectionSwapBtns->addWidget(btnDorama);
     }
     if( set_enableBtnEditable ){
         btnEditable = new QPushButton( tr("Ещё редактируется") );
@@ -43,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->VLay_SectionSwapBtns->addWidget(btnLookLater);
     }
 
-    move(settings.value("MainWindow/Position", QPoint(100, 100)).toPoint());
+    move(settings.value("MainWindow/Position", QPoint( 100, 100)).toPoint());
     resize(settings.value("MainWindow/Size", QSize(868, 586)).toSize());
 }
 
@@ -60,7 +62,7 @@ MainWindow::~MainWindow()
     delete btnAnime;
     delete btnManga;
     delete btnAMV;
-    delete btnDorea;
+    delete btnDorama;
     delete btnEditable;
     delete btnLookLater;
 }

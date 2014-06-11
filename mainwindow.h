@@ -29,7 +29,7 @@ private:
     QPushButton* btnAnime;
     QPushButton* btnManga;
     QPushButton* btnAMV;
-    QPushButton* btnDorea;
+    QPushButton* btnDorama;
     QPushButton* btnEditable;
     QPushButton* btnLookLater;
 };

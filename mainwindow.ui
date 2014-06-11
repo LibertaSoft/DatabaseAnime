@@ -56,6 +56,13 @@
            </spacer>
           </item>
           <item>
+           <widget class="QPushButton" name="PBtn_Create">
+            <property name="text">
+             <string>Создание</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="PButton_Options">
             <property name="enabled">
              <bool>true</bool>
@@ -122,7 +129,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Database Anime</string>
+           <string extracomment="[NotUsed]">Database Anime</string>
           </property>
          </widget>
         </item>
@@ -236,7 +243,7 @@
               </rect>
              </property>
              <property name="text">
-              <string extracomment="Label Value Version">0.0.0 Alpha</string>
+              <string extracomment="[NotUsed]Label Value Version">0.0.0</string>
              </property>
             </widget>
             <widget class="QLabel" name="Lbl_TLicense">
@@ -513,8 +520,11 @@
      <height>0</height>
     </size>
    </property>
+   <property name="floating">
+    <bool>false</bool>
+   </property>
    <property name="features">
-    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+    <set>QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="allowedAreas">
     <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
