@@ -22,6 +22,8 @@ public:
 private slots:
     void on_PButton_Options_clicked();
 
+    void on_PBtn_Create_clicked();
+
 private:
     Ui::MainWindow *ui;
     FormSettings *formSettings;

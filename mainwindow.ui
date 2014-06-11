@@ -395,7 +395,7 @@
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
-                <height>420</height>
+                <height>16777215</height>
                </size>
               </property>
               <property name="widgetResizable">
@@ -407,7 +407,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>389</width>
-                 <height>295</height>
+                 <height>296</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
@@ -420,6 +420,12 @@
             </item>
             <item>
              <widget class="QLabel" name="Lbl_TAnimeDescr">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>20</height>
+               </size>
+              </property>
               <property name="font">
                <font>
                 <weight>75</weight>
@@ -473,6 +479,12 @@
           </item>
           <item>
            <widget class="QLabel" name="Lbl_AnimeCover">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="minimumSize">
              <size>
               <width>230</width>
@@ -483,6 +495,18 @@
              <size>
               <width>300</width>
               <height>530</height>
+             </size>
+            </property>
+            <property name="sizeIncrement">
+             <size>
+              <width>1</width>
+              <height>3</height>
+             </size>
+            </property>
+            <property name="baseSize">
+             <size>
+              <width>230</width>
+              <height>420</height>
              </size>
             </property>
             <property name="text">
