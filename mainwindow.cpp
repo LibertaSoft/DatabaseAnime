@@ -4,6 +4,7 @@
 #include <QMessageBox>
 //#include <iostream>
 #include <QDebug>
+#include <QDir>
 #include <QtSql>
 
 bool connectDB(){
@@ -12,6 +13,11 @@ bool connectDB(){
     const QString dbPass("");
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+/*    QDir objQdir;
+    objQdir.setPath( QDir::homePath() );
+    objQdir.
+    objQdir.mkdir( "LibertaSoft" );
+    objQdir.mkdir( "LibertaSoft/DatabaseAnime/" );*/
     db.setDatabaseName( QDir::homePath() +"/DatabaseAnime.sqlite");
     db.setUserName( dbUser );
     db.setHostName( dbHost );
@@ -41,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     bool set_enableBtnDorama    = settings.value("enableElem/BtnSwitchSection/Dorama",   false).toBool();
     bool set_enableBtnEditable  = settings.value("enableElem/BtnSwitchSection/Editable",  true).toBool();
     bool set_enableBtnLookLater = settings.value("enableElem/BtnSwitchSection/LookLater", true).toBool();
+    bool set_isFullScreen       = settings.value("MainWindow/isFullScreen",              false).toBool();
 
     if( set_enableBtnAnime ){
         btnAnime = new QPushButton( tr("Аниме"), this );
@@ -67,16 +74,16 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->VLay_SectionSwapBtns->addWidget(btnLookLater);
     }
 
-    move(settings.value("MainWindow/Position", QPoint( 100, 100)).toPoint());
-    resize(settings.value("MainWindow/Size", QSize(868, 586)).toSize());
+    this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
+    this->restoreState( settings.value("MainWindow/State").toByteArray() );
 
-    connectDB();
+//    connectDB();
 }
 
 void MainWindow::closeEvent(QCloseEvent* ){
     QSettings settings;
-    settings.setValue("MainWindow/Position", this->geometry().topLeft() );
-    settings.setValue("MainWindow/Size", this->geometry().size() );
+    settings.setValue("MainWindow/Geometry", this->saveGeometry() );
+    settings.setValue("MainWindow/State",    this->saveState() );
 }
 
 MainWindow::~MainWindow()
@@ -94,17 +101,16 @@ void MainWindow::on_PButton_Options_clicked()
 void MainWindow::on_PBtn_Create_clicked()
 {
     QMessageBox::information(0,"Click","Create DB Begin");
-    qDebug() << "test";
-    QSqlQuery query;
+
     /* */
     QString str = "CREATE TABLE animeSerials( "
                   "id INTEGER PRIMARY KEY NOT NULL,"
                   "isHaveLooked   INTEGER, "
                   "isEditingDone  INTEGER, "
-                  "Title          VARCHAR(15), "
-                  "OrigTitle      VARCHAR(20), "
-                  "Director       VARCHAR(20), "
-                  "PostScoring    VARCHAR(20), "
+                  "Title          VARCHAR(128), "
+                  "OrigTitle      VARCHAR(128), "
+                  "Director       VARCHAR(48), "
+                  "PostScoring    VARCHAR(64), "
                   "SeriesTV       INTEGER, "
                   "SeriesOVA      INTEGER, "
                   "SeriesONA      INTEGER, "
@@ -120,11 +126,12 @@ void MainWindow::on_PBtn_Create_clicked()
                   "Studios        INTEGER, "
                   "Tags           VARCHAR(256), "
                   "Description    TEXT, "
-                  "URL            VARCHAR(20), "
-                  "Dir            VARCHAR(20), "
-                  "ImageParh      VARCHAR(20) "
+                  "URL            VARCHAR(256), "
+                  "Dir            VARCHAR(256), "
+                  "ImageParh      VARCHAR(256) "
                   ");";
+    QSqlQuery query;
     if( !query.exec(str) ){
-        qDebug() << "Create DB is not created! Error: " << query.lastError();
+        qDebug() << "DB is not created! Error: " << query.lastError();
     }
 }
