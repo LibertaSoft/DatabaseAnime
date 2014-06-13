@@ -25,9 +25,6 @@ FormSettings::FormSettings(QWidget *parent) :
     bool b1 = settings.value( "enableElem/FieldsForEdit/OrigTitle",   true ).toBool();
     bool b2 = settings.value( "enableElem/FieldsForEdit/Director",    true ).toBool();
     bool b3 = settings.value( "enableElem/FieldsForEdit/PostScoring", true ).toBool();
-    bool b4 = settings.value( "enableElem/FieldsForEdit/Studio",      true ).toBool();
-    bool b5 = settings.value( "enableElem/FieldsForEdit/URL",         true ).toBool();
-    bool b6 = settings.value( "enableElem/FieldsForEdit/Dir",         true ).toBool();
 
     ui->CheckBox_EnableAnime->setChecked( a1 );
     ui->CheckBox_EnableManga->setChecked( a2 );
@@ -39,9 +36,6 @@ FormSettings::FormSettings(QWidget *parent) :
     ui->CheckBox_OrigTitle->setChecked( b1 );
     ui->CheckBox_Director->setChecked( b2 );
     ui->CheckBox_PostScoring->setChecked( b3 );
-    ui->CheckBox_Studio->setChecked( b4 );
-    ui->CheckBox_URL->setChecked( b5 );
-    ui->CheckBox_Dir->setChecked( b6 );
 }
 
 FormSettings::~FormSettings()
@@ -64,9 +58,6 @@ void FormSettings::on_BtnBox_accepted()
     settings.setValue( "enableElem/FieldsForEdit/OrigTitle",   ui->CheckBox_OrigTitle->isChecked() );
     settings.setValue( "enableElem/FieldsForEdit/Director",    ui->CheckBox_Director->isChecked() );
     settings.setValue( "enableElem/FieldsForEdit/PostScoring", ui->CheckBox_PostScoring->isChecked() );
-    settings.setValue( "enableElem/FieldsForEdit/Studio",      ui->CheckBox_Studio->isChecked() );
-    settings.setValue( "enableElem/FieldsForEdit/URL",         ui->CheckBox_URL->isChecked() );
-    settings.setValue( "enableElem/FieldsForEdit/Dir",         ui->CheckBox_Dir->isChecked() );
 
     //save tags in database
 
@@ -83,9 +74,6 @@ void FormSettings::on_BtnBox_resetDefaults(){
     ui->CheckBox_OrigTitle->setChecked( true );
     ui->CheckBox_Director->setChecked( true );
     ui->CheckBox_PostScoring->setChecked( true );
-    ui->CheckBox_Studio->setChecked( true );
-    ui->CheckBox_URL->setChecked( true );
-    ui->CheckBox_Dir->setChecked( true );
 }
 
 void FormSettings::on_BtnBox_clicked(QAbstractButton *button)

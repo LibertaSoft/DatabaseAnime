@@ -406,8 +406,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>389</width>
-                 <height>296</height>
+                 <width>98</width>
+                 <height>28</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
@@ -453,8 +453,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>389</width>
-                 <height>198</height>
+                 <width>98</width>
+                 <height>39</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -583,7 +583,7 @@
      <item>
       <layout class="QHBoxLayout" name="HLay_ToolBtn">
        <item>
-        <widget class="QToolButton" name="TButton_add">
+        <widget class="QToolButton" name="TButton_Add">
          <property name="minimumSize">
           <size>
            <width>32</width>
@@ -616,7 +616,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QToolButton" name="TButton_edit">
+        <widget class="QToolButton" name="TButton_Edit">
          <property name="minimumSize">
           <size>
            <width>32</width>
@@ -649,7 +649,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QToolButton" name="TButton_delete">
+        <widget class="QToolButton" name="TButton_Delete">
          <property name="minimumSize">
           <size>
            <width>32</width>

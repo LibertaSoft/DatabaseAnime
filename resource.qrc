@@ -4,5 +4,6 @@
         <file>images/list-remove.png</file>
         <file>images/edit.png</file>
         <file>images/config.png</file>
+        <file>images/folder.png</file>
     </qresource>
 </RCC>

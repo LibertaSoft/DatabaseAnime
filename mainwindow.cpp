@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "dialogaddedit.h"
 
 #include <QMessageBox>
 #include <QDebug>
@@ -64,7 +65,7 @@ bool createTable_AnimeSerials(){
     QSqlQuery query;
     if( !query.exec(str) ){
         qDebug() << "Table AnimeSerials is not created! Error: " << query.lastError();
-        QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Извините. Произошла ошибка при создании таблицы в БД.") );
+        QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Произошла ошибка при создании таблицы в БД.") );
         return false;
     }
     return true;
@@ -137,6 +138,11 @@ void MainWindow::on_PButton_Options_clicked()
 }
 
 void MainWindow::on_PBtn_Create_clicked()
-{
+{}
 
+void MainWindow::on_TButton_Add_clicked()
+{
+    DialogAddEdit dialogAdd(this);
+    dialogAdd.setModal(true);
+    dialogAdd.exec();
 }

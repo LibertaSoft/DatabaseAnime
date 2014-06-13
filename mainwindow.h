@@ -24,6 +24,8 @@ private slots:
 
     void on_PBtn_Create_clicked();
 
+    void on_TButton_Add_clicked();
+
 private:
     Ui::MainWindow *ui;
     FormSettings *formSettings;

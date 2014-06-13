@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogAddEdit</class>
+ <widget class="QDialog" name="DialogAddEdit">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>871</width>
+    <height>583</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="HLay_0">
+     <item>
+      <layout class="QVBoxLayout" name="VLay_0">
+       <item>
+        <layout class="QHBoxLayout" name="HLay_1">
+         <item>
+          <spacer name="HSpacer_0">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="CheckBox_LookLater">
+           <property name="text">
+            <string>Хочу посмотреть</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="Line" name="line">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="CheckBox_Editing">
+           <property name="text">
+            <string>Ещё редактируется</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="LineEdit_Title">
+         <property name="placeholderText">
+          <string>Название</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="VLay_OrigTitle">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="HLay_DirectorAndSound">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="Lbl_Year">
+           <property name="text">
+            <string>Год:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateTimeEdit" name="DateTimeEdit_Year">
+           <property name="displayFormat">
+            <string>yyyy</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="HSpacer_1">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Minimum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="Lbl_Season">
+           <property name="text">
+            <string>Сезон:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="SpinBox_Season"/>
+         </item>
+         <item>
+          <spacer name="HSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="Line" name="line_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="Lbl_Studio">
+           <property name="text">
+            <string>Студия:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="ComboBox_Studio"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QTabWidget" name="TabWidget_Series">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tab_allSeries">
+          <attribute name="title">
+           <string>Всего серий</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="Lbl_TV1">
+             <property name="text">
+              <string>TV</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="Lbl_OVA1">
+             <property name="text">
+              <string>OVA</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="Lbl_ONA1">
+             <property name="text">
+              <string>ONA</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="Lbl_Spec1">
+             <property name="text">
+              <string>Special</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="Lbl_Film1">
+             <property name="text">
+              <string>Film</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QSpinBox" name="SpinBox_aTV"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="SpinBox_aOVA"/>
+           </item>
+           <item row="1" column="2">
+            <widget class="QSpinBox" name="SpinBox_aONA"/>
+           </item>
+           <item row="1" column="3">
+            <widget class="QSpinBox" name="SpinBox_aSpec"/>
+           </item>
+           <item row="1" column="4">
+            <widget class="QSpinBox" name="SpinBox_aFilm"/>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_lookSeries">
+          <attribute name="title">
+           <string>Просмотрено</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QLabel" name="Lbl_TV2">
+             <property name="text">
+              <string>TV</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="Lbl_OVA2">
+             <property name="text">
+              <string>OVA</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="Lbl_ONA2">
+             <property name="text">
+              <string>ONA</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="Lbl_Spec2">
+             <property name="text">
+              <string>Special</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="Lbl_Film2">
+             <property name="text">
+              <string>Film</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QSpinBox" name="SpinBox_vTV"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="SpinBox_vOVA"/>
+           </item>
+           <item row="1" column="2">
+            <widget class="QSpinBox" name="SpinBox_vONA"/>
+           </item>
+           <item row="1" column="3">
+            <widget class="QSpinBox" name="SpinBox_vSpec"/>
+           </item>
+           <item row="1" column="4">
+            <widget class="QSpinBox" name="SpinBox_vFilm"/>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTabWidget" name="TabWidget_2">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tab">
+          <attribute name="title">
+           <string>Жанры</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLineEdit" name="LineEdit_Tags">
+             <property name="placeholderText">
+              <string>Вводите через запятую, или выберети из списка нижу</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QListView" name="ListView_Tags"/>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_2">
+          <attribute name="title">
+           <string>Описание</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QPlainTextEdit" name="PlainTextEdit_Description">
+             <property name="placeholderText">
+              <string>Описание</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_3">
+          <attribute name="title">
+           <string>Медиа</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <layout class="QHBoxLayout" name="HLayout_Dir">
+             <item>
+              <widget class="QLineEdit" name="LineEdit_Dir">
+               <property name="placeholderText">
+                <string>Директория</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="toolButton">
+               <property name="text">
+                <string>*</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resource.qrc">
+                 <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>24</width>
+                 <height>24</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="LineEdit_URL">
+             <property name="placeholderText">
+              <string>URL</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="VSpacer_0">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>138</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QLabel" name="Lbl_ImageCover">
+       <property name="minimumSize">
+        <size>
+         <width>260</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>360</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="BtnBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Reset|QDialogButtonBox::Save</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>
