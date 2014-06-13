@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QDialog>
 #include <QAbstractButton>
+#include <QSqlTableModel>
 
 namespace Ui {
 class FormSettings;
@@ -23,8 +24,11 @@ private slots:
 
     void on_BtnBox_clicked(QAbstractButton *button);
 
+    void on_TButton_DeleteTag_clicked();
+
 private:
     Ui::FormSettings *ui;
+    QSqlTableModel* TableModel_Tags;
 };
 
 #endif // FORMSETTINGS_H

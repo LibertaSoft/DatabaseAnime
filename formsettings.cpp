@@ -4,6 +4,7 @@
 #include <QAbstractButton>
 #include <QSettings>
 #include <QDialogButtonBox>
+#include <QMessageBox>
 
 #include <iostream>
 
@@ -36,6 +37,16 @@ FormSettings::FormSettings(QWidget *parent) :
     ui->CheckBox_OrigTitle->setChecked( b1 );
     ui->CheckBox_Director->setChecked( b2 );
     ui->CheckBox_PostScoring->setChecked( b3 );
+
+    // load tags in db
+    TableModel_Tags = new QSqlTableModel;
+    TableModel_Tags->setTable("AnimeTags");
+    TableModel_Tags->select();
+
+    ui->ListView_Tags->setModel( TableModel_Tags );
+    ui->ListView_Tags->setWrapping( true );
+    ui->ListView_Tags->setModelColumn(1);
+    ui->ListView_Tags->setSelectionMode( QAbstractItemView::MultiSelection );
 }
 
 FormSettings::~FormSettings()
@@ -59,7 +70,7 @@ void FormSettings::on_BtnBox_accepted()
     settings.setValue( "enableElem/FieldsForEdit/Director",    ui->CheckBox_Director->isChecked() );
     settings.setValue( "enableElem/FieldsForEdit/PostScoring", ui->CheckBox_PostScoring->isChecked() );
 
-    //save tags in database
+    //save tags in to database
 
 }
 
@@ -91,4 +102,19 @@ void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
     }
 //    std::cout << "[Pressed:]" << ui->BtnBox->buttonRole( button ) << std::endl;
 //    std::cout << "[Need:]" << QDialogButtonBox::ApplyRole << std::endl;
+}
+
+void FormSettings::on_TButton_DeleteTag_clicked()
+{
+    //    ui->ListView_Tags->
+    //    ui->ListView_Tags->selectedIndexes()
+//    QModelIndexList::iterator it = ui->ListView_Tags->selectedIndexes();
+//    QModelIndexList list = ui->ListView_Tags->selectedIndexes();
+
+    QMessageBox::information(this,"Удаление","Delete");
+
+//    foreach( QString str, list) {
+//        TableModel_Tags->removeRow( str );
+//    }
+
 }

@@ -3,6 +3,7 @@
 #include "dialogaddedit.h"
 
 #include <QMessageBox>
+#include <QErrorMessage>
 #include <QDebug>
 #include <QDir>
 #include <QtSql>
@@ -34,9 +35,93 @@ bool connectDB(){
     return true;
 }
 
-bool createTable_AnimeSerials(){
-    QString str = "CREATE TABLE IF NOT EXISTS animeSerials( "
-                  "id INTEGER PRIMARY KEY NOT NULL,"
+bool insertDefaultTags_AnimeTags()
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO AnimeTags(tagName) VALUES "
+                  "(:v01), (:v02), (:v03), (:v04), (:v05), "
+                  "(:v06), (:v07), (:v08), (:v09), (:v10), "
+                  "(:v11), (:v12), (:v13), (:v14), (:v15), "
+                  "(:v16), (:v17), (:v18), (:v19), (:v20), "
+                  "(:v21), (:v22), (:v23), (:v24), (:v25), "
+                  "(:v26), (:v27), (:v28), (:v29), (:v30), "
+                  "(:v31), (:v32), (:v33), (:v34), (:v35), "
+                  "(:v36), (:v37), (:v38), (:v39), (:v40), "
+                  "(:v41), (:v42), (:v43), (:v44)"
+                  );
+    query.bindValue(":v01", "Сёнен");
+    query.bindValue(":v02", "Сёнен Ай");
+    query.bindValue(":v03", "Сейнен");
+    query.bindValue(":v04", "Сёдзе");
+    query.bindValue(":v05", "Сёдзе Ай");
+    query.bindValue(":v06", "Дзёсей");
+    query.bindValue(":v07", "Комедия");
+    query.bindValue(":v08", "Романтика");
+    query.bindValue(":v09", "Школа");
+    query.bindValue(":v10", "Безумие");
+    query.bindValue(":v11", "Боевые исскуства");
+    query.bindValue(":v12", "Вампиры");
+    query.bindValue(":v13", "Военное");
+    query.bindValue(":v14", "Гарем");
+    query.bindValue(":v15", "Демоны");
+    query.bindValue(":v16", "Детское");
+    query.bindValue(":v17", "Драма");
+    query.bindValue(":v18", "Игры");
+    query.bindValue(":v19", "Исторический");
+    query.bindValue(":v20", "Космос");
+    query.bindValue(":v21", "Магия");
+    query.bindValue(":v22", "Машины");
+    query.bindValue(":v23", "Меха");
+    query.bindValue(":v24", "Мистика");
+    query.bindValue(":v25", "Музыка");
+    query.bindValue(":v26", "Пародия");
+    query.bindValue(":v27", "Повседневность");
+    query.bindValue(":v28", "Полиция");
+    query.bindValue(":v29", "Приключения");
+    query.bindValue(":v30", "Психологическое");
+    query.bindValue(":v31", "Самураи");
+    query.bindValue(":v32", "Сверхъестественное");
+    query.bindValue(":v33", "Смена пола");
+    query.bindValue(":v34", "Спорт");
+    query.bindValue(":v35", "Супер сила");
+    query.bindValue(":v36", "Ужасы");
+    query.bindValue(":v37", "Фантастика");
+    query.bindValue(":v38", "Фэнтези");
+    query.bindValue(":v39", "Экшен");
+    query.bindValue(":v40", "Этти");
+    query.bindValue(":v41", "Триллер");
+    query.bindValue(":v42", "Хентай");
+    query.bindValue(":v43", "Яой");
+    query.bindValue(":v44", "Юри");
+
+    if( !query.exec() ){
+        qDebug() << "Cannot insert data in table AnimeTags: " << query.lastError();
+        (new QErrorMessage(0))->showMessage( query.lastError().text() );
+        return false;
+    }
+    return true;
+}
+
+bool createTable_AnimeTags()
+{
+    QString sql = "CREATE TABLE IF NOT EXISTS animeTags("
+                  "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                  "tagName VARCHAR(32) "
+                  ");";
+    QSqlQuery query;
+    if( !query.exec(sql) ){
+        qDebug() << "Table AnimeTags is not created! Error: " << query.lastError();
+//        (new QErrorMessage(0))->showMessage( query.lastError().text() );
+        QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Произошла ошибка при создании таблицы в БД.") );
+        return false;
+    }
+    return true;
+}
+
+bool createTable_AnimeSerials()
+{
+    QString sql = "CREATE TABLE IF NOT EXISTS animeSerials( "
+                  "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
                   "isHaveLooked   INTEGER, "
                   "isEditingDone  INTEGER, "
                   "Title          VARCHAR(128), "
@@ -63,7 +148,7 @@ bool createTable_AnimeSerials(){
                   "ImagePath      VARCHAR(256) "
                   ");";
     QSqlQuery query;
-    if( !query.exec(str) ){
+    if( !query.exec(sql) ){
         qDebug() << "Table AnimeSerials is not created! Error: " << query.lastError();
         QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Произошла ошибка при создании таблицы в БД.") );
         return false;
@@ -117,6 +202,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connectDB();
     createTable_AnimeSerials();
+    createTable_AnimeTags();
+//    insertDefaultTags_AnimeTags();
 }
 
 void MainWindow::closeEvent(QCloseEvent* ){
