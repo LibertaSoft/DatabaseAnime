@@ -130,7 +130,17 @@
        </layout>
       </item>
       <item>
-       <widget class="QListView" name="ListView_Tags"/>
+       <widget class="QListView" name="ListView_Tags">
+        <property name="selectionMode">
+         <enum>QAbstractItemView::MultiSelection</enum>
+        </property>
+        <property name="selectionBehavior">
+         <enum>QAbstractItemView::SelectItems</enum>
+        </property>
+        <property name="resizeMode">
+         <enum>QListView::Adjust</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

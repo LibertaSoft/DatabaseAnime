@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QAbstractButton>
 #include <QLineEdit>
+#include <QSqlTableModel>
 
 namespace Ui {
 class DialogAddEdit;
@@ -14,7 +15,7 @@ class DialogAddEdit : public QDialog
     Q_OBJECT
 
 public:
-    explicit DialogAddEdit(QWidget *parent = 0);
+    explicit DialogAddEdit(bool isEditRole, QWidget *parent = 0);
     ~DialogAddEdit();
 
 private slots:
@@ -25,8 +26,21 @@ private slots:
 
     void on_BtnBox_rejected();
 
+    void on_SpinBox_aTV_valueChanged(int arg1);
+
+    void on_SpinBox_aOVA_valueChanged(int arg1);
+
+    void on_SpinBox_aONA_valueChanged(int arg1);
+
+    void on_SpinBox_aSpec_valueChanged(int arg1);
+
+    void on_SpinBox_aFilm_valueChanged(int arg1);
+
+    void on_toolButton_clicked();
+
 private:
     Ui::DialogAddEdit *ui;
+    QSqlTableModel* TableModel_Tags;
 
     QLineEdit* LineEdit_OrigTitle;
     QLineEdit* LineEdit_Director;

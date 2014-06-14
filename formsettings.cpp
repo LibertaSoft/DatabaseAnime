@@ -5,6 +5,7 @@
 #include <QSettings>
 #include <QDialogButtonBox>
 #include <QMessageBox>
+#include <QItemSelectionModel>
 
 #include <iostream>
 
@@ -85,6 +86,7 @@ void FormSettings::on_BtnBox_resetDefaults(){
     ui->CheckBox_OrigTitle->setChecked( true );
     ui->CheckBox_Director->setChecked( true );
     ui->CheckBox_PostScoring->setChecked( true );
+    ui->ListView_Tags->clearSelection();
 }
 
 void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
@@ -106,15 +108,15 @@ void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
 
 void FormSettings::on_TButton_DeleteTag_clicked()
 {
-    //    ui->ListView_Tags->
-    //    ui->ListView_Tags->selectedIndexes()
-//    QModelIndexList::iterator it = ui->ListView_Tags->selectedIndexes();
-//    QModelIndexList list = ui->ListView_Tags->selectedIndexes();
+//    ui->ListView_Tags->
 
-    QMessageBox::information(this,"Удаление","Delete");
+    QMessageBox::information(this,"Удаление","Удаление выбранных элементов, будет реализовано позже.");
 
-//    foreach( QString str, list) {
-//        TableModel_Tags->removeRow( str );
-//    }
+//    int x = ui->ListView_Tags->SelectRows;
+//    TableModel_Tags->
+//    TableModel_Tags->removeRow(x);
+//    TableModel_Tags->setSort(1, Qt::SortOrder a );
+
+
 
 }

@@ -203,7 +203,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connectDB();
     createTable_AnimeSerials();
     createTable_AnimeTags();
-//    insertDefaultTags_AnimeTags();
+
+    QSqlTableModel* TableModel_ListItemsSection;
+    TableModel_ListItemsSection = new QSqlTableModel;
+    TableModel_ListItemsSection->setTable("AnimeTags");
+    TableModel_ListItemsSection->select();
+
+    ui->listView_ListItemsSection->setModel(TableModel_ListItemsSection);
+    ui->listView_ListItemsSection->setModelColumn(1);
 }
 
 void MainWindow::closeEvent(QCloseEvent* ){
@@ -225,11 +232,29 @@ void MainWindow::on_PButton_Options_clicked()
 }
 
 void MainWindow::on_PBtn_Create_clicked()
-{}
+{insertDefaultTags_AnimeTags();}
 
 void MainWindow::on_TButton_Add_clicked()
 {
-    DialogAddEdit dialogAdd(this);
+    DialogAddEdit dialogAdd(false, this);
     dialogAdd.setModal(true);
     dialogAdd.exec();
+}
+
+void MainWindow::on_TButton_Edit_clicked()
+{
+    if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
+        DialogAddEdit dialogAdd(true, this);
+        dialogAdd.setModal(true);
+        dialogAdd.exec();
+    }
+}
+
+void MainWindow::on_TButton_Delete_clicked()
+{
+    if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
+        QMessageBox::information(this,"Удаление","Типа удалено");
+    }else{
+        QMessageBox::information(this,"Удаление","Нечего удалять");
+    }
 }

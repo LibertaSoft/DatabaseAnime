@@ -26,6 +26,10 @@ private slots:
 
     void on_TButton_Add_clicked();
 
+    void on_TButton_Edit_clicked();
+
+    void on_TButton_Delete_clicked();
+
 private:
     Ui::MainWindow *ui;
     FormSettings *formSettings;

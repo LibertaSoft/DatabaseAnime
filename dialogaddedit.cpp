@@ -3,8 +3,9 @@
 
 #include <QSettings>
 #include <QMessageBox>
+#include <QFileDialog>
 
-DialogAddEdit::DialogAddEdit(QWidget *parent) :
+DialogAddEdit::DialogAddEdit(bool isEditRole, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogAddEdit)
 {
@@ -27,6 +28,18 @@ DialogAddEdit::DialogAddEdit(QWidget *parent) :
         this->LineEdit_PostScoring->setObjectName("LineEdit_PostScoring");
         this->LineEdit_PostScoring->setPlaceholderText( tr("Озвучка", "Placeholder text, dialogAddEdit") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_PostScoring );
+    }
+    TableModel_Tags = new QSqlTableModel;
+    TableModel_Tags->setTable("AnimeTags");
+    TableModel_Tags->select();
+
+    ui->ListView_Tags->setModel( TableModel_Tags );
+    ui->ListView_Tags->setWrapping( true );
+    ui->ListView_Tags->setModelColumn(1);
+    ui->ListView_Tags->setSelectionMode( QAbstractItemView::MultiSelection );
+
+    if( isEditRole ){
+        ;// Set values
     }
 }
 
@@ -96,4 +109,34 @@ void DialogAddEdit::on_BtnBox_accepted()
 void DialogAddEdit::on_BtnBox_rejected()
 {
     this->close();
+}
+
+void DialogAddEdit::on_SpinBox_aTV_valueChanged(int arg1)
+{
+    ui->SpinBox_vTV->setMaximum(arg1);
+}
+
+void DialogAddEdit::on_SpinBox_aOVA_valueChanged(int arg1)
+{
+    ui->SpinBox_vOVA->setMaximum(arg1);
+}
+
+void DialogAddEdit::on_SpinBox_aONA_valueChanged(int arg1)
+{
+    ui->SpinBox_vONA->setMaximum(arg1);
+}
+
+void DialogAddEdit::on_SpinBox_aSpec_valueChanged(int arg1)
+{
+    ui->SpinBox_vSpec->setMaximum(arg1);
+}
+
+void DialogAddEdit::on_SpinBox_aFilm_valueChanged(int arg1)
+{
+    ui->SpinBox_vFilm->setMaximum(arg1);
+}
+
+void DialogAddEdit::on_toolButton_clicked()
+{
+    ui->LineEdit_Dir->setText( QFileDialog::getExistingDirectory(this, tr("Выберите директорию с видео-файлами"), ui->LineEdit_Dir->text() ) );
 }

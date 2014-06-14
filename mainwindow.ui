@@ -406,8 +406,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>98</width>
-                 <height>28</height>
+                 <width>20</width>
+                 <height>18</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
@@ -453,7 +453,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>98</width>
+                 <width>87</width>
                  <height>39</height>
                 </rect>
                </property>
@@ -578,7 +578,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QListView" name="listView_ListItemsSection"/>
+      <widget class="QListView" name="listView_ListItemsSection">
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="HLay_ToolBtn">
