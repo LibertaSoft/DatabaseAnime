@@ -12,7 +12,8 @@ SOURCES += \
     mainwindow.cpp \
     formsettings.cpp \
     dialogaddedit.cpp \
-    imagecover.cpp
+    imagecover.cpp \
+    lookprogressbar.cpp
 
 FORMS += \
     mainwindow.ui \
@@ -23,7 +24,8 @@ HEADERS += \
     mainwindow.h \
     formsettings.h \
     dialogaddedit.h \
-    imagecover.h
+    imagecover.h \
+    lookprogressbar.h
 
 RESOURCES += \
     resource.qrc

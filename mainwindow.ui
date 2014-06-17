@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>868</width>
-    <height>586</height>
+    <width>911</width>
+    <height>624</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="StartPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -412,14 +412,154 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>20</width>
-                 <height>18</height>
+                 <width>362</width>
+                 <height>334</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
                 <property name="fieldGrowthPolicy">
                  <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
                 </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="Lbl_sTitle">
+                  <property name="font">
+                   <font>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Название:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLabel" name="Lbl_svTitle">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="Lbl_sOrigTitle">
+                  <property name="font">
+                   <font>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Ориг название:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLabel" name="Lbl_svOrigTitle">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="Lbl_sDirector">
+                  <property name="font">
+                   <font>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Режиссёр:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLabel" name="Lbl_svDirector">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="Lbl_sYear">
+                  <property name="font">
+                   <font>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Год:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QLabel" name="Lbl_svYear">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QLabel" name="Lbl_svTags">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="Lbl_sTags">
+                  <property name="font">
+                   <font>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Жанры:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="Lbl_sStudio">
+                  <property name="font">
+                   <font>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Студия:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="QLabel" name="Lbl_svStudio">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="Lbl_sURL">
+                  <property name="font">
+                   <font>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>URL:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="QLabel" name="Lbl_svURL">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </widget>
@@ -459,8 +599,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>87</width>
-                 <height>39</height>
+                 <width>362</width>
+                 <height>198</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -473,7 +613,10 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string comment="[NoVisible]" extracomment="Description Anime/Manga/etc">Описание</string>
+                   <string comment="[NoVisible]" extracomment="Description Anime/Manga/etc">test</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
                   </property>
                  </widget>
                 </item>
@@ -484,11 +627,11 @@
            </layout>
           </item>
           <item>
-           <widget class="QLabel" name="Lbl_AnimeCover">
+           <widget class="QLabel" name="Lbl_ImageCover">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
+              <horstretch>1</horstretch>
+              <verstretch>3</verstretch>
              </sizepolicy>
             </property>
             <property name="minimumSize">
@@ -516,7 +659,10 @@
              </size>
             </property>
             <property name="text">
-             <string comment="[NoVisible]" extracomment="Cover anime/manga/etc">Image Cover</string>
+             <string comment="[NoVisible]" extracomment="Cover anime/manga/etc"/>
+            </property>
+            <property name="scaledContents">
+             <bool>true</bool>
             </property>
            </widget>
           </item>

@@ -1,12 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "dialogaddedit.h"
+#include "lookprogressbar.h"
 
 #include <QMessageBox>
 #include <QErrorMessage>
 #include <QDebug>
 #include <QDir>
 #include <QtSql>
+#include <QProgressBar>
 
 bool connectDB(){
     const QString dbUser("");
@@ -38,6 +40,14 @@ bool connectDB(){
 bool insertDefaultTags_AnimeTags()
 {
     QSqlQuery query;
+    /*
+    query.prepare("TRUNCATE TABLE AnimeTags");
+    if( !query.exec() ){
+        qDebug() << "Cannot truncate table AnimeTags: " << query.lastError();
+        (new QErrorMessage(0))->showMessage( query.lastError().text() );
+        return false;
+    }
+    // */
     query.prepare("INSERT INTO AnimeTags(tagName) VALUES "
                   "(:v01), (:v02), (:v03), (:v04), (:v05), "
                   "(:v06), (:v07), (:v08), (:v09), (:v10), "
@@ -204,13 +214,9 @@ MainWindow::MainWindow(QWidget *parent) :
     createTable_AnimeSerials();
     createTable_AnimeTags();
 
-    QSqlTableModel* TableModel_ListItemsSection;
-    TableModel_ListItemsSection = new QSqlTableModel;
-    TableModel_ListItemsSection->setTable("animeSerials");
-    TableModel_ListItemsSection->select();
-
-    ui->listView_ListItemsSection->setModel(TableModel_ListItemsSection);
-    ui->listView_ListItemsSection->setModelColumn(1);
+    QueryModel_ListItemsSection = new QSqlQueryModel;
+    QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials" );
+    ui->listView_ListItemsSection->setModel(QueryModel_ListItemsSection);
 }
 
 void MainWindow::closeEvent(QCloseEvent* ){
@@ -239,6 +245,7 @@ void MainWindow::on_TButton_Add_clicked()
     DialogAddEdit dialogAdd(false, this);
     dialogAdd.setModal(true);
     dialogAdd.exec();
+    QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials" );
 }
 
 void MainWindow::on_TButton_Edit_clicked()
@@ -252,9 +259,51 @@ void MainWindow::on_TButton_Edit_clicked()
 
 void MainWindow::on_TButton_Delete_clicked()
 {
+
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
         QMessageBox::information(this,"Удаление","Типа удалено");
+//        QModelIndexList mlist = ui->ListView_Tags->selectionModel()->selectedIndexes();
+//        for(int i = 0; i < mlist.count(); i+=2){
+//            QueryModel_ListItemsSection->setQuery( QString("DELETE FROM animeSerials WHERE Title='%1'").arg( mlist.at(i).data(Qt::DisplayRole).toString() ) );
+//        }
     }else{
-        QMessageBox::information(this,"Удаление","Чё делать будем?");
+        QMessageBox::information(this,"Удаление","И чё теперь делать будем?");
     }
+}
+
+void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index)
+{
+    ui->stackedWidget->setCurrentIndex(1);
+    QSqlQueryModel m1;
+    m1.setQuery( QString("SELECT * FROM animeSerials WHERE Title='%1'").arg( index.data().toString() ) );
+//    ui->ScrollArea_AnimeProperty->
+//    ui->scrollAreaWidgetContents_FLay->wid
+      /*
+    "isHaveLooked, isEditingDone, ,"
+    ", , PostScoring,"
+    ", SeriesOVA, SeriesONA, SeriesSpecial, SeriesFilm,"
+    ", vSeriesOVA, vSeriesONA, vSeriesSpecial, vSeriesFilm,"
+    ", Season, ,"
+    ", ,"
+    ", Dir, " b_pbTV, b_pbOVA, b_pbONA, b_pbSpecial, b_pbFilm;
+    */
+    //if( m1.record(0).value("SeriesTV").toInt() > 0 ){
+        b_pbTV = true;
+        LookProgressBar* pbTV = new LookProgressBar(this);
+        pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
+        pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
+        pbTV->setFormat("TV [%v/%m]");
+        ui->VLay_WatchedSeriesBars->addWidget( pbTV );
+    //}
+
+    ui->Lbl_svTitle->setText( m1.record(0).value("Title").toString() );
+    ui->Lbl_svOrigTitle->setText( m1.record(0).value("OrigTitle").toString() );
+    ui->Lbl_svDirector->setText( m1.record(0).value("Director").toString() );
+    ui->Lbl_svYear->setText( m1.record(0).value("Year").toString() );
+    ui->Lbl_svTags->setText( m1.record(0).value("Tags").toString() );
+    ui->Lbl_svStudio->setText( m1.record(0).value("Studios").toString() );
+    ui->Lbl_svURL->setText( m1.record(0).value("URL").toString() );
+    ui->Lbl_VAnimeDescr->setText( m1.record(0).value("Description").toString() );
+    QPixmap pic( m1.record(0).value("ImagePath").toString() );
+    ui->Lbl_ImageCover->setPixmap( pic );
 }

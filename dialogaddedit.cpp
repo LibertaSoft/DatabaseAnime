@@ -99,6 +99,9 @@ void DialogAddEdit::on_BtnBox_clicked(QAbstractButton *button)
         case 7:
             emit on_BtnBox_reset();
             break;
+        case QDialogButtonBox::AcceptRole:
+            //emit on_BtnBox_accepted();
+            break;
         default:
             this->close();
     }
@@ -131,12 +134,18 @@ bool DialogAddEdit::insert_AnimeSerials(){
     QSettings settings;
     if( settings.value( "enableElem/FieldsForEdit/OrigTitle", true ).toBool() ){
         query.bindValue(":OrigTitle", this->LineEdit_OrigTitle->text() );
+    }else{
+        query.bindValue(":OrigTitle", "" );
     }
     if( settings.value( "enableElem/FieldsForEdit/Director", true ).toBool() ){
         query.bindValue(":Director", this->LineEdit_Director->text() );
+    }else{
+        query.bindValue(":Director", "" );
     }
     if( settings.value( "enableElem/FieldsForEdit/PostScoring", true ).toBool() ){
         query.bindValue(":PostScoring", this->LineEdit_PostScoring->text() );
+    }else{
+        query.bindValue(":PostScoring", "" );
     }
 
     query.bindValue(":SeriesTV",      ui->SpinBox_aTV->value()   );
@@ -152,11 +161,11 @@ bool DialogAddEdit::insert_AnimeSerials(){
     query.bindValue(":Year",          ui->DateTimeEdit_Year->date() );
     query.bindValue(":Season",        ui->SpinBox_Season->value()   );
     query.bindValue(":Studios",       ui->ComboBox_Studio->currentIndex() );
-    query.bindValue(":Tags",          ui->LineEdit_Tags->text() ); // #Bug
+    query.bindValue(":Tags",          ui->LineEdit_Tags->text() ); // #Bug, добавить значения из listview
     query.bindValue(":Description",   ui->PlainTextEdit_Description->toPlainText() );
     query.bindValue(":URL",           ui->LineEdit_URL->text() );
     query.bindValue(":Dir",           ui->LineEdit_Dir->text() );
-    query.bindValue(":ImagePath",     ui->Lbl_ImageCover->getImagePath() ); // #Bug
+    query.bindValue(":ImagePath",     ui->Lbl_ImageCover->getImagePath() ); // #Bug, скопировать изображение в дир. программы
 
     if( !query.exec() ){
         qDebug() << "Cannot insert data in table animeSerials: " << query.lastError();
@@ -168,9 +177,12 @@ bool DialogAddEdit::insert_AnimeSerials(){
 
 void DialogAddEdit::on_BtnBox_accepted()
 {
-//    QMessageBox::information(this,"Accept","Типа добавлено.");
-    insert_AnimeSerials();
-    this->close();
+    if( !ui->LineEdit_Title->text().isEmpty() ){
+        insert_AnimeSerials();
+        this->close();
+    }else{
+        QMessageBox::information(this, tr("Внимание"), "Не заполнено поле Название");
+    }
 }
 
 void DialogAddEdit::on_BtnBox_rejected()

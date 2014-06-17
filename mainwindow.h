@@ -30,9 +30,10 @@ private slots:
 
     void on_TButton_Delete_clicked();
 
+    void on_listView_ListItemsSection_activated(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
-    FormSettings *formSettings;
 
     QPushButton* btnAnime;
     QPushButton* btnManga;
@@ -40,6 +41,10 @@ private:
     QPushButton* btnDorama;
     QPushButton* btnEditable;
     QPushButton* btnLookLater;
+    bool b_pbTV, b_pbOVA, b_pbONA, b_pbSpecial, b_pbFilm;
+//    QProgressBar* b_pbTV, *b_pbOVA, *b_pbONA, *b_pbSpecial, *b_pbFilm;
+
+    QSqlQueryModel* QueryModel_ListItemsSection;
 };
 
 #endif // MAINWINDOW_H
