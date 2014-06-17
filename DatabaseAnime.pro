@@ -11,7 +11,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     formsettings.cpp \
-    dialogaddedit.cpp
+    dialogaddedit.cpp \
+    imagecover.cpp
 
 FORMS += \
     mainwindow.ui \
@@ -21,7 +22,8 @@ FORMS += \
 HEADERS += \
     mainwindow.h \
     formsettings.h \
-    dialogaddedit.h
+    dialogaddedit.h \
+    imagecover.h
 
 RESOURCES += \
     resource.qrc

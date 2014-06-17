@@ -149,7 +149,7 @@ bool createTable_AnimeSerials()
                   ");";
     QSqlQuery query;
     if( !query.exec(sql) ){
-        qDebug() << "Table AnimeSerials is not created! Error: " << query.lastError();
+        qDebug() << "Table animeSerials is not created! Error: " << query.lastError();
         QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Произошла ошибка при создании таблицы в БД.") );
         return false;
     }
@@ -206,7 +206,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QSqlTableModel* TableModel_ListItemsSection;
     TableModel_ListItemsSection = new QSqlTableModel;
-    TableModel_ListItemsSection->setTable("AnimeTags");
+    TableModel_ListItemsSection->setTable("animeSerials");
     TableModel_ListItemsSection->select();
 
     ui->listView_ListItemsSection->setModel(TableModel_ListItemsSection);
@@ -255,6 +255,6 @@ void MainWindow::on_TButton_Delete_clicked()
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
         QMessageBox::information(this,"Удаление","Типа удалено");
     }else{
-        QMessageBox::information(this,"Удаление","Нечего удалять");
+        QMessageBox::information(this,"Удаление","Чё делать будем?");
     }
 }

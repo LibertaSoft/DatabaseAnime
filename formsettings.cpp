@@ -109,14 +109,18 @@ void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
 void FormSettings::on_TButton_DeleteTag_clicked()
 {
 //    ui->ListView_Tags->
-
-    QMessageBox::information(this,"Удаление","Удаление выбранных элементов, будет реализовано позже.");
-
-//    int x = ui->ListView_Tags->SelectRows;
 //    TableModel_Tags->
-//    TableModel_Tags->removeRow(x);
-//    TableModel_Tags->setSort(1, Qt::SortOrder a );
+    QMessageBox::information(this,"Удаление","Удаление выбранных элементов, будет реализовано позже.");
+/*
+//    QStringList list;
+    QModelIndexList mlist = ui->ListView_Tags->selectionModel()->selectedIndexes();
+    for(int i = 0; i < mlist.count(); i+=2){
+//        list.append(mlist.at(i).data(Qt::DisplayRole).toString());
+        TableModel_Tags->removeRow( mlist.at(i).data(Qt::DisplayRole).toInt() );
+//        TableModel_Tags->
+        QMessageBox::information(this, "Title", mlist.at(i).data(Qt::DisplayRole).toString() );
+    }
 
-
+*/
 
 }

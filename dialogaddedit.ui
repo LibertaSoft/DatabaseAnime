@@ -446,7 +446,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QLabel" name="Lbl_ImageCover">
+      <widget class="ImageCover" name="Lbl_ImageCover">
        <property name="minimumSize">
         <size>
          <width>260</width>
@@ -459,8 +459,14 @@
          <height>16777215</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">border:1px solid black;</string>
+       </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="textInteractionFlags">
+        <set>Qt::NoTextInteraction</set>
        </property>
       </widget>
      </item>
@@ -475,6 +481,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ImageCover</class>
+   <extends>QLabel</extends>
+   <header location="global">imagecover.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resource.qrc"/>
  </resources>

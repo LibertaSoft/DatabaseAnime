@@ -2,8 +2,12 @@
 #include "ui_dialogaddedit.h"
 
 #include <QSettings>
-#include <QMessageBox>
 #include <QFileDialog>
+#include <QtSql>
+
+#include <QMessageBox>
+#include <QErrorMessage>
+#include <QDebug>
 
 DialogAddEdit::DialogAddEdit(bool isEditRole, QWidget *parent) :
     QDialog(parent),
@@ -100,9 +104,72 @@ void DialogAddEdit::on_BtnBox_clicked(QAbstractButton *button)
     }
 }
 
+bool DialogAddEdit::insert_AnimeSerials(){
+    QSqlQuery query;
+    query.prepare("INSERT INTO animeSerials("
+                  "isHaveLooked, isEditingDone, Title,"
+                  "OrigTitle, Director, PostScoring,"
+                  "SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesFilm,"
+                  "vSeriesTV, vSeriesOVA, vSeriesONA, vSeriesSpecial, vSeriesFilm,"
+                  "Year, Season, Studios,"
+                  "Tags, Description,"
+                  "URL, Dir, ImagePath"
+                  ") VALUES "
+                  "(:isHaveLooked, :isEditingDone, :Title,"
+                  ":OrigTitle, :Director, :PostScoring,"
+                  ":SeriesTV, :SeriesOVA, :SeriesONA, :SeriesSpecial, :SeriesFilm,"
+                  ":vSeriesTV, :vSeriesOVA, :vSeriesONA, :vSeriesSpecial, :vSeriesFilm,"
+                  ":Year, :Season, :Studios,"
+                  ":Tags, :Description,"
+                  ":URL, :Dir, :ImagePath)"
+                  );
+
+    query.bindValue(":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
+    query.bindValue(":isEditingDone", !ui->CheckBox_Editing->isChecked() );
+    query.bindValue(":Title",         ui->LineEdit_Title->text() );
+
+    QSettings settings;
+    if( settings.value( "enableElem/FieldsForEdit/OrigTitle", true ).toBool() ){
+        query.bindValue(":OrigTitle", this->LineEdit_OrigTitle->text() );
+    }
+    if( settings.value( "enableElem/FieldsForEdit/Director", true ).toBool() ){
+        query.bindValue(":Director", this->LineEdit_Director->text() );
+    }
+    if( settings.value( "enableElem/FieldsForEdit/PostScoring", true ).toBool() ){
+        query.bindValue(":PostScoring", this->LineEdit_PostScoring->text() );
+    }
+
+    query.bindValue(":SeriesTV",      ui->SpinBox_aTV->value()   );
+    query.bindValue(":SeriesOVA",     ui->SpinBox_aOVA->value()  );
+    query.bindValue(":SeriesONA",     ui->SpinBox_aONA->value()  );
+    query.bindValue(":SeriesSpecial", ui->SpinBox_aSpec->value() );
+    query.bindValue(":SeriesFilm",    ui->SpinBox_aFilm->value() );
+    query.bindValue(":vSeriesTV",     ui->SpinBox_vTV->value()   );
+    query.bindValue(":vSeriesOVA",    ui->SpinBox_vOVA->value()  );
+    query.bindValue(":vSeriesONA",    ui->SpinBox_vONA->value()  );
+    query.bindValue(":vSeriesSpecial",ui->SpinBox_vSpec->value() );
+    query.bindValue(":vSeriesFilm",   ui->SpinBox_vFilm->value() );
+    query.bindValue(":Year",          ui->DateTimeEdit_Year->date() );
+    query.bindValue(":Season",        ui->SpinBox_Season->value()   );
+    query.bindValue(":Studios",       ui->ComboBox_Studio->currentIndex() );
+    query.bindValue(":Tags",          ui->LineEdit_Tags->text() ); // #Bug
+    query.bindValue(":Description",   ui->PlainTextEdit_Description->toPlainText() );
+    query.bindValue(":URL",           ui->LineEdit_URL->text() );
+    query.bindValue(":Dir",           ui->LineEdit_Dir->text() );
+    query.bindValue(":ImagePath",     ui->Lbl_ImageCover->getImagePath() ); // #Bug
+
+    if( !query.exec() ){
+        qDebug() << "Cannot insert data in table animeSerials: " << query.lastError();
+        (new QErrorMessage(0))->showMessage( query.lastError().text() );
+        return false;
+    }
+    return true;
+}
+
 void DialogAddEdit::on_BtnBox_accepted()
 {
-    QMessageBox::information(this,"Accept","Типа добавлено.");
+//    QMessageBox::information(this,"Accept","Типа добавлено.");
+    insert_AnimeSerials();
     this->close();
 }
 

@@ -32,6 +32,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="CheckBox_EnableManga">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Манга</string>
         </property>
@@ -39,6 +42,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="CheckBox_EnableAMV">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>AMV</string>
         </property>
@@ -46,6 +52,9 @@
       </item>
       <item>
        <widget class="QCheckBox" name="CheckBox_EnableDorama">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>Дорама</string>
         </property>
@@ -135,7 +144,7 @@
          <enum>QAbstractItemView::MultiSelection</enum>
         </property>
         <property name="selectionBehavior">
-         <enum>QAbstractItemView::SelectItems</enum>
+         <enum>QAbstractItemView::SelectRows</enum>
         </property>
         <property name="resizeMode">
          <enum>QListView::Adjust</enum>
