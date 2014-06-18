@@ -8,7 +8,7 @@
 #include <QDebug>
 #include <QDir>
 #include <QtSql>
-#include <QProgressBar>
+//#include <QProgressBar>
 
 bool connectDB(){
     const QString dbUser("");
@@ -214,6 +214,8 @@ MainWindow::MainWindow(QWidget *parent) :
     createTable_AnimeSerials();
     createTable_AnimeTags();
 
+    b_pbTV = b_pbOVA = b_pbONA = b_pbSpecial = b_pbFilm = false;
+
     QueryModel_ListItemsSection = new QSqlQueryModel;
     QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials" );
     ui->listView_ListItemsSection->setModel(QueryModel_ListItemsSection);
@@ -287,14 +289,68 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
     ", ,"
     ", Dir, " b_pbTV, b_pbOVA, b_pbONA, b_pbSpecial, b_pbFilm;
     */
-    //if( m1.record(0).value("SeriesTV").toInt() > 0 ){
+
+    if( b_pbTV ){
+        delete pbTV;
+        b_pbTV = false;
+    }
+    if( b_pbOVA ){
+        delete pbOVA;
+        b_pbOVA = false;
+    }
+    if( b_pbONA ){
+        delete pbONA;
+        b_pbONA = false;
+    }
+    if( b_pbSpecial ){
+        delete pbSpecial;
+        b_pbSpecial = false;
+    }
+    if( b_pbFilm ){
+        delete pbFilm;
+        b_pbFilm = false;
+    }
+
+    if( m1.record(0).value("SeriesTV").toInt() > 0 ){
         b_pbTV = true;
-        LookProgressBar* pbTV = new LookProgressBar(this);
+        pbTV = new LookProgressBar(this);
         pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
         pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
         pbTV->setFormat("TV [%v/%m]");
         ui->VLay_WatchedSeriesBars->addWidget( pbTV );
-    //}
+    }
+    if( m1.record(0).value("SeriesOVA").toInt() > 0 ){
+        b_pbOVA = true;
+        pbOVA = new LookProgressBar(this);
+        pbOVA->setValue( m1.record(0).value("vSeriesOVA").toInt() );
+        pbOVA->setMaximum( m1.record(0).value("SeriesOVA").toInt() );
+        pbOVA->setFormat("OVA [%v/%m]");
+        ui->VLay_WatchedSeriesBars->addWidget( pbOVA );
+    }
+    if( m1.record(0).value("SeriesONA").toInt() > 0 ){
+        b_pbONA = true;
+        pbONA = new LookProgressBar(this);
+        pbONA->setValue( m1.record(0).value("vSeriesONA").toInt() );
+        pbONA->setMaximum( m1.record(0).value("SeriesONA").toInt() );
+        pbONA->setFormat("ONA [%v/%m]");
+        ui->VLay_WatchedSeriesBars->addWidget( pbONA );
+    }
+    if( m1.record(0).value("SeriesSpecial").toInt() > 0 ){
+        b_pbSpecial = true;
+        pbSpecial = new LookProgressBar(this);
+        pbSpecial->setValue( m1.record(0).value("vSeriesSpecial").toInt() );
+        pbSpecial->setMaximum( m1.record(0).value("SeriesSpecial").toInt() );
+        pbSpecial->setFormat("Special [%v/%m]");
+        ui->VLay_WatchedSeriesBars->addWidget( pbSpecial );
+    }
+    if( m1.record(0).value("SeriesFilm").toInt() > 0 ){
+        b_pbFilm = true;
+        pbFilm = new LookProgressBar(this);
+        pbFilm->setValue( m1.record(0).value("vSeriesFilm").toInt() );
+        pbFilm->setMaximum( m1.record(0).value("SeriesFilm").toInt() );
+        pbFilm->setFormat("Film [%v/%m]");
+        ui->VLay_WatchedSeriesBars->addWidget( pbFilm );
+    }
 
     ui->Lbl_svTitle->setText( m1.record(0).value("Title").toString() );
     ui->Lbl_svOrigTitle->setText( m1.record(0).value("OrigTitle").toString() );

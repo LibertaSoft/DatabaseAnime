@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "lookprogressbar.h"
+
 #include <formsettings.h>
 #include <QMainWindow>
 #include <QPushButton>
@@ -42,7 +44,7 @@ private:
     QPushButton* btnEditable;
     QPushButton* btnLookLater;
     bool b_pbTV, b_pbOVA, b_pbONA, b_pbSpecial, b_pbFilm;
-//    QProgressBar* b_pbTV, *b_pbOVA, *b_pbONA, *b_pbSpecial, *b_pbFilm;
+    LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbFilm;
 
     QSqlQueryModel* QueryModel_ListItemsSection;
 };

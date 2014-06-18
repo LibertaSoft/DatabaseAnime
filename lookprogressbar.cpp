@@ -2,7 +2,22 @@
 #include <QPainter>
 #include <QLinearGradient>
 #include <QPen>
-
+#include <QtSql>
+/*
+bool update_animeSerials()
+{
+    QSqlQuery query;
+    query.prepare("UPDATE animeSerials SET vSeriesTV = :vNum WHERE Title = :title;");
+    query.bindValue(":vNum", 10);
+    query.bindValue(":title", "Сёнен");
+    if( !query.exec() ){
+        qDebug() << "Cannot update data in table animeSerials: " << query.lastError();
+        (new QErrorMessage(0))->showMessage( query.lastError().text() );
+        return false;
+    }
+    return true;
+}
+*/
 LookProgressBar::LookProgressBar(QWidget *parent) :
     QFrame(parent), _value(0), _maxValue(0), _minValue(0)
 {
@@ -51,6 +66,7 @@ void LookProgressBar::progressInc()
     if( _value < _maxValue ){
         _value++;
         repaint();
+        emit progressChanged(_value);
     }
 }
 
@@ -59,6 +75,8 @@ void LookProgressBar::progressDec()
     if( _value > _minValue ){
         _value--;
         repaint();
+        emit progressChanged(_value);
+
     }
 }
 
