@@ -3,21 +3,7 @@
 #include <QLinearGradient>
 #include <QPen>
 #include <QtSql>
-/*
-bool update_animeSerials()
-{
-    QSqlQuery query;
-    query.prepare("UPDATE animeSerials SET vSeriesTV = :vNum WHERE Title = :title;");
-    query.bindValue(":vNum", 10);
-    query.bindValue(":title", "Сёнен");
-    if( !query.exec() ){
-        qDebug() << "Cannot update data in table animeSerials: " << query.lastError();
-        (new QErrorMessage(0))->showMessage( query.lastError().text() );
-        return false;
-    }
-    return true;
-}
-*/
+
 LookProgressBar::LookProgressBar(QWidget *parent) :
     QFrame(parent), _value(0), _maxValue(0), _minValue(0)
 {
@@ -35,7 +21,8 @@ QSize LookProgressBar::sizeHint() const
 void LookProgressBar::setValue(int n)
 {
     _value = n;
-    emit progressChanged(_value);
+//    emit progressChanged(_value);
+    emit progressChanged(_value, _type);
 }
 
 void LookProgressBar::setMaximum(int n)
@@ -53,6 +40,11 @@ void LookProgressBar::setFormat(QString f)
     _format = f.replace("%v", "%1").replace("%m", "%2");
 }
 
+void LookProgressBar::setType(QString str)
+{
+    _type = str;
+}
+
 void LookProgressBar::setProgress(int n)
 {
     if( n >= _minValue && n <= _maxValue ){
@@ -66,7 +58,8 @@ void LookProgressBar::progressInc()
     if( _value < _maxValue ){
         _value++;
         repaint();
-        emit progressChanged(_value);
+//        emit progressChanged(_value);
+        emit progressChanged(_value, _type);
     }
 }
 
@@ -75,8 +68,8 @@ void LookProgressBar::progressDec()
     if( _value > _minValue ){
         _value--;
         repaint();
-        emit progressChanged(_value);
-
+//        emit progressChanged(_value);
+        emit progressChanged(_value, _type);
     }
 }
 

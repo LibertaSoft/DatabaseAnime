@@ -15,6 +15,7 @@ private:
     int _maxValue;
     int _minValue;
     QString _format;
+    QString _type;
 public:
     explicit LookProgressBar(QWidget *parent = 0);
     virtual QSize sizeHint() const;
@@ -23,8 +24,10 @@ public:
     void setMaximum(int);
     void setMinimum(int);
     void setFormat(QString str);
+    void setType(QString);
 signals:
     void progressChanged(int);
+    void progressChanged(int, QString);
 public slots:
     void setProgress(int);
     void progressInc();

@@ -105,7 +105,7 @@ bool insertDefaultTags_AnimeTags()
     query.bindValue(":v44", "Юри");
 
     if( !query.exec() ){
-        qDebug() << "Cannot insert data in table AnimeTags: " << query.lastError();
+        qDebug() << "Cannot insert data in table nimeTags: " << query.lastError();
         (new QErrorMessage(0))->showMessage( query.lastError().text() );
         return false;
     }
@@ -120,7 +120,7 @@ bool createTable_AnimeTags()
                   ");";
     QSqlQuery query;
     if( !query.exec(sql) ){
-        qDebug() << "Table AnimeTags is not created! Error: " << query.lastError();
+        qDebug() << "Table animeTags is not created! Error: " << query.lastError();
 //        (new QErrorMessage(0))->showMessage( query.lastError().text() );
         QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Произошла ошибка при создании таблицы в БД.") );
         return false;
@@ -314,42 +314,52 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
     if( m1.record(0).value("SeriesTV").toInt() > 0 ){
         b_pbTV = true;
         pbTV = new LookProgressBar(this);
+        pbTV->setType("vSeriesTV");
         pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
         pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
         pbTV->setFormat("TV [%v/%m]");
         ui->VLay_WatchedSeriesBars->addWidget( pbTV );
+        QObject::connect(pbTV, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesOVA").toInt() > 0 ){
         b_pbOVA = true;
         pbOVA = new LookProgressBar(this);
+        pbOVA->setType("vSeriesOVA");
         pbOVA->setValue( m1.record(0).value("vSeriesOVA").toInt() );
         pbOVA->setMaximum( m1.record(0).value("SeriesOVA").toInt() );
         pbOVA->setFormat("OVA [%v/%m]");
         ui->VLay_WatchedSeriesBars->addWidget( pbOVA );
+        QObject::connect(pbOVA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesONA").toInt() > 0 ){
         b_pbONA = true;
         pbONA = new LookProgressBar(this);
+        pbONA->setType("vSeriesONA");
         pbONA->setValue( m1.record(0).value("vSeriesONA").toInt() );
         pbONA->setMaximum( m1.record(0).value("SeriesONA").toInt() );
         pbONA->setFormat("ONA [%v/%m]");
         ui->VLay_WatchedSeriesBars->addWidget( pbONA );
+        QObject::connect(pbONA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesSpecial").toInt() > 0 ){
         b_pbSpecial = true;
         pbSpecial = new LookProgressBar(this);
+        pbSpecial->setType("vSeriesSpecial");
         pbSpecial->setValue( m1.record(0).value("vSeriesSpecial").toInt() );
         pbSpecial->setMaximum( m1.record(0).value("SeriesSpecial").toInt() );
         pbSpecial->setFormat("Special [%v/%m]");
         ui->VLay_WatchedSeriesBars->addWidget( pbSpecial );
+        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesFilm").toInt() > 0 ){
         b_pbFilm = true;
         pbFilm = new LookProgressBar(this);
+        pbFilm->setType("vSeriesFilm");
         pbFilm->setValue( m1.record(0).value("vSeriesFilm").toInt() );
         pbFilm->setMaximum( m1.record(0).value("SeriesFilm").toInt() );
         pbFilm->setFormat("Film [%v/%m]");
         ui->VLay_WatchedSeriesBars->addWidget( pbFilm );
+        QObject::connect(pbFilm, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
 
     ui->Lbl_svTitle->setText( m1.record(0).value("Title").toString() );
@@ -362,4 +372,16 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
     ui->Lbl_VAnimeDescr->setText( m1.record(0).value("Description").toString() );
     QPixmap pic( m1.record(0).value("ImagePath").toString() );
     ui->Lbl_ImageCover->setPixmap( pic );
+}
+
+void MainWindow::saveLookValueChanges(int value, QString type)
+{
+    QSqlQuery query;
+    query.prepare( QString("UPDATE animeSerials SET %1 = :vNum WHERE Title = :title;").arg(type) );
+    query.bindValue(":vNum", value);
+    query.bindValue(":title", ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toString() );
+    if( !query.exec() ){
+        qDebug() << "Cannot update data in table animeSerials: " << query.lastError();
+        (new QErrorMessage(0))->showMessage( query.lastError().text() );
+    }
 }
