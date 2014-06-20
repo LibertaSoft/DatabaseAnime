@@ -90,9 +90,15 @@
           </widget>
          </item>
          <item>
-          <widget class="QDateTimeEdit" name="DateTimeEdit_Year">
-           <property name="displayFormat">
-            <string>yyyy</string>
+          <widget class="QSpinBox" name="SpinBox_Year">
+           <property name="minimum">
+            <number>1900</number>
+           </property>
+           <property name="maximum">
+            <number>9999</number>
+           </property>
+           <property name="value">
+            <number>2000</number>
            </property>
           </widget>
          </item>
@@ -156,6 +162,12 @@
        </item>
        <item>
         <widget class="QTabWidget" name="TabWidget_Series">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>120</height>
+          </size>
+         </property>
          <property name="currentIndex">
           <number>0</number>
          </property>
@@ -166,6 +178,12 @@
           <layout class="QGridLayout" name="gridLayout">
            <item row="0" column="0">
             <widget class="QLabel" name="Lbl_TV1">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="text">
               <string>TV</string>
              </property>
@@ -173,6 +191,12 @@
            </item>
            <item row="0" column="1">
             <widget class="QLabel" name="Lbl_OVA1">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="text">
               <string>OVA</string>
              </property>
@@ -180,6 +204,12 @@
            </item>
            <item row="0" column="2">
             <widget class="QLabel" name="Lbl_ONA1">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="text">
               <string>ONA</string>
              </property>
@@ -187,6 +217,12 @@
            </item>
            <item row="0" column="3">
             <widget class="QLabel" name="Lbl_Spec1">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="text">
               <string>Special</string>
              </property>
@@ -194,25 +230,51 @@
            </item>
            <item row="0" column="4">
             <widget class="QLabel" name="Lbl_Film1">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>40</height>
+              </size>
+             </property>
              <property name="text">
               <string>Film</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QSpinBox" name="SpinBox_aTV"/>
+            <widget class="QSpinBox" name="SpinBox_aTV">
+             <property name="maximum">
+              <number>9999</number>
+             </property>
+            </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="SpinBox_aOVA"/>
+            <widget class="QSpinBox" name="SpinBox_aOVA">
+             <property name="maximum">
+              <number>9999</number>
+             </property>
+            </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QSpinBox" name="SpinBox_aONA"/>
+            <widget class="QSpinBox" name="SpinBox_aONA">
+             <property name="maximum">
+              <number>9999</number>
+             </property>
+            </widget>
            </item>
            <item row="1" column="3">
-            <widget class="QSpinBox" name="SpinBox_aSpec"/>
+            <widget class="QSpinBox" name="SpinBox_aSpec">
+             <property name="maximum">
+              <number>9999</number>
+             </property>
+            </widget>
            </item>
            <item row="1" column="4">
-            <widget class="QSpinBox" name="SpinBox_aFilm"/>
+            <widget class="QSpinBox" name="SpinBox_aFilm">
+             <property name="maximum">
+              <number>9999</number>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

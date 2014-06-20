@@ -33,7 +33,7 @@
       <item>
        <widget class="QCheckBox" name="CheckBox_EnableManga">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
          <string>Манга</string>
@@ -43,7 +43,7 @@
       <item>
        <widget class="QCheckBox" name="CheckBox_EnableAMV">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
          <string>AMV</string>
@@ -53,7 +53,7 @@
       <item>
        <widget class="QCheckBox" name="CheckBox_EnableDorama">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="text">
          <string>Дорама</string>

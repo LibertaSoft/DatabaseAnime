@@ -7,8 +7,6 @@
 LookProgressBar::LookProgressBar(QWidget *parent) :
     QFrame(parent), _value(0), _maxValue(0), _minValue(0)
 {
-//    setLineWidth(0);
-//    setFrameStyle( Box | Sunken );
     _format = "[%1/%2]";
     setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
 }
@@ -86,17 +84,18 @@ void LookProgressBar::paintEvent(QPaintEvent*)
     gradient.setColorAt(1.0f, QColor(30,170,235,255) );
 
     p.fillRect(rect(), QColor(184,184,184,255) );
-    p.fillRect(0, 0, width()*f, height(), gradient);
+    p.fillRect(height()*2, 0, (width() - height()*2 )*f, height(), gradient);
 
+    // Кнопки
     QRect rbtnPls(0,0,height(),height());
     QRect rbtnSub(height(),0,height(),height());
 
-    p.fillRect( rbtnPls, QColor(200,255,200,175));
-    p.fillRect(rbtnSub, QColor(255,200,200,175));
+    p.fillRect( rbtnPls, QColor(200,255,200,255));
+    p.fillRect(rbtnSub, QColor(255,200,200,255));
     p.drawText(rbtnPls, Qt::AlignCenter, "+");
     p.drawText(rbtnSub, Qt::AlignCenter, "-");
 
-
+    // Текст
     p.setPen(QPen(Qt::black));
     QString str = _format.arg(_value).arg(_maxValue);
     p.drawText(rect(), Qt::AlignCenter, str);

@@ -22,12 +22,9 @@ void ImageCover::setImagePath( QString& path ){
 
 /*virtual*/ void ImageCover::dragEnterEvent(QDragEnterEvent* pe)
 {
-//    if (pe->mimeData()->hasFormat("image/png")){
     if( pe->mimeData()->hasUrls() ){
         pe->acceptProposedAction();
-//        QMessageBox::information(this, "Drag Image Good", pe->mimeData()->text() );
     }
-//    QMessageBox::information(this, "Drag Image Fail", pe->mimeData()-> );
 }
 
 /*virtual*/ void ImageCover::dropEvent(QDropEvent* pe)

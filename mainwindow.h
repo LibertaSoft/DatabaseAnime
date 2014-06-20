@@ -30,17 +30,20 @@ private slots:
     void on_listView_ListItemsSection_activated(const QModelIndex &index);
     void saveLookValueChanges(int, QString);
 
+    void on_PBtnAnime_toggled(bool);
+    void on_PBtnManga_toggled(bool);
+    void on_PBtnAMV_toggled(bool);
+    void on_PBtnDorama_toggled(bool);
+    void on_PBtnIsLook_toggled(bool);
+    void on_PBtnIsEditing_toggled(bool);
+
 private:
     Ui::MainWindow *ui;
 
-    QPushButton* btnAnime;
-    QPushButton* btnManga;
-    QPushButton* btnAMV;
-    QPushButton* btnDorama;
-    QPushButton* btnEditable;
-    QPushButton* btnLookLater;
-    bool b_pbTV, b_pbOVA, b_pbONA, b_pbSpecial, b_pbFilm;
+    QPushButton* btnAnime, *btnManga, *btnAMV, *btnDorama, *btnEditable, *btnLookLater;
+    bool b_btnAnime, b_btnManga, b_btnAMV, b_btnDorama, b_btnEditable, b_btnLookLater;
     LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbFilm;
+    bool b_pbTV, b_pbOVA, b_pbONA, b_pbSpecial, b_pbFilm;
 
     QSqlQueryModel* QueryModel_ListItemsSection;
 };

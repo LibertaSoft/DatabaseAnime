@@ -1,4 +1,4 @@
-#include "dialogaddedit.h"
+#include "dialogaddanime.h"
 #include "ui_dialogaddedit.h"
 
 #include <QSettings>
@@ -70,7 +70,7 @@ void DialogAddEdit::on_BtnBox_reset()
         this->LineEdit_PostScoring->clear();
     }
 
-    ui->DateTimeEdit_Year->setDate( QDate(2000,1,1) );
+    ui->SpinBox_Year->setValue(2000);
     ui->SpinBox_Season->setValue(0);
     ui->ComboBox_Studio->clear();
 
@@ -158,7 +158,7 @@ bool DialogAddEdit::insert_AnimeSerials(){
     query.bindValue(":vSeriesONA",    ui->SpinBox_vONA->value()  );
     query.bindValue(":vSeriesSpecial",ui->SpinBox_vSpec->value() );
     query.bindValue(":vSeriesFilm",   ui->SpinBox_vFilm->value() );
-    query.bindValue(":Year",          ui->DateTimeEdit_Year->date() );
+    query.bindValue(":Year",          ui->SpinBox_Year->value() );
     query.bindValue(":Season",        ui->SpinBox_Season->value()   );
     query.bindValue(":Studios",       ui->ComboBox_Studio->currentIndex() );
     query.bindValue(":Tags",          ui->LineEdit_Tags->text() ); // #Bug, добавить значения из listview

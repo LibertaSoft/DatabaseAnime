@@ -412,8 +412,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>362</width>
-                 <height>334</height>
+                 <width>143</width>
+                 <height>201</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
@@ -599,8 +599,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>362</width>
-                 <height>198</height>
+                 <width>45</width>
+                 <height>39</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -715,6 +715,16 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <layout class="QVBoxLayout" name="VLay_SectionSwapBtns"/>
+     </item>
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="VLay_sectionOption"/>
      </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_Search">
