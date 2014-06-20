@@ -287,13 +287,17 @@ void MainWindow::on_TButton_Delete_clicked()
 {
 
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
-        QMessageBox::information(this,"Удаление","Типа удалено");
-//        QModelIndexList mlist = ui->ListView_Tags->selectionModel()->selectedIndexes();
-//        for(int i = 0; i < mlist.count(); i+=2){
-//            QueryModel_ListItemsSection->setQuery( QString("DELETE FROM animeSerials WHERE Title='%1'").arg( mlist.at(i).data(Qt::DisplayRole).toString() ) );
-//        }
+        QSqlQuery query;
+        query.prepare("DELETE FROM animeSerials WHERE Title = :Title;");
+        query.bindValue(":Title", ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toString());
+        if( !query.exec() ){
+            QMessageBox::warning(this, "Внимание", "Не удалось удалить запись");
+        }else{
+            QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
+            ui->stackedWidget->setCurrentIndex(0);
+        }
     }else{
-        QMessageBox::information(this,"Удаление","И чё теперь делать будем?");
+//        QMessageBox::information(this,"Удаление","Нечего удалять");
     }
 }
 
