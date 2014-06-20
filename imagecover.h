@@ -12,7 +12,7 @@ private:
 public:
     explicit ImageCover(QWidget *parent = 0);
     QString getImagePath();
-    void setImagePath(QString&);
+    void setImagePath(QString);
 signals:
 
 public slots:

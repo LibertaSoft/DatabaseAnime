@@ -9,7 +9,7 @@
 #include <QErrorMessage>
 #include <QDebug>
 
-DialogAddEdit::DialogAddEdit(bool isEditRole, QWidget *parent) :
+DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *parent ) :
     QDialog(parent),
     ui(new Ui::DialogAddEdit)
 {
@@ -43,7 +43,52 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QWidget *parent) :
     ui->ListView_Tags->setSelectionMode( QAbstractItemView::MultiSelection );
 
     if( isEditRole ){
-        ;// Set values
+        this->isEditRole = isEditRole;
+        model = new QSqlQueryModel;
+        model->setQuery( QString("SELECT * FROM animeSerials WHERE Title = '%1'").arg( index->data().toString() ) );
+
+        ui->CheckBox_LookLater->setChecked( model->record(0).value("isHaveLooked").toBool() );
+        ui->CheckBox_Editing->setChecked( model->record(0).value("isEditingDone").toBool() );
+
+        ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
+        // optional
+        QSettings settings;
+        if( settings.value( "enableElem/FieldsForEdit/OrigTitle", true ).toBool() ){
+            this->LineEdit_OrigTitle->setText( model->record(0).value("OrigTitle").toString() );
+        }
+        if( settings.value( "enableElem/FieldsForEdit/Director", true ).toBool() ){
+            this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
+        }
+        if( settings.value( "enableElem/FieldsForEdit/PostScoring", true ).toBool() ){
+            this->LineEdit_PostScoring->setText( model->record(0).value("PostScoring").toString() );
+        }
+
+        ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
+        ui->SpinBox_Season->setValue( model->record(0).value("Season").toInt() );
+        ui->ComboBox_Studio->setCurrentIndex( model->record(0).value("Studios").toInt() ); // #Bug, may be need used model
+
+        ui->SpinBox_aTV->setValue( model->record(0).value("SeriesTV").toInt() );
+        ui->SpinBox_aOVA->setValue( model->record(0).value("SeriesOVA").toInt() );
+        ui->SpinBox_aONA->setValue( model->record(0).value("SeriesONA").toInt() );
+        ui->SpinBox_aSpec->setValue( model->record(0).value("SeriesSpecial").toInt() );
+        ui->SpinBox_aFilm->setValue( model->record(0).value("SeriesFilm").toInt() );
+
+        ui->SpinBox_vTV->setValue( model->record(0).value("vSeriesTV").toInt() );
+        ui->SpinBox_vOVA->setValue( model->record(0).value("vSeriesOVA").toInt() );
+        ui->SpinBox_vONA->setValue( model->record(0).value("vSeriesONA").toInt() );
+        ui->SpinBox_vSpec->setValue( model->record(0).value("vSeriesSpecial").toInt() );
+        ui->SpinBox_vFilm->setValue( model->record(0).value("vSeriesFilm").toInt() );
+
+        ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
+        ui->ListView_Tags->clearSelection(); // Bug, unused, selectionModel
+        ui->PlainTextEdit_Description->setPlainText( model->record(0).value("Description").toString() );
+        ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
+        ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
+
+        QPixmap pm( model->record(0).value("ImagePath").toString() );
+        ui->Lbl_ImageCover->setPixmap( pm );
+        ui->Lbl_ImageCover->setImagePath( model->record(0).value("ImagePath").toString() );
+
     }
 }
 
@@ -109,24 +154,35 @@ void DialogAddEdit::on_BtnBox_clicked(QAbstractButton *button)
 
 bool DialogAddEdit::insert_AnimeSerials(){
     QSqlQuery query;
-    query.prepare("INSERT INTO animeSerials("
-                  "isHaveLooked, isEditingDone, Title,"
-                  "OrigTitle, Director, PostScoring,"
-                  "SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesFilm,"
-                  "vSeriesTV, vSeriesOVA, vSeriesONA, vSeriesSpecial, vSeriesFilm,"
-                  "Year, Season, Studios,"
-                  "Tags, Description,"
-                  "URL, Dir, ImagePath"
-                  ") VALUES "
-                  "(:isHaveLooked, :isEditingDone, :Title,"
-                  ":OrigTitle, :Director, :PostScoring,"
-                  ":SeriesTV, :SeriesOVA, :SeriesONA, :SeriesSpecial, :SeriesFilm,"
-                  ":vSeriesTV, :vSeriesOVA, :vSeriesONA, :vSeriesSpecial, :vSeriesFilm,"
-                  ":Year, :Season, :Studios,"
-                  ":Tags, :Description,"
-                  ":URL, :Dir, :ImagePath)"
-                  );
-
+    if( !this->isEditRole ){
+        query.prepare("INSERT INTO animeSerials("
+                      "isHaveLooked, isEditingDone, Title,"
+                      "OrigTitle, Director, PostScoring,"
+                      "SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesFilm,"
+                      "vSeriesTV, vSeriesOVA, vSeriesONA, vSeriesSpecial, vSeriesFilm,"
+                      "Year, Season, Studios,"
+                      "Tags, Description,"
+                      "URL, Dir, ImagePath"
+                      ") VALUES "
+                      "(:isHaveLooked, :isEditingDone, :Title,"
+                      ":OrigTitle, :Director, :PostScoring,"
+                      ":SeriesTV, :SeriesOVA, :SeriesONA, :SeriesSpecial, :SeriesFilm,"
+                      ":vSeriesTV, :vSeriesOVA, :vSeriesONA, :vSeriesSpecial, :vSeriesFilm,"
+                      ":Year, :Season, :Studios,"
+                      ":Tags, :Description,"
+                      ":URL, :Dir, :ImagePath)"
+                      );
+    }else{
+        query.prepare("UPDATE animeSerials SET "
+                      "isHaveLooked = :isHaveLooked, isEditingDone = :isEditingDone, Title = :Title,"
+                      "OrigTitle = :OrigTitle, Director = :Director, PostScoring = :PostScoring,"
+                      "SeriesTV = :SeriesTV, SeriesOVA = :SeriesOVA, SeriesONA = :SeriesONA, SeriesSpecial = :SeriesSpecial, SeriesFilm = :SeriesFilm,"
+                      "vSeriesTV = :vSeriesTV, vSeriesOVA = :vSeriesOVA, vSeriesONA = :vSeriesONA, vSeriesSpecial = :vSeriesSpecial, vSeriesFilm = :vSeriesFilm,"
+                      "Year = :Year, Season = :Season, Studios = :Studios,"
+                      "Tags = :Tags, Description = :Description,"
+                      "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE Title = :Title;"
+                      );
+    }
     query.bindValue(":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
     query.bindValue(":isEditingDone", !ui->CheckBox_Editing->isChecked() );
     query.bindValue(":Title",         ui->LineEdit_Title->text() );

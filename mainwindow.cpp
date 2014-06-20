@@ -266,7 +266,8 @@ void MainWindow::on_PBtn_Create_clicked()
 
 void MainWindow::on_TButton_Add_clicked()
 {
-    DialogAddEdit dialogAdd(false, this);
+    QModelIndex x;
+    DialogAddEdit dialogAdd(false, &x, this);
     dialogAdd.setModal(true);
     dialogAdd.exec();
     QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials" );
@@ -275,7 +276,8 @@ void MainWindow::on_TButton_Add_clicked()
 void MainWindow::on_TButton_Edit_clicked()
 {
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
-        DialogAddEdit dialogAdd(true, this);
+        QModelIndex i = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0);
+        DialogAddEdit dialogAdd(true, &i, this);
         dialogAdd.setModal(true);
         dialogAdd.exec();
     }
@@ -473,9 +475,11 @@ void MainWindow::on_PBtnIsLook_toggled(bool f)
 {
     // #Bug, загрузить в представление модель БД LookLater
     if(f){
-        QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials WHERE isHaveLooked = 0" );
         if(b_btnEditable)
             btnEditable->setChecked( false );
+        QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials WHERE isHaveLooked = 0" );
+    }else{
+        QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials" );
     }
 }
 
@@ -483,8 +487,10 @@ void MainWindow::on_PBtnIsEditing_toggled(bool f)
 {
     // #Bug, загрузить в представление модель БД Editing
     if(f){
-        QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials WHERE isEditingDone = 0" );
         if(b_btnLookLater)
             btnLookLater->setChecked( false );
+        QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials WHERE isEditingDone = 0" );
+    }else{
+        QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials" );
     }
 }

@@ -16,7 +16,7 @@ ImageCover::ImageCover(QWidget *parent) :
 QString ImageCover::getImagePath(){
     return imagePath;
 }
-void ImageCover::setImagePath( QString& path ){
+void ImageCover::setImagePath( QString path ){
     imagePath = path;
 }
 
