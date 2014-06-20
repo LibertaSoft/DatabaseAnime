@@ -36,7 +36,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="StartPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -378,7 +378,26 @@
       <widget class="QWidget" name="WatchItem">
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <layout class="QVBoxLayout" name="VLay_WatchedSeriesBars"/>
+         <layout class="QVBoxLayout" name="VLay_WatchedSeriesBars">
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <layout class="QHBoxLayout" name="HLay_WBRow0"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="HLay_WBRow1"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="HLay_WBRow2"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QGridLayout" name="GLay_1"/>
         </item>
         <item>
          <layout class="QHBoxLayout" name="HLay_AnimeInfo">
@@ -412,8 +431,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>143</width>
-                 <height>201</height>
+                 <width>362</width>
+                 <height>308</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
@@ -599,8 +618,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>45</width>
-                 <height>39</height>
+                 <width>362</width>
+                 <height>198</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">

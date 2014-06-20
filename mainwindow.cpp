@@ -339,7 +339,10 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
         pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
         pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
         pbTV->setFormat("TV [%v/%m]");
-        ui->VLay_WatchedSeriesBars->addWidget( pbTV );
+//        ui->GLay_1->addWidget(pbTV, 0, 0, 1, 2);
+//        ui->GLay_1->addWidget( pbTV );
+        ui->HLay_WBRow0->addWidget( pbTV );
+//        ui->VLay_WatchedSeriesBars->addWidget( pbTV );
         QObject::connect(pbTV, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesOVA").toInt() > 0 ){
@@ -349,7 +352,9 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
         pbOVA->setValue( m1.record(0).value("vSeriesOVA").toInt() );
         pbOVA->setMaximum( m1.record(0).value("SeriesOVA").toInt() );
         pbOVA->setFormat("OVA [%v/%m]");
-        ui->VLay_WatchedSeriesBars->addWidget( pbOVA );
+        ui->HLay_WBRow1->addWidget(pbOVA);
+//        ui->VLay_WatchedSeriesBars->addWidget( pbOVA );
+//        ui->GLay_1->addWidget( pbOVA, 1, 0 );
         QObject::connect(pbOVA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesONA").toInt() > 0 ){
@@ -359,7 +364,9 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
         pbONA->setValue( m1.record(0).value("vSeriesONA").toInt() );
         pbONA->setMaximum( m1.record(0).value("SeriesONA").toInt() );
         pbONA->setFormat("ONA [%v/%m]");
-        ui->VLay_WatchedSeriesBars->addWidget( pbONA );
+//        ui->VLay_WatchedSeriesBars->addWidget( pbONA );
+        ui->HLay_WBRow1->addWidget( pbONA );
+//        ui->GLay_1->addWidget( pbONA );
         QObject::connect(pbONA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesSpecial").toInt() > 0 ){
@@ -369,7 +376,9 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
         pbSpecial->setValue( m1.record(0).value("vSeriesSpecial").toInt() );
         pbSpecial->setMaximum( m1.record(0).value("SeriesSpecial").toInt() );
         pbSpecial->setFormat("Special [%v/%m]");
-        ui->VLay_WatchedSeriesBars->addWidget( pbSpecial );
+//        ui->VLay_WatchedSeriesBars->addWidget( pbSpecial );
+        ui->HLay_WBRow2->addWidget( pbSpecial );
+//        ui->GLay_1->addWidget( pbSpecial );
         QObject::connect(pbSpecial, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesFilm").toInt() > 0 ){
@@ -379,7 +388,9 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
         pbFilm->setValue( m1.record(0).value("vSeriesFilm").toInt() );
         pbFilm->setMaximum( m1.record(0).value("SeriesFilm").toInt() );
         pbFilm->setFormat("Film [%v/%m]");
-        ui->VLay_WatchedSeriesBars->addWidget( pbFilm );
+//        ui->VLay_WatchedSeriesBars->addWidget( pbFilm );
+        ui->HLay_WBRow2->addWidget( pbFilm );
+//        ui->GLay_1->addWidget( pbFilm );
         QObject::connect(pbFilm, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
 
