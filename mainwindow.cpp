@@ -40,18 +40,18 @@ bool connectDB(){
     }
     return true;
 }
-
+/*
 bool insertDefaultTags_AnimeTags()
 {
     QSqlQuery query;
-    /*
-    query.prepare("TRUNCATE TABLE AnimeTags");
+
+    query.prepare("DELETE FROM AnimeTags");
     if( !query.exec() ){
         qDebug() << "Cannot truncate table AnimeTags: " << query.lastError();
         (new QErrorMessage(0))->showMessage( query.lastError().text() );
         return false;
     }
-    // */
+
     query.prepare("INSERT INTO AnimeTags(tagName) VALUES "
                   "(:v01), (:v02), (:v03), (:v04), (:v05), "
                   "(:v06), (:v07), (:v08), (:v09), (:v10), "
@@ -115,7 +115,7 @@ bool insertDefaultTags_AnimeTags()
     }
     return true;
 }
-
+*/
 bool createTable_AnimeTags()
 {
     QString sql = "CREATE TABLE IF NOT EXISTS animeTags("
@@ -310,9 +310,6 @@ void MainWindow::on_PButton_Options_clicked()
     formSettings.setModal(true);
     formSettings.exec();
 }
-
-void MainWindow::on_PBtn_Create_clicked()
-{insertDefaultTags_AnimeTags();}
 
 void MainWindow::on_TButton_Add_clicked()
 {

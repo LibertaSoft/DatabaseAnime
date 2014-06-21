@@ -23,7 +23,6 @@ public:
 
 private slots:
     void on_PButton_Options_clicked();
-    void on_PBtn_Create_clicked();
     void on_TButton_Add_clicked();
     void on_TButton_Edit_clicked();
     void on_TButton_Delete_clicked();

@@ -36,7 +36,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="StartPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -60,13 +60,6 @@
              </size>
             </property>
            </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="PBtn_Create">
-            <property name="text">
-             <string>Создание</string>
-            </property>
-           </widget>
           </item>
           <item>
            <widget class="QPushButton" name="PButton_Options">

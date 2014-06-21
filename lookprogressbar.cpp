@@ -20,7 +20,6 @@ QSize LookProgressBar::sizeHint() const
 void LookProgressBar::setValue(int n)
 {
     _value = n;
-//    emit progressChanged(_value);
     emit progressChanged(_value, _type);
 }
 
@@ -57,7 +56,6 @@ void LookProgressBar::progressInc()
     if( _value < _maxValue ){
         _value++;
         repaint();
-//        emit progressChanged(_value);
         emit progressChanged(_value, _type);
     }
 }
@@ -67,7 +65,6 @@ void LookProgressBar::progressDec()
     if( _value > _minValue ){
         _value--;
         repaint();
-//        emit progressChanged(_value);
         emit progressChanged(_value, _type);
     }
 }
@@ -91,10 +88,8 @@ void LookProgressBar::paintEvent(QPaintEvent*)
     QRect rbtnPls(1,1,height()-1,height()-2);
     QRect rbtnSub(height()+2,1,height()-1,height()-2);
 
-//    p.fillRect( rbtnPls, QColor(200,255,200,255));
-//    p.fillRect(rbtnSub, QColor(255,200,200,255));
-        p.fillRect( rbtnPls, QColor(200,200,200,255) );
-        p.fillRect( rbtnSub, QColor(200,200,200,255) );
+    p.fillRect( rbtnPls, QColor(200,200,200,255) );
+    p.fillRect( rbtnSub, QColor(200,200,200,255) );
 
     QPixmap pUp;
     if( _btnAddActive ){
@@ -115,8 +110,6 @@ void LookProgressBar::paintEvent(QPaintEvent*)
 
     p.drawPixmap(xrbtnPls, pUp);
     p.drawPixmap(xrbtnSub, pSub);
-//    p.drawText(rbtnPls, Qt::AlignCenter, "+");
-//    p.drawText(rbtnSub, Qt::AlignCenter, "-");
 
     // Текст
     p.setPen(QPen(Qt::black));

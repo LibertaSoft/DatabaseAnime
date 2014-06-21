@@ -58,6 +58,9 @@
        </item>
        <item>
         <widget class="QLineEdit" name="LineEdit_Title">
+         <property name="maxLength">
+          <number>128</number>
+         </property>
          <property name="placeholderText">
           <string>Название</string>
          </property>
@@ -369,6 +372,12 @@
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
             <widget class="QLineEdit" name="LineEdit_Tags">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="maxLength">
+              <number>256</number>
+             </property>
              <property name="placeholderText">
               <string>Вводите через запятую, или выберети из списка нижу</string>
              </property>
@@ -454,6 +463,9 @@
             <layout class="QHBoxLayout" name="HLayout_Dir">
              <item>
               <widget class="QLineEdit" name="LineEdit_Dir">
+               <property name="maxLength">
+                <number>256</number>
+               </property>
                <property name="placeholderText">
                 <string>Директория</string>
                </property>
@@ -480,6 +492,9 @@
            </item>
            <item>
             <widget class="QLineEdit" name="LineEdit_URL">
+             <property name="maxLength">
+              <number>256</number>
+             </property>
              <property name="placeholderText">
               <string>URL</string>
              </property>

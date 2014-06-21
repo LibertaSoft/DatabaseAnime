@@ -17,19 +17,19 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
     QSettings settings;
     if( settings.value( "enableElem/FieldsForEdit/OrigTitle", true ).toBool() ){
         this->LineEdit_OrigTitle = new QLineEdit(this);
-        this->LineEdit_OrigTitle->setObjectName("LineEdit_OrigTitle");
+        this->LineEdit_OrigTitle->setMaxLength(128);
         this->LineEdit_OrigTitle->setPlaceholderText( tr("Оригинальное название", "Placeholder text, dialogAddEdit") );
         ui->VLay_OrigTitle->addWidget( this->LineEdit_OrigTitle );
     }
     if( settings.value( "enableElem/FieldsForEdit/Director", true ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
-        this->LineEdit_Director->setObjectName("LineEdit_Director");
+        this->LineEdit_Director->setMaxLength(32);
         this->LineEdit_Director->setPlaceholderText( tr("Режиссёр", "Placeholder text, dialogAddEdit") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_Director );
     }
     if( settings.value( "enableElem/FieldsForEdit/PostScoring", true ).toBool() ){
         this->LineEdit_PostScoring = new QLineEdit(this);
-        this->LineEdit_PostScoring->setObjectName("LineEdit_PostScoring");
+        this->LineEdit_PostScoring->setMaxLength(128);
         this->LineEdit_PostScoring->setPlaceholderText( tr("Озвучка", "Placeholder text, dialogAddEdit") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_PostScoring );
     }
@@ -47,8 +47,8 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
         model = new QSqlQueryModel;
         model->setQuery( QString("SELECT * FROM animeSerials WHERE Title = '%1'").arg( index->data().toString() ) );
 
-        ui->CheckBox_LookLater->setChecked( model->record(0).value("isHaveLooked").toBool() );
-        ui->CheckBox_Editing->setChecked( model->record(0).value("isEditingDone").toBool() );
+        ui->CheckBox_LookLater->setChecked( !model->record(0).value("isHaveLooked").toBool() );
+        ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
 
         ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
         // optional
@@ -65,7 +65,7 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
 
         ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
         ui->SpinBox_Season->setValue( model->record(0).value("Season").toInt() );
-        ui->ComboBox_Studio->setCurrentIndex( model->record(0).value("Studios").toInt() ); // #Bug, may be need used model
+        ui->ComboBox_Studio->setCurrentIndex( model->record(0).value("Studios").toInt() );
 
         ui->SpinBox_aTV->setValue( model->record(0).value("SeriesTV").toInt() );
         ui->SpinBox_aOVA->setValue( model->record(0).value("SeriesOVA").toInt() );
@@ -80,7 +80,7 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
         ui->SpinBox_vFilm->setValue( model->record(0).value("vSeriesFilm").toInt() );
 
         ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
-        ui->ListView_Tags->clearSelection(); // Bug, unused, selectionModel
+        ui->ListView_Tags->clearSelection(); // Bug, не используется, нет возможности получить модель выделения
         ui->PlainTextEdit_Description->setPlainText( model->record(0).value("Description").toString() );
         ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
         ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
@@ -223,7 +223,7 @@ bool DialogAddEdit::insert_AnimeSerials(){
     QStringList list;
     QModelIndexList mlist = ui->ListView_Tags->selectionModel()->selectedIndexes();
     for(int i = 0;i < mlist.count();i++){
-        list.append(mlist.at(i).data(Qt::DisplayRole).toString()); //Получаем отображаемое имя
+        list.append(mlist.at(i).data(Qt::DisplayRole).toString());
     }
 
     for(int i = 0; i < list.count();i++){
@@ -244,9 +244,6 @@ bool DialogAddEdit::insert_AnimeSerials(){
     query.bindValue(":Dir",           ui->LineEdit_Dir->text() );
 
     QDir objQdir;
-    if( isEditRole ){
-            objQdir.remove( oldCover );
-    }
     QString coverPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() + "/animeCovers/" );
     if( objQdir.mkpath( coverPath ) ){
         QDateTime dt;
@@ -255,7 +252,10 @@ bool DialogAddEdit::insert_AnimeSerials(){
         f.copy( coverPath );
 
     }
-    query.bindValue(":ImagePath", coverPath );
+    if( isEditRole ){
+            objQdir.remove( oldCover );
+    }
+    query.bindValue(":ImagePath", coverPath );  
 
     if( !query.exec() ){
         qDebug() << "Cannot insert data in table animeSerials: " << query.lastError();
