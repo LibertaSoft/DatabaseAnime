@@ -218,7 +218,27 @@ bool DialogAddEdit::insert_AnimeSerials(){
     query.bindValue(":Year",          ui->SpinBox_Year->value() );
     query.bindValue(":Season",        ui->SpinBox_Season->value()   );
     query.bindValue(":Studios",       ui->ComboBox_Studio->currentIndex() );
-    query.bindValue(":Tags",          ui->LineEdit_Tags->text() ); // #Bug, добавить значения из listview
+
+    QString tagsList;
+    QStringList list;
+    QModelIndexList mlist = ui->ListView_Tags->selectionModel()->selectedIndexes();
+    for(int i = 0;i < mlist.count();i++){
+        list.append(mlist.at(i).data(Qt::DisplayRole).toString()); //Получаем отображаемое имя
+    }
+
+    for(int i = 0; i < list.count();i++){
+        if( i != 0 ){
+            tagsList += ", ";
+        }
+        tagsList += list.at(i);
+    }
+    if( !ui->LineEdit_Tags->text().isEmpty() ){
+        tagsList += ", ";
+    }
+    tagsList += ui->LineEdit_Tags->text();
+
+
+    query.bindValue(":Tags",          tagsList );
     query.bindValue(":Description",   ui->PlainTextEdit_Description->toPlainText() );
     query.bindValue(":URL",           ui->LineEdit_URL->text() );
     query.bindValue(":Dir",           ui->LineEdit_Dir->text() );
