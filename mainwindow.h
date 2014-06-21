@@ -36,6 +36,8 @@ private slots:
     void on_PBtnIsLook_toggled(bool);
     void on_PBtnIsEditing_toggled(bool);
 
+    void on_lineEdit_Search_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
 

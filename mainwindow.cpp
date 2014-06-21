@@ -274,6 +274,7 @@ MainWindow::MainWindow(QWidget *parent) :
     createTable_AnimeTags();
 
     b_pbTV = b_pbOVA = b_pbONA = b_pbSpecial = b_pbFilm = false;
+    ui->lineEdit_Search->setFocus();
 
     QueryModel_ListItemsSection = new QSqlQueryModel;
     QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg(_activeTable) );
@@ -552,4 +553,9 @@ void MainWindow::on_PBtnIsEditing_toggled(bool f)
     }else{
         QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg(_activeTable) );
     }
+}
+
+void MainWindow::on_lineEdit_Search_textChanged(const QString &arg1)
+{
+    QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM '%1' WHERE Title LIKE '%2'").arg(_activeTable).arg("%"+arg1+"%") );
 }
