@@ -3,9 +3,12 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 
+#include <QApplication>
 #include <QPixmap>
 #include <QMessageBox>
 #include <QString>
+#include <QDir>
+#include <QDateTime>
 
 ImageCover::ImageCover(QWidget *parent) :
     QLabel(parent)
@@ -30,9 +33,15 @@ void ImageCover::setImagePath( QString path ){
 /*virtual*/ void ImageCover::dropEvent(QDropEvent* pe)
 {
     QList<QUrl> urlList = pe->mimeData()->urls();
-    this->imagePath = urlList.at(0).toLocalFile();
-//    QMessageBox::information(this, "", pe->mimeData()->data("image/png").toBase64() );
-//    this->setPixmap( pe->mimeData()->text() );
-//    QImage m(pe->mimeData()->data("image/png").toBase64() );
-    this->setPixmap( QPixmap( imagePath ) );
+
+    QDir objQdir;
+    QString coverPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() + "/animeCovers/" );
+    if( objQdir.mkpath( coverPath ) ){
+        this->imagePath = urlList.at(0).toLocalFile();
+        this->setPixmap( QPixmap( urlList.at(0).toLocalFile() ) );
+    }else{
+        QMessageBox::warning(this, "Внимание", "Не удалось загрузить картинку");
+    }
+
+
 }

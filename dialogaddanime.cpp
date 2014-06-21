@@ -89,6 +89,7 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
         ui->Lbl_ImageCover->setPixmap( pm );
         ui->Lbl_ImageCover->setImagePath( model->record(0).value("ImagePath").toString() );
 
+        oldCover = model->record(0).value("ImagePath").toString();
     }
 }
 
@@ -221,7 +222,20 @@ bool DialogAddEdit::insert_AnimeSerials(){
     query.bindValue(":Description",   ui->PlainTextEdit_Description->toPlainText() );
     query.bindValue(":URL",           ui->LineEdit_URL->text() );
     query.bindValue(":Dir",           ui->LineEdit_Dir->text() );
-    query.bindValue(":ImagePath",     ui->Lbl_ImageCover->getImagePath() ); // #Bug, скопировать изображение в дир. программы
+
+    QDir objQdir;
+    if( isEditRole ){
+            objQdir.remove( oldCover );
+    }
+    QString coverPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() + "/animeCovers/" );
+    if( objQdir.mkpath( coverPath ) ){
+        QDateTime dt;
+        coverPath += "/" + QString::number( dt.currentMSecsSinceEpoch() );
+        QFile f( ui->Lbl_ImageCover->getImagePath() );
+        f.copy( coverPath );
+
+    }
+    query.bindValue(":ImagePath", coverPath );
 
     if( !query.exec() ){
         qDebug() << "Cannot insert data in table animeSerials: " << query.lastError();
@@ -237,7 +251,7 @@ void DialogAddEdit::on_BtnBox_accepted()
         insert_AnimeSerials();
         this->close();
     }else{
-        QMessageBox::information(this, tr("Внимание"), "Не заполнено поле Название");
+        QMessageBox::information( this, tr("Внимание"), tr("Не заполнено поле Название") );
     }
 }
 
