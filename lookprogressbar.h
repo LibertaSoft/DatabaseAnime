@@ -14,6 +14,8 @@ private:
     int _value;
     int _maxValue;
     int _minValue;
+    bool _btnAddActive;
+    bool _btnSubActive;
     QString _format;
     QString _type;
 public:
@@ -32,9 +34,13 @@ public slots:
     void setProgress(int);
     void progressInc();
     void progressDec();
+
 protected:
     virtual void paintEvent(QPaintEvent *pe);
     virtual void mousePressEvent(QMouseEvent *pe);
+    virtual void mouseMoveEvent(QMouseEvent *pe);
+    virtual void leaveEvent(QEvent*);
+
 
 };
 
