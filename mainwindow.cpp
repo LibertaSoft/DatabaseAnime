@@ -10,6 +10,10 @@
 #include <QtSql>
 #include <QFrame>
 
+namespace checkbuttonssection {
+    enum {none = 0, anime, manga, amv, dorama};
+}
+
 bool connectDB(){
     const QString dbUser("");
     const QString dbHost("");
@@ -171,6 +175,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->stackedWidget->setCurrentIndex(0);
     ui->lbl_AppTitle->setText( QApplication::applicationDisplayName() );
     ui->Lbl_VVersion->setText( QApplication::applicationVersion() );
 
@@ -181,13 +186,16 @@ MainWindow::MainWindow(QWidget *parent) :
     bool set_enableBtnDorama    = settings.value("enableElem/BtnSwitchSection/Dorama",   false).toBool();
     bool set_enableBtnEditable  = settings.value("enableElem/BtnSwitchSection/Editable",  true).toBool();
     bool set_enableBtnLookLater = settings.value("enableElem/BtnSwitchSection/LookLater", true).toBool();
+    int  set_chechedButton      = settings.value("checkBtn/BtnSwitchSection/selected",    0).toInt();
 
     b_btnAnime = b_btnManga = b_btnAMV = b_btnDorama = b_btnEditable = b_btnLookLater = false;
     if( set_enableBtnAnime ){
         btnAnime = new QPushButton( tr("Аниме"), this );
         b_btnAnime = true;
         btnAnime->setCheckable( true );
-        btnAnime->setChecked( true ); // #Bug, кнопку активировать по настройкам
+        if( set_chechedButton == checkbuttonssection::anime ){
+            btnAnime->setChecked( true );
+        }
         QObject::connect(btnAnime, SIGNAL(toggled(bool)) ,this, SLOT(on_PBtnAnime_toggled(bool)) );
         ui->VLay_SectionSwapBtns->addWidget(btnAnime);
     }
@@ -195,6 +203,9 @@ MainWindow::MainWindow(QWidget *parent) :
         btnManga = new QPushButton( tr("Манга"), this );
         b_btnManga = true;
         btnManga->setCheckable( true );
+        if( set_chechedButton == checkbuttonssection::manga ){
+            btnManga->setChecked( true );
+        }
         QObject::connect(btnManga, SIGNAL(toggled(bool)) ,this, SLOT(on_PBtnManga_toggled(bool)) );
         ui->VLay_SectionSwapBtns->addWidget(btnManga);
     }
@@ -202,6 +213,9 @@ MainWindow::MainWindow(QWidget *parent) :
         btnAMV = new QPushButton( tr("AMV"), this );
         b_btnAMV = true;
         btnAMV->setCheckable( true );
+        if( set_chechedButton == checkbuttonssection::amv ){
+            btnAMV->setChecked( true );
+        }
         QObject::connect(btnAMV, SIGNAL(toggled(bool)) ,this, SLOT(on_PBtnAMV_toggled(bool)) );
         ui->VLay_SectionSwapBtns->addWidget(btnAMV);
     }
@@ -209,6 +223,9 @@ MainWindow::MainWindow(QWidget *parent) :
         btnDorama = new QPushButton( tr("Дорама"), this );
         b_btnDorama = true;
         btnDorama->setCheckable( true );
+        if( set_chechedButton == checkbuttonssection::dorama ){
+            btnDorama->setChecked( true );
+        }
         QObject::connect(btnDorama, SIGNAL(toggled(bool)) ,this, SLOT(on_PBtnDorama_toggled(bool)) );
         ui->VLay_SectionSwapBtns->addWidget(btnDorama);
     }
@@ -230,6 +247,25 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->VLay_sectionOption->addWidget(btnLookLater);
     }
 
+    switch( set_chechedButton ){
+        case checkbuttonssection::anime :
+            _activeTable = "animeSerials";
+            break;
+        case checkbuttonssection::manga :
+            _activeTable = "mangaPosters";
+            break;
+        case checkbuttonssection::amv :
+            _activeTable = "amvVideos";
+            break;
+        case checkbuttonssection::dorama :
+            _activeTable = "doramaSerials";
+            break;
+        case checkbuttonssection::none :
+        default:
+            _activeTable = "";
+            break;
+    }
+
     this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
     this->restoreState( settings.value("MainWindow/State").toByteArray() );
 
@@ -240,13 +276,27 @@ MainWindow::MainWindow(QWidget *parent) :
     b_pbTV = b_pbOVA = b_pbONA = b_pbSpecial = b_pbFilm = false;
 
     QueryModel_ListItemsSection = new QSqlQueryModel;
+    QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg(_activeTable) );
     ui->listView_ListItemsSection->setModel(QueryModel_ListItemsSection);
 }
 
 void MainWindow::closeEvent(QCloseEvent* ){
+    int select;
+    if( btnAnime->isChecked() ){
+        select = checkbuttonssection::anime;
+    }else if( btnManga->isChecked() ){
+        select = checkbuttonssection::manga;
+    }else if( btnAMV->isChecked() ){
+        select = checkbuttonssection::amv;
+    }else if( btnDorama->isChecked() ){
+        select = checkbuttonssection::dorama;
+    }else{
+        select = checkbuttonssection::none;
+    }
     QSettings settings;
     settings.setValue("MainWindow/Geometry", this->saveGeometry() );
     settings.setValue("MainWindow/State",    this->saveState() );
+    settings.setValue("checkBtn/BtnSwitchSection/selected", select);
 }
 
 MainWindow::~MainWindow()
@@ -339,10 +389,7 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
         pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
         pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
         pbTV->setFormat("TV [%v/%m]");
-//        ui->GLay_1->addWidget(pbTV, 0, 0, 1, 2);
-//        ui->GLay_1->addWidget( pbTV );
         ui->HLay_WBRow0->addWidget( pbTV );
-//        ui->VLay_WatchedSeriesBars->addWidget( pbTV );
         QObject::connect(pbTV, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesOVA").toInt() > 0 ){
@@ -353,8 +400,6 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
         pbOVA->setMaximum( m1.record(0).value("SeriesOVA").toInt() );
         pbOVA->setFormat("OVA [%v/%m]");
         ui->HLay_WBRow1->addWidget(pbOVA);
-//        ui->VLay_WatchedSeriesBars->addWidget( pbOVA );
-//        ui->GLay_1->addWidget( pbOVA, 1, 0 );
         QObject::connect(pbOVA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesONA").toInt() > 0 ){
@@ -364,9 +409,7 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
         pbONA->setValue( m1.record(0).value("vSeriesONA").toInt() );
         pbONA->setMaximum( m1.record(0).value("SeriesONA").toInt() );
         pbONA->setFormat("ONA [%v/%m]");
-//        ui->VLay_WatchedSeriesBars->addWidget( pbONA );
         ui->HLay_WBRow1->addWidget( pbONA );
-//        ui->GLay_1->addWidget( pbONA );
         QObject::connect(pbONA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesSpecial").toInt() > 0 ){
@@ -376,9 +419,7 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
         pbSpecial->setValue( m1.record(0).value("vSeriesSpecial").toInt() );
         pbSpecial->setMaximum( m1.record(0).value("SeriesSpecial").toInt() );
         pbSpecial->setFormat("Special [%v/%m]");
-//        ui->VLay_WatchedSeriesBars->addWidget( pbSpecial );
         ui->HLay_WBRow2->addWidget( pbSpecial );
-//        ui->GLay_1->addWidget( pbSpecial );
         QObject::connect(pbSpecial, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesFilm").toInt() > 0 ){
@@ -388,9 +429,7 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
         pbFilm->setValue( m1.record(0).value("vSeriesFilm").toInt() );
         pbFilm->setMaximum( m1.record(0).value("SeriesFilm").toInt() );
         pbFilm->setFormat("Film [%v/%m]");
-//        ui->VLay_WatchedSeriesBars->addWidget( pbFilm );
         ui->HLay_WBRow2->addWidget( pbFilm );
-//        ui->GLay_1->addWidget( pbFilm );
         QObject::connect(pbFilm, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
 
@@ -423,8 +462,10 @@ void MainWindow::on_PBtnAnime_toggled(bool f)
     // #Bug, загрузить в представление модель БД аниме
     if(!f){
         ui->stackedWidget->setCurrentIndex(0);
+        _activeTable = "";
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
+        _activeTable = "animeSerials";
         QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials" );
         if(b_btnManga)
             btnManga->setChecked( false );
@@ -440,8 +481,10 @@ void MainWindow::on_PBtnManga_toggled(bool f)
     // #Bug, загрузить в представление модель БД manga
     if(!f){
         ui->stackedWidget->setCurrentIndex(0);
+        _activeTable = "";
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
+        _activeTable = "mangaPosters";
         QueryModel_ListItemsSection->setQuery( "SELECT Title FROM mangaPosters" );
         if(b_btnAnime)
             btnAnime->setChecked( false );
@@ -457,8 +500,10 @@ void MainWindow::on_PBtnAMV_toggled(bool f)
     // #Bug, загрузить в представление модель БД AMV
     if(!f){
         ui->stackedWidget->setCurrentIndex(0);
+        _activeTable = "";
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
+        _activeTable = "AMVVideos";
         QueryModel_ListItemsSection->setQuery( "SELECT Title FROM AMVVideos" );
         if(b_btnManga)
             btnManga->setChecked( false );
@@ -474,8 +519,10 @@ void MainWindow::on_PBtnDorama_toggled(bool f)
     // #Bug, загрузить в представление модель БД Dorama
     if(!f){
         ui->stackedWidget->setCurrentIndex(0);
+        _activeTable = "";
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
+        _activeTable = "doramaSerials";
         QueryModel_ListItemsSection->setQuery( "SELECT Title FROM doramaSerials" );
         if(b_btnManga)
             btnManga->setChecked( false );
@@ -492,9 +539,9 @@ void MainWindow::on_PBtnIsLook_toggled(bool f)
     if(f){
         if(b_btnEditable)
             btnEditable->setChecked( false );
-        QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials WHERE isHaveLooked = 0" );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1 WHERE isHaveLooked = 0").arg(_activeTable) );
     }else{
-        QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials" );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg(_activeTable) );
     }
 }
 
@@ -504,8 +551,8 @@ void MainWindow::on_PBtnIsEditing_toggled(bool f)
     if(f){
         if(b_btnLookLater)
             btnLookLater->setChecked( false );
-        QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials WHERE isEditingDone = 0" );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1 WHERE isEditingDone = 0").arg(_activeTable) );
     }else{
-        QueryModel_ListItemsSection->setQuery( "SELECT Title FROM animeSerials" );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg(_activeTable) );
     }
 }

@@ -45,6 +45,8 @@ private:
     LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbFilm;
     bool b_pbTV, b_pbOVA, b_pbONA, b_pbSpecial, b_pbFilm;
 
+    QString _activeTable;
+
     QSqlQueryModel* QueryModel_ListItemsSection;
 };
 

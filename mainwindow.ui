@@ -457,6 +457,9 @@
                   <property name="text">
                    <string/>
                   </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
                 <item row="1" column="0">
@@ -476,6 +479,9 @@
                  <widget class="QLabel" name="Lbl_svOrigTitle">
                   <property name="text">
                    <string/>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -497,6 +503,9 @@
                   <property name="text">
                    <string/>
                   </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
                 <item row="3" column="0">
@@ -517,12 +526,18 @@
                   <property name="text">
                    <string/>
                   </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
                 <item row="4" column="1">
                  <widget class="QLabel" name="Lbl_svTags">
                   <property name="text">
                    <string/>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -557,6 +572,9 @@
                   <property name="text">
                    <string/>
                   </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
                  </widget>
                 </item>
                 <item row="6" column="0">
@@ -576,6 +594,9 @@
                  <widget class="QLabel" name="Lbl_svURL">
                   <property name="text">
                    <string/>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -636,6 +657,9 @@
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>

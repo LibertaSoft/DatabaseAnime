@@ -1,5 +1,5 @@
 #include "dialogaddanime.h"
-#include "ui_dialogaddedit.h"
+#include "ui_dialogaddanime.h"
 
 #include <QSettings>
 #include <QFileDialog>
