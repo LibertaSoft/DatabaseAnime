@@ -15,19 +15,19 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
 {
     ui->setupUi(this);
     QSettings settings;
-    if( settings.value( "enableElem/FieldsForEdit/OrigTitle", true ).toBool() ){
+    if( settings.value( "enableElem/FieldsForEdit/OrigTitle", false ).toBool() ){
         this->LineEdit_OrigTitle = new QLineEdit(this);
         this->LineEdit_OrigTitle->setMaxLength(128);
         this->LineEdit_OrigTitle->setPlaceholderText( tr("Оригинальное название", "Placeholder text, dialogAddEdit") );
         ui->VLay_OrigTitle->addWidget( this->LineEdit_OrigTitle );
     }
-    if( settings.value( "enableElem/FieldsForEdit/Director", true ).toBool() ){
+    if( settings.value( "enableElem/FieldsForEdit/Director", false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
         this->LineEdit_Director->setPlaceholderText( tr("Режиссёр", "Placeholder text, dialogAddEdit") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_Director );
     }
-    if( settings.value( "enableElem/FieldsForEdit/PostScoring", true ).toBool() ){
+    if( settings.value( "enableElem/FieldsForEdit/PostScoring", false ).toBool() ){
         this->LineEdit_PostScoring = new QLineEdit(this);
         this->LineEdit_PostScoring->setMaxLength(128);
         this->LineEdit_PostScoring->setPlaceholderText( tr("Озвучка", "Placeholder text, dialogAddEdit") );
@@ -53,13 +53,13 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
         ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
         // optional
         QSettings settings;
-        if( settings.value( "enableElem/FieldsForEdit/OrigTitle", true ).toBool() ){
+        if( settings.value( "enableElem/FieldsForEdit/OrigTitle", false ).toBool() ){
             this->LineEdit_OrigTitle->setText( model->record(0).value("OrigTitle").toString() );
         }
-        if( settings.value( "enableElem/FieldsForEdit/Director", true ).toBool() ){
+        if( settings.value( "enableElem/FieldsForEdit/Director",  false ).toBool() ){
             this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
         }
-        if( settings.value( "enableElem/FieldsForEdit/PostScoring", true ).toBool() ){
+        if( settings.value( "enableElem/FieldsForEdit/PostScoring", false ).toBool() ){
             this->LineEdit_PostScoring->setText( model->record(0).value("PostScoring").toString() );
         }
 
@@ -106,13 +106,13 @@ void DialogAddEdit::on_BtnBox_reset()
     ui->LineEdit_Title->clear();
     // optional
     QSettings settings;
-    if( settings.value( "enableElem/FieldsForEdit/OrigTitle", true ).toBool() ){
+    if( settings.value( "enableElem/FieldsForEdit/OrigTitle",   false ).toBool() ){
         this->LineEdit_OrigTitle->clear();
     }
-    if( settings.value( "enableElem/FieldsForEdit/Director", true ).toBool() ){
+    if( settings.value( "enableElem/FieldsForEdit/Director",    false ).toBool() ){
         this->LineEdit_Director->clear();
     }
-    if( settings.value( "enableElem/FieldsForEdit/PostScoring", true ).toBool() ){
+    if( settings.value( "enableElem/FieldsForEdit/PostScoring", false ).toBool() ){
         this->LineEdit_PostScoring->clear();
     }
 
@@ -189,17 +189,17 @@ bool DialogAddEdit::insert_AnimeSerials(){
     query.bindValue(":Title",         ui->LineEdit_Title->text() );
 
     QSettings settings;
-    if( settings.value( "enableElem/FieldsForEdit/OrigTitle", true ).toBool() ){
+    if( settings.value( "enableElem/FieldsForEdit/OrigTitle", false ).toBool() ){
         query.bindValue(":OrigTitle", this->LineEdit_OrigTitle->text() );
     }else{
         query.bindValue(":OrigTitle", "" );
     }
-    if( settings.value( "enableElem/FieldsForEdit/Director", true ).toBool() ){
+    if( settings.value( "enableElem/FieldsForEdit/Director", false ).toBool() ){
         query.bindValue(":Director", this->LineEdit_Director->text() );
     }else{
         query.bindValue(":Director", "" );
     }
-    if( settings.value( "enableElem/FieldsForEdit/PostScoring", true ).toBool() ){
+    if( settings.value( "enableElem/FieldsForEdit/PostScoring", false ).toBool() ){
         query.bindValue(":PostScoring", this->LineEdit_PostScoring->text() );
     }else{
         query.bindValue(":PostScoring", "" );

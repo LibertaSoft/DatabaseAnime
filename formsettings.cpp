@@ -96,15 +96,15 @@ FormSettings::FormSettings(QWidget *parent) :
     QSettings settings;
 
     bool a1 = settings.value( "enableElem/BtnSwitchSection/Anime",     true ).toBool();
-    bool a2 = settings.value( "enableElem/BtnSwitchSection/Manga",     true ).toBool();
+    bool a2 = settings.value( "enableElem/BtnSwitchSection/Manga",    false ).toBool();
     bool a3 = settings.value( "enableElem/BtnSwitchSection/AMV",      false ).toBool();
     bool a4 = settings.value( "enableElem/BtnSwitchSection/Dorama",   false ).toBool();
     bool a5 = settings.value( "enableElem/BtnSwitchSection/Editable",  true ).toBool();
     bool a6 = settings.value( "enableElem/BtnSwitchSection/LookLater", true ).toBool();
 
-    bool b1 = settings.value( "enableElem/FieldsForEdit/OrigTitle",   true ).toBool();
-    bool b2 = settings.value( "enableElem/FieldsForEdit/Director",    true ).toBool();
-    bool b3 = settings.value( "enableElem/FieldsForEdit/PostScoring", true ).toBool();
+    bool b1 = settings.value( "enableElem/FieldsForEdit/OrigTitle",   false ).toBool();
+    bool b2 = settings.value( "enableElem/FieldsForEdit/Director",    false ).toBool();
+    bool b3 = settings.value( "enableElem/FieldsForEdit/PostScoring", false ).toBool();
 
     ui->CheckBox_EnableAnime->setChecked( a1 );
     ui->CheckBox_EnableManga->setChecked( a2 );
@@ -173,15 +173,15 @@ void FormSettings::on_BtnBox_resetDefaults(){
     }
 
     ui->CheckBox_EnableAnime->setChecked( true );
-    ui->CheckBox_EnableManga->setChecked( true );
+    ui->CheckBox_EnableManga->setChecked( false );
     ui->CheckBox_EnableAMV->setChecked( false );
     ui->CheckBox_EnableDorama->setChecked( false );
     ui->CheckBox_EnableEditing->setChecked( true );
     ui->CheckBox_EnableLookLater->setChecked( true );
 
-    ui->CheckBox_OrigTitle->setChecked( true );
-    ui->CheckBox_Director->setChecked( true );
-    ui->CheckBox_PostScoring->setChecked( true );
+    ui->CheckBox_OrigTitle->setChecked( false );
+    ui->CheckBox_Director->setChecked( false );
+    ui->CheckBox_PostScoring->setChecked( false );
     ui->ListView_Tags->clearSelection();
 
     if( restoreTags ){
