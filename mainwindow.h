@@ -7,14 +7,38 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QSettings>
+#include <QListWidget>
 
 namespace Ui {
 class MainWindow;
 }
 
+namespace sections {
+    enum section{none = 0, anime, manga, amv, dorama};
+}
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+private:
+    Ui::MainWindow *ui;
+
+    QPushButton* btnAnime, *btnManga, *btnAMV, *btnDorama, *btnEditable, *btnLookLater;
+    LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbFilm;
+    QListWidget* ListWidget_Dir;
+
+    sections::section _activeTable;
+    QSqlQueryModel* QueryModel_ListItemsSection;
+
+    QString getActiveTableName() const;
+    QString getTableName( sections::section ) const;
+    sections::section getActiveTable();
+    void setActiveTable( sections::section );
+
+    void selectAnimeData(const QModelIndex&);
+    void selectMangaData(const QModelIndex&);
+    void selectAmvData(const QModelIndex&);
+    void selectDoramaData(const QModelIndex&);
 
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -37,18 +61,6 @@ private slots:
     void on_PBtnIsEditing_toggled(bool);
 
     void on_lineEdit_Search_textChanged(const QString &arg1);
-
-private:
-    Ui::MainWindow *ui;
-
-    QPushButton* btnAnime, *btnManga, *btnAMV, *btnDorama, *btnEditable, *btnLookLater;
-    bool b_btnAnime, b_btnManga, b_btnAMV, b_btnDorama, b_btnEditable, b_btnLookLater;
-    LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbFilm;
-    bool b_pbTV, b_pbOVA, b_pbONA, b_pbSpecial, b_pbFilm;
-
-    QString _activeTable;
-
-    QSqlQueryModel* QueryModel_ListItemsSection;
 };
 
 #endif // MAINWINDOW_H

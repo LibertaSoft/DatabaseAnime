@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");
     app.setApplicationName("DatabaseAnime");
-    app.setApplicationVersion("0.0.31 Alpha");
+    app.setApplicationVersion("0.0.32 Alpha");
     app.setApplicationDisplayName( QObject::tr("Database Anime") );
 
     MainWindow wnd;

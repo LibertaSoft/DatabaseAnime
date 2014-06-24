@@ -17,7 +17,7 @@ private:
     bool _btnAddActive;
     bool _btnSubActive;
     QString _format;
-    QString _type;
+    QString _targetFieldDB;
 public:
     explicit LookProgressBar(QWidget *parent = 0);
     virtual QSize sizeHint() const;
@@ -26,7 +26,16 @@ public:
     void setMaximum(int);
     void setMinimum(int);
     void setFormat(QString str);
-    void setType(QString);
+    void setTargetFieldDB(QString);
+    int getValue()const;
+    int getMaximum()const;
+    int getMinimum()const;
+    bool isActiveBtnAdd()const;
+    bool isActiveBtnSub()const;
+    void setActiveBtnAdd(bool);
+    void setActiveBtnSub(bool);
+    QString getFormat()const;
+    QString getTargetField()const;
 signals:
     void progressChanged(int);
     void progressChanged(int, QString);

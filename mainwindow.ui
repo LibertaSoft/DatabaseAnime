@@ -128,7 +128,7 @@
            </font>
           </property>
           <property name="text">
-           <string extracomment="[NotUsed]">Database Anime</string>
+           <string extracomment="[unsed]">Database Anime</string>
           </property>
          </widget>
         </item>
@@ -242,7 +242,7 @@
               </rect>
              </property>
              <property name="text">
-              <string extracomment="[NotUsed]Label Value Version">0.0.0</string>
+              <string extracomment="[unsed]">0.0.0</string>
              </property>
             </widget>
             <widget class="QLabel" name="Lbl_TLicense">
@@ -268,7 +268,7 @@
               </rect>
              </property>
              <property name="text">
-              <string notr="true" extracomment="Label Value License">GNU GPLv3</string>
+              <string notr="true" extracomment="[unsed]">GNU GPLv3</string>
              </property>
             </widget>
            </widget>
@@ -424,8 +424,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>362</width>
-                 <height>308</height>
+                 <width>143</width>
+                 <height>201</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
@@ -632,8 +632,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>362</width>
-                 <height>198</height>
+                 <width>45</width>
+                 <height>39</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">

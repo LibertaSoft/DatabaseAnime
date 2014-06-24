@@ -20,7 +20,7 @@ QSize LookProgressBar::sizeHint() const
 void LookProgressBar::setValue(int n)
 {
     _value = n;
-    emit progressChanged(_value, _type);
+    emit progressChanged( getValue(), getTargetField() );
 }
 
 void LookProgressBar::setMaximum(int n)
@@ -38,34 +38,79 @@ void LookProgressBar::setFormat(QString f)
     _format = f.replace("%v", "%1").replace("%m", "%2");
 }
 
-void LookProgressBar::setType(QString str)
+void LookProgressBar::setTargetFieldDB(QString str)
 {
-    _type = str;
+    _targetFieldDB = str;
+}
+
+int LookProgressBar::getValue() const
+{
+    return _value;
+}
+
+int LookProgressBar::getMaximum() const
+{
+    return _maxValue;
+}
+
+int LookProgressBar::getMinimum() const
+{
+    return _minValue;
+}
+
+bool LookProgressBar::isActiveBtnAdd() const
+{
+    return _btnAddActive;
+}
+
+bool LookProgressBar::isActiveBtnSub() const
+{
+    return _btnSubActive;
+}
+
+void LookProgressBar::setActiveBtnAdd(bool f)
+{
+    _btnAddActive = f;
+}
+
+void LookProgressBar::setActiveBtnSub(bool f)
+{
+    _btnSubActive = f;
+}
+
+QString LookProgressBar::getFormat() const
+{
+    return _format;
+}
+
+QString LookProgressBar::getTargetField() const
+{
+    return _targetFieldDB;
 }
 
 void LookProgressBar::setProgress(int n)
 {
-    if( n >= _minValue && n <= _maxValue ){
-        _value = n;
+    if( n >= getMinimum() && n <= getMaximum() ){
+        setValue( n );
         repaint();
     }
 }
 
 void LookProgressBar::progressInc()
 {
-    if( _value < _maxValue ){
+    if( getValue() < getMaximum() ){
         _value++;
         repaint();
-        emit progressChanged(_value, _type);
+        emit progressChanged( getValue(), getTargetField() );
     }
 }
 
 void LookProgressBar::progressDec()
 {
-    if( _value > _minValue ){
+    if( getValue() > getMinimum() ){
         _value--;
         repaint();
-        emit progressChanged(_value, _type);
+        emit progressChanged( getValue(), getTargetField() );
     }
 }
 
@@ -75,7 +120,7 @@ void LookProgressBar::paintEvent(QPaintEvent*)
     QLinearGradient gradient(0, 0, width(), height());
     gradient.setStart( width(), height()/2 );
 
-    float f = (float)_value / _maxValue;
+    float f = (float)getValue() / getMaximum();
 
     gradient.setColorAt(0.0f, QColor(30,170,235,255) );
     gradient.setColorAt(0.5f, QColor(10,130,255,255) );
@@ -92,13 +137,13 @@ void LookProgressBar::paintEvent(QPaintEvent*)
     p.fillRect( rbtnSub, QColor(200,200,200,255) );
 
     QPixmap pUp;
-    if( _btnAddActive ){
+    if( isActiveBtnAdd() ){
         pUp.load("://images/list-add-active.png");
     }else{
         pUp.load("://images/list-add.png");
     }
     QPixmap pSub;
-    if( _btnSubActive ){
+    if( isActiveBtnSub() ){
         pSub.load("://images/list-remove-active.png");
     }else{
         pSub.load("://images/list-remove.png");
@@ -113,7 +158,7 @@ void LookProgressBar::paintEvent(QPaintEvent*)
 
     // Текст
     p.setPen(QPen(Qt::black));
-    QString str = _format.arg(_value).arg(_maxValue);
+    QString str = getFormat().arg( getValue() ).arg( getMaximum() );
     p.drawText(rect(), Qt::AlignCenter, str);
 
     drawFrame(&p);
@@ -132,8 +177,8 @@ void LookProgressBar::mousePressEvent(QMouseEvent *pe)
 
 void LookProgressBar::leaveEvent(QEvent*)
 {
-    _btnSubActive = false;
-    _btnAddActive = false;
+    setActiveBtnAdd( false );
+    setActiveBtnSub( false );
     repaint();
 }
 
@@ -141,17 +186,17 @@ void LookProgressBar::mouseMoveEvent(QMouseEvent *pe)
 {
     pe->pos();
     if( pe->pos().x() >= 1 && pe->pos().x() <= height()-1){
-        _btnAddActive = true;
+        setActiveBtnAdd( true );
         repaint();
     }else{
-        _btnAddActive = false;
+        setActiveBtnAdd( false );
         repaint();
     }
     if( pe->pos().x() >= height()+3 && pe->pos().x() <= height()*2-3){
-        _btnSubActive = true;
+        setActiveBtnSub( true );
         repaint();
     }else{
-        _btnSubActive = false;
+        setActiveBtnSub( false );
         repaint();
     }
 }

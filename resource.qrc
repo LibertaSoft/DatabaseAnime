@@ -7,5 +7,6 @@
         <file>images/folder.png</file>
         <file>images/list-add-active.png</file>
         <file>images/list-remove-active.png</file>
+        <file>images/video.png</file>
     </qresource>
 </RCC>
