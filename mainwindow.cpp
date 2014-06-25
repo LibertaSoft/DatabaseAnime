@@ -211,9 +211,11 @@ void MainWindow::on_PButton_Options_clicked()
 
 void MainWindow::on_TButton_Add_clicked()
 {
-    QModelIndex null;
+
+
     switch( getActiveTable() ){
         case sections::anime :{
+            QModelIndex null;
             DialogAddEdit dialogAdd(false, &null, this);
             dialogAdd.setModal(true);
             dialogAdd.exec();
@@ -535,7 +537,8 @@ void MainWindow::selectAnimeData(const QModelIndex &index)
         ListWidget_Dir->setWordWrap(true);
 //        lw->setItemDelegate();
         QStringList filters;
-        filters << "*.avi" << "*.mkv" << "*.mp4";
+        filters << "*.avi" << "*.mkv" << "*.mp4" << "*.wmv" << "*.m2ts";
+        filters << "*.rm";
         ListWidget_Dir->addItems( dir.entryList( filters, QDir::Files ) );
         ui->HLay_FolderVideo->addWidget( ListWidget_Dir );
         for(int i = 0; i < ListWidget_Dir->count() ; ++i){

@@ -11,8 +11,9 @@ private:
     QString imagePath;
 public:
     explicit ImageCover(QWidget *parent = 0);
-    QString getImagePath();
+    QString getImagePath() const;
     void setImagePath(QString);
+    QSize sizeHint() const;
 signals:
 
 public slots:

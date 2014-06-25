@@ -36,7 +36,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="StartPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -424,8 +424,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>143</width>
-                 <height>201</height>
+                 <width>387</width>
+                 <height>308</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
@@ -632,8 +632,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>45</width>
-                 <height>39</height>
+                 <width>387</width>
+                 <height>198</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -665,21 +665,21 @@
           <item>
            <widget class="QLabel" name="Lbl_ImageCover">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>1</horstretch>
               <verstretch>3</verstretch>
              </sizepolicy>
             </property>
             <property name="minimumSize">
              <size>
-              <width>230</width>
+              <width>180</width>
               <height>420</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>300</width>
-              <height>530</height>
+              <width>275</width>
+              <height>825</height>
              </size>
             </property>
             <property name="sizeIncrement">

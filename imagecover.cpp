@@ -16,11 +16,16 @@ ImageCover::ImageCover(QWidget *parent) :
     setAcceptDrops(true);
 }
 
-QString ImageCover::getImagePath(){
+QString ImageCover::getImagePath() const{
     return imagePath;
 }
 void ImageCover::setImagePath( QString path ){
     imagePath = path;
+}
+
+QSize ImageCover::sizeHint() const
+{
+    return QSize( 194 , 582 );
 }
 
 /*virtual*/ void ImageCover::dragEnterEvent(QDragEnterEvent* pe)
@@ -42,6 +47,4 @@ void ImageCover::setImagePath( QString path ){
     }else{
         QMessageBox::warning(this, "Внимание", "Не удалось загрузить картинку");
     }
-
-
 }

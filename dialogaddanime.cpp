@@ -13,6 +13,7 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
     QDialog(parent),
     ui(new Ui::DialogAddEdit)
 {
+
     ui->setupUi(this);
     QSettings settings;
     if( settings.value( "enableElem/FieldsForEdit/OrigTitle", false ).toBool() ){
@@ -44,6 +45,8 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
 
     if( isEditRole ){
         this->isEditRole = isEditRole;
+        ui->LineEdit_Title->setDisabled( true );
+
         model = new QSqlQueryModel;
         model->setQuery( QString("SELECT * FROM animeSerials WHERE Title = '%1'").arg( index->data().toString() ) );
 
