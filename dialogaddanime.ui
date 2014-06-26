@@ -382,7 +382,7 @@
               <number>256</number>
              </property>
              <property name="placeholderText">
-              <string>Вводите через запятую, или выберети из списка нижу</string>
+              <string>Введите через запятую, или выберите из списка ниже</string>
              </property>
             </widget>
            </item>

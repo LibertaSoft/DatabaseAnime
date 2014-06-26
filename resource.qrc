@@ -8,5 +8,7 @@
         <file>images/list-add-active.png</file>
         <file>images/list-remove-active.png</file>
         <file>images/video.png</file>
+        <file>images/DBA_logo_m.png</file>
+        <file>images/DBA_Icon.png</file>
     </qresource>
 </RCC>

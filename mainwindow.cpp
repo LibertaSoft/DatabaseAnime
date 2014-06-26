@@ -16,8 +16,7 @@ bool connectDB(){
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     QDir objQdir;
     QString DBPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() );
-    bool isOk = objQdir.mkpath( DBPath );
-    if( !isOk ){
+    if( !objQdir.mkpath( DBPath ) ){
         qDebug() << "Cannot createed app directory in home path";
         QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Не удалось создать директорию для базы данных.") );
         return false;
@@ -47,6 +46,7 @@ bool createTable_AnimeTags()
         QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Произошла ошибка при создании таблицы в БД.") );
         return false;
     }
+    //if( query.exec("CREATE TABLE animeTags") )
     return true;
 }
 
@@ -95,6 +95,7 @@ MainWindow::MainWindow(QWidget *parent) :
     pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbFilm(NULL), ListWidget_Dir(NULL)
 {
     ui->setupUi(this);
+
     ui->stackedWidget->setCurrentIndex(0);
     ui->lbl_AppTitle->setText( QApplication::applicationDisplayName() );
     ui->Lbl_VVersion->setText( QApplication::applicationVersion() );

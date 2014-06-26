@@ -86,10 +86,17 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QLineEdit" name="LineEdit_AddTag"/>
+         <widget class="QLineEdit" name="LineEdit_AddTag">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QToolButton" name="TButton_AddTag">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="toolTip">
            <string>Добавить в список ниже, тег из поля слева</string>
           </property>
@@ -124,6 +131,9 @@
         </item>
         <item>
          <widget class="QToolButton" name="TButton_DeleteTag">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="toolTip">
            <string>Удалить выбраный в списке ниже тег</string>
           </property>
@@ -140,6 +150,9 @@
       </item>
       <item>
        <widget class="QListView" name="ListView_Tags">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="selectionMode">
          <enum>QAbstractItemView::MultiSelection</enum>
         </property>

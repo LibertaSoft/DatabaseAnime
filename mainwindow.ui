@@ -36,7 +36,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="StartPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -92,25 +92,59 @@
           </item>
          </layout>
         </item>
-        <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-         <widget class="QDial" name="dialLogo">
-          <property name="minimumSize">
+        <item>
+         <spacer name="VSpacer_0">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
            <size>
-            <width>220</width>
-            <height>220</height>
+            <width>20</width>
+            <height>40</height>
            </size>
           </property>
-          <property name="maximumSize">
-           <size>
-            <width>220</width>
-            <height>220</height>
-           </size>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="Lbl_logo">
+          <property name="autoFillBackground">
+           <bool>false</bool>
           </property>
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
+          <property name="styleSheet">
+           <string notr="true"/>
           </property>
-          <property name="contextMenuPolicy">
-           <enum>Qt::NoContextMenu</enum>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::AutoText</enum>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="resource.qrc">:/images/DBA_logo_m.png</pixmap>
+          </property>
+          <property name="scaledContents">
+           <bool>false</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="wordWrap">
+           <bool>false</bool>
+          </property>
+          <property name="margin">
+           <number>0</number>
+          </property>
+          <property name="indent">
+           <number>-1</number>
+          </property>
+          <property name="openExternalLinks">
+           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -361,7 +395,7 @@
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>46</height>
+            <height>80</height>
            </size>
           </property>
          </spacer>
@@ -388,9 +422,6 @@
            <layout class="QHBoxLayout" name="HLay_WBRow2"/>
           </item>
          </layout>
-        </item>
-        <item>
-         <layout class="QGridLayout" name="GLay_1"/>
         </item>
         <item>
          <layout class="QHBoxLayout" name="HLay_AnimeInfo">
@@ -425,7 +456,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>387</width>
-                 <height>308</height>
+                 <height>316</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
