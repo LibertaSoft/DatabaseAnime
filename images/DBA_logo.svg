@@ -95,7 +95,7 @@
         <dc:language>ru-RU</dc:language>
         <dc:description>Логотип программы Database Anime</dc:description>
         <dc:coverage>Program Logo</dc:coverage>
-        <dc:identifier>https://github.com/LibertaSoft/DatabaseAnime/blob/test/images/DBA_logo.svg</dc:identifier>
+        <dc:identifier>https://raw.githubusercontent.com/LibertaSoft/DatabaseAnime/test/images/DBA_logo.svg</dc:identifier>
         <dc:source>https://github.com/LibertaSoft/DatabaseAnime/blob/test/images/DBA_logo.svg</dc:source>
         <dc:relation>https://github.com/LibertaSoft/DatabaseAnime/blob/test/images/DBA_logo.svg</dc:relation>
       </cc:Work>
