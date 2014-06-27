@@ -35,6 +35,7 @@ private:
     QSqlTableModel* TableModel_Tags;
     QSqlQueryModel* model;
     bool isEditRole;
+    int recordId;
     QString oldCover;
 
     QLineEdit* LineEdit_OrigTitle;

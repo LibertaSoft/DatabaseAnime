@@ -45,10 +45,10 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
 
     if( isEditRole ){
         this->isEditRole = isEditRole;
-        ui->LineEdit_Title->setDisabled( true );
+        this->recordId   = index->data().toInt();
 
         model = new QSqlQueryModel;
-        model->setQuery( QString("SELECT * FROM animeSerials WHERE Title = '%1'").arg( index->data().toString() ) );
+        model->setQuery( QString("SELECT * FROM animeSerials WHERE id = '%1'").arg( index->data().toInt() ) );
 
         ui->CheckBox_LookLater->setChecked( !model->record(0).value("isHaveLooked").toBool() );
         ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
@@ -184,12 +184,13 @@ bool DialogAddEdit::insert_AnimeSerials(){
                       "vSeriesTV = :vSeriesTV, vSeriesOVA = :vSeriesOVA, vSeriesONA = :vSeriesONA, vSeriesSpecial = :vSeriesSpecial, vSeriesFilm = :vSeriesFilm,"
                       "Year = :Year, Season = :Season, Studios = :Studios,"
                       "Tags = :Tags, Description = :Description,"
-                      "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE Title = :Title;"
+                      "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;"
                       );
     }
     query.bindValue(":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
     query.bindValue(":isEditingDone", !ui->CheckBox_Editing->isChecked() );
-    query.bindValue(":Title",         ui->LineEdit_Title->text() );
+    query.bindValue(":id",             this->recordId );
+    query.bindValue(":Title",          ui->LineEdit_Title->text() );
 
     QSettings settings;
     if( settings.value( "enableElem/FieldsForEdit/OrigTitle", false ).toBool() ){

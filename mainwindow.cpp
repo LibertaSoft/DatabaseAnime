@@ -175,8 +175,9 @@ MainWindow::MainWindow(QWidget *parent) :
     setActiveTable( set_chechedButton );
 
     QueryModel_ListItemsSection = new QSqlQueryModel;
-    QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg( getActiveTableName() ) );
+    QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
     ui->listView_ListItemsSection->setModel(QueryModel_ListItemsSection);
+    ui->listView_ListItemsSection->setModelColumn(1);
 }
 
 void MainWindow::closeEvent(QCloseEvent* ){
@@ -235,27 +236,35 @@ void MainWindow::on_TButton_Add_clicked()
         default:
             return;
     }
-    QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg( getActiveTableName() ) );
+    QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
+    ui->listView_ListItemsSection->setModelColumn(1);
 }
 
 void MainWindow::on_TButton_Edit_clicked()
 {
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
         QModelIndex i = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0);
+//                      ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt()
         DialogAddEdit dialogAdd(true, &i, this);
         dialogAdd.setModal(true);
         dialogAdd.exec();
     }
+    QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
+    ui->listView_ListItemsSection->setModelColumn(1);
 }
 
 void MainWindow::on_TButton_Delete_clicked()
 {
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
+        QSqlQueryModel model;
+        model.setQuery( QString( "SELECT ImagePath FROM %1 WHERE id = %2").arg( getActiveTableName() ).arg( ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt() ) );
+        QDir dir;
+        dir.remove( model.record(0).value("ImagePath").toString() );
         QSqlQuery query;
         // #Bug, удалить обложку привязанную к удаляемой записи
-        query.prepare( QString("DELETE FROM '%1' WHERE Title = :Title;").arg( getActiveTableName() ) );
-        query.bindValue(":Title",
-                        ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toString());
+        query.prepare( QString("DELETE FROM '%1' WHERE id = :id;").arg( getActiveTableName() ) );
+        query.bindValue(":id",
+                        ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt());
         if( !query.exec() ){
             QMessageBox::warning(this, "Внимание", "Не удалось удалить запись");
         }else{
@@ -290,9 +299,9 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
 void MainWindow::saveLookValueChanges(int value, QString type)
 {
     QSqlQuery query;
-    query.prepare( QString("UPDATE %1 SET %2 = :vNum WHERE Title = :title;").arg( getActiveTableName() ).arg(type) );
+    query.prepare( QString("UPDATE %1 SET %2 = :vNum WHERE id = :id;").arg( getActiveTableName() ).arg(type) );
     query.bindValue(":vNum", value);
-    query.bindValue(":title", ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toString() );
+    query.bindValue(":id", ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt() );
     if( !query.exec() ){
         qDebug() << QString("Cannot update data in table %1: ").arg( getActiveTableName() ) << query.lastError();
     }
@@ -306,7 +315,8 @@ void MainWindow::on_PBtnAnime_toggled(bool f)
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
         setActiveTable( sections::anime );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg( getActiveTableName() ) );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
+        ui->listView_ListItemsSection->setModelColumn(1);
         if( btnManga )
             btnManga->setChecked( false );
         if( btnAMV )
@@ -324,7 +334,8 @@ void MainWindow::on_PBtnManga_toggled(bool f)
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
         setActiveTable( sections::manga );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg( getActiveTableName() ) );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
+        ui->listView_ListItemsSection->setModelColumn(1);
         if( btnAnime )
             btnAnime->setChecked( false );
         if( btnAMV )
@@ -342,7 +353,8 @@ void MainWindow::on_PBtnAMV_toggled(bool f)
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
         setActiveTable( sections::amv );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg( getActiveTableName() ) );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
+        ui->listView_ListItemsSection->setModelColumn(1);
         if( btnManga )
             btnManga->setChecked( false );
         if( btnAnime )
@@ -360,7 +372,8 @@ void MainWindow::on_PBtnDorama_toggled(bool f)
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
         setActiveTable( sections::dorama );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg( getActiveTableName() ) );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
+        ui->listView_ListItemsSection->setModelColumn(1);
         if( btnManga )
             btnManga->setChecked( false );
         if( btnAMV )
@@ -376,10 +389,11 @@ void MainWindow::on_PBtnIsLook_toggled(bool f)
         if( btnEditable )
             btnEditable->setChecked( false );
         QueryModel_ListItemsSection->setQuery(
-                    QString("SELECT Title FROM %1 WHERE isHaveLooked = 0").arg( getActiveTableName() ) );
+                    QString("SELECT id,Title FROM %1 WHERE isHaveLooked = 0").arg( getActiveTableName() ) );
     }else{
-        QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg( getActiveTableName() ) );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
     }
+    ui->listView_ListItemsSection->setModelColumn(1);
 }
 
 void MainWindow::on_PBtnIsEditing_toggled(bool f)
@@ -388,16 +402,18 @@ void MainWindow::on_PBtnIsEditing_toggled(bool f)
         if( btnLookLater )
             btnLookLater->setChecked( false );
         QueryModel_ListItemsSection->setQuery(
-                    QString("SELECT Title FROM %1 WHERE isEditingDone = 0").arg( getActiveTableName() ) );
+                    QString("SELECT id,Title FROM %1 WHERE isEditingDone = 0").arg( getActiveTableName() ) );
     }else{
-        QueryModel_ListItemsSection->setQuery( QString("SELECT Title FROM %1").arg( getActiveTableName() ) );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
     }
+    ui->listView_ListItemsSection->setModelColumn(1);
 }
 
 void MainWindow::on_lineEdit_Search_textChanged(const QString &arg1)
 {
     QueryModel_ListItemsSection->setQuery(
-                QString("SELECT Title FROM '%1' WHERE Title LIKE '%2'").arg( getActiveTableName() ).arg("%"+arg1+"%") );
+                QString("SELECT id,Title FROM '%1' WHERE Title LIKE '%2'").arg( getActiveTableName() ).arg("%"+arg1+"%") );
+    ui->listView_ListItemsSection->setModelColumn(1);
 }
 
 QString MainWindow::getActiveTableName() const
@@ -436,11 +452,13 @@ void MainWindow::setActiveTable(sections::section table)
     _activeTable = table;
 }
 
-void MainWindow::selectAnimeData(const QModelIndex &index)
+void MainWindow::selectAnimeData(const QModelIndex&)
 {
     QSqlQueryModel m1;
+//    index.data().toString();
+//    QMessageBox::information(this, "select", index.child(1,1).data().toString() );
     m1.setQuery(
-                QString("SELECT * FROM '%1' WHERE Title='%2'").arg( getActiveTableName() ).arg( index.data().toString() )
+                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt() )
                 );
     /*
     "Season, PostScoring"
@@ -549,17 +567,17 @@ void MainWindow::selectAnimeData(const QModelIndex &index)
     }
 }
 
-void MainWindow::selectMangaData(const QModelIndex &index)
+void MainWindow::selectMangaData(const QModelIndex&)
 {
     return;
 }
 
-void MainWindow::selectAmvData(const QModelIndex &index)
+void MainWindow::selectAmvData(const QModelIndex&)
 {
     return;
 }
 
-void MainWindow::selectDoramaData(const QModelIndex &index)
+void MainWindow::selectDoramaData(const QModelIndex&)
 {
     return;
 }
