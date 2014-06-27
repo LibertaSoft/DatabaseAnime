@@ -244,7 +244,6 @@ void MainWindow::on_TButton_Edit_clicked()
 {
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
         QModelIndex i = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0);
-//                      ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt()
         DialogAddEdit dialogAdd(true, &i, this);
         dialogAdd.setModal(true);
         dialogAdd.exec();
@@ -261,7 +260,6 @@ void MainWindow::on_TButton_Delete_clicked()
         QDir dir;
         dir.remove( model.record(0).value("ImagePath").toString() );
         QSqlQuery query;
-        // #Bug, удалить обложку привязанную к удаляемой записи
         query.prepare( QString("DELETE FROM '%1' WHERE id = :id;").arg( getActiveTableName() ) );
         query.bindValue(":id",
                         ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt());
