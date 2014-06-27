@@ -3,6 +3,7 @@
 #include "dialogaddanime.h"
 #include "lookprogressbar.h"
 
+#include <QDesktopServices>
 #include <QMessageBox>
 #include <QDebug>
 #include <QDir>
@@ -294,6 +295,16 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
     }
 }
 
+void MainWindow::on_listView_ListWidget_Dir_activated(const QModelIndex &index)
+{
+    //QMessageBox::information(this, "", index.data().toString());
+    QSqlQueryModel m1;
+    m1.setQuery(
+                QString("SELECT Dir FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt() )
+                );
+    QDesktopServices::openUrl( QUrl::fromLocalFile( m1.record(0).value("Dir").toString() + "/" + index.data().toString() ) );
+}
+
 void MainWindow::saveLookValueChanges(int value, QString type)
 {
     QSqlQuery query;
@@ -549,10 +560,13 @@ void MainWindow::selectAnimeData(const QModelIndex&)
          ListWidget_Dir = new QListWidget(this);
 
         QDir dir( m1.record(0).value("Dir").toString() );
-        ListWidget_Dir->setIconSize( QSize(80,120) );
+        ListWidget_Dir->setSortingEnabled( true );
+        ListWidget_Dir->setIconSize( QSize(32,32) );
         ListWidget_Dir->setViewMode( QListView::IconMode );
+//        ListWidget_Dir->setViewMode( QListView::ListMode );
+        ListWidget_Dir->setMinimumHeight(80);
         ListWidget_Dir->setWordWrap(true);
-//        lw->setItemDelegate();
+        ListWidget_Dir->setWrapping( true );;
         QStringList filters;
         filters << "*.avi" << "*.mkv" << "*.mp4" << "*.wmv" << "*.m2ts";
         filters << "*.rm";
@@ -560,8 +574,9 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         ui->HLay_FolderVideo->addWidget( ListWidget_Dir );
         for(int i = 0; i < ListWidget_Dir->count() ; ++i){
             ListWidget_Dir->item(i)->setIcon( QIcon( "://images/video.png" ) );
-            ListWidget_Dir->item(i)->setSizeHint( QSize( 140, 110 ) );
+            ListWidget_Dir->item(i)->setSizeHint( QSize( ListWidget_Dir->height()+ListWidget_Dir->height()/2, ListWidget_Dir->height() ) );
         }
+        QObject::connect( ListWidget_Dir, SIGNAL(activated(QModelIndex)), this, SLOT(on_listView_ListWidget_Dir_activated(QModelIndex)) );
     }
 }
 

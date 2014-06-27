@@ -51,6 +51,7 @@ private slots:
     void on_TButton_Edit_clicked();
     void on_TButton_Delete_clicked();
     void on_listView_ListItemsSection_activated(const QModelIndex &index);
+    void on_listView_ListWidget_Dir_activated(const QModelIndex &index);
     void saveLookValueChanges(int, QString);
 
     void on_PBtnAnime_toggled(bool);

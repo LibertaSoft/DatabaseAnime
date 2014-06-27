@@ -388,6 +388,9 @@
          </layout>
         </item>
         <item>
+         <widget class="QListWidget" name="listWidget"/>
+        </item>
+        <item>
          <spacer name="VSpacer_1">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -455,8 +458,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>387</width>
-                 <height>316</height>
+                 <width>143</width>
+                 <height>201</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
@@ -663,8 +666,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>387</width>
-                 <height>198</height>
+                 <width>45</width>
+                 <height>39</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
