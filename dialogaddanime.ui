@@ -163,8 +163,11 @@
          </item>
          <item>
           <widget class="QComboBox" name="ComboBox_Studio">
+           <property name="inputMethodHints">
+            <set>Qt::ImhSensitiveData</set>
+           </property>
            <property name="editable">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="currentText">
             <string>Студия 1</string>

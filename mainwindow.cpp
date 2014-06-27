@@ -565,11 +565,11 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         ListWidget_Dir->setViewMode( QListView::IconMode );
 //        ListWidget_Dir->setViewMode( QListView::ListMode );
         ListWidget_Dir->setMinimumHeight(80);
-        ListWidget_Dir->setWordWrap(true);
-        ListWidget_Dir->setWrapping( true );;
+        ListWidget_Dir->setWordWrap( true );
+        ListWidget_Dir->setWrapping( true );
         QStringList filters;
-        filters << "*.avi" << "*.mkv" << "*.mp4" << "*.wmv" << "*.m2ts";
-        filters << "*.rm";
+        filters << "*.avi" << "*.mkv" << "*.mp4" << "*.wmv";
+        filters << "*.m2ts" << "*.rm";
         ListWidget_Dir->addItems( dir.entryList( filters, QDir::Files ) );
         ui->HLay_FolderVideo->addWidget( ListWidget_Dir );
         for(int i = 0; i < ListWidget_Dir->count() ; ++i){
