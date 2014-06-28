@@ -14,7 +14,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Options</string>
+  </property>
+  <property name="locale">
+   <locale language="English" country="UnitedKingdom"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -98,7 +101,7 @@
            <bool>false</bool>
           </property>
           <property name="toolTip">
-           <string>Добавить в список ниже, тег из поля слева</string>
+           <string>To add in the list below, a tag from a field at the left</string>
           </property>
           <property name="text">
            <string>+</string>
@@ -135,7 +138,7 @@
            <bool>false</bool>
           </property>
           <property name="toolTip">
-           <string>Удалить выбраный в списке ниже тег</string>
+           <string>To remove chosen in the list below a tag</string>
           </property>
           <property name="text">
            <string>-</string>

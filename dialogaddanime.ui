@@ -11,7 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Add anime</string>
+  </property>
+  <property name="locale">
+   <locale language="English" country="UnitedKingdom"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -214,7 +217,7 @@
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_allSeries">
           <attribute name="title">
@@ -405,7 +408,7 @@
        <item>
         <widget class="QTabWidget" name="TabWidget_2">
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">

@@ -11,7 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string extracomment="Program Name">Database Anime</string>
+   <string>Database Anime</string>
+  </property>
+  <property name="locale">
+   <locale language="English" country="UnitedKingdom"/>
   </property>
   <property name="toolButtonStyle">
    <enum>Qt::ToolButtonIconOnly</enum>
@@ -455,8 +458,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>143</width>
-                 <height>201</height>
+                 <width>387</width>
+                 <height>316</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
@@ -472,7 +475,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Название:</string>
+                   <string>Title:</string>
                   </property>
                  </widget>
                 </item>
@@ -495,7 +498,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Ориг название:</string>
+                   <string>Original title::</string>
                   </property>
                  </widget>
                 </item>
@@ -518,7 +521,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Режиссёр:</string>
+                   <string>Director:</string>
                   </property>
                  </widget>
                 </item>
@@ -541,7 +544,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Год:</string>
+                   <string>Year:</string>
                   </property>
                  </widget>
                 </item>
@@ -574,7 +577,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Жанры:</string>
+                   <string>Ganres:</string>
                   </property>
                  </widget>
                 </item>
@@ -587,7 +590,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Студия:</string>
+                   <string>Studio:</string>
                   </property>
                  </widget>
                 </item>
@@ -643,7 +646,7 @@
                </font>
               </property>
               <property name="text">
-               <string extracomment="Description-Title Anime">Описание:</string>
+               <string>Description:</string>
               </property>
              </widget>
             </item>
@@ -663,8 +666,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>45</width>
-                 <height>39</height>
+                 <width>387</width>
+                 <height>198</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -677,7 +680,7 @@
                    </size>
                   </property>
                   <property name="text">
-                   <string comment="[NoVisible]" extracomment="Description Anime/Manga/etc">test</string>
+                   <string notr="true"/>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -726,7 +729,7 @@
              </size>
             </property>
             <property name="text">
-             <string comment="[NoVisible]" extracomment="Cover anime/manga/etc"/>
+             <string notr="true"/>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
