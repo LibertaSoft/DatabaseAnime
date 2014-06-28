@@ -45,6 +45,6 @@ QSize ImageCover::sizeHint() const
         this->imagePath = urlList.at(0).toLocalFile();
         this->setPixmap( QPixmap( urlList.at(0).toLocalFile() ) );
     }else{
-        QMessageBox::warning(this, "Внимание", "Не удалось загрузить картинку");
+        QMessageBox::warning( this, tr("Warning"), tr("It was not succeeded to load the picture") );
     }
 }

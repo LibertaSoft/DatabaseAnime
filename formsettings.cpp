@@ -156,8 +156,8 @@ void FormSettings::on_BtnBox_accepted()
 void FormSettings::on_BtnBox_resetDefaults(){
     QMessageBox* pmbx =
     new QMessageBox(QMessageBox::Information,
-                    "Список жанров",
-                    "<b>Вернуть</b> список жанров к дефолтному состоянию?",
+                    "Ganres list",
+                    "<b>To return</b> the list of genres to a default state?",
                     QMessageBox::Yes | QMessageBox::No |
                     QMessageBox::Cancel
                     );
@@ -209,9 +209,10 @@ void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
 
 void FormSettings::on_TButton_DeleteTag_clicked()
 {
+    // #Bug : Удаление не реализовано
 //    ui->ListView_Tags->
 //    TableModel_Tags->
-    QMessageBox::information(this,"Удаление","Удаление выбранных элементов, будет реализовано позже.");
+    QMessageBox::information(this, "Удаление", "Удаление выбранных элементов, будет реализовано позже.");
 
 //    QStringList list; //Список для имен
 //    QList idx; //Список для идентификаторов

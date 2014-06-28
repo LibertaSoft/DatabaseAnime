@@ -19,7 +19,7 @@ bool connectDB(){
     QString DBPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() );
     if( !objQdir.mkpath( DBPath ) ){
         qDebug() << "Cannot createed app directory in home path";
-        QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Не удалось создать директорию для базы данных.") );
+        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("It was not succeeded to create a directory for a database.") );
         return false;
     }
 
@@ -29,7 +29,7 @@ bool connectDB(){
     db.setPassword( dbPass );
     if( !db.open() ){
         qDebug() << "Cannot open database: " << db.lastError().text();
-        QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Не удалось подключится к БД.") );
+        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("It was not possible it will be connected to a database.") );
         return false;
     }
     return true;
@@ -44,7 +44,7 @@ bool createTable_AnimeTags()
     QSqlQuery query;
     if( !query.exec(sql) ){
         qDebug() << "Table animeTags is not created! Error: " << query.lastError();
-        QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Произошла ошибка при создании таблицы в БД.") );
+        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("There was a mistake at table creation in a database.") );
         return false;
     }
     //if( query.exec("CREATE TABLE animeTags") )
@@ -83,7 +83,7 @@ bool createTable_AnimeSerials()
     QSqlQuery query;
     if( !query.exec(sql) ){
         qDebug() << "Table animeSerials is not created! Error: " << query.lastError();
-        QMessageBox::warning(0, QObject::tr("Внимание"), QObject::tr("Произошла ошибка при создании таблицы в БД.") );
+        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("There was a mistake at table creation in a database.") );
         return false;
     }
     return true;
@@ -112,7 +112,7 @@ MainWindow::MainWindow(QWidget *parent) :
             = (sections::section)settings.value("btnSwitchSection/selected", sections::none).toInt();
 
     if( set_enableBtnAnime ){
-        btnAnime = new QPushButton( tr("Аниме"), this );
+        btnAnime = new QPushButton( tr("Anime"), this );
         btnAnime->setCheckable( true );
         if( set_chechedButton == sections::anime ){
             btnAnime->setChecked( true );
@@ -121,7 +121,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->VLay_SectionSwapBtns->addWidget(btnAnime);
     }
     if( set_enableBtnManga ){
-        btnManga = new QPushButton( tr("Манга"), this );
+        btnManga = new QPushButton( tr("Manga"), this );
         btnManga->setCheckable( true );
         if( set_chechedButton == sections::manga ){
             btnManga->setChecked( true );
@@ -139,7 +139,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->VLay_SectionSwapBtns->addWidget(btnAMV);
     }
     if( set_enableBtnDorama ){
-        btnDorama = new QPushButton( tr("Дорама"), this );
+        btnDorama = new QPushButton( tr("Dorama"), this );
         btnDorama->setCheckable( true );
         if( set_chechedButton == sections::dorama ){
             btnDorama->setChecked( true );
@@ -151,13 +151,13 @@ MainWindow::MainWindow(QWidget *parent) :
         delete ui->line;
     }
     if( set_enableBtnEditable ){
-        btnEditable = new QPushButton( tr("Ещё редактируется"), this );
+        btnEditable = new QPushButton( tr("Editing"), this );
         btnEditable->setCheckable( true );
         QObject::connect(btnEditable, SIGNAL(toggled(bool)) ,this, SLOT(on_PBtnIsEditing_toggled(bool)) );
         ui->VLay_sectionOption->addWidget(btnEditable);
     }
     if( set_enableBtnLookLater ){
-        btnLookLater = new QPushButton( tr("Хочу посмотреть"), this );
+        btnLookLater = new QPushButton( tr("Want to look"), this );
         btnLookLater->setCheckable( true );
         QObject::connect(btnLookLater, SIGNAL(toggled(bool)) ,this, SLOT(on_PBtnIsLook_toggled(bool)) );
         ui->VLay_sectionOption->addWidget(btnLookLater);
@@ -265,7 +265,7 @@ void MainWindow::on_TButton_Delete_clicked()
         query.bindValue(":id",
                         ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt());
         if( !query.exec() ){
-            QMessageBox::warning(this, "Внимание", "Не удалось удалить запись");
+            QMessageBox::warning(this, "Warning", "It was not succeeded to remove record");
         }else{
             QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
             ui->stackedWidget->setCurrentIndex(0);
@@ -297,7 +297,6 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
 
 void MainWindow::on_listView_ListWidget_Dir_activated(const QModelIndex &index)
 {
-    //QMessageBox::information(this, "", index.data().toString());
     QSqlQueryModel m1;
     m1.setQuery(
                 QString("SELECT Dir FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt() )
@@ -323,15 +322,15 @@ void MainWindow::on_PBtnAnime_toggled(bool f)
         setActiveTable( sections::none );
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
-        setActiveTable( sections::anime );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
-        ui->listView_ListItemsSection->setModelColumn(1);
         if( btnManga )
             btnManga->setChecked( false );
         if( btnAMV )
             btnAMV->setChecked( false );
         if( btnDorama )
             btnDorama->setChecked( false );
+        setActiveTable( sections::anime );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
+        ui->listView_ListItemsSection->setModelColumn(1);
     }
 }
 
@@ -342,15 +341,15 @@ void MainWindow::on_PBtnManga_toggled(bool f)
         setActiveTable( sections::none );
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
-        setActiveTable( sections::manga );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
-        ui->listView_ListItemsSection->setModelColumn(1);
         if( btnAnime )
             btnAnime->setChecked( false );
         if( btnAMV )
             btnAMV->setChecked( false );
         if( btnDorama )
             btnDorama->setChecked( false );
+        setActiveTable( sections::manga );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
+        ui->listView_ListItemsSection->setModelColumn(1);
     }
 }
 
@@ -361,15 +360,15 @@ void MainWindow::on_PBtnAMV_toggled(bool f)
         setActiveTable( sections::none );
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
-        setActiveTable( sections::amv );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
-        ui->listView_ListItemsSection->setModelColumn(1);
         if( btnManga )
             btnManga->setChecked( false );
         if( btnAnime )
             btnAnime->setChecked( false );
         if( btnDorama )
             btnDorama->setChecked( false );
+        setActiveTable( sections::amv );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
+        ui->listView_ListItemsSection->setModelColumn(1);
     }
 }
 
@@ -380,15 +379,15 @@ void MainWindow::on_PBtnDorama_toggled(bool f)
         setActiveTable( sections::none );
         QueryModel_ListItemsSection->setQuery( "" );
     }else{
-        setActiveTable( sections::dorama );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
-        ui->listView_ListItemsSection->setModelColumn(1);
         if( btnManga )
             btnManga->setChecked( false );
         if( btnAMV )
             btnAMV->setChecked( false );
         if( btnAnime )
             btnAnime->setChecked( false );
+        setActiveTable( sections::dorama );
+        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
+        ui->listView_ListItemsSection->setModelColumn(1);
     }
 }
 
@@ -420,6 +419,11 @@ void MainWindow::on_PBtnIsEditing_toggled(bool f)
 
 void MainWindow::on_lineEdit_Search_textChanged(const QString &arg1)
 {
+    if( btnLookLater )
+        btnLookLater->setChecked( false );
+    if( btnEditable )
+        btnEditable->setChecked( false );
+    // #ToDo : Реализовать поиск по секциям (Хочу посмотреть / Ещё редактируется)
     QueryModel_ListItemsSection->setQuery(
                 QString("SELECT id,Title FROM '%1' WHERE Title LIKE '%2'").arg( getActiveTableName() ).arg("%"+arg1+"%") );
     ui->listView_ListItemsSection->setModelColumn(1);

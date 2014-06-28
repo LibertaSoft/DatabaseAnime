@@ -20,13 +20,13 @@
    <item>
     <widget class="QGroupBox" name="GBox_ActiveMenuItem">
      <property name="title">
-      <string>Активные пункты меню:</string>
+      <string>Active menu items:</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QCheckBox" name="CheckBox_EnableAnime">
         <property name="text">
-         <string>Аниме</string>
+         <string>Anime</string>
         </property>
        </widget>
       </item>
@@ -36,7 +36,7 @@
          <bool>true</bool>
         </property>
         <property name="text">
-         <string>Манга</string>
+         <string>Manga</string>
         </property>
        </widget>
       </item>
@@ -56,21 +56,21 @@
          <bool>true</bool>
         </property>
         <property name="text">
-         <string>Дорама</string>
+         <string>Dorama</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QCheckBox" name="CheckBox_EnableEditing">
         <property name="text">
-         <string>Редактируемые</string>
+         <string>Editing</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QCheckBox" name="CheckBox_EnableLookLater">
         <property name="text">
-         <string>Хочу посмотреть</string>
+         <string>Want to look</string>
         </property>
        </widget>
       </item>
@@ -80,7 +80,7 @@
    <item>
     <widget class="QGroupBox" name="GBox_EditTags">
      <property name="title">
-      <string>Редактирование тегов:</string>
+      <string>Tag list:</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -170,7 +170,7 @@
    <item>
     <widget class="QGroupBox" name="GBox_FieldsForEdit">
      <property name="title">
-      <string>Опциональные поля при редактировании:</string>
+      <string>Optional item:</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
@@ -179,21 +179,21 @@
       <item row="0" column="1">
        <widget class="QCheckBox" name="CheckBox_Director">
         <property name="text">
-         <string>Режиссёр</string>
+         <string>Director</string>
         </property>
        </widget>
       </item>
       <item row="0" column="0">
        <widget class="QCheckBox" name="CheckBox_OrigTitle">
         <property name="text">
-         <string>Оригинальное название</string>
+         <string>Original title</string>
         </property>
        </widget>
       </item>
       <item row="0" column="2">
        <widget class="QCheckBox" name="CheckBox_PostScoring">
         <property name="text">
-         <string>Озвучка</string>
+         <string>Postscoring</string>
         </property>
        </widget>
       </item>

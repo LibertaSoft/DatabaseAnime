@@ -19,19 +19,19 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
     if( settings.value( "enableElem/FieldsForEdit/OrigTitle", false ).toBool() ){
         this->LineEdit_OrigTitle = new QLineEdit(this);
         this->LineEdit_OrigTitle->setMaxLength(128);
-        this->LineEdit_OrigTitle->setPlaceholderText( tr("Оригинальное название", "Placeholder text, dialogAddEdit") );
+        this->LineEdit_OrigTitle->setPlaceholderText( tr("Original title") );
         ui->VLay_OrigTitle->addWidget( this->LineEdit_OrigTitle );
     }
     if( settings.value( "enableElem/FieldsForEdit/Director", false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
-        this->LineEdit_Director->setPlaceholderText( tr("Режиссёр", "Placeholder text, dialogAddEdit") );
+        this->LineEdit_Director->setPlaceholderText( tr("Director") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_Director );
     }
     if( settings.value( "enableElem/FieldsForEdit/PostScoring", false ).toBool() ){
         this->LineEdit_PostScoring = new QLineEdit(this);
         this->LineEdit_PostScoring->setMaxLength(128);
-        this->LineEdit_PostScoring->setPlaceholderText( tr("Озвучка", "Placeholder text, dialogAddEdit") );
+        this->LineEdit_PostScoring->setPlaceholderText( tr("Postscoring") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_PostScoring );
     }
     TableModel_Tags = new QSqlTableModel;
@@ -275,7 +275,7 @@ void DialogAddEdit::on_BtnBox_accepted()
         insert_AnimeSerials();
         this->close();
     }else{
-        QMessageBox::information( this, tr("Внимание"), tr("Не заполнено поле Название") );
+        QMessageBox::information( this, tr("Warning"), tr("The field 'Title' is not filled") );
     }
 }
 
@@ -311,5 +311,5 @@ void DialogAddEdit::on_SpinBox_aFilm_valueChanged(int arg1)
 
 void DialogAddEdit::on_toolButton_clicked()
 {
-    ui->LineEdit_Dir->setText( QFileDialog::getExistingDirectory(this, tr("Выберите директорию с видео-файлами"), ui->LineEdit_Dir->text() ) );
+    ui->LineEdit_Dir->setText( QFileDialog::getExistingDirectory(this, tr("Choose a directory with video files"), ui->LineEdit_Dir->text() ) );
 }
