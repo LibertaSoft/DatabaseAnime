@@ -31,5 +31,4 @@ RESOURCES += \
     resource.qrc
 
 TRANSLATIONS += \
-    DatabaseAnime_en.ts \
     DatabaseAnime_ru.ts

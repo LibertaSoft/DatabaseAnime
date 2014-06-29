@@ -408,7 +408,7 @@
        <item>
         <widget class="QTabWidget" name="TabWidget_2">
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -424,7 +424,7 @@
               <number>256</number>
              </property>
              <property name="placeholderText">
-              <string>Введите через запятую, или выберите из списка ниже</string>
+              <string>Enter through a comma, or choose from the list lower</string>
              </property>
             </widget>
            </item>
@@ -505,7 +505,7 @@
            <item>
             <widget class="QPlainTextEdit" name="PlainTextEdit_Description">
              <property name="placeholderText">
-              <string>Описание</string>
+              <string>Description</string>
              </property>
             </widget>
            </item>

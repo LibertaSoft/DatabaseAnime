@@ -49,6 +49,13 @@
            <enum>QLayout::SetMinimumSize</enum>
           </property>
           <item>
+           <widget class="QPushButton" name="PButton_Create">
+            <property name="text">
+             <string>Create default tables</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <spacer name="HSpacer_0">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -194,8 +201,8 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>240</width>
-              <height>110</height>
+              <width>250</width>
+              <height>120</height>
              </size>
             </property>
             <property name="frameShape">

@@ -9,11 +9,14 @@
 #include <QErrorMessage>
 #include <QDebug>
 
+#include <QtNetwork/QNetworkRequest>
+
 DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *parent ) :
     QDialog(parent),
     ui(new Ui::DialogAddEdit)
 {
-
+    //QNetworkRequest r( QUrl("http://ya.ru") );
+    //r.
     ui->setupUi(this);
     QSettings settings;
     if( settings.value( "enableElem/FieldsForEdit/OrigTitle", false ).toBool() ){

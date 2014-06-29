@@ -111,6 +111,11 @@ MainWindow::MainWindow(QWidget *parent) :
     sections::section set_chechedButton
             = (sections::section)settings.value("btnSwitchSection/selected", sections::none).toInt();
 
+    /* #Bug : Временно? /
+    bool set_enableBtnCreate     = settings.value("enableElem/BtnCreate", false).toBool();
+    if( set_enableBtnCreate )
+        ui->PButton_Create->close();
+    // */
     if( set_enableBtnAnime ){
         btnAnime = new QPushButton( tr("Anime"), this );
         btnAnime->setCheckable( true );
@@ -597,4 +602,13 @@ void MainWindow::selectAmvData(const QModelIndex&)
 void MainWindow::selectDoramaData(const QModelIndex&)
 {
     return;
+}
+
+void MainWindow::on_PButton_Create_clicked()
+{
+    ui->PButton_Create->setDisabled( true );
+    QSettings settings;
+    settings.setValue("enableElem/BtnCreate", true);
+//  #ToDo : Создать и заполнить таблицы animeTags, animeStudios, etc...
+
 }

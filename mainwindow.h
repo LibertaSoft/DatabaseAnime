@@ -62,6 +62,7 @@ private slots:
     void on_PBtnIsEditing_toggled(bool);
 
     void on_lineEdit_Search_textChanged(const QString &arg1);
+    void on_PButton_Create_clicked();
 };
 
 #endif // MAINWINDOW_H
