@@ -24,7 +24,13 @@ private:
     Ui::MainWindow *ui;
 
     QPushButton* btnAnime, *btnManga, *btnAMV, *btnDorama, *btnEditable, *btnLookLater;
+    QAction* actionToogleAnime;
+    QAction* actionToogleManga;
+    QAction* actionToogleAMV;
+    QAction* actionToogleDorama;
+
     LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbFilm;
+
     QListWidget* ListWidget_Dir;
 
     sections::section _activeTable;
@@ -54,15 +60,12 @@ private slots:
     void on_listView_ListWidget_Dir_activated(const QModelIndex &index);
     void saveLookValueChanges(int, QString);
 
-    void on_PBtnAnime_toggled(bool);
-    void on_PBtnManga_toggled(bool);
-    void on_PBtnAMV_toggled(bool);
-    void on_PBtnDorama_toggled(bool);
     void on_PBtnIsLook_toggled(bool);
     void on_PBtnIsEditing_toggled(bool);
 
     void on_lineEdit_Search_textChanged(const QString &arg1);
-    void on_PButton_Create_clicked();
+    void on_listView_ListItemsSection_clicked(const QModelIndex &index);
+    void on_CB_Section_currentIndexChanged(int index);
 };
 
 #endif // MAINWINDOW_H

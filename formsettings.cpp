@@ -66,7 +66,7 @@ bool insertDefaultTags_AnimeTags()
     query.bindValue(":v30", "Психологическое");
     query.bindValue(":v31", "Самураи");
     query.bindValue(":v32", "Сверхъестественное");
-    query.bindValue(":v33", "Смена пола");
+    query.bindValue(":v33", "Фурри");
     query.bindValue(":v34", "Спорт");
     query.bindValue(":v35", "Супер сила");
     query.bindValue(":v36", "Ужасы");

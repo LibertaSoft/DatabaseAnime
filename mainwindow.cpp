@@ -108,50 +108,10 @@ MainWindow::MainWindow(QWidget *parent) :
     bool set_enableBtnDorama    = settings.value("enableElem/BtnSwitchSection/Dorama",   false).toBool();
     bool set_enableBtnEditable  = settings.value("enableElem/BtnSwitchSection/Editable",  true).toBool();
     bool set_enableBtnLookLater = settings.value("enableElem/BtnSwitchSection/LookLater", true).toBool();
-    sections::section set_chechedButton
-            = (sections::section)settings.value("btnSwitchSection/selected", sections::none).toInt();
+    sections::section set_select
+            = static_cast<sections::section>( settings.value("btnSwitchSection/selected", sections::none).toInt() );
 
-    /* #Bug : Временно? /
-    bool set_enableBtnCreate     = settings.value("enableElem/BtnCreate", false).toBool();
-    if( set_enableBtnCreate )
-        ui->PButton_Create->close();
-    // */
-    if( set_enableBtnAnime ){
-        btnAnime = new QPushButton( tr("Anime"), this );
-        btnAnime->setCheckable( true );
-        if( set_chechedButton == sections::anime ){
-            btnAnime->setChecked( true );
-        }
-        QObject::connect(btnAnime, SIGNAL(toggled(bool)) ,this, SLOT(on_PBtnAnime_toggled(bool)) );
-        ui->VLay_SectionSwapBtns->addWidget(btnAnime);
-    }
-    if( set_enableBtnManga ){
-        btnManga = new QPushButton( tr("Manga"), this );
-        btnManga->setCheckable( true );
-        if( set_chechedButton == sections::manga ){
-            btnManga->setChecked( true );
-        }
-        QObject::connect(btnManga, SIGNAL(toggled(bool)) ,this, SLOT(on_PBtnManga_toggled(bool)) );
-        ui->VLay_SectionSwapBtns->addWidget(btnManga);
-    }
-    if( set_enableBtnAMV ){
-        btnAMV = new QPushButton( tr("AMV"), this );
-        btnAMV->setCheckable( true );
-        if( set_chechedButton == sections::amv ){
-            btnAMV->setChecked( true );
-        }
-        QObject::connect(btnAMV, SIGNAL(toggled(bool)) ,this, SLOT(on_PBtnAMV_toggled(bool)) );
-        ui->VLay_SectionSwapBtns->addWidget(btnAMV);
-    }
-    if( set_enableBtnDorama ){
-        btnDorama = new QPushButton( tr("Dorama"), this );
-        btnDorama->setCheckable( true );
-        if( set_chechedButton == sections::dorama ){
-            btnDorama->setChecked( true );
-        }
-        QObject::connect(btnDorama, SIGNAL(toggled(bool)) ,this, SLOT(on_PBtnDorama_toggled(bool)) );
-        ui->VLay_SectionSwapBtns->addWidget(btnDorama);
-    }
+
     if( !set_enableBtnEditable && !set_enableBtnLookLater ){
         delete ui->line;
     }
@@ -168,8 +128,6 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->VLay_sectionOption->addWidget(btnLookLater);
     }
 
-
-
     this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
     this->restoreState( settings.value("MainWindow/State").toByteArray() );
 
@@ -178,27 +136,36 @@ MainWindow::MainWindow(QWidget *parent) :
     createTable_AnimeTags();
 
     ui->lineEdit_Search->setFocus();
-    setActiveTable( set_chechedButton );
-
-    QueryModel_ListItemsSection = new QSqlQueryModel;
+    QueryModel_ListItemsSection = new QSqlQueryModel(this);
     QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
     ui->listView_ListItemsSection->setModel(QueryModel_ListItemsSection);
     ui->listView_ListItemsSection->setModelColumn(1);
+
+    if( set_enableBtnAnime ){
+        ui->CB_Section->addItem( tr("Anime"),  sections::anime );
+        if( set_select == sections::anime )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
+    if( set_enableBtnManga ){
+        ui->CB_Section->addItem( tr("Manga"),  sections::manga );
+        if( set_select == sections::manga )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
+    if( set_enableBtnAMV ){
+        ui->CB_Section->addItem( tr("AMV"),    sections::amv );
+        if( set_select == sections::amv )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
+    if( set_enableBtnDorama ){
+        ui->CB_Section->addItem( tr("Dorama"), sections::dorama );
+        if( set_select == sections::dorama )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
+
 }
 
 void MainWindow::closeEvent(QCloseEvent* ){
-    sections::section select;
-    if( btnAnime && btnAnime->isChecked() ){
-        select = sections::anime;
-    }else if( btnManga && btnManga->isChecked() ){
-        select = sections::manga;
-    }else if( btnAMV && btnAMV->isChecked() ){
-        select = sections::amv;
-    }else if( btnDorama && btnDorama->isChecked() ){
-        select = sections::dorama;
-    }else{
-        select = sections::none;
-    }
+    sections::section select = static_cast<sections::section>( ui->CB_Section->currentData().toInt() );;
     QSettings settings;
     settings.setValue("MainWindow/Geometry", this->saveGeometry() );
     settings.setValue("MainWindow/State",    this->saveState() );
@@ -219,8 +186,6 @@ void MainWindow::on_PButton_Options_clicked()
 
 void MainWindow::on_TButton_Add_clicked()
 {
-
-
     switch( getActiveTable() ){
         case sections::anime :{
             QModelIndex null;
@@ -317,82 +282,6 @@ void MainWindow::saveLookValueChanges(int value, QString type)
     query.bindValue(":id", ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt() );
     if( !query.exec() ){
         qDebug() << QString("Cannot update data in table %1: ").arg( getActiveTableName() ) << query.lastError();
-    }
-}
-
-void MainWindow::on_PBtnAnime_toggled(bool f)
-{
-    if(!f){
-        ui->stackedWidget->setCurrentIndex(0);
-        setActiveTable( sections::none );
-        QueryModel_ListItemsSection->setQuery( "" );
-    }else{
-        if( btnManga )
-            btnManga->setChecked( false );
-        if( btnAMV )
-            btnAMV->setChecked( false );
-        if( btnDorama )
-            btnDorama->setChecked( false );
-        setActiveTable( sections::anime );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
-        ui->listView_ListItemsSection->setModelColumn(1);
-    }
-}
-
-void MainWindow::on_PBtnManga_toggled(bool f)
-{
-    if(!f){
-        ui->stackedWidget->setCurrentIndex(0);
-        setActiveTable( sections::none );
-        QueryModel_ListItemsSection->setQuery( "" );
-    }else{
-        if( btnAnime )
-            btnAnime->setChecked( false );
-        if( btnAMV )
-            btnAMV->setChecked( false );
-        if( btnDorama )
-            btnDorama->setChecked( false );
-        setActiveTable( sections::manga );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
-        ui->listView_ListItemsSection->setModelColumn(1);
-    }
-}
-
-void MainWindow::on_PBtnAMV_toggled(bool f)
-{
-    if(!f){
-        ui->stackedWidget->setCurrentIndex(0);
-        setActiveTable( sections::none );
-        QueryModel_ListItemsSection->setQuery( "" );
-    }else{
-        if( btnManga )
-            btnManga->setChecked( false );
-        if( btnAnime )
-            btnAnime->setChecked( false );
-        if( btnDorama )
-            btnDorama->setChecked( false );
-        setActiveTable( sections::amv );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
-        ui->listView_ListItemsSection->setModelColumn(1);
-    }
-}
-
-void MainWindow::on_PBtnDorama_toggled(bool f)
-{
-    if(!f){
-        ui->stackedWidget->setCurrentIndex(0);
-        setActiveTable( sections::none );
-        QueryModel_ListItemsSection->setQuery( "" );
-    }else{
-        if( btnManga )
-            btnManga->setChecked( false );
-        if( btnAMV )
-            btnAMV->setChecked( false );
-        if( btnAnime )
-            btnAnime->setChecked( false );
-        setActiveTable( sections::dorama );
-        QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
-        ui->listView_ListItemsSection->setModelColumn(1);
     }
 }
 
@@ -576,6 +465,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         ListWidget_Dir->setMinimumHeight(80);
         ListWidget_Dir->setWordWrap( true );
         ListWidget_Dir->setWrapping( true );
+//        ListWidget_Dir->setSelectionMode( QListView::MultiSelection );
         QStringList filters;
         filters << "*.avi" << "*.mkv" << "*.mp4" << "*.wmv";
         filters << "*.m2ts" << "*.rm";
@@ -604,11 +494,16 @@ void MainWindow::selectDoramaData(const QModelIndex&)
     return;
 }
 
-void MainWindow::on_PButton_Create_clicked()
-{
-    ui->PButton_Create->setDisabled( true );
-    QSettings settings;
-    settings.setValue("enableElem/BtnCreate", true);
-//  #ToDo : Создать и заполнить таблицы animeTags, animeStudios, etc...
 
+void MainWindow::on_listView_ListItemsSection_clicked(const QModelIndex &index)
+{
+    on_listView_ListItemsSection_activated(index);
+}
+
+void MainWindow::on_CB_Section_currentIndexChanged(int)
+{
+    sections::section sec = static_cast<sections::section>( ui->CB_Section->currentData().toInt() );
+    setActiveTable( sec );
+    QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
+    ui->listView_ListItemsSection->setModelColumn(1);
 }

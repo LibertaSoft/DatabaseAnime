@@ -217,7 +217,7 @@
           </size>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_allSeries">
           <attribute name="title">
@@ -608,11 +608,20 @@
          <height>0</height>
         </size>
        </property>
+       <property name="toolTip">
+        <string>Drop image here, or a double click for a file choice</string>
+       </property>
        <property name="autoFillBackground">
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">border:1px solid black;</string>
+        <string notr="true"/>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Sunken</enum>
        </property>
        <property name="text">
         <string/>

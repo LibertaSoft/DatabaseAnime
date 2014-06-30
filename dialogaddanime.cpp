@@ -239,7 +239,7 @@ bool DialogAddEdit::insert_AnimeSerials(){
         }
         tagsList += list.at(i);
     }
-    if( !ui->LineEdit_Tags->text().isEmpty() ){
+    if( !ui->LineEdit_Tags->text().isEmpty() && !tagsList.isEmpty() ){
         tagsList += ", ";
     }
     tagsList += ui->LineEdit_Tags->text();
@@ -316,3 +316,4 @@ void DialogAddEdit::on_toolButton_clicked()
 {
     ui->LineEdit_Dir->setText( QFileDialog::getExistingDirectory(this, tr("Choose a directory with video files"), ui->LineEdit_Dir->text() ) );
 }
+

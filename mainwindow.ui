@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>911</width>
-    <height>624</height>
+    <width>875</width>
+    <height>519</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,13 +49,6 @@
            <enum>QLayout::SetMinimumSize</enum>
           </property>
           <item>
-           <widget class="QPushButton" name="PButton_Create">
-            <property name="text">
-             <string>Create default tables</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="HSpacer_0">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
@@ -83,7 +76,7 @@
              </size>
             </property>
             <property name="text">
-             <string>Options</string>
+             <string>&amp;Options</string>
             </property>
             <property name="icon">
              <iconset resource="resource.qrc">
@@ -286,7 +279,7 @@
               </rect>
              </property>
              <property name="text">
-              <string extracomment="[unsed]">0.0.0</string>
+              <string notr="true" extracomment="[unsed]">0.0.0</string>
              </property>
             </widget>
             <widget class="QLabel" name="Lbl_TLicense">
@@ -310,6 +303,9 @@
                <width>102</width>
                <height>16</height>
               </rect>
+             </property>
+             <property name="toolTip">
+              <string notr="true"/>
              </property>
              <property name="text">
               <string notr="true" extracomment="[unsed]">GNU GPLv3</string>
@@ -372,7 +368,7 @@
              <item row="0" column="1">
               <widget class="QLabel" name="Lbl_VGitHub">
                <property name="text">
-                <string extracomment="Link to sire GitHub">&lt;a href=&quot;https://github.com/LibertaSoft/DatabaseAnime&quot;&gt;https://github.com/LibertaSoft/DatabaseAnime&lt;/a&gt;</string>
+                <string notr="true" extracomment="Link to sire GitHub">&lt;a href=&quot;https://github.com/LibertaSoft/DatabaseAnime&quot;&gt;https://github.com/LibertaSoft/DatabaseAnime&lt;/a&gt;</string>
                </property>
                <property name="openExternalLinks">
                 <bool>true</bool>
@@ -437,18 +433,21 @@
          <layout class="QHBoxLayout" name="HLay_AnimeInfo">
           <item>
            <layout class="QVBoxLayout" name="VLay_AnimeDescrFull">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetMaximumSize</enum>
+            </property>
             <item>
              <widget class="QScrollArea" name="ScrollArea_AnimeProperty">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
-                <height>0</height>
+                <width>320</width>
+                <height>240</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -465,8 +464,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>387</width>
-                 <height>316</height>
+                 <width>318</width>
+                 <height>238</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
@@ -640,6 +639,12 @@
             </item>
             <item>
              <widget class="QLabel" name="Lbl_TAnimeDescr">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
@@ -659,6 +664,12 @@
             </item>
             <item>
              <widget class="QScrollArea" name="ScrollArea_AnimeDescr">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>16777215</width>
@@ -673,13 +684,19 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>387</width>
-                 <height>198</height>
+                 <width>318</width>
+                 <height>82</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
                 <item>
                  <widget class="QLabel" name="Lbl_VAnimeDescr">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="maximumSize">
                    <size>
                     <width>16777215</width>
@@ -701,42 +718,64 @@
               </widget>
              </widget>
             </item>
+            <item>
+             <spacer name="verticalSpacer">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </item>
           <item>
            <widget class="QLabel" name="Lbl_ImageCover">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>1</horstretch>
-              <verstretch>3</verstretch>
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
              </sizepolicy>
             </property>
             <property name="minimumSize">
              <size>
-              <width>180</width>
+              <width>290</width>
               <height>420</height>
              </size>
             </property>
             <property name="maximumSize">
              <size>
-              <width>275</width>
-              <height>825</height>
+              <width>380</width>
+              <height>840</height>
              </size>
             </property>
             <property name="sizeIncrement">
              <size>
-              <width>1</width>
-              <height>3</height>
+              <width>0</width>
+              <height>0</height>
              </size>
             </property>
             <property name="baseSize">
              <size>
-              <width>230</width>
-              <height>420</height>
+              <width>0</width>
+              <height>0</height>
              </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
             </property>
             <property name="text">
              <string notr="true"/>
+            </property>
+            <property name="pixmap">
+             <pixmap resource="resource.qrc">:/images/DBA_NoImage.png</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>
@@ -757,19 +796,19 @@
   <widget class="QDockWidget" name="dockMenu">
    <property name="minimumSize">
     <size>
-     <width>165</width>
-     <height>279</height>
+     <width>140</width>
+     <height>257</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
-     <width>200</width>
+     <width>524287</width>
      <height>524287</height>
     </size>
    </property>
    <property name="baseSize">
     <size>
-     <width>160</width>
+     <width>0</width>
      <height>0</height>
     </size>
    </property>
@@ -802,6 +841,9 @@
      </item>
      <item>
       <layout class="QVBoxLayout" name="VLay_sectionOption"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="CB_Section"/>
      </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_Search">
@@ -837,7 +879,7 @@
           <string extracomment="Hint(toolTip) Button Add">Add</string>
          </property>
          <property name="text">
-          <string>+</string>
+          <string comment="Text on button add [unused]">+</string>
          </property>
          <property name="icon">
           <iconset resource="resource.qrc">
@@ -870,7 +912,7 @@
           <string extracomment="Hint(toolTip) Button Edit">Edit</string>
          </property>
          <property name="text">
-          <string>*</string>
+          <string comment="Text on button edit [unused]">*</string>
          </property>
          <property name="icon">
           <iconset resource="resource.qrc">
@@ -903,7 +945,7 @@
           <string extracomment="Hint(toolTip) Button Delete">Delete</string>
          </property>
          <property name="text">
-          <string>-</string>
+          <string comment="Text on button delete [unused]">-</string>
          </property>
          <property name="icon">
           <iconset resource="resource.qrc">
@@ -916,6 +958,11 @@
     </layout>
    </widget>
   </widget>
+  <action name="actionAnime">
+   <property name="text">
+    <string>Anime</string>
+   </property>
+  </action>
  </widget>
  <resources>
   <include location="resource.qrc"/>

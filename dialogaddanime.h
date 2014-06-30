@@ -30,6 +30,7 @@ private slots:
     void on_SpinBox_aFilm_valueChanged(int arg1);
     void on_toolButton_clicked();
     bool insert_AnimeSerials();
+
 private:
     Ui::DialogAddEdit *ui;
     QSqlTableModel* TableModel_Tags;
