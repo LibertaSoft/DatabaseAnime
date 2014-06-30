@@ -19,6 +19,10 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
     //r.
     ui->setupUi(this);
     QSettings settings;
+
+    ui->TabWidget_Series->setCurrentIndex(0);
+    ui->TabWidget_Info->setCurrentIndex(0);
+
     if( settings.value( "enableElem/FieldsForEdit/OrigTitle", false ).toBool() ){
         this->LineEdit_OrigTitle = new QLineEdit(this);
         this->LineEdit_OrigTitle->setMaxLength(128);

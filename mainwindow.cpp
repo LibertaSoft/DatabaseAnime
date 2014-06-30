@@ -9,32 +9,6 @@
 #include <QDir>
 #include <QtSql>
 
-bool connectDB(){
-    const QString dbUser("");
-    const QString dbHost("");
-    const QString dbPass("");
-
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    QDir objQdir;
-    QString DBPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() );
-    if( !objQdir.mkpath( DBPath ) ){
-        qDebug() << "Cannot createed app directory in home path";
-        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("It was not succeeded to create a directory for a database.") );
-        return false;
-    }
-
-    db.setDatabaseName( DBPath +"/DatabaseAnime.sqlite");
-    db.setUserName( dbUser );
-    db.setHostName( dbHost );
-    db.setPassword( dbPass );
-    if( !db.open() ){
-        qDebug() << "Cannot open database: " << db.lastError().text();
-        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("It was not possible it will be connected to a database.") );
-        return false;
-    }
-    return true;
-}
-
 bool createTable_AnimeTags()
 {
     QString sql = "CREATE TABLE IF NOT EXISTS animeTags("
@@ -131,7 +105,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
     this->restoreState( settings.value("MainWindow/State").toByteArray() );
 
-    connectDB();
+//    connectDB();
+    mngrConnection.open();
     createTable_AnimeSerials();
     createTable_AnimeTags();
 
@@ -164,12 +139,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
-void MainWindow::closeEvent(QCloseEvent* ){
+void MainWindow::closeEvent(QCloseEvent *e){
+    mngrConnection.close();
+
     sections::section select = static_cast<sections::section>( ui->CB_Section->currentData().toInt() );;
     QSettings settings;
     settings.setValue("MainWindow/Geometry", this->saveGeometry() );
     settings.setValue("MainWindow/State",    this->saveState() );
     settings.setValue("btnSwitchSection/selected", select);
+
+    e->accept();
 }
 
 MainWindow::~MainWindow()
@@ -182,6 +161,38 @@ void MainWindow::on_PButton_Options_clicked()
     FormSettings formSettings(this);
     formSettings.setModal(true);
     formSettings.exec();
+
+//  #Bug : Дублирующийся код ... брр, ужасная реализация.
+    QSettings settings;
+    bool set_enableBtnAnime     = settings.value("enableElem/BtnSwitchSection/Anime",     true).toBool();
+    bool set_enableBtnManga     = settings.value("enableElem/BtnSwitchSection/Manga",    false).toBool();
+    bool set_enableBtnAMV       = settings.value("enableElem/BtnSwitchSection/AMV",      false).toBool();
+    bool set_enableBtnDorama    = settings.value("enableElem/BtnSwitchSection/Dorama",   false).toBool();
+//    bool set_enableBtnEditable  = settings.value("enableElem/BtnSwitchSection/Editable",  true).toBool();
+//    bool set_enableBtnLookLater = settings.value("enableElem/BtnSwitchSection/LookLater", true).toBool();
+    sections::section set_select
+            = static_cast<sections::section>( settings.value("btnSwitchSection/selected", sections::none).toInt() );
+    ui->CB_Section->clear();
+    if( set_enableBtnAnime ){
+        ui->CB_Section->addItem( tr("Anime"),  sections::anime );
+        if( set_select == sections::anime )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
+    if( set_enableBtnManga ){
+        ui->CB_Section->addItem( tr("Manga"),  sections::manga );
+        if( set_select == sections::manga )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
+    if( set_enableBtnAMV ){
+        ui->CB_Section->addItem( tr("AMV"),    sections::amv );
+        if( set_select == sections::amv )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
+    if( set_enableBtnDorama ){
+        ui->CB_Section->addItem( tr("Dorama"), sections::dorama );
+        if( set_select == sections::dorama )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
 }
 
 void MainWindow::on_TButton_Add_clicked()

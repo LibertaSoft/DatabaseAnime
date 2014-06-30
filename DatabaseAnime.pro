@@ -13,7 +13,8 @@ SOURCES += \
     formsettings.cpp \
     imagecover.cpp \
     lookprogressbar.cpp \
-    dialogaddanime.cpp
+    dialogaddanime.cpp \
+    mngrconnection.cpp
 
 FORMS += \
     mainwindow.ui \
@@ -25,7 +26,8 @@ HEADERS += \
     formsettings.h \
     imagecover.h \
     lookprogressbar.h \
-    dialogaddanime.h
+    dialogaddanime.h \
+    mngrconnection.h
 
 RESOURCES += \
     resource.qrc

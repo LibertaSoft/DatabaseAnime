@@ -406,9 +406,9 @@
         </widget>
        </item>
        <item>
-        <widget class="QTabWidget" name="TabWidget_2">
+        <widget class="QTabWidget" name="TabWidget_Info">
          <property name="currentIndex">
-          <number>2</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">

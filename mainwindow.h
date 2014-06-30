@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "lookprogressbar.h"
+#include "mngrconnection.h"
 
 #include <formsettings.h>
 #include <QMainWindow>
@@ -22,6 +23,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 private:
     Ui::MainWindow *ui;
+    MngrConnection mngrConnection;
 
     QPushButton* btnAnime, *btnManga, *btnAMV, *btnDorama, *btnEditable, *btnLookLater;
     QAction* actionToogleAnime;

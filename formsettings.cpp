@@ -149,6 +149,7 @@ void FormSettings::on_BtnBox_accepted()
     settings.setValue( "enableElem/FieldsForEdit/Director",    ui->CheckBox_Director->isChecked() );
     settings.setValue( "enableElem/FieldsForEdit/PostScoring", ui->CheckBox_PostScoring->isChecked() );
 
+
     // #Bug, need save tags in to database
 
 }
