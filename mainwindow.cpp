@@ -85,6 +85,7 @@ void MainWindow::closeEvent(QCloseEvent *e){
     settings.setValue("MainWindow/State",    this->saveState() );
     settings.setValue("btnSwitchSection/selected", select);
 
+    ui->dockMenu->close();
     e->accept();
 }
 
