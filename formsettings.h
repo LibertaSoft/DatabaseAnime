@@ -21,14 +21,13 @@ public:
 private slots:
     void on_BtnBox_accepted();
     void on_BtnBox_resetDefaults();
-
     void on_BtnBox_clicked(QAbstractButton *button);
-
     void on_TButton_DeleteTag_clicked();
-
+    void on_TButton_AddTag_clicked();
 private:
     Ui::FormSettings *ui;
-    QSqlTableModel* TableModel_Tags;
+    QSqlQueryModel* SQM_AnimeTags;
+//    QSqlTableModel* TableModel_Tags;
 };
 
 #endif // FORMSETTINGS_H

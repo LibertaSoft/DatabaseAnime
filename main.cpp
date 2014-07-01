@@ -2,8 +2,7 @@
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <mainwindow.h>
-
-#include <QMessageBox>
+#include <QSettings>
 
 int main(int argc, char *argv[])
 {
@@ -11,16 +10,28 @@ int main(int argc, char *argv[])
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");
     app.setApplicationName("DatabaseAnime");
-    app.setApplicationVersion("0.0.46 Alpha");
+    app.setApplicationVersion("0.0.48 Alpha");
     app.setApplicationDisplayName( QObject::tr("Database Anime") );
     app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
 
+    QSettings settings;
+    QString set_language       = settings.value( "Application/l10n", "<System>" ).toString();
+    int     set_language_index = settings.value( "Application/l10n_index", 0 ).toInt();
     QTranslator qtTr;
-    qtTr.load( "qtbase_" + QLocale::system().name()/*, QLibraryInfo::location(QLibraryInfo::TranslationsPath)*/ );
+    if( set_language_index == 0 ){
+        /*, QLibraryInfo::location(QLibraryInfo::TranslationsPath)*/
+        qtTr.load( "qtbase_" + QLocale::system().name() );
+    }else{
+        qtTr.load( QApplication::applicationDirPath() + "/qtbase_" + set_language + ".qm" );
+    }
     app.installTranslator(&qtTr);
 
     QTranslator dbaTr;
-    dbaTr.load( "DatabaseAnime_" + QLocale::system().name() );
+    if( set_language_index == 0 ){
+        dbaTr.load( "DatabaseAnime_" + QLocale::system().name() );
+    }else{
+        dbaTr.load( QApplication::applicationDirPath() + "/DatabaseAnime_" + set_language + ".qm" );
+    }
     app.installTranslator(&dbaTr);
 
     MainWindow wnd;

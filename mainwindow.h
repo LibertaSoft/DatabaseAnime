@@ -3,6 +3,7 @@
 
 #include "lookprogressbar.h"
 #include "mngrconnection.h"
+#include "mngrquerys.h"
 
 #include <formsettings.h>
 #include <QMainWindow>
@@ -14,22 +15,12 @@ namespace Ui {
 class MainWindow;
 }
 
-namespace sections {
-    enum section{none = 0, anime, manga, amv, dorama};
-}
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private:
     Ui::MainWindow *ui;
     MngrConnection mngrConnection;
-
-    QPushButton* btnAnime, *btnManga, *btnAMV, *btnDorama, *btnEditable, *btnLookLater;
-    QAction* actionToogleAnime;
-    QAction* actionToogleManga;
-    QAction* actionToogleAMV;
-    QAction* actionToogleDorama;
 
     LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbFilm;
 
@@ -62,12 +53,10 @@ private slots:
     void on_listView_ListWidget_Dir_activated(const QModelIndex &index);
     void saveLookValueChanges(int, QString);
 
-    void on_PBtnIsLook_toggled(bool);
-    void on_PBtnIsEditing_toggled(bool);
-
     void on_lineEdit_Search_textChanged(const QString &arg1);
     void on_listView_ListItemsSection_clicked(const QModelIndex &index);
     void on_CB_Section_currentIndexChanged(int index);
+    void on_CB_Filter_currentIndexChanged(int index);
 };
 
 #endif // MAINWINDOW_H

@@ -39,7 +39,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="StartPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -797,7 +797,7 @@
    <property name="minimumSize">
     <size>
      <width>140</width>
-     <height>257</height>
+     <height>292</height>
     </size>
    </property>
    <property name="maximumSize">
@@ -830,20 +830,10 @@
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QVBoxLayout" name="VLay_SectionSwapBtns"/>
-     </item>
-     <item>
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="VLay_sectionOption"/>
-     </item>
-     <item>
       <widget class="QComboBox" name="CB_Section"/>
+     </item>
+     <item>
+      <widget class="QComboBox" name="CB_Filter"/>
      </item>
      <item>
       <widget class="QLineEdit" name="lineEdit_Search">
@@ -958,11 +948,6 @@
     </layout>
    </widget>
   </widget>
-  <action name="actionAnime">
-   <property name="text">
-    <string>Anime</string>
-   </property>
-  </action>
  </widget>
  <resources>
   <include location="resource.qrc"/>

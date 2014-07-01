@@ -1,5 +1,6 @@
 #include "dialogaddanime.h"
 #include "ui_dialogaddanime.h"
+#include "mngrquerys.h"
 
 #include <QSettings>
 #include <QFileDialog>
@@ -11,9 +12,8 @@
 
 #include <QtNetwork/QNetworkRequest>
 
-DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *parent ) :
-    QDialog(parent),
-    ui(new Ui::DialogAddEdit)
+DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *parent ) :
+    QDialog(parent), ui(new Ui::DialogAddEdit), isEditRole( _isEditRole )
 {
     //QNetworkRequest r( QUrl("http://ya.ru") );
     //r.
@@ -95,9 +95,20 @@ DialogAddEdit::DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *paren
         ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
         ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
 
-        QPixmap pm( model->record(0).value("ImagePath").toString() );
-        ui->Lbl_ImageCover->setPixmap( pm );
-        ui->Lbl_ImageCover->setImagePath( model->record(0).value("ImagePath").toString() );
+
+        QString imgPath = model->record(0).value("ImagePath").toString();
+        QPixmap pm( imgPath );
+        bool imageCrash = false;
+        if( pm.isNull() ){
+            pm.load( "://images/DBA_NoImage.png" );
+            imageCrash = true;
+        }
+        if( !imageCrash ){
+            ui->Lbl_ImageCover->setPixmap( pm );
+            ui->Lbl_ImageCover->setImagePath( model->record(0).value("ImagePath").toString() );
+        }else{
+            ui->Lbl_ImageCover->noImage();
+        }
 
         oldCover = model->record(0).value("ImagePath").toString();
     }
@@ -166,7 +177,7 @@ void DialogAddEdit::on_BtnBox_clicked(QAbstractButton *button)
 bool DialogAddEdit::insert_AnimeSerials(){
     QSqlQuery query;
     if( !this->isEditRole ){
-        query.prepare("INSERT INTO animeSerials("
+        query.prepare( QString("INSERT INTO %1("
                       "isHaveLooked, isEditingDone, Title,"
                       "OrigTitle, Director, PostScoring,"
                       "SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesFilm,"
@@ -182,16 +193,16 @@ bool DialogAddEdit::insert_AnimeSerials(){
                       ":Year, :Season, :Studios,"
                       ":Tags, :Description,"
                       ":URL, :Dir, :ImagePath)"
-                      );
+                      ).arg( MngrQuerys::getTableName( sections::anime ) ) );
     }else{
-        query.prepare("UPDATE animeSerials SET "
+        query.prepare( QString("UPDATE %1 SET "
                       "isHaveLooked = :isHaveLooked, isEditingDone = :isEditingDone, Title = :Title,"
                       "OrigTitle = :OrigTitle, Director = :Director, PostScoring = :PostScoring,"
                       "SeriesTV = :SeriesTV, SeriesOVA = :SeriesOVA, SeriesONA = :SeriesONA, SeriesSpecial = :SeriesSpecial, SeriesFilm = :SeriesFilm,"
                       "vSeriesTV = :vSeriesTV, vSeriesOVA = :vSeriesOVA, vSeriesONA = :vSeriesONA, vSeriesSpecial = :vSeriesSpecial, vSeriesFilm = :vSeriesFilm,"
                       "Year = :Year, Season = :Season, Studios = :Studios,"
                       "Tags = :Tags, Description = :Description,"
-                      "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;"
+                      "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;").arg( MngrQuerys::getTableName( sections::anime ) )
                       );
     }
     query.bindValue(":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
@@ -248,7 +259,6 @@ bool DialogAddEdit::insert_AnimeSerials(){
     }
     tagsList += ui->LineEdit_Tags->text();
 
-
     query.bindValue(":Tags",          tagsList );
     query.bindValue(":Description",   ui->PlainTextEdit_Description->toPlainText() );
     query.bindValue(":URL",           ui->LineEdit_URL->text() );
@@ -267,7 +277,6 @@ bool DialogAddEdit::insert_AnimeSerials(){
             objQdir.remove( oldCover );
     }
     query.bindValue(":ImagePath", coverPath );  
-
     if( !query.exec() ){
         qDebug() << "Cannot insert data in table animeSerials: " << query.lastError();
         (new QErrorMessage(0))->showMessage( query.lastError().text() );

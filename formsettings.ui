@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>620</width>
-    <height>489</height>
+    <width>691</width>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,6 +20,64 @@
    <locale language="English" country="UnitedKingdom"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>General:</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="Lbl_Lanuage">
+          <property name="text">
+           <string>Language:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="CB_Language">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>140</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="currentText">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="HSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item>
     <widget class="QGroupBox" name="GBox_ActiveMenuItem">
      <property name="title">
@@ -92,8 +150,20 @@
      <property name="enabled">
       <bool>true</bool>
      </property>
+     <property name="tabPosition">
+      <enum>QTabWidget::North</enum>
+     </property>
+     <property name="tabShape">
+      <enum>QTabWidget::Rounded</enum>
+     </property>
      <property name="currentIndex">
       <number>0</number>
+     </property>
+     <property name="elideMode">
+      <enum>Qt::ElideNone</enum>
+     </property>
+     <property name="usesScrollButtons">
+      <bool>true</bool>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -117,14 +187,17 @@
             <item>
              <widget class="QLineEdit" name="LineEdit_AddTag">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
+              </property>
+              <property name="placeholderText">
+               <string>Type new tag name</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QToolButton" name="TButton_AddTag">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="toolTip">
                <string>To add in the list below, a tag from a field at the left</string>
@@ -139,29 +212,9 @@
              </widget>
             </item>
             <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="Line" name="line">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QToolButton" name="TButton_DeleteTag">
               <property name="enabled">
-               <bool>false</bool>
+               <bool>true</bool>
               </property>
               <property name="toolTip">
                <string>To remove chosen in the list below a tag</string>
@@ -182,14 +235,44 @@
             <property name="enabled">
              <bool>true</bool>
             </property>
+            <property name="frameShape">
+             <enum>QFrame::WinPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Sunken</enum>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>false</bool>
+            </property>
             <property name="selectionMode">
              <enum>QAbstractItemView::MultiSelection</enum>
             </property>
             <property name="selectionBehavior">
              <enum>QAbstractItemView::SelectRows</enum>
             </property>
+            <property name="flow">
+             <enum>QListView::LeftToRight</enum>
+            </property>
+            <property name="isWrapping" stdset="0">
+             <bool>true</bool>
+            </property>
             <property name="resizeMode">
-             <enum>QListView::Adjust</enum>
+             <enum>QListView::Fixed</enum>
+            </property>
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="gridSize">
+             <size>
+              <width>130</width>
+              <height>26</height>
+             </size>
+            </property>
+            <property name="uniformItemSizes">
+             <bool>false</bool>
+            </property>
+            <property name="wordWrap">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -199,7 +282,7 @@
        <item>
         <widget class="QGroupBox" name="GBox_FieldsForEdit">
          <property name="title">
-          <string>Optional item:</string>
+          <string>Optional fields:</string>
          </property>
          <property name="checkable">
           <bool>false</bool>
@@ -245,8 +328,6 @@
       <attribute name="title">
        <string>Dorama</string>
       </attribute>
-      <zorder>GBox_EditTags</zorder>
-      <zorder>GBox_FieldsForEdit</zorder>
      </widget>
     </widget>
    </item>

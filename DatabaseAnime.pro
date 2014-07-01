@@ -4,8 +4,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = DatabaseAnime
 TEMPLATE = app
-
-CONFIG += debug
+CONFIG += console
 
 SOURCES += \
     main.cpp \
@@ -14,7 +13,8 @@ SOURCES += \
     imagecover.cpp \
     lookprogressbar.cpp \
     dialogaddanime.cpp \
-    mngrconnection.cpp
+    mngrconnection.cpp \
+    mngrquerys.cpp
 
 FORMS += \
     mainwindow.ui \
@@ -27,10 +27,12 @@ HEADERS += \
     imagecover.h \
     lookprogressbar.h \
     dialogaddanime.h \
-    mngrconnection.h
+    mngrconnection.h \
+    mngrquerys.h
 
 RESOURCES += \
     resource.qrc
 
 TRANSLATIONS += \
-    DatabaseAnime_ru.ts
+    DatabaseAnime_ru.ts \
+    DatabaseAnime_en.ts

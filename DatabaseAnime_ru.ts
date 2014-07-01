@@ -110,58 +110,63 @@
         <translation>Введите через запятую, или выберите из списка ниже</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="502"/>
         <location filename="dialogaddanime.ui" line="508"/>
+        <location filename="dialogaddanime.ui" line="514"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="516"/>
+        <location filename="dialogaddanime.ui" line="522"/>
         <source>Media</source>
         <translation>Медиа</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="527"/>
+        <location filename="dialogaddanime.ui" line="533"/>
         <source>Directory</source>
         <translation>Директория</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="537"/>
+        <location filename="dialogaddanime.ui" line="543"/>
         <source>*</source>
         <translation>*</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="559"/>
+        <location filename="dialogaddanime.ui" line="565"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="25"/>
+        <location filename="dialogaddanime.ui" line="618"/>
+        <source>Drop image here, or a double click for a file choice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.cpp" line="29"/>
         <source>Original title</source>
         <translation>Оригинальное название</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="31"/>
+        <location filename="dialogaddanime.cpp" line="35"/>
         <source>Director</source>
         <translation>Режиссёр</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="37"/>
+        <location filename="dialogaddanime.cpp" line="41"/>
         <source>Postscoring</source>
         <translation>Озвучка</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="281"/>
+        <location filename="dialogaddanime.cpp" line="284"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="281"/>
+        <location filename="dialogaddanime.cpp" line="284"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>Не заполнено поле &apos;Название&apos;</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="317"/>
+        <location filename="dialogaddanime.cpp" line="320"/>
         <source>Choose a directory with video files</source>
         <translation>Выберите директорию с видео-файлами</translation>
     </message>
@@ -175,94 +180,143 @@
     </message>
     <message>
         <location filename="formsettings.ui" line="26"/>
+        <source>General:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="37"/>
+        <source>Language:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="84"/>
         <source>Active menu items:</source>
         <translation>Активные пункты меню:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="32"/>
+        <location filename="formsettings.ui" line="90"/>
+        <location filename="formsettings.ui" line="176"/>
         <source>Anime</source>
         <translation>Аниме</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="42"/>
+        <location filename="formsettings.ui" line="100"/>
+        <location filename="formsettings.ui" line="319"/>
         <source>Manga</source>
         <translation>Манга</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="52"/>
+        <location filename="formsettings.ui" line="110"/>
+        <location filename="formsettings.ui" line="324"/>
         <source>AMV</source>
         <translation>AMV</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="62"/>
+        <location filename="formsettings.ui" line="120"/>
+        <location filename="formsettings.ui" line="329"/>
         <source>Dorama</source>
         <translation>Дорама</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="69"/>
+        <location filename="formsettings.ui" line="134"/>
         <source>Editing</source>
         <translation>Редактируемые</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="76"/>
+        <location filename="formsettings.ui" line="141"/>
         <source>Want to look</source>
         <translation>Хочу посмотреть</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="86"/>
+        <location filename="formsettings.ui" line="182"/>
         <source>Tag list:</source>
         <translation>Список тегов:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="104"/>
+        <location filename="formsettings.ui" line="193"/>
+        <source>Type new tag name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="203"/>
         <source>To add in the list below, a tag from a field at the left</source>
         <translation>Добавить в список ниже, тег из поля слева</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="107"/>
+        <location filename="formsettings.ui" line="206"/>
         <source>+</source>
-        <translation>+</translation>
+        <comment>Text on button add [unused]</comment>
+        <translation type="unfinished">+</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="141"/>
+        <location filename="formsettings.ui" line="223"/>
+        <source>-</source>
+        <comment>Text on button delete [unused]</comment>
+        <translation type="unfinished">-</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="285"/>
+        <source>Optional fields:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation type="vanished">+</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="220"/>
         <source>To remove chosen in the list below a tag</source>
         <translation>Удалить выбранные тэги из списка ниже</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="144"/>
         <source>-</source>
-        <translation>-</translation>
+        <translation type="vanished">-</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="176"/>
         <source>Optional item:</source>
-        <translation>Опциональные поля:</translation>
+        <translation type="vanished">Опциональные поля:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="185"/>
+        <location filename="formsettings.ui" line="294"/>
         <source>Director</source>
         <translation>Режиссёр</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="192"/>
+        <location filename="formsettings.ui" line="301"/>
         <source>Original title</source>
         <translation>Оригинальное название</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="199"/>
+        <location filename="formsettings.ui" line="308"/>
         <source>Postscoring</source>
         <translation>Озвучка</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="53"/>
+        <location filename="formsettings.cpp" line="55"/>
+        <source>&lt;System&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ImageCover</name>
     <message>
-        <location filename="imagecover.cpp" line="48"/>
+        <location filename="imagecover.cpp" line="19"/>
+        <source>&amp;Choose image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="imagecover.cpp" line="20"/>
+        <source>Clea&amp;n image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="imagecover.cpp" line="78"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="imagecover.cpp" line="48"/>
+        <location filename="imagecover.cpp" line="78"/>
         <source>It was not succeeded to load the picture</source>
         <translation>Не удалось загрузить изображение</translation>
     </message>
@@ -275,191 +329,219 @@
         <translation>Database Anime</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="54"/>
-        <source>Create default tables</source>
-        <translation type="unfinished"></translation>
+        <source>Options</source>
+        <translation type="vanished">Настройки</translation>
     </message>
     <message>
         <location filename="mainwindow.ui" line="86"/>
-        <source>Options</source>
-        <translation>Настройки</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="93"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="224"/>
+        <location filename="mainwindow.ui" line="217"/>
         <source>Developer:</source>
         <translation>Разработчик:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="250"/>
+        <location filename="mainwindow.ui" line="243"/>
         <source>Designer:</source>
         <translation>Дизайн:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="276"/>
+        <location filename="mainwindow.ui" line="269"/>
         <source>Version:</source>
         <translation>Версия:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="289"/>
-        <source>0.0.0</source>
-        <extracomment>[unsed]</extracomment>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="302"/>
+        <location filename="mainwindow.ui" line="295"/>
         <source>License:</source>
         <translation>Лицензия:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="375"/>
-        <source>&lt;a href=&quot;https://github.com/LibertaSoft/DatabaseAnime&quot;&gt;https://github.com/LibertaSoft/DatabaseAnime&lt;/a&gt;</source>
-        <extracomment>Link to sire GitHub</extracomment>
-        <translation></translation>
+        <location filename="mainwindow.ui" line="79"/>
+        <source>&amp;Options</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="485"/>
+        <location filename="mainwindow.ui" line="484"/>
         <source>Title:</source>
         <translation>Название:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="508"/>
+        <location filename="mainwindow.ui" line="507"/>
         <source>Original title::</source>
         <translation>Оригинальное название:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="531"/>
+        <location filename="mainwindow.ui" line="530"/>
         <source>Director:</source>
         <translation>Режиссёр:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="554"/>
+        <location filename="mainwindow.ui" line="553"/>
         <source>Year:</source>
         <translation>Год:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="587"/>
+        <location filename="mainwindow.ui" line="586"/>
         <source>Ganres:</source>
         <translation>Жанры:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="600"/>
+        <location filename="mainwindow.ui" line="599"/>
         <source>Studio:</source>
         <translation>Студия:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="623"/>
+        <location filename="mainwindow.ui" line="622"/>
         <source>URL:</source>
         <translation>URL:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="656"/>
+        <location filename="mainwindow.ui" line="661"/>
         <source>Description:</source>
         <translation>Описание:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="812"/>
+        <location filename="mainwindow.ui" line="844"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="837"/>
+        <location filename="mainwindow.ui" line="869"/>
         <source>Add</source>
         <extracomment>Hint(toolTip) Button Add</extracomment>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="840"/>
+        <location filename="mainwindow.ui" line="872"/>
         <source>+</source>
-        <translation>+</translation>
+        <comment>Text on button add [unused]</comment>
+        <translation type="unfinished">+</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="870"/>
+        <location filename="mainwindow.ui" line="905"/>
+        <source>*</source>
+        <comment>Text on button edit [unused]</comment>
+        <translation type="unfinished">*</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="938"/>
+        <source>-</source>
+        <comment>Text on button delete [unused]</comment>
+        <translation type="unfinished">-</translation>
+    </message>
+    <message>
+        <source>+</source>
+        <translation type="vanished">+</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="902"/>
         <source>Edit</source>
         <extracomment>Hint(toolTip) Button Edit</extracomment>
         <translation>Редактировать</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="873"/>
         <source>*</source>
-        <translation>*</translation>
+        <translation type="vanished">*</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="903"/>
+        <location filename="mainwindow.ui" line="935"/>
         <source>Delete</source>
         <extracomment>Hint(toolTip) Button Delete</extracomment>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="906"/>
         <source>-</source>
-        <translation>-</translation>
+        <translation type="vanished">-</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="120"/>
+        <location filename="mainwindow.cpp" line="50"/>
+        <location filename="mainwindow.cpp" line="114"/>
         <source>Anime</source>
         <translation>Аниме</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="129"/>
+        <location filename="mainwindow.cpp" line="55"/>
+        <location filename="mainwindow.cpp" line="119"/>
         <source>Manga</source>
         <translation>Манга</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="138"/>
+        <location filename="mainwindow.cpp" line="60"/>
+        <location filename="mainwindow.cpp" line="124"/>
         <source>AMV</source>
         <translation>AMV</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="147"/>
+        <location filename="mainwindow.cpp" line="65"/>
+        <location filename="mainwindow.cpp" line="129"/>
         <source>Dorama</source>
         <translation>Дорама</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="159"/>
+        <location filename="mainwindow.cpp" line="69"/>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="70"/>
         <source>Editing</source>
         <translation>Редактируемые</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="165"/>
+        <location filename="mainwindow.cpp" line="71"/>
         <source>Want to look</source>
         <translation>Хочу посмотреть</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="72"/>
+        <source>TV</source>
+        <translation type="unfinished">TV</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="73"/>
+        <source>OVA</source>
+        <translation type="unfinished">OVA</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="74"/>
+        <source>ONA</source>
+        <translation type="unfinished">ONA</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="75"/>
+        <source>Special</source>
+        <translation type="unfinished">Special</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="76"/>
+        <source>Film</source>
+        <translation type="unfinished">Film</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="main.cpp" line="15"/>
+        <location filename="main.cpp" line="14"/>
         <source>Database Anime</source>
         <translation>Database Anime</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="22"/>
-        <location filename="mainwindow.cpp" line="32"/>
-        <location filename="mainwindow.cpp" line="47"/>
-        <location filename="mainwindow.cpp" line="86"/>
         <source>Warning</source>
-        <translation>Внимание</translation>
+        <translation type="vanished">Внимание</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="22"/>
         <source>It was not succeeded to create a directory for a database.</source>
-        <translation>Не удалось создать директорию для базы данных.</translation>
+        <translation type="vanished">Не удалось создать директорию для базы данных.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="32"/>
         <source>It was not possible it will be connected to a database.</source>
-        <translation>Не удалось подключиться к базе данных.</translation>
+        <translation type="vanished">Не удалось подключиться к базе данных.</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="47"/>
-        <location filename="mainwindow.cpp" line="86"/>
         <source>There was a mistake at table creation in a database.</source>
-        <translation>Не удалось подключиться к базе данных.</translation>
+        <translation type="vanished">Не удалось подключиться к базе данных.</translation>
     </message>
 </context>
 </TS>
