@@ -47,26 +47,30 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->listView_ListItemsSection->setModelColumn(1);
 
     if( set_enableBtnAnime ){
-        ui->CB_Section->addItem( tr("Anime"),  sections::anime );
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-anime.png"),
+                                 tr("Anime"),  sections::anime );
         if( set_select == sections::anime )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnManga ){
-        ui->CB_Section->addItem( tr("Manga"),  sections::manga );
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-manga.png"),
+                                 tr("Manga"),  sections::manga );
         if( set_select == sections::manga )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnAMV ){
-        ui->CB_Section->addItem( tr("AMV"),    sections::amv );
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-amv.png"),
+                                 tr("AMV"),    sections::amv );
         if( set_select == sections::amv )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnDorama ){
-        ui->CB_Section->addItem( tr("Dorama"), sections::dorama );
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-dorama.png"),
+                                 tr("Dorama"), sections::dorama );
         if( set_select == sections::dorama )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
-    ui->CB_Filter->addItem( tr("All"),          Filter::all );
+    ui->CB_Filter->addItem( QIcon("://images/list-add-active.png"), tr("All"),          Filter::all );
     ui->CB_Filter->addItem( tr("Editing"),      Filter::editing );
     ui->CB_Filter->addItem( tr("Want to look"), Filter::wanttolook );
     ui->CB_Filter->addItem( tr("TV"),           Filter::tv );
@@ -74,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->CB_Filter->addItem( tr("ONA"),          Filter::ona );
     ui->CB_Filter->addItem( tr("Special"),      Filter::special );
     ui->CB_Filter->addItem( tr("Film"),         Filter::film );
+
 }
 
 void MainWindow::closeEvent(QCloseEvent *e){
@@ -112,22 +117,26 @@ void MainWindow::on_PButton_Options_clicked()
             = static_cast<sections::section>( settings.value("btnSwitchSection/selected", sections::none).toInt() );
     ui->CB_Section->clear();
     if( set_enableBtnAnime ){
-        ui->CB_Section->addItem( tr("Anime"),  sections::anime );
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-anime.png"),
+                                 tr("Anime"),  sections::anime );
         if( set_select == sections::anime )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnManga ){
-        ui->CB_Section->addItem( tr("Manga"),  sections::manga );
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-manga.png"),
+                                 tr("Manga"),  sections::manga );
         if( set_select == sections::manga )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnAMV ){
-        ui->CB_Section->addItem( tr("AMV"),    sections::amv );
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-amv.png"),
+                                 tr("AMV"),    sections::amv );
         if( set_select == sections::amv )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnDorama ){
-        ui->CB_Section->addItem( tr("Dorama"), sections::dorama );
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-dorama.png"),
+                                 tr("Dorama"), sections::dorama );
         if( set_select == sections::dorama )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }

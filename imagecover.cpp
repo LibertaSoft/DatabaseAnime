@@ -16,8 +16,8 @@ ImageCover::ImageCover(QWidget *parent) :
 {
     setAcceptDrops(true);
 
-    actionChooseImage = new QAction( tr("&Choose image"),this);
-    actionSetNoImage  = new QAction( tr("Clea&n image"),this);
+    actionChooseImage = new QAction( QIcon("://images/list-add.png"), tr("&Choose image"),this);
+    actionSetNoImage  = new QAction( QIcon("://images/list-remove.png"), tr("Clea&n image"),this);
     cMenu.addAction(actionChooseImage);
     cMenu.addAction(actionSetNoImage);
 

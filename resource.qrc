@@ -12,4 +12,10 @@
         <file>images/DBA_Icon.png</file>
         <file>images/DBA_NoImage.png</file>
     </qresource>
+    <qresource prefix="/icon-section">
+        <file>images/icon-section/section-dorama.png</file>
+        <file>images/icon-section/section-anime.png</file>
+        <file>images/icon-section/section-amv.png</file>
+        <file>images/icon-section/section-manga.png</file>
+    </qresource>
 </RCC>
