@@ -111,8 +111,7 @@ void MainWindow::on_PButton_Options_clicked()
     bool set_enableBtnManga     = settings.value("enableElem/BtnSwitchSection/Manga",    false).toBool();
     bool set_enableBtnAMV       = settings.value("enableElem/BtnSwitchSection/AMV",      false).toBool();
     bool set_enableBtnDorama    = settings.value("enableElem/BtnSwitchSection/Dorama",   false).toBool();
-//    bool set_enableBtnEditable  = settings.value("enableElem/BtnSwitchSection/Editable",  true).toBool();
-//    bool set_enableBtnLookLater = settings.value("enableElem/BtnSwitchSection/LookLater", true).toBool();
+
     sections::section set_select
             = static_cast<sections::section>( settings.value("btnSwitchSection/selected", sections::none).toInt() );
     ui->CB_Section->clear();
