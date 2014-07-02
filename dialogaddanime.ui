@@ -173,10 +173,13 @@
             <bool>false</bool>
            </property>
            <property name="currentText">
-            <string>Студия 1</string>
+            <string>5pb</string>
            </property>
            <property name="currentIndex">
             <number>0</number>
+           </property>
+           <property name="maxVisibleItems">
+            <number>15</number>
            </property>
            <property name="duplicatesEnabled">
             <bool>false</bool>
@@ -186,22 +189,797 @@
            </property>
            <item>
             <property name="text">
-             <string>Студия 1</string>
+             <string>5pb</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Студия 2</string>
+             <string>8bit</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Hello</string>
+             <string>A.C.G.T.</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>A-1 Pictures</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ACTAS</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>AIC A.S.T.A.</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>AIC PLUS</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>AIC Spirits</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>AIC</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Animac</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ANIMATE</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Animax</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Aniplex</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Appp</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ARMS</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Artland</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ARTMIC Studios</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Asahi Production</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Ashi Productions</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Asia-Do</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Asread</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Aubeck</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bandai Visual</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Bee Train</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>BeSTACK</string>
             </property>
            </item>
            <item>
             <property name="text">
              <string>Bones</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Brains Base</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>BS-j</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Chaos Project</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Cherry Lips</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Chinema Citrus</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>CLAMP</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>CoMix Wave</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Daume</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>David Production</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Dax International</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Digital Frontier</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Digital Works</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>DISCOVERY</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Dagakobo</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Doumu</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Easyfilm</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Eiken</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Feel</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Five Ways</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Foursome</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>G&amp;G Entertaiment</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>GAINAX</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Gallop</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>GANSIS</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Gathering</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Genco</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>GoHands</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Gonzino</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>GONZO Digimation</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Green Bunny</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Group TAC</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Hal Film Market</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Himajin</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Hoods Entertaiment</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Idea Factory</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Imagin</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>J.C. Staff</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Jinnis Animation Studios</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>JVC Kenwood Victor Ent. Co.</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Kaname Production</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Kitty Films</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Kokusai Eigasha</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>KSS</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Kyoto Animation</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Lemon Heart</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Lerche</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Lilith</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Madhouse Studios</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Magic Bus</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Manglobe</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>MC Åntertainment</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Mega-Anime</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Minamimachi Bugyosho</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Mook Animation</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Moonrock</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>MOVIC</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Mushi Productions</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Nippon Animation</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Nomad</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>OB Planning</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Office AO</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>OLM</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>P Production</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>P.A. Works</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Palm Studio</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Pastel</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Phoenix Entertainment</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Picture Magic</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Pink Pineapple</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Pixy</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Planet</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Pony Canyon</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Production I.G</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Radix</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Reanimedia</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Red Entertainment</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Rikuentai</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Robot</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Satelight</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Seven Arcs</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>SHAFT</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Shinei Animation</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Shogakukan Music &amp; Digital Entertainment</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Silver Link</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Soft Garage</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Soft on Demand</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Starchild Records</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio 4°C</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio A.P.P.P.</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Comet</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio DEEN</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Fantasia</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Flag</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Gallop</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Ghibli</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Gokumi</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Guts</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Hibari</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Junio</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Khara</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Live</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Studio Pierrot</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Sunrise</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Suzuki Mirano</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Synergy Japan</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Tatsunoko Production</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Tele-Cartoon Japan</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Telecom Animation Film</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Tezuka Productions</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>The Answer Studio</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>TMS Entertainment</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>TNK</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>ÒÎ «AniMedia»</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Toei Animation</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Toho</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Tokyo Kids</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Transarts</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Triangle Staff</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Trinet Entertainment</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>TV Tokyo</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Type-Moon</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Ufotable</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Viewworks</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Wao World</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>White Fox</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Wonder Farm</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Wowow</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Xebec</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>XEBEC-M2</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>XL Media</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Yumeta Company</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Zexcs Inc</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Zuiyo Eizo</string>
             </property>
            </item>
           </widget>
@@ -285,7 +1063,7 @@
               </size>
              </property>
              <property name="text">
-              <string>Film</string>
+              <string>Movie</string>
              </property>
             </widget>
            </item>
@@ -318,7 +1096,7 @@
             </widget>
            </item>
            <item row="1" column="4">
-            <widget class="QSpinBox" name="SpinBox_aFilm">
+            <widget class="QSpinBox" name="SpinBox_aMovie">
              <property name="maximum">
               <number>9999</number>
              </property>
@@ -362,7 +1140,7 @@
            <item row="0" column="4">
             <widget class="QLabel" name="Lbl_Film2">
              <property name="text">
-              <string>Film</string>
+              <string>Movie</string>
              </property>
             </widget>
            </item>
@@ -395,7 +1173,7 @@
             </widget>
            </item>
            <item row="1" column="4">
-            <widget class="QSpinBox" name="SpinBox_vFilm">
+            <widget class="QSpinBox" name="SpinBox_vMovie">
              <property name="maximum">
               <number>0</number>
              </property>

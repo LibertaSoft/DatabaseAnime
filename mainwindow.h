@@ -22,7 +22,7 @@ private:
     Ui::MainWindow *ui;
     MngrConnection mngrConnection;
 
-    LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbFilm;
+    LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbMovie;
 
     QListWidget* ListWidget_Dir;
 

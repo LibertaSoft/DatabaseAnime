@@ -13,7 +13,7 @@ namespace sections {
     enum section{none = 0, anime, manga, amv, dorama};
 }
 namespace Filter {
-    enum filter{all = 0, editing, wanttolook, tv, ova, ona, special, film};
+    enum filter{all = 0, editing, wanttolook, tv, ova, ona, special, movie};
 }
 
 namespace Tables {

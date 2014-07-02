@@ -12,7 +12,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbFilm(NULL), ListWidget_Dir(NULL)
+    pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbMovie(NULL), ListWidget_Dir(NULL)
 {
     ui->setupUi(this);
     qDebug() << "ui is set!";
@@ -70,14 +70,22 @@ MainWindow::MainWindow(QWidget *parent) :
         if( set_select == sections::dorama )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
-    ui->CB_Filter->addItem( QIcon("://images/list-add-active.png"), tr("All"),          Filter::all );
-    ui->CB_Filter->addItem( tr("Editing"),      Filter::editing );
-    ui->CB_Filter->addItem( tr("Want to look"), Filter::wanttolook );
-    ui->CB_Filter->addItem( tr("TV"),           Filter::tv );
-    ui->CB_Filter->addItem( tr("OVA"),          Filter::ova );
-    ui->CB_Filter->addItem( tr("ONA"),          Filter::ona );
-    ui->CB_Filter->addItem( tr("Special"),      Filter::special );
-    ui->CB_Filter->addItem( tr("Film"),         Filter::film );
+    ui->CB_Filter->addItem( QIcon("://images/list-add-active.png"),
+                            tr("All"),          Filter::all );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_edit.png"),
+                            tr("Editing"),      Filter::editing );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_look.png"),
+                            tr("Want to look"), Filter::wanttolook );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_tv.png"),
+                            tr("TV"),           Filter::tv );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_ova.png"),
+                            tr("OVA"),          Filter::ova );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_ona.png"),
+                            tr("ONA"),          Filter::ona );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_special.png"),
+                            tr("Special"),      Filter::special );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_movie.png"),
+                            tr("Movie"),        Filter::movie );
 
 }
 
@@ -302,9 +310,9 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         delete pbSpecial;
         pbSpecial = NULL;
     }
-    if( pbFilm ){
-        delete pbFilm;
-        pbFilm = NULL;
+    if( pbMovie ){
+        delete pbMovie;
+        pbMovie = NULL;
     }
 
     if( m1.record(0).value("SeriesTV").toInt() > 0 ){
@@ -343,14 +351,14 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         ui->HLay_WBRow2->addWidget( pbSpecial );
         QObject::connect(pbSpecial, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
-    if( m1.record(0).value("SeriesFilm").toInt() > 0 ){
-        pbFilm = new LookProgressBar(this);
-        pbFilm->setTargetFieldDB("vSeriesFilm");
-        pbFilm->setValue( m1.record(0).value("vSeriesFilm").toInt() );
-        pbFilm->setMaximum( m1.record(0).value("SeriesFilm").toInt() );
-        pbFilm->setFormat("Film [%v/%m]");
-        ui->HLay_WBRow2->addWidget( pbFilm );
-        QObject::connect(pbFilm, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+    if( m1.record(0).value("SeriesMovie").toInt() > 0 ){
+        pbMovie = new LookProgressBar(this);
+        pbMovie->setTargetFieldDB("vSeriesMovie");
+        pbMovie->setValue( m1.record(0).value("vSeriesMovie").toInt() );
+        pbMovie->setMaximum( m1.record(0).value("SeriesMovie").toInt() );
+        pbMovie->setFormat("Movie [%v/%m]");
+        ui->HLay_WBRow2->addWidget( pbMovie );
+        QObject::connect(pbMovie, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
 
     ui->Lbl_svTitle->setText( m1.record(0).value("Title").toString() );

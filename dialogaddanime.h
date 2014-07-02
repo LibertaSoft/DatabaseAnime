@@ -27,7 +27,7 @@ private slots:
     void on_SpinBox_aOVA_valueChanged(int arg1);
     void on_SpinBox_aONA_valueChanged(int arg1);
     void on_SpinBox_aSpec_valueChanged(int arg1);
-    void on_SpinBox_aFilm_valueChanged(int arg1);
+    void on_SpinBox_aMovie_valueChanged(int arg1);
     void on_toolButton_clicked();
     bool insert_AnimeSerials();
 

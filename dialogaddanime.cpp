@@ -81,13 +81,13 @@ DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *pare
         ui->SpinBox_aOVA->setValue( model->record(0).value("SeriesOVA").toInt() );
         ui->SpinBox_aONA->setValue( model->record(0).value("SeriesONA").toInt() );
         ui->SpinBox_aSpec->setValue( model->record(0).value("SeriesSpecial").toInt() );
-        ui->SpinBox_aFilm->setValue( model->record(0).value("SeriesFilm").toInt() );
+        ui->SpinBox_aMovie->setValue( model->record(0).value("SeriesMovie").toInt() );
 
         ui->SpinBox_vTV->setValue( model->record(0).value("vSeriesTV").toInt() );
         ui->SpinBox_vOVA->setValue( model->record(0).value("vSeriesOVA").toInt() );
         ui->SpinBox_vONA->setValue( model->record(0).value("vSeriesONA").toInt() );
         ui->SpinBox_vSpec->setValue( model->record(0).value("vSeriesSpecial").toInt() );
-        ui->SpinBox_vFilm->setValue( model->record(0).value("vSeriesFilm").toInt() );
+        ui->SpinBox_vMovie->setValue( model->record(0).value("vSeriesMovie").toInt() );
 
         ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
         ui->ListView_Tags->clearSelection(); // Bug, не используется, нет возможности получить модель выделения
@@ -145,13 +145,13 @@ void DialogAddEdit::on_BtnBox_reset()
     ui->SpinBox_aOVA->setValue(0);
     ui->SpinBox_aONA->setValue(0);
     ui->SpinBox_aSpec->setValue(0);
-    ui->SpinBox_aFilm->setValue(0);
+    ui->SpinBox_aMovie->setValue(0);
 
     ui->SpinBox_vTV->setValue(0);
     ui->SpinBox_vOVA->setValue(0);
     ui->SpinBox_vONA->setValue(0);
     ui->SpinBox_vSpec->setValue(0);
-    ui->SpinBox_vFilm->setValue(0);
+    ui->SpinBox_vMovie->setValue(0);
 
     ui->LineEdit_Tags->clear();
     ui->ListView_Tags->clearSelection();
@@ -180,16 +180,16 @@ bool DialogAddEdit::insert_AnimeSerials(){
         query.prepare( QString("INSERT INTO %1("
                       "isHaveLooked, isEditingDone, Title,"
                       "OrigTitle, Director, PostScoring,"
-                      "SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesFilm,"
-                      "vSeriesTV, vSeriesOVA, vSeriesONA, vSeriesSpecial, vSeriesFilm,"
+                      "SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesMovie,"
+                      "vSeriesTV, vSeriesOVA, vSeriesONA, vSeriesSpecial, vSeriesMovie,"
                       "Year, Season, Studios,"
                       "Tags, Description,"
                       "URL, Dir, ImagePath"
                       ") VALUES "
                       "(:isHaveLooked, :isEditingDone, :Title,"
                       ":OrigTitle, :Director, :PostScoring,"
-                      ":SeriesTV, :SeriesOVA, :SeriesONA, :SeriesSpecial, :SeriesFilm,"
-                      ":vSeriesTV, :vSeriesOVA, :vSeriesONA, :vSeriesSpecial, :vSeriesFilm,"
+                      ":SeriesTV, :SeriesOVA, :SeriesONA, :SeriesSpecial, :SeriesMovie,"
+                      ":vSeriesTV, :vSeriesOVA, :vSeriesONA, :vSeriesSpecial, :vSeriesMovie,"
                       ":Year, :Season, :Studios,"
                       ":Tags, :Description,"
                       ":URL, :Dir, :ImagePath)"
@@ -198,8 +198,8 @@ bool DialogAddEdit::insert_AnimeSerials(){
         query.prepare( QString("UPDATE %1 SET "
                       "isHaveLooked = :isHaveLooked, isEditingDone = :isEditingDone, Title = :Title,"
                       "OrigTitle = :OrigTitle, Director = :Director, PostScoring = :PostScoring,"
-                      "SeriesTV = :SeriesTV, SeriesOVA = :SeriesOVA, SeriesONA = :SeriesONA, SeriesSpecial = :SeriesSpecial, SeriesFilm = :SeriesFilm,"
-                      "vSeriesTV = :vSeriesTV, vSeriesOVA = :vSeriesOVA, vSeriesONA = :vSeriesONA, vSeriesSpecial = :vSeriesSpecial, vSeriesFilm = :vSeriesFilm,"
+                      "SeriesTV = :SeriesTV, SeriesOVA = :SeriesOVA, SeriesONA = :SeriesONA, SeriesSpecial = :SeriesSpecial, SeriesMovie = :SeriesMovie,"
+                      "vSeriesTV = :vSeriesTV, vSeriesOVA = :vSeriesOVA, vSeriesONA = :vSeriesONA, vSeriesSpecial = :vSeriesSpecial, vSeriesMovie = :vSeriesMovie,"
                       "Year = :Year, Season = :Season, Studios = :Studios,"
                       "Tags = :Tags, Description = :Description,"
                       "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;").arg( MngrQuerys::getTableName( sections::anime ) )
@@ -231,12 +231,12 @@ bool DialogAddEdit::insert_AnimeSerials(){
     query.bindValue(":SeriesOVA",     ui->SpinBox_aOVA->value()  );
     query.bindValue(":SeriesONA",     ui->SpinBox_aONA->value()  );
     query.bindValue(":SeriesSpecial", ui->SpinBox_aSpec->value() );
-    query.bindValue(":SeriesFilm",    ui->SpinBox_aFilm->value() );
+    query.bindValue(":SeriesMovie",    ui->SpinBox_aMovie->value() );
     query.bindValue(":vSeriesTV",     ui->SpinBox_vTV->value()   );
     query.bindValue(":vSeriesOVA",    ui->SpinBox_vOVA->value()  );
     query.bindValue(":vSeriesONA",    ui->SpinBox_vONA->value()  );
     query.bindValue(":vSeriesSpecial",ui->SpinBox_vSpec->value() );
-    query.bindValue(":vSeriesFilm",   ui->SpinBox_vFilm->value() );
+    query.bindValue(":vSeriesMovie",   ui->SpinBox_vMovie->value() );
     query.bindValue(":Year",          ui->SpinBox_Year->value() );
     query.bindValue(":Season",        ui->SpinBox_Season->value()   );
     query.bindValue(":Studios",       ui->ComboBox_Studio->currentIndex() );
@@ -320,9 +320,9 @@ void DialogAddEdit::on_SpinBox_aSpec_valueChanged(int arg1)
     ui->SpinBox_vSpec->setMaximum(arg1);
 }
 
-void DialogAddEdit::on_SpinBox_aFilm_valueChanged(int arg1)
+void DialogAddEdit::on_SpinBox_aMovie_valueChanged(int arg1)
 {
-    ui->SpinBox_vFilm->setMaximum(arg1);
+    ui->SpinBox_vMovie->setMaximum(arg1);
 }
 
 void DialogAddEdit::on_toolButton_clicked()

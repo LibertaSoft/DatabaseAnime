@@ -93,8 +93,8 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, 
     case Filter::special :
         strFilter += "SeriesSpecial > 0";
         break;
-    case Filter::film :
-        strFilter += "SeriesFilm > 0";
+    case Filter::movie :
+        strFilter += "SeriesMovie > 0";
         break;
     case Filter::all :
     default:
@@ -119,15 +119,15 @@ bool MngrQuerys::createTable_AnimeSerials()
                   "SeriesOVA      INTEGER, "
                   "SeriesONA      INTEGER, "
                   "SeriesSpecial  INTEGER, "
-                  "SeriesFilm     INTEGER, "
+                  "SeriesMovie    INTEGER, "
                   "vSeriesTV      INTEGER, "
                   "vSeriesOVA     INTEGER, "
                   "vSeriesONA     INTEGER, "
                   "vSeriesSpecial INTEGER, "
-                  "vSeriesFilm    INTEGER, "
+                  "vSeriesMovie   INTEGER, "
                   "Year           INTEGER, "
                   "Season         INTEGER, "
-                  "Studios        INTEGER, "
+                  "Studios        VARCHAR(48), "
                   "Tags           VARCHAR(256), "
                   "Description    TEXT, "
                   "URL            VARCHAR(256), "

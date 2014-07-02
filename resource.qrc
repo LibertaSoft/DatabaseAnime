@@ -18,4 +18,13 @@
         <file>images/icon-section/section-amv.png</file>
         <file>images/icon-section/section-manga.png</file>
     </qresource>
+    <qresource prefix="/icon-filters">
+        <file>images/icon-filters/filter_edit.png</file>
+        <file>images/icon-filters/filter_tv.png</file>
+        <file>images/icon-filters/filter_special.png</file>
+        <file>images/icon-filters/filter_ova.png</file>
+        <file>images/icon-filters/filter_movie.png</file>
+        <file>images/icon-filters/filter_ona.png</file>
+        <file>images/icon-filters/filter_look.png</file>
+    </qresource>
 </RCC>

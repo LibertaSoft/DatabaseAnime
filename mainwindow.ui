@@ -941,8 +941,6 @@
     </layout>
    </widget>
   </widget>
-  <zorder>dockWidget_2</zorder>
-  <zorder>dockWidget</zorder>
  </widget>
  <resources>
   <include location="resource.qrc"/>
