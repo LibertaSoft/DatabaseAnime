@@ -75,7 +75,7 @@ DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *pare
 
         ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
         ui->SpinBox_Season->setValue( model->record(0).value("Season").toInt() );
-        ui->ComboBox_Studio->setCurrentIndex( model->record(0).value("Studios").toInt() );
+        ui->ComboBox_Studio->setCurrentText( model->record(0).value("Studios").toString() );
 
         ui->SpinBox_aTV->setValue( model->record(0).value("SeriesTV").toInt() );
         ui->SpinBox_aOVA->setValue( model->record(0).value("SeriesOVA").toInt() );
@@ -231,15 +231,15 @@ bool DialogAddEdit::insert_AnimeSerials(){
     query.bindValue(":SeriesOVA",     ui->SpinBox_aOVA->value()  );
     query.bindValue(":SeriesONA",     ui->SpinBox_aONA->value()  );
     query.bindValue(":SeriesSpecial", ui->SpinBox_aSpec->value() );
-    query.bindValue(":SeriesMovie",    ui->SpinBox_aMovie->value() );
+    query.bindValue(":SeriesMovie",   ui->SpinBox_aMovie->value() );
     query.bindValue(":vSeriesTV",     ui->SpinBox_vTV->value()   );
     query.bindValue(":vSeriesOVA",    ui->SpinBox_vOVA->value()  );
     query.bindValue(":vSeriesONA",    ui->SpinBox_vONA->value()  );
     query.bindValue(":vSeriesSpecial",ui->SpinBox_vSpec->value() );
-    query.bindValue(":vSeriesMovie",   ui->SpinBox_vMovie->value() );
+    query.bindValue(":vSeriesMovie",  ui->SpinBox_vMovie->value() );
     query.bindValue(":Year",          ui->SpinBox_Year->value() );
     query.bindValue(":Season",        ui->SpinBox_Season->value()   );
-    query.bindValue(":Studios",       ui->ComboBox_Studio->currentIndex() );
+    query.bindValue(":Studios",       ui->ComboBox_Studio->currentText() );
 
     QString tagsList;
     QStringList list;

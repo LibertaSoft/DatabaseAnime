@@ -15,19 +15,12 @@ MainWindow::MainWindow(QWidget *parent) :
     pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbMovie(NULL), ListWidget_Dir(NULL)
 {
     ui->setupUi(this);
-    qDebug() << "ui is set!";
 
     ui->stackedWidget->setCurrentIndex(0);
     ui->lbl_AppTitle->setText( QApplication::applicationDisplayName() );
     ui->Lbl_VVersion->setText( QApplication::applicationVersion() );
 
     QSettings settings;
-    bool set_enableBtnAnime     = settings.value("enableElem/BtnSwitchSection/Anime",   true).toBool();
-    bool set_enableBtnManga     = settings.value("enableElem/BtnSwitchSection/Manga",  false).toBool();
-    bool set_enableBtnAMV       = settings.value("enableElem/BtnSwitchSection/AMV",    false).toBool();
-    bool set_enableBtnDorama    = settings.value("enableElem/BtnSwitchSection/Dorama", false).toBool();
-    sections::section set_select
-            = static_cast<sections::section>( settings.value("btnSwitchSection/selected", sections::none).toInt() );
 
     this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
     this->restoreState( settings.value("MainWindow/State").toByteArray() );
@@ -46,47 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->listView_ListItemsSection->setModel(QueryModel_ListItemsSection);
     ui->listView_ListItemsSection->setModelColumn(1);
 
-    if( set_enableBtnAnime ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-anime.png"),
-                                 tr("Anime"),  sections::anime );
-        if( set_select == sections::anime )
-            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
-    }
-    if( set_enableBtnManga ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-manga.png"),
-                                 tr("Manga"),  sections::manga );
-        if( set_select == sections::manga )
-            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
-    }
-    if( set_enableBtnAMV ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-amv.png"),
-                                 tr("AMV"),    sections::amv );
-        if( set_select == sections::amv )
-            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
-    }
-    if( set_enableBtnDorama ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-dorama.png"),
-                                 tr("Dorama"), sections::dorama );
-        if( set_select == sections::dorama )
-            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
-    }
-    ui->CB_Filter->addItem( QIcon("://images/list-add-active.png"),
-                            tr("All"),          Filter::all );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_edit.png"),
-                            tr("Editing"),      Filter::editing );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_look.png"),
-                            tr("Want to look"), Filter::wanttolook );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_tv.png"),
-                            tr("TV"),           Filter::tv );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_ova.png"),
-                            tr("OVA"),          Filter::ova );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_ona.png"),
-                            tr("ONA"),          Filter::ona );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_special.png"),
-                            tr("Special"),      Filter::special );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/images/icon-filters/filter_movie.png"),
-                            tr("Movie"),        Filter::movie );
-
+    reloadSectionsList();
+    reloadFiltersList();
 }
 
 void MainWindow::closeEvent(QCloseEvent *e){
@@ -113,40 +67,7 @@ void MainWindow::on_PButton_Options_clicked()
     formSettings.setModal(true);
     formSettings.exec();
 
-//  #Bug : Дублирующийся код ... брр, ужасная реализация.
-    QSettings settings;
-    bool set_enableBtnAnime     = settings.value("enableElem/BtnSwitchSection/Anime",     true).toBool();
-    bool set_enableBtnManga     = settings.value("enableElem/BtnSwitchSection/Manga",    false).toBool();
-    bool set_enableBtnAMV       = settings.value("enableElem/BtnSwitchSection/AMV",      false).toBool();
-    bool set_enableBtnDorama    = settings.value("enableElem/BtnSwitchSection/Dorama",   false).toBool();
-
-    sections::section set_select
-            = static_cast<sections::section>( settings.value("btnSwitchSection/selected", sections::none).toInt() );
-    ui->CB_Section->clear();
-    if( set_enableBtnAnime ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-anime.png"),
-                                 tr("Anime"),  sections::anime );
-        if( set_select == sections::anime )
-            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
-    }
-    if( set_enableBtnManga ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-manga.png"),
-                                 tr("Manga"),  sections::manga );
-        if( set_select == sections::manga )
-            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
-    }
-    if( set_enableBtnAMV ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-amv.png"),
-                                 tr("AMV"),    sections::amv );
-        if( set_select == sections::amv )
-            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
-    }
-    if( set_enableBtnDorama ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-dorama.png"),
-                                 tr("Dorama"), sections::dorama );
-        if( set_select == sections::dorama )
-            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
-    }
+    reloadSectionsList();
 }
 
 void MainWindow::on_TButton_Add_clicked()
@@ -274,6 +195,65 @@ QString MainWindow::getTableName(sections::section table) const
 sections::section MainWindow::getActiveTable()
 {
     return _activeTable;
+}
+
+void MainWindow::reloadSectionsList()
+{
+    QSettings settings;
+    bool set_enableBtnAnime  = settings.value("enableElem/BtnSwitchSection/Anime",   true).toBool();
+    bool set_enableBtnManga  = settings.value("enableElem/BtnSwitchSection/Manga",  false).toBool();
+    bool set_enableBtnAMV    = settings.value("enableElem/BtnSwitchSection/AMV",    false).toBool();
+    bool set_enableBtnDorama = settings.value("enableElem/BtnSwitchSection/Dorama", false).toBool();
+
+    sections::section set_select
+            = static_cast<sections::section>(
+                settings.value("btnSwitchSection/selected", sections::none).toInt() );
+    ui->CB_Section->clear();
+    if( set_enableBtnAnime ){
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-anime.png"),
+                                 tr("Anime"),  sections::anime );
+        if( set_select == sections::anime )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
+    if( set_enableBtnManga ){
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-manga.png"),
+                                 tr("Manga"),  sections::manga );
+        if( set_select == sections::manga )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
+    if( set_enableBtnAMV ){
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-amv.png"),
+                                 tr("AMV"),    sections::amv );
+        if( set_select == sections::amv )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
+    if( set_enableBtnDorama ){
+        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-dorama.png"),
+                                 tr("Dorama"), sections::dorama );
+        if( set_select == sections::dorama )
+            ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
+    }
+}
+
+void MainWindow::reloadFiltersList()
+{
+    ui->CB_Filter->clear();
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/all"),
+                            tr("All"),          Filter::all );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/edit"),
+                            tr("Editing"),      Filter::editing );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/look"),
+                            tr("Want to look"), Filter::wanttolook );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/tv"),
+                            tr("TV"),           Filter::tv );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/ova"),
+                            tr("OVA"),          Filter::ova );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/ona"),
+                            tr("ONA"),          Filter::ona );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/special"),
+                            tr("Special"),      Filter::special );
+    ui->CB_Filter->addItem( QIcon(":/icon-filters/movie"),
+                            tr("Movie"),        Filter::movie );
 }
 
 void MainWindow::setActiveTable(sections::section table)

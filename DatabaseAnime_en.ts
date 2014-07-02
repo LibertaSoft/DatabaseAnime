@@ -39,104 +39,83 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="176"/>
-        <location filename="dialogaddanime.ui" line="189"/>
-        <source>Студия 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="dialogaddanime.ui" line="194"/>
-        <source>Студия 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="dialogaddanime.ui" line="199"/>
-        <source>Hello</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="dialogaddanime.ui" line="204"/>
-        <source>Bones</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="dialogaddanime.ui" line="224"/>
+        <location filename="dialogaddanime.ui" line="1008"/>
         <source>Total series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="236"/>
-        <location filename="dialogaddanime.ui" line="337"/>
+        <location filename="dialogaddanime.ui" line="1020"/>
+        <location filename="dialogaddanime.ui" line="1121"/>
         <source>TV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="249"/>
-        <location filename="dialogaddanime.ui" line="344"/>
+        <location filename="dialogaddanime.ui" line="1033"/>
+        <location filename="dialogaddanime.ui" line="1128"/>
         <source>OVA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="262"/>
-        <location filename="dialogaddanime.ui" line="351"/>
+        <location filename="dialogaddanime.ui" line="1046"/>
+        <location filename="dialogaddanime.ui" line="1135"/>
         <source>ONA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="275"/>
-        <location filename="dialogaddanime.ui" line="358"/>
+        <location filename="dialogaddanime.ui" line="1059"/>
+        <location filename="dialogaddanime.ui" line="1142"/>
         <source>Special</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="288"/>
-        <location filename="dialogaddanime.ui" line="365"/>
-        <source>Film</source>
+        <location filename="dialogaddanime.ui" line="1072"/>
+        <location filename="dialogaddanime.ui" line="1149"/>
+        <source>Movie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="331"/>
+        <location filename="dialogaddanime.ui" line="1115"/>
         <source>Sees</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="415"/>
+        <location filename="dialogaddanime.ui" line="1199"/>
         <source>Genres</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="427"/>
+        <location filename="dialogaddanime.ui" line="1211"/>
         <source>Enter through a comma, or choose from the list lower</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="508"/>
-        <location filename="dialogaddanime.ui" line="514"/>
+        <location filename="dialogaddanime.ui" line="1292"/>
+        <location filename="dialogaddanime.ui" line="1298"/>
         <source>Description</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="522"/>
+        <location filename="dialogaddanime.ui" line="1306"/>
         <source>Media</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="533"/>
+        <location filename="dialogaddanime.ui" line="1317"/>
         <source>Directory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="543"/>
+        <location filename="dialogaddanime.ui" line="1327"/>
         <source>*</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="565"/>
+        <location filename="dialogaddanime.ui" line="1349"/>
         <source>URL</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="618"/>
+        <location filename="dialogaddanime.ui" line="1402"/>
         <source>Drop image here, or a double click for a file choice</source>
         <translation type="unfinished"></translation>
     </message>
@@ -156,17 +135,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="284"/>
+        <location filename="dialogaddanime.cpp" line="294"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="284"/>
+        <location filename="dialogaddanime.cpp" line="294"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="320"/>
+        <location filename="dialogaddanime.cpp" line="330"/>
         <source>Choose a directory with video files</source>
         <translation type="unfinished"></translation>
     </message>
@@ -285,6 +264,16 @@
         <source>&lt;System&gt;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="formsettings.cpp" line="93"/>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="94"/>
+        <source>&lt;b&gt;To return&lt;/b&gt; the list of genres to a default state?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImageCover</name>
@@ -317,179 +306,180 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="79"/>
+        <location filename="mainwindow.ui" line="88"/>
         <source>&amp;Options</source>
         <oldsource>Options</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="86"/>
+        <location filename="mainwindow.ui" line="95"/>
         <source>Ctrl+O</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="217"/>
+        <location filename="mainwindow.ui" line="226"/>
         <source>Developer:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="243"/>
+        <location filename="mainwindow.ui" line="252"/>
         <source>Designer:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="269"/>
+        <location filename="mainwindow.ui" line="278"/>
         <source>Version:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="295"/>
+        <location filename="mainwindow.ui" line="304"/>
         <source>License:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="484"/>
+        <location filename="mainwindow.ui" line="493"/>
         <source>Title:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="507"/>
+        <location filename="mainwindow.ui" line="516"/>
         <source>Original title::</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="530"/>
+        <location filename="mainwindow.ui" line="539"/>
         <source>Director:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="553"/>
+        <location filename="mainwindow.ui" line="562"/>
         <source>Year:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="586"/>
+        <location filename="mainwindow.ui" line="595"/>
         <source>Ganres:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="599"/>
+        <location filename="mainwindow.ui" line="608"/>
         <source>Studio:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="622"/>
+        <location filename="mainwindow.ui" line="631"/>
         <source>URL:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="661"/>
+        <location filename="mainwindow.ui" line="670"/>
         <source>Description:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="844"/>
+        <location filename="mainwindow.ui" line="818"/>
+        <source>Menu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="837"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="869"/>
+        <location filename="mainwindow.ui" line="862"/>
         <source>Add</source>
         <extracomment>Hint(toolTip) Button Add</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="872"/>
+        <location filename="mainwindow.ui" line="865"/>
         <source>+</source>
         <comment>Text on button add [unused]</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="905"/>
+        <location filename="mainwindow.ui" line="898"/>
         <source>*</source>
         <comment>Text on button edit [unused]</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="938"/>
+        <location filename="mainwindow.ui" line="931"/>
         <source>-</source>
         <comment>Text on button delete [unused]</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="902"/>
+        <location filename="mainwindow.ui" line="895"/>
         <source>Edit</source>
         <extracomment>Hint(toolTip) Button Edit</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="935"/>
+        <location filename="mainwindow.ui" line="928"/>
         <source>Delete</source>
         <extracomment>Hint(toolTip) Button Delete</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="50"/>
-        <location filename="mainwindow.cpp" line="114"/>
+        <location filename="mainwindow.cpp" line="215"/>
         <source>Anime</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="55"/>
-        <location filename="mainwindow.cpp" line="119"/>
+        <location filename="mainwindow.cpp" line="221"/>
         <source>Manga</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="60"/>
-        <location filename="mainwindow.cpp" line="124"/>
+        <location filename="mainwindow.cpp" line="227"/>
         <source>AMV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="65"/>
-        <location filename="mainwindow.cpp" line="129"/>
+        <location filename="mainwindow.cpp" line="233"/>
         <source>Dorama</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="69"/>
+        <location filename="mainwindow.cpp" line="243"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="70"/>
+        <location filename="mainwindow.cpp" line="245"/>
         <source>Editing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="71"/>
+        <location filename="mainwindow.cpp" line="247"/>
         <source>Want to look</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="72"/>
+        <location filename="mainwindow.cpp" line="249"/>
         <source>TV</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="73"/>
+        <location filename="mainwindow.cpp" line="251"/>
         <source>OVA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="74"/>
+        <location filename="mainwindow.cpp" line="253"/>
         <source>ONA</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="75"/>
+        <location filename="mainwindow.cpp" line="255"/>
         <source>Special</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="76"/>
-        <source>Film</source>
+        <location filename="mainwindow.cpp" line="257"/>
+        <source>Movie</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

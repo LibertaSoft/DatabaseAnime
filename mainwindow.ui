@@ -693,8 +693,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>318</width>
-                 <height>171</height>
+                 <width>98</width>
+                 <height>38</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -832,6 +832,9 @@
       <widget class="QLineEdit" name="lineEdit_Search">
        <property name="text">
         <string notr="true"/>
+       </property>
+       <property name="maxLength">
+        <number>256</number>
        </property>
        <property name="placeholderText">
         <string>Search</string>

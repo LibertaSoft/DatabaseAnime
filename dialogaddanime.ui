@@ -166,6 +166,12 @@
          </item>
          <item>
           <widget class="QComboBox" name="ComboBox_Studio">
+           <property name="maximumSize">
+            <size>
+             <width>180</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="inputMethodHints">
             <set>Qt::ImhSensitiveData</set>
            </property>
@@ -173,7 +179,7 @@
             <bool>false</bool>
            </property>
            <property name="currentText">
-            <string>5pb</string>
+            <string notr="true">5pb</string>
            </property>
            <property name="currentIndex">
             <number>0</number>
@@ -189,797 +195,797 @@
            </property>
            <item>
             <property name="text">
-             <string>5pb</string>
+             <string notr="true">5pb</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>8bit</string>
+             <string notr="true">8bit</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>A.C.G.T.</string>
+             <string notr="true">A.C.G.T.</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>A-1 Pictures</string>
+             <string notr="true">A-1 Pictures</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>ACTAS</string>
+             <string notr="true">ACTAS</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>AIC A.S.T.A.</string>
+             <string notr="true">AIC A.S.T.A.</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>AIC PLUS</string>
+             <string notr="true">AIC PLUS</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>AIC Spirits</string>
+             <string notr="true">AIC Spirits</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>AIC</string>
+             <string notr="true">AIC</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Animac</string>
+             <string notr="true">Animac</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>ANIMATE</string>
+             <string notr="true">ANIMATE</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Animax</string>
+             <string notr="true">Animax</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Aniplex</string>
+             <string notr="true">Aniplex</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Appp</string>
+             <string notr="true">Appp</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>ARMS</string>
+             <string notr="true">ARMS</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Artland</string>
+             <string notr="true">Artland</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>ARTMIC Studios</string>
+             <string notr="true">ARTMIC Studios</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Asahi Production</string>
+             <string notr="true">Asahi Production</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Ashi Productions</string>
+             <string notr="true">Ashi Productions</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Asia-Do</string>
+             <string notr="true">Asia-Do</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Asread</string>
+             <string notr="true">Asread</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Aubeck</string>
+             <string notr="true">Aubeck</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Bandai Visual</string>
+             <string notr="true">Bandai Visual</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Bee Train</string>
+             <string notr="true">Bee Train</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>BeSTACK</string>
+             <string notr="true">BeSTACK</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Bones</string>
+             <string notr="true">Bones</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Brains Base</string>
+             <string notr="true">Brains Base</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>BS-j</string>
+             <string notr="true">BS-j</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Chaos Project</string>
+             <string notr="true">Chaos Project</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Cherry Lips</string>
+             <string notr="true">Cherry Lips</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Chinema Citrus</string>
+             <string notr="true">Chinema Citrus</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>CLAMP</string>
+             <string notr="true">CLAMP</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>CoMix Wave</string>
+             <string notr="true">CoMix Wave</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Daume</string>
+             <string notr="true">Daume</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>David Production</string>
+             <string notr="true">David Production</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Dax International</string>
+             <string notr="true">Dax International</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Digital Frontier</string>
+             <string notr="true">Digital Frontier</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Digital Works</string>
+             <string notr="true">Digital Works</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>DISCOVERY</string>
+             <string notr="true">DISCOVERY</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Dagakobo</string>
+             <string notr="true">Dagakobo</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Doumu</string>
+             <string notr="true">Doumu</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Easyfilm</string>
+             <string notr="true">Easyfilm</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Eiken</string>
+             <string notr="true">Eiken</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Feel</string>
+             <string notr="true">Feel</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Five Ways</string>
+             <string notr="true">Five Ways</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Foursome</string>
+             <string notr="true">Foursome</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>G&amp;G Entertaiment</string>
+             <string notr="true">G&amp;G Entertaiment</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>GAINAX</string>
+             <string notr="true">GAINAX</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Gallop</string>
+             <string notr="true">Gallop</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>GANSIS</string>
+             <string notr="true">GANSIS</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Gathering</string>
+             <string notr="true">Gathering</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Genco</string>
+             <string notr="true">Genco</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>GoHands</string>
+             <string notr="true">GoHands</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Gonzino</string>
+             <string notr="true">Gonzino</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>GONZO Digimation</string>
+             <string notr="true">GONZO Digimation</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Green Bunny</string>
+             <string notr="true">Green Bunny</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Group TAC</string>
+             <string notr="true">Group TAC</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Hal Film Market</string>
+             <string notr="true">Hal Film Market</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Himajin</string>
+             <string notr="true">Himajin</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Hoods Entertaiment</string>
+             <string notr="true">Hoods Entertaiment</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Idea Factory</string>
+             <string notr="true">Idea Factory</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Imagin</string>
+             <string notr="true">Imagin</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>J.C. Staff</string>
+             <string notr="true">J.C. Staff</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Jinnis Animation Studios</string>
+             <string notr="true">Jinnis Animation Studios</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>JVC Kenwood Victor Ent. Co.</string>
+             <string notr="true">JVC Kenwood Victor Ent. Co.</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Kaname Production</string>
+             <string notr="true">Kaname Production</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Kitty Films</string>
+             <string notr="true">Kitty Films</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Kokusai Eigasha</string>
+             <string notr="true">Kokusai Eigasha</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>KSS</string>
+             <string notr="true">KSS</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Kyoto Animation</string>
+             <string notr="true">Kyoto Animation</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Lemon Heart</string>
+             <string notr="true">Lemon Heart</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Lerche</string>
+             <string notr="true">Lerche</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Lilith</string>
+             <string notr="true">Lilith</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Madhouse Studios</string>
+             <string notr="true">Madhouse Studios</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Magic Bus</string>
+             <string notr="true">Magic Bus</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Manglobe</string>
+             <string notr="true">Manglobe</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>MC Åntertainment</string>
+             <string notr="true">MC Åntertainment</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Mega-Anime</string>
+             <string notr="true">Mega-Anime</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Minamimachi Bugyosho</string>
+             <string notr="true">Minamimachi Bugyosho</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Mook Animation</string>
+             <string notr="true">Mook Animation</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Moonrock</string>
+             <string notr="true">Moonrock</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>MOVIC</string>
+             <string notr="true">MOVIC</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Mushi Productions</string>
+             <string notr="true">Mushi Productions</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Nippon Animation</string>
+             <string notr="true">Nippon Animation</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Nomad</string>
+             <string notr="true">Nomad</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>OB Planning</string>
+             <string notr="true">OB Planning</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Office AO</string>
+             <string notr="true">Office AO</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>OLM</string>
+             <string notr="true">OLM</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>P Production</string>
+             <string notr="true">P Production</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>P.A. Works</string>
+             <string notr="true">P.A. Works</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Palm Studio</string>
+             <string notr="true">Palm Studio</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Pastel</string>
+             <string notr="true">Pastel</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Phoenix Entertainment</string>
+             <string notr="true">Phoenix Entertainment</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Picture Magic</string>
+             <string notr="true">Picture Magic</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Pink Pineapple</string>
+             <string notr="true">Pink Pineapple</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Pixy</string>
+             <string notr="true">Pixy</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Planet</string>
+             <string notr="true">Planet</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Pony Canyon</string>
+             <string notr="true">Pony Canyon</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Production I.G</string>
+             <string notr="true">Production I.G</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Radix</string>
+             <string notr="true">Radix</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Reanimedia</string>
+             <string notr="true">Reanimedia</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Red Entertainment</string>
+             <string notr="true">Red Entertainment</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Rikuentai</string>
+             <string notr="true">Rikuentai</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Robot</string>
+             <string notr="true">Robot</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Satelight</string>
+             <string notr="true">Satelight</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Seven Arcs</string>
+             <string notr="true">Seven Arcs</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>SHAFT</string>
+             <string notr="true">SHAFT</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Shinei Animation</string>
+             <string notr="true">Shinei Animation</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Shogakukan Music &amp; Digital Entertainment</string>
+             <string notr="true">Shogakukan Music &amp; Digital Entertainment</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Silver Link</string>
+             <string notr="true">Silver Link</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Soft Garage</string>
+             <string notr="true">Soft Garage</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Soft on Demand</string>
+             <string notr="true">Soft on Demand</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Starchild Records</string>
+             <string notr="true">Starchild Records</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio 4°C</string>
+             <string notr="true">Studio 4°C</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio A.P.P.P.</string>
+             <string notr="true">Studio A.P.P.P.</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Comet</string>
+             <string notr="true">Studio Comet</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio DEEN</string>
+             <string notr="true">Studio DEEN</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Fantasia</string>
+             <string notr="true">Studio Fantasia</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Flag</string>
+             <string notr="true">Studio Flag</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Gallop</string>
+             <string notr="true">Studio Gallop</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Ghibli</string>
+             <string notr="true">Studio Ghibli</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Gokumi</string>
+             <string notr="true">Studio Gokumi</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Guts</string>
+             <string notr="true">Studio Guts</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Hibari</string>
+             <string notr="true">Studio Hibari</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Junio</string>
+             <string notr="true">Studio Junio</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Khara</string>
+             <string notr="true">Studio Khara</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Live</string>
+             <string notr="true">Studio Live</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Studio Pierrot</string>
+             <string notr="true">Studio Pierrot</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Sunrise</string>
+             <string notr="true">Sunrise</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Suzuki Mirano</string>
+             <string notr="true">Suzuki Mirano</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Synergy Japan</string>
+             <string notr="true">Synergy Japan</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Tatsunoko Production</string>
+             <string notr="true">Tatsunoko Production</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Tele-Cartoon Japan</string>
+             <string notr="true">Tele-Cartoon Japan</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Telecom Animation Film</string>
+             <string notr="true">Telecom Animation Film</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Tezuka Productions</string>
+             <string notr="true">Tezuka Productions</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>The Answer Studio</string>
+             <string notr="true">The Answer Studio</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>TMS Entertainment</string>
+             <string notr="true">TMS Entertainment</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>TNK</string>
+             <string notr="true">TNK</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>ÒÎ «AniMedia»</string>
+             <string notr="true">ÒÎ «AniMedia»</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Toei Animation</string>
+             <string notr="true">Toei Animation</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Toho</string>
+             <string notr="true">Toho</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Tokyo Kids</string>
+             <string notr="true">Tokyo Kids</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Transarts</string>
+             <string notr="true">Transarts</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Triangle Staff</string>
+             <string notr="true">Triangle Staff</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Trinet Entertainment</string>
+             <string notr="true">Trinet Entertainment</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>TV Tokyo</string>
+             <string notr="true">TV Tokyo</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Type-Moon</string>
+             <string notr="true">Type-Moon</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Ufotable</string>
+             <string notr="true">Ufotable</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Viewworks</string>
+             <string notr="true">Viewworks</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Wao World</string>
+             <string notr="true">Wao World</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>White Fox</string>
+             <string notr="true">White Fox</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Wonder Farm</string>
+             <string notr="true">Wonder Farm</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Wowow</string>
+             <string notr="true">Wowow</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Xebec</string>
+             <string notr="true">Xebec</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>XEBEC-M2</string>
+             <string notr="true">XEBEC-M2</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>XL Media</string>
+             <string notr="true">XL Media</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Yumeta Company</string>
+             <string notr="true">Yumeta Company</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Zexcs Inc</string>
+             <string notr="true">Zexcs Inc</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string>Zuiyo Eizo</string>
+             <string notr="true">Zuiyo Eizo</string>
             </property>
            </item>
           </widget>

@@ -19,12 +19,13 @@
         <file>images/icon-section/section-manga.png</file>
     </qresource>
     <qresource prefix="/icon-filters">
-        <file>images/icon-filters/filter_edit.png</file>
-        <file>images/icon-filters/filter_tv.png</file>
-        <file>images/icon-filters/filter_special.png</file>
-        <file>images/icon-filters/filter_ova.png</file>
-        <file>images/icon-filters/filter_movie.png</file>
-        <file>images/icon-filters/filter_ona.png</file>
-        <file>images/icon-filters/filter_look.png</file>
+        <file alias="edit">images/icon-filters/filter_edit.png</file>
+        <file alias="tv">images/icon-filters/filter_tv.png</file>
+        <file alias="special">images/icon-filters/filter_special.png</file>
+        <file alias="ova">images/icon-filters/filter_ova.png</file>
+        <file alias="movie">images/icon-filters/filter_movie.png</file>
+        <file alias="ona">images/icon-filters/filter_ona.png</file>
+        <file alias="look">images/icon-filters/filter_look.png</file>
+        <file alias="all">images/icon-filters/filter_all.png</file>
     </qresource>
 </RCC>

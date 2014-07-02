@@ -90,8 +90,8 @@ void FormSettings::on_BtnBox_accepted()
 void FormSettings::on_BtnBox_resetDefaults(){
     QMessageBox* pmbx =
     new QMessageBox(QMessageBox::Information,
-                    "Ganres list",
-                    "<b>To return</b> the list of genres to a default state?",
+                    tr("Warning"),
+                    tr("<b>To return</b> the list of genres to a default state?"),
                     QMessageBox::Yes | QMessageBox::No |
                     QMessageBox::Cancel
                     );

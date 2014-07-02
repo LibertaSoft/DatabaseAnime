@@ -32,6 +32,8 @@ private:
     QString getActiveTableName() const;
     QString getTableName( sections::section ) const;
     sections::section getActiveTable();
+    void reloadSectionsList();
+    void reloadFiltersList();
     void setActiveTable( sections::section );
 
     void selectAnimeData(const QModelIndex&);
