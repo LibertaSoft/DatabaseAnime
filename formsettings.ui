@@ -73,6 +73,32 @@
           </property>
          </spacer>
         </item>
+        <item>
+         <widget class="QLabel" name="Lbl_Sort">
+          <property name="text">
+           <string>Sorting:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="CBox_Sort">
+          <item>
+           <property name="text">
+            <string>None</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASC</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>DESC</string>
+           </property>
+          </item>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
@@ -118,27 +144,6 @@
         </property>
         <property name="text">
          <string>Dorama</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="Line" name="line_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="CheckBox_EnableEditing">
-        <property name="text">
-         <string>Editing</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="CheckBox_EnableLookLater">
-        <property name="text">
-         <string>Want to look</string>
         </property>
        </widget>
       </item>

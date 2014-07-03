@@ -38,7 +38,8 @@ public:
     QString getTargetField()const;
 signals:
     void progressChanged(int);
-    void progressChanged(int, QString);
+//    void progressChanged(int, QString);
+    void progressChanged(int, int, QString);
 public slots:
     void setProgress(int);
     void progressInc();

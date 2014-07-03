@@ -20,6 +20,10 @@ namespace Tables {
     enum table{none = 0, vAnime, vManga, vAmv, vDorama, tAnime, tManga, tAmv, tDorama};
 }
 
+namespace Sort{
+    enum sort{none = 0, asc, desc};
+}
+
 class MngrQuerys
 {
 public:

@@ -27,6 +27,9 @@ private:
     QListWidget* ListWidget_Dir;
 
     sections::section _activeTable;
+    QModelIndex currentItem;
+    int currentItemId;
+
     QSqlQueryModel* QueryModel_ListItemsSection;
 
     QString getActiveTableName() const;
@@ -53,7 +56,8 @@ private slots:
     void on_TButton_Delete_clicked();
     void on_listView_ListItemsSection_activated(const QModelIndex &index);
     void on_listView_ListWidget_Dir_activated(const QModelIndex &index);
-    void saveLookValueChanges(int, QString);
+//    void saveLookValueChanges(int, QString);
+    void saveLookValueChanges(int, int, QString);
 
     void on_lineEdit_Search_textChanged(const QString &arg1);
     void on_listView_ListItemsSection_clicked(const QModelIndex &index);

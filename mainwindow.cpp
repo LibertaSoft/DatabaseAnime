@@ -104,17 +104,17 @@ void MainWindow::on_TButton_Edit_clicked()
         DialogAddEdit dialogAdd(true, &i, this);
         dialogAdd.setModal(true);
         dialogAdd.exec();
+        Filter::filter    fil = static_cast<Filter::filter>( ui->CB_Filter->currentIndex() );
+        MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), fil );
+        ui->listView_ListItemsSection->setModelColumn(1);
     }
-//    QueryModel_ListItemsSection->setQuery( QString("SELECT id,Title FROM %1").arg( getActiveTableName() ) );
-    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable() );
-    ui->listView_ListItemsSection->setModelColumn(1);
 }
 
 void MainWindow::on_TButton_Delete_clicked()
 {
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
         QSqlQueryModel model;
-        model.setQuery( QString( "SELECT ImagePath FROM %1 WHERE id = %2").arg( getActiveTableName() ).arg( ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt() ) );
+        model.setQuery( QString( "SELECT ImagePath FROM %1 WHERE id = %2").arg( getActiveTableName() ).arg( currentItemId ) );
         QDir dir;
         dir.remove( model.record(0).value("ImagePath").toString() );
         QSqlQuery query;
@@ -132,6 +132,8 @@ void MainWindow::on_TButton_Delete_clicked()
 
 void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index)
 {
+//    currentItem = index.
+    currentItemId = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt();
     ui->stackedWidget->setCurrentIndex(1);
     switch( getActiveTable() ){
         case sections::anime :
@@ -156,17 +158,26 @@ void MainWindow::on_listView_ListWidget_Dir_activated(const QModelIndex &index)
 {
     QSqlQueryModel m1;
     m1.setQuery(
-                QString("SELECT Dir FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt() )
+                QString("SELECT Dir FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( currentItemId )
                 );
     QDesktopServices::openUrl( QUrl::fromLocalFile( m1.record(0).value("Dir").toString() + "/" + index.data().toString() ) );
 }
 
-void MainWindow::saveLookValueChanges(int value, QString type)
+void MainWindow::saveLookValueChanges(int value, int max, QString type)
 {
     QSqlQuery query;
-    query.prepare( QString("UPDATE %1 SET %2 = :vNum WHERE id = :id;").arg( getActiveTableName() ).arg(type) );
+    bool looked = false;
+    if( value == max && type == "vSeriesTV" ){
+        looked = true;
+    }
+    if( looked ){
+        query.prepare( QString("UPDATE %1 SET %2 = :vNum, isHaveLooked = :isLook WHERE id = :id;").arg( getActiveTableName() ).arg(type) );
+        query.bindValue(":isLook", true);
+    }else{
+        query.prepare( QString("UPDATE %1 SET %2 = :vNum WHERE id = :id;").arg( getActiveTableName() ).arg(type) );
+    }
     query.bindValue(":vNum", value);
-    query.bindValue(":id", ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt() );
+    query.bindValue(":id", currentItemId );
     if( !query.exec() ){
         qDebug() << QString("Cannot update data in table %1: ").arg( getActiveTableName() ) << query.lastError();
     }
@@ -174,8 +185,6 @@ void MainWindow::saveLookValueChanges(int value, QString type)
 
 void MainWindow::on_lineEdit_Search_textChanged(const QString &strSearch)
 {
-    // #Bug : Выставить фильтр в All
-    // #ToDo : Реализовать поиск по секциям (Хочу посмотреть / Ещё редактируется)
     MngrQuerys::selectSection(
                 QueryModel_ListItemsSection, getActiveTable(),
                 QString("Title LIKE '%2'").arg("%"+strSearch+"%") );
@@ -200,10 +209,10 @@ sections::section MainWindow::getActiveTable()
 void MainWindow::reloadSectionsList()
 {
     QSettings settings;
-    bool set_enableBtnAnime  = settings.value("enableElem/BtnSwitchSection/Anime",   true).toBool();
-    bool set_enableBtnManga  = settings.value("enableElem/BtnSwitchSection/Manga",  false).toBool();
-    bool set_enableBtnAMV    = settings.value("enableElem/BtnSwitchSection/AMV",    false).toBool();
-    bool set_enableBtnDorama = settings.value("enableElem/BtnSwitchSection/Dorama", false).toBool();
+    bool set_enableBtnAnime  = settings.value("enableSection/Anime",   true).toBool();
+    bool set_enableBtnManga  = settings.value("enableSection/Manga",  false).toBool();
+    bool set_enableBtnAMV    = settings.value("enableSection/AMV",    false).toBool();
+    bool set_enableBtnDorama = settings.value("enableSection/Dorama", false).toBool();
 
     sections::section set_select
             = static_cast<sections::section>(
@@ -264,11 +273,13 @@ void MainWindow::setActiveTable(sections::section table)
 void MainWindow::selectAnimeData(const QModelIndex&)
 {
     QSqlQueryModel m1;
-
-    int i = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt();
+//    int i = currentItem.data().toString();
+//    currentItem.data()
+//    QMessageBox::information(this, windowTitle(), "s" );
+//    int i = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt();
 
     m1.setQuery(
-                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( i )
+                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( currentItemId )
                 );
     /*
     "Season, PostScoring"
@@ -302,7 +313,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
         pbTV->setFormat("TV [%v/%m]");
         ui->HLay_WBRow0->addWidget( pbTV );
-        QObject::connect(pbTV, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbTV, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
     }
     if( m1.record(0).value("SeriesOVA").toInt() > 0 ){
         pbOVA = new LookProgressBar(this);
@@ -311,7 +322,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         pbOVA->setMaximum( m1.record(0).value("SeriesOVA").toInt() );
         pbOVA->setFormat("OVA [%v/%m]");
         ui->HLay_WBRow1->addWidget(pbOVA);
-        QObject::connect(pbOVA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbOVA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
     }
     if( m1.record(0).value("SeriesONA").toInt() > 0 ){
         pbONA = new LookProgressBar(this);
@@ -320,7 +331,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         pbONA->setMaximum( m1.record(0).value("SeriesONA").toInt() );
         pbONA->setFormat("ONA [%v/%m]");
         ui->HLay_WBRow1->addWidget( pbONA );
-        QObject::connect(pbONA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbONA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
     }
     if( m1.record(0).value("SeriesSpecial").toInt() > 0 ){
         pbSpecial = new LookProgressBar(this);
@@ -329,7 +340,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         pbSpecial->setMaximum( m1.record(0).value("SeriesSpecial").toInt() );
         pbSpecial->setFormat("Special [%v/%m]");
         ui->HLay_WBRow2->addWidget( pbSpecial );
-        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
     }
     if( m1.record(0).value("SeriesMovie").toInt() > 0 ){
         pbMovie = new LookProgressBar(this);
@@ -338,7 +349,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         pbMovie->setMaximum( m1.record(0).value("SeriesMovie").toInt() );
         pbMovie->setFormat("Movie [%v/%m]");
         ui->HLay_WBRow2->addWidget( pbMovie );
-        QObject::connect(pbMovie, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbMovie, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
     }
 
     ui->Lbl_svTitle->setText( m1.record(0).value("Title").toString() );
@@ -353,7 +364,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
 
     QPixmap pic( imgPath );
     if( pic.isNull() ){
-        pic.load( "://images/DBA_NoImage.png" );
+        pic.load( "://images/NoImage.png" );
     }
     ui->Lbl_ImageCover->setPixmap( pic );
 
@@ -415,6 +426,7 @@ void MainWindow::on_CB_Section_currentIndexChanged(int)
     setActiveTable( sec );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), fil );
     ui->listView_ListItemsSection->setModelColumn(1);
+//    QueryModel_ListItemsSection->sort(1, Qt::AscendingOrder);
 }
 
 void MainWindow::on_CB_Filter_currentIndexChanged(int)

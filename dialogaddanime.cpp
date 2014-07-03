@@ -15,27 +15,25 @@
 DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *parent ) :
     QDialog(parent), ui(new Ui::DialogAddEdit), isEditRole( _isEditRole )
 {
-    //QNetworkRequest r( QUrl("http://ya.ru") );
-    //r.
     ui->setupUi(this);
     QSettings settings;
 
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
 
-    if( settings.value( "enableElem/FieldsForEdit/OrigTitle", false ).toBool() ){
+    if( settings.value( "optionalField/anime/OrigTitle", false ).toBool() ){
         this->LineEdit_OrigTitle = new QLineEdit(this);
         this->LineEdit_OrigTitle->setMaxLength(128);
         this->LineEdit_OrigTitle->setPlaceholderText( tr("Original title") );
         ui->VLay_OrigTitle->addWidget( this->LineEdit_OrigTitle );
     }
-    if( settings.value( "enableElem/FieldsForEdit/Director", false ).toBool() ){
+    if( settings.value( "optionalField/anime/Director", false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
         this->LineEdit_Director->setPlaceholderText( tr("Director") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_Director );
     }
-    if( settings.value( "enableElem/FieldsForEdit/PostScoring", false ).toBool() ){
+    if( settings.value( "optionalField/anime/PostScoring", false ).toBool() ){
         this->LineEdit_PostScoring = new QLineEdit(this);
         this->LineEdit_PostScoring->setMaxLength(128);
         this->LineEdit_PostScoring->setPlaceholderText( tr("Postscoring") );
@@ -63,13 +61,13 @@ DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *pare
         ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
         // optional
         QSettings settings;
-        if( settings.value( "enableElem/FieldsForEdit/OrigTitle", false ).toBool() ){
+        if( settings.value( "optionalField/anime/OrigTitle", false ).toBool() ){
             this->LineEdit_OrigTitle->setText( model->record(0).value("OrigTitle").toString() );
         }
-        if( settings.value( "enableElem/FieldsForEdit/Director",  false ).toBool() ){
+        if( settings.value( "optionalField/anime/Director",  false ).toBool() ){
             this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
         }
-        if( settings.value( "enableElem/FieldsForEdit/PostScoring", false ).toBool() ){
+        if( settings.value( "optionalField/anime/PostScoring", false ).toBool() ){
             this->LineEdit_PostScoring->setText( model->record(0).value("PostScoring").toString() );
         }
 
@@ -100,7 +98,7 @@ DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *pare
         QPixmap pm( imgPath );
         bool imageCrash = false;
         if( pm.isNull() ){
-            pm.load( "://images/DBA_NoImage.png" );
+            pm.load( "://images/NoImage.png" );
             imageCrash = true;
         }
         if( !imageCrash ){
@@ -127,13 +125,13 @@ void DialogAddEdit::on_BtnBox_reset()
     ui->LineEdit_Title->clear();
     // optional
     QSettings settings;
-    if( settings.value( "enableElem/FieldsForEdit/OrigTitle",   false ).toBool() ){
+    if( settings.value( "optionalField/anime/OrigTitle",   false ).toBool() ){
         this->LineEdit_OrigTitle->clear();
     }
-    if( settings.value( "enableElem/FieldsForEdit/Director",    false ).toBool() ){
+    if( settings.value( "optionalField/anime/Director",    false ).toBool() ){
         this->LineEdit_Director->clear();
     }
-    if( settings.value( "enableElem/FieldsForEdit/PostScoring", false ).toBool() ){
+    if( settings.value( "optionalField/anime/PostScoring", false ).toBool() ){
         this->LineEdit_PostScoring->clear();
     }
 
@@ -205,26 +203,26 @@ bool DialogAddEdit::insert_AnimeSerials(){
                       "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;").arg( MngrQuerys::getTableName( sections::anime ) )
                       );
     }
-    query.bindValue(":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
-    query.bindValue(":isEditingDone", !ui->CheckBox_Editing->isChecked() );
-    query.bindValue(":id",             this->recordId );
-    query.bindValue(":Title",          ui->LineEdit_Title->text() );
+    query.bindValue( ":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
+    query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
+    query.bindValue( ":id",             this->recordId );
+    query.bindValue( ":Title",          ui->LineEdit_Title->text() );
 
     QSettings settings;
-    if( settings.value( "enableElem/FieldsForEdit/OrigTitle", false ).toBool() ){
-        query.bindValue(":OrigTitle", this->LineEdit_OrigTitle->text() );
+    if( settings.value( "optionalField/anime/OrigTitle", false ).toBool() ){
+        query.bindValue( ":OrigTitle", this->LineEdit_OrigTitle->text() );
     }else{
-        query.bindValue(":OrigTitle", "" );
+        query.bindValue( ":OrigTitle", "" );
     }
-    if( settings.value( "enableElem/FieldsForEdit/Director", false ).toBool() ){
-        query.bindValue(":Director", this->LineEdit_Director->text() );
+    if( settings.value( "optionalField/anime/Director", false ).toBool() ){
+        query.bindValue( ":Director", this->LineEdit_Director->text() );
     }else{
-        query.bindValue(":Director", "" );
+        query.bindValue( ":Director", "" );
     }
-    if( settings.value( "enableElem/FieldsForEdit/PostScoring", false ).toBool() ){
-        query.bindValue(":PostScoring", this->LineEdit_PostScoring->text() );
+    if( settings.value( "optionalField/anime/PostScoring", false ).toBool() ){
+        query.bindValue( ":PostScoring", this->LineEdit_PostScoring->text() );
     }else{
-        query.bindValue(":PostScoring", "" );
+        query.bindValue( ":PostScoring", "" );
     }
 
     query.bindValue(":SeriesTV",      ui->SpinBox_aTV->value()   );
@@ -259,10 +257,10 @@ bool DialogAddEdit::insert_AnimeSerials(){
     }
     tagsList += ui->LineEdit_Tags->text();
 
-    query.bindValue(":Tags",          tagsList );
-    query.bindValue(":Description",   ui->PlainTextEdit_Description->toPlainText() );
-    query.bindValue(":URL",           ui->LineEdit_URL->text() );
-    query.bindValue(":Dir",           ui->LineEdit_Dir->text() );
+    query.bindValue( ":Tags",          tagsList );
+    query.bindValue( ":Description",   ui->PlainTextEdit_Description->toPlainText() );
+    query.bindValue( ":URL",           ui->LineEdit_URL->text() );
+    query.bindValue( ":Dir",           ui->LineEdit_Dir->text() );
 
     QDir objQdir;
     QString coverPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() + "/animeCovers/" );

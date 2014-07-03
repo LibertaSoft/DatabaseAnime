@@ -20,7 +20,7 @@ QSize LookProgressBar::sizeHint() const
 void LookProgressBar::setValue(int n)
 {
     _value = n;
-    emit progressChanged( getValue(), getTargetField() );
+    emit progressChanged( getValue(), getMaximum(), getTargetField() );
 }
 
 void LookProgressBar::setMaximum(int n)
@@ -101,7 +101,7 @@ void LookProgressBar::progressInc()
     if( getValue() < getMaximum() ){
         _value++;
         repaint();
-        emit progressChanged( getValue(), getTargetField() );
+        emit progressChanged( getValue(), getMaximum(), getTargetField() );
     }
 }
 
@@ -110,7 +110,7 @@ void LookProgressBar::progressDec()
     if( getValue() > getMinimum() ){
         _value--;
         repaint();
-        emit progressChanged( getValue(), getTargetField() );
+        emit progressChanged( getValue(), getMaximum(), getTargetField() );
     }
 }
 

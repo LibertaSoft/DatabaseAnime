@@ -66,13 +66,33 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section)
 
 int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, QString filter)
 {
+    QSettings settings;
+    Sort::sort sort = static_cast<Sort::sort>( settings.value("Sorting", Sort::asc).toInt() );
+
     QString strFilter("WHERE ");
-    model->setQuery( QString("SELECT id,Title FROM %1 %2").arg( getTableName(section), strFilter+filter ) );
+
+    QString strSort("");
+    switch( sort ){
+    case Sort::asc :
+        strSort = "ORDER BY Title ASC";
+        break;
+    case Sort::desc :
+        strSort = "ORDER BY Title DESC";
+        break;
+    case Sort::none :
+    default:
+        ;
+    }
+
+    model->setQuery( QString("SELECT id,Title FROM %1 %2 %3").arg( getTableName(section), strFilter+filter, strSort ) );
     return 0;
 }
 
 int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, Filter::filter filter)
 {
+    QSettings settings;
+    Sort::sort sort = static_cast<Sort::sort>( settings.value("Sorting", Sort::asc).toInt() );
+
     QString strFilter("WHERE ");
     switch( filter ){
     case Filter::editing :
@@ -101,7 +121,20 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, 
         strFilter = "";
     }
 
-    model->setQuery( QString("SELECT id,Title FROM %1 %2").arg( getTableName(section), strFilter ) );
+    QString strSort("");
+    switch( sort ){
+    case Sort::asc :
+        strSort = "ORDER BY Title ASC";
+        break;
+    case Sort::desc :
+        strSort += "ORDER BY Title DESC";
+        break;
+    case Sort::none :
+    default:
+        ;
+    }
+
+    model->setQuery( QString("SELECT id,Title FROM %1 %2 %3").arg( getTableName(section), strFilter, strSort ) );
     return 0;
 }
 
@@ -178,52 +211,70 @@ bool MngrQuerys::insert_defaultAnimeTags()
                   "(:v26), (:v27), (:v28), (:v29), (:v30), "
                   "(:v31), (:v32), (:v33), (:v34), (:v35), "
                   "(:v36), (:v37), (:v38), (:v39), (:v40), "
-                  "(:v41), (:v42), (:v43), (:v44)").arg( "animeTags" )
+                  "(:v41), (:v42), (:v43), (:v44), (:v45), "
+                  "(:v46), (:v47), (:v48), (:v49), (:v50), "
+                  "(:v51), (:v52), (:v53), (:v54), (:v55), "
+                  "(:v56), (:v57), (:v58), (:v59)").arg( "animeTags" )
                   );
-    query.bindValue(":v01", "Сёнен");
-    query.bindValue(":v02", "Сёнен Ай");
-    query.bindValue(":v03", "Сейнен");
-    query.bindValue(":v04", "Сёдзе");
-    query.bindValue(":v05", "Сёдзе Ай");
-    query.bindValue(":v06", "Дзёсей");
-    query.bindValue(":v07", "Комедия");
-    query.bindValue(":v08", "Романтика");
-    query.bindValue(":v09", "Школа");
-    query.bindValue(":v10", "Безумие");
-    query.bindValue(":v11", "Боевые исскуства");
-    query.bindValue(":v12", "Вампиры");
-    query.bindValue(":v13", "Военное");
-    query.bindValue(":v14", "Гарем");
-    query.bindValue(":v15", "Демоны");
-    query.bindValue(":v16", "Детское");
-    query.bindValue(":v17", "Драма");
-    query.bindValue(":v18", "Игры");
-    query.bindValue(":v19", "Исторический");
-    query.bindValue(":v20", "Космос");
-    query.bindValue(":v21", "Магия");
-    query.bindValue(":v22", "Машины");
-    query.bindValue(":v23", "Меха");
-    query.bindValue(":v24", "Мистика");
-    query.bindValue(":v25", "Музыка");
-    query.bindValue(":v26", "Пародия");
-    query.bindValue(":v27", "Повседневность");
-    query.bindValue(":v28", "Полиция");
-    query.bindValue(":v29", "Приключения");
-    query.bindValue(":v30", "Психологическое");
-    query.bindValue(":v31", "Самураи");
-    query.bindValue(":v32", "Сверхъестественное");
-    query.bindValue(":v33", "Фурри");
-    query.bindValue(":v34", "Спорт");
-    query.bindValue(":v35", "Супер сила");
-    query.bindValue(":v36", "Ужасы");
-    query.bindValue(":v37", "Фантастика");
-    query.bindValue(":v38", "Фэнтези");
-    query.bindValue(":v39", "Экшен");
-    query.bindValue(":v40", "Этти");
-    query.bindValue(":v41", "Триллер");
-    query.bindValue(":v42", "Хентай");
-    query.bindValue(":v43", "Яой");
-    query.bindValue(":v44", "Юри");
+    query.bindValue(":v01", "Бара");
+    query.bindValue(":v02", "Безумие");
+    query.bindValue(":v03", "Боевик");
+    query.bindValue(":v04", "Боевые искусства");
+    query.bindValue(":v05", "Вампиры");
+    query.bindValue(":v06", "Война");
+    query.bindValue(":v07", "Гарем");
+    query.bindValue(":v08", "Гендерная интрига");
+    query.bindValue(":v09", "Гуро");
+    query.bindValue(":v10", "Демоны");
+    query.bindValue(":v11", "Детектив");
+    query.bindValue(":v12", "Детское");
+    query.bindValue(":v13", "Дзёсэй");
+    query.bindValue(":v14", "Драма");
+    query.bindValue(":v15", "Ёнкома");
+    query.bindValue(":v16", "Игра");
+    query.bindValue(":v17", "Исторический");
+    query.bindValue(":v18", "Киберпанк");
+    query.bindValue(":v19", "Кодомо");
+    query.bindValue(":v20", "Комедия");
+    query.bindValue(":v21", "Космос");
+    query.bindValue(":v22", "Кулинария");
+    query.bindValue(":v23", "Магия");
+    query.bindValue(":v24", "Махо-сёдзё");
+    query.bindValue(":v25", "Меха");
+    query.bindValue(":v26", "Мистика");
+    query.bindValue(":v27", "Музыкальный");
+    query.bindValue(":v28", "Научная фантастика");
+    query.bindValue(":v29", "Пародия");
+    query.bindValue(":v30", "Повседневность");
+    query.bindValue(":v31", "Полиция");
+    query.bindValue(":v32", "Постапокалиптика");
+    query.bindValue(":v33", "Приключения");
+    query.bindValue(":v34", "Психология");
+    query.bindValue(":v35", "Ранобэ");
+    query.bindValue(":v36", "Романтика");
+    query.bindValue(":v37", "Самураи");
+    query.bindValue(":v38", "Сверхъестественное");
+    query.bindValue(":v39", "Семейный");
+    query.bindValue(":v40", "Сёдзё");
+    query.bindValue(":v41", "Сёдзё-ай (Юри)");
+    query.bindValue(":v42", "Сёнэн");
+    query.bindValue(":v43", "Сёнэн-ай (Яой)");
+    query.bindValue(":v44", "Сказка");
+    query.bindValue(":v45", "Спорт");
+    query.bindValue(":v46", "Стимпанк");
+    query.bindValue(":v47", "Сэйнэн");
+    query.bindValue(":v48", "Тентакли");
+    query.bindValue(":v49", "Трагедия");
+    query.bindValue(":v50", "Триллер");
+    query.bindValue(":v51", "Ужасы");
+    query.bindValue(":v52", "Фантастика");
+    query.bindValue(":v53", "Философия");
+    query.bindValue(":v54", "Футунари");
+    query.bindValue(":v55", "Фэнтези");
+    query.bindValue(":v56", "Хентай");
+    query.bindValue(":v57", "Школа");
+    query.bindValue(":v58", "Экшен");
+    query.bindValue(":v59", "Этти");
 
     if( !query.exec() ){
         qDebug() << "Cannot insert data in table animeTags: " << query.lastError();

@@ -21,23 +21,20 @@ FormSettings::FormSettings(QWidget *parent) :
 
     QSettings settings;
 
-    bool a1 = settings.value( "enableElem/BtnSwitchSection/Anime",     true ).toBool();
-    bool a2 = settings.value( "enableElem/BtnSwitchSection/Manga",    false ).toBool();
-    bool a3 = settings.value( "enableElem/BtnSwitchSection/AMV",      false ).toBool();
-    bool a4 = settings.value( "enableElem/BtnSwitchSection/Dorama",   false ).toBool();
-    bool a5 = settings.value( "enableElem/BtnSwitchSection/Editable",  true ).toBool();
-    bool a6 = settings.value( "enableElem/BtnSwitchSection/LookLater", true ).toBool();
+    bool a1 = settings.value( "enableSection/Anime",   true ).toBool();
+    bool a2 = settings.value( "enableSection/Manga",  false ).toBool();
+    bool a3 = settings.value( "enableSection/AMV",    false ).toBool();
+    bool a4 = settings.value( "enableSection/Dorama", false ).toBool();
 
-    bool b1 = settings.value( "enableElem/FieldsForEdit/OrigTitle",   false ).toBool();
-    bool b2 = settings.value( "enableElem/FieldsForEdit/Director",    false ).toBool();
-    bool b3 = settings.value( "enableElem/FieldsForEdit/PostScoring", false ).toBool();
+    bool b1 = settings.value( "optionalField/anime/OrigTitle",   false ).toBool();
+    bool b2 = settings.value( "optionalField/anime/Director",    false ).toBool();
+    bool b3 = settings.value( "optionalField/anime/PostScoring", false ).toBool();
+
 
     ui->CheckBox_EnableAnime->setChecked( a1 );
     ui->CheckBox_EnableManga->setChecked( a2 );
     ui->CheckBox_EnableAMV->setChecked( a3 );
     ui->CheckBox_EnableDorama->setChecked( a4 );
-    ui->CheckBox_EnableEditing->setChecked( a5 );
-    ui->CheckBox_EnableLookLater->setChecked( a6 );
 
     ui->CheckBox_OrigTitle->setChecked( b1 );
     ui->CheckBox_Director->setChecked( b2 );
@@ -60,6 +57,8 @@ FormSettings::FormSettings(QWidget *parent) :
         if( set_language == l10n.at(i).right(5).left(2) )
             ui->CB_Language->setCurrentIndex(i+1);
     }
+    Sort::sort sort = static_cast<Sort::sort>( settings.value( "Sorting", Sort::asc ).toInt() );
+    ui->CBox_Sort->setCurrentIndex( sort );
 }
 
 FormSettings::~FormSettings()
@@ -72,19 +71,19 @@ void FormSettings::on_BtnBox_accepted()
     QSettings settings;
 
     settings.setValue( "configExist", true );
-    settings.setValue( "enableElem/BtnSwitchSection/Anime",     ui->CheckBox_EnableAnime->isChecked() );
-    settings.setValue( "enableElem/BtnSwitchSection/Manga",     ui->CheckBox_EnableManga->isChecked() );
-    settings.setValue( "enableElem/BtnSwitchSection/AMV",       ui->CheckBox_EnableAMV->isChecked() );
-    settings.setValue( "enableElem/BtnSwitchSection/Dorama",    ui->CheckBox_EnableDorama->isChecked() );
-    settings.setValue( "enableElem/BtnSwitchSection/Editable",  ui->CheckBox_EnableEditing->isChecked() );
-    settings.setValue( "enableElem/BtnSwitchSection/LookLater", ui->CheckBox_EnableLookLater->isChecked() );
+    settings.setValue( "enableSection/Anime",     ui->CheckBox_EnableAnime->isChecked() );
+    settings.setValue( "enableSection/Manga",     ui->CheckBox_EnableManga->isChecked() );
+    settings.setValue( "enableSection/AMV",       ui->CheckBox_EnableAMV->isChecked() );
+    settings.setValue( "enableSection/Dorama",    ui->CheckBox_EnableDorama->isChecked() );
 
-    settings.setValue( "enableElem/FieldsForEdit/OrigTitle",   ui->CheckBox_OrigTitle->isChecked() );
-    settings.setValue( "enableElem/FieldsForEdit/Director",    ui->CheckBox_Director->isChecked() );
-    settings.setValue( "enableElem/FieldsForEdit/PostScoring", ui->CheckBox_PostScoring->isChecked() );
+    settings.setValue( "optionalField/anime/OrigTitle",   ui->CheckBox_OrigTitle->isChecked() );
+    settings.setValue( "optionalField/anime/Director",    ui->CheckBox_Director->isChecked() );
+    settings.setValue( "optionalField/anime/PostScoring", ui->CheckBox_PostScoring->isChecked() );
 
     settings.setValue( "Application/l10n", ui->CB_Language->currentText() );
     settings.setValue( "Application/l10n_index", ui->CB_Language->currentIndex() );
+    settings.setValue( "Sorting", ui->CBox_Sort->currentIndex() );
+
 }
 
 void FormSettings::on_BtnBox_resetDefaults(){
@@ -110,17 +109,17 @@ void FormSettings::on_BtnBox_resetDefaults(){
     ui->CheckBox_EnableManga->setChecked( false );
     ui->CheckBox_EnableAMV->setChecked( false );
     ui->CheckBox_EnableDorama->setChecked( false );
-    ui->CheckBox_EnableEditing->setChecked( true );
-    ui->CheckBox_EnableLookLater->setChecked( true );
 
     ui->CheckBox_OrigTitle->setChecked( false );
     ui->CheckBox_Director->setChecked( false );
     ui->CheckBox_PostScoring->setChecked( false );
     ui->ListView_Tags->clearSelection();
-
     if( restoreTags ){
         MngrQuerys::insert_defaultAnimeTags();
     }
+
+    ui->CB_Language->setCurrentIndex(0);
+    ui->CBox_Sort->setCurrentIndex(1);
 }
 
 void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
@@ -132,6 +131,7 @@ void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
             break;
         case QDialogButtonBox::ResetRole:
             emit on_BtnBox_resetDefaults();
+            SQM_AnimeTags->setQuery( "SELECT tagName FROM animeTags" );
             break;
         default:
             this->close();
@@ -161,4 +161,5 @@ void FormSettings::on_TButton_AddTag_clicked()
     if( !query.exec() ){
         qDebug() << "Cannot insert new tag into AnimeTags: " << query.lastError().text();
     }
+    SQM_AnimeTags->setQuery( "SELECT tagName FROM animeTags" );
 }

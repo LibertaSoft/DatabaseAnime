@@ -48,7 +48,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="StartPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -208,7 +208,7 @@
              </size>
             </property>
             <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
+             <enum>QFrame::Panel</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
@@ -361,7 +361,7 @@
              </size>
             </property>
             <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
+             <enum>QFrame::Panel</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
@@ -448,7 +448,7 @@
             <item>
              <widget class="QScrollArea" name="ScrollArea_AnimeProperty">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -575,6 +575,12 @@
                 </item>
                 <item row="4" column="1">
                  <widget class="QLabel" name="Lbl_svTags">
+                  <property name="maximumSize">
+                   <size>
+                    <width>200</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -649,7 +655,7 @@
             <item>
              <widget class="QLabel" name="Lbl_TAnimeDescr">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -674,7 +680,7 @@
             <item>
              <widget class="QScrollArea" name="ScrollArea_AnimeDescr">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -693,15 +699,15 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>98</width>
-                 <height>38</height>
+                 <width>318</width>
+                 <height>171</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
                 <item>
                  <widget class="QLabel" name="Lbl_VAnimeDescr">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -771,7 +777,7 @@
              <string notr="true"/>
             </property>
             <property name="pixmap">
-             <pixmap resource="resource.qrc">:/images/DBA_NoImage.png</pixmap>
+             <pixmap>:/images/DBA_NoImage.png</pixmap>
             </property>
             <property name="scaledContents">
              <bool>true</bool>

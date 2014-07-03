@@ -10,7 +10,8 @@
         <file>images/video.png</file>
         <file>images/DBA_logo_m.png</file>
         <file>images/DBA_Icon.png</file>
-        <file>images/DBA_NoImage.png</file>
+        <file>images/DropHere.png</file>
+        <file>images/NoImage.png</file>
     </qresource>
     <qresource prefix="/icon-section">
         <file>images/icon-section/section-dorama.png</file>

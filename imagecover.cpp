@@ -54,7 +54,7 @@ void ImageCover::chooseImage()
 void ImageCover::noImage()
 {
     imagePath.clear();
-    QPixmap p( "://images/DBA_NoImage.png" );
+    QPixmap p( "://images/DropHere.png" );
     this->setPixmap(p);
 }
 
