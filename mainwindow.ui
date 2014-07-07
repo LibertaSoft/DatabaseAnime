@@ -48,7 +48,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="StartPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -699,8 +699,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>318</width>
-                 <height>171</height>
+                 <width>27</width>
+                 <height>38</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">

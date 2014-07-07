@@ -29,7 +29,7 @@ protected:
     virtual void dropEvent(QDropEvent*);
     virtual void mouseDoubleClickEvent(QMouseEvent*);
     virtual void contextMenuEvent(QContextMenuEvent*);
-    //virtual void resizeEvent(QResizeEvent*);
+    virtual void resizeEvent(QResizeEvent*);
 };
 
 #endif // IMAGECOVER_H

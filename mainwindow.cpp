@@ -8,7 +8,35 @@
 #include <QDebug>
 #include <QDir>
 #include <QtSql>
+/*
+#include <QItemDelegate>
+#include <QPainter>
+class dirItemDelegate : public QItemDelegate{
+public:
+    dirItemDelegate(QObject *parent):QItemDelegate(parent){}
 
+    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const{
+
+        if(true || option.state & QStyle::State_MouseOver){
+            QRect rect = option.rect;
+//            QLinearGradient g(0,0, rect.width(), rect.height());
+//            QLinearGradient g(rect.topLeft(), rect.bottomLeft());
+//            g.setColorAt(0,Qt::white);
+//            g.setColorAt(0.5, Qt::blue);
+//            g.setColorAt(1, Qt::red);
+            QBrush g;
+            QPixmap pix("/tmp/film.png");
+            pix.scaled(rect.left()+140,rect.top()+80);
+            g.setTexture( pix );
+//            g.setTransform( g.transform(). );
+
+            painter->setBrush(g);
+            painter->drawRect(rect);
+        }
+        QItemDelegate::paint(painter, option, index);
+    }
+};
+*/
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -27,7 +55,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QFile fileDB( QDir::homePath() + "/." + QApplication::organizationName() + "/" + QApplication::applicationName() + "/DatabaseAnime.sqlite" );
     bool firstRun = !fileDB.exists();
-    mngrConnection.open();
+    if( !mngrConnection.open() ){
+        QMessageBox::warning(this, tr("Warning"), "Версия базы данных не совпадает.\n"
+                                                  "Некоторые функции программы будут недоступны.\n"
+                             );
+    }
     if( firstRun ){
         MngrQuerys::createTable_AnimeSerials();
         MngrQuerys::createTable_AnimeTags();
@@ -378,12 +410,19 @@ void MainWindow::selectAnimeData(const QModelIndex&)
 
         QDir dir( m1.record(0).value("Dir").toString() );
         ListWidget_Dir->setSortingEnabled( true );
-        ListWidget_Dir->setIconSize( QSize(32,32) );
+
+//        ListWidget_Dir->setItemDelegate( new dirItemDelegate(ListWidget_Dir) );
+        ListWidget_Dir->viewport()->setAttribute( Qt::WA_Hover );
+        ListWidget_Dir->setMaximumHeight(100);
+        ListWidget_Dir->setMinimumHeight(100);
+
+//        ListWidget_Dir->setIconSize( QSize(32,32) );
         ListWidget_Dir->setViewMode( QListView::IconMode );
-//        ListWidget_Dir->setViewMode( QListView::ListMode );
-        ListWidget_Dir->setMinimumHeight(80);
+//       z ListWidget_Dir->setViewMode( QListView::ListMode );
+//        ListWidget_Dir->setMinimumHeight(80);
         ListWidget_Dir->setWordWrap( true );
-        ListWidget_Dir->setWrapping( true );
+        ListWidget_Dir->setWrapping( false );
+        ListWidget_Dir->setDragEnabled(false);
 //        ListWidget_Dir->setSelectionMode( QListView::MultiSelection );
         QStringList filters;
         filters << "*.avi" << "*.mkv" << "*.mp4" << "*.wmv";
@@ -392,7 +431,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         ui->HLay_FolderVideo->addWidget( ListWidget_Dir );
         for(int i = 0; i < ListWidget_Dir->count() ; ++i){
             ListWidget_Dir->item(i)->setIcon( QIcon( "://images/video.png" ) );
-            ListWidget_Dir->item(i)->setSizeHint( QSize( ListWidget_Dir->height()+ListWidget_Dir->height()/2, ListWidget_Dir->height() ) );
+            ListWidget_Dir->item(i)->setSizeHint( QSize( 140, 75 ) );
         }
         QObject::connect( ListWidget_Dir, SIGNAL(activated(QModelIndex)), this, SLOT(on_listView_ListWidget_Dir_activated(QModelIndex)) );
     }
@@ -426,7 +465,6 @@ void MainWindow::on_CB_Section_currentIndexChanged(int)
     setActiveTable( sec );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), fil );
     ui->listView_ListItemsSection->setModelColumn(1);
-//    QueryModel_ListItemsSection->sort(1, Qt::AscendingOrder);
 }
 
 void MainWindow::on_CB_Filter_currentIndexChanged(int)

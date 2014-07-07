@@ -44,6 +44,8 @@ private:
     void selectAmvData(const QModelIndex&);
     void selectDoramaData(const QModelIndex&);
 
+    void execOptionsDialog();
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     void closeEvent(QCloseEvent *);

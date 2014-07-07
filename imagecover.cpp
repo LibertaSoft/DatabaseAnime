@@ -38,13 +38,13 @@ void ImageCover::setImagePath( QString path ){
 
 QSize ImageCover::sizeHint() const
 {
-//    return QSize( 194 , 582 );
-    return QSize( heightForWidth( width()/3 ), width() );
+    return QSize( 194 , 582 );
+//    return QSize( height()/3, height() );
 }
 
 void ImageCover::chooseImage()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr(""), "Open picture", "*.png *.PNG *.jpg *.JPG *.jpeg *.JPEG");
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open picture"), QDir::homePath(), tr("Images")+" (*.png *.PNG *.jpg *.JPG *.jpeg *.JPEG)");
     if( !fileName.isEmpty() ){
         setImagePath( fileName );
         setPixmap( QPixmap( fileName ) );
@@ -87,4 +87,11 @@ void ImageCover::mouseDoubleClickEvent(QMouseEvent *)
 void ImageCover::contextMenuEvent(QContextMenuEvent *pe)
 {
     cMenu.exec( pe->globalPos() );
+}
+
+void ImageCover::resizeEvent(QResizeEvent *)
+{
+//    e->oldSize()
+//    QMessageBox::information(this, windowTitle(), QString::number(this->height()) );
+//    resize( height()/3, height() );
 }

@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QErrorMessage>
 #include <QDebug>
+#include <QDesktopServices>
 
 #include <QtNetwork/QNetworkRequest>
 
@@ -325,6 +326,11 @@ void DialogAddEdit::on_SpinBox_aMovie_valueChanged(int arg1)
 
 void DialogAddEdit::on_toolButton_clicked()
 {
-    ui->LineEdit_Dir->setText( QFileDialog::getExistingDirectory(this, tr("Choose a directory with video files"), ui->LineEdit_Dir->text() ) );
+    ui->LineEdit_Dir->setText(
+                QFileDialog::getExistingDirectory(this,
+                                                  tr("Choose a directory with video files"),
+                                                  QStandardPaths::writableLocation( QStandardPaths::MoviesLocation )
+                                                  ) );
+//    ui->LineEdit_Dir->setText( QFileDialog::getExistingDirectory(this, tr("Choose a directory with video files"), ui->LineEdit_Dir->text() ) );
 }
 
