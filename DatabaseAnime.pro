@@ -14,7 +14,8 @@ SOURCES += \
     lookprogressbar.cpp \
     dialogaddanime.cpp \
     mngrconnection.cpp \
-    mngrquerys.cpp
+    mngrquerys.cpp \
+    stackwgt_mousehideover.cpp
 
 FORMS += \
     mainwindow.ui \
@@ -28,7 +29,8 @@ HEADERS += \
     lookprogressbar.h \
     dialogaddanime.h \
     mngrconnection.h \
-    mngrquerys.h
+    mngrquerys.h \
+    stackwgt_mousehideover.h
 
 RESOURCES += \
     resource.qrc

@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>691</width>
+    <width>729</width>
     <height>593</height>
    </rect>
   </property>
@@ -97,6 +97,20 @@
             <string>DESC</string>
            </property>
           </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="topMargin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QCheckBox" name="CBox_SwitchToDirOnHoverCover">
+          <property name="text">
+           <string>To switch to a directory in case of induction on a cover</string>
+          </property>
          </widget>
         </item>
        </layout>

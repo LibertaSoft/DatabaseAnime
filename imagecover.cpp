@@ -45,6 +45,7 @@ QSize ImageCover::sizeHint() const
 void ImageCover::chooseImage()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open picture"), QDir::homePath(), tr("Images")+" (*.png *.PNG *.jpg *.JPG *.jpeg *.JPEG)");
+//    QString fileName = QFileDialog::getOpenFileName()
     if( !fileName.isEmpty() ){
         setImagePath( fileName );
         setPixmap( QPixmap( fileName ) );

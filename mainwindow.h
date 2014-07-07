@@ -10,6 +10,7 @@
 #include <QPushButton>
 #include <QSettings>
 #include <QListWidget>
+#include <QTreeWidgetItem>
 
 namespace Ui {
 class MainWindow;
@@ -29,6 +30,7 @@ private:
     sections::section _activeTable;
     QModelIndex currentItem;
     int currentItemId;
+    QString currentItemDir;
 
     QSqlQueryModel* QueryModel_ListItemsSection;
 
@@ -57,14 +59,12 @@ private slots:
     void on_TButton_Edit_clicked();
     void on_TButton_Delete_clicked();
     void on_listView_ListItemsSection_activated(const QModelIndex &index);
-    void on_listView_ListWidget_Dir_activated(const QModelIndex &index);
-//    void saveLookValueChanges(int, QString);
     void saveLookValueChanges(int, int, QString);
-
     void on_lineEdit_Search_textChanged(const QString &arg1);
     void on_listView_ListItemsSection_clicked(const QModelIndex &index);
     void on_CB_Section_currentIndexChanged(int index);
     void on_CB_Filter_currentIndexChanged(int index);
+    void on_TreeWidget_Dir_itemActivated(QTreeWidgetItem *item, int column);
 };
 
 #endif // MAINWINDOW_H

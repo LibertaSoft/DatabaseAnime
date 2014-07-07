@@ -30,6 +30,7 @@ FormSettings::FormSettings(QWidget *parent) :
     bool b2 = settings.value( "optionalField/anime/Director",    false ).toBool();
     bool b3 = settings.value( "optionalField/anime/PostScoring", false ).toBool();
 
+    bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
 
     ui->CheckBox_EnableAnime->setChecked( a1 );
     ui->CheckBox_EnableManga->setChecked( a2 );
@@ -40,6 +41,7 @@ FormSettings::FormSettings(QWidget *parent) :
     ui->CheckBox_Director->setChecked( b2 );
     ui->CheckBox_PostScoring->setChecked( b3 );
 
+    ui->CBox_SwitchToDirOnHoverCover->setChecked( c1 );
 
     // load tags in db
     SQM_AnimeTags = new QSqlQueryModel;
@@ -84,6 +86,7 @@ void FormSettings::on_BtnBox_accepted()
     settings.setValue( "Application/l10n_index", ui->CB_Language->currentIndex() );
     settings.setValue( "Sorting", ui->CBox_Sort->currentIndex() );
 
+    settings.setValue( "SwitchToDirOnHoverACover", ui->CBox_SwitchToDirOnHoverCover->isChecked() );
 }
 
 void FormSettings::on_BtnBox_resetDefaults(){

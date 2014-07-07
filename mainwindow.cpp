@@ -8,35 +8,8 @@
 #include <QDebug>
 #include <QDir>
 #include <QtSql>
-/*
-#include <QItemDelegate>
-#include <QPainter>
-class dirItemDelegate : public QItemDelegate{
-public:
-    dirItemDelegate(QObject *parent):QItemDelegate(parent){}
+#include <QAbstractItemModel>
 
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const{
-
-        if(true || option.state & QStyle::State_MouseOver){
-            QRect rect = option.rect;
-//            QLinearGradient g(0,0, rect.width(), rect.height());
-//            QLinearGradient g(rect.topLeft(), rect.bottomLeft());
-//            g.setColorAt(0,Qt::white);
-//            g.setColorAt(0.5, Qt::blue);
-//            g.setColorAt(1, Qt::red);
-            QBrush g;
-            QPixmap pix("/tmp/film.png");
-            pix.scaled(rect.left()+140,rect.top()+80);
-            g.setTexture( pix );
-//            g.setTransform( g.transform(). );
-
-            painter->setBrush(g);
-            painter->drawRect(rect);
-        }
-        QItemDelegate::paint(painter, option, index);
-    }
-};
-*/
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -45,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->stackedWidget->setCurrentIndex(0);
+    ui->StackWgt_CoverOrDir->setCurrentIndex(0);
     ui->lbl_AppTitle->setText( QApplication::applicationDisplayName() );
     ui->Lbl_VVersion->setText( QApplication::applicationVersion() );
 
@@ -52,14 +26,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
     this->restoreState( settings.value("MainWindow/State").toByteArray() );
+    bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
+    ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 
     QFile fileDB( QDir::homePath() + "/." + QApplication::organizationName() + "/" + QApplication::applicationName() + "/DatabaseAnime.sqlite" );
     bool firstRun = !fileDB.exists();
-    if( !mngrConnection.open() ){
-        QMessageBox::warning(this, tr("Warning"), "Версия базы данных не совпадает.\n"
-                                                  "Некоторые функции программы будут недоступны.\n"
-                             );
-    }
+    mngrConnection.open();
     if( firstRun ){
         MngrQuerys::createTable_AnimeSerials();
         MngrQuerys::createTable_AnimeTags();
@@ -100,6 +72,9 @@ void MainWindow::on_PButton_Options_clicked()
     formSettings.exec();
 
     reloadSectionsList();
+    QSettings settings;
+    bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
+    ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 }
 
 void MainWindow::on_TButton_Add_clicked()
@@ -186,15 +161,6 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index
     }
 }
 
-void MainWindow::on_listView_ListWidget_Dir_activated(const QModelIndex &index)
-{
-    QSqlQueryModel m1;
-    m1.setQuery(
-                QString("SELECT Dir FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( currentItemId )
-                );
-    QDesktopServices::openUrl( QUrl::fromLocalFile( m1.record(0).value("Dir").toString() + "/" + index.data().toString() ) );
-}
-
 void MainWindow::saveLookValueChanges(int value, int max, QString type)
 {
     QSqlQuery query;
@@ -251,25 +217,25 @@ void MainWindow::reloadSectionsList()
                 settings.value("btnSwitchSection/selected", sections::none).toInt() );
     ui->CB_Section->clear();
     if( set_enableBtnAnime ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-anime.png"),
+        ui->CB_Section->addItem( QIcon("://images/icon-section/section-anime.png"),
                                  tr("Anime"),  sections::anime );
         if( set_select == sections::anime )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnManga ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-manga.png"),
+        ui->CB_Section->addItem( QIcon("://images/icon-section/section-manga.png"),
                                  tr("Manga"),  sections::manga );
         if( set_select == sections::manga )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnAMV ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-amv.png"),
+        ui->CB_Section->addItem( QIcon("://images/icon-section/section-amv.png"),
                                  tr("AMV"),    sections::amv );
         if( set_select == sections::amv )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnDorama ){
-        ui->CB_Section->addItem( QIcon(":/icon-section/images/icon-section/section-dorama.png"),
+        ui->CB_Section->addItem( QIcon("://images/icon-section/section-dorama.png"),
                                  tr("Dorama"), sections::dorama );
         if( set_select == sections::dorama )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
@@ -279,21 +245,21 @@ void MainWindow::reloadSectionsList()
 void MainWindow::reloadFiltersList()
 {
     ui->CB_Filter->clear();
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/all"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_all.png"),
                             tr("All"),          Filter::all );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/edit"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_edit.png"),
                             tr("Editing"),      Filter::editing );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/look"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_look.png"),
                             tr("Want to look"), Filter::wanttolook );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/tv"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_tv.png"),
                             tr("TV"),           Filter::tv );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/ova"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_ova.png"),
                             tr("OVA"),          Filter::ova );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/ona"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_ona.png"),
                             tr("ONA"),          Filter::ona );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/special"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_special.png"),
                             tr("Special"),      Filter::special );
-    ui->CB_Filter->addItem( QIcon(":/icon-filters/movie"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_movie.png"),
                             tr("Movie"),        Filter::movie );
 }
 
@@ -305,10 +271,6 @@ void MainWindow::setActiveTable(sections::section table)
 void MainWindow::selectAnimeData(const QModelIndex&)
 {
     QSqlQueryModel m1;
-//    int i = currentItem.data().toString();
-//    currentItem.data()
-//    QMessageBox::information(this, windowTitle(), "s" );
-//    int i = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt();
 
     m1.setQuery(
                 QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( currentItemId )
@@ -390,7 +352,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
     ui->Lbl_svYear->setText( m1.record(0).value("Year").toString() );
     ui->Lbl_svTags->setText( m1.record(0).value("Tags").toString() );
     ui->Lbl_svStudio->setText( m1.record(0).value("Studios").toString() );
-    ui->Lbl_svURL->setText( m1.record(0).value("URL").toString() );
+//    ui->Lbl_svURL->setText( m1.record(0).value("URL").toString() );
     ui->Lbl_VAnimeDescr->setText( m1.record(0).value("Description").toString() );
     QString imgPath = m1.record(0).value("ImagePath").toString();
 
@@ -400,40 +362,36 @@ void MainWindow::selectAnimeData(const QModelIndex&)
     }
     ui->Lbl_ImageCover->setPixmap( pic );
 
-    // #Bug, нужна модель директории
-    if( ListWidget_Dir ){
-        delete ListWidget_Dir;
-        ListWidget_Dir = NULL;
+    // #ToDo : Добавить раздел TV & Film(Movie)
+
+    currentItemDir = m1.record(0).value("Dir").toString();
+
+    QStringList filter;
+    filter << "*ona*" << "*ova*" << "*special*";
+    QDir dir( currentItemDir );
+    QStringList dirs( dir.entryList( filter, QDir::Dirs ) );
+
+    ui->TreeWidget_Dir->clear();
+    QTreeWidgetItem **top = (QTreeWidgetItem**)new QTreeWidgetItem[dirs.size()];
+
+    // Add top level
+    for(int i = 0; i < dirs.size() ; ++i){
+        top[i] = new QTreeWidgetItem( QStringList() << dirs[i] );
+        ui->TreeWidget_Dir->addTopLevelItem(top[i]);
     }
-    if( !m1.record(0).value("Dir").toString().isEmpty() ){
-         ListWidget_Dir = new QListWidget(this);
 
-        QDir dir( m1.record(0).value("Dir").toString() );
-        ListWidget_Dir->setSortingEnabled( true );
+    // Add sub levels
+    filter.clear();
+    filter << "*.avi" << "*.mkv" << "*.mp4" << "*.wmv" << "*.m2ts" << "*.rm";
+    for(int i = 0; i < dirs.size(); i++){
+        dir.setPath( currentItemDir +"/"+ dirs[i] );
+        QStringList files = dir.entryList( filter, QDir::Files );
 
-//        ListWidget_Dir->setItemDelegate( new dirItemDelegate(ListWidget_Dir) );
-        ListWidget_Dir->viewport()->setAttribute( Qt::WA_Hover );
-        ListWidget_Dir->setMaximumHeight(100);
-        ListWidget_Dir->setMinimumHeight(100);
-
-//        ListWidget_Dir->setIconSize( QSize(32,32) );
-        ListWidget_Dir->setViewMode( QListView::IconMode );
-//       z ListWidget_Dir->setViewMode( QListView::ListMode );
-//        ListWidget_Dir->setMinimumHeight(80);
-        ListWidget_Dir->setWordWrap( true );
-        ListWidget_Dir->setWrapping( false );
-        ListWidget_Dir->setDragEnabled(false);
-//        ListWidget_Dir->setSelectionMode( QListView::MultiSelection );
-        QStringList filters;
-        filters << "*.avi" << "*.mkv" << "*.mp4" << "*.wmv";
-        filters << "*.m2ts" << "*.rm";
-        ListWidget_Dir->addItems( dir.entryList( filters, QDir::Files ) );
-        ui->HLay_FolderVideo->addWidget( ListWidget_Dir );
-        for(int i = 0; i < ListWidget_Dir->count() ; ++i){
-            ListWidget_Dir->item(i)->setIcon( QIcon( "://images/video.png" ) );
-            ListWidget_Dir->item(i)->setSizeHint( QSize( 140, 75 ) );
+        QTreeWidgetItem **sub = (QTreeWidgetItem**)new QTreeWidgetItem[files.size()];
+        for(int j = 0; j < files.size() ; ++j){
+            sub[j] = new QTreeWidgetItem( QStringList() << files[j] );
+            top[i]->addChild( sub[j] );
         }
-        QObject::connect( ListWidget_Dir, SIGNAL(activated(QModelIndex)), this, SLOT(on_listView_ListWidget_Dir_activated(QModelIndex)) );
     }
 }
 
@@ -458,16 +416,43 @@ void MainWindow::on_listView_ListItemsSection_clicked(const QModelIndex &index)
     on_listView_ListItemsSection_activated(index);
 }
 
-void MainWindow::on_CB_Section_currentIndexChanged(int)
+void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
 {
     sections::section sec = static_cast<sections::section>( ui->CB_Section->currentData().toInt() );
     Filter::filter    fil = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     setActiveTable( sec );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), fil );
     ui->listView_ListItemsSection->setModelColumn(1);
+
+    // ToDo : Проверить соответствие версии БД
 }
 
-void MainWindow::on_CB_Filter_currentIndexChanged(int)
+void MainWindow::on_CB_Filter_currentIndexChanged(int = 0)
 {
-    on_CB_Section_currentIndexChanged(0);
+    on_CB_Section_currentIndexChanged();
+}
+
+void MainWindow::on_TreeWidget_Dir_itemActivated(QTreeWidgetItem *item, int column)
+{
+    //    item->setIcon(0,  QIcon("://images/icon-section/section-manga.png") );
+    //    item->setTextAlignment(0,  Qt::AlignRight );
+    //    item->setForeground(0, QBrush(Qt::red)); // Сам текст - передний план
+
+//    m1.record(0).value("Dir").toString();
+    item->sortChildren(column, Qt::DescendingOrder);
+
+    QString pathToFile(currentItemDir);
+    if( item->childCount() == 0 ) // #Bug : У элементов верхнего уровня без чайлдов, нету parent->text() :)
+        pathToFile += "/"+item->parent()->text(column)+"/"+item->text(column);
+    else
+        pathToFile += "/"+item->text(column);
+
+    if( item->childCount() == 0 )
+        QDesktopServices::openUrl( QUrl::fromLocalFile(pathToFile)  );
+/*
+    QMessageBox::information(this,
+                             windowTitle(),
+                             QString::number( ok ) //pathToFile
+                             );
+    // */
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>875</width>
-    <height>519</height>
+    <width>909</width>
+    <height>566</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,7 +48,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="StartPage">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -440,15 +440,21 @@
         </item>
         <item>
          <layout class="QHBoxLayout" name="HLay_AnimeInfo">
+          <property name="spacing">
+           <number>0</number>
+          </property>
           <item>
            <layout class="QVBoxLayout" name="VLay_AnimeDescrFull">
             <property name="sizeConstraint">
              <enum>QLayout::SetMaximumSize</enum>
             </property>
+            <property name="rightMargin">
+             <number>6</number>
+            </property>
             <item>
              <widget class="QScrollArea" name="ScrollArea_AnimeProperty">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -465,6 +471,9 @@
                 <height>16777215</height>
                </size>
               </property>
+              <property name="frameShape">
+               <enum>QFrame::Panel</enum>
+              </property>
               <property name="widgetResizable">
                <bool>true</bool>
               </property>
@@ -474,7 +483,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>318</width>
-                 <height>238</height>
+                 <height>490</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">
@@ -513,7 +522,7 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>Original title::</string>
+                   <string>Original title:</string>
                   </property>
                  </widget>
                 </item>
@@ -573,22 +582,6 @@
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
-                 <widget class="QLabel" name="Lbl_svTags">
-                  <property name="maximumSize">
-                   <size>
-                    <width>200</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="wordWrap">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
                 <item row="4" column="0">
                  <widget class="QLabel" name="Lbl_sTags">
                   <property name="font">
@@ -599,6 +592,22 @@
                   </property>
                   <property name="text">
                    <string>Ganres:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="QLabel" name="Lbl_svTags">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -634,80 +643,14 @@
                    </font>
                   </property>
                   <property name="text">
-                   <string>URL:</string>
+                   <string>Description:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
-                 <widget class="QLabel" name="Lbl_svURL">
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="wordWrap">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="Lbl_TAnimeDescr">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Description:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QScrollArea" name="ScrollArea_AnimeDescr">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>200</height>
-               </size>
-              </property>
-              <property name="widgetResizable">
-               <bool>true</bool>
-              </property>
-              <widget class="QWidget" name="scrollAreaWidgetContents_VLay">
-               <property name="geometry">
-                <rect>
-                 <x>0</x>
-                 <y>0</y>
-                 <width>27</width>
-                 <height>38</height>
-                </rect>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_5">
-                <item>
+                <item row="7" column="0" colspan="2">
                  <widget class="QLabel" name="Lbl_VAnimeDescr">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -733,12 +676,19 @@
               </widget>
              </widget>
             </item>
+            <item>
+             <layout class="QHBoxLayout" name="HLay_FolderVideo">
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+             </layout>
+            </item>
            </layout>
           </item>
           <item>
-           <widget class="QLabel" name="Lbl_ImageCover">
+           <widget class="StackWgt_MouseHideOver" name="StackWgt_CoverOrDir">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -755,39 +705,117 @@
               <height>840</height>
              </size>
             </property>
-            <property name="sizeIncrement">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
+            <property name="currentIndex">
+             <number>1</number>
             </property>
-            <property name="baseSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
-            </property>
-            <property name="text">
-             <string notr="true"/>
-            </property>
-            <property name="pixmap">
-             <pixmap>:/images/DBA_NoImage.png</pixmap>
-            </property>
-            <property name="scaledContents">
-             <bool>true</bool>
-            </property>
+            <widget class="QWidget" name="cover">
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="Lbl_ImageCover">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>290</width>
+                  <height>420</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>380</width>
+                  <height>840</height>
+                 </size>
+                </property>
+                <property name="sizeIncrement">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="baseSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::Panel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Sunken</enum>
+                </property>
+                <property name="text">
+                 <string notr="true"/>
+                </property>
+                <property name="pixmap">
+                 <pixmap resource="resource.qrc">:/images/NoImage.png</pixmap>
+                </property>
+                <property name="scaledContents">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="dir">
+             <layout class="QVBoxLayout" name="verticalLayout_5">
+              <property name="spacing">
+               <number>6</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QTreeWidget" name="TreeWidget_Dir">
+                <property name="styleSheet">
+                 <string notr="true">background-color:#efefef;</string>
+                </property>
+                <property name="animated">
+                 <bool>true</bool>
+                </property>
+                <property name="headerHidden">
+                 <bool>true</bool>
+                </property>
+                <attribute name="headerVisible">
+                 <bool>false</bool>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string notr="true">1</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </widget>
           </item>
          </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="HLay_FolderVideo"/>
         </item>
        </layout>
       </widget>
@@ -799,7 +827,7 @@
    <property name="minimumSize">
     <size>
      <width>140</width>
-     <height>292</height>
+     <height>429</height>
     </size>
    </property>
    <property name="maximumSize">
@@ -852,6 +880,9 @@
      </item>
      <item>
       <widget class="QListView" name="listView_ListItemsSection">
+       <property name="frameShape">
+        <enum>QFrame::Panel</enum>
+       </property>
        <property name="selectionBehavior">
         <enum>QAbstractItemView::SelectRows</enum>
        </property>
@@ -951,6 +982,14 @@
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>StackWgt_MouseHideOver</class>
+   <extends>QStackedWidget</extends>
+   <header>stackwgt_mousehideover.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="resource.qrc"/>
  </resources>
