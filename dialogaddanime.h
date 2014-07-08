@@ -31,6 +31,8 @@ private slots:
     void on_toolButton_clicked();
     bool insert_AnimeSerials();
 
+    void on_LineEdit_Dir_textChanged(const QString &arg1);
+
 private:
     Ui::DialogAddEdit *ui;
     QSqlTableModel* TableModel_Tags;

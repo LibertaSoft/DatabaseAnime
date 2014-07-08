@@ -286,11 +286,18 @@ bool DialogAddEdit::insert_AnimeSerials(){
 
 void DialogAddEdit::on_BtnBox_accepted()
 {
+    QDir dir( ui->LineEdit_Dir->text() );
     if( !ui->LineEdit_Title->text().isEmpty() ){
-        insert_AnimeSerials();
-        this->close();
+        if( !dir.exists() ){
+            QMessageBox::warning( this, tr("Warning"), tr("The field 'Dir' is uncorrect") );
+            ui->LineEdit_Dir->setFocus();
+        }else{
+            insert_AnimeSerials();
+            this->close();
+        }
     }else{
-        QMessageBox::information( this, tr("Warning"), tr("The field 'Title' is not filled") );
+        QMessageBox::warning( this, tr("Warning"), tr("The field 'Title' is not filled") );
+        ui->LineEdit_Title->setFocus();
     }
 }
 
@@ -331,6 +338,15 @@ void DialogAddEdit::on_toolButton_clicked()
                                                   tr("Choose a directory with video files"),
                                                   QStandardPaths::writableLocation( QStandardPaths::MoviesLocation )
                                                   ) );
-//    ui->LineEdit_Dir->setText( QFileDialog::getExistingDirectory(this, tr("Choose a directory with video files"), ui->LineEdit_Dir->text() ) );
 }
 
+
+void DialogAddEdit::on_LineEdit_Dir_textChanged(const QString &path)
+{
+    QDir dir( path );
+    if( !dir.exists() ){
+        ui->LineEdit_Dir->setStyleSheet("color:red");
+    }else{
+        ui->LineEdit_Dir->setStyleSheet("color:black");
+    }
+}

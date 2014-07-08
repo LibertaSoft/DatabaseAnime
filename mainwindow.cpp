@@ -9,6 +9,7 @@
 #include <QDir>
 #include <QtSql>
 #include <QAbstractItemModel>
+#include <QDirModel>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -346,14 +347,65 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         QObject::connect(pbMovie, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
     }
 
-    ui->Lbl_svTitle->setText( m1.record(0).value("Title").toString() );
-    ui->Lbl_svOrigTitle->setText( m1.record(0).value("OrigTitle").toString() );
-    ui->Lbl_svDirector->setText( m1.record(0).value("Director").toString() );
-    ui->Lbl_svYear->setText( m1.record(0).value("Year").toString() );
-    ui->Lbl_svTags->setText( m1.record(0).value("Tags").toString() );
-    ui->Lbl_svStudio->setText( m1.record(0).value("Studios").toString() );
-//    ui->Lbl_svURL->setText( m1.record(0).value("URL").toString() );
-    ui->Lbl_VAnimeDescr->setText( m1.record(0).value("Description").toString() );
+    if( !m1.record(0).value("URL").toString().isEmpty() ){
+        ui->Lbl_svTitle->setText( "<a href='"
+                                  + m1.record(0).value("URL").toString()
+                                  + "'>"
+                                  + m1.record(0).value("Title").toString()
+                                  + "</a>");
+        ui->Lbl_svTitle->setOpenExternalLinks( true );
+    }else{
+        ui->Lbl_svTitle->setText( m1.record(0).value("Title").toString() );
+    }
+    if( m1.record(0).value("OrigTitle").toString().isEmpty() ){
+        ui->Lbl_svOrigTitle->setVisible( false );
+        ui->Lbl_sOrigTitle->setVisible( false );
+    }else{
+        ui->Lbl_svOrigTitle->setText( m1.record(0).value("OrigTitle").toString() );
+        ui->Lbl_svOrigTitle->setVisible( true );
+        ui->Lbl_sOrigTitle->setVisible( true );
+    }
+    if( m1.record(0).value("Director").toString().isEmpty() ){
+        ui->Lbl_svDirector->setVisible( false );
+        ui->Lbl_sDirector->setVisible( false );
+    }else{
+        ui->Lbl_svDirector->setText( m1.record(0).value("Director").toString() );
+        ui->Lbl_svDirector->setVisible( true );
+        ui->Lbl_sDirector->setVisible( true );
+    }
+    if( m1.record(0).value("Year").toString().isEmpty() ){
+        ui->Lbl_svYear->setVisible( false );
+        ui->Lbl_sYear->setVisible( false );
+    }else{
+        ui->Lbl_svYear->setText( m1.record(0).value("Year").toString() );
+        ui->Lbl_svYear->setVisible( true );
+        ui->Lbl_sYear->setVisible( true );
+    }
+    if( m1.record(0).value("Tags").toString().isEmpty() ){
+        ui->Lbl_svTags->setVisible( false );
+        ui->Lbl_sTags->setVisible( false );
+    }else{
+        ui->Lbl_svTags->setText( m1.record(0).value("Tags").toString() );
+        ui->Lbl_svTags->setVisible( true );
+        ui->Lbl_sTags->setVisible( true );
+    }
+    if( m1.record(0).value("Studios").toString().isEmpty() ){
+        ui->Lbl_svStudio->setVisible( false );
+        ui->Lbl_sStudio->setVisible( false );
+    }else{
+        ui->Lbl_svStudio->setText( m1.record(0).value("Studios").toString() );
+        ui->Lbl_svStudio->setVisible( true );
+        ui->Lbl_sStudio->setVisible( true );
+    }
+    if( m1.record(0).value("Description").toString().isEmpty() ){
+        ui->Lbl_VAnimeDescr->setVisible( false );
+        ui->Lbl_sAnimeDescr->setVisible( false );
+    }else{
+        ui->Lbl_VAnimeDescr->setText( m1.record(0).value("Description").toString() );
+        ui->Lbl_VAnimeDescr->setVisible( true );
+        ui->Lbl_sAnimeDescr->setVisible( true );
+    }
+
     QString imgPath = m1.record(0).value("ImagePath").toString();
 
     QPixmap pic( imgPath );
@@ -362,37 +414,21 @@ void MainWindow::selectAnimeData(const QModelIndex&)
     }
     ui->Lbl_ImageCover->setPixmap( pic );
 
-    // #ToDo : Добавить раздел TV & Film(Movie)
-
     currentItemDir = m1.record(0).value("Dir").toString();
 
-    QStringList filter;
-    filter << "*ona*" << "*ova*" << "*special*";
-    QDir dir( currentItemDir );
-    QStringList dirs( dir.entryList( filter, QDir::Dirs ) );
+    if( currentItemDir.isEmpty() )
+        ui->StackWgt_CoverOrDir->setOptSwitch( false );
+    else
+        ui->StackWgt_CoverOrDir->setOptSwitch( true );
+    QDirModel *dirModel = new QDirModel;
+//    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
+    dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
-    ui->TreeWidget_Dir->clear();
-    QTreeWidgetItem **top = (QTreeWidgetItem**)new QTreeWidgetItem[dirs.size()];
-
-    // Add top level
-    for(int i = 0; i < dirs.size() ; ++i){
-        top[i] = new QTreeWidgetItem( QStringList() << dirs[i] );
-        ui->TreeWidget_Dir->addTopLevelItem(top[i]);
-    }
-
-    // Add sub levels
-    filter.clear();
-    filter << "*.avi" << "*.mkv" << "*.mp4" << "*.wmv" << "*.m2ts" << "*.rm";
-    for(int i = 0; i < dirs.size(); i++){
-        dir.setPath( currentItemDir +"/"+ dirs[i] );
-        QStringList files = dir.entryList( filter, QDir::Files );
-
-        QTreeWidgetItem **sub = (QTreeWidgetItem**)new QTreeWidgetItem[files.size()];
-        for(int j = 0; j < files.size() ; ++j){
-            sub[j] = new QTreeWidgetItem( QStringList() << files[j] );
-            top[i]->addChild( sub[j] );
-        }
-    }
+    ui->TreeView_Dir->setModel( dirModel );
+    ui->TreeView_Dir->setRootIndex( dirModel->index(currentItemDir) );
+    ui->TreeView_Dir->setColumnHidden(1, true);
+    ui->TreeView_Dir->setColumnHidden(2, true);
+    ui->TreeView_Dir->setColumnHidden(3, true);
 }
 
 void MainWindow::selectMangaData(const QModelIndex&)
@@ -432,27 +468,10 @@ void MainWindow::on_CB_Filter_currentIndexChanged(int = 0)
     on_CB_Section_currentIndexChanged();
 }
 
-void MainWindow::on_TreeWidget_Dir_itemActivated(QTreeWidgetItem *item, int column)
+void MainWindow::on_TreeView_Dir_activated(const QModelIndex &index)
 {
-    //    item->setIcon(0,  QIcon("://images/icon-section/section-manga.png") );
-    //    item->setTextAlignment(0,  Qt::AlignRight );
-    //    item->setForeground(0, QBrush(Qt::red)); // Сам текст - передний план
-
-//    m1.record(0).value("Dir").toString();
-    item->sortChildren(column, Qt::DescendingOrder);
-
-    QString pathToFile(currentItemDir);
-    if( item->childCount() == 0 ) // #Bug : У элементов верхнего уровня без чайлдов, нету parent->text() :)
-        pathToFile += "/"+item->parent()->text(column)+"/"+item->text(column);
-    else
-        pathToFile += "/"+item->text(column);
-
-    if( item->childCount() == 0 )
-        QDesktopServices::openUrl( QUrl::fromLocalFile(pathToFile)  );
-/*
-    QMessageBox::information(this,
-                             windowTitle(),
-                             QString::number( ok ) //pathToFile
-                             );
-    // */
+    QDirModel *m = (QDirModel*)index.model();
+    QDesktopServices::openUrl( QUrl::fromLocalFile( m->fileInfo(index).absolutePath()
+                                                    + "/" + index.data().toString()
+                                                    )  );
 }

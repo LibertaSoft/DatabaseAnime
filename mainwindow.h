@@ -64,7 +64,7 @@ private slots:
     void on_listView_ListItemsSection_clicked(const QModelIndex &index);
     void on_CB_Section_currentIndexChanged(int index);
     void on_CB_Filter_currentIndexChanged(int index);
-    void on_TreeWidget_Dir_itemActivated(QTreeWidgetItem *item, int column);
+    void on_TreeView_Dir_activated(const QModelIndex &index);
 };
 
 #endif // MAINWINDOW_H
