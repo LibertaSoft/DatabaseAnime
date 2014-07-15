@@ -13,11 +13,17 @@
 
 #include <QtNetwork/QNetworkRequest>
 
+void DialogAddEdit::initTags()
+{
+    tags.setStringList( MngrQuerys::getAnimeTags() );
+}
+
 DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *parent ) :
     QDialog(parent), ui(new Ui::DialogAddEdit), isEditRole( _isEditRole )
 {
     ui->setupUi(this);
     QSettings settings;
+    initTags();
 
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
@@ -40,13 +46,9 @@ DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *pare
         this->LineEdit_PostScoring->setPlaceholderText( tr("Postscoring") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_PostScoring );
     }
-    TableModel_Tags = new QSqlTableModel;
-    TableModel_Tags->setTable("AnimeTags");
-    TableModel_Tags->select();
 
-    ui->ListView_Tags->setModel( TableModel_Tags );
+    ui->ListView_Tags->setModel( &tags );
     ui->ListView_Tags->setWrapping( true );
-    ui->ListView_Tags->setModelColumn(1);
     ui->ListView_Tags->setSelectionMode( QAbstractItemView::MultiSelection );
 
     if( isEditRole ){
@@ -60,7 +62,8 @@ DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *pare
         ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
 
         ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
-        // optional
+
+        // Optional Fields
         QSettings settings;
         if( settings.value( "optionalField/anime/OrigTitle", false ).toBool() ){
             this->LineEdit_OrigTitle->setText( model->record(0).value("OrigTitle").toString() );

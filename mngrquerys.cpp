@@ -19,18 +19,6 @@ QString MngrQuerys::getTableName(Tables::table table)
         case Tables::vDorama :
             return "doramaSerials" ;
             break;
-        case Tables::tAnime :
-            return "animeTags";
-            break;
-        case Tables::tManga :
-            return "mangaTags" ;
-            break;
-        case Tables::tAmv :
-            return "amvTags" ;
-            break;
-        case Tables::tDorama :
-            return "doramaTags" ;
-            break;
         case Tables::none :
         default:
             return "" ;
@@ -176,110 +164,72 @@ bool MngrQuerys::createTable_AnimeSerials()
     return true;
 }
 
-bool MngrQuerys::createTable_AnimeTags()
+QStringList MngrQuerys::getAnimeTags()
 {
-    QString sql = "CREATE TABLE IF NOT EXISTS animeTags("
-                  "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-                  "tagName VARCHAR(32) "
-                  ");";
-    QSqlQuery query;
-    if( !query.exec(sql) ){
-        qDebug() << "Table animeTags is not created! Error: " << query.lastError();
-//        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("There was a mistake at table creation in a database.") );
-        return false;
-    }
-    return true;
+    return QStringList()
+            << QObject::tr("Action",			"1.1")	<< QObject::tr("Futunari",			"1.2")	<< QObject::tr("Music",				"1.3")	<< QObject::tr("Shounen",			"1.4")
+            << QObject::tr("Adventure",			"2.1")	<< QObject::tr("Game",				"2.2")	<< QObject::tr("Mystery",			"2.3")	<< QObject::tr("Shounen-ai (Yaoi)",	"2.4")
+            << QObject::tr("Bara",				"3.1")	<< QObject::tr("Gender intrigue",	"3.2")	<< QObject::tr("Parody",			"3.3")	<< QObject::tr("Space",				"3.4")
+            << QObject::tr("Comedy",			"4.1")	<< QObject::tr("Guro",				"4.2")	<< QObject::tr("Philosophy",		"4.3")	<< QObject::tr("Sport",				"4.4")
+            << QObject::tr("Cooking",			"5.1")	<< QObject::tr("Harem",				"5.2")	<< QObject::tr("Police",			"5.3")	<< QObject::tr("Steampunk",			"5.4")
+            << QObject::tr("Cyberpunk",			"6.1")	<< QObject::tr("Hentai",			"6.2")	<< QObject::tr("Post-apocalyptic",	"6.3")	<< QObject::tr("Supernatural",		"6.4")
+            << QObject::tr("Daily occurrence",	"7.1")	<< QObject::tr("Historical",		"7.2")	<< QObject::tr("Psychology",		"7.3")	<< QObject::tr("Tale",				"7.4")
+            << QObject::tr("Demons",			"8.1")	<< QObject::tr("Horror",			"8.2")	<< QObject::tr("Ranobe",			"8.3")	<< QObject::tr("Tentacles",			"8.4")
+            << QObject::tr("Detective",			"9.1")	<< QObject::tr("Josei",				"9.2")	<< QObject::tr("Romantic",			"9.3")	<< QObject::tr("The children's",	"9.4")
+            << QObject::tr("Drama",				"10.1")	<< QObject::tr("Kodomo",			"10.2")	<< QObject::tr("Samurai",			"10.3")	<< QObject::tr("Thriller",			"10.4")
+            << QObject::tr("Ecchi",				"11.1")	<< QObject::tr("Madness",			"11.2")	<< QObject::tr("School",			"11.3")	<< QObject::tr("Tragedy",			"11.4")
+            << QObject::tr("Family",			"12.1")	<< QObject::tr("Magic",				"12.2")	<< QObject::tr("Science Fiction",	"12.3")	<< QObject::tr("Vampires",			"12.4")
+            << QObject::tr("Fantastic",			"13.1")	<< QObject::tr("Magical girl",		"13.2")	<< QObject::tr("Seinen",			"13.3")	<< QObject::tr("War",				"13.4")
+            << QObject::tr("Fantasy",			"14.1")	<< QObject::tr("Martial Arts",		"14.2")	<< QObject::tr("Shojo",				"14.3")	<< QObject::tr("Yonkoma",			"14.4")
+            << QObject::tr("Fighter",			"15.1")	<< QObject::tr("Mech",				"15.2")	<< QObject::tr("Shojo-ai (Yuri)",	"15.3");
 }
 
-bool MngrQuerys::insert_defaultAnimeTags()
+QStringList MngrQuerys::getMangaTags()
 {
-    QSqlQuery query;
+    return QStringList()
+            << QObject::tr("Action",			"1.1")	<< QObject::tr("Futunari",			"1.2")	<< QObject::tr("Music",				"1.3")	<< QObject::tr("Shounen",			"1.4")
+            << QObject::tr("Adventure",			"2.1")	<< QObject::tr("Game",				"2.2")	<< QObject::tr("Mystery",			"2.3")	<< QObject::tr("Shounen-ai (Yaoi)",	"2.4")
+            << QObject::tr("Bara",				"3.1")	<< QObject::tr("Gender intrigue",	"3.2")	<< QObject::tr("Parody",			"3.3")	<< QObject::tr("Space",				"3.4")
+            << QObject::tr("Comedy",			"4.1")	<< QObject::tr("Guro",				"4.2")	<< QObject::tr("Philosophy",		"4.3")	<< QObject::tr("Sport",				"4.4")
+            << QObject::tr("Cooking",			"5.1")	<< QObject::tr("Harem",				"5.2")	<< QObject::tr("Police",			"5.3")	<< QObject::tr("Steampunk",			"5.4")
+            << QObject::tr("Cyberpunk",			"6.1")	<< QObject::tr("Hentai",			"6.2")	<< QObject::tr("Post-apocalyptic",	"6.3")	<< QObject::tr("Supernatural",		"6.4")
+            << QObject::tr("Daily occurrence",	"7.1")	<< QObject::tr("Historical",		"7.2")	<< QObject::tr("Psychology",		"7.3")	<< QObject::tr("Tale",				"7.4")
+            << QObject::tr("Demons",			"8.1")	<< QObject::tr("Horror",			"8.2")	<< QObject::tr("Ranobe",			"8.3")	<< QObject::tr("Tentacles",			"8.4")
+            << QObject::tr("Detective",			"9.1")	<< QObject::tr("Josei",				"9.2")	<< QObject::tr("Romantic",			"9.3")	<< QObject::tr("The children's",	"9.4")
+            << QObject::tr("Drama",				"10.1")	<< QObject::tr("Kodomo",			"10.2")	<< QObject::tr("Samurai",			"10.3")	<< QObject::tr("Thriller",			"10.4")
+            << QObject::tr("Ecchi",				"11.1")	<< QObject::tr("Madness",			"11.2")	<< QObject::tr("School",			"11.3")	<< QObject::tr("Tragedy",			"11.4")
+            << QObject::tr("Family",			"12.1")	<< QObject::tr("Magic",				"12.2")	<< QObject::tr("Science Fiction",	"12.3")	<< QObject::tr("Vampires",			"12.4")
+            << QObject::tr("Fantastic",			"13.1")	<< QObject::tr("Magical girl",		"13.2")	<< QObject::tr("Seinen",			"13.3")	<< QObject::tr("War",				"13.4")
+            << QObject::tr("Fantasy",			"14.1")	<< QObject::tr("Martial Arts",		"14.2")	<< QObject::tr("Shojo",				"14.3")	<< QObject::tr("Yonkoma",			"14.4")
+            << QObject::tr("Fighter",			"15.1")	<< QObject::tr("Mech",				"15.2")	<< QObject::tr("Shojo-ai (Yuri)",	"15.3");
+}
 
-    query.prepare( QString("DELETE FROM %1").arg( "animeTags" ) );
-    if( !query.exec() ){
-        qDebug() << "Cannot truncate table AnimeTags: " << query.lastError();
-        //(new QErrorMessage(0))->showMessage( query.lastError().text() );
-        return false;
-    }
+QStringList MngrQuerys::getAmvTags()
+{
+    return QStringList()
+            << QObject::tr("Action",			"1.1")	<< QObject::tr("Drama",			"1.2")	<< QObject::tr("M@D",				"1.3")	<< QObject::tr("Romance",			"1.4")
+            << QObject::tr("Character Profile",	"2.1")	<< QObject::tr("Ecchi",			"2.2")	<< QObject::tr("MEP",				"2.3")	<< QObject::tr("Sentimental",		"2.4")
+            << QObject::tr("Comedy (Fun)",		"3.1")	<< QObject::tr("GMV",			"3.2")	<< QObject::tr("MMV",				"3.3")	<< QObject::tr("Story",				"3.4")
+            << QObject::tr("Cross-Over",		"4.1")	<< QObject::tr("Horror",		"4.2")	<< QObject::tr("Original Animation","4.3")	<< QObject::tr("Trailer",			"4.4")
+            << QObject::tr("Dance",				"5.1")	<< QObject::tr("Instrumental",	"5.2")	<< QObject::tr("Psychedelic",		"5.3");
+}
 
-    query.prepare( QString("INSERT INTO %1(tagName) VALUES "
-                  "(:v01), (:v02), (:v03), (:v04), (:v05), "
-                  "(:v06), (:v07), (:v08), (:v09), (:v10), "
-                  "(:v11), (:v12), (:v13), (:v14), (:v15), "
-                  "(:v16), (:v17), (:v18), (:v19), (:v20), "
-                  "(:v21), (:v22), (:v23), (:v24), (:v25), "
-                  "(:v26), (:v27), (:v28), (:v29), (:v30), "
-                  "(:v31), (:v32), (:v33), (:v34), (:v35), "
-                  "(:v36), (:v37), (:v38), (:v39), (:v40), "
-                  "(:v41), (:v42), (:v43), (:v44), (:v45), "
-                  "(:v46), (:v47), (:v48), (:v49), (:v50), "
-                  "(:v51), (:v52), (:v53), (:v54), (:v55), "
-                  "(:v56), (:v57), (:v58), (:v59)").arg( "animeTags" )
-                  );
-    query.bindValue(":v01", "Бара");
-    query.bindValue(":v02", "Безумие");
-    query.bindValue(":v03", "Боевик");
-    query.bindValue(":v04", "Боевые искусства");
-    query.bindValue(":v05", "Вампиры");
-    query.bindValue(":v06", "Война");
-    query.bindValue(":v07", "Гарем");
-    query.bindValue(":v08", "Гендерная интрига");
-    query.bindValue(":v09", "Гуро");
-    query.bindValue(":v10", "Демоны");
-    query.bindValue(":v11", "Детектив");
-    query.bindValue(":v12", "Детское");
-    query.bindValue(":v13", "Дзёсэй");
-    query.bindValue(":v14", "Драма");
-    query.bindValue(":v15", "Ёнкома");
-    query.bindValue(":v16", "Игра");
-    query.bindValue(":v17", "Исторический");
-    query.bindValue(":v18", "Киберпанк");
-    query.bindValue(":v19", "Кодомо");
-    query.bindValue(":v20", "Комедия");
-    query.bindValue(":v21", "Космос");
-    query.bindValue(":v22", "Кулинария");
-    query.bindValue(":v23", "Магия");
-    query.bindValue(":v24", "Махо-сёдзё");
-    query.bindValue(":v25", "Меха");
-    query.bindValue(":v26", "Мистика");
-    query.bindValue(":v27", "Музыкальный");
-    query.bindValue(":v28", "Научная фантастика");
-    query.bindValue(":v29", "Пародия");
-    query.bindValue(":v30", "Повседневность");
-    query.bindValue(":v31", "Полиция");
-    query.bindValue(":v32", "Постапокалиптика");
-    query.bindValue(":v33", "Приключения");
-    query.bindValue(":v34", "Психология");
-    query.bindValue(":v35", "Ранобэ");
-    query.bindValue(":v36", "Романтика");
-    query.bindValue(":v37", "Самураи");
-    query.bindValue(":v38", "Сверхъестественное");
-    query.bindValue(":v39", "Семейный");
-    query.bindValue(":v40", "Сёдзё");
-    query.bindValue(":v41", "Сёдзё-ай (Юри)");
-    query.bindValue(":v42", "Сёнэн");
-    query.bindValue(":v43", "Сёнэн-ай (Яой)");
-    query.bindValue(":v44", "Сказка");
-    query.bindValue(":v45", "Спорт");
-    query.bindValue(":v46", "Стимпанк");
-    query.bindValue(":v47", "Сэйнэн");
-    query.bindValue(":v48", "Тентакли");
-    query.bindValue(":v49", "Трагедия");
-    query.bindValue(":v50", "Триллер");
-    query.bindValue(":v51", "Ужасы");
-    query.bindValue(":v52", "Фантастика");
-    query.bindValue(":v53", "Философия");
-    query.bindValue(":v54", "Футунари");
-    query.bindValue(":v55", "Фэнтези");
-    query.bindValue(":v56", "Хентай");
-    query.bindValue(":v57", "Школа");
-    query.bindValue(":v58", "Экшен");
-    query.bindValue(":v59", "Этти");
-
-    if( !query.exec() ){
-        qDebug() << "Cannot insert data in table animeTags: " << query.lastError();
-        //(new QErrorMessage(0))->showMessage( query.lastError().text() );
-        return false;
-    }
-    return true;
+QStringList MngrQuerys::getDoramaTags()
+{
+    return QStringList()
+            << QObject::tr("Adventure",			"1.1")	<< QObject::tr("Friendship",		"1.2")	<< QObject::tr("Policy",			"1.3")	<< QObject::tr("Vampires",			"1.4")
+            << QObject::tr("Art-house",			"2.1")	<< QObject::tr("Game",				"2.2")	<< QObject::tr("Psychology",		"2.3")	<< QObject::tr("Western",			"2.4")
+            << QObject::tr("Biography",			"3.1")	<< QObject::tr("Gay theme",			"3.2")	<< QObject::tr("Relationship",		"3.3")
+            << QObject::tr("Business",			"4.1")	<< QObject::tr("Gender intrigue",	"4.2")	<< QObject::tr("Romance",			"4.3")
+            << QObject::tr("Comedy",			"5.1")	<< QObject::tr("Historical",		"5.2")	<< QObject::tr("School",			"5.3")
+            << QObject::tr("Crime",				"6.1")	<< QObject::tr("Horror",			"6.2")	<< QObject::tr("Sci-Fi",			"6.3")
+            << QObject::tr("Daily occurrence",	"7.1")	<< QObject::tr("Lesbian theme",		"7.2")	<< QObject::tr("Sitcom",			"7.3")
+            << QObject::tr("Detective",			"8.1")	<< QObject::tr("Live-action",		"8.2")	<< QObject::tr("Sport",				"8.3")
+            << QObject::tr("Documentary",		"9.1")	<< QObject::tr("Martial Arts",		"9.2")	<< QObject::tr("Suspense",			"9.3")
+            << QObject::tr("Drama",				"10.1")	<< QObject::tr("Medicine",			"10.2")	<< QObject::tr("Taiga",				"10.3")
+            << QObject::tr("Erotic",			"11.1")	<< QObject::tr("Melodrama",			"11.2")	<< QObject::tr("Tale",				"11.3")
+            << QObject::tr("Family",			"12.1")	<< QObject::tr("Military",			"12.2")	<< QObject::tr("Thriller",			"12.3")
+            << QObject::tr("Fantastic",			"13.1")	<< QObject::tr("Musical",			"13.2")	<< QObject::tr("Tokusatsu",			"13.3")
+            << QObject::tr("Fantasy",			"14.1")	<< QObject::tr("Mysticism",			"14.2")	<< QObject::tr("Tragedy",			"14.3")
+            << QObject::tr("Fighter",			"15.1")	<< QObject::tr("Parody",			"15.2")	<< QObject::tr("TV Show",			"15.3");
 }

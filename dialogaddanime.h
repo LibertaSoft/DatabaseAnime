@@ -5,6 +5,7 @@
 #include <QAbstractButton>
 #include <QLineEdit>
 #include <QSqlTableModel>
+#include <QStringListModel>
 
 namespace Ui {
 class DialogAddEdit;
@@ -13,7 +14,21 @@ class DialogAddEdit;
 class DialogAddEdit : public QDialog
 {
     Q_OBJECT
+private:
+    Ui::DialogAddEdit *ui;
+    QSqlTableModel* TableModel_Tags;
+    QSqlQueryModel* model;
+    bool isEditRole;
+    int recordId;
+    QString oldCover;
 
+    QLineEdit* LineEdit_OrigTitle;
+    QLineEdit* LineEdit_Director;
+    QLineEdit* LineEdit_PostScoring;
+
+    QStringListModel tags;
+
+    void initTags();
 public:
     explicit DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *parent);
     ~DialogAddEdit();
@@ -32,18 +47,6 @@ private slots:
     bool insert_AnimeSerials();
 
     void on_LineEdit_Dir_textChanged(const QString &arg1);
-
-private:
-    Ui::DialogAddEdit *ui;
-    QSqlTableModel* TableModel_Tags;
-    QSqlQueryModel* model;
-    bool isEditRole;
-    int recordId;
-    QString oldCover;
-
-    QLineEdit* LineEdit_OrigTitle;
-    QLineEdit* LineEdit_Director;
-    QLineEdit* LineEdit_PostScoring;
 };
 
 #endif // DIALOGADDEDIT_H

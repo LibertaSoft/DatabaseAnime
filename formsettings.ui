@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>729</width>
-    <height>593</height>
+    <width>473</width>
+    <height>348</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -196,109 +196,6 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_3">
        <item>
-        <widget class="QGroupBox" name="GBox_EditTags">
-         <property name="title">
-          <string>Tag list:</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QLineEdit" name="LineEdit_AddTag">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="placeholderText">
-               <string>Type new tag name</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="TButton_AddTag">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="toolTip">
-               <string>To add in the list below, a tag from a field at the left</string>
-              </property>
-              <property name="text">
-               <string comment="Text on button add [unused]">+</string>
-              </property>
-              <property name="icon">
-               <iconset resource="resource.qrc">
-                <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="TButton_DeleteTag">
-              <property name="enabled">
-               <bool>true</bool>
-              </property>
-              <property name="toolTip">
-               <string>To remove chosen in the list below a tag</string>
-              </property>
-              <property name="text">
-               <string comment="Text on button delete [unused]">-</string>
-              </property>
-              <property name="icon">
-               <iconset resource="resource.qrc">
-                <normaloff>:/images/list-remove.png</normaloff>:/images/list-remove.png</iconset>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QListView" name="ListView_Tags">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::WinPanel</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
-            </property>
-            <property name="alternatingRowColors">
-             <bool>false</bool>
-            </property>
-            <property name="selectionMode">
-             <enum>QAbstractItemView::MultiSelection</enum>
-            </property>
-            <property name="selectionBehavior">
-             <enum>QAbstractItemView::SelectRows</enum>
-            </property>
-            <property name="flow">
-             <enum>QListView::LeftToRight</enum>
-            </property>
-            <property name="isWrapping" stdset="0">
-             <bool>true</bool>
-            </property>
-            <property name="resizeMode">
-             <enum>QListView::Fixed</enum>
-            </property>
-            <property name="spacing">
-             <number>0</number>
-            </property>
-            <property name="gridSize">
-             <size>
-              <width>130</width>
-              <height>26</height>
-             </size>
-            </property>
-            <property name="uniformItemSizes">
-             <bool>false</bool>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
         <widget class="QGroupBox" name="GBox_FieldsForEdit">
          <property name="title">
           <string>Optional fields:</string>
@@ -362,9 +259,7 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="resource.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>BtnBox</sender>

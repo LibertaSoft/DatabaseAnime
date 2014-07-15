@@ -10,6 +10,7 @@
 #include <QtSql>
 #include <QAbstractItemModel>
 #include <QDirModel>
+//#include <QSvgWidget>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -23,6 +24,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lbl_AppTitle->setText( QApplication::applicationDisplayName() );
     ui->Lbl_VVersion->setText( QApplication::applicationVersion() );
 
+//    ui->Lbl_logo->setVisible( false );
+//    QSvgWidget *logo = new QSvgWidget("/tmp/DBA_logo.svg");
+//    logo->setFixedSize(600,500);
+//    ui->VLay_logoSvg->addWidget( logo );
+//    ui->VLay_logoSvg->setAlignment(logo, Qt::AlignCenter);
+
+
     QSettings settings;
 
     this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
@@ -30,14 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
     bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
     ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 
-    QFile fileDB( QDir::homePath() + "/." + QApplication::organizationName() + "/" + QApplication::applicationName() + "/DatabaseAnime.sqlite" );
-    bool firstRun = !fileDB.exists();
     mngrConnection.open();
-    if( firstRun ){
-        MngrQuerys::createTable_AnimeSerials();
-        MngrQuerys::createTable_AnimeTags();
-        MngrQuerys::insert_defaultAnimeTags();
-    }
+    MngrQuerys::createTable_AnimeSerials();
 
     ui->lineEdit_Search->setFocus();
     QueryModel_ListItemsSection = new QSqlQueryModel(this);
@@ -51,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::closeEvent(QCloseEvent *e){
     mngrConnection.close();
 
-    sections::section select = static_cast<sections::section>( ui->CB_Section->currentData().toInt() );;
+    sections::section select = static_cast<sections::section>( ui->CB_Section->currentData().toInt() );
     QSettings settings;
     settings.setValue("MainWindow/Geometry", this->saveGeometry() );
     settings.setValue("MainWindow/State",    this->saveState() );
@@ -217,6 +219,8 @@ void MainWindow::reloadSectionsList()
             = static_cast<sections::section>(
                 settings.value("btnSwitchSection/selected", sections::none).toInt() );
     ui->CB_Section->clear();
+    ui->CB_Section->addItem( QIcon("://images/icon-filters/filter_edit.png"),
+                             tr("Main"), sections::none );
     if( set_enableBtnAnime ){
         ui->CB_Section->addItem( QIcon("://images/icon-section/section-anime.png"),
                                  tr("Anime"),  sections::anime );
@@ -459,7 +463,8 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     setActiveTable( sec );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), fil );
     ui->listView_ListItemsSection->setModelColumn(1);
-
+    if(sec == sections::none)
+        ui->stackedWidget->setCurrentIndex(0);
     // ToDo : Проверить соответствие версии БД
 }
 
