@@ -32,13 +32,12 @@ public:
     int getMinimum()const;
     bool isActiveBtnAdd()const;
     bool isActiveBtnSub()const;
-    void setActiveBtnAdd(bool);
-    void setActiveBtnSub(bool);
+    bool setActiveBtnAdd(bool);
+    bool setActiveBtnSub(bool);
     QString getFormat()const;
     QString getTargetField()const;
 signals:
     void progressChanged(int);
-//    void progressChanged(int, QString);
     void progressChanged(int, int, QString);
 public slots:
     void setProgress(int);

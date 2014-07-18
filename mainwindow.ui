@@ -211,6 +211,12 @@
           </item>
           <item>
            <widget class="QFrame" name="frame_AppInfo">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="minimumSize">
              <size>
               <width>220</width>
@@ -219,7 +225,7 @@
             </property>
             <property name="maximumSize">
              <size>
-              <width>250</width>
+              <width>300</width>
               <height>120</height>
              </size>
             </property>
@@ -229,113 +235,67 @@
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
             </property>
-            <widget class="QLabel" name="Lbl_TCoder">
-             <property name="geometry">
-              <rect>
-               <x>10</x>
-               <y>10</y>
-               <width>92</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Developer:</string>
-             </property>
-            </widget>
-            <widget class="QLabel" name="Lbl_VCoder">
-             <property name="geometry">
-              <rect>
-               <x>108</x>
-               <y>10</y>
-               <width>102</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string notr="true" extracomment="Label Value Coder">Demetrio</string>
-             </property>
-            </widget>
-            <widget class="QLabel" name="Lbl_TDesignAuthor">
-             <property name="geometry">
-              <rect>
-               <x>10</x>
-               <y>31</y>
-               <width>57</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Designer:</string>
-             </property>
-            </widget>
-            <widget class="QLabel" name="Lbl_VDesignAuthor">
-             <property name="geometry">
-              <rect>
-               <x>108</x>
-               <y>31</y>
-               <width>102</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string notr="true" extracomment="Label Value Design Author">Макс Вольный</string>
-             </property>
-            </widget>
-            <widget class="QLabel" name="Lbl_TVersion">
-             <property name="geometry">
-              <rect>
-               <x>10</x>
-               <y>53</y>
-               <width>52</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Version:</string>
-             </property>
-            </widget>
-            <widget class="QLabel" name="Lbl_VVersion">
-             <property name="geometry">
-              <rect>
-               <x>108</x>
-               <y>53</y>
-               <width>102</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string notr="true" extracomment="[unsed]">0.0.0</string>
-             </property>
-            </widget>
-            <widget class="QLabel" name="Lbl_TLicense">
-             <property name="geometry">
-              <rect>
-               <x>10</x>
-               <y>74</y>
-               <width>73</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>License:</string>
-             </property>
-            </widget>
-            <widget class="QLabel" name="Lbl_VLicense">
-             <property name="geometry">
-              <rect>
-               <x>108</x>
-               <y>74</y>
-               <width>102</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="toolTip">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string notr="true" extracomment="[unsed]">GNU GPLv3</string>
-             </property>
-            </widget>
+            <layout class="QFormLayout" name="formLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="Lbl_TCoder">
+               <property name="text">
+                <string>Developer:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="Lbl_VCoder">
+               <property name="text">
+                <string notr="true" extracomment="Label Value Coder">Demetrio</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="Lbl_TDesignAuthor">
+               <property name="text">
+                <string>Designer:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="Lbl_VDesignAuthor">
+               <property name="text">
+                <string notr="true" extracomment="Label Value Design Author">Макс Вольный</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="Lbl_TVersion">
+               <property name="text">
+                <string>Version:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="Lbl_VVersion">
+               <property name="text">
+                <string notr="true" extracomment="[unsed]">0.0.0</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="Lbl_TLicense">
+               <property name="text">
+                <string>License:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="Lbl_VLicense">
+               <property name="toolTip">
+                <string notr="true"/>
+               </property>
+               <property name="text">
+                <string notr="true" extracomment="[unsed]">GNU GPLv3</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
@@ -499,7 +459,7 @@
                  <x>0</x>
                  <y>0</y>
                  <width>318</width>
-                 <height>498</height>
+                 <height>238</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_4">

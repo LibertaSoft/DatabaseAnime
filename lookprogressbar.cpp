@@ -68,14 +68,22 @@ bool LookProgressBar::isActiveBtnSub() const
     return _btnSubActive;
 }
 
-void LookProgressBar::setActiveBtnAdd(bool f)
+bool LookProgressBar::setActiveBtnAdd(bool f)
 {
-    _btnAddActive = f;
+    if( _btnAddActive != f ){
+        _btnAddActive = f;
+        return true;
+    }else
+        return false;
 }
 
-void LookProgressBar::setActiveBtnSub(bool f)
+bool LookProgressBar::setActiveBtnSub(bool f)
 {
-    _btnSubActive = f;
+    if( _btnSubActive != f ){
+        _btnSubActive = f;
+        return true;
+    }else
+        return false;
 }
 
 QString LookProgressBar::getFormat() const
@@ -120,10 +128,10 @@ void LookProgressBar::paintEvent(QPaintEvent*)
     QLinearGradient gradient(0, 0, width(), height());
     gradient.setStart( width(), height()/2 );
 
-    float f = (float)getValue() / getMaximum();
+    float f = static_cast<float>( getValue() / getMaximum() );
 
     gradient.setColorAt(0.0f, QColor(30,170,235,255) );
-    gradient.setColorAt(0.5f, QColor(10,130,255,255) );
+    gradient.setColorAt(0.4f, QColor(10,130,255,255) );
     gradient.setColorAt(1.0f, QColor(30,170,235,255) );
 
     p.fillRect(rect(), QColor(184,184,184,255) );
@@ -149,7 +157,6 @@ void LookProgressBar::paintEvent(QPaintEvent*)
         pSub.load("://images/list-remove.png");
     }
 
-
     QRect xrbtnPls(4,4,height()-8,height()-8);
     QRect xrbtnSub(height()+4,4,height()-8,height()-8);
 
@@ -164,39 +171,34 @@ void LookProgressBar::paintEvent(QPaintEvent*)
     drawFrame(&p);
 }
 
-void LookProgressBar::mousePressEvent(QMouseEvent *pe)
+void LookProgressBar::mousePressEvent(QMouseEvent*)
 {
-    pe->pos();
-    if( pe->pos().x() >= 0 && pe->pos().x() <= height()){
+    if( isActiveBtnAdd() ){
         emit progressInc();
-    }
-    if( pe->pos().x() >= height() && pe->pos().x() <= height()*2){
+    }else if( isActiveBtnSub() ){
         emit progressDec();
     }
 }
 
 void LookProgressBar::leaveEvent(QEvent*)
 {
-    setActiveBtnAdd( false );
-    setActiveBtnSub( false );
-    repaint();
+    if( setActiveBtnAdd( false ) || setActiveBtnSub( false ) )
+        repaint();
 }
 
 void LookProgressBar::mouseMoveEvent(QMouseEvent *pe)
 {
-    pe->pos();
-    if( pe->pos().x() >= 1 && pe->pos().x() <= height()-1){
-        setActiveBtnAdd( true );
-        repaint();
+    const int height2 = height()*2;
+    if( pe->pos().x() < height2 ){
+        if( pe->pos().x() < height2>>1 ){
+            if( setActiveBtnAdd( true ) || setActiveBtnSub( false ) )
+                repaint();
+        }else{
+            if( setActiveBtnAdd( false ) || setActiveBtnSub( true ) )
+                repaint();
+        }
     }else{
-        setActiveBtnAdd( false );
-        repaint();
-    }
-    if( pe->pos().x() >= height()+3 && pe->pos().x() <= height()*2-3){
-        setActiveBtnSub( true );
-        repaint();
-    }else{
-        setActiveBtnSub( false );
-        repaint();
+        if( setActiveBtnSub( false ) )
+            repaint();
     }
 }
