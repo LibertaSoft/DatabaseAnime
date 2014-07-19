@@ -15,14 +15,12 @@ SOURCES += \
     dialogaddanime.cpp \
     mngrconnection.cpp \
     mngrquerys.cpp \
-    stackwgt_mousehideover.cpp \
-    dialogaddmanga.cpp
+    stackwgt_mousehideover.cpp
 
 FORMS += \
     mainwindow.ui \
     formsettings.ui \
-    dialogaddanime.ui \
-    dialogaddmanga.ui
+    dialogaddanime.ui
 
 HEADERS += \
     mainwindow.h \
@@ -32,8 +30,7 @@ HEADERS += \
     dialogaddanime.h \
     mngrconnection.h \
     mngrquerys.h \
-    stackwgt_mousehideover.h \
-    dialogaddmanga.h
+    stackwgt_mousehideover.h
 
 RESOURCES += \
     resource.qrc
