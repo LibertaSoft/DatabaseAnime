@@ -127,97 +127,73 @@
          <property name="currentIndex">
           <number>0</number>
          </property>
+         <widget class="QWidget" name="tab_4">
+          <attribute name="title">
+           <string>Containing music</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLineEdit" name="LineEdit_Tags_2">
+               <property name="toolTip">
+                <string>Separator: comma</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="maxLength">
+                <number>256</number>
+               </property>
+               <property name="placeholderText">
+                <string>Enter music title</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="toolButton_4">
+               <property name="toolTip">
+                <string>Add in the list</string>
+               </property>
+               <property name="text">
+                <string>+</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QToolButton" name="toolButton_5">
+               <property name="toolTip">
+                <string>Delete selected</string>
+               </property>
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QListView" name="listView"/>
+           </item>
+          </layout>
+          <zorder>LineEdit_Tags_2</zorder>
+          <zorder>toolButton_4</zorder>
+          <zorder>toolButton_5</zorder>
+          <zorder></zorder>
+          <zorder>listView</zorder>
+         </widget>
          <widget class="QWidget" name="tab">
           <attribute name="title">
            <string>Containing anime</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QLineEdit" name="LineEdit_Tags">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="maxLength">
-              <number>256</number>
-             </property>
+            <widget class="QPlainTextEdit" name="plainTextEdit">
              <property name="placeholderText">
-              <string>Enter through a comma, or choose from the list lower</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QListView" name="ListView_Tags">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="baseSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="layoutDirection">
-              <enum>Qt::LeftToRight</enum>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::Panel</enum>
-             </property>
-             <property name="horizontalScrollBarPolicy">
-              <enum>Qt::ScrollBarAsNeeded</enum>
-             </property>
-             <property name="sizeAdjustPolicy">
-              <enum>QAbstractScrollArea::AdjustToContents</enum>
-             </property>
-             <property name="autoScroll">
-              <bool>true</bool>
-             </property>
-             <property name="editTriggers">
-              <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
-             </property>
-             <property name="alternatingRowColors">
-              <bool>false</bool>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::MultiSelection</enum>
-             </property>
-             <property name="selectionBehavior">
-              <enum>QAbstractItemView::SelectItems</enum>
-             </property>
-             <property name="flow">
-              <enum>QListView::LeftToRight</enum>
-             </property>
-             <property name="isWrapping" stdset="0">
-              <bool>true</bool>
-             </property>
-             <property name="resizeMode">
-              <enum>QListView::Fixed</enum>
-             </property>
-             <property name="layoutMode">
-              <enum>QListView::SinglePass</enum>
-             </property>
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="gridSize">
-              <size>
-               <width>130</width>
-               <height>26</height>
-              </size>
-             </property>
-             <property name="modelColumn">
-              <number>0</number>
-             </property>
-             <property name="uniformItemSizes">
-              <bool>false</bool>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-             <property name="selectionRectVisible">
-              <bool>false</bool>
+              <string>Containing anime</string>
              </property>
             </widget>
            </item>
