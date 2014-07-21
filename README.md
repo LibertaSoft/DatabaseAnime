@@ -1,4 +1,4 @@
-![Logo](/images/DBA_logo_m.png)
+![Logo](/images/DBA_logo.svg)
 
 Database Anime
 ==============
