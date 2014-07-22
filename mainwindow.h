@@ -39,6 +39,10 @@ private:
     sections::section getActiveTable();
     void reloadSectionsList();
     void reloadFiltersList();
+    void loadAnimeFilters();
+    void loadMangaFilters();
+    void loadAmvFilters();
+    void loadDoramaFilters();
     void setActiveTable( sections::section );
 
     void selectAnimeData(const QModelIndex&);

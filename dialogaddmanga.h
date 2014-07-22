@@ -29,21 +29,20 @@ private:
     QStringListModel tags;
 
     void initTags();
+    void on_BtnBox_reset();
+    void on_toolButton_clicked();
 public:
     explicit DialogAddManga(bool isEditRole, QModelIndex* index, QWidget *parent = 0);
     ~DialogAddManga();
 
 private slots:
     void on_BtnBox_clicked(QAbstractButton *button);
-    void on_BtnBox_reset();
     void on_BtnBox_accepted();
     void on_BtnBox_rejected();
     void on_SpinBox_aVol_valueChanged(int);
     void on_SpinBox_aCh_valueChanged(int);
     void on_SpinBox_aPages_valueChanged(int);
-    void on_toolButton_clicked();
     bool insert_MangaPosters();
-
     void on_LineEdit_Dir_textChanged(const QString &arg1);
 };
 

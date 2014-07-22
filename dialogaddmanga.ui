@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add anime</string>
+   <string>Add manga</string>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>

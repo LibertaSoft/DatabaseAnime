@@ -126,7 +126,7 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, 
     return 0;
 }
 
-bool MngrQuerys::createTable_AnimeSerials()
+bool MngrQuerys::createTable_Anime()
 {
     QString sql = QString("CREATE TABLE IF NOT EXISTS %1( "
                   "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
@@ -157,7 +157,39 @@ bool MngrQuerys::createTable_AnimeSerials()
                   ");").arg( getTableName( sections::anime ) );
     QSqlQuery query;
     if( !query.exec(sql) ){
-        qDebug() << "Table animeSerials is not created! Error: " << query.lastError();
+        qDebug() << QString("Table %1 is not created! Error: ").arg( getTableName(sections::anime) ) << query.lastError();
+//        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("There was a mistake at table creation in a database.") );
+        return false;
+    }
+    return true;
+}
+
+bool MngrQuerys::createTable_Manga()
+{
+    QString sql = QString("CREATE TABLE IF NOT EXISTS %1( "
+                  "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                  "isHaveLooked   INTEGER, "
+                  "isEditingDone  INTEGER, "
+                  "Title          VARCHAR(128), "
+                  "AltTitle       VARCHAR(128), "
+                  "Director       VARCHAR(32), "
+                  "Translation    VARCHAR(128), "
+                  "Vol            INTEGER, "
+                  "Ch             INTEGER, "
+                  "Pages          INTEGER, "
+                  "vVol           INTEGER, "
+                  "vCh            INTEGER, "
+                  "vPages         INTEGER, "
+                  "Year           INTEGER, "
+                  "Tags           VARCHAR(256), "
+                  "Description    TEXT, "
+                  "URL            VARCHAR(256), "
+                  "Dir            VARCHAR(256), "
+                  "ImagePath      VARCHAR(256) "
+                  ");").arg( getTableName( sections::manga ) );
+    QSqlQuery query;
+    if( !query.exec(sql) ){
+        qDebug() << QString("Table %1 is not created! Error: ").arg( getTableName(sections::manga) ) << query.lastError();
 //        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("There was a mistake at table creation in a database.") );
         return false;
     }

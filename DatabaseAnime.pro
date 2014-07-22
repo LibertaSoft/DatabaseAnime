@@ -13,6 +13,7 @@ SOURCES += \
     imagecover.cpp \
     lookprogressbar.cpp \
     dialogaddanime.cpp \
+    dialogaddmanga.cpp \
     mngrconnection.cpp \
     mngrquerys.cpp \
     stackwgt_mousehideover.cpp
@@ -20,7 +21,8 @@ SOURCES += \
 FORMS += \
     mainwindow.ui \
     formsettings.ui \
-    dialogaddanime.ui
+    dialogaddanime.ui \
+    dialogaddmanga.ui
 
 HEADERS += \
     mainwindow.h \
@@ -28,6 +30,7 @@ HEADERS += \
     imagecover.h \
     lookprogressbar.h \
     dialogaddanime.h \
+    dialogaddmanga.h \
     mngrconnection.h \
     mngrquerys.h \
     stackwgt_mousehideover.h

@@ -57,9 +57,9 @@ DialogAddManga::DialogAddManga(bool _isEditRole, QModelIndex* index, QWidget *pa
 
         model = new QSqlQueryModel;
         model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
-                             MngrQuerys::getTableName( sections::manga ), this->recordId ) );
+                             MngrQuerys::getTableName( sections::manga ) ).arg( this->recordId ) );
 
-        ui->CheckBox_LookLater->setChecked( !model->record(0).value("isHaveRead").toBool() );
+        ui->CheckBox_LookLater->setChecked( !model->record(0).value("isHaveLooked").toBool() );
         ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
 
         ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
@@ -67,13 +67,13 @@ DialogAddManga::DialogAddManga(bool _isEditRole, QModelIndex* index, QWidget *pa
         // Optional Fields
         QSettings settings;
         if( settings.value( "optionalField/manga/AltTitle", false ).toBool() ){
-            this->LineEdit_OrigTitle->setText( model->record(0).value("OrigTitle").toString() );
+            this->LineEdit_OrigTitle->setText( model->record(0).value("AltTitle").toString() );
         }
         if( settings.value( "optionalField/manga/Director",  false ).toBool() ){
             this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
         }
         if( settings.value( "optionalField/manga/Translation", false ).toBool() ){
-            this->LineEdit_PostScoring->setText( model->record(0).value("PostScoring").toString() );
+            this->LineEdit_PostScoring->setText( model->record(0).value("Translation").toString() );
         }
 
         ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
@@ -169,7 +169,7 @@ bool DialogAddManga::insert_MangaPosters(){
     QSqlQuery query;
     if( !this->isEditRole ){
         query.prepare( QString("INSERT INTO %1("
-                      "isHaveRead, isEditingDone, Title,"
+                      "isHaveLooked, isEditingDone, Title,"
                       "AltTitle, Director, Translation,"
                       "Vol, Ch, Pages,"
                       "vVol, vCh, vPages,"
@@ -177,7 +177,7 @@ bool DialogAddManga::insert_MangaPosters(){
                       "Tags, Description,"
                       "URL, Dir, ImagePath"
                       ") VALUES "
-                      "(:isHaveRead, :isEditingDone, :Title,"
+                      "(:isHaveLooked, :isEditingDone, :Title,"
                       ":AltTitle, :Director, :Translation,"
                       ":Vol, :Ch, :Pages,"
                       ":vVol, :vCh, :vPages,"
@@ -187,19 +187,20 @@ bool DialogAddManga::insert_MangaPosters(){
                       ).arg( MngrQuerys::getTableName( sections::manga ) ) );
     }else{
         query.prepare( QString("UPDATE %1 SET "
-                      "isHaveRead = :isHaveRead, isEditingDone = :isEditingDone, Title = :Title,"
+                      "isHaveLooked = :isHaveLooked, isEditingDone = :isEditingDone, Title = :Title,"
                       "AltTitle = :AltTitle, Director = :Director, Translation = :Translation,"
                       "Vol = :Vol, Ch = :Ch, Pages = :Pages,"
                       "vVol = :vVol, vCh = :vCh, vPages = :vPages,"
                       "Year = :Year,"
                       "Tags = :Tags, Description = :Description,"
-                      "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;").arg( MngrQuerys::getTableName( sections::manga ) )
+                      "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;").arg(
+                           MngrQuerys::getTableName( sections::manga ) )
                       );
     }
     query.bindValue( ":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
     query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
-    query.bindValue( ":id",             this->recordId );
-    query.bindValue( ":Title",          ui->LineEdit_Title->text() );
+    query.bindValue( ":id",            this->recordId );
+    query.bindValue( ":Title",         ui->LineEdit_Title->text() );
 
     QSettings settings;
     if( settings.value( "optionalField/manga/AltTitle", false ).toBool() ){
