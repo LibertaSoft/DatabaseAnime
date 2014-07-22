@@ -1,5 +1,5 @@
-#ifndef DIALOGADDEDIT_H
-#define DIALOGADDEDIT_H
+#ifndef DialogAddAnime_H
+#define DialogAddAnime_H
 
 #include <QDialog>
 #include <QAbstractButton>
@@ -8,14 +8,14 @@
 #include <QStringListModel>
 
 namespace Ui {
-class DialogAddEdit;
+class DialogAddAnime;
 }
 
-class DialogAddEdit : public QDialog
+class DialogAddAnime : public QDialog
 {
     Q_OBJECT
 private:
-    Ui::DialogAddEdit *ui;
+    Ui::DialogAddAnime *ui;
     QSqlTableModel* TableModel_Tags;
     QSqlQueryModel* model;
     bool isEditRole;
@@ -30,8 +30,8 @@ private:
 
     void initTags();
 public:
-    explicit DialogAddEdit(bool isEditRole, QModelIndex* index, QWidget *parent);
-    ~DialogAddEdit();
+    explicit DialogAddAnime(bool isEditRole, QModelIndex* index, QWidget *parent);
+    ~DialogAddAnime();
 
 private slots:
     void on_BtnBox_clicked(QAbstractButton *button);
@@ -49,4 +49,4 @@ private slots:
     void on_LineEdit_Dir_textChanged(const QString &arg1);
 };
 
-#endif // DIALOGADDEDIT_H
+#endif // DialogAddAnime_H

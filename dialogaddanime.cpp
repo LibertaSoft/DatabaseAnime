@@ -13,13 +13,13 @@
 
 #include <QtNetwork/QNetworkRequest>
 
-void DialogAddEdit::initTags()
+void DialogAddAnime::initTags()
 {
     tags.setStringList( MngrQuerys::getAnimeTags() );
 }
 
-DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *parent ) :
-    QDialog(parent), ui(new Ui::DialogAddEdit), isEditRole( _isEditRole )
+DialogAddAnime::DialogAddAnime(bool _isEditRole, QModelIndex* index, QWidget *parent ) :
+    QDialog(parent), ui(new Ui::DialogAddAnime), isEditRole( _isEditRole )
 {
     ui->setupUi(this);
     QSettings settings;
@@ -116,12 +116,12 @@ DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *pare
     }
 }
 
-DialogAddEdit::~DialogAddEdit()
+DialogAddAnime::~DialogAddAnime()
 {
     delete ui;
 }
 
-void DialogAddEdit::on_BtnBox_reset()
+void DialogAddAnime::on_BtnBox_reset()
 {
     ui->CheckBox_LookLater->setChecked( false );
     ui->CheckBox_Editing->setChecked( false );
@@ -162,7 +162,7 @@ void DialogAddEdit::on_BtnBox_reset()
     ui->LineEdit_URL->clear();
 }
 
-void DialogAddEdit::on_BtnBox_clicked(QAbstractButton *button)
+void DialogAddAnime::on_BtnBox_clicked(QAbstractButton *button)
 {
     switch( ui->BtnBox->buttonRole( button ) ){
         case 7:
@@ -176,7 +176,7 @@ void DialogAddEdit::on_BtnBox_clicked(QAbstractButton *button)
     }
 }
 
-bool DialogAddEdit::insert_AnimeSerials(){
+bool DialogAddAnime::insert_AnimeSerials(){
     QSqlQuery query;
     if( !this->isEditRole ){
         query.prepare( QString("INSERT INTO %1("
@@ -287,7 +287,7 @@ bool DialogAddEdit::insert_AnimeSerials(){
     return true;
 }
 
-void DialogAddEdit::on_BtnBox_accepted()
+void DialogAddAnime::on_BtnBox_accepted()
 {
     QDir dir( ui->LineEdit_Dir->text() );
     if( !ui->LineEdit_Title->text().isEmpty() ){
@@ -304,37 +304,37 @@ void DialogAddEdit::on_BtnBox_accepted()
     }
 }
 
-void DialogAddEdit::on_BtnBox_rejected()
+void DialogAddAnime::on_BtnBox_rejected()
 {
     this->close();
 }
 
-void DialogAddEdit::on_SpinBox_aTV_valueChanged(int arg1)
+void DialogAddAnime::on_SpinBox_aTV_valueChanged(int arg1)
 {
     ui->SpinBox_vTV->setMaximum(arg1);
 }
 
-void DialogAddEdit::on_SpinBox_aOVA_valueChanged(int arg1)
+void DialogAddAnime::on_SpinBox_aOVA_valueChanged(int arg1)
 {
     ui->SpinBox_vOVA->setMaximum(arg1);
 }
 
-void DialogAddEdit::on_SpinBox_aONA_valueChanged(int arg1)
+void DialogAddAnime::on_SpinBox_aONA_valueChanged(int arg1)
 {
     ui->SpinBox_vONA->setMaximum(arg1);
 }
 
-void DialogAddEdit::on_SpinBox_aSpec_valueChanged(int arg1)
+void DialogAddAnime::on_SpinBox_aSpec_valueChanged(int arg1)
 {
     ui->SpinBox_vSpec->setMaximum(arg1);
 }
 
-void DialogAddEdit::on_SpinBox_aMovie_valueChanged(int arg1)
+void DialogAddAnime::on_SpinBox_aMovie_valueChanged(int arg1)
 {
     ui->SpinBox_vMovie->setMaximum(arg1);
 }
 
-void DialogAddEdit::on_toolButton_clicked()
+void DialogAddAnime::on_toolButton_clicked()
 {
     ui->LineEdit_Dir->setText(
                 QFileDialog::getExistingDirectory(this,
@@ -344,7 +344,7 @@ void DialogAddEdit::on_toolButton_clicked()
 }
 
 
-void DialogAddEdit::on_LineEdit_Dir_textChanged(const QString &path)
+void DialogAddAnime::on_LineEdit_Dir_textChanged(const QString &path)
 {
     QDir dir( path );
     if( !dir.exists() ){

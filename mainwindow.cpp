@@ -87,7 +87,7 @@ void MainWindow::on_TButton_Add_clicked()
     switch( getActiveTable() ){
         case sections::anime :{
             QModelIndex null;
-            DialogAddEdit dialogAddAnime(false, &null, this);
+            DialogAddAnime dialogAddAnime(false, &null, this);
             dialogAddAnime.setModal(true);
             dialogAddAnime.exec();
             break;
@@ -120,7 +120,7 @@ void MainWindow::on_TButton_Edit_clicked()
         switch( getActiveTable() ){
             case sections::anime :{
                 QModelIndex null;
-                DialogAddEdit dialogAddAnime(true, &i, this);
+                DialogAddAnime dialogAddAnime(true, &i, this);
                 dialogAddAnime.setModal(true);
                 dialogAddAnime.exec();
                 break;
