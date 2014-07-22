@@ -18,12 +18,12 @@
 Идея логотипа приложения принадлежит: [Павел Енотин](https://vk.com/everydayiamsuffering)
 
 ### Установка
-- Скачайте последний стабильный [релиз](./releases) для вашей системы
+- Скачайте последний стабильный [релиз](https://github.com/LibertaSoft/DatabaseAnime/releases) для вашей системы
 
 ### Разработка
 - В будующих версиях планируется: [TODO](./ToDo.md)
-- Если нашли ошибку [создайте новое issue](./issues/new) и помогите сделать проект лучше
-- Что то не понравилось? не хватает функционала? знаете Qt & C++ - [форкните](./fork) проект, внесите изменения о отправьте [Pull Request](./pulls)
+- Если нашли ошибку [создайте новое issue](https://github.com/LibertaSoft/DatabaseAnime/issues/new) и помогите сделать проект лучше
+- Что то не понравилось? не хватает функционала? знаете Qt & C++ - [форкните](https://github.com/LibertaSoft/DatabaseAnime/fork) проект, внесите изменения о отправьте [Pull Request](https://github.com/LibertaSoft/DatabaseAnime/pulls)
 
 ### Контакты
 - Группа [ВКонтакте](https://vk.com/db_anime)
