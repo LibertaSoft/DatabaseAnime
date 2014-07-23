@@ -30,6 +30,10 @@ FormSettings::FormSettings(QWidget *parent) :
     bool b2 = settings.value( "optionalField/anime/Director",    false ).toBool();
     bool b3 = settings.value( "optionalField/anime/PostScoring", false ).toBool();
 
+    bool d1 = settings.value( "optionalField/manga/AltTitle",   false ).toBool();
+    bool d2 = settings.value( "optionalField/manga/Author",      false ).toBool();
+    bool d3 = settings.value( "optionalField/manga/Translation", false ).toBool();
+
     bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
 
     ui->CheckBox_EnableAnime->setChecked( a1 );
@@ -37,9 +41,13 @@ FormSettings::FormSettings(QWidget *parent) :
     ui->CheckBox_EnableAMV->setChecked( a3 );
     ui->CheckBox_EnableDorama->setChecked( a4 );
 
-    ui->CheckBox_OrigTitle->setChecked( b1 );
-    ui->CheckBox_Director->setChecked( b2 );
-    ui->CheckBox_PostScoring->setChecked( b3 );
+    ui->CBox_Anime_AltTitle->setChecked( b1 );
+    ui->CBox_Anime_Director->setChecked( b2 );
+    ui->CBox_Anime_PostScoring->setChecked( b3 );
+
+    ui->CBox_Manga_AltTitle->setChecked( d1 );
+    ui->CBox_Manga_Author->setChecked( d2 );
+    ui->CBox_Manga_Translation->setChecked( d3 );
 
     ui->CBox_SwitchToDirOnHoverCover->setChecked( c1 );
 
@@ -72,9 +80,13 @@ void FormSettings::on_BtnBox_accepted()
     settings.setValue( "enableSection/AMV",       ui->CheckBox_EnableAMV->isChecked() );
     settings.setValue( "enableSection/Dorama",    ui->CheckBox_EnableDorama->isChecked() );
 
-    settings.setValue( "optionalField/anime/OrigTitle",   ui->CheckBox_OrigTitle->isChecked() );
-    settings.setValue( "optionalField/anime/Director",    ui->CheckBox_Director->isChecked() );
-    settings.setValue( "optionalField/anime/PostScoring", ui->CheckBox_PostScoring->isChecked() );
+    settings.setValue( "optionalField/anime/OrigTitle",   ui->CBox_Anime_AltTitle->isChecked() );
+    settings.setValue( "optionalField/anime/Director",    ui->CBox_Anime_Director->isChecked() );
+    settings.setValue( "optionalField/anime/PostScoring", ui->CBox_Anime_PostScoring->isChecked() );
+
+    settings.setValue( "optionalField/manga/AltTitle",    ui->CBox_Manga_AltTitle->isChecked() );
+    settings.setValue( "optionalField/manga/Author",      ui->CBox_Manga_Author->isChecked() );
+    settings.setValue( "optionalField/manga/Translation", ui->CBox_Manga_Translation->isChecked() );
 
     settings.setValue( "Application/l10n", ui->CB_Language->currentText() );
     settings.setValue( "Application/l10n_index", ui->CB_Language->currentIndex() );
@@ -89,9 +101,13 @@ void FormSettings::on_BtnBox_resetDefaults(){
     ui->CheckBox_EnableAMV->setChecked( false );
     ui->CheckBox_EnableDorama->setChecked( false );
 
-    ui->CheckBox_OrigTitle->setChecked( false );
-    ui->CheckBox_Director->setChecked( false );
-    ui->CheckBox_PostScoring->setChecked( false );
+    ui->CBox_Anime_AltTitle->setChecked( false );
+    ui->CBox_Anime_Director->setChecked( false );
+    ui->CBox_Anime_PostScoring->setChecked( false );
+
+    ui->CBox_Manga_AltTitle->setChecked( false );
+    ui->CBox_Manga_Author->setChecked( false );
+    ui->CBox_Manga_Translation->setChecked( false );
 
     ui->CB_Language->setCurrentIndex(0);
     ui->CBox_Sort->setCurrentIndex(1);

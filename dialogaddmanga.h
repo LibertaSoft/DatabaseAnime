@@ -21,9 +21,9 @@ private:
     unsigned int _recordId;
     QString _oldCover;
 
-    QLineEdit* LineEdit_OrigTitle;
-    QLineEdit* LineEdit_Director;
-    QLineEdit* LineEdit_PostScoring;
+    QLineEdit* LineEdit_AltTitle;
+    QLineEdit* LineEdit_Author;
+    QLineEdit* LineEdit_Translation;
 
     QStringListModel _tags;
 

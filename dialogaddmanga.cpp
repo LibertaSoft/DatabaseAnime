@@ -32,7 +32,7 @@ void DialogAddManga::setDataInFields()
     data["isEditingDone"] = model->record(0).value("isEditingDone");
     data["Title"]         = model->record(0).value("Title");
     data["AltTitle"]      = model->record(0).value("AltTitle");
-    data["Director"]      = model->record(0).value("Director");
+    data["Author"]      = model->record(0).value("Author");
     data["Translation"]   = model->record(0).value("Translation");
     data["Year"]          = model->record(0).value("Year");
     data["Vol"]           = model->record(0).value("Vol");
@@ -54,12 +54,12 @@ void DialogAddManga::setDataInFields()
     ui->LineEdit_Title->setText( data["Title"].toString() );
 
     // Optional Fields
-    if( this->LineEdit_OrigTitle )
-        this->LineEdit_OrigTitle->setText( data["AltTitle"].toString() );
-    if( this->LineEdit_Director )
-        this->LineEdit_Director->setText( data["Director"].toString() );
-    if( this->LineEdit_PostScoring )
-        this->LineEdit_PostScoring->setText( data["Translation"].toString() );
+    if( this->LineEdit_AltTitle )
+        this->LineEdit_AltTitle->setText( data["AltTitle"].toString() );
+    if( this->LineEdit_Author )
+        this->LineEdit_Author->setText( data["Author"].toString() );
+    if( this->LineEdit_Translation )
+        this->LineEdit_Translation->setText( data["Translation"].toString() );
 
     ui->SpinBox_Year->setValue( data["Year"].toInt() );
 
@@ -90,28 +90,28 @@ void DialogAddManga::createOptionalFields()
 {
     QSettings settings;
     if( settings.value( "optionalField/manga/AltTitle", false ).toBool() ){
-        this->LineEdit_OrigTitle = new QLineEdit(this);
-        this->LineEdit_OrigTitle->setMaxLength(128);
-        this->LineEdit_OrigTitle->setPlaceholderText( tr("Alternative title") );
-        ui->VLay_OrigTitle->addWidget( this->LineEdit_OrigTitle );
+        this->LineEdit_AltTitle = new QLineEdit(this);
+        this->LineEdit_AltTitle->setMaxLength(128);
+        this->LineEdit_AltTitle->setPlaceholderText( tr("Alternative title") );
+        ui->VLay_AltTitle->addWidget( this->LineEdit_AltTitle );
     }
-    if( settings.value( "optionalField/manga/Director", false ).toBool() ){
-        this->LineEdit_Director = new QLineEdit(this);
-        this->LineEdit_Director->setMaxLength(32);
-        this->LineEdit_Director->setPlaceholderText( tr("Author") );
-        ui->HLay_DirectorAndSound->addWidget( this->LineEdit_Director );
+    if( settings.value( "optionalField/manga/Author", false ).toBool() ){
+        this->LineEdit_Author = new QLineEdit(this);
+        this->LineEdit_Author->setMaxLength(32);
+        this->LineEdit_Author->setPlaceholderText( tr("Author") );
+        ui->HLay_AuthorAndSound->addWidget( this->LineEdit_Author );
     }
     if( settings.value( "optionalField/manga/Translation", false ).toBool() ){
-        this->LineEdit_PostScoring = new QLineEdit(this);
-        this->LineEdit_PostScoring->setMaxLength(128);
-        this->LineEdit_PostScoring->setPlaceholderText( tr("Translation") );
-        ui->HLay_DirectorAndSound->addWidget( this->LineEdit_PostScoring );
+        this->LineEdit_Translation = new QLineEdit(this);
+        this->LineEdit_Translation->setMaxLength(128);
+        this->LineEdit_Translation->setPlaceholderText( tr("Translation") );
+        ui->HLay_AuthorAndSound->addWidget( this->LineEdit_Translation );
     }
 }
 
 DialogAddManga::DialogAddManga(QWidget *parent, unsigned int record_id ) :
     QDialog(parent), ui(new Ui::DialogAddManga), _isEditRole( true ), _recordId( record_id ),
-    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+    LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -124,7 +124,7 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned int record_id ) :
 
 DialogAddManga::DialogAddManga(QWidget *parent):
     QDialog(parent), ui(new Ui::DialogAddManga), _isEditRole( false ),
-    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+    LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -147,12 +147,12 @@ void DialogAddManga::on_BtnBox_reset()
     ui->LineEdit_Title->clear();
 
     // Optional Fields
-    if( this->LineEdit_OrigTitle )
-        this->LineEdit_OrigTitle->clear();
-    if( this->LineEdit_Director )
-        this->LineEdit_Director->clear();
-    if( this->LineEdit_PostScoring )
-        this->LineEdit_PostScoring->clear();
+    if( this->LineEdit_AltTitle )
+        this->LineEdit_AltTitle->clear();
+    if( this->LineEdit_Author )
+        this->LineEdit_Author->clear();
+    if( this->LineEdit_Translation )
+        this->LineEdit_Translation->clear();
 
     ui->SpinBox_Year->setValue(2000);
 
@@ -190,7 +190,7 @@ bool DialogAddManga::insert_Manga(){
     if( _isEditRole ){
         query.prepare( QString("INSERT INTO %1("
                       "isHaveLooked, isEditingDone, Title,"
-                      "AltTitle, Director, Translation,"
+                      "AltTitle, Author, Translation,"
                       "Vol, Ch, Pages,"
                       "vVol, vCh, vPages,"
                       "Year,"
@@ -198,7 +198,7 @@ bool DialogAddManga::insert_Manga(){
                       "URL, Dir, ImagePath"
                       ") VALUES "
                       "(:isHaveLooked, :isEditingDone, :Title,"
-                      ":AltTitle, :Director, :Translation,"
+                      ":AltTitle, :Author, :Translation,"
                       ":Vol, :Ch, :Pages,"
                       ":vVol, :vCh, :vPages,"
                       ":Year,"
@@ -208,7 +208,7 @@ bool DialogAddManga::insert_Manga(){
     }else{
         query.prepare( QString("UPDATE %1 SET "
                       "isHaveLooked = :isHaveLooked, isEditingDone = :isEditingDone, Title = :Title,"
-                      "AltTitle = :AltTitle, Director = :Director, Translation = :Translation,"
+                      "AltTitle = :AltTitle, Author = :Author, Translation = :Translation,"
                       "Vol = :Vol, Ch = :Ch, Pages = :Pages,"
                       "vVol = :vVol, vCh = :vCh, vPages = :vPages,"
                       "Year = :Year,"
@@ -221,9 +221,9 @@ bool DialogAddManga::insert_Manga(){
     query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
     query.bindValue( ":id",            _recordId );
     query.bindValue( ":Title",         ui->LineEdit_Title->text() );
-    query.bindValue( ":AltTitle",      (LineEdit_OrigTitle)   ? LineEdit_OrigTitle->text()   : "" );
-    query.bindValue( ":Director",      (LineEdit_Director)    ? LineEdit_Director->text()    : "" );
-    query.bindValue( ":Translation",   (LineEdit_PostScoring) ? LineEdit_PostScoring->text() : "" );
+    query.bindValue( ":AltTitle",      (LineEdit_AltTitle)   ? LineEdit_AltTitle->text()   : "" );
+    query.bindValue( ":Author",      (LineEdit_Author)    ? LineEdit_Author->text()    : "" );
+    query.bindValue( ":Translation",   (LineEdit_Translation) ? LineEdit_Translation->text() : "" );
 
     query.bindValue(":Vol",    ui->SpinBox_aVol->value()   );
     query.bindValue(":Ch",     ui->SpinBox_aCh->value()  );
@@ -322,7 +322,7 @@ void DialogAddManga::on_toolButton_clicked()
 {
     ui->LineEdit_Dir->setText(
                 QFileDialog::getExistingDirectory(this,
-                                                  tr("Choose a directory with video files"),
+                                                  tr("Choose a directory with picture files"),
                                                   QStandardPaths::writableLocation( QStandardPaths::PicturesLocation )
                                                   ) );
 }

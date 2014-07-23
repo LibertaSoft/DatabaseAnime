@@ -73,21 +73,21 @@
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="VLay_OrigTitle">
+        <layout class="QVBoxLayout" name="VLay_AltTitle">
          <property name="topMargin">
           <number>0</number>
          </property>
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="HLay_DirectorAndSound">
+        <layout class="QHBoxLayout" name="HLay_AuthorAndSound">
          <property name="topMargin">
           <number>0</number>
          </property>
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="HLay_2">
          <property name="topMargin">
           <number>0</number>
          </property>
@@ -126,13 +126,6 @@
             </size>
            </property>
           </spacer>
-         </item>
-         <item>
-          <widget class="Line" name="line_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-          </widget>
          </item>
         </layout>
        </item>
