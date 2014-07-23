@@ -32,7 +32,7 @@ void DialogAddManga::setDataInFields()
     data["isEditingDone"] = model->record(0).value("isEditingDone");
     data["Title"]         = model->record(0).value("Title");
     data["AltTitle"]      = model->record(0).value("AltTitle");
-    data["Author"]      = model->record(0).value("Author");
+    data["Author"]        = model->record(0).value("Author");
     data["Translation"]   = model->record(0).value("Translation");
     data["Year"]          = model->record(0).value("Year");
     data["Vol"]           = model->record(0).value("Vol");
@@ -187,7 +187,7 @@ void DialogAddManga::on_BtnBox_clicked(QAbstractButton *button)
 
 bool DialogAddManga::insert_Manga(){
     QSqlQuery query;
-    if( _isEditRole ){
+    if( !_isEditRole ){
         query.prepare( QString("INSERT INTO %1("
                       "isHaveLooked, isEditingDone, Title,"
                       "AltTitle, Author, Translation,"
@@ -221,8 +221,8 @@ bool DialogAddManga::insert_Manga(){
     query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
     query.bindValue( ":id",            _recordId );
     query.bindValue( ":Title",         ui->LineEdit_Title->text() );
-    query.bindValue( ":AltTitle",      (LineEdit_AltTitle)   ? LineEdit_AltTitle->text()   : "" );
-    query.bindValue( ":Author",      (LineEdit_Author)    ? LineEdit_Author->text()    : "" );
+    query.bindValue( ":AltTitle",      (LineEdit_AltTitle   ) ?    LineEdit_AltTitle->text() : "" );
+    query.bindValue( ":Author",        (LineEdit_Author     ) ?      LineEdit_Author->text() : "" );
     query.bindValue( ":Translation",   (LineEdit_Translation) ? LineEdit_Translation->text() : "" );
 
     query.bindValue(":Vol",    ui->SpinBox_aVol->value()   );
@@ -268,14 +268,12 @@ bool DialogAddManga::insert_Manga(){
         QFile f( ui->Lbl_ImageCover->getImagePath() );
         f.copy( coverPath );
     }
-    if( _isEditRole ){
+    if( _isEditRole )
             objQdir.remove( _oldCover );
-    }
     query.bindValue(":ImagePath", coverPath );
     if( !query.exec() ){
         qDebug() << QString("Cannot insert data in table %1: ").arg(
                         MngrQuerys::getTableName( sections::manga ) ) << query.lastError();
-        (new QErrorMessage(0))->showMessage( query.lastError().text() );
         return false;
     }
     return true;

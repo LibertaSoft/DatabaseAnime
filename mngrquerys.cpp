@@ -158,7 +158,6 @@ bool MngrQuerys::createTable_Anime()
     QSqlQuery query;
     if( !query.exec(sql) ){
         qDebug() << QString("Table %1 is not created! Error: ").arg( getTableName(sections::anime) ) << query.lastError();
-//        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("There was a mistake at table creation in a database.") );
         return false;
     }
     return true;
@@ -172,7 +171,7 @@ bool MngrQuerys::createTable_Manga()
                   "isEditingDone  INTEGER, "
                   "Title          VARCHAR(128), "
                   "AltTitle       VARCHAR(128), "
-                  "Director       VARCHAR(32), "
+                  "Author         VARCHAR(32), "
                   "Translation    VARCHAR(128), "
                   "Vol            INTEGER, "
                   "Ch             INTEGER, "
@@ -190,7 +189,6 @@ bool MngrQuerys::createTable_Manga()
     QSqlQuery query;
     if( !query.exec(sql) ){
         qDebug() << QString("Table %1 is not created! Error: ").arg( getTableName(sections::manga) ) << query.lastError();
-//        QMessageBox::warning(0, QObject::tr("Warning"), QObject::tr("There was a mistake at table creation in a database.") );
         return false;
     }
     return true;
