@@ -15,19 +15,80 @@
 
 void DialogAddManga::initTags()
 {
-    tags.setStringList( MngrQuerys::getMangaTags() );
+    _tags.setStringList( MngrQuerys::getMangaTags() );
+
+    ui->ListView_Tags->setModel( &_tags );
+    ui->ListView_Tags->setWrapping( true );
+    ui->ListView_Tags->setSelectionMode( QAbstractItemView::MultiSelection );
 }
 
-DialogAddManga::DialogAddManga(bool _isEditRole, QModelIndex* index, QWidget *parent ) :
-    QDialog(parent), ui(new Ui::DialogAddManga), isEditRole( _isEditRole )
+void DialogAddManga::setDataInFields()
 {
-    ui->setupUi(this);
+    model = new QSqlQueryModel;
+    model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
+                         MngrQuerys::getTableName( sections::manga ) ).arg( _recordId ) );
+    QMap<QString, QVariant> data;
+    data["isHaveLooked"]  = model->record(0).value("isHaveLooked");
+    data["isEditingDone"] = model->record(0).value("isEditingDone");
+    data["Title"]         = model->record(0).value("Title");
+    data["AltTitle"]      = model->record(0).value("AltTitle");
+    data["Director"]      = model->record(0).value("Director");
+    data["Translation"]   = model->record(0).value("Translation");
+    data["Year"]          = model->record(0).value("Year");
+    data["Vol"]           = model->record(0).value("Vol");
+    data["Ch"]            = model->record(0).value("Ch");
+    data["Pages"]         = model->record(0).value("Pages");
+    data["vVol"]          = model->record(0).value("vVol");
+    data["vCh"]           = model->record(0).value("vCh");
+    data["vPages"]        = model->record(0).value("vPages");
+    data["Tags"]          = model->record(0).value("Tags");
+    data["Description"]   = model->record(0).value("Description");
+    data["Dir"]           = model->record(0).value("Dir");
+    data["URL"]           = model->record(0).value("URL");
+    data["ImagePath"]     = model->record(0).value("ImagePath");
+    delete model;
+
+    ui->CheckBox_LookLater->setChecked(!data["isHaveLooked" ].toBool() );
+    ui->CheckBox_Editing->setChecked(  !data["isEditingDone"].toBool() );
+
+    ui->LineEdit_Title->setText( data["Title"].toString() );
+
+    // Optional Fields
+    if( this->LineEdit_OrigTitle )
+        this->LineEdit_OrigTitle->setText( data["AltTitle"].toString() );
+    if( this->LineEdit_Director )
+        this->LineEdit_Director->setText( data["Director"].toString() );
+    if( this->LineEdit_PostScoring )
+        this->LineEdit_PostScoring->setText( data["Translation"].toString() );
+
+    ui->SpinBox_Year->setValue( data["Year"].toInt() );
+
+    ui->SpinBox_aVol->setValue( data["Vol"].toInt() );
+    ui->SpinBox_aCh->setValue( data["Ch"].toInt() );
+    ui->SpinBox_aPages->setValue( data["Pages"].toInt() );
+
+    ui->SpinBox_vVol->setValue( data["vVol"].toInt() );
+    ui->SpinBox_vCh->setValue( data["vCh"].toInt() );
+    ui->SpinBox_vPages->setValue( data["vPages"].toInt() );
+
+    ui->LineEdit_Tags->setText( data["Tags"].toString() );
+    ui->PlainTextEdit_Description->setPlainText( data["Description"].toString() );
+    ui->LineEdit_Dir->setText( data["Dir"].toString() );
+    ui->LineEdit_URL->setText( data["URL"].toString() );
+
+    _oldCover = data["ImagePath"].toString();
+    QPixmap pm( _oldCover );
+    if( !pm.isNull() ){
+        ui->Lbl_ImageCover->setPixmap( pm );
+        ui->Lbl_ImageCover->setImagePath( _oldCover );
+    }else{
+        ui->Lbl_ImageCover->noImage();
+    }
+}
+
+void DialogAddManga::createOptionalFields()
+{
     QSettings settings;
-    initTags();
-
-    ui->TabWidget_Series->setCurrentIndex(0);
-    ui->TabWidget_Info->setCurrentIndex(0);
-
     if( settings.value( "optionalField/manga/AltTitle", false ).toBool() ){
         this->LineEdit_OrigTitle = new QLineEdit(this);
         this->LineEdit_OrigTitle->setMaxLength(128);
@@ -37,7 +98,7 @@ DialogAddManga::DialogAddManga(bool _isEditRole, QModelIndex* index, QWidget *pa
     if( settings.value( "optionalField/manga/Director", false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
-        this->LineEdit_Director->setPlaceholderText( tr("Director") );
+        this->LineEdit_Director->setPlaceholderText( tr("Author") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_Director );
     }
     if( settings.value( "optionalField/manga/Translation", false ).toBool() ){
@@ -46,69 +107,31 @@ DialogAddManga::DialogAddManga(bool _isEditRole, QModelIndex* index, QWidget *pa
         this->LineEdit_PostScoring->setPlaceholderText( tr("Translation") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_PostScoring );
     }
+}
 
-    ui->ListView_Tags->setModel( &tags );
-    ui->ListView_Tags->setWrapping( true );
-    ui->ListView_Tags->setSelectionMode( QAbstractItemView::MultiSelection );
+DialogAddManga::DialogAddManga(QWidget *parent, unsigned int record_id ) :
+    QDialog(parent), ui(new Ui::DialogAddManga), _isEditRole( true ), _recordId( record_id ),
+    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+{
+    ui->setupUi(this);
+    ui->TabWidget_Series->setCurrentIndex(0);
+    ui->TabWidget_Info->setCurrentIndex(0);
 
-    if( isEditRole ){
-        this->isEditRole = isEditRole;
-        this->recordId   = index->data().toInt();
+    createOptionalFields();
+    setDataInFields();
+    initTags();
+}
 
-        model = new QSqlQueryModel;
-        model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
-                             MngrQuerys::getTableName( sections::manga ) ).arg( this->recordId ) );
+DialogAddManga::DialogAddManga(QWidget *parent):
+    QDialog(parent), ui(new Ui::DialogAddManga), _isEditRole( false ),
+    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+{
+    ui->setupUi(this);
+    ui->TabWidget_Series->setCurrentIndex(0);
+    ui->TabWidget_Info->setCurrentIndex(0);
 
-        ui->CheckBox_LookLater->setChecked( !model->record(0).value("isHaveLooked").toBool() );
-        ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
-
-        ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
-
-        // Optional Fields
-        QSettings settings;
-        if( settings.value( "optionalField/manga/AltTitle", false ).toBool() ){
-            this->LineEdit_OrigTitle->setText( model->record(0).value("AltTitle").toString() );
-        }
-        if( settings.value( "optionalField/manga/Director",  false ).toBool() ){
-            this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
-        }
-        if( settings.value( "optionalField/manga/Translation", false ).toBool() ){
-            this->LineEdit_PostScoring->setText( model->record(0).value("Translation").toString() );
-        }
-
-        ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
-
-        ui->SpinBox_aVol->setValue( model->record(0).value("Vol").toInt() );
-        ui->SpinBox_aCh->setValue( model->record(0).value("Ch").toInt() );
-        ui->SpinBox_aPages->setValue( model->record(0).value("Pages").toInt() );
-
-        ui->SpinBox_vVol->setValue( model->record(0).value("vVol").toInt() );
-        ui->SpinBox_vCh->setValue( model->record(0).value("vCh").toInt() );
-        ui->SpinBox_vPages->setValue( model->record(0).value("vPages").toInt() );
-
-        ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
-        ui->ListView_Tags->clearSelection(); // Bug, не используется, нет возможности получить модель выделения
-        ui->PlainTextEdit_Description->setPlainText( model->record(0).value("Description").toString() );
-        ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
-        ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
-
-
-        QString imgPath = model->record(0).value("ImagePath").toString();
-        QPixmap pm( imgPath );
-        bool imageCrash = false;
-        if( pm.isNull() ){
-            pm.load( "://images/NoImage.png" );
-            imageCrash = true;
-        }
-        if( !imageCrash ){
-            ui->Lbl_ImageCover->setPixmap( pm );
-            ui->Lbl_ImageCover->setImagePath( model->record(0).value("ImagePath").toString() );
-        }else{
-            ui->Lbl_ImageCover->noImage();
-        }
-
-        oldCover = model->record(0).value("ImagePath").toString();
-    }
+    createOptionalFields();
+    initTags();
 }
 
 DialogAddManga::~DialogAddManga()
@@ -122,17 +145,14 @@ void DialogAddManga::on_BtnBox_reset()
     ui->CheckBox_Editing->setChecked( false );
 
     ui->LineEdit_Title->clear();
-    // optional
-    QSettings settings;
-    if( settings.value( "optionalField/manga/AltTitle",   false ).toBool() ){
+
+    // Optional Fields
+    if( this->LineEdit_OrigTitle )
         this->LineEdit_OrigTitle->clear();
-    }
-    if( settings.value( "optionalField/manga/Director",    false ).toBool() ){
+    if( this->LineEdit_Director )
         this->LineEdit_Director->clear();
-    }
-    if( settings.value( "optionalField/manga/Translation", false ).toBool() ){
+    if( this->LineEdit_PostScoring )
         this->LineEdit_PostScoring->clear();
-    }
 
     ui->SpinBox_Year->setValue(2000);
 
@@ -155,19 +175,19 @@ void DialogAddManga::on_BtnBox_clicked(QAbstractButton *button)
 {
     switch( ui->BtnBox->buttonRole( button ) ){
         case 7:
-            emit on_BtnBox_reset();
+            on_BtnBox_reset();
             break;
         case QDialogButtonBox::AcceptRole:
-            //emit on_BtnBox_accepted();
+            //on_BtnBox_accepted();
             break;
         default:
             this->close();
     }
 }
 
-bool DialogAddManga::insert_MangaPosters(){
+bool DialogAddManga::insert_Manga(){
     QSqlQuery query;
-    if( !this->isEditRole ){
+    if( _isEditRole ){
         query.prepare( QString("INSERT INTO %1("
                       "isHaveLooked, isEditingDone, Title,"
                       "AltTitle, Director, Translation,"
@@ -199,25 +219,11 @@ bool DialogAddManga::insert_MangaPosters(){
     }
     query.bindValue( ":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
     query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
-    query.bindValue( ":id",            this->recordId );
+    query.bindValue( ":id",            _recordId );
     query.bindValue( ":Title",         ui->LineEdit_Title->text() );
-
-    QSettings settings;
-    if( settings.value( "optionalField/manga/AltTitle", false ).toBool() ){
-        query.bindValue( ":AltTitle", this->LineEdit_OrigTitle->text() );
-    }else{
-        query.bindValue( ":AltTitle", "" );
-    }
-    if( settings.value( "optionalField/manga/Director", false ).toBool() ){
-        query.bindValue( ":Director", this->LineEdit_Director->text() );
-    }else{
-        query.bindValue( ":Director", "" );
-    }
-    if( settings.value( "optionalField/manga/Translation", false ).toBool() ){
-        query.bindValue( ":Translation", this->LineEdit_PostScoring->text() );
-    }else{
-        query.bindValue( ":Translation", "" );
-    }
+    query.bindValue( ":AltTitle",      (LineEdit_OrigTitle)   ? LineEdit_OrigTitle->text()   : "" );
+    query.bindValue( ":Director",      (LineEdit_Director)    ? LineEdit_Director->text()    : "" );
+    query.bindValue( ":Translation",   (LineEdit_PostScoring) ? LineEdit_PostScoring->text() : "" );
 
     query.bindValue(":Vol",    ui->SpinBox_aVol->value()   );
     query.bindValue(":Ch",     ui->SpinBox_aCh->value()  );
@@ -251,19 +257,24 @@ bool DialogAddManga::insert_MangaPosters(){
     query.bindValue( ":Dir",           ui->LineEdit_Dir->text() );
 
     QDir objQdir;
-    QString coverPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() + "/mangaCovers/" );
+    QString coverPath( QDir::homePath() + "/."
+                       + QApplication::organizationName()
+                       + "/"
+                       + QApplication::applicationName()
+                       + "/mangaCovers/" );
     if( objQdir.mkpath( coverPath ) ){
         QDateTime dt;
         coverPath += "/" + QString::number( dt.currentMSecsSinceEpoch() );
         QFile f( ui->Lbl_ImageCover->getImagePath() );
         f.copy( coverPath );
     }
-    if( isEditRole ){
-            objQdir.remove( oldCover );
+    if( _isEditRole ){
+            objQdir.remove( _oldCover );
     }
     query.bindValue(":ImagePath", coverPath );
     if( !query.exec() ){
-        qDebug() << "Cannot insert data in table mangaPosters: " << query.lastError();
+        qDebug() << QString("Cannot insert data in table %1: ").arg(
+                        MngrQuerys::getTableName( sections::manga ) ) << query.lastError();
         (new QErrorMessage(0))->showMessage( query.lastError().text() );
         return false;
     }
@@ -278,7 +289,7 @@ void DialogAddManga::on_BtnBox_accepted()
             QMessageBox::warning( this, tr("Warning"), tr("The field 'Dir' is uncorrect") );
             ui->LineEdit_Dir->setFocus();
         }else{
-            insert_MangaPosters(); // #Bug : what is it? //298
+            insert_Manga();
             this->close();
         }
     }else{
@@ -315,7 +326,6 @@ void DialogAddManga::on_toolButton_clicked()
                                                   QStandardPaths::writableLocation( QStandardPaths::PicturesLocation )
                                                   ) );
 }
-
 
 void DialogAddManga::on_LineEdit_Dir_textChanged(const QString &path)
 {

@@ -16,23 +16,27 @@ class DialogAddManga : public QDialog
     Q_OBJECT
 private:
     Ui::DialogAddManga *ui;
-//    QSqlTableModel* TableModel_Tags;
     QSqlQueryModel* model;
-    bool isEditRole;
-    int recordId;
-    QString oldCover;
+    bool _isEditRole;
+    unsigned int _recordId;
+    QString _oldCover;
 
     QLineEdit* LineEdit_OrigTitle;
     QLineEdit* LineEdit_Director;
     QLineEdit* LineEdit_PostScoring;
 
-    QStringListModel tags;
+    QStringListModel _tags;
 
     void initTags();
+    void initOptionalFields();
+    void setDataInFields();
+    void createOptionalFields();
+
     void on_BtnBox_reset();
     void on_toolButton_clicked();
 public:
-    explicit DialogAddManga(bool isEditRole, QModelIndex* index, QWidget *parent = 0);
+    explicit DialogAddManga(QWidget *parent, unsigned int record_id);
+    explicit DialogAddManga(QWidget *parent);
     ~DialogAddManga();
 
 private slots:
@@ -42,7 +46,7 @@ private slots:
     void on_SpinBox_aVol_valueChanged(int);
     void on_SpinBox_aCh_valueChanged(int);
     void on_SpinBox_aPages_valueChanged(int);
-    bool insert_MangaPosters();
+    bool insert_Manga();
     void on_LineEdit_Dir_textChanged(const QString &arg1);
 };
 

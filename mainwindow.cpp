@@ -92,8 +92,7 @@ void MainWindow::on_TButton_Add_clicked()
             break;
         }
         case sections::manga :{
-            QModelIndex null;
-            DialogAddManga dialogAddManga(false, &null, this);
+            DialogAddManga dialogAddManga(this);
             dialogAddManga.setModal(true);
             dialogAddManga.exec();
             break;
@@ -115,17 +114,15 @@ void MainWindow::on_TButton_Add_clicked()
 void MainWindow::on_TButton_Edit_clicked()
 {
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
-        QModelIndex i = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0);
         switch( getActiveTable() ){
             case sections::anime :{
-                DialogAddAnime dialogAddAnime(this, currentItemId);
+                DialogAddAnime dialogAddAnime(this, _currentItemId);
                 dialogAddAnime.setModal(true);
                 dialogAddAnime.exec();
                 break;
             }
             case sections::manga :{
-                QModelIndex null;
-                DialogAddManga dialogAddManga(true, &i, this);
+                DialogAddManga dialogAddManga(this, _currentItemId);
                 dialogAddManga.setModal(true);
                 dialogAddManga.exec();
                 break;
@@ -150,7 +147,7 @@ void MainWindow::on_TButton_Delete_clicked()
 {
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
         QSqlQueryModel model;
-        model.setQuery( QString( "SELECT ImagePath FROM %1 WHERE id = %2").arg( getActiveTableName() ).arg( currentItemId ) );
+        model.setQuery( QString( "SELECT ImagePath FROM %1 WHERE id = %2").arg( getActiveTableName() ).arg( _currentItemId ) );
         QDir dir;
         dir.remove( model.record(0).value("ImagePath").toString() );
         QSqlQuery query;
@@ -169,7 +166,7 @@ void MainWindow::on_TButton_Delete_clicked()
 
 void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index)
 {
-    currentItemId = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt();
+    _currentItemId = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt();
     ui->stackedWidget->setCurrentIndex(1);
     switch( getActiveTable() ){
         case sections::anime :
@@ -204,7 +201,7 @@ void MainWindow::saveLookValueChanges(int value, int max, QString type)
         query.prepare( QString("UPDATE %1 SET %2 = :vNum WHERE id = :id;").arg( getActiveTableName() ).arg(type) );
     }
     query.bindValue(":vNum", value);
-    query.bindValue(":id", currentItemId );
+    query.bindValue(":id", _currentItemId );
     if( !query.exec() ){
         qDebug() << QString("Cannot update data in table %1: ").arg( getActiveTableName() ) << query.lastError();
     }
@@ -346,7 +343,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
     QSqlQueryModel m1;
 
     m1.setQuery(
-                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( currentItemId )
+                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
                 );
     /*
     "Season, PostScoring"
@@ -508,7 +505,7 @@ void MainWindow::selectMangaData(const QModelIndex&)
     QSqlQueryModel m1;
 
     m1.setQuery(
-                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( currentItemId )
+                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
                 );
     /*
     "Season, PostScoring"

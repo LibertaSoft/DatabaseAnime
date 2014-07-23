@@ -29,7 +29,7 @@ private:
 
     sections::section _activeTable;
     QModelIndex currentItem;
-    int currentItemId;
+    int _currentItemId;
     QString currentItemDir;
 
     QSqlQueryModel* QueryModel_ListItemsSection;
