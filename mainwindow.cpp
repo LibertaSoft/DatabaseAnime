@@ -86,8 +86,7 @@ void MainWindow::on_TButton_Add_clicked()
 {
     switch( getActiveTable() ){
         case sections::anime :{
-            QModelIndex null;
-            DialogAddAnime dialogAddAnime(false, &null, this);
+            DialogAddAnime dialogAddAnime(this);
             dialogAddAnime.setModal(true);
             dialogAddAnime.exec();
             break;
@@ -119,8 +118,7 @@ void MainWindow::on_TButton_Edit_clicked()
         QModelIndex i = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0);
         switch( getActiveTable() ){
             case sections::anime :{
-                QModelIndex null;
-                DialogAddAnime dialogAddAnime(true, &i, this);
+                DialogAddAnime dialogAddAnime(this, currentItemId);
                 dialogAddAnime.setModal(true);
                 dialogAddAnime.exec();
                 break;
@@ -171,7 +169,6 @@ void MainWindow::on_TButton_Delete_clicked()
 
 void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index)
 {
-//    currentItem = index.
     currentItemId = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt();
     ui->stackedWidget->setCurrentIndex(1);
     switch( getActiveTable() ){

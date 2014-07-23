@@ -128,7 +128,7 @@ void LookProgressBar::paintEvent(QPaintEvent*)
     QLinearGradient gradient(0, 0, width(), height());
     gradient.setStart( width(), height()/2 );
 
-    float f = static_cast<float>( getValue() / getMaximum() );
+    float f = static_cast<float>( getValue() ) / getMaximum() ;
 
     gradient.setColorAt(0.0f, QColor(30,170,235,255) );
     gradient.setColorAt(0.4f, QColor(10,130,255,255) );
@@ -174,9 +174,9 @@ void LookProgressBar::paintEvent(QPaintEvent*)
 void LookProgressBar::mousePressEvent(QMouseEvent*)
 {
     if( isActiveBtnAdd() ){
-        emit progressInc();
+        progressInc();
     }else if( isActiveBtnSub() ){
-        emit progressDec();
+        progressDec();
     }
 }
 
