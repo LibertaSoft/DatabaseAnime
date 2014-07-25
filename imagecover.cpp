@@ -3,6 +3,7 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 
+#include <QStandardPaths>
 #include <QApplication>
 #include <QPixmap>
 #include <QMessageBox>
@@ -26,7 +27,7 @@ ImageCover::ImageCover(QWidget *parent) :
     QObject::connect(actionSetNoImage, SIGNAL(triggered()),
                     this, SLOT(noImage())  );
 
-    emit noImage();
+    noImage();
 }
 
 QString ImageCover::getImagePath() const{
@@ -44,8 +45,8 @@ QSize ImageCover::sizeHint() const
 
 void ImageCover::chooseImage()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open picture"), QDir::homePath(), tr("Images")+" (*.png *.PNG *.jpg *.JPG *.jpeg *.JPEG)");
-//    QString fileName = QFileDialog::getOpenFileName()
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open picture"), QStandardPaths::writableLocation( QStandardPaths::PicturesLocation ),
+                                                    tr("Images")+" (*.png *.PNG *.jpg *.JPG *.jpeg *.JPEG)");
     if( !fileName.isEmpty() ){
         setImagePath( fileName );
         setPixmap( QPixmap( fileName ) );
@@ -82,7 +83,7 @@ void ImageCover::noImage()
 
 void ImageCover::mouseDoubleClickEvent(QMouseEvent *)
 {
-    emit chooseImage();
+    chooseImage();
 }
 
 void ImageCover::contextMenuEvent(QContextMenuEvent *pe)

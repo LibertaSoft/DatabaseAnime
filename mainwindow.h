@@ -29,7 +29,7 @@ private:
 
     sections::section _activeTable;
     QModelIndex currentItem;
-    int currentItemId;
+    int _currentItemId;
     QString currentItemDir;
 
     QSqlQueryModel* QueryModel_ListItemsSection;
@@ -39,6 +39,10 @@ private:
     sections::section getActiveTable();
     void reloadSectionsList();
     void reloadFiltersList();
+    void loadAnimeFilters();
+    void loadMangaFilters();
+    void loadAmvFilters();
+    void loadDoramaFilters();
     void setActiveTable( sections::section );
 
     void selectAnimeData(const QModelIndex&);

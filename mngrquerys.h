@@ -34,7 +34,10 @@ public:
     static int  selectSection( QSqlQueryModel* model, sections::section, QString filter );
     static int  selectSection( QSqlQueryModel* model, sections::section, Filter::filter filter );
 
-    static bool createTable_AnimeSerials();
+    static bool createTable_Anime();
+    static bool createTable_Manga();
+    static bool createTable_Amv();
+    static bool createTable_Dorama();
     static QStringList getAnimeTags();
     static QStringList getMangaTags();
     static QStringList getAmvTags();

@@ -13,25 +13,21 @@
 
 #include <QtNetwork/QNetworkRequest>
 
-void DialogAddEdit::initTags()
+void DialogAddAnime::initTags()
 {
-    tags.setStringList( MngrQuerys::getAnimeTags() );
+    _tags.setStringList( MngrQuerys::getAnimeTags() );
+    ui->ListView_Tags->setModel( &_tags );
+    ui->ListView_Tags->setWrapping( true );
+    ui->ListView_Tags->setSelectionMode( QAbstractItemView::MultiSelection );
 }
 
-DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *parent ) :
-    QDialog(parent), ui(new Ui::DialogAddEdit), isEditRole( _isEditRole )
+void DialogAddAnime::initOptionalFields()
 {
-    ui->setupUi(this);
     QSettings settings;
-    initTags();
-
-    ui->TabWidget_Series->setCurrentIndex(0);
-    ui->TabWidget_Info->setCurrentIndex(0);
-
     if( settings.value( "optionalField/anime/OrigTitle", false ).toBool() ){
         this->LineEdit_OrigTitle = new QLineEdit(this);
         this->LineEdit_OrigTitle->setMaxLength(128);
-        this->LineEdit_OrigTitle->setPlaceholderText( tr("Original title") );
+        this->LineEdit_OrigTitle->setPlaceholderText( tr("Alternative title") );
         ui->VLay_OrigTitle->addWidget( this->LineEdit_OrigTitle );
     }
     if( settings.value( "optionalField/anime/Director", false ).toBool() ){
@@ -46,96 +42,112 @@ DialogAddEdit::DialogAddEdit(bool _isEditRole, QModelIndex* index, QWidget *pare
         this->LineEdit_PostScoring->setPlaceholderText( tr("Postscoring") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_PostScoring );
     }
-
-    ui->ListView_Tags->setModel( &tags );
-    ui->ListView_Tags->setWrapping( true );
-    ui->ListView_Tags->setSelectionMode( QAbstractItemView::MultiSelection );
-
-    if( isEditRole ){
-        this->isEditRole = isEditRole;
-        this->recordId   = index->data().toInt();
-
-        model = new QSqlQueryModel;
-        model->setQuery( QString("SELECT * FROM animeSerials WHERE id = '%1'").arg( index->data().toInt() ) );
-
-        ui->CheckBox_LookLater->setChecked( !model->record(0).value("isHaveLooked").toBool() );
-        ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
-
-        ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
-
-        // Optional Fields
-        QSettings settings;
-        if( settings.value( "optionalField/anime/OrigTitle", false ).toBool() ){
-            this->LineEdit_OrigTitle->setText( model->record(0).value("OrigTitle").toString() );
-        }
-        if( settings.value( "optionalField/anime/Director",  false ).toBool() ){
-            this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
-        }
-        if( settings.value( "optionalField/anime/PostScoring", false ).toBool() ){
-            this->LineEdit_PostScoring->setText( model->record(0).value("PostScoring").toString() );
-        }
-
-        ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
-        ui->SpinBox_Season->setValue( model->record(0).value("Season").toInt() );
-        ui->ComboBox_Studio->setCurrentText( model->record(0).value("Studios").toString() );
-
-        ui->SpinBox_aTV->setValue( model->record(0).value("SeriesTV").toInt() );
-        ui->SpinBox_aOVA->setValue( model->record(0).value("SeriesOVA").toInt() );
-        ui->SpinBox_aONA->setValue( model->record(0).value("SeriesONA").toInt() );
-        ui->SpinBox_aSpec->setValue( model->record(0).value("SeriesSpecial").toInt() );
-        ui->SpinBox_aMovie->setValue( model->record(0).value("SeriesMovie").toInt() );
-
-        ui->SpinBox_vTV->setValue( model->record(0).value("vSeriesTV").toInt() );
-        ui->SpinBox_vOVA->setValue( model->record(0).value("vSeriesOVA").toInt() );
-        ui->SpinBox_vONA->setValue( model->record(0).value("vSeriesONA").toInt() );
-        ui->SpinBox_vSpec->setValue( model->record(0).value("vSeriesSpecial").toInt() );
-        ui->SpinBox_vMovie->setValue( model->record(0).value("vSeriesMovie").toInt() );
-
-        ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
-        ui->ListView_Tags->clearSelection(); // Bug, не используется, нет возможности получить модель выделения
-        ui->PlainTextEdit_Description->setPlainText( model->record(0).value("Description").toString() );
-        ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
-        ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
-
-
-        QString imgPath = model->record(0).value("ImagePath").toString();
-        QPixmap pm( imgPath );
-        bool imageCrash = false;
-        if( pm.isNull() ){
-            pm.load( "://images/NoImage.png" );
-            imageCrash = true;
-        }
-        if( !imageCrash ){
-            ui->Lbl_ImageCover->setPixmap( pm );
-            ui->Lbl_ImageCover->setImagePath( model->record(0).value("ImagePath").toString() );
-        }else{
-            ui->Lbl_ImageCover->noImage();
-        }
-
-        oldCover = model->record(0).value("ImagePath").toString();
-    }
 }
 
-DialogAddEdit::~DialogAddEdit()
+void DialogAddAnime::setDataInField()
+{
+    model = new QSqlQueryModel(this);
+    model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
+                         MngrQuerys::getTableName( sections::anime ) ).arg( _recordId ) );
+
+    ui->CheckBox_LookLater->setChecked( !model->record(0).value("isHaveLooked").toBool() );
+    ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
+
+    ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
+
+    // Optional Fields
+    if( this->LineEdit_OrigTitle ){
+        this->LineEdit_OrigTitle->setText( model->record(0).value("OrigTitle").toString() );
+    }
+    if( this->LineEdit_Director ){
+        this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
+    }
+    if( this->LineEdit_PostScoring ){
+        this->LineEdit_PostScoring->setText( model->record(0).value("PostScoring").toString() );
+    }
+
+    ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
+    ui->SpinBox_Season->setValue( model->record(0).value("Season").toInt() );
+    ui->ComboBox_Studio->setCurrentText( model->record(0).value("Studios").toString() );
+
+    ui->SpinBox_aTV->setValue( model->record(0).value("SeriesTV").toInt() );
+    ui->SpinBox_aOVA->setValue( model->record(0).value("SeriesOVA").toInt() );
+    ui->SpinBox_aONA->setValue( model->record(0).value("SeriesONA").toInt() );
+    ui->SpinBox_aSpec->setValue( model->record(0).value("SeriesSpecial").toInt() );
+    ui->SpinBox_aMovie->setValue( model->record(0).value("SeriesMovie").toInt() );
+
+    ui->SpinBox_vTV->setValue( model->record(0).value("vSeriesTV").toInt() );
+    ui->SpinBox_vOVA->setValue( model->record(0).value("vSeriesOVA").toInt() );
+    ui->SpinBox_vONA->setValue( model->record(0).value("vSeriesONA").toInt() );
+    ui->SpinBox_vSpec->setValue( model->record(0).value("vSeriesSpecial").toInt() );
+    ui->SpinBox_vMovie->setValue( model->record(0).value("vSeriesMovie").toInt() );
+
+    ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
+    ui->PlainTextEdit_Description->setPlainText( model->record(0).value("Description").toString() );
+    ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
+    ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
+
+    QString imgPath = model->record(0).value("ImagePath").toString();
+    QPixmap pm( imgPath );
+    bool imageCrash = false;
+    if( pm.isNull() ){
+        pm.load( "://images/NoImage.png" );
+        imageCrash = true;
+    }
+    if( !imageCrash ){
+        ui->Lbl_ImageCover->setPixmap( pm );
+        ui->Lbl_ImageCover->setImagePath( model->record(0).value("ImagePath").toString() );
+    }else{
+        ui->Lbl_ImageCover->noImage();
+    }
+
+    _oldCover = model->record(0).value("ImagePath").toString();
+}
+
+DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned int record_id) :
+    QDialog(parent), ui(new Ui::DialogAddAnime), _isEditRole(true), _recordId(record_id),
+    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+{
+    ui->setupUi(this);
+    ui->TabWidget_Series->setCurrentIndex(0);
+    ui->TabWidget_Info->setCurrentIndex(0);
+
+    initTags();
+    initOptionalFields();
+    setDataInField();
+}
+
+DialogAddAnime::DialogAddAnime(QWidget *parent):
+    QDialog(parent), ui(new Ui::DialogAddAnime), _isEditRole(false),
+    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+{
+    ui->setupUi(this);
+    ui->TabWidget_Series->setCurrentIndex(0);
+    ui->TabWidget_Info->setCurrentIndex(0);
+
+    initTags();
+    initOptionalFields();
+}
+
+DialogAddAnime::~DialogAddAnime()
 {
     delete ui;
 }
 
-void DialogAddEdit::on_BtnBox_reset()
+void DialogAddAnime::on_BtnBox_reset()
 {
     ui->CheckBox_LookLater->setChecked( false );
     ui->CheckBox_Editing->setChecked( false );
 
     ui->LineEdit_Title->clear();
     // optional
-    QSettings settings;
-    if( settings.value( "optionalField/anime/OrigTitle",   false ).toBool() ){
+    if( this->LineEdit_OrigTitle ){
         this->LineEdit_OrigTitle->clear();
     }
-    if( settings.value( "optionalField/anime/Director",    false ).toBool() ){
+    if( this->LineEdit_Director ){
         this->LineEdit_Director->clear();
     }
-    if( settings.value( "optionalField/anime/PostScoring", false ).toBool() ){
+    if( this->LineEdit_PostScoring ){
         this->LineEdit_PostScoring->clear();
     }
 
@@ -162,23 +174,23 @@ void DialogAddEdit::on_BtnBox_reset()
     ui->LineEdit_URL->clear();
 }
 
-void DialogAddEdit::on_BtnBox_clicked(QAbstractButton *button)
+void DialogAddAnime::on_BtnBox_clicked(QAbstractButton *button)
 {
     switch( ui->BtnBox->buttonRole( button ) ){
         case 7:
-            emit on_BtnBox_reset();
+            on_BtnBox_reset();
             break;
         case QDialogButtonBox::AcceptRole:
-            //emit on_BtnBox_accepted();
+            //on_BtnBox_accepted();
             break;
         default:
             this->close();
     }
 }
 
-bool DialogAddEdit::insert_AnimeSerials(){
+bool DialogAddAnime::insert_Anime(){
     QSqlQuery query;
-    if( !this->isEditRole ){
+    if( !_isEditRole ){
         query.prepare( QString("INSERT INTO %1("
                       "isHaveLooked, isEditingDone, Title,"
                       "OrigTitle, Director, PostScoring,"
@@ -209,21 +221,20 @@ bool DialogAddEdit::insert_AnimeSerials(){
     }
     query.bindValue( ":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
     query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
-    query.bindValue( ":id",             this->recordId );
+    query.bindValue( ":id",             _recordId );
     query.bindValue( ":Title",          ui->LineEdit_Title->text() );
 
-    QSettings settings;
-    if( settings.value( "optionalField/anime/OrigTitle", false ).toBool() ){
+    if( this->LineEdit_OrigTitle ){
         query.bindValue( ":OrigTitle", this->LineEdit_OrigTitle->text() );
     }else{
         query.bindValue( ":OrigTitle", "" );
     }
-    if( settings.value( "optionalField/anime/Director", false ).toBool() ){
+    if( this->LineEdit_Director ){
         query.bindValue( ":Director", this->LineEdit_Director->text() );
     }else{
         query.bindValue( ":Director", "" );
     }
-    if( settings.value( "optionalField/anime/PostScoring", false ).toBool() ){
+    if( this->LineEdit_PostScoring ){
         query.bindValue( ":PostScoring", this->LineEdit_PostScoring->text() );
     }else{
         query.bindValue( ":PostScoring", "" );
@@ -266,28 +277,32 @@ bool DialogAddEdit::insert_AnimeSerials(){
     query.bindValue( ":URL",           ui->LineEdit_URL->text() );
     query.bindValue( ":Dir",           ui->LineEdit_Dir->text() );
 
-    QDir objQdir;
-    QString coverPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() + "/animeCovers/" );
-    if( objQdir.mkpath( coverPath ) ){
+    QDir dir;
+    QString coverPath( QDir::homePath() + "/."
+                       + QApplication::organizationName()
+                       + "/"
+                       + QApplication::applicationName()
+                       + "/animeCovers/" );
+    if( dir.mkpath( coverPath ) ){
         QDateTime dt;
         coverPath += "/" + QString::number( dt.currentMSecsSinceEpoch() );
         QFile f( ui->Lbl_ImageCover->getImagePath() );
         f.copy( coverPath );
-
     }
-    if( isEditRole ){
-            objQdir.remove( oldCover );
+    if( _isEditRole ){
+            dir.remove( _oldCover );
     }
-    query.bindValue(":ImagePath", coverPath );  
+    query.bindValue(":ImagePath", coverPath );
     if( !query.exec() ){
-        qDebug() << "Cannot insert data in table animeSerials: " << query.lastError();
-        (new QErrorMessage(0))->showMessage( query.lastError().text() );
+        qDebug() << QString("Cannot insert data in table %1: ").arg(
+                        MngrQuerys::getTableName( sections::anime ) ) << query.lastError();
+        QMessageBox::warning(this, tr("Warning"), tr("Cannot insert data."));
         return false;
     }
     return true;
 }
 
-void DialogAddEdit::on_BtnBox_accepted()
+void DialogAddAnime::on_BtnBox_accepted()
 {
     QDir dir( ui->LineEdit_Dir->text() );
     if( !ui->LineEdit_Title->text().isEmpty() ){
@@ -295,7 +310,7 @@ void DialogAddEdit::on_BtnBox_accepted()
             QMessageBox::warning( this, tr("Warning"), tr("The field 'Dir' is uncorrect") );
             ui->LineEdit_Dir->setFocus();
         }else{
-            insert_AnimeSerials();
+            insert_Anime();
             this->close();
         }
     }else{
@@ -304,37 +319,37 @@ void DialogAddEdit::on_BtnBox_accepted()
     }
 }
 
-void DialogAddEdit::on_BtnBox_rejected()
+void DialogAddAnime::on_BtnBox_rejected()
 {
     this->close();
 }
 
-void DialogAddEdit::on_SpinBox_aTV_valueChanged(int arg1)
+void DialogAddAnime::on_SpinBox_aTV_valueChanged(int value)
 {
-    ui->SpinBox_vTV->setMaximum(arg1);
+    ui->SpinBox_vTV->setMaximum(value);
 }
 
-void DialogAddEdit::on_SpinBox_aOVA_valueChanged(int arg1)
+void DialogAddAnime::on_SpinBox_aOVA_valueChanged(int value)
 {
-    ui->SpinBox_vOVA->setMaximum(arg1);
+    ui->SpinBox_vOVA->setMaximum(value);
 }
 
-void DialogAddEdit::on_SpinBox_aONA_valueChanged(int arg1)
+void DialogAddAnime::on_SpinBox_aONA_valueChanged(int value)
 {
-    ui->SpinBox_vONA->setMaximum(arg1);
+    ui->SpinBox_vONA->setMaximum(value);
 }
 
-void DialogAddEdit::on_SpinBox_aSpec_valueChanged(int arg1)
+void DialogAddAnime::on_SpinBox_aSpec_valueChanged(int value)
 {
-    ui->SpinBox_vSpec->setMaximum(arg1);
+    ui->SpinBox_vSpec->setMaximum(value);
 }
 
-void DialogAddEdit::on_SpinBox_aMovie_valueChanged(int arg1)
+void DialogAddAnime::on_SpinBox_aMovie_valueChanged(int value)
 {
-    ui->SpinBox_vMovie->setMaximum(arg1);
+    ui->SpinBox_vMovie->setMaximum(value);
 }
 
-void DialogAddEdit::on_toolButton_clicked()
+void DialogAddAnime::on_toolButton_clicked()
 {
     ui->LineEdit_Dir->setText(
                 QFileDialog::getExistingDirectory(this,
@@ -344,7 +359,7 @@ void DialogAddEdit::on_toolButton_clicked()
 }
 
 
-void DialogAddEdit::on_LineEdit_Dir_textChanged(const QString &path)
+void DialogAddAnime::on_LineEdit_Dir_textChanged(const QString &path)
 {
     QDir dir( path );
     if( !dir.exists() ){
