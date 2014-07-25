@@ -3,6 +3,7 @@
 #include "dialogaddanime.h"
 #include "lookprogressbar.h"
 #include "dialogaddmanga.h"
+#include "dialogaddamv.h"
 
 #include <QDesktopServices>
 #include <QMessageBox>
@@ -42,6 +43,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mngrConnection.open();
     MngrQuerys::createTable_Anime();
     MngrQuerys::createTable_Manga();
+    MngrQuerys::createTable_Amv();
+//    MngrQuerys::createTable_Dorama();
 
     ui->lineEdit_Search->setFocus();
     QueryModel_ListItemsSection = new QSqlQueryModel(this);
@@ -97,9 +100,12 @@ void MainWindow::on_TButton_Add_clicked()
             dialogAddManga.exec();
             break;
         }
-        case sections::amv :
-                ;
+        case sections::amv :{
+            DialogAddAmv dialogAddAmv(this);
+            dialogAddAmv.setModal(true);
+            dialogAddAmv.exec();
             break;
+        }
         case sections::dorama :
                 ;
             break;
@@ -127,9 +133,12 @@ void MainWindow::on_TButton_Edit_clicked()
                 dialogAddManga.exec();
                 break;
             }
-            case sections::amv :
-                    ;
+            case sections::amv :{
+                DialogAddAmv dialogAddAmv(this, _currentItemId);
+                dialogAddAmv.setModal(true);
+                dialogAddAmv.exec();
                 break;
+            }
             case sections::dorama :
                     ;
                 break;
@@ -633,7 +642,119 @@ void MainWindow::selectMangaData(const QModelIndex&)
 
 void MainWindow::selectAmvData(const QModelIndex&)
 {
-    return;
+    QSqlQueryModel m1;
+
+    m1.setQuery(
+                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
+                );
+
+    if( pbTV ){
+        delete pbTV;
+        pbTV = NULL;
+    }
+    if( pbOVA ){
+        delete pbOVA;
+        pbOVA = NULL;
+    }
+    if( pbONA ){
+        delete pbONA;
+        pbONA = NULL;
+    }
+    if( pbSpecial ){
+        delete pbSpecial;
+        pbSpecial = NULL;
+    }
+    if( pbMovie ){
+        delete pbMovie;
+        pbMovie = NULL;
+    }
+
+    if( !m1.record(0).value("URL").toString().isEmpty() ){
+        ui->Lbl_svTitle->setText( "<a href='"
+                                  + m1.record(0).value("URL").toString()
+                                  + "'>"
+                                  + m1.record(0).value("Title").toString()
+                                  + "</a>");
+        ui->Lbl_svTitle->setOpenExternalLinks( true );
+    }else{
+        ui->Lbl_svTitle->setText( m1.record(0).value("Title").toString() );
+    }
+    if( m1.record(0).value("Author").toString().isEmpty() ){
+        ui->Lbl_svOrigTitle->setVisible( false );
+        ui->Lbl_sOrigTitle->setVisible( false );
+    }else{
+        ui->Lbl_svOrigTitle->setText( m1.record(0).value("Author").toString() );
+        ui->Lbl_sOrigTitle->setText( tr("Author:") );
+        ui->Lbl_svOrigTitle->setVisible( true );
+        ui->Lbl_sOrigTitle->setVisible( true );
+    }
+    if( m1.record(0).value("Сontestant").toString().isEmpty() ){
+        ui->Lbl_svDirector->setVisible( false );
+        ui->Lbl_sDirector->setVisible( false );
+    }else{
+        ui->Lbl_svDirector->setText( m1.record(0).value("Director").toString() );
+        ui->Lbl_svDirector->setVisible( true );
+        ui->Lbl_sDirector->setText( tr("Сontestant:") );
+        ui->Lbl_sDirector->setVisible( true );
+    }
+    if( m1.record(0).value("Year").toString().isEmpty() ){
+        ui->Lbl_svYear->setVisible( false );
+        ui->Lbl_sYear->setVisible( false );
+    }else{
+        ui->Lbl_svYear->setText( m1.record(0).value("Year").toString() );
+        ui->Lbl_svYear->setVisible( true );
+        ui->Lbl_sYear->setVisible( true );
+    }
+    if( m1.record(0).value("Tags").toString().isEmpty() ){
+        ui->Lbl_svTags->setVisible( false );
+        ui->Lbl_sTags->setVisible( false );
+    }else{
+        ui->Lbl_svTags->setText( m1.record(0).value("Tags").toString() );
+        ui->Lbl_svTags->setVisible( true );
+        ui->Lbl_sTags->setVisible( true );
+    }
+    if( m1.record(0).value("ContainingMusic").toString().isEmpty() ){
+        ui->Lbl_svStudio->setVisible( false );
+        ui->Lbl_sStudio->setVisible( false );
+    }else{
+        ui->Lbl_svStudio->setText( m1.record(0).value("ContainingMusic").toString() );
+        ui->Lbl_svStudio->setVisible( true );
+        ui->Lbl_sStudio->setText( tr("Containing music:") );
+        ui->Lbl_sStudio->setVisible( true );
+    }
+    if( m1.record(0).value("AuthorComment").toString().isEmpty() ){
+        ui->Lbl_VAnimeDescr->setVisible( false );
+        ui->Lbl_sAnimeDescr->setVisible( false );
+    }else{
+        ui->Lbl_VAnimeDescr->setText( m1.record(0).value("AuthorComment").toString() );
+        ui->Lbl_VAnimeDescr->setVisible( true );
+        ui->Lbl_sAnimeDescr->setText( tr("Author comment:") );
+        ui->Lbl_sAnimeDescr->setVisible( true );
+    }
+    // ContainingAnime
+    QString imgPath = m1.record(0).value("ImagePath").toString();
+
+    QPixmap pic( imgPath );
+    if( pic.isNull() ){
+        pic.load( "://images/NoImage.png" );
+    }
+    ui->Lbl_ImageCover->setPixmap( pic );
+
+    currentItemDir = m1.record(0).value("Dir").toString();
+
+    if( currentItemDir.isEmpty() )
+        ui->StackWgt_CoverOrDir->setOptSwitch( false );
+    else
+        ui->StackWgt_CoverOrDir->setOptSwitch( true );
+    QDirModel *dirModel = new QDirModel;
+//    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
+    dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
+
+    ui->TreeView_Dir->setModel( dirModel );
+    ui->TreeView_Dir->setRootIndex( dirModel->index(currentItemDir) );
+    ui->TreeView_Dir->setColumnHidden(1, true);
+    ui->TreeView_Dir->setColumnHidden(2, true);
+    ui->TreeView_Dir->setColumnHidden(3, true);
 }
 
 void MainWindow::selectDoramaData(const QModelIndex&)

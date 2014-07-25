@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DialogAddEdit</class>
- <widget class="QDialog" name="DialogAddEdit">
+ <class>DialogAddAmv</class>
+ <widget class="QDialog" name="DialogAddAmv">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add anime</string>
+   <string>Add AMV</string>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>
@@ -56,34 +56,20 @@
         </layout>
        </item>
        <item>
-        <widget class="QLineEdit" name="LineEdit_Title">
-         <property name="maxLength">
-          <number>128</number>
-         </property>
-         <property name="placeholderText">
-          <string>Title</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="VLay_OrigTitle">
+        <layout class="QHBoxLayout" name="HLay_Title">
          <property name="topMargin">
           <number>0</number>
          </property>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="HLay_DirectorAndSound">
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <property name="topMargin">
-          <number>0</number>
-         </property>
+         <item>
+          <widget class="QLineEdit" name="LineEdit_Title">
+           <property name="maxLength">
+            <number>128</number>
+           </property>
+           <property name="placeholderText">
+            <string>Title</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <widget class="QLabel" name="Lbl_Year">
            <property name="text">
@@ -104,96 +90,95 @@
            </property>
           </widget>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="HLay_AuthorAndConcurs">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
          <item>
-          <spacer name="HSpacer_1">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+          <widget class="QLineEdit" name="LineEdit_Author">
+           <property name="placeholderText">
+            <string>Author</string>
            </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Expanding</enum>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="LineEdit_Contestant">
+           <property name="placeholderText">
+            <string>Сontestant</string>
            </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
+          </widget>
          </item>
         </layout>
        </item>
        <item>
         <widget class="QTabWidget" name="TabWidget_Info">
-         <property name="currentIndex">
-          <number>0</number>
+         <property name="enabled">
+          <bool>true</bool>
          </property>
-         <widget class="QWidget" name="tab_4">
+         <property name="currentIndex">
+          <number>1</number>
+         </property>
+         <property name="usesScrollButtons">
+          <bool>true</bool>
+         </property>
+         <property name="documentMode">
+          <bool>false</bool>
+         </property>
+         <property name="tabsClosable">
+          <bool>false</bool>
+         </property>
+         <widget class="QWidget" name="tab_tags">
           <attribute name="title">
-           <string>Containing music</string>
+           <string>Tags</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
-             <property name="topMargin">
-              <number>0</number>
+            <widget class="QLineEdit" name="LineEdit_Tags">
+             <property name="toolTip">
+              <string>Separator: comma</string>
              </property>
-             <item>
-              <widget class="QLineEdit" name="LineEdit_Tags_2">
-               <property name="toolTip">
-                <string>Separator: comma</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="maxLength">
-                <number>256</number>
-               </property>
-               <property name="placeholderText">
-                <string>Enter music title</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="toolButton_4">
-               <property name="toolTip">
-                <string>Add in the list</string>
-               </property>
-               <property name="text">
-                <string>+</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QToolButton" name="toolButton_5">
-               <property name="toolTip">
-                <string>Delete selected</string>
-               </property>
-               <property name="text">
-                <string>-</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="maxLength">
+              <number>256</number>
+             </property>
+             <property name="placeholderText">
+              <string>Enter music title</string>
+             </property>
+            </widget>
            </item>
            <item>
-            <widget class="QListView" name="listView"/>
+            <widget class="QListView" name="LView_Tags"/>
            </item>
           </layout>
-          <zorder>LineEdit_Tags_2</zorder>
-          <zorder>toolButton_4</zorder>
-          <zorder>toolButton_5</zorder>
-          <zorder></zorder>
-          <zorder>listView</zorder>
          </widget>
-         <widget class="QWidget" name="tab">
+         <widget class="QWidget" name="tab_anime">
           <attribute name="title">
            <string>Containing anime</string>
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QPlainTextEdit" name="plainTextEdit">
+            <widget class="QPlainTextEdit" name="plainTextEdit_ContAnime">
              <property name="placeholderText">
               <string>Containing anime</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_5">
+          <attribute name="title">
+           <string>Containing music</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_6">
+           <item>
+            <widget class="QPlainTextEdit" name="plainTextEdit_ContMusic">
+             <property name="placeholderText">
+              <string>Containing music</string>
              </property>
             </widget>
            </item>
@@ -205,7 +190,7 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <widget class="QPlainTextEdit" name="PlainTextEdit_Description">
+            <widget class="QPlainTextEdit" name="PlainTextEdit_AuthorComment">
              <property name="placeholderText">
               <string>Author comment</string>
              </property>

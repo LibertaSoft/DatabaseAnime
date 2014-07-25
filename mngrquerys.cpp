@@ -194,6 +194,31 @@ bool MngrQuerys::createTable_Manga()
     return true;
 }
 
+bool MngrQuerys::createTable_Amv()
+{
+    QString sql = QString("CREATE TABLE IF NOT EXISTS %1( "
+                  "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                  "isEditingDone   INTEGER, "
+                  "Title           VARCHAR(128), "
+                  "Author          VARCHAR(32), "
+                  "Сontestant      VARCHAR(128), "
+                  "Year            INTEGER, "
+                  "Tags            VARCHAR(256), "
+                  "ContainingMusic TEXT, "
+                  "ContainingAnime TEXT, "
+                  "AuthorComment   TEXT, "
+                  "URL             VARCHAR(256), "
+                  "Dir             VARCHAR(256), "
+                  "ImagePath       VARCHAR(256) "
+                  ");").arg( getTableName( sections::amv ) );
+    QSqlQuery query;
+    if( !query.exec(sql) ){
+        qDebug() << QString("Table %1 is not created! Error: ").arg( getTableName(sections::amv) ) << query.lastError();
+        return false;
+    }
+    return true;
+}
+
 QStringList MngrQuerys::getAnimeTags()
 {
     return QStringList()
