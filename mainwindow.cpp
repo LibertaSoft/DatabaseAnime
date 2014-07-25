@@ -692,7 +692,7 @@ void MainWindow::selectAmvData(const QModelIndex&)
         ui->Lbl_svDirector->setVisible( false );
         ui->Lbl_sDirector->setVisible( false );
     }else{
-        ui->Lbl_svDirector->setText( m1.record(0).value("Director").toString() );
+        ui->Lbl_svDirector->setText( m1.record(0).value("Сontestant").toString() );
         ui->Lbl_svDirector->setVisible( true );
         ui->Lbl_sDirector->setText( tr("Сontestant:") );
         ui->Lbl_sDirector->setVisible( true );
