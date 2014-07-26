@@ -31,9 +31,7 @@ private:
     void initOptionalFields();
     void setDataInFields();
     void createOptionalFields();
-
-    void on_BtnBox_reset();
-    void on_toolButton_clicked();
+    bool insert_Manga();
 public:
     explicit DialogAddManga(QWidget *parent, unsigned int record_id);
     explicit DialogAddManga(QWidget *parent);
@@ -46,8 +44,9 @@ private slots:
     void on_SpinBox_aVol_valueChanged(int);
     void on_SpinBox_aCh_valueChanged(int);
     void on_SpinBox_aPages_valueChanged(int);
-    bool insert_Manga();
     void on_LineEdit_Dir_textChanged(const QString &arg1);
+    void on_BtnBox_reset();
+    void on_TBtn_ChooseDir_clicked();
 };
 
 #endif // DIALOGADDMANGA_H

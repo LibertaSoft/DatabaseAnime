@@ -196,9 +196,9 @@ bool DialogAddAmv::insert_Amv(){
 
 void DialogAddAmv::on_BtnBox_accepted()
 {
-    QDir dir( ui->LineEdit_Dir->text() );
+    QFile amvFile( ui->LineEdit_Dir->text() );
     if( !ui->LineEdit_Title->text().isEmpty() ){
-        if( !dir.exists() ){
+        if( !amvFile.exists() ){
             QMessageBox::warning( this, tr("Warning"), tr("The field 'Dir' is uncorrect") );
             ui->LineEdit_Dir->setFocus();
         }else{
@@ -219,17 +219,17 @@ void DialogAddAmv::on_BtnBox_rejected()
 void DialogAddAmv::on_toolButton_clicked()
 {
     ui->LineEdit_Dir->setText(
-                QFileDialog::getExistingDirectory(this,
-                                                  tr("Choose a directory with video files"),
-                                                  QStandardPaths::writableLocation( QStandardPaths::MoviesLocation )
-                                                  ) );
+                QFileDialog::getOpenFileName(this,
+                                             tr("Choose a video file"),
+                                             QStandardPaths::writableLocation( QStandardPaths::MoviesLocation )
+                                             ) );
 }
 
 
 void DialogAddAmv::on_LineEdit_Dir_textChanged(const QString &path)
 {
-    QDir dir( path );
-    if( !dir.exists() ){
+    QFile amvFile( path );
+    if( !amvFile.exists() ){
         ui->LineEdit_Dir->setStyleSheet("color:red");
     }else{
         ui->LineEdit_Dir->setStyleSheet("color:black");

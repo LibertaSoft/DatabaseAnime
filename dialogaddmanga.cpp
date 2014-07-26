@@ -316,15 +316,6 @@ void DialogAddManga::on_SpinBox_aPages_valueChanged(int value)
     ui->SpinBox_vPages->setMaximum(value);
 }
 
-void DialogAddManga::on_toolButton_clicked()
-{
-    ui->LineEdit_Dir->setText(
-                QFileDialog::getExistingDirectory(this,
-                                                  tr("Choose a directory with picture files"),
-                                                  QStandardPaths::writableLocation( QStandardPaths::PicturesLocation )
-                                                  ) );
-}
-
 void DialogAddManga::on_LineEdit_Dir_textChanged(const QString &path)
 {
     QDir dir( path );
@@ -333,4 +324,14 @@ void DialogAddManga::on_LineEdit_Dir_textChanged(const QString &path)
     }else{
         ui->LineEdit_Dir->setStyleSheet("color:black");
     }
+}
+
+void DialogAddManga::on_TBtn_ChooseDir_clicked()
+{
+    QMessageBox::information(this, windowTitle(), "test");
+    ui->LineEdit_Dir->setText(
+                QFileDialog::getExistingDirectory(this,
+                                                  tr("Choose a directory with picture files"),
+                                                  QStandardPaths::writableLocation( QStandardPaths::PicturesLocation )
+                                                  ) );
 }

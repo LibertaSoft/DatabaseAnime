@@ -356,10 +356,6 @@ void MainWindow::selectAnimeData(const QModelIndex&)
     m1.setQuery(
                 QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
                 );
-    /*
-    "Season, PostScoring"
-    */
-
     if( pbTV ){
         delete pbTV;
         pbTV = NULL;
@@ -464,6 +460,16 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
     }
+    if( !m1.record(0).value("Season").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Season").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Season:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("PostScoring").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("PostScoring").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Postscoring:") + "</b>", lblValue );
+    }
     if( !m1.record(0).value("Studios").toString().isEmpty() ){
         QLabel *lblValue = new QLabel(m1.record(0).value("Studios").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
@@ -514,10 +520,6 @@ void MainWindow::selectMangaData(const QModelIndex&)
     m1.setQuery(
                 QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
                 );
-    /*
-    "Season, PostScoring"
-    */
-
     if( pbTV ){
         delete pbTV;
         pbTV = NULL;
@@ -757,7 +759,6 @@ void MainWindow::selectDoramaData(const QModelIndex&)
     return;
 }
 
-
 void MainWindow::on_listView_ListItemsSection_clicked(const QModelIndex &index)
 {
     on_listView_ListItemsSection_activated(index);
@@ -773,10 +774,13 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter );
     ui->listView_ListItemsSection->setModelColumn(1);
-    if(sec == sections::none)
+    if(sec == sections::none){
         ui->stackedWidget->setCurrentIndex(0);
+        ui->CB_Filter->setHidden( true );
+    }else{
+        ui->CB_Filter->setVisible( true );
+    }
     // ToDo : Проверить соответствие версии БД
-    // */
 }
 
 void MainWindow::on_CB_Filter_currentIndexChanged(int = 0)
