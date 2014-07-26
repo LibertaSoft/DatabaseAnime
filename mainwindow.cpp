@@ -12,12 +12,14 @@
 #include <QtSql>
 #include <QAbstractItemModel>
 #include <QDirModel>
+#include <QScrollArea>
 //#include <QSvgWidget>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbMovie(NULL), ListWidget_Dir(NULL)
+    pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbMovie(NULL), ListWidget_Dir(NULL),
+    _ScrArea_propertyes(NULL)
 {
     ui->setupUi(this);
 
@@ -425,63 +427,59 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         QObject::connect(pbMovie, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
     }
 
-    if( !m1.record(0).value("URL").toString().isEmpty() ){
-        ui->Lbl_svTitle->setText( "<a href='"
-                                  + m1.record(0).value("URL").toString()
-                                  + "'>"
-                                  + m1.record(0).value("Title").toString()
-                                  + "</a>");
-        ui->Lbl_svTitle->setOpenExternalLinks( true );
-    }else{
-        ui->Lbl_svTitle->setText( m1.record(0).value("Title").toString() );
+    if( _ScrArea_propertyes )
+        delete _ScrArea_propertyes;
+    _ScrArea_propertyes = new QScrollArea;
+    _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    _ScrArea_propertyes->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    _ScrArea_propertyes->setMinimumWidth(300);
+
+    QFormLayout *FLay_propertyes = new QFormLayout(_ScrArea_propertyes);
+    _ScrArea_propertyes->setLayout(FLay_propertyes);
+    ui->VLay_AnimeDescrFull->addWidget(_ScrArea_propertyes);
+
+    // Title
+    QLabel *lblTitle = new QLabel(
+                "<a href='"
+                + m1.record(0).value("URL").toString()
+                + "'>"
+                + m1.record(0).value("Title").toString()
+                + "</a>", _ScrArea_propertyes);
+    lblTitle->setWordWrap( true );
+    lblTitle->setOpenExternalLinks( true );
+    FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
+    if( !m1.record(0).value("OrigTitle").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("OrigTitle").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Alt title:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("OrigTitle").toString().isEmpty() ){
-        ui->Lbl_svOrigTitle->setVisible( false );
-        ui->Lbl_sOrigTitle->setVisible( false );
-    }else{
-        ui->Lbl_svOrigTitle->setText( m1.record(0).value("OrigTitle").toString() );
-        ui->Lbl_svOrigTitle->setVisible( true );
-        ui->Lbl_sOrigTitle->setVisible( true );
+    if( !m1.record(0).value("Director").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Director").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Director:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Director").toString().isEmpty() ){
-        ui->Lbl_svDirector->setVisible( false );
-        ui->Lbl_sDirector->setVisible( false );
-    }else{
-        ui->Lbl_svDirector->setText( m1.record(0).value("Director").toString() );
-        ui->Lbl_svDirector->setVisible( true );
-        ui->Lbl_sDirector->setVisible( true );
+    if( !m1.record(0).value("Year").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Year").toString().isEmpty() ){
-        ui->Lbl_svYear->setVisible( false );
-        ui->Lbl_sYear->setVisible( false );
-    }else{
-        ui->Lbl_svYear->setText( m1.record(0).value("Year").toString() );
-        ui->Lbl_svYear->setVisible( true );
-        ui->Lbl_sYear->setVisible( true );
+    if( !m1.record(0).value("Studios").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Studios").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Studio:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Tags").toString().isEmpty() ){
-        ui->Lbl_svTags->setVisible( false );
-        ui->Lbl_sTags->setVisible( false );
-    }else{
-        ui->Lbl_svTags->setText( m1.record(0).value("Tags").toString() );
-        ui->Lbl_svTags->setVisible( true );
-        ui->Lbl_sTags->setVisible( true );
+    if( !m1.record(0).value("Tags").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Tags").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Ganres:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Studios").toString().isEmpty() ){
-        ui->Lbl_svStudio->setVisible( false );
-        ui->Lbl_sStudio->setVisible( false );
-    }else{
-        ui->Lbl_svStudio->setText( m1.record(0).value("Studios").toString() );
-        ui->Lbl_svStudio->setVisible( true );
-        ui->Lbl_sStudio->setVisible( true );
-    }
-    if( m1.record(0).value("Description").toString().isEmpty() ){
-        ui->Lbl_VAnimeDescr->setVisible( false );
-        ui->Lbl_sAnimeDescr->setVisible( false );
-    }else{
-        ui->Lbl_VAnimeDescr->setText( m1.record(0).value("Description").toString() );
-        ui->Lbl_VAnimeDescr->setVisible( true );
-        ui->Lbl_sAnimeDescr->setVisible( true );
+    if( !m1.record(0).value("Description").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Description").toString(), _ScrArea_propertyes);
+        QLabel *lblTitle = new QLabel( "<b>" + tr("Description:") + "</b>", _ScrArea_propertyes );
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow(lblTitle);
+        FLay_propertyes->addRow(lblValue);
     }
 
     QString imgPath = m1.record(0).value("ImagePath").toString();
@@ -561,58 +559,54 @@ void MainWindow::selectMangaData(const QModelIndex&)
         QObject::connect(pbONA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
     }
 
-    if( !m1.record(0).value("URL").toString().isEmpty() ){
-        ui->Lbl_svTitle->setText( "<a href='"
-                                  + m1.record(0).value("URL").toString()
-                                  + "'>"
-                                  + m1.record(0).value("Title").toString()
-                                  + "</a>");
-        ui->Lbl_svTitle->setOpenExternalLinks( true );
-    }else{
-        ui->Lbl_svTitle->setText( m1.record(0).value("Title").toString() );
-    }
-    if( m1.record(0).value("AltTitle").toString().isEmpty() ){
-        ui->Lbl_svOrigTitle->setVisible( false );
-        ui->Lbl_sOrigTitle->setVisible( false );
-    }else{
-        ui->Lbl_svOrigTitle->setText( m1.record(0).value("AltTitle").toString() );
-        ui->Lbl_svOrigTitle->setVisible( true );
-        ui->Lbl_sOrigTitle->setVisible( true );
-    }
-    if( m1.record(0).value("Director").toString().isEmpty() ){
-        ui->Lbl_svDirector->setVisible( false );
-        ui->Lbl_sDirector->setVisible( false );
-    }else{
-        ui->Lbl_svDirector->setText( m1.record(0).value("Director").toString() );
-        ui->Lbl_svDirector->setVisible( true );
-        ui->Lbl_sDirector->setVisible( true );
-    }
-    if( m1.record(0).value("Year").toString().isEmpty() ){
-        ui->Lbl_svYear->setVisible( false );
-        ui->Lbl_sYear->setVisible( false );
-    }else{
-        ui->Lbl_svYear->setText( m1.record(0).value("Year").toString() );
-        ui->Lbl_svYear->setVisible( true );
-        ui->Lbl_sYear->setVisible( true );
-    }
-    if( m1.record(0).value("Tags").toString().isEmpty() ){
-        ui->Lbl_svTags->setVisible( false );
-        ui->Lbl_sTags->setVisible( false );
-    }else{
-        ui->Lbl_svTags->setText( m1.record(0).value("Tags").toString() );
-        ui->Lbl_svTags->setVisible( true );
-        ui->Lbl_sTags->setVisible( true );
-    }
-    ui->Lbl_svStudio->setVisible( false );
-    ui->Lbl_sStudio->setVisible( false );
+    if( _ScrArea_propertyes )
+        delete _ScrArea_propertyes;
+    _ScrArea_propertyes = new QScrollArea;
+    _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    _ScrArea_propertyes->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    _ScrArea_propertyes->setMinimumWidth(300);
 
-    if( m1.record(0).value("Description").toString().isEmpty() ){
-        ui->Lbl_VAnimeDescr->setVisible( false );
-        ui->Lbl_sAnimeDescr->setVisible( false );
-    }else{
-        ui->Lbl_VAnimeDescr->setText( m1.record(0).value("Description").toString() );
-        ui->Lbl_VAnimeDescr->setVisible( true );
-        ui->Lbl_sAnimeDescr->setVisible( true );
+    QFormLayout *FLay_propertyes = new QFormLayout(_ScrArea_propertyes);
+    _ScrArea_propertyes->setLayout(FLay_propertyes);
+    ui->VLay_AnimeDescrFull->addWidget(_ScrArea_propertyes);
+
+    // Title
+    QLabel *lblTitle = new QLabel(
+                "<a href='"
+                + m1.record(0).value("URL").toString()
+                + "'>"
+                + m1.record(0).value("Title").toString()
+                + "</a>", _ScrArea_propertyes);
+    lblTitle->setWordWrap( true );
+    lblTitle->setOpenExternalLinks( true );
+    FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
+    if( !m1.record(0).value("AltTitle").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("AltTitle").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Alt title:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("Director").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Director").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Director:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("Year").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("Tags").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Tags").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Ganres:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("Description").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Description").toString(), _ScrArea_propertyes);
+        QLabel *lblTitle = new QLabel( "<b>" + tr("Description:") + "</b>", _ScrArea_propertyes );
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow(lblTitle);
+        FLay_propertyes->addRow(lblValue);
     }
 
     QString imgPath = m1.record(0).value("ImagePath").toString();
@@ -669,69 +663,70 @@ void MainWindow::selectAmvData(const QModelIndex&)
         pbMovie = NULL;
     }
 
-    if( !m1.record(0).value("URL").toString().isEmpty() ){
-        ui->Lbl_svTitle->setText( "<a href='"
-                                  + m1.record(0).value("URL").toString()
-                                  + "'>"
-                                  + m1.record(0).value("Title").toString()
-                                  + "</a>");
-        ui->Lbl_svTitle->setOpenExternalLinks( true );
-    }else{
-        ui->Lbl_svTitle->setText( m1.record(0).value("Title").toString() );
+    if( _ScrArea_propertyes )
+        delete _ScrArea_propertyes;
+    _ScrArea_propertyes = new QScrollArea;
+    _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    _ScrArea_propertyes->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    _ScrArea_propertyes->setMinimumWidth(300);
+
+    QFormLayout *FLay_propertyes = new QFormLayout(_ScrArea_propertyes);
+    _ScrArea_propertyes->setLayout(FLay_propertyes);
+    ui->VLay_AnimeDescrFull->addWidget(_ScrArea_propertyes);
+
+    // Title
+    QLabel *lblTitle = new QLabel(
+                "<a href='"
+                + m1.record(0).value("URL").toString()
+                + "'>"
+                + m1.record(0).value("Title").toString()
+                + "</a>", _ScrArea_propertyes);
+    lblTitle->setWordWrap( true );
+    lblTitle->setOpenExternalLinks( true );
+    FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
+    if( !m1.record(0).value("Author").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Author").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Author:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Author").toString().isEmpty() ){
-        ui->Lbl_svOrigTitle->setVisible( false );
-        ui->Lbl_sOrigTitle->setVisible( false );
-    }else{
-        ui->Lbl_svOrigTitle->setText( m1.record(0).value("Author").toString() );
-        ui->Lbl_sOrigTitle->setText( tr("Author:") );
-        ui->Lbl_svOrigTitle->setVisible( true );
-        ui->Lbl_sOrigTitle->setVisible( true );
+    if( !m1.record(0).value("Сontestant").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Сontestant").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Сontestant:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Сontestant").toString().isEmpty() ){
-        ui->Lbl_svDirector->setVisible( false );
-        ui->Lbl_sDirector->setVisible( false );
-    }else{
-        ui->Lbl_svDirector->setText( m1.record(0).value("Сontestant").toString() );
-        ui->Lbl_svDirector->setVisible( true );
-        ui->Lbl_sDirector->setText( tr("Сontestant:") );
-        ui->Lbl_sDirector->setVisible( true );
+    if( !m1.record(0).value("Year").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Year").toString().isEmpty() ){
-        ui->Lbl_svYear->setVisible( false );
-        ui->Lbl_sYear->setVisible( false );
-    }else{
-        ui->Lbl_svYear->setText( m1.record(0).value("Year").toString() );
-        ui->Lbl_svYear->setVisible( true );
-        ui->Lbl_sYear->setVisible( true );
+    if( !m1.record(0).value("Tags").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Tags").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Ganres:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Tags").toString().isEmpty() ){
-        ui->Lbl_svTags->setVisible( false );
-        ui->Lbl_sTags->setVisible( false );
-    }else{
-        ui->Lbl_svTags->setText( m1.record(0).value("Tags").toString() );
-        ui->Lbl_svTags->setVisible( true );
-        ui->Lbl_sTags->setVisible( true );
+    if( !m1.record(0).value("Author comment:").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("AuthorComment").toString(), _ScrArea_propertyes);
+        QLabel *lblTitle = new QLabel( "<b>" + tr("AuthorComment:") + "</b>", _ScrArea_propertyes );
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow(lblTitle);
+        FLay_propertyes->addRow(lblValue);
     }
-    if( m1.record(0).value("ContainingMusic").toString().isEmpty() ){
-        ui->Lbl_svStudio->setVisible( false );
-        ui->Lbl_sStudio->setVisible( false );
-    }else{
-        ui->Lbl_svStudio->setText( m1.record(0).value("ContainingMusic").toString() );
-        ui->Lbl_svStudio->setVisible( true );
-        ui->Lbl_sStudio->setText( tr("Containing music:") );
-        ui->Lbl_sStudio->setVisible( true );
+    if( !m1.record(0).value("ContainingMusic").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("ContainingMusic").toString(), _ScrArea_propertyes);
+        QLabel *lblTitle = new QLabel( "<b>" + tr("Containing music:") + "</b>", _ScrArea_propertyes );
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow(lblTitle);
+        FLay_propertyes->addRow(lblValue);
     }
-    if( m1.record(0).value("AuthorComment").toString().isEmpty() ){
-        ui->Lbl_VAnimeDescr->setVisible( false );
-        ui->Lbl_sAnimeDescr->setVisible( false );
-    }else{
-        ui->Lbl_VAnimeDescr->setText( m1.record(0).value("AuthorComment").toString() );
-        ui->Lbl_VAnimeDescr->setVisible( true );
-        ui->Lbl_sAnimeDescr->setText( tr("Author comment:") );
-        ui->Lbl_sAnimeDescr->setVisible( true );
+    if( !m1.record(0).value("ContainingAnime").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("ContainingAnime").toString(), _ScrArea_propertyes);
+        QLabel *lblTitle = new QLabel( "<b>" + tr("Containing anime:") + "</b>", _ScrArea_propertyes );
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow(lblTitle);
+        FLay_propertyes->addRow(lblValue);
     }
-    // ContainingAnime
+
     QString imgPath = m1.record(0).value("ImagePath").toString();
 
     QPixmap pic( imgPath );
