@@ -87,11 +87,14 @@ void DialogAddAmv::on_BtnBox_reset()
     ui->LineEdit_Contestant->clear();
 
     ui->SpinBox_Year->setValue(2000);
+    ui->LView_Tags->clearSelection();
     ui->PlainTextEdit_AuthorComment->clear();
     ui->plainTextEdit_ContAnime->clear();
     ui->plainTextEdit_ContMusic->clear();
     ui->LineEdit_Dir->clear();
     ui->LineEdit_URL->clear();
+
+    ui->Lbl_ImageCover->noImage();
 }
 
 void DialogAddAmv::on_BtnBox_clicked(QAbstractButton *button)

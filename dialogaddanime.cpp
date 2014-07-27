@@ -153,7 +153,7 @@ void DialogAddAnime::on_BtnBox_reset()
 
     ui->SpinBox_Year->setValue(2000);
     ui->SpinBox_Season->setValue(0);
-    ui->ComboBox_Studio->clear();
+    ui->ComboBox_Studio->setCurrentIndex(0);
 
     ui->SpinBox_aTV->setValue(0);
     ui->SpinBox_aOVA->setValue(0);
@@ -172,6 +172,8 @@ void DialogAddAnime::on_BtnBox_reset()
     ui->PlainTextEdit_Description->clear();
     ui->LineEdit_Dir->clear();
     ui->LineEdit_URL->clear();
+
+    ui->Lbl_ImageCover->noImage();
 }
 
 void DialogAddAnime::on_BtnBox_clicked(QAbstractButton *button)

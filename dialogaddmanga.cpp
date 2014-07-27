@@ -169,6 +169,8 @@ void DialogAddManga::on_BtnBox_reset()
     ui->PlainTextEdit_Description->clear();
     ui->LineEdit_Dir->clear();
     ui->LineEdit_URL->clear();
+
+    ui->Lbl_ImageCover->noImage();
 }
 
 void DialogAddManga::on_BtnBox_clicked(QAbstractButton *button)
