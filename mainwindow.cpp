@@ -4,6 +4,7 @@
 #include "lookprogressbar.h"
 #include "dialogaddmanga.h"
 #include "dialogaddamv.h"
+#include "dialogadddorama.h"
 
 #include <QDesktopServices>
 #include <QMessageBox>
@@ -46,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) :
     MngrQuerys::createTable_Anime();
     MngrQuerys::createTable_Manga();
     MngrQuerys::createTable_Amv();
-//    MngrQuerys::createTable_Dorama();
+    MngrQuerys::createTable_Dorama();
 
     ui->lineEdit_Search->setFocus();
     QueryModel_ListItemsSection = new QSqlQueryModel(this);
@@ -108,9 +109,12 @@ void MainWindow::on_TButton_Add_clicked()
             dialogAddAmv.exec();
             break;
         }
-        case sections::dorama :
-                ;
+        case sections::dorama :{
+            DialogAddDorama dialogAddDorama(this);
+            dialogAddDorama.setModal(true);
+            dialogAddDorama.exec();
             break;
+        }
         case sections::none :
         default:
             return;
@@ -141,9 +145,12 @@ void MainWindow::on_TButton_Edit_clicked()
                 dialogAddAmv.exec();
                 break;
             }
-            case sections::dorama :
-                    ;
+            case sections::dorama :{
+                DialogAddDorama dialogAddDorama(this, _currentItemId);
+                dialogAddDorama.setModal(true);
+                dialogAddDorama.exec();
                 break;
+            }
             case sections::none :
             default:
                 return;
@@ -460,7 +467,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Season").toString().isEmpty() ){
+    if( !m1.record(0).value("Season").toInt() > 0 ){
         QLabel *lblValue = new QLabel(m1.record(0).value("Season").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Season:") + "</b>", lblValue );
@@ -756,7 +763,143 @@ void MainWindow::selectAmvData(const QModelIndex&)
 
 void MainWindow::selectDoramaData(const QModelIndex&)
 {
-    return;
+    QSqlQueryModel m1;
+
+    m1.setQuery(
+                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
+                );
+    if( pbTV ){
+        delete pbTV;
+        pbTV = NULL;
+    }
+    if( pbOVA ){
+        delete pbOVA;
+        pbOVA = NULL;
+    }
+    if( pbONA ){
+        delete pbONA;
+        pbONA = NULL;
+    }
+    if( pbSpecial ){
+        delete pbSpecial;
+        pbSpecial = NULL;
+    }
+    if( pbMovie ){
+        delete pbMovie;
+        pbMovie = NULL;
+    }
+
+    if( m1.record(0).value("SeriesTV").toInt() > 0 ){
+        pbTV = new LookProgressBar(this);
+        pbTV->setTargetFieldDB("vSeriesTV");
+        pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
+        pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
+        pbTV->setFormat("TV [%v/%m]");
+        ui->HLay_WBRow0->addWidget( pbTV );
+        QObject::connect(pbTV, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+    }
+    if( m1.record(0).value("SeriesSpecial").toInt() > 0 ){
+        pbSpecial = new LookProgressBar(this);
+        pbSpecial->setTargetFieldDB("vSeriesSpecial");
+        pbSpecial->setValue( m1.record(0).value("vSeriesSpecial").toInt() );
+        pbSpecial->setMaximum( m1.record(0).value("SeriesSpecial").toInt() );
+        pbSpecial->setFormat("Special [%v/%m]");
+        ui->HLay_WBRow2->addWidget( pbSpecial );
+        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+    }
+    if( m1.record(0).value("SeriesMovie").toInt() > 0 ){
+        pbMovie = new LookProgressBar(this);
+        pbMovie->setTargetFieldDB("vSeriesMovie");
+        pbMovie->setValue( m1.record(0).value("vSeriesMovie").toInt() );
+        pbMovie->setMaximum( m1.record(0).value("SeriesMovie").toInt() );
+        pbMovie->setFormat("Movie [%v/%m]");
+        ui->HLay_WBRow2->addWidget( pbMovie );
+        QObject::connect(pbMovie, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+    }
+
+    if( _ScrArea_propertyes )
+        delete _ScrArea_propertyes;
+    _ScrArea_propertyes = new QScrollArea;
+    _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    _ScrArea_propertyes->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    _ScrArea_propertyes->setMinimumWidth(300);
+
+    QFormLayout *FLay_propertyes = new QFormLayout(_ScrArea_propertyes);
+    _ScrArea_propertyes->setLayout(FLay_propertyes);
+    ui->VLay_AnimeDescrFull->addWidget(_ScrArea_propertyes);
+
+    // Title
+    QLabel *lblTitle = new QLabel(
+                "<a href='"
+                + m1.record(0).value("URL").toString()
+                + "'>"
+                + m1.record(0).value("Title").toString()
+                + "</a>", _ScrArea_propertyes);
+    lblTitle->setWordWrap( true );
+    lblTitle->setOpenExternalLinks( true );
+    FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
+    if( !m1.record(0).value("OrigTitle").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("OrigTitle").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Alt title:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("Director").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Director").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Director:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("Year").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("Season").toInt() > 0 ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Season").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Season:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("PostScoring").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("PostScoring").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Postscoring:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("Tags").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Tags").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Ganres:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("Description").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Description").toString(), _ScrArea_propertyes);
+        QLabel *lblTitle = new QLabel( "<b>" + tr("Description:") + "</b>", _ScrArea_propertyes );
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow(lblTitle);
+        FLay_propertyes->addRow(lblValue);
+    }
+
+    QString imgPath = m1.record(0).value("ImagePath").toString();
+
+    QPixmap pic( imgPath );
+    if( pic.isNull() ){
+        pic.load( "://images/NoImage.png" );
+    }
+    ui->Lbl_ImageCover->setPixmap( pic );
+
+    currentItemDir = m1.record(0).value("Dir").toString();
+
+    if( currentItemDir.isEmpty() )
+        ui->StackWgt_CoverOrDir->setOptSwitch( false );
+    else
+        ui->StackWgt_CoverOrDir->setOptSwitch( true );
+    QDirModel *dirModel = new QDirModel;
+//    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
+    dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
+
+    ui->TreeView_Dir->setModel( dirModel );
+    ui->TreeView_Dir->setRootIndex( dirModel->index(currentItemDir) );
+    ui->TreeView_Dir->setColumnHidden(1, true);
+    ui->TreeView_Dir->setColumnHidden(2, true);
+    ui->TreeView_Dir->setColumnHidden(3, true);
 }
 
 void MainWindow::on_listView_ListItemsSection_clicked(const QModelIndex &index)
@@ -766,7 +909,6 @@ void MainWindow::on_listView_ListItemsSection_clicked(const QModelIndex &index)
 
 void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
 {
-
     sections::section sec = static_cast<sections::section>( ui->CB_Section->currentData().toInt() );
     setActiveTable( sec );
     reloadFiltersList();
