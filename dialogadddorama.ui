@@ -73,14 +73,7 @@
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="VLay_OrigTitle">
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="HLay_DirectorAndSound">
+        <layout class="QVBoxLayout" name="VLay_AltTitle">
          <property name="topMargin">
           <number>0</number>
          </property>
@@ -168,7 +161,7 @@
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_allSeries">
           <attribute name="title">
@@ -398,6 +391,20 @@
             <widget class="QPlainTextEdit" name="PlainTextEdit_Description">
              <property name="placeholderText">
               <string>Description</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_roles">
+          <attribute name="title">
+           <string>In roles</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QPlainTextEdit" name="PlainTextEdit_Actors">
+             <property name="placeholderText">
+              <string>In roles</string>
              </property>
             </widget>
            </item>

@@ -24,23 +24,17 @@ void DialogAddDorama::initTags()
 void DialogAddDorama::initOptionalFields()
 {
     QSettings settings;
-    if( settings.value( "optionalField/dorama/OrigTitle", false ).toBool() ){
-        this->LineEdit_OrigTitle = new QLineEdit(this);
-        this->LineEdit_OrigTitle->setMaxLength(128);
-        this->LineEdit_OrigTitle->setPlaceholderText( tr("Alternative title") );
-        ui->VLay_OrigTitle->addWidget( this->LineEdit_OrigTitle );
+    if( settings.value( "optionalField/dorama/AltTitle", false ).toBool() ){
+        this->LineEdit_AltTitle = new QLineEdit(this);
+        this->LineEdit_AltTitle->setMaxLength(128);
+        this->LineEdit_AltTitle->setPlaceholderText( tr("Alternative title") );
+        ui->VLay_AltTitle->addWidget( this->LineEdit_AltTitle );
     }
     if( settings.value( "optionalField/dorama/Director", false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
         this->LineEdit_Director->setPlaceholderText( tr("Director") );
-        ui->HLay_DirectorAndSound->addWidget( this->LineEdit_Director );
-    }
-    if( settings.value( "optionalField/dorama/PostScoring", false ).toBool() ){
-        this->LineEdit_PostScoring = new QLineEdit(this);
-        this->LineEdit_PostScoring->setMaxLength(128);
-        this->LineEdit_PostScoring->setPlaceholderText( tr("Postscoring") );
-        ui->HLay_DirectorAndSound->addWidget( this->LineEdit_PostScoring );
+        ui->VLay_AltTitle->addWidget( this->LineEdit_Director );
     }
 }
 
@@ -56,14 +50,11 @@ void DialogAddDorama::setDataInField()
     ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
 
     // Optional Fields
-    if( this->LineEdit_OrigTitle ){
-        this->LineEdit_OrigTitle->setText( model->record(0).value("OrigTitle").toString() );
+    if( this->LineEdit_AltTitle ){
+        this->LineEdit_AltTitle->setText( model->record(0).value("AltTitle").toString() );
     }
     if( this->LineEdit_Director ){
         this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
-    }
-    if( this->LineEdit_PostScoring ){
-        this->LineEdit_PostScoring->setText( model->record(0).value("PostScoring").toString() );
     }
 
     ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
@@ -101,7 +92,7 @@ void DialogAddDorama::setDataInField()
 
 DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned int record_id) :
     QDialog(parent), ui(new Ui::DialogAddDorama), _isEditRole(true), _recordId(record_id),
-    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+    LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {
     ui->setupUi(this);
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -114,7 +105,7 @@ DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned int record_id) :
 
 DialogAddDorama::DialogAddDorama(QWidget *parent):
     QDialog(parent), ui(new Ui::DialogAddDorama), _isEditRole(false),
-    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+    LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {
     ui->setupUi(this);
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -135,16 +126,12 @@ void DialogAddDorama::on_BtnBox_reset()
     ui->CheckBox_Editing->setChecked( false );
 
     ui->LineEdit_Title->clear();
+
     // optional
-    if( this->LineEdit_OrigTitle ){
-        this->LineEdit_OrigTitle->clear();
-    }
-    if( this->LineEdit_Director ){
+    if( this->LineEdit_AltTitle )
+        this->LineEdit_AltTitle->clear();
+    if( this->LineEdit_Director )
         this->LineEdit_Director->clear();
-    }
-    if( this->LineEdit_PostScoring ){
-        this->LineEdit_PostScoring->clear();
-    }
 
     ui->SpinBox_Year->setValue(2000);
     ui->SpinBox_Season->setValue(0);
@@ -160,6 +147,7 @@ void DialogAddDorama::on_BtnBox_reset()
     ui->LineEdit_Tags->clear();
     ui->ListView_Tags->clearSelection();
     ui->PlainTextEdit_Description->clear();
+    ui->PlainTextEdit_Actors->clear();
     ui->LineEdit_Dir->clear();
     ui->LineEdit_URL->clear();
 
@@ -185,61 +173,46 @@ bool DialogAddDorama::insert_Dorama(){
     if( !_isEditRole ){
         query.prepare( QString("INSERT INTO %1("
                       "isHaveLooked, isEditingDone, Title,"
-                      "OrigTitle, Director, PostScoring,"
-                      "SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesMovie,"
-                      "vSeriesTV, vSeriesOVA, vSeriesONA, vSeriesSpecial, vSeriesMovie,"
-                      "Year, Season, Studios,"
-                      "Tags, Description,"
+                      "AltTitle, Director,"
+                      "SeriesTV, SeriesSpecial, SeriesMovie,"
+                      "vSeriesTV, vSeriesSpecial, vSeriesMovie,"
+                      "Year, Season,"
+                      "Tags, Description, Actors,"
                       "URL, Dir, ImagePath"
                       ") VALUES "
                       "(:isHaveLooked, :isEditingDone, :Title,"
-                      ":OrigTitle, :Director, :PostScoring,"
-                      ":SeriesTV, :SeriesOVA, :SeriesONA, :SeriesSpecial, :SeriesMovie,"
-                      ":vSeriesTV, :vSeriesOVA, :vSeriesONA, :vSeriesSpecial, :vSeriesMovie,"
-                      ":Year, :Season, :Studios,"
-                      ":Tags, :Description,"
+                      ":AltTitle, :Director,"
+                      ":SeriesTV, :SeriesSpecial, :SeriesMovie,"
+                      ":vSeriesTV, :vSeriesSpecial, :vSeriesMovie,"
+                      ":Year, :Season,"
+                      ":Tags, :Description, :Actors,"
                       ":URL, :Dir, :ImagePath)"
                       ).arg( MngrQuerys::getTableName( sections::dorama ) ) );
     }else{
         query.prepare( QString("UPDATE %1 SET "
                       "isHaveLooked = :isHaveLooked, isEditingDone = :isEditingDone, Title = :Title,"
-                      "OrigTitle = :OrigTitle, Director = :Director, PostScoring = :PostScoring,"
-                      "SeriesTV = :SeriesTV, SeriesOVA = :SeriesOVA, SeriesONA = :SeriesONA, SeriesSpecial = :SeriesSpecial, SeriesMovie = :SeriesMovie,"
-                      "vSeriesTV = :vSeriesTV, vSeriesOVA = :vSeriesOVA, vSeriesONA = :vSeriesONA, vSeriesSpecial = :vSeriesSpecial, vSeriesMovie = :vSeriesMovie,"
-                      "Year = :Year, Season = :Season, Studios = :Studios,"
-                      "Tags = :Tags, Description = :Description,"
+                      "AltTitle = :AltTitle, Director = :Director,"
+                      "SeriesTV = :SeriesTV, SeriesSpecial = :SeriesSpecial, SeriesMovie = :SeriesMovie,"
+                      "vSeriesTV = :vSeriesTV, vSeriesSpecial = :vSeriesSpecial, vSeriesMovie = :vSeriesMovie,"
+                      "Year = :Year, Season = :Season,"
+                      "Tags = :Tags, Description = :Description, Actors = :Actors,"
                       "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;").arg( MngrQuerys::getTableName( sections::dorama ) )
                       );
     }
     query.bindValue( ":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
     query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
-    query.bindValue( ":id",             _recordId );
-    query.bindValue( ":Title",          ui->LineEdit_Title->text() );
-
-    if( this->LineEdit_OrigTitle ){
-        query.bindValue( ":OrigTitle", this->LineEdit_OrigTitle->text() );
-    }else{
-        query.bindValue( ":OrigTitle", "" );
-    }
-    if( this->LineEdit_Director ){
-        query.bindValue( ":Director", this->LineEdit_Director->text() );
-    }else{
-        query.bindValue( ":Director", "" );
-    }
-    if( this->LineEdit_PostScoring ){
-        query.bindValue( ":PostScoring", this->LineEdit_PostScoring->text() );
-    }else{
-        query.bindValue( ":PostScoring", "" );
-    }
-
-    query.bindValue(":SeriesTV",      ui->SpinBox_aTV->value()   );
-    query.bindValue(":SeriesSpecial", ui->SpinBox_aSpec->value() );
-    query.bindValue(":SeriesMovie",   ui->SpinBox_aMovie->value() );
-    query.bindValue(":vSeriesTV",     ui->SpinBox_vTV->value()   );
-    query.bindValue(":vSeriesSpecial",ui->SpinBox_vSpec->value() );
-    query.bindValue(":vSeriesMovie",  ui->SpinBox_vMovie->value() );
-    query.bindValue(":Year",          ui->SpinBox_Year->value() );
-    query.bindValue(":Season",        ui->SpinBox_Season->value()   );
+    query.bindValue( ":id",            _recordId );
+    query.bindValue( ":Title",         ui->LineEdit_Title->text() );
+    query.bindValue( ":AltTitle",      (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():"" );
+    query.bindValue( ":Director",      (LineEdit_Director)?this->LineEdit_Director->text():"" );
+    query.bindValue(":SeriesTV",       ui->SpinBox_aTV->value()   );
+    query.bindValue(":SeriesSpecial",  ui->SpinBox_aSpec->value() );
+    query.bindValue(":SeriesMovie",    ui->SpinBox_aMovie->value());
+    query.bindValue(":vSeriesTV",      ui->SpinBox_vTV->value()   );
+    query.bindValue(":vSeriesSpecial", ui->SpinBox_vSpec->value() );
+    query.bindValue(":vSeriesMovie",   ui->SpinBox_vMovie->value());
+    query.bindValue(":Year",           ui->SpinBox_Year->value()  );
+    query.bindValue(":Season",         ui->SpinBox_Season->value());
 
     QString tagsList;
     QStringList list;
@@ -261,6 +234,7 @@ bool DialogAddDorama::insert_Dorama(){
 
     query.bindValue( ":Tags",          tagsList );
     query.bindValue( ":Description",   ui->PlainTextEdit_Description->toPlainText() );
+    query.bindValue( ":Actors",        ui->PlainTextEdit_Actors->toPlainText() );
     query.bindValue( ":URL",           ui->LineEdit_URL->text() );
     query.bindValue( ":Dir",           ui->LineEdit_Dir->text() );
 
@@ -284,6 +258,7 @@ bool DialogAddDorama::insert_Dorama(){
         qDebug() << QString("Cannot insert data in table %1: ").arg(
                         MngrQuerys::getTableName( sections::dorama ) ) << query.lastError();
         QMessageBox::warning(this, tr("Warning"), tr("Cannot insert data."));
+        QMessageBox::information(this, tr("Warning"), query.executedQuery() );
         return false;
     }
     return true;
@@ -291,10 +266,10 @@ bool DialogAddDorama::insert_Dorama(){
 
 void DialogAddDorama::on_BtnBox_accepted()
 {
-    QFile file( ui->LineEdit_Dir->text() );
+    QDir dir( ui->LineEdit_Dir->text() );
     if( !ui->LineEdit_Title->text().isEmpty() ){
-        if( !file.exists() ){
-            QMessageBox::warning( this, tr("Warning"), tr("The field 'File' is uncorrect") );
+        if( !dir.exists() ){
+            QMessageBox::warning( this, tr("Warning"), tr("The field 'Directory' is uncorrect") );
             ui->LineEdit_Dir->setFocus();
         }else{
             insert_Dorama();
@@ -329,17 +304,17 @@ void DialogAddDorama::on_SpinBox_aMovie_valueChanged(int value)
 void DialogAddDorama::on_toolButton_clicked()
 {
     ui->LineEdit_Dir->setText(
-                QFileDialog::getOpenFileName(this,
-                                             tr("Choose a video file"),
-                                             QStandardPaths::writableLocation( QStandardPaths::MoviesLocation )
-                                             ) );
+                QFileDialog::getExistingDirectory(this,
+                                                  tr("Choose a directory with video files"),
+                                                  QStandardPaths::writableLocation( QStandardPaths::MoviesLocation )
+                                                  ) );
 }
 
 
 void DialogAddDorama::on_LineEdit_Dir_textChanged(const QString &path)
 {
-    QFile file( path );
-    if( !file.exists() ){
+    QDir dir( path );
+    if( !dir.exists() ){
         ui->LineEdit_Dir->setStyleSheet("color:red");
     }else{
         ui->LineEdit_Dir->setStyleSheet("color:black");

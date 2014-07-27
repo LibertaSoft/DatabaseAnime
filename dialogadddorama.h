@@ -23,9 +23,8 @@ private:
     QString _oldCover;
     QStringListModel _tags;
 
-    QLineEdit* LineEdit_OrigTitle;
+    QLineEdit* LineEdit_AltTitle;
     QLineEdit* LineEdit_Director;
-    QLineEdit* LineEdit_PostScoring;
 
     void initTags();
     void initOptionalFields();

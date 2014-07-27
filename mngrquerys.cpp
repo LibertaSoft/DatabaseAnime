@@ -219,6 +219,38 @@ bool MngrQuerys::createTable_Amv()
     return true;
 }
 
+bool MngrQuerys::createTable_Dorama()
+{
+    QString sql = QString("CREATE TABLE IF NOT EXISTS %1( "
+                  "id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
+                  "isHaveLooked   INTEGER, "
+                  "isEditingDone  INTEGER, "
+                  "Title          VARCHAR(128), "
+                  "AltTitle       VARCHAR(128), "
+                  "Director       VARCHAR(32), "
+                  "SeriesTV       INTEGER, "
+                  "SeriesSpecial  INTEGER, "
+                  "SeriesMovie    INTEGER, "
+                  "vSeriesTV      INTEGER, "
+                  "vSeriesSpecial INTEGER, "
+                  "vSeriesMovie   INTEGER, "
+                  "Year           INTEGER, "
+                  "Season         INTEGER, "
+                  "Tags           VARCHAR(256), "
+                  "Description    TEXT, "
+                  "Actors         TEXT, "
+                  "URL            VARCHAR(256), "
+                  "Dir            VARCHAR(256), "
+                  "ImagePath      VARCHAR(256) "
+                  ");").arg( getTableName( sections::dorama ) );
+    QSqlQuery query;
+    if( !query.exec(sql) ){
+        qDebug() << QString("Table %1 is not created! Error: ").arg( getTableName(sections::dorama) ) << query.lastError();
+        return false;
+    }
+    return true;
+}
+
 QStringList MngrQuerys::getAnimeTags()
 {
     return QStringList()
