@@ -1,5 +1,5 @@
-#ifndef DialogAddAnime_H
-#define DialogAddAnime_H
+#ifndef DIALOGADDAMV_H
+#define DIALOGADDAMV_H
 
 #include <QDialog>
 #include <QAbstractButton>
@@ -8,14 +8,14 @@
 #include <QStringListModel>
 
 namespace Ui {
-class DialogAddAnime;
+class DialogAddAmv;
 }
 
-class DialogAddAnime : public QDialog
+class DialogAddAmv : public QDialog
 {
     Q_OBJECT
 private:
-    Ui::DialogAddAnime *ui;
+    Ui::DialogAddAmv *ui;
     QSqlQueryModel* model;
 
     bool _isEditRole;
@@ -32,23 +32,18 @@ private:
     void setDataInField();
     void on_BtnBox_reset();
 public:
-    explicit DialogAddAnime(QWidget *parent, unsigned int id);
-    explicit DialogAddAnime(QWidget *parent);
-    ~DialogAddAnime();
+    explicit DialogAddAmv(QWidget *parent, unsigned int id);
+    explicit DialogAddAmv(QWidget *parent);
+    ~DialogAddAmv();
 
 private slots:
     void on_BtnBox_clicked(QAbstractButton *button);
     void on_BtnBox_accepted();
     void on_BtnBox_rejected();
-    void on_SpinBox_aTV_valueChanged(int arg1);
-    void on_SpinBox_aOVA_valueChanged(int arg1);
-    void on_SpinBox_aONA_valueChanged(int arg1);
-    void on_SpinBox_aSpec_valueChanged(int arg1);
-    void on_SpinBox_aMovie_valueChanged(int arg1);
     void on_toolButton_clicked();
-    bool insert_Anime();
+    bool insert_Amv();
 
     void on_LineEdit_Dir_textChanged(const QString &arg1);
 };
 
-#endif // DialogAddAnime_H
+#endif // DIALOGADDAMV_H

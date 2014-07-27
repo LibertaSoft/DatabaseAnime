@@ -176,7 +176,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideNone</enum>
@@ -205,21 +205,21 @@
          </property>
          <layout class="QGridLayout" name="gridLayout">
           <item row="0" column="1">
-           <widget class="QCheckBox" name="CheckBox_Director">
+           <widget class="QCheckBox" name="CBox_Anime_Director">
             <property name="text">
              <string>Director</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QCheckBox" name="CheckBox_OrigTitle">
+           <widget class="QCheckBox" name="CBox_Anime_AltTitle">
             <property name="text">
              <string>Original title</string>
             </property>
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QCheckBox" name="CheckBox_PostScoring">
+           <widget class="QCheckBox" name="CBox_Anime_PostScoring">
             <property name="text">
              <string>Postscoring</string>
             </property>
@@ -234,6 +234,41 @@
       <attribute name="title">
        <string>Manga</string>
       </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QGroupBox" name="GBox_FieldsForEdit_2">
+         <property name="title">
+          <string>Optional fields:</string>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2">
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="CBox_Manga_Author">
+            <property name="text">
+             <string>Author</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="CBox_Manga_AltTitle">
+            <property name="text">
+             <string>Alternative title</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QCheckBox" name="CBox_Manga_Translation">
+            <property name="text">
+             <string>Translation</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">

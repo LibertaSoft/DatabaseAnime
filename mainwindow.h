@@ -11,6 +11,7 @@
 #include <QSettings>
 #include <QListWidget>
 #include <QTreeWidgetItem>
+#include <QScrollArea>
 
 namespace Ui {
 class MainWindow;
@@ -26,10 +27,12 @@ private:
     LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbMovie;
 
     QListWidget* ListWidget_Dir;
+    QScrollArea *_ScrArea_propertyes;
 
     sections::section _activeTable;
+
     QModelIndex currentItem;
-    int currentItemId;
+    int _currentItemId;
     QString currentItemDir;
 
     QSqlQueryModel* QueryModel_ListItemsSection;
@@ -39,6 +42,10 @@ private:
     sections::section getActiveTable();
     void reloadSectionsList();
     void reloadFiltersList();
+    void loadAnimeFilters();
+    void loadMangaFilters();
+    void loadAmvFilters();
+    void loadDoramaFilters();
     void setActiveTable( sections::section );
 
     void selectAnimeData(const QModelIndex&);

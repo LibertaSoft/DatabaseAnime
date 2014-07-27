@@ -13,17 +13,19 @@ SOURCES += \
     imagecover.cpp \
     lookprogressbar.cpp \
     dialogaddanime.cpp \
+    dialogaddmanga.cpp \
+    dialogaddamv.cpp \
+    dialogadddorama.cpp \
     mngrconnection.cpp \
     mngrquerys.cpp \
-    stackwgt_mousehideover.cpp \
-    dialogaddmanga.cpp \
-    dialogadddorama.cpp
+    stackwgt_mousehideover.cpp
 
 FORMS += \
     mainwindow.ui \
     formsettings.ui \
     dialogaddanime.ui \
     dialogaddmanga.ui \
+    dialogaddamv.ui \
     dialogadddorama.ui
 
 HEADERS += \
@@ -32,11 +34,12 @@ HEADERS += \
     imagecover.h \
     lookprogressbar.h \
     dialogaddanime.h \
+    dialogaddmanga.h \
+    dialogaddamv.h \
+    dialogadddorama.h \
     mngrconnection.h \
     mngrquerys.h \
-    stackwgt_mousehideover.h \
-    dialogaddmanga.h \
-    dialogadddorama.h
+    stackwgt_mousehideover.h
 
 RESOURCES += \
     resource.qrc

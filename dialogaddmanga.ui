@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DialogAddEdit</class>
- <widget class="QDialog" name="DialogAddEdit">
+ <class>DialogAddManga</class>
+ <widget class="QDialog" name="DialogAddManga">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add anime</string>
+   <string>Add manga</string>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>
@@ -73,21 +73,21 @@
         </widget>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="VLay_OrigTitle">
+        <layout class="QVBoxLayout" name="VLay_AltTitle">
          <property name="topMargin">
           <number>0</number>
          </property>
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="HLay_DirectorAndSound">
+        <layout class="QHBoxLayout" name="HLay_AuthorAndSound">
          <property name="topMargin">
           <number>0</number>
          </property>
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="HLay_2">
          <property name="topMargin">
           <number>0</number>
          </property>
@@ -127,13 +127,6 @@
            </property>
           </spacer>
          </item>
-         <item>
-          <widget class="Line" name="line_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-          </widget>
-         </item>
         </layout>
        </item>
        <item>
@@ -145,7 +138,7 @@
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_allSeries">
           <attribute name="title">
@@ -153,21 +146,21 @@
           </attribute>
           <layout class="QGridLayout" name="gridLayout">
            <item row="1" column="1">
-            <widget class="QSpinBox" name="SpinBox_aOVA">
+            <widget class="QSpinBox" name="SpinBox_aCh">
              <property name="maximum">
               <number>9999</number>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QSpinBox" name="SpinBox_aTV">
+            <widget class="QSpinBox" name="SpinBox_aVol">
              <property name="maximum">
               <number>9999</number>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLabel" name="Lbl_OVA1">
+            <widget class="QLabel" name="Lbl_aCh">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -180,7 +173,7 @@
             </widget>
            </item>
            <item row="0" column="2">
-            <widget class="QLabel" name="Lbl_ONA1">
+            <widget class="QLabel" name="Lbl_aPages">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -193,7 +186,7 @@
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QLabel" name="Lbl_TV1">
+            <widget class="QLabel" name="Lbl_aVol">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -206,7 +199,7 @@
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QSpinBox" name="SpinBox_aONA">
+            <widget class="QSpinBox" name="SpinBox_aPages">
              <property name="maximum">
               <number>9999</number>
              </property>
@@ -220,42 +213,42 @@
           </attribute>
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="1" column="1">
-            <widget class="QSpinBox" name="SpinBox_vOVA">
+            <widget class="QSpinBox" name="SpinBox_vCh">
              <property name="maximum">
               <number>0</number>
              </property>
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QSpinBox" name="SpinBox_vONA">
+            <widget class="QSpinBox" name="SpinBox_vPages">
              <property name="maximum">
               <number>0</number>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QSpinBox" name="SpinBox_vTV">
+            <widget class="QSpinBox" name="SpinBox_vVol">
              <property name="maximum">
               <number>0</number>
              </property>
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QLabel" name="Lbl_TV2">
+            <widget class="QLabel" name="Lbl_vVol">
              <property name="text">
               <string>Volume</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLabel" name="Lbl_OVA2">
+            <widget class="QLabel" name="Lbl_vCh">
              <property name="text">
               <string>Charapter</string>
              </property>
             </widget>
            </item>
            <item row="0" column="2">
-            <widget class="QLabel" name="Lbl_ONA2">
+            <widget class="QLabel" name="Lbl_vPage">
              <property name="text">
               <string>Page</string>
              </property>
@@ -398,7 +391,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="toolButton">
+              <widget class="QToolButton" name="TBtn_ChooseDir">
                <property name="toolTip">
                 <string/>
                </property>
