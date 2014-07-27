@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DialogAddEdit</class>
- <widget class="QDialog" name="DialogAddEdit">
+ <class>DialogAddDorama</class>
+ <widget class="QDialog" name="DialogAddDorama">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add anime</string>
+   <string>Add dorama</string>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>
@@ -416,7 +416,7 @@
                 <number>256</number>
                </property>
                <property name="placeholderText">
-                <string>Directory</string>
+                <string>File</string>
                </property>
               </widget>
              </item>
