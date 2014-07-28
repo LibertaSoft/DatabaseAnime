@@ -40,6 +40,10 @@ HEADERS += \
     mngrquerys.h \
     stackwgt_mousehideover.h
 
+OTHER_FILES += \
+    README.md \
+    ToDo.md
+
 RESOURCES += \
     resource.qrc
 
