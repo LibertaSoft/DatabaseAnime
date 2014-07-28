@@ -108,6 +108,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned int record_id) :
     ui->setupUi(this);
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
+    ui->LineEdit_Title->setFocus();
 
     initTags();
     initOptionalFields();
@@ -121,6 +122,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     ui->setupUi(this);
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
+    ui->LineEdit_Title->setFocus();
 
     initTags();
     initOptionalFields();

@@ -112,6 +112,7 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned int record_id ) :
     ui->setupUi(this);
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
+    ui->LineEdit_Title->setFocus();
 
     createOptionalFields();
     setDataInFields();
@@ -125,6 +126,7 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     ui->setupUi(this);
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
+    ui->LineEdit_Title->setFocus();
 
     createOptionalFields();
     initTags();

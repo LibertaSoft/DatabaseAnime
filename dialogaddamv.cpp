@@ -53,6 +53,7 @@ DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned int record_id) :
 {
     ui->setupUi(this);
     ui->TabWidget_Info->setCurrentIndex(0);
+    ui->LineEdit_Title->setFocus();
 
     initTags();
     setDataInField();
@@ -64,6 +65,7 @@ DialogAddAmv::DialogAddAmv(QWidget *parent):
 {
     ui->setupUi(this);
     ui->TabWidget_Info->setCurrentIndex(0);
+    ui->LineEdit_Title->setFocus();
 
     initTags();
 }
