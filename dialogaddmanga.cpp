@@ -4,14 +4,10 @@
 
 #include <QSettings>
 #include <QFileDialog>
-#include <QtSql>
-
-#include <QMessageBox>
-#include <QErrorMessage>
-#include <QDebug>
 #include <QDesktopServices>
 
-#include <QtNetwork/QNetworkRequest>
+#include <QMessageBox>
+#include <QDebug>
 
 void DialogAddManga::initTags()
 {
@@ -139,7 +135,7 @@ DialogAddManga::~DialogAddManga()
     delete ui;
 }
 
-void DialogAddManga::on_BtnBox_reset()
+void DialogAddManga::btnBox_reset()
 {
     ui->CheckBox_LookLater->setChecked( false );
     ui->CheckBox_Editing->setChecked( false );
@@ -177,7 +173,7 @@ void DialogAddManga::on_BtnBox_clicked(QAbstractButton *button)
 {
     switch( ui->BtnBox->buttonRole( button ) ){
         case 7:
-            on_BtnBox_reset();
+            btnBox_reset();
             break;
         case QDialogButtonBox::AcceptRole:
             //on_BtnBox_accepted();
@@ -330,7 +326,6 @@ void DialogAddManga::on_LineEdit_Dir_textChanged(const QString &path)
 
 void DialogAddManga::on_TBtn_ChooseDir_clicked()
 {
-    QMessageBox::information(this, windowTitle(), "test");
     ui->LineEdit_Dir->setText(
                 QFileDialog::getExistingDirectory(this,
                                                   tr("Choose a directory with picture files"),

@@ -1,4 +1,5 @@
 #include "lookprogressbar.h"
+
 #include <QPainter>
 #include <QLinearGradient>
 #include <QPen>

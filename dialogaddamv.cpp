@@ -4,15 +4,10 @@
 
 #include <QSettings>
 #include <QFileDialog>
-#include <QtSql>
-
-#include <QMessageBox>
-#include <QErrorMessage>
-#include <QDebug>
 #include <QDesktopServices>
 
-//#include <QtNetwork/QNetworkRequest>
-
+#include <QMessageBox>
+#include <QDebug>
 
 void DialogAddAmv::initTags()
 {
@@ -78,7 +73,7 @@ DialogAddAmv::~DialogAddAmv()
     delete ui;
 }
 
-void DialogAddAmv::on_BtnBox_reset()
+void DialogAddAmv::btnBox_reset()
 {
     ui->CheckBox_Editing->setChecked( false );
 
@@ -101,7 +96,7 @@ void DialogAddAmv::on_BtnBox_clicked(QAbstractButton *button)
 {
     switch( ui->BtnBox->buttonRole( button ) ){
         case 7:
-            on_BtnBox_reset();
+            btnBox_reset();
             break;
         case QDialogButtonBox::AcceptRole:
             //on_BtnBox_accepted();

@@ -2,16 +2,11 @@
 #include "ui_formsettings.h"
 #include "mngrquerys.h"
 
-#include <QDebug>
-#include <QErrorMessage>
-
 #include <QAbstractButton>
 #include <QSettings>
-#include <QDialogButtonBox>
+
 #include <QMessageBox>
-#include <QSql>
-#include <QSqlQuery>
-#include <QSqlError>
+#include <QDebug>
 
 FormSettings::FormSettings(QWidget *parent) :
     QDialog(parent),

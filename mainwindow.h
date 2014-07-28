@@ -4,8 +4,8 @@
 #include "lookprogressbar.h"
 #include "mngrconnection.h"
 #include "mngrquerys.h"
+#include "formsettings.h"
 
-#include <formsettings.h>
 #include <QMainWindow>
 #include <QPushButton>
 #include <QSettings>

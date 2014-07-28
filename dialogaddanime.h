@@ -30,7 +30,6 @@ private:
     void initTags();
     void initOptionalFields();
     void setDataInField();
-    void on_BtnBox_reset();
 public:
     explicit DialogAddAnime(QWidget *parent, unsigned int id);
     explicit DialogAddAnime(QWidget *parent);
@@ -47,6 +46,7 @@ private slots:
     void on_SpinBox_aMovie_valueChanged(int arg1);
     void on_toolButton_clicked();
     bool insert_Anime();
+    void btnBox_reset();
 
     void on_LineEdit_Dir_textChanged(const QString &arg1);
 };

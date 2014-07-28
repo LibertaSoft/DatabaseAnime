@@ -30,7 +30,7 @@ private:
     void initTags();
     void initOptionalFields();
     void setDataInField();
-    void on_BtnBox_reset();
+
 public:
     explicit DialogAddAmv(QWidget *parent, unsigned int id);
     explicit DialogAddAmv(QWidget *parent);
@@ -42,6 +42,7 @@ private slots:
     void on_BtnBox_rejected();
     void on_toolButton_clicked();
     bool insert_Amv();
+    void btnBox_reset();
 
     void on_LineEdit_Dir_textChanged(const QString &arg1);
 };

@@ -1,16 +1,18 @@
 #include "imagecover.h"
+
 #include <QDropEvent>
 #include <QDragEnterEvent>
 #include <QMimeData>
 
-#include <QStandardPaths>
 #include <QApplication>
+#include <QStandardPaths>
 #include <QPixmap>
-#include <QMessageBox>
 #include <QString>
 #include <QDir>
 #include <QDateTime>
 #include <QFileDialog>
+
+#include <QMessageBox>
 
 ImageCover::ImageCover(QWidget *parent) :
     QLabel(parent)
@@ -40,7 +42,6 @@ void ImageCover::setImagePath( QString path ){
 QSize ImageCover::sizeHint() const
 {
     return QSize( 194 , 582 );
-//    return QSize( height()/3, height() );
 }
 
 void ImageCover::chooseImage()
@@ -70,12 +71,10 @@ void ImageCover::noImage()
 /*virtual*/ void ImageCover::dropEvent(QDropEvent* pe)
 {
     QList<QUrl> urlList = pe->mimeData()->urls();
-
-    QDir objQdir;
-    QString coverPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() + "/animeCovers/" );
-    if( objQdir.mkpath( coverPath ) ){
+    QPixmap pix( urlList.at(0).toLocalFile() );
+    if( !pix.isNull() ){
+        this->setPixmap( pix );
         setImagePath( urlList.at(0).toLocalFile() );
-        this->setPixmap( QPixmap( urlList.at(0).toLocalFile() ) );
     }else{
         QMessageBox::warning( this, tr("Warning"), tr("It was not succeeded to load the picture") );
     }

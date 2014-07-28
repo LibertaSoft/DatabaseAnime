@@ -7,13 +7,12 @@
 #include "dialogadddorama.h"
 
 #include <QDesktopServices>
+#include <QScrollArea>
+#include <QDirModel>
+#include <QDir>
+
 #include <QMessageBox>
 #include <QDebug>
-#include <QDir>
-#include <QtSql>
-#include <QAbstractItemModel>
-#include <QDirModel>
-#include <QScrollArea>
 //#include <QSvgWidget>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -600,6 +599,11 @@ void MainWindow::selectMangaData(const QModelIndex&)
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Director:") + "</b>", lblValue );
     }
+    if( !m1.record(0).value("Translation").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Translation").toString(), _ScrArea_propertyes);
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow( "<b>" + tr("Translator:") + "</b>", lblValue );
+    }
     if( !m1.record(0).value("Year").toString().isEmpty() ){
         QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
@@ -868,6 +872,13 @@ void MainWindow::selectDoramaData(const QModelIndex&)
         QLabel *lblValue = new QLabel(m1.record(0).value("Tags").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Ganres:") + "</b>", lblValue );
+    }
+    if( !m1.record(0).value("Actors").toString().isEmpty() ){
+        QLabel *lblValue = new QLabel(m1.record(0).value("Actors").toString(), _ScrArea_propertyes);
+        QLabel *lblTitle = new QLabel( "<b>" + tr("In roles:") + "</b>", _ScrArea_propertyes );
+        lblValue->setWordWrap( true );
+        FLay_propertyes->addRow(lblTitle);
+        FLay_propertyes->addRow(lblValue);
     }
     if( !m1.record(0).value("Description").toString().isEmpty() ){
         QLabel *lblValue = new QLabel(m1.record(0).value("Description").toString(), _ScrArea_propertyes);

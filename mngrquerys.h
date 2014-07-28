@@ -3,11 +3,7 @@
 
 #include <QtSql>
 #include <QSqlQueryModel>
-#include <QMap>
-
-#include <QFile>
 #include <QString>
-#include <QVariant>
 
 namespace sections {
     enum section{none = 0, anime, manga, amv, dorama};
@@ -17,7 +13,7 @@ namespace Filter {
 }
 
 namespace Tables {
-    enum table{none = 0, vAnime, vManga, vAmv, vDorama, tAnime, tManga, tAmv, tDorama};
+    enum table{none = 0, vAnime, vManga, vAmv, vDorama};
 }
 
 namespace Sort{
