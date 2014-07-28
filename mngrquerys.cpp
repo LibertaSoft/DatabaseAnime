@@ -52,11 +52,8 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section)
     return 0;
 }
 
-int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, QString filter)
+int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, QString filter, Filter::filter filter2, Sort::sort sort )
 {
-    QSettings settings;
-    Sort::sort sort = static_cast<Sort::sort>( settings.value("Sorting", Sort::asc).toInt() );
-
     QString strFilter("WHERE ");
 
     QString strSort("");
@@ -71,16 +68,40 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, 
     default:
         ;
     }
+    switch( filter2 ){
+    case Filter::editing :
+        strFilter += "isEditingDone = 0 AND ";
+        break;
+    case Filter::wanttolook :
+        strFilter += "isHaveLooked = 0 AND ";
+        break;
+    case Filter::tv :
+        strFilter += "SeriesTV > 0 AND ";
+        break;
+    case Filter::ova :
+        strFilter += "SeriesOVA > 0 AND ";
+        break;
+    case Filter::ona :
+        strFilter += "SeriesONA > 0 AND ";
+        break;
+    case Filter::special :
+        strFilter += "SeriesSpecial > 0 AND ";
+        break;
+    case Filter::movie :
+        strFilter += "SeriesMovie > 0 AND ";
+        break;
+    case Filter::all :
+    default:
+        strFilter = "";
+    }
 
     model->setQuery( QString("SELECT id,Title FROM %1 %2 %3").arg( getTableName(section), strFilter+filter, strSort ) );
+
     return 0;
 }
 
-int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, Filter::filter filter)
+int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, Filter::filter filter, Sort::sort sort )
 {
-    QSettings settings;
-    Sort::sort sort = static_cast<Sort::sort>( settings.value("Sorting", Sort::asc).toInt() );
-
     QString strFilter("WHERE ");
     switch( filter ){
     case Filter::editing :

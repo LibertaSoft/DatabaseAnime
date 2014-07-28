@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
     this->restoreState( settings.value("MainWindow/State").toByteArray() );
+    _sort = static_cast<Sort::sort>( settings.value("Sorting", Sort::asc).toInt() );
     bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
     ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 
@@ -83,6 +84,7 @@ void MainWindow::on_PButton_Options_clicked()
 
     reloadSectionsList();
     QSettings settings;
+    _sort = static_cast<Sort::sort>( settings.value("Sorting", Sort::asc).toInt() );
     bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
     ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 }
@@ -118,7 +120,8 @@ void MainWindow::on_TButton_Add_clicked()
         default:
             return;
     }
-    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable() );
+    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentIndex() );
+    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
     ui->listView_ListItemsSection->setModelColumn(1);
 }
 
@@ -155,7 +158,7 @@ void MainWindow::on_TButton_Edit_clicked()
                 return;
         }
         Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentIndex() );
-        MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter );
+        MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
         ui->listView_ListItemsSection->setModelColumn(1);
     }
 }
@@ -226,9 +229,10 @@ void MainWindow::saveLookValueChanges(int value, int max, QString type)
 
 void MainWindow::on_lineEdit_Search_textChanged(const QString &strSearch)
 {
+    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     MngrQuerys::selectSection(
                 QueryModel_ListItemsSection, getActiveTable(),
-                QString("Title LIKE '%2'").arg("%"+strSearch+"%") );
+                QString("Title LIKE '%2'").arg("%"+strSearch+"%"), filter, _sort );
     ui->listView_ListItemsSection->setModelColumn(1);
 }
 
@@ -925,7 +929,7 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     reloadFiltersList();
 
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
-    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter );
+    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
     ui->listView_ListItemsSection->setModelColumn(1);
     if(sec == sections::none){
         ui->stackedWidget->setCurrentIndex(0);
@@ -939,7 +943,7 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
 void MainWindow::on_CB_Filter_currentIndexChanged(int = 0)
 {
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
-    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter );
+    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
     ui->listView_ListItemsSection->setModelColumn(1);
 }
 

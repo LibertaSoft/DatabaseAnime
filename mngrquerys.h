@@ -27,8 +27,8 @@ public:
     static QString getTableName( Tables::table );
     static QString getTableName( sections::section );
     static int  selectSection( QSqlQueryModel* model, sections::section = sections::none );
-    static int  selectSection( QSqlQueryModel* model, sections::section, QString filter );
-    static int  selectSection( QSqlQueryModel* model, sections::section, Filter::filter filter );
+    static int  selectSection( QSqlQueryModel* model, sections::section, QString filter, Filter::filter filter2, Sort::sort sort );
+    static int  selectSection( QSqlQueryModel* model, sections::section, Filter::filter filter, Sort::sort sort );
 
     static bool createTable_Anime();
     static bool createTable_Manga();

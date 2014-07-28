@@ -30,6 +30,7 @@ private:
     QScrollArea *_ScrArea_propertyes;
 
     sections::section _activeTable;
+    Sort::sort _sort;
 
     QModelIndex currentItem;
     int _currentItemId;
