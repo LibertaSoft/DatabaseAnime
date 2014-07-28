@@ -86,6 +86,27 @@ void DialogAddDorama::setDataInField()
     _oldCover = model->record(0).value("ImagePath").toString();
 }
 
+void DialogAddDorama::setTabOrders()
+{
+    ui->LineEdit_Title->setFocus();
+
+    if( this->LineEdit_AltTitle ){
+        setTabOrder(ui->LineEdit_Title, this->LineEdit_AltTitle);
+        if( this->LineEdit_Director ){
+            setTabOrder(this->LineEdit_AltTitle, this->LineEdit_Director);
+        }
+    }else{
+        if( this->LineEdit_Director ){
+            setTabOrder(ui->LineEdit_Title, this->LineEdit_Director);
+        }
+    }
+
+    setTabOrder(ui->SpinBox_Season, ui->SpinBox_aTV);
+    setTabOrder(ui->SpinBox_aTV,    ui->SpinBox_aSpec);
+    setTabOrder(ui->SpinBox_aSpec,  ui->SpinBox_aMovie);
+    setTabOrder(ui->SpinBox_aMovie, ui->TabWidget_Series);
+}
+
 DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned int record_id) :
     QDialog(parent), ui(new Ui::DialogAddDorama), _isEditRole(true), _recordId(record_id),
     LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
@@ -93,10 +114,10 @@ DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned int record_id) :
     ui->setupUi(this);
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
-    ui->LineEdit_Title->setFocus();
 
     initTags();
     initOptionalFields();
+    setTabOrders();
     setDataInField();
 }
 
@@ -107,10 +128,10 @@ DialogAddDorama::DialogAddDorama(QWidget *parent):
     ui->setupUi(this);
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
-    ui->LineEdit_Title->setFocus();
 
     initTags();
     initOptionalFields();
+    setTabOrders();
 }
 
 DialogAddDorama::~DialogAddDorama()

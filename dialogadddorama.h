@@ -29,6 +29,7 @@ private:
     void initTags();
     void initOptionalFields();
     void setDataInField();
+    void setTabOrders();
 
 public:
     explicit DialogAddDorama(QWidget *parent, unsigned int id);
