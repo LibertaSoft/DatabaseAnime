@@ -27,6 +27,19 @@
        <item>
         <layout class="QHBoxLayout" name="HLay_1">
          <item>
+          <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Anime</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="HSpacer_0">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
