@@ -25,7 +25,7 @@ FormSettings::FormSettings(QWidget *parent) :
     bool a2 = settings.value( "optionalField/anime/Director",    false ).toBool();
     bool a3 = settings.value( "optionalField/anime/PostScoring", false ).toBool();
 
-    bool m1 = settings.value( "optionalField/manga/AltTitle",   false ).toBool();
+    bool m1 = settings.value( "optionalField/manga/AltTitle",    false ).toBool();
     bool m2 = settings.value( "optionalField/manga/Author",      false ).toBool();
     bool m3 = settings.value( "optionalField/manga/Translation", false ).toBool();
 
@@ -75,7 +75,6 @@ void FormSettings::on_BtnBox_accepted()
 {
     QSettings settings;
 
-    settings.setValue( "configExist", true );
     settings.setValue( "enableSection/Anime",     ui->CheckBox_EnableAnime->isChecked() );
     settings.setValue( "enableSection/Manga",     ui->CheckBox_EnableManga->isChecked() );
     settings.setValue( "enableSection/AMV",       ui->CheckBox_EnableAMV->isChecked() );
@@ -99,7 +98,7 @@ void FormSettings::on_BtnBox_accepted()
     settings.setValue( "SwitchToDirOnHoverACover", ui->CBox_SwitchToDirOnHoverCover->isChecked() );
 }
 
-void FormSettings::on_BtnBox_resetDefaults(){
+void FormSettings::BtnBox_resetDefaults(){
     ui->CheckBox_EnableAnime->setChecked( true );
     ui->CheckBox_EnableManga->setChecked( false );
     ui->CheckBox_EnableAMV->setChecked( false );
@@ -128,7 +127,7 @@ void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
             this->close();
             break;
         case QDialogButtonBox::ResetRole:
-            on_BtnBox_resetDefaults();
+            BtnBox_resetDefaults();
             break;
         default:
             this->close();

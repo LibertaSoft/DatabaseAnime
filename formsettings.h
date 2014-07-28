@@ -19,7 +19,7 @@ public:
 
 private slots:
     void on_BtnBox_accepted();
-    void on_BtnBox_resetDefaults();
+    void BtnBox_resetDefaults();
     void on_BtnBox_clicked(QAbstractButton *button);
 private:
     Ui::FormSettings *ui;
