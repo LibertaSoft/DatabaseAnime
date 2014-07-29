@@ -84,17 +84,16 @@ void DialogAddAnime::setDataInField()
     ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
     ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
 
-    QPixmap pm( MngrQuerys::getAnimeCoversPath() + model->record(0).value("ImagePath").toString() );
+    _oldCover = model->record(0).value("ImagePath").toString();
+
+    QPixmap pm( MngrQuerys::getAnimeCoversPath() + _oldCover );
 
     if( !pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
-        ui->Lbl_ImageCover->setImagePath( model->record(0).value("ImagePath").toString() );
+        ui->Lbl_ImageCover->setImagePath( MngrQuerys::getAnimeCoversPath() + _oldCover );
     }else{
         ui->Lbl_ImageCover->noImage();
     }
-    qDebug() << MngrQuerys::getAnimeCoversPath() + model->record(0).value("ImagePath").toString();
-
-    _oldCover = model->record(0).value("ImagePath").toString();
 }
 
 void DialogAddAnime::setTabOrders()

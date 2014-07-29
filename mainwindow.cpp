@@ -624,9 +624,8 @@ void MainWindow::selectMangaData(const QModelIndex&)
         FLay_propertyes->addRow(lblValue);
     }
 
-    QString imgPath = m1.record(0).value("ImagePath").toString();
-
-    QPixmap pic( imgPath );
+    QPixmap pic( MngrQuerys::getMangaCoversPath()
+                + m1.record(0).value("ImagePath").toString() );
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }
@@ -742,9 +741,8 @@ void MainWindow::selectAmvData(const QModelIndex&)
         FLay_propertyes->addRow(lblValue);
     }
 
-    QString imgPath = m1.record(0).value("ImagePath").toString();
-
-    QPixmap pic( imgPath );
+    QPixmap pic( MngrQuerys::getMangaCoversPath()
+                 + m1.record(0).value("ImagePath").toString());
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }

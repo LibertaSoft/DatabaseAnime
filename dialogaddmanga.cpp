@@ -73,10 +73,10 @@ void DialogAddManga::setDataInFields()
     ui->LineEdit_URL->setText( data["URL"].toString() );
 
     _oldCover = data["ImagePath"].toString();
-    QPixmap pm( _oldCover );
+    QPixmap pm( MngrQuerys::getMangaCoversPath() + _oldCover );
     if( !pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
-        ui->Lbl_ImageCover->setImagePath( _oldCover );
+        ui->Lbl_ImageCover->setImagePath( MngrQuerys::getMangaCoversPath() + _oldCover );
     }else{
         ui->Lbl_ImageCover->noImage();
     }
@@ -301,21 +301,16 @@ bool DialogAddManga::insert_Manga(){
     query.bindValue( ":URL",           ui->LineEdit_URL->text() );
     query.bindValue( ":Dir",           ui->LineEdit_Dir->text() );
 
-    QDir objQdir;
-    QString coverPath( QDir::homePath() + "/."
-                       + QApplication::organizationName()
-                       + "/"
-                       + QApplication::applicationName()
-                       + "/mangaCovers/" );
-    if( objQdir.mkpath( coverPath ) ){
-        QDateTime dt;
-        coverPath += "/" + QString::number( dt.currentMSecsSinceEpoch() );
-        QFile f( ui->Lbl_ImageCover->getImagePath() );
-        f.copy( coverPath );
+    QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
+    QDir dir;
+    if( dir.mkpath( MngrQuerys::getMangaCoversPath() ) ){
+        QFile f;
+        f.setFileName( ui->Lbl_ImageCover->getImagePath() );
+        f.copy( MngrQuerys::getMangaCoversPath() + coverName );
     }
     if( _isEditRole )
-            objQdir.remove( _oldCover );
-    query.bindValue(":ImagePath", coverPath );
+        dir.remove( MngrQuerys::getMangaCoversPath() + _oldCover );
+    query.bindValue(":ImagePath", coverName );
     if( !query.exec() ){
         qDebug() << QString("Cannot insert data in table %1: ").arg(
                         MngrQuerys::getTableName( sections::manga ) ) << query.lastError();
