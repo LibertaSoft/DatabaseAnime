@@ -38,6 +38,10 @@ public:
     static QStringList getMangaTags();
     static QStringList getAmvTags();
     static QStringList getDoramaTags();
+    static QString getAnimeCoversPath();
+    static QString getMangaCoversPath();
+    static QString getAmvCoversPath();
+    static QString getDoramaCoversPath();
 
 };
 

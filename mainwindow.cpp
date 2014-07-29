@@ -498,9 +498,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         FLay_propertyes->addRow(lblValue);
     }
 
-    QString imgPath = m1.record(0).value("ImagePath").toString();
-
-    QPixmap pic( imgPath );
+    QPixmap pic( MngrQuerys::getAnimeCoversPath() + m1.record(0).value("ImagePath").toString() );
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }

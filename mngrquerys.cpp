@@ -1,4 +1,5 @@
 #include "mngrquerys.h"
+#include <QApplication>
 
 MngrQuerys::MngrQuerys()
 {
@@ -340,4 +341,37 @@ QStringList MngrQuerys::getDoramaTags()
             << QObject::tr("Fantastic",			"13.1")	<< QObject::tr("Musical",			"13.2")	<< QObject::tr("Tokusatsu",			"13.3")
             << QObject::tr("Fantasy",			"14.1")	<< QObject::tr("Mysticism",			"14.2")	<< QObject::tr("Tragedy",			"14.3")
             << QObject::tr("Fighter",			"15.1")	<< QObject::tr("Parody",			"15.2")	<< QObject::tr("TV Show",			"15.3");
+}
+
+QString MngrQuerys::getAnimeCoversPath()
+{
+    return QString( QDir::homePath() + "/"
+                    + "." + QApplication::organizationName() + "/"
+                    + QApplication::applicationName() + "/"
+                    + "animeCovers" + "/"
+                    );
+}
+QString MngrQuerys::getMangaCoversPath()
+{
+    return QString( QDir::homePath() + "/"
+                    + "." + QApplication::organizationName() + "/"
+                    + QApplication::applicationName() + "/"
+                    + "mangaCovers" + "/"
+                    );
+}
+QString MngrQuerys::getAmvCoversPath()
+{
+    return QString( QDir::homePath() + "/"
+                    + "." + QApplication::organizationName() + "/"
+                    + QApplication::applicationName() + "/"
+                    + "amvCovers" + "/"
+                    );
+}
+QString MngrQuerys::getDoramaCoversPath()
+{
+    return QString( QDir::homePath() + "/"
+                    + "." + QApplication::organizationName() + "/"
+                    + QApplication::applicationName() + "/"
+                    + "doramaCovers" + "/"
+                    );
 }

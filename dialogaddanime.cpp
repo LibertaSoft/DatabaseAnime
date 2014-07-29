@@ -84,19 +84,15 @@ void DialogAddAnime::setDataInField()
     ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
     ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
 
-    QString imgPath = model->record(0).value("ImagePath").toString();
-    QPixmap pm( imgPath );
-    bool imageCrash = false;
-    if( pm.isNull() ){
-        pm.load( "://images/NoImage.png" );
-        imageCrash = true;
-    }
-    if( !imageCrash ){
+    QPixmap pm( MngrQuerys::getAnimeCoversPath() + model->record(0).value("ImagePath").toString() );
+
+    if( !pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
         ui->Lbl_ImageCover->setImagePath( model->record(0).value("ImagePath").toString() );
     }else{
         ui->Lbl_ImageCover->noImage();
     }
+    qDebug() << MngrQuerys::getAnimeCoversPath() + model->record(0).value("ImagePath").toString();
 
     _oldCover = model->record(0).value("ImagePath").toString();
 }
@@ -305,22 +301,16 @@ bool DialogAddAnime::insert_Anime(){
     query.bindValue( ":URL",           ui->LineEdit_URL->text() );
     query.bindValue( ":Dir",           ui->LineEdit_Dir->text() );
 
+    QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
-    QString coverPath( QDir::homePath() + "/."
-                       + QApplication::organizationName()
-                       + "/"
-                       + QApplication::applicationName()
-                       + "/animeCovers/" );
-    if( dir.mkpath( coverPath ) ){
-        QDateTime dt;
-        coverPath += "/" + QString::number( dt.currentMSecsSinceEpoch() );
+    if( dir.mkpath( MngrQuerys::getAnimeCoversPath() ) ){
         QFile f( ui->Lbl_ImageCover->getImagePath() );
-        f.copy( coverPath );
+        f.copy( MngrQuerys::getAnimeCoversPath() + coverName );
     }
     if( _isEditRole ){
-            dir.remove( _oldCover );
+            dir.remove( MngrQuerys::getAnimeCoversPath() + _oldCover );
     }
-    query.bindValue(":ImagePath", coverPath );
+    query.bindValue(":ImagePath", coverName );
     if( !query.exec() ){
         qDebug() << QString("Cannot insert data in table %1: ").arg(
                         MngrQuerys::getTableName( sections::anime ) ) << query.lastError();
