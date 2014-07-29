@@ -13,6 +13,7 @@ FormSettings::FormSettings(QWidget *parent) :
     ui(new Ui::FormSettings)
 {
     ui->setupUi(this);
+    ui->tabWidget->setCurrentIndex(0);
 
     QSettings settings;
 
