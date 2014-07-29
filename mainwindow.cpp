@@ -741,7 +741,7 @@ void MainWindow::selectAmvData(const QModelIndex&)
         FLay_propertyes->addRow(lblValue);
     }
 
-    QPixmap pic( MngrQuerys::getMangaCoversPath()
+    QPixmap pic( MngrQuerys::getAmvCoversPath()
                  + m1.record(0).value("ImagePath").toString());
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
@@ -755,7 +755,8 @@ void MainWindow::selectAmvData(const QModelIndex&)
     else
         ui->StackWgt_CoverOrDir->setOptSwitch( true );
     QDirModel *dirModel = new QDirModel;
-//    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
+    QFile f(currentItemDir);
+    dirModel->setNameFilters( QStringList() << f.fileName() );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
     ui->TreeView_Dir->setModel( dirModel );
@@ -888,9 +889,7 @@ void MainWindow::selectDoramaData(const QModelIndex&)
         FLay_propertyes->addRow(lblValue);
     }
 
-    QString imgPath = m1.record(0).value("ImagePath").toString();
-
-    QPixmap pic( imgPath );
+    QPixmap pic( MngrQuerys::getDoramaCoversPath() + m1.record(0).value("ImagePath").toString() );
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }

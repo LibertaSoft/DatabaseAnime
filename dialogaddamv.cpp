@@ -35,16 +35,15 @@ void DialogAddAmv::setDataInField()
     ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
     ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
 
-    QString imgPath = model->record(0).value("ImagePath").toString();
-    QPixmap pm( imgPath );
+    _oldCover = model->record(0).value("ImagePath").toString();
+
+    QPixmap pm( MngrQuerys::getAmvCoversPath() + _oldCover );
     if( !pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
-        ui->Lbl_ImageCover->setImagePath( imgPath );
+        ui->Lbl_ImageCover->setImagePath( MngrQuerys::getAmvCoversPath() + _oldCover );
     }else{
         ui->Lbl_ImageCover->noImage();
     }
-
-    _oldCover = model->record(0).value("ImagePath").toString();
 }
 
 DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned int record_id) :
@@ -167,22 +166,16 @@ bool DialogAddAmv::insert_Amv(){
     query.bindValue( ":URL",           ui->LineEdit_URL->text() );
     query.bindValue( ":Dir",           ui->LineEdit_Dir->text() );
 
+    QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
-    QString coverPath( QDir::homePath() + "/."
-                       + QApplication::organizationName()
-                       + "/"
-                       + QApplication::applicationName()
-                       + "/amvCovers/" );
-    if( dir.mkpath( coverPath ) ){
-        QDateTime dt;
-        coverPath += "/" + QString::number( dt.currentMSecsSinceEpoch() );
+    if( dir.mkpath( MngrQuerys::getAmvCoversPath() ) ){
         QFile f( ui->Lbl_ImageCover->getImagePath() );
-        f.copy( coverPath );
+        f.copy( MngrQuerys::getAmvCoversPath() + coverName );
     }
     if( _isEditRole ){
-            dir.remove( _oldCover );
+            dir.remove( MngrQuerys::getAmvCoversPath() + _oldCover );
     }
-    query.bindValue(":ImagePath", coverPath );
+    query.bindValue(":ImagePath", coverName );
 
 
     if( !query.exec() ){
