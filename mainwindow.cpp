@@ -470,7 +470,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Season").toInt() > 0 ){
+    if( m1.record(0).value("Season").toInt() > 0 ){
         QLabel *lblValue = new QLabel(m1.record(0).value("Season").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Season:") + "</b>", lblValue );
@@ -862,7 +862,7 @@ void MainWindow::selectDoramaData(const QModelIndex&)
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Season").toInt() > 0 ){
+    if( m1.record(0).value("Season").toInt() > 0 ){
         QLabel *lblValue = new QLabel(m1.record(0).value("Season").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Season:") + "</b>", lblValue );
