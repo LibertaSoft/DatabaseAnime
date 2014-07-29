@@ -32,6 +32,8 @@ private:
     void setDataInFields();
     void createOptionalFields();
     bool insert_Manga();
+    void setTabOrders();
+
 public:
     explicit DialogAddManga(QWidget *parent, unsigned int record_id);
     explicit DialogAddManga(QWidget *parent);

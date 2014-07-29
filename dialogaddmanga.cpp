@@ -105,6 +105,49 @@ void DialogAddManga::createOptionalFields()
     }
 }
 
+void DialogAddManga::setTabOrders()
+{
+    if( this->LineEdit_AltTitle  ){
+        setTabOrder(ui->SpinBox_Year, this->LineEdit_AltTitle);
+        if( !this->LineEdit_Translation && !this->LineEdit_Translation ){
+            setTabOrder(this->LineEdit_AltTitle, ui->SpinBox_aVol);
+        }
+    }
+    if( this->LineEdit_Author  ){
+        if( this->LineEdit_AltTitle  ){
+            setTabOrder(this->LineEdit_AltTitle, this->LineEdit_Author);
+        }else{
+            setTabOrder(ui->SpinBox_Year, this->LineEdit_Author);
+        }
+        if( !this->LineEdit_Translation ){
+            setTabOrder(this->LineEdit_Author, ui->SpinBox_aVol);
+        }
+    }
+    if( this->LineEdit_Translation ){
+        if( this->LineEdit_Author ){
+            setTabOrder(this->LineEdit_Author, this->LineEdit_Translation);
+        }else{
+            if( this->LineEdit_AltTitle ){
+                setTabOrder(this->LineEdit_AltTitle, this->LineEdit_Translation);
+            }else{
+                setTabOrder(ui->SpinBox_Year, this->LineEdit_Translation);
+            }
+        }
+        setTabOrder(this->LineEdit_Translation, ui->SpinBox_aVol);
+    }
+
+    if( !this->LineEdit_Translation && !this->LineEdit_Translation && !this->LineEdit_AltTitle ){
+        setTabOrder(ui->SpinBox_Year, ui->SpinBox_aVol);
+    }
+
+    setTabOrder(ui->SpinBox_aVol, ui->SpinBox_aCh);
+    setTabOrder(ui->SpinBox_aCh,  ui->SpinBox_aPages);
+
+    setTabOrder(ui->tab_lookSeries, ui->SpinBox_vVol);
+    setTabOrder(ui->SpinBox_vVol,   ui->SpinBox_vCh);
+    setTabOrder(ui->SpinBox_vCh,    ui->SpinBox_vPages);
+}
+
 DialogAddManga::DialogAddManga(QWidget *parent, unsigned int record_id ) :
     QDialog(parent), ui(new Ui::DialogAddManga), _isEditRole( true ), _recordId( record_id ),
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
@@ -115,6 +158,7 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned int record_id ) :
     ui->LineEdit_Title->setFocus();
 
     createOptionalFields();
+    setTabOrders();
     setDataInFields();
     initTags();
 }
@@ -129,6 +173,7 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     ui->LineEdit_Title->setFocus();
 
     createOptionalFields();
+    setTabOrders();
     initTags();
 }
 

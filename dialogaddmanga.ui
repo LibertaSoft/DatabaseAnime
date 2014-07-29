@@ -142,19 +142,11 @@
            <string>Total books</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout">
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="SpinBox_aCh">
-             <property name="maximum">
-              <number>9999</number>
-             </property>
-            </widget>
+           <item row="1" column="2">
+            <widget class="QSpinBox" name="SpinBox_aPages"/>
            </item>
-           <item row="1" column="0">
-            <widget class="QSpinBox" name="SpinBox_aVol">
-             <property name="maximum">
-              <number>9999</number>
-             </property>
-            </widget>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="SpinBox_aCh"/>
            </item>
            <item row="0" column="1">
             <widget class="QLabel" name="Lbl_aCh">
@@ -195,12 +187,8 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
-            <widget class="QSpinBox" name="SpinBox_aPages">
-             <property name="maximum">
-              <number>9999</number>
-             </property>
-            </widget>
+           <item row="1" column="0">
+            <widget class="QSpinBox" name="SpinBox_aVol"/>
            </item>
           </layout>
          </widget>
