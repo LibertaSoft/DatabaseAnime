@@ -30,6 +30,8 @@ private:
     void initTags();
     void initOptionalFields();
     void setDataInField();
+    void setTabOrders();
+
 public:
     explicit DialogAddAnime(QWidget *parent, unsigned int id);
     explicit DialogAddAnime(QWidget *parent);

@@ -101,6 +101,31 @@ void DialogAddAnime::setDataInField()
     _oldCover = model->record(0).value("ImagePath").toString();
 }
 
+void DialogAddAnime::setTabOrders()
+{
+    if( this->LineEdit_OrigTitle  ){
+        setTabOrder(ui->LineEdit_Title, this->LineEdit_OrigTitle);
+    }
+    if( this->LineEdit_Director  ){
+        if( this->LineEdit_OrigTitle  ){
+            setTabOrder(this->LineEdit_OrigTitle, this->LineEdit_Director);
+        }else{
+            setTabOrder(ui->LineEdit_Title, this->LineEdit_Director);
+        }
+    }
+    if( this->LineEdit_PostScoring ){
+        if( this->LineEdit_Director ){
+            setTabOrder(this->LineEdit_Director, this->LineEdit_PostScoring);
+        }else{
+            if( this->LineEdit_OrigTitle ){
+                setTabOrder(this->LineEdit_OrigTitle, this->LineEdit_PostScoring);
+            }else{
+                setTabOrder(ui->LineEdit_Title, this->LineEdit_PostScoring);
+            }
+        }
+    }
+}
+
 DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned int record_id) :
     QDialog(parent), ui(new Ui::DialogAddAnime), _isEditRole(true), _recordId(record_id),
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
@@ -112,6 +137,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned int record_id) :
 
     initTags();
     initOptionalFields();
+    setTabOrders();
     setDataInField();
 }
 
@@ -126,6 +152,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
 
     initTags();
     initOptionalFields();
+    setTabOrders();
 }
 
 DialogAddAnime::~DialogAddAnime()
