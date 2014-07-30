@@ -330,6 +330,12 @@ void MainWindow::loadDoramaFilters(){
                             tr("Editing"),      Filter::editing );
     ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_look.png"),
                             tr("Want to look"), Filter::wanttolook );
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_tv.png"),
+                            tr("TV"),           Filter::tv );
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_special.png"),
+                            tr("Special"),      Filter::special );
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_movie.png"),
+                            tr("Movie"),        Filter::movie );
 }
 
 void MainWindow::reloadFiltersList()
