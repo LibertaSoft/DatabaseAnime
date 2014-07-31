@@ -28,7 +28,7 @@ private:
 
     QListWidget* ListWidget_Dir;
     QPushButton* _btnPlay;
-    QScrollArea *_ScrArea_propertyes;
+    QScrollArea* _ScrArea_propertyes;
 
     sections::section _activeTable;
     Sort::sort _sort;

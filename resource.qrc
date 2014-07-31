@@ -25,5 +25,6 @@
         <file>images/icon-filters/filter_look.png</file>
         <file>images/icon-filters/filter_edit.png</file>
         <file>images/icon-filters/filter_all.png</file>
+        <file>images/play.png</file>
     </qresource>
 </RCC>

@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbMovie(NULL), ListWidget_Dir(NULL),
-    _ScrArea_propertyes(NULL), _btnPlay(NULL)
+    _btnPlay(NULL), _ScrArea_propertyes(NULL)
 {
     ui->setupUi(this);
 
@@ -165,6 +165,17 @@ void MainWindow::on_TButton_Edit_clicked()
 
 void MainWindow::on_TButton_Delete_clicked()
 {
+    QMessageBox* pmbx =
+    new QMessageBox(QMessageBox::Question,
+        tr("Warning"),
+        tr("<b>Delete</b> select item?"),
+        QMessageBox::Yes | QMessageBox::No
+    );
+    int n = pmbx->exec();
+    delete pmbx;
+    if (n == QMessageBox::No) {
+        return;
+    }
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
         QSqlQueryModel model;
         model.setQuery( QString( "SELECT ImagePath FROM %1 WHERE id = %2").arg( getActiveTableName() ).arg( _currentItemId ) );
@@ -779,7 +790,7 @@ void MainWindow::selectAmvData(const QModelIndex&)
     if( _btnPlay )
         _btnPlay->deleteLater();
     if( !_currentItemDir.isNull() ){
-        _btnPlay = new QPushButton( tr("Play") );
+        _btnPlay = new QPushButton( QIcon("://images/play.png"), tr("Play") );
         ui->VLay_BtnPlay->addWidget( _btnPlay );
         QObject::connect(_btnPlay, SIGNAL(clicked()),
                          this,SLOT(openFileClicked()) );
