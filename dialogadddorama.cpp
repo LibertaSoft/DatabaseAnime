@@ -46,14 +46,13 @@ void DialogAddDorama::setDataInField()
     ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
 
     // Optional Fields
-    if( this->LineEdit_AltTitle ){
+    if( this->LineEdit_AltTitle )
         this->LineEdit_AltTitle->setText( model->record(0).value("AltTitle").toString() );
-    }
-    if( this->LineEdit_Director ){
+    if( this->LineEdit_Director )
         this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
-    }
 
-    ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
+    if( model->record(0).value("Year").toInt() != 0 )
+        ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
     ui->SpinBox_Season->setValue( model->record(0).value("Season").toInt() );
 
     ui->SpinBox_aTV->setValue( model->record(0).value("SeriesTV").toInt() );
@@ -216,15 +215,15 @@ bool DialogAddDorama::insert_Dorama(){
     query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
     query.bindValue( ":id",            _recordId );
     query.bindValue( ":Title",         ui->LineEdit_Title->text() );
-    query.bindValue( ":AltTitle",      (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():"" );
-    query.bindValue( ":Director",      (LineEdit_Director)?this->LineEdit_Director->text():"" );
+    query.bindValue( ":AltTitle",     (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():"" );
+    query.bindValue( ":Director",     (LineEdit_Director)?this->LineEdit_Director->text():"" );
     query.bindValue(":SeriesTV",       ui->SpinBox_aTV->value()   );
     query.bindValue(":SeriesSpecial",  ui->SpinBox_aSpec->value() );
     query.bindValue(":SeriesMovie",    ui->SpinBox_aMovie->value());
     query.bindValue(":vSeriesTV",      ui->SpinBox_vTV->value()   );
     query.bindValue(":vSeriesSpecial", ui->SpinBox_vSpec->value() );
     query.bindValue(":vSeriesMovie",   ui->SpinBox_vMovie->value());
-    query.bindValue(":Year",           ui->SpinBox_Year->value()  );
+    query.bindValue(":Year",          (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0 );
     query.bindValue(":Season",         ui->SpinBox_Season->value());
 
     QString tagsList;
@@ -326,4 +325,9 @@ void DialogAddDorama::on_LineEdit_Dir_textChanged(const QString &path)
     }else{
         ui->LineEdit_Dir->setStyleSheet("color:black");
     }
+}
+
+void DialogAddDorama::on_SpinBox_Year_valueChanged(int)
+{
+    ui->CBox_Year->setChecked( true );
 }
