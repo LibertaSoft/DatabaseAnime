@@ -105,7 +105,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="Lbl_Year">
+          <widget class="QCheckBox" name="CBox_Year">
            <property name="text">
             <string>Year:</string>
            </property>
@@ -164,13 +164,6 @@
           </spacer>
          </item>
          <item>
-          <widget class="Line" name="line_2">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QLabel" name="Lbl_Studio">
            <property name="text">
             <string>Studio:</string>
@@ -192,7 +185,7 @@
             <bool>false</bool>
            </property>
            <property name="currentText">
-            <string notr="true">5pb</string>
+            <string notr="true">None</string>
            </property>
            <property name="currentIndex">
             <number>0</number>
@@ -206,6 +199,11 @@
            <property name="frame">
             <bool>true</bool>
            </property>
+           <item>
+            <property name="text">
+             <string>None</string>
+            </property>
+           </item>
            <item>
             <property name="text">
              <string notr="true">5pb</string>
@@ -1086,6 +1084,13 @@
              </property>
             </widget>
            </item>
+           <item row="1" column="2">
+            <widget class="QSpinBox" name="SpinBox_aONA">
+             <property name="maximum">
+              <number>9999</number>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="0">
             <widget class="QSpinBox" name="SpinBox_aTV">
              <property name="maximum">
@@ -1095,13 +1100,6 @@
            </item>
            <item row="1" column="1">
             <widget class="QSpinBox" name="SpinBox_aOVA">
-             <property name="maximum">
-              <number>9999</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QSpinBox" name="SpinBox_aONA">
              <property name="maximum">
               <number>9999</number>
              </property>
@@ -1121,6 +1119,19 @@
              </property>
             </widget>
            </item>
+           <item row="2" column="0" colspan="5">
+            <spacer name="VSpacer_SeriesAll">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="tab_lookSeries">
@@ -1128,6 +1139,13 @@
            <string>Sees</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="4">
+            <widget class="QLabel" name="Lbl_Film2">
+             <property name="text">
+              <string>Movie</string>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="Lbl_TV2">
              <property name="text">
@@ -1153,13 +1171,6 @@
             <widget class="QLabel" name="Lbl_Spec2">
              <property name="text">
               <string>Special</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <widget class="QLabel" name="Lbl_Film2">
-             <property name="text">
-              <string>Movie</string>
              </property>
             </widget>
            </item>
@@ -1197,6 +1208,19 @@
               <number>0</number>
              </property>
             </widget>
+           </item>
+           <item row="2" column="0" colspan="5">
+            <spacer name="VSpacer_SeriesSee">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>

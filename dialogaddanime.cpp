@@ -53,31 +53,28 @@ void DialogAddAnime::setDataInField()
     ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
 
     // Optional Fields
-    if( this->LineEdit_OrigTitle ){
+    if( this->LineEdit_OrigTitle )
         this->LineEdit_OrigTitle->setText( model->record(0).value("OrigTitle").toString() );
-    }
-    if( this->LineEdit_Director ){
+    if( this->LineEdit_Director )
         this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
-    }
-    if( this->LineEdit_PostScoring ){
+    if( this->LineEdit_PostScoring )
         this->LineEdit_PostScoring->setText( model->record(0).value("PostScoring").toString() );
-    }
-
-    ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
+    if( model->record(0).value("Year").toInt() != 0 )
+        ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
     ui->SpinBox_Season->setValue( model->record(0).value("Season").toInt() );
     ui->ComboBox_Studio->setCurrentText( model->record(0).value("Studios").toString() );
 
-    ui->SpinBox_aTV->setValue( model->record(0).value("SeriesTV").toInt() );
-    ui->SpinBox_aOVA->setValue( model->record(0).value("SeriesOVA").toInt() );
-    ui->SpinBox_aONA->setValue( model->record(0).value("SeriesONA").toInt() );
-    ui->SpinBox_aSpec->setValue( model->record(0).value("SeriesSpecial").toInt() );
-    ui->SpinBox_aMovie->setValue( model->record(0).value("SeriesMovie").toInt() );
+    ui->SpinBox_aTV->setValue(    model->record(0).value("SeriesTV"     ).toInt() );
+    ui->SpinBox_aOVA->setValue(   model->record(0).value("SeriesOVA"    ).toInt() );
+    ui->SpinBox_aONA->setValue(   model->record(0).value("SeriesONA"    ).toInt() );
+    ui->SpinBox_aSpec->setValue(  model->record(0).value("SeriesSpecial").toInt() );
+    ui->SpinBox_aMovie->setValue( model->record(0).value("SeriesMovie"  ).toInt() );
 
-    ui->SpinBox_vTV->setValue( model->record(0).value("vSeriesTV").toInt() );
-    ui->SpinBox_vOVA->setValue( model->record(0).value("vSeriesOVA").toInt() );
-    ui->SpinBox_vONA->setValue( model->record(0).value("vSeriesONA").toInt() );
-    ui->SpinBox_vSpec->setValue( model->record(0).value("vSeriesSpecial").toInt() );
-    ui->SpinBox_vMovie->setValue( model->record(0).value("vSeriesMovie").toInt() );
+    ui->SpinBox_vTV->setValue(    model->record(0).value("vSeriesTV"     ).toInt() );
+    ui->SpinBox_vOVA->setValue(   model->record(0).value("vSeriesOVA"    ).toInt() );
+    ui->SpinBox_vONA->setValue(   model->record(0).value("vSeriesONA"    ).toInt() );
+    ui->SpinBox_vSpec->setValue(  model->record(0).value("vSeriesSpecial").toInt() );
+    ui->SpinBox_vMovie->setValue( model->record(0).value("vSeriesMovie"  ).toInt() );
 
     ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
     ui->PlainTextEdit_Description->setPlainText( model->record(0).value("Description").toString() );
@@ -244,37 +241,23 @@ bool DialogAddAnime::insert_Anime(){
     }
     query.bindValue( ":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
     query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
-    query.bindValue( ":id",             _recordId );
-    query.bindValue( ":Title",          ui->LineEdit_Title->text() );
-
-    if( this->LineEdit_OrigTitle ){
-        query.bindValue( ":OrigTitle", this->LineEdit_OrigTitle->text() );
-    }else{
-        query.bindValue( ":OrigTitle", "" );
-    }
-    if( this->LineEdit_Director ){
-        query.bindValue( ":Director", this->LineEdit_Director->text() );
-    }else{
-        query.bindValue( ":Director", "" );
-    }
-    if( this->LineEdit_PostScoring ){
-        query.bindValue( ":PostScoring", this->LineEdit_PostScoring->text() );
-    }else{
-        query.bindValue( ":PostScoring", "" );
-    }
-
-    query.bindValue(":SeriesTV",      ui->SpinBox_aTV->value()   );
-    query.bindValue(":SeriesOVA",     ui->SpinBox_aOVA->value()  );
-    query.bindValue(":SeriesONA",     ui->SpinBox_aONA->value()  );
-    query.bindValue(":SeriesSpecial", ui->SpinBox_aSpec->value() );
+    query.bindValue( ":id",            _recordId );
+    query.bindValue( ":Title",        ui->LineEdit_Title->text() );
+    query.bindValue( ":OrigTitle",   (LineEdit_OrigTitle)?this->LineEdit_OrigTitle->text():"" );
+    query.bindValue( ":Director",    (LineEdit_Director)?this->LineEdit_Director->text():"" );
+    query.bindValue(":PostScoring",  (LineEdit_PostScoring)?this->LineEdit_PostScoring->text(): "");
+    query.bindValue(":SeriesTV",      ui->SpinBox_aTV->value()    );
+    query.bindValue(":SeriesOVA",     ui->SpinBox_aOVA->value()   );
+    query.bindValue(":SeriesONA",     ui->SpinBox_aONA->value()   );
+    query.bindValue(":SeriesSpecial", ui->SpinBox_aSpec->value()  );
     query.bindValue(":SeriesMovie",   ui->SpinBox_aMovie->value() );
-    query.bindValue(":vSeriesTV",     ui->SpinBox_vTV->value()   );
-    query.bindValue(":vSeriesOVA",    ui->SpinBox_vOVA->value()  );
-    query.bindValue(":vSeriesONA",    ui->SpinBox_vONA->value()  );
-    query.bindValue(":vSeriesSpecial",ui->SpinBox_vSpec->value() );
+    query.bindValue(":vSeriesTV",     ui->SpinBox_vTV->value()    );
+    query.bindValue(":vSeriesOVA",    ui->SpinBox_vOVA->value()   );
+    query.bindValue(":vSeriesONA",    ui->SpinBox_vONA->value()   );
+    query.bindValue(":vSeriesSpecial",ui->SpinBox_vSpec->value()  );
     query.bindValue(":vSeriesMovie",  ui->SpinBox_vMovie->value() );
-    query.bindValue(":Year",          ui->SpinBox_Year->value() );
-    query.bindValue(":Season",        ui->SpinBox_Season->value()   );
+    query.bindValue(":Year",         (ui->CBox_Year->isChecked()  )? ui->SpinBox_Year->value() :0 );
+    query.bindValue(":Season",        ui->SpinBox_Season->value() );
     query.bindValue(":Studios",       ui->ComboBox_Studio->currentText() );
 
     QString tagsList;
@@ -384,4 +367,9 @@ void DialogAddAnime::on_LineEdit_Dir_textChanged(const QString &path)
     }else{
         ui->LineEdit_Dir->setStyleSheet("color:black");
     }
+}
+
+void DialogAddAnime::on_SpinBox_Year_valueChanged(int = 0)
+{
+    ui->CBox_Year->setChecked( true );
 }
