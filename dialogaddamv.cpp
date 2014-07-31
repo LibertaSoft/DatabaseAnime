@@ -169,11 +169,11 @@ bool DialogAddAmv::insert_Amv(){
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
-    if( dir.mkpath( MngrQuerys::getAmvCoversPath() ) ){
+    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( MngrQuerys::getAmvCoversPath() ) ){
         QFile f( ui->Lbl_ImageCover->getImagePath() );
         f.copy( MngrQuerys::getAmvCoversPath() + coverName );
     }
-    if( _isEditRole ){
+    if( _isEditRole && !_oldCover.isEmpty() ){
             dir.remove( MngrQuerys::getAmvCoversPath() + _oldCover );
     }
     query.bindValue(":ImagePath", coverName );

@@ -304,12 +304,12 @@ bool DialogAddManga::insert_Manga(){
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
-    if( dir.mkpath( MngrQuerys::getMangaCoversPath() ) ){
+    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( MngrQuerys::getMangaCoversPath() ) ){
         QFile f;
         f.setFileName( ui->Lbl_ImageCover->getImagePath() );
         f.copy( MngrQuerys::getMangaCoversPath() + coverName );
     }
-    if( _isEditRole )
+    if( _isEditRole && !_oldCover.isEmpty() )
         dir.remove( MngrQuerys::getMangaCoversPath() + _oldCover );
     query.bindValue(":ImagePath", coverName );
     if( !query.exec() ){

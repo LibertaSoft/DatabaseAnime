@@ -285,11 +285,11 @@ bool DialogAddAnime::insert_Anime(){
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
-    if( dir.mkpath( MngrQuerys::getAnimeCoversPath() ) ){
+    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( MngrQuerys::getAnimeCoversPath() ) ){
         QFile f( ui->Lbl_ImageCover->getImagePath() );
         f.copy( MngrQuerys::getAnimeCoversPath() + coverName );
     }
-    if( _isEditRole ){
+    if( _isEditRole && !_oldCover.isEmpty() ){
             dir.remove( MngrQuerys::getAnimeCoversPath() + _oldCover );
     }
     query.bindValue(":ImagePath", coverName );
