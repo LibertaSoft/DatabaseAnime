@@ -192,8 +192,8 @@ void DialogAddAmv::on_BtnBox_accepted()
 {
     QFile amvFile( ui->LineEdit_Dir->text() );
     if( !ui->LineEdit_Title->text().isEmpty() ){
-        if( !amvFile.exists() ){
-            QMessageBox::warning( this, tr("Warning"), tr("The field 'Dir' is uncorrect") );
+        if( !ui->LineEdit_Dir->text().isEmpty() && !amvFile.exists() ){
+            QMessageBox::warning( this, tr("Warning"), tr("The field 'File' is uncorrect") );
             ui->LineEdit_Dir->setFocus();
         }else{
             insert_Amv();
