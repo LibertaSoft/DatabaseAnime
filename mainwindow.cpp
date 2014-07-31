@@ -120,7 +120,7 @@ void MainWindow::on_TButton_Add_clicked()
         default:
             return;
     }
-    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentIndex() );
+    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
     ui->listView_ListItemsSection->setModelColumn(1);
 }
@@ -157,7 +157,7 @@ void MainWindow::on_TButton_Edit_clicked()
             default:
                 return;
         }
-        Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentIndex() );
+        Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
         MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
         ui->listView_ListItemsSection->setModelColumn(1);
     }
@@ -298,6 +298,8 @@ void MainWindow::loadAnimeFilters(){
                             tr("Editing"),      Filter::editing );
     ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_look.png"),
                             tr("Want to look"), Filter::wanttolook );
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_look.png"),
+                            tr("Looked"), Filter::looked );
     ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_tv.png"),
                             tr("TV"),           Filter::tv );
     ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_ova.png"),
@@ -330,6 +332,8 @@ void MainWindow::loadDoramaFilters(){
                             tr("Editing"),      Filter::editing );
     ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_look.png"),
                             tr("Want to look"), Filter::wanttolook );
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_look.png"),
+                            tr("Looked"), Filter::looked );
     ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_tv.png"),
                             tr("TV"),           Filter::tv );
     ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_special.png"),

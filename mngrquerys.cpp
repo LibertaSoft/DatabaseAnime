@@ -91,6 +91,9 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, 
     case Filter::movie :
         strFilter += "SeriesMovie > 0 AND ";
         break;
+    case Filter::looked :
+        strFilter += "SeriesTV != 0 AND SeriesTV = vSeriesTV AND";
+        break;
     case Filter::all :
     default:
         strFilter = "";
@@ -125,6 +128,9 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, 
         break;
     case Filter::movie :
         strFilter += "SeriesMovie > 0";
+        break;
+    case Filter::looked :
+        strFilter += "SeriesTV != 0 AND vSeriesTV = SeriesTV";
         break;
     case Filter::all :
     default:
