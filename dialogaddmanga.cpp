@@ -57,7 +57,8 @@ void DialogAddManga::setDataInFields()
     if( this->LineEdit_Translation )
         this->LineEdit_Translation->setText( data["Translation"].toString() );
 
-    ui->SpinBox_Year->setValue( data["Year"].toInt() );
+    if( data["Year"].toInt() != 0 )
+        ui->SpinBox_Year->setValue( data["Year"].toInt() );
 
     ui->SpinBox_aVol->setValue( data["Vol"].toInt() );
     ui->SpinBox_aCh->setValue( data["Ch"].toInt() );
@@ -271,12 +272,12 @@ bool DialogAddManga::insert_Manga(){
     query.bindValue( ":Translation",   (LineEdit_Translation) ? LineEdit_Translation->text() : "" );
 
     query.bindValue(":Vol",    ui->SpinBox_aVol->value()   );
-    query.bindValue(":Ch",     ui->SpinBox_aCh->value()  );
-    query.bindValue(":Pages",  ui->SpinBox_aPages->value()  );
+    query.bindValue(":Ch",     ui->SpinBox_aCh->value()    );
+    query.bindValue(":Pages",  ui->SpinBox_aPages->value() );
     query.bindValue(":vVol",   ui->SpinBox_vVol->value()   );
-    query.bindValue(":vCh",    ui->SpinBox_vCh->value()  );
-    query.bindValue(":vPages", ui->SpinBox_vPages->value()  );
-    query.bindValue(":Year",   ui->SpinBox_Year->value() );
+    query.bindValue(":vCh",    ui->SpinBox_vCh->value()    );
+    query.bindValue(":vPages", ui->SpinBox_vPages->value() );
+    query.bindValue(":Year",  (ui->CBox_Year->isChecked()  ) ? ui->SpinBox_Year->value() : 0 );
 
     QString tagsList;
     QStringList list;
@@ -324,7 +325,7 @@ void DialogAddManga::on_BtnBox_accepted()
     QDir dir( ui->LineEdit_Dir->text() );
     if( !ui->LineEdit_Title->text().isEmpty() ){
         if( !dir.exists() ){
-            QMessageBox::warning( this, tr("Warning"), tr("The field 'Dir' is uncorrect") );
+            QMessageBox::warning( this, tr("Warning"), tr("The field 'Directory' is uncorrect") );
             ui->LineEdit_Dir->setFocus();
         }else{
             insert_Manga();
@@ -373,4 +374,9 @@ void DialogAddManga::on_TBtn_ChooseDir_clicked()
                                                   tr("Choose a directory with picture files"),
                                                   QStandardPaths::writableLocation( QStandardPaths::PicturesLocation )
                                                   ) );
+}
+
+void DialogAddManga::on_SpinBox_Year_valueChanged(int = 0)
+{
+    ui->CBox_Year->setChecked( true );
 }

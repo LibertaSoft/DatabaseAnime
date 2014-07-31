@@ -46,9 +46,10 @@ private slots:
     void on_SpinBox_aVol_valueChanged(int);
     void on_SpinBox_aCh_valueChanged(int);
     void on_SpinBox_aPages_valueChanged(int);
-    void on_LineEdit_Dir_textChanged(const QString &arg1);
+    void on_LineEdit_Dir_textChanged(const QString&);
     void btnBox_reset();
     void on_TBtn_ChooseDir_clicked();
+    void on_SpinBox_Year_valueChanged(int);
 };
 
 #endif // DIALOGADDMANGA_H

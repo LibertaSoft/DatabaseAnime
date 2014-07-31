@@ -91,7 +91,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="Lbl_Year">
+          <widget class="QCheckBox" name="CBox_Year">
            <property name="text">
             <string>Year:</string>
            </property>
