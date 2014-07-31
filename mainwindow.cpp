@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbMovie(NULL), ListWidget_Dir(NULL),
-    _ScrArea_propertyes(NULL)
+    _ScrArea_propertyes(NULL), _btnPlay(NULL)
 {
     ui->setupUi(this);
 
@@ -225,6 +225,16 @@ void MainWindow::saveLookValueChanges(int value, int max, QString type)
     if( !query.exec() ){
         qDebug() << QString("Cannot update data in table %1: ").arg( getActiveTableName() ) << query.lastError();
     }
+}
+
+void MainWindow::openFileClicked()
+{
+    openFile( _currentItemDir );
+}
+
+void MainWindow::openFile(QString &file)
+{
+    QDesktopServices::openUrl( QUrl::fromLocalFile( file ) );
 }
 
 void MainWindow::on_lineEdit_Search_textChanged(const QString &strSearch)
@@ -444,7 +454,10 @@ void MainWindow::selectAnimeData(const QModelIndex&)
     }
 
     if( _ScrArea_propertyes )
-        delete _ScrArea_propertyes;
+        _ScrArea_propertyes->deleteLater();
+    if( _btnPlay )
+        _btnPlay->deleteLater();
+
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -514,9 +527,9 @@ void MainWindow::selectAnimeData(const QModelIndex&)
     }
     ui->Lbl_ImageCover->setPixmap( pic );
 
-    currentItemDir = m1.record(0).value("Dir").toString();
+    _currentItemDir = m1.record(0).value("Dir").toString();
 
-    if( currentItemDir.isEmpty() )
+    if( _currentItemDir.isEmpty() )
         ui->StackWgt_CoverOrDir->setOptSwitch( false );
     else
         ui->StackWgt_CoverOrDir->setOptSwitch( true );
@@ -525,7 +538,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
     ui->TreeView_Dir->setModel( dirModel );
-    ui->TreeView_Dir->setRootIndex( dirModel->index(currentItemDir) );
+    ui->TreeView_Dir->setRootIndex( dirModel->index(_currentItemDir) );
     ui->TreeView_Dir->setColumnHidden(1, true);
     ui->TreeView_Dir->setColumnHidden(2, true);
     ui->TreeView_Dir->setColumnHidden(3, true);
@@ -550,6 +563,8 @@ void MainWindow::selectMangaData(const QModelIndex&)
         delete pbONA;
         pbONA = NULL;
     }
+    if( _btnPlay )
+        _btnPlay->deleteLater();
 
     if( m1.record(0).value("Vol").toInt() > 0 ){
         pbTV = new LookProgressBar(this);
@@ -580,7 +595,7 @@ void MainWindow::selectMangaData(const QModelIndex&)
     }
 
     if( _ScrArea_propertyes )
-        delete _ScrArea_propertyes;
+        _ScrArea_propertyes->deleteLater();
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -641,9 +656,9 @@ void MainWindow::selectMangaData(const QModelIndex&)
     }
     ui->Lbl_ImageCover->setPixmap( pic );
 
-    currentItemDir = m1.record(0).value("Dir").toString();
+    _currentItemDir = m1.record(0).value("Dir").toString();
 
-    if( currentItemDir.isEmpty() )
+    if( _currentItemDir.isEmpty() )
         ui->StackWgt_CoverOrDir->setOptSwitch( false );
     else
         ui->StackWgt_CoverOrDir->setOptSwitch( true );
@@ -652,7 +667,7 @@ void MainWindow::selectMangaData(const QModelIndex&)
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
     ui->TreeView_Dir->setModel( dirModel );
-    ui->TreeView_Dir->setRootIndex( dirModel->index(currentItemDir) );
+    ui->TreeView_Dir->setRootIndex( dirModel->index(_currentItemDir) );
     ui->TreeView_Dir->setColumnHidden(1, true);
     ui->TreeView_Dir->setColumnHidden(2, true);
     ui->TreeView_Dir->setColumnHidden(3, true);
@@ -688,7 +703,7 @@ void MainWindow::selectAmvData(const QModelIndex&)
     }
 
     if( _ScrArea_propertyes )
-        delete _ScrArea_propertyes;
+        _ScrArea_propertyes->deleteLater();
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -758,22 +773,17 @@ void MainWindow::selectAmvData(const QModelIndex&)
     }
     ui->Lbl_ImageCover->setPixmap( pic );
 
-    currentItemDir = m1.record(0).value("Dir").toString();
+    _currentItemDir = m1.record(0).value("Dir").toString();
+    ui->StackWgt_CoverOrDir->setOptSwitch( false );
 
-    if( currentItemDir.isEmpty() )
-        ui->StackWgt_CoverOrDir->setOptSwitch( false );
-    else
-        ui->StackWgt_CoverOrDir->setOptSwitch( true );
-    QDirModel *dirModel = new QDirModel;
-    QFile f(currentItemDir);
-    dirModel->setNameFilters( QStringList() << f.fileName() );
-    dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
-
-    ui->TreeView_Dir->setModel( dirModel );
-    ui->TreeView_Dir->setRootIndex( dirModel->index(currentItemDir) );
-    ui->TreeView_Dir->setColumnHidden(1, true);
-    ui->TreeView_Dir->setColumnHidden(2, true);
-    ui->TreeView_Dir->setColumnHidden(3, true);
+    if( _btnPlay )
+        _btnPlay->deleteLater();
+    if( !_currentItemDir.isNull() ){
+        _btnPlay = new QPushButton( tr("Play") );
+        ui->VLay_BtnPlay->addWidget( _btnPlay );
+        QObject::connect(_btnPlay, SIGNAL(clicked()),
+                         this,SLOT(openFileClicked()) );
+    }
 }
 
 void MainWindow::selectDoramaData(const QModelIndex&)
@@ -803,6 +813,8 @@ void MainWindow::selectDoramaData(const QModelIndex&)
         delete pbMovie;
         pbMovie = NULL;
     }
+    if( _btnPlay )
+        _btnPlay->deleteLater();
 
     if( m1.record(0).value("SeriesTV").toInt() > 0 ){
         pbTV = new LookProgressBar(this);
@@ -833,7 +845,7 @@ void MainWindow::selectDoramaData(const QModelIndex&)
     }
 
     if( _ScrArea_propertyes )
-        delete _ScrArea_propertyes;
+        _ScrArea_propertyes->deleteLater();
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -905,9 +917,9 @@ void MainWindow::selectDoramaData(const QModelIndex&)
     }
     ui->Lbl_ImageCover->setPixmap( pic );
 
-    currentItemDir = m1.record(0).value("Dir").toString();
+    _currentItemDir = m1.record(0).value("Dir").toString();
 
-    if( currentItemDir.isEmpty() )
+    if( _currentItemDir.isEmpty() )
         ui->StackWgt_CoverOrDir->setOptSwitch( false );
     else
         ui->StackWgt_CoverOrDir->setOptSwitch( true );
@@ -916,7 +928,7 @@ void MainWindow::selectDoramaData(const QModelIndex&)
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
     ui->TreeView_Dir->setModel( dirModel );
-    ui->TreeView_Dir->setRootIndex( dirModel->index(currentItemDir) );
+    ui->TreeView_Dir->setRootIndex( dirModel->index(_currentItemDir) );
     ui->TreeView_Dir->setColumnHidden(1, true);
     ui->TreeView_Dir->setColumnHidden(2, true);
     ui->TreeView_Dir->setColumnHidden(3, true);

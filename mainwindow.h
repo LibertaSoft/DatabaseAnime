@@ -27,6 +27,7 @@ private:
     LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbMovie;
 
     QListWidget* ListWidget_Dir;
+    QPushButton* _btnPlay;
     QScrollArea *_ScrArea_propertyes;
 
     sections::section _activeTable;
@@ -34,7 +35,7 @@ private:
 
     QModelIndex currentItem;
     int _currentItemId;
-    QString currentItemDir;
+    QString _currentItemDir;
 
     QSqlQueryModel* QueryModel_ListItemsSection;
 
@@ -68,6 +69,8 @@ private slots:
     void on_TButton_Delete_clicked();
     void on_listView_ListItemsSection_activated(const QModelIndex &index);
     void saveLookValueChanges(int, int, QString);
+    void openFileClicked();
+    void openFile(QString&);
     void on_lineEdit_Search_textChanged(const QString &arg1);
     void on_listView_ListItemsSection_clicked(const QModelIndex &index);
     void on_CB_Section_currentIndexChanged(int index);
