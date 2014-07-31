@@ -45,6 +45,7 @@ private slots:
     void btnBox_reset();
 
     void on_LineEdit_Dir_textChanged(const QString &arg1);
+    void on_SpinBox_Year_valueChanged(int arg1);
 };
 
 #endif // DIALOGADDAMV_H

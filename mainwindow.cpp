@@ -612,7 +612,7 @@ void MainWindow::selectMangaData(const QModelIndex&)
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Translator:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Year").toString().isEmpty() ){
+    if( m1.record(0).value("Year").toInt() != 0 ){
         QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
@@ -715,7 +715,7 @@ void MainWindow::selectAmvData(const QModelIndex&)
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Сontestant:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Year").toString().isEmpty() ){
+    if( m1.record(0).value("Year").toInt() != 0 ){
         QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
@@ -860,7 +860,7 @@ void MainWindow::selectDoramaData(const QModelIndex&)
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Director:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Year").toString().isEmpty() ){
+    if( m1.record(0).value("Year").toInt() != 0 ){
         QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );

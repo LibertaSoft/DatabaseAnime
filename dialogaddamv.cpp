@@ -27,7 +27,8 @@ void DialogAddAmv::setDataInField()
     ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
     ui->LineEdit_Author->setText( model->record(0).value("Author").toString() );
     ui->LineEdit_Contestant->setText( model->record(0).value("Сontestant").toString() );
-    ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
+    if( model->record(0).value("Year").toInt() != 0 )
+        ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
     ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
     ui->PlainTextEdit_AuthorComment->setPlainText( model->record(0).value("AuthorComment").toString() );
     ui->plainTextEdit_ContAnime->setPlainText( model->record(0).value("ContainingAnime").toString() );
@@ -138,7 +139,7 @@ bool DialogAddAmv::insert_Amv(){
 
     query.bindValue( ":Author",         ui->LineEdit_Author->text() );
     query.bindValue( ":Concursant",     ui->LineEdit_Contestant->text() );
-    query.bindValue( ":Year",           ui->SpinBox_Year->value() );
+    query.bindValue( ":Year",          (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0);
 
     QString tagsList;
     QStringList list;
@@ -227,4 +228,9 @@ void DialogAddAmv::on_LineEdit_Dir_textChanged(const QString &path)
     }else{
         ui->LineEdit_Dir->setStyleSheet("color:black");
     }
+}
+
+void DialogAddAmv::on_SpinBox_Year_valueChanged(int = 0)
+{
+    ui->CBox_Year->setChecked( true );
 }
