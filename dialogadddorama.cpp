@@ -252,11 +252,11 @@ bool DialogAddDorama::insert_Dorama(){
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
-    if( dir.mkpath( MngrQuerys::getDoramaCoversPath() ) ){
+    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( MngrQuerys::getDoramaCoversPath() ) ){
         QFile f( ui->Lbl_ImageCover->getImagePath() );
         f.copy( MngrQuerys::getDoramaCoversPath() + coverName );
     }
-    if( _isEditRole ){
+    if( _isEditRole && !_oldCover.isEmpty() ){
             dir.remove( MngrQuerys::getDoramaCoversPath() + _oldCover );
     }
     query.bindValue(":ImagePath", coverName );
