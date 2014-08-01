@@ -44,6 +44,11 @@ void LookProgressBar::setTargetFieldDB(QString str)
     _targetFieldDB = str;
 }
 
+void LookProgressBar::setTargetOverflowFieldDB(QString str)
+{
+    _targetOverflowFieldDB = str;
+}
+
 int LookProgressBar::getValue() const
 {
     return _value;
@@ -95,6 +100,11 @@ QString LookProgressBar::getFormat() const
 QString LookProgressBar::getTargetField() const
 {
     return _targetFieldDB;
+}
+
+QString LookProgressBar::getTargetOverflowFieldDB() const
+{
+    return _targetOverflowFieldDB;
 }
 
 void LookProgressBar::setProgress(int n)

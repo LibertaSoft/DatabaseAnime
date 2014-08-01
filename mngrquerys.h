@@ -43,6 +43,8 @@ public:
     static QString getAmvCoversPath();
     static QString getDoramaCoversPath();
 
+    static bool updateRecord(sections::section table, unsigned int recoord_id, QString field, QString newValue);
+
 };
 
 #endif // MNGRQUERYS_H

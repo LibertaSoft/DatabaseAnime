@@ -9,10 +9,11 @@ class StackWgt_MouseHideOver : public QStackedWidget
     Q_OBJECT
 private:
     bool opt_switch;
+    bool disabledSwitch;
 public:
     explicit StackWgt_MouseHideOver(QWidget *parent = 0);
     void setOptSwitch(bool);
-
+    void setDisabledSwitch(bool);
 signals:
 
 public slots:

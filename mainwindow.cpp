@@ -119,8 +119,7 @@ void MainWindow::on_TButton_Add_clicked()
         default:
             return;
     }
-    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
-    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
+    QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
     ui->listView_ListItemsSection->setModelColumn(1);
 }
 
@@ -156,35 +155,14 @@ void MainWindow::on_TButton_Edit_clicked()
             default:
                 return;
         }
-        Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
-        MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
+        QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
         ui->listView_ListItemsSection->setModelColumn(1);
     }
 }
 
 void MainWindow::on_TButton_Delete_clicked()
 {
-    QString coverFolder;
-
-    switch( _activeTable ){
-    case sections::anime :
-        coverFolder = MngrQuerys::getAnimeCoversPath();
-    break;
-    case sections::manga :
-        coverFolder = MngrQuerys::getMangaCoversPath();
-    break;
-    case sections::amv :
-        coverFolder = MngrQuerys::getAmvCoversPath();
-    break;
-    case sections::dorama :
-        coverFolder = MngrQuerys::getDoramaCoversPath();
-    break;
-    case sections::none :
-    default:
-        return;
-    }
-
-    if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
+    if( ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() == false ){
         QMessageBox* pmbx =
         new QMessageBox(QMessageBox::Question,
             tr("Warning"),
@@ -194,6 +172,26 @@ void MainWindow::on_TButton_Delete_clicked()
         int n = pmbx->exec();
         delete pmbx;
         if (n == QMessageBox::No) {
+            return;
+        }
+
+        QString coverFolder;
+
+        switch( _activeTable ){
+        case sections::anime :
+            coverFolder = MngrQuerys::getAnimeCoversPath();
+        break;
+        case sections::manga :
+            coverFolder = MngrQuerys::getMangaCoversPath();
+        break;
+        case sections::amv :
+            coverFolder = MngrQuerys::getAmvCoversPath();
+        break;
+        case sections::dorama :
+            coverFolder = MngrQuerys::getDoramaCoversPath();
+        break;
+        case sections::none :
+        default:
             return;
         }
 
@@ -244,22 +242,19 @@ void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex&)
 
 void MainWindow::saveLookValueChanges(int value, int max, QString type)
 {
-    QSqlQuery query;
-    bool looked = false;
-    if( value == max && type == "vSeriesTV" ){
-        looked = true;
+    MngrQuerys::updateRecord(getActiveTable(), _currentItemId, type, QString::number(value) );
+    if( value == max && type == "vSeriesTV" )
+        MngrQuerys::updateRecord(getActiveTable(), _currentItemId, QString("isHaveLooked"), QString::number(true) );
+}
+
+void MainWindow::saveLookValueChanges(int value, int max, QString type, QString nextField)
+{
+    MngrQuerys::updateRecord(getActiveTable(), _currentItemId, type, QString::number(value) );
+    if( value == max && (nextField.isEmpty() == false) ){
+        MngrQuerys::updateRecord(getActiveTable(), _currentItemId, nextField, nextField+"+1" );
+        MngrQuerys::updateRecord(getActiveTable(), _currentItemId, type, "0" );
     }
-    if( looked ){
-        query.prepare( QString("UPDATE %1 SET %2 = :vNum, isHaveLooked = :isLook WHERE id = :id;").arg( getActiveTableName() ).arg(type) );
-        query.bindValue(":isLook", true);
-    }else{
-        query.prepare( QString("UPDATE %1 SET %2 = :vNum WHERE id = :id;").arg( getActiveTableName() ).arg(type) );
-    }
-    query.bindValue(":vNum", value);
-    query.bindValue(":id", _currentItemId );
-    if( !query.exec() ){
-        qDebug() << QString("Cannot update data in table %1: ").arg( getActiveTableName() ) << query.lastError();
-    }
+    return;
 }
 
 void MainWindow::openFileClicked()
@@ -565,9 +560,9 @@ void MainWindow::selectAnimeData()
     _currentItemDir = m1.record(0).value("Dir").toString();
 
     if( _currentItemDir.isEmpty() )
-        ui->StackWgt_CoverOrDir->setOptSwitch( false );
+        ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
     else
-        ui->StackWgt_CoverOrDir->setOptSwitch( true );
+        ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
     QDirModel *dirModel = new QDirModel;
 //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
@@ -587,19 +582,29 @@ void MainWindow::selectMangaData()
                 QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
                 );
     if( pbTV ){
-        delete pbTV;
-        pbTV = NULL;
+        pbTV->deleteLater();
+        pbTV=NULL;
     }
     if( pbOVA ){
-        delete pbOVA;
-        pbOVA = NULL;
+        pbOVA->deleteLater();
+        pbOVA=NULL;
     }
     if( pbONA ){
-        delete pbONA;
-        pbONA = NULL;
+        pbONA->deleteLater();
+        pbONA=NULL;
     }
-    if( _btnPlay )
+    if( pbSpecial ){
+        pbSpecial->deleteLater();
+        pbSpecial=NULL;
+    }
+    if( pbMovie ){
+        pbMovie->deleteLater();
+        pbMovie=NULL;
+    }
+    if( _btnPlay ){
         _btnPlay->deleteLater();
+        _btnPlay=NULL;
+    }
 
     if( m1.record(0).value("Vol").toInt() > 0 ){
         pbTV = new LookProgressBar(this);
@@ -613,6 +618,7 @@ void MainWindow::selectMangaData()
     if( m1.record(0).value("Ch").toInt() > 0 ){
         pbOVA = new LookProgressBar(this);
         pbOVA->setTargetFieldDB("vCh");
+        pbOVA->setTargetOverflowFieldDB("vVol");
         pbOVA->setValue( m1.record(0).value("vCh").toInt() );
         pbOVA->setMaximum( m1.record(0).value("Ch").toInt() );
         pbOVA->setFormat("Charapter [%v/%m]");
@@ -622,6 +628,7 @@ void MainWindow::selectMangaData()
     if( m1.record(0).value("Pages").toInt() > 0 ){
         pbONA = new LookProgressBar(this);
         pbONA->setTargetFieldDB("vPages");
+        pbONA->setTargetOverflowFieldDB("vCh");
         pbONA->setValue( m1.record(0).value("vPages").toInt() );
         pbONA->setMaximum( m1.record(0).value("Pages").toInt() );
         pbONA->setFormat("Pages [%v/%m]");
@@ -694,9 +701,9 @@ void MainWindow::selectMangaData()
     _currentItemDir = m1.record(0).value("Dir").toString();
 
     if( _currentItemDir.isEmpty() )
-        ui->StackWgt_CoverOrDir->setOptSwitch( false );
+        ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
     else
-        ui->StackWgt_CoverOrDir->setOptSwitch( true );
+        ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
     QDirModel *dirModel = new QDirModel;
 //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
@@ -809,7 +816,7 @@ void MainWindow::selectAmvData()
     ui->Lbl_ImageCover->setPixmap( pic );
 
     _currentItemDir = m1.record(0).value("Dir").toString();
-    ui->StackWgt_CoverOrDir->setOptSwitch( false );
+    ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
 
     if( _btnPlay )
         _btnPlay->deleteLater();
@@ -955,9 +962,9 @@ void MainWindow::selectDoramaData()
     _currentItemDir = m1.record(0).value("Dir").toString();
 
     if( _currentItemDir.isEmpty() )
-        ui->StackWgt_CoverOrDir->setOptSwitch( false );
+        ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
     else
-        ui->StackWgt_CoverOrDir->setOptSwitch( true );
+        ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
     QDirModel *dirModel = new QDirModel;
 //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
@@ -989,7 +996,6 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     }else{
         ui->CB_Filter->setVisible( true );
     }
-    // ToDo : Проверить соответствие версии БД
 }
 
 void MainWindow::on_CB_Filter_currentIndexChanged(int = 0)

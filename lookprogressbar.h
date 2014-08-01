@@ -18,6 +18,7 @@ private:
     bool _btnSubActive;
     QString _format;
     QString _targetFieldDB;
+    QString _targetOverflowFieldDB;
 public:
     explicit LookProgressBar(QWidget *parent = 0);
     virtual QSize sizeHint() const;
@@ -25,20 +26,26 @@ public:
     void setValue(int);
     void setMaximum(int);
     void setMinimum(int);
-    void setFormat(QString str);
+    void setFormat(QString);
     void setTargetFieldDB(QString);
+    void setTargetOverflowFieldDB(QString);
+    bool setActiveBtnAdd(bool);
+    bool setActiveBtnSub(bool);
+
     int getValue()const;
     int getMaximum()const;
     int getMinimum()const;
-    bool isActiveBtnAdd()const;
-    bool isActiveBtnSub()const;
-    bool setActiveBtnAdd(bool);
-    bool setActiveBtnSub(bool);
     QString getFormat()const;
     QString getTargetField()const;
+    QString getTargetOverflowFieldDB()const;
+
+    bool isActiveBtnAdd()const;
+    bool isActiveBtnSub()const;    
+
 signals:
     void progressChanged(int);
     void progressChanged(int, int, QString);
+    void progressChanged(int, int, QString, QString);
 public slots:
     void setProgress(int);
     void progressInc();
