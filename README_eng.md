@@ -1,6 +1,6 @@
 ![Logo](./images/DBA_logo_m.png)
 
-# Database Anime [ [Rus](./README.md) | [Eng] ]
+# Database Anime [ [Rus](./README.md) | Eng ]
 
 ### Intro
 
