@@ -61,11 +61,10 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::closeEvent(QCloseEvent *e){
     mngrConnection.close();
 
-    sections::section select = static_cast<sections::section>( ui->CB_Section->currentData().toInt() );
     QSettings settings;
     settings.setValue("MainWindow/Geometry", this->saveGeometry() );
     settings.setValue("MainWindow/State",    this->saveState() );
-    settings.setValue("btnSwitchSection/selected", select);
+    settings.setValue("btnSwitchSection/selected", _activeTable);
 
     ui->dockMenu->close();
     e->accept();
@@ -165,52 +164,77 @@ void MainWindow::on_TButton_Edit_clicked()
 
 void MainWindow::on_TButton_Delete_clicked()
 {
-    QMessageBox* pmbx =
-    new QMessageBox(QMessageBox::Question,
-        tr("Warning"),
-        tr("<b>Delete</b> select item?"),
-        QMessageBox::Yes | QMessageBox::No
-    );
-    int n = pmbx->exec();
-    delete pmbx;
-    if (n == QMessageBox::No) {
+    QString coverFolder;
+
+    switch( _activeTable ){
+    case sections::anime :
+        coverFolder = MngrQuerys::getAnimeCoversPath();
+    break;
+    case sections::manga :
+        coverFolder = MngrQuerys::getMangaCoversPath();
+    break;
+    case sections::amv :
+        coverFolder = MngrQuerys::getAmvCoversPath();
+    break;
+    case sections::dorama :
+        coverFolder = MngrQuerys::getDoramaCoversPath();
+    break;
+    case sections::none :
+    default:
         return;
     }
+
     if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
+        QMessageBox* pmbx =
+        new QMessageBox(QMessageBox::Question,
+            tr("Warning"),
+            tr("<b>Delete</b> selected item?"),
+            QMessageBox::Yes | QMessageBox::No
+        );
+        int n = pmbx->exec();
+        delete pmbx;
+        if (n == QMessageBox::No) {
+            return;
+        }
+
         QSqlQueryModel model;
         model.setQuery( QString( "SELECT ImagePath FROM %1 WHERE id = %2").arg( getActiveTableName() ).arg( _currentItemId ) );
-        QDir dir;
-        dir.remove( model.record(0).value("ImagePath").toString() );
+        QString coverPath( coverFolder + model.record(0).value("ImagePath").toString() );
+
         QSqlQuery query;
         query.prepare( QString("DELETE FROM '%1' WHERE id = :id;").arg( getActiveTableName() ) );
         query.bindValue(":id",
                         ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt());
         if( !query.exec() ){
             qDebug() << "It was not succeeded to remove record. Error: " << query.lastError();
-            QMessageBox::warning(this, "Warning", "It was not succeeded to remove record");
+            QMessageBox::warning(this, tr("Warning"), tr("It was not succeeded to remove record") );
         }else{
+            QDir dir;
+            if( coverPath.isNull() == false ){
+                dir.remove( coverPath );
+            }
             QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
             ui->stackedWidget->setCurrentIndex(0);
         }
     }
 }
 
-void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex &index)
+void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex&)
 {
     _currentItemId = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt();
     ui->stackedWidget->setCurrentIndex(1);
     switch( getActiveTable() ){
         case sections::anime :
-            selectAnimeData(index);
+            selectAnimeData();
             break;
         case sections::manga :
-            selectMangaData(index);
+            selectMangaData();
             break;
         case sections::amv :
-            selectAmvData(index);
+            selectAmvData();
             break;
         case sections::dorama :
-            selectDoramaData(index);
+            selectDoramaData();
             break;
         case sections::none :
         default:
@@ -390,7 +414,7 @@ void MainWindow::setActiveTable(sections::section table)
     _activeTable = table;
 }
 
-void MainWindow::selectAnimeData(const QModelIndex&)
+void MainWindow::selectAnimeData()
 {
     QSqlQueryModel m1;
 
@@ -555,7 +579,7 @@ void MainWindow::selectAnimeData(const QModelIndex&)
     ui->TreeView_Dir->setColumnHidden(3, true);
 }
 
-void MainWindow::selectMangaData(const QModelIndex&)
+void MainWindow::selectMangaData()
 {
     QSqlQueryModel m1;
 
@@ -684,7 +708,7 @@ void MainWindow::selectMangaData(const QModelIndex&)
     ui->TreeView_Dir->setColumnHidden(3, true);
 }
 
-void MainWindow::selectAmvData(const QModelIndex&)
+void MainWindow::selectAmvData()
 {
     QSqlQueryModel m1;
 
@@ -797,7 +821,7 @@ void MainWindow::selectAmvData(const QModelIndex&)
     }
 }
 
-void MainWindow::selectDoramaData(const QModelIndex&)
+void MainWindow::selectDoramaData()
 {
     QSqlQueryModel m1;
 

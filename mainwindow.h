@@ -50,10 +50,10 @@ private:
     void loadDoramaFilters();
     void setActiveTable( sections::section );
 
-    void selectAnimeData(const QModelIndex&);
-    void selectMangaData(const QModelIndex&);
-    void selectAmvData(const QModelIndex&);
-    void selectDoramaData(const QModelIndex&);
+    void selectAnimeData();
+    void selectMangaData();
+    void selectAmvData();
+    void selectDoramaData();
 
     void execOptionsDialog();
 
