@@ -1,6 +1,6 @@
 ![Logo](./images/DBA_logo_m.png)
 
-# Database Anime [Rus](./README.md)
+# Database Anime [ [Rus](./README.md) | [Eng] ]
 
 ### Intro
 
@@ -31,7 +31,7 @@ Idea of a logo of the application: [Pavel Enotin](https://vk.com/everydayiamsuff
 - DatabaseAnime licensed by [GNU GPLv3](./LICENSE)
 
 ### Donation
-* We will be very grateful if you send the decimal sum to one of these purses *
+*We will be very grateful if you send the decimal sum to one of these purses*
 - **Yandex money:**
   - 410012424335934
 - **WebMoney:**
