@@ -387,7 +387,7 @@ bool MngrQuerys::updateRecord(sections::section table, unsigned int recoord_id, 
     QSqlQuery query;
     query.prepare( QString("UPDATE %1 SET %2 = :value WHERE id = :id;").arg( getTableName( table ) ).arg(field) );
     query.bindValue(":value", newValue);
-    query.bindValue(":id", QVariant(recoord_id) );
+    query.bindValue(":id", recoord_id );
     if( !query.exec() ){
         qDebug() << QString("Cannot update data in table %1: ").arg( getTableName( table ) ) << query.lastError();
         return false;

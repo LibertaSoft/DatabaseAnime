@@ -207,9 +207,8 @@ void MainWindow::on_TButton_Delete_clicked()
             qDebug() << "It was not succeeded to remove record. Error: " << query.lastError();
             QMessageBox::warning(this, tr("Warning"), tr("It was not succeeded to remove record") );
         }else{
-            QDir dir;
             if( coverPath.isNull() == false ){
-                dir.remove( coverPath );
+                QDir().remove( coverPath );
             }
             QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
             ui->stackedWidget->setCurrentIndex(0);

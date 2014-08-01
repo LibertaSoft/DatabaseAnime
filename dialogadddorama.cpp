@@ -272,9 +272,8 @@ bool DialogAddDorama::insert_Dorama(){
 
 void DialogAddDorama::on_BtnBox_accepted()
 {
-    QDir dir( ui->LineEdit_Dir->text() );
-    if( !ui->LineEdit_Title->text().isEmpty() ){
-        if( !dir.exists() ){
+    if( ui->LineEdit_Title->text().isEmpty() == false ){
+        if( QDir( ui->LineEdit_Dir->text() ).exists() == false ){
             QMessageBox::warning( this, tr("Warning"), tr("The field 'Directory' is uncorrect") );
             ui->LineEdit_Dir->setFocus();
         }else{
@@ -319,8 +318,7 @@ void DialogAddDorama::on_toolButton_clicked()
 
 void DialogAddDorama::on_LineEdit_Dir_textChanged(const QString &path)
 {
-    QDir dir( path );
-    if( !dir.exists() ){
+    if( QDir(path).exists() == false ){
         ui->LineEdit_Dir->setStyleSheet("color:red");
     }else{
         ui->LineEdit_Dir->setStyleSheet("color:black");

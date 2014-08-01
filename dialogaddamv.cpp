@@ -190,9 +190,8 @@ bool DialogAddAmv::insert_Amv(){
 
 void DialogAddAmv::on_BtnBox_accepted()
 {
-    QFile amvFile( ui->LineEdit_Dir->text() );
-    if( !ui->LineEdit_Title->text().isEmpty() ){
-        if( !ui->LineEdit_Dir->text().isEmpty() && !amvFile.exists() ){
+    if( ui->LineEdit_Title->text().isEmpty() == false ){
+        if( !ui->LineEdit_Dir->text().isEmpty() && !QFile::exists( ui->LineEdit_Dir->text() ) ){
             QMessageBox::warning( this, tr("Warning"), tr("The field 'File' is uncorrect") );
             ui->LineEdit_Dir->setFocus();
         }else{
@@ -222,8 +221,7 @@ void DialogAddAmv::on_toolButton_clicked()
 
 void DialogAddAmv::on_LineEdit_Dir_textChanged(const QString &path)
 {
-    QFile amvFile( path );
-    if( !amvFile.exists() ){
+    if( QFile::exists(path) == false ){
         ui->LineEdit_Dir->setStyleSheet("color:red");
     }else{
         ui->LineEdit_Dir->setStyleSheet("color:black");
