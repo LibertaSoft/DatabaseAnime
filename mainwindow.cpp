@@ -750,6 +750,7 @@ void MainWindow::selectAmvData()
     _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     _ScrArea_propertyes->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     _ScrArea_propertyes->setMinimumWidth(300);
+    _ScrArea_propertyes->setStyleSheet("border:1px solid black");
 
     QFormLayout *FLay_propertyes = new QFormLayout(_ScrArea_propertyes);
     _ScrArea_propertyes->setLayout(FLay_propertyes);
@@ -785,9 +786,9 @@ void MainWindow::selectAmvData()
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Ganres:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Author comment:").toString().isEmpty() ){
+    if( !m1.record(0).value("AuthorComment").toString().isEmpty() ){
         QLabel *lblValue = new QLabel(m1.record(0).value("AuthorComment").toString(), _ScrArea_propertyes);
-        QLabel *lblTitle = new QLabel( "<b>" + tr("AuthorComment:") + "</b>", _ScrArea_propertyes );
+        QLabel *lblTitle = new QLabel( "<b>" + tr("Author comment:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow(lblTitle);
         FLay_propertyes->addRow(lblValue);
