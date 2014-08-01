@@ -42,6 +42,7 @@ HEADERS += \
 
 OTHER_FILES += \
     README.md \
+    README_eng.md \
     ToDo.md
 
 RESOURCES += \
