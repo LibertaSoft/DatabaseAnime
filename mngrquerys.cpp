@@ -367,35 +367,39 @@ QStringList MngrQuerys::getDoramaTags()
 
 QString MngrQuerys::getAnimeCoversPath()
 {
-    return QString( QDir::homePath() + "/"
-                    + "." + QApplication::organizationName() + "/"
-                    + QApplication::applicationName() + "/"
-                    + "animeCovers" + "/"
-                    );
+    const QString DBPath(QDir::homePath() + "/."
+                             + QApplication::organizationName()
+                             + "/" + QApplication::applicationName() + "/");
+
+    QSettings settings;
+    return QString( settings.value("WorkDirectory", DBPath).toString() + "/animeCovers" + "/" );
 }
 QString MngrQuerys::getMangaCoversPath()
 {
-    return QString( QDir::homePath() + "/"
-                    + "." + QApplication::organizationName() + "/"
-                    + QApplication::applicationName() + "/"
-                    + "mangaCovers" + "/"
-                    );
+    const QString DBPath(QDir::homePath() + "/."
+                             + QApplication::organizationName()
+                             + "/" + QApplication::applicationName() + "/");
+
+    QSettings settings;
+    return QString( settings.value("WorkDirectory", DBPath).toString() + "/mangaCovers" + "/" );
 }
 QString MngrQuerys::getAmvCoversPath()
 {
-    return QString( QDir::homePath() + "/"
-                    + "." + QApplication::organizationName() + "/"
-                    + QApplication::applicationName() + "/"
-                    + "amvCovers" + "/"
-                    );
+    const QString DBPath(QDir::homePath() + "/."
+                             + QApplication::organizationName()
+                             + "/" + QApplication::applicationName() + "/");
+
+    QSettings settings;
+    return QString( settings.value("WorkDirectory", DBPath).toString() + "/amvCovers" + "/" );
 }
 QString MngrQuerys::getDoramaCoversPath()
 {
-    return QString( QDir::homePath() + "/"
-                    + "." + QApplication::organizationName() + "/"
-                    + QApplication::applicationName() + "/"
-                    + "doramaCovers" + "/"
-                    );
+    const QString DBPath(QDir::homePath() + "/."
+                             + QApplication::organizationName()
+                             + "/" + QApplication::applicationName() + "/");
+
+    QSettings settings;
+    return QString( settings.value("WorkDirectory", DBPath).toString() + "/doramaCovers" + "/" );
 }
 
 bool MngrQuerys::updateRecord(sections::section table, unsigned int recoord_id, QString field, QString newValue)

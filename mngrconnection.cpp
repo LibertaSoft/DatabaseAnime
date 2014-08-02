@@ -2,6 +2,7 @@
 
 #include <QDir>
 #include <QUrl>
+#include <QMessageBox>
 
 MngrConnection::MngrConnection()
 {
@@ -10,14 +11,19 @@ MngrConnection::MngrConnection()
     const QString dbPass("");
 
     db = QSqlDatabase::addDatabase("QSQLITE");
-    QUrl DBPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() );
-    if( !QDir().mkpath( DBPath.toString() ) ){
-        qCritical() << "Cannot createed app directory in home path"
+    const QString DBPath(QDir::homePath() + "/."
+                         + QApplication::organizationName()
+                         + "/" + QApplication::applicationName() + "/");
+
+    QSettings settings;
+    if( !QDir().mkpath( settings.value("WorkDirectory", DBPath).toString() ) ){
+        qCritical() << "Cannot createed work directory"
                     << "\nPath: "
-                    << DBPath;
-//        QMessageBox::warning( 0, QObject::tr("Warning"), QObject::tr("It was not succeeded to create a directory for a database.") );
+                    << settings.value("WorkDirectory", DBPath).toString();
+        QMessageBox::critical(0 , QObject::tr("Critical"),
+                              QObject::tr("It was not succeeded to create a directory for a database.") );
     }else{
-        db.setDatabaseName( DBPath.toString() +"/DatabaseAnime.sqlite");
+        db.setDatabaseName( settings.value("WorkDirectory", DBPath).toString() +"/DatabaseAnime.sqlite");
         db.setUserName( dbUser );
         db.setHostName( dbHost );
         db.setPassword( dbPass );

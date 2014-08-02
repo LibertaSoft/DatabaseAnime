@@ -63,6 +63,11 @@ FormSettings::FormSettings(QWidget *parent) :
     }
     Sort::sort sort = static_cast<Sort::sort>( settings.value( "Sorting", Sort::asc ).toInt() );
     ui->CBox_Sort->setCurrentIndex( sort );
+
+    const QString homeDir(QDir::homePath()
+                          + "/." + QApplication::organizationName()
+                          + "/" + QApplication::applicationName() + "/");
+    ui->LineEdit_WorkDirectory->setText( settings.value( "WorkDirectory", homeDir ).toString() );
 }
 
 FormSettings::~FormSettings()
@@ -105,6 +110,11 @@ void FormSettings::on_BtnBox_accepted()
     settings.setValue( "Sorting", ui->CBox_Sort->currentIndex() );
 
     settings.setValue( "SwitchToDirOnHoverACover", ui->CBox_SwitchToDirOnHoverCover->isChecked() );
+
+    if( QDir().isAbsolutePath(ui->LineEdit_WorkDirectory->text()) )
+        settings.setValue( "WorkDirectory", QDir(ui->LineEdit_WorkDirectory->text()).path() );
+    else
+        settings.remove("WorkDirectory");
 }
 
 void FormSettings::BtnBox_resetDefaults(){
@@ -126,6 +136,11 @@ void FormSettings::BtnBox_resetDefaults(){
 
     ui->CB_Language->setCurrentIndex(0);
     ui->CBox_Sort->setCurrentIndex(1);
+
+    const QString homeDir(QDir::homePath()
+                          + "/." + QApplication::organizationName()
+                          + "/" + QApplication::applicationName() + "/");
+    ui->LineEdit_WorkDirectory->setText( homeDir );
 }
 
 void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
