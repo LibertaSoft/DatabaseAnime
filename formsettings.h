@@ -13,20 +13,21 @@ class FormSettings;
 class FormSettings : public QDialog
 {
     Q_OBJECT
-
+private:
+    Ui::FormSettings *ui;
+    bool restoreDefault;
 public:
     explicit FormSettings(QWidget *parent = 0);
     ~FormSettings();
 
     Sort::sort getSort();
     bool getSwitchToDir();
+    bool getRestoreDefault();
 
 private slots:
     void on_BtnBox_accepted();
     void BtnBox_resetDefaults();
     void on_BtnBox_clicked(QAbstractButton *button);
-private:
-    Ui::FormSettings *ui;
 };
 
 #endif // FORMSETTINGS_H

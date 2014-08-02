@@ -8,7 +8,7 @@
 
 FormSettings::FormSettings(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::FormSettings)
+    ui(new Ui::FormSettings), restoreDefault(false)
 {
     ui->setupUi(this);
     ui->tabWidget->setCurrentIndex(0);
@@ -85,6 +85,11 @@ bool FormSettings::getSwitchToDir()
     return ui->CBox_SwitchToDirOnHoverCover->isChecked();
 }
 
+bool FormSettings::getRestoreDefault()
+{
+    return restoreDefault;
+}
+
 void FormSettings::on_BtnBox_accepted()
 {
     QSettings settings;
@@ -118,6 +123,7 @@ void FormSettings::on_BtnBox_accepted()
 }
 
 void FormSettings::BtnBox_resetDefaults(){
+    restoreDefault = true;
     ui->CheckBox_EnableAnime->setChecked( true );
     ui->CheckBox_EnableManga->setChecked( false );
     ui->CheckBox_EnableAMV->setChecked( false );

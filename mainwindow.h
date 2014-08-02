@@ -29,6 +29,7 @@ private:
     QListWidget* ListWidget_Dir;
     QPushButton* _btnPlay;
     QScrollArea* _ScrArea_propertyes;
+    bool _restoreDefSettings;
 
     sections::section _activeTable;
     Sort::sort _sort;

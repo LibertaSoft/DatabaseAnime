@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbMovie(NULL), ListWidget_Dir(NULL),
-    _btnPlay(NULL), _ScrArea_propertyes(NULL)
+    _btnPlay(NULL), _ScrArea_propertyes(NULL), _restoreDefSettings(false)
 {
     ui->setupUi(this);
 
@@ -62,9 +62,15 @@ void MainWindow::closeEvent(QCloseEvent *e){
     mngrConnection.close();
 
     QSettings settings;
-    settings.setValue("MainWindow/Geometry", this->saveGeometry() );
-    settings.setValue("MainWindow/State",    this->saveState() );
-    settings.setValue("btnSwitchSection/selected", _activeTable);
+    if( !_restoreDefSettings ){
+        settings.setValue("MainWindow/Geometry", this->saveGeometry() );
+        settings.setValue("MainWindow/State",    this->saveState() );
+        settings.setValue("btnSwitchSection/selected", _activeTable);
+    }else{
+        settings.remove("MainWindow/Geometry");
+        settings.remove("MainWindow/State");
+        settings.remove("btnSwitchSection/selected");
+    }
 
     ui->dockMenu->close();
     e->accept();
@@ -84,6 +90,7 @@ void MainWindow::on_PButton_Options_clicked()
     reloadSectionsList();
     _sort = formSettings.getSort();
     ui->StackWgt_CoverOrDir->setOptSwitch( formSettings.getSwitchToDir() );
+    _restoreDefSettings = formSettings.getRestoreDefault();
 }
 
 void MainWindow::on_TButton_Add_clicked()
