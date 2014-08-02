@@ -116,7 +116,7 @@ void FormSettings::on_BtnBox_accepted()
 
     settings.setValue( "SwitchToDirOnHoverACover", ui->CBox_SwitchToDirOnHoverCover->isChecked() );
 
-    if( QDir().isAbsolutePath(ui->LineEdit_WorkDirectory->text()) )
+    if( QDir::isAbsolutePath(ui->LineEdit_WorkDirectory->text()) )
         settings.setValue( "WorkDirectory", QDir(ui->LineEdit_WorkDirectory->text()).path() );
     else
         settings.remove("WorkDirectory");

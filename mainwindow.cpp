@@ -838,7 +838,7 @@ void MainWindow::selectAmvData()
         _btnPlay->deleteLater();
         _btnPlay = NULL;
     }
-    if( !_currentItemDir.isNull() ){
+    if( !_currentItemDir.isEmpty() ){
         _btnPlay = new QPushButton( QIcon("://images/play.png"), tr("Play") );
         ui->VLay_BtnPlay->addWidget( _btnPlay );
         QObject::connect(_btnPlay, SIGNAL(clicked()),
