@@ -482,10 +482,14 @@ void MainWindow::selectAnimeData()
         QObject::connect(pbMovie, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
     }
 
-    if( _ScrArea_propertyes )
+    if( _ScrArea_propertyes ){
         _ScrArea_propertyes->deleteLater();
-    if( _btnPlay )
+        _ScrArea_propertyes = NULL;
+    }
+    if( _btnPlay ){
         _btnPlay->deleteLater();
+        _btnPlay = NULL;
+    }
 
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
@@ -635,8 +639,10 @@ void MainWindow::selectMangaData()
         QObject::connect(pbONA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
     }
 
-    if( _ScrArea_propertyes )
+    if( _ScrArea_propertyes ){
         _ScrArea_propertyes->deleteLater();
+        _ScrArea_propertyes = NULL;
+    }
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -743,14 +749,12 @@ void MainWindow::selectAmvData()
         pbMovie = NULL;
     }
 
-    if( _ScrArea_propertyes )
+    if( _ScrArea_propertyes ){
         _ScrArea_propertyes->deleteLater();
+        _ScrArea_propertyes = NULL;
+    }
     _ScrArea_propertyes = new QScrollArea;
-    _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    _ScrArea_propertyes->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    _ScrArea_propertyes->setMinimumWidth(300);
-    _ScrArea_propertyes->setStyleSheet("border:1px solid black");
+    _ScrArea_propertyes->setStyleSheet("border:1px solid black"); // #Bug : Убрать
 
     QFormLayout *FLay_propertyes = new QFormLayout(_ScrArea_propertyes);
     _ScrArea_propertyes->setLayout(FLay_propertyes);
@@ -818,8 +822,10 @@ void MainWindow::selectAmvData()
     _currentItemDir = m1.record(0).value("Dir").toString();
     ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
 
-    if( _btnPlay )
+    if( _btnPlay ){
         _btnPlay->deleteLater();
+        _btnPlay = NULL;
+    }
     if( !_currentItemDir.isNull() ){
         _btnPlay = new QPushButton( QIcon("://images/play.png"), tr("Play") );
         ui->VLay_BtnPlay->addWidget( _btnPlay );
@@ -886,8 +892,10 @@ void MainWindow::selectDoramaData()
         QObject::connect(pbMovie, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
     }
 
-    if( _ScrArea_propertyes )
+    if( _ScrArea_propertyes ){
         _ScrArea_propertyes->deleteLater();
+        _ScrArea_propertyes = NULL;
+    }
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
