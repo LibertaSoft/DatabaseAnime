@@ -82,10 +82,8 @@ void MainWindow::on_PButton_Options_clicked()
     formSettings.exec();
 
     reloadSectionsList();
-    QSettings settings;
-    _sort = static_cast<Sort::sort>( settings.value("Sorting", Sort::asc).toInt() );
-    bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
-    ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
+    _sort = formSettings.getSort();
+    ui->StackWgt_CoverOrDir->setOptSwitch( formSettings.getSwitchToDir() );
 }
 
 void MainWindow::on_TButton_Add_clicked()
@@ -250,8 +248,10 @@ void MainWindow::saveLookValueChanges(int value, int max, QString type, QString 
 {
     MngrQuerys::updateRecord(getActiveTable(), _currentItemId, type, QString::number(value) );
     if( value == max && (nextField.isEmpty() == false) ){
+        mngrConnection.transaction();
         MngrQuerys::updateRecord(getActiveTable(), _currentItemId, nextField, nextField+"+1" );
         MngrQuerys::updateRecord(getActiveTable(), _currentItemId, type, "0" );
+        mngrConnection.commit();
     }
     return;
 }
@@ -754,7 +754,9 @@ void MainWindow::selectAmvData()
         _ScrArea_propertyes = NULL;
     }
     _ScrArea_propertyes = new QScrollArea;
-    _ScrArea_propertyes->setStyleSheet("border:1px solid black"); // #Bug : Убрать
+    #ifdef QT_DEBUG
+        _ScrArea_propertyes->setStyleSheet("border:1px solid black"); // #Bug : Убрать
+    #endif
 
     QFormLayout *FLay_propertyes = new QFormLayout(_ScrArea_propertyes);
     _ScrArea_propertyes->setLayout(FLay_propertyes);

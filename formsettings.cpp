@@ -1,8 +1,6 @@
 #include "formsettings.h"
 #include "ui_formsettings.h"
-#include "mngrquerys.h"
 
-#include <QAbstractButton>
 #include <QSettings>
 
 #include <QMessageBox>
@@ -70,6 +68,16 @@ FormSettings::FormSettings(QWidget *parent) :
 FormSettings::~FormSettings()
 {
     delete ui;
+}
+
+Sort::sort FormSettings::getSort()
+{
+    return static_cast<Sort::sort>( ui->CBox_Sort->currentIndex() );
+}
+
+bool FormSettings::getSwitchToDir()
+{
+    return ui->CBox_SwitchToDirOnHoverCover->isChecked();
 }
 
 void FormSettings::on_BtnBox_accepted()

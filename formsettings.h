@@ -1,5 +1,6 @@
 #ifndef FORMSETTINGS_H
 #define FORMSETTINGS_H
+#include "mngrquerys.h"
 
 #include <QWidget>
 #include <QDialog>
@@ -16,6 +17,9 @@ class FormSettings : public QDialog
 public:
     explicit FormSettings(QWidget *parent = 0);
     ~FormSettings();
+
+    Sort::sort getSort();
+    bool getSwitchToDir();
 
 private slots:
     void on_BtnBox_accepted();
