@@ -4,14 +4,60 @@
 #include <QTranslator>
 //#include <QLibraryInfo>
 #include <QSettings>
+#include <QDebug>
+
+void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
+{
+    QFile f( QDir::homePath() + "/." + QApplication::organizationName() + "/" + QApplication::applicationName() + "/log.txt" );
+    f.open(QFile::Append);
+    switch (type) {
+     case QtDebugMsg:
+        f.write( "[Debug]\n"
+                 "Message: " + msg.toUtf8() + "\n"
+                 + "File: " + context.file + "\n"
+                 + "Line: " + QString::number(context.line).toUtf8() + "\n"
+                 + "Function: " + context.function
+                 + "\n-----\n" );
+        break;
+     case QtWarningMsg:
+        f.write( "[Warning]\n"
+                 "Message: " + msg.toUtf8() + "\n"
+                 + "File: " + context.file + "\n"
+                 + "Line: " + QString::number(context.line).toUtf8() + "\n"
+                 + "Function: " + context.function
+                 + "\n-----\n" );
+        break;
+     case QtCriticalMsg:
+        f.write( "[Critical]\n"
+                 "Message: " + msg.toUtf8() + "\n"
+                 + "File: " + context.file + "\n"
+                 + "Line: " + QString::number(context.line).toUtf8() + "\n"
+                 + "Function: " + context.function
+                 + "\n-----\n" );
+        break;
+     case QtFatalMsg:
+        f.write( "[Fatal]\n"
+                 "Message: " + msg.toUtf8() + "\n"
+                 + "File: " + context.file + "\n"
+                 + "Line: " + QString::number(context.line).toUtf8() + "\n"
+                 + "Function: " + context.function
+                 + "\n-----\n" );
+        f.close();
+        abort();
+     }
+    f.close();
+}
 
 int main(int argc, char *argv[])
 {
+    #ifndef QT_DEBUG
+        qInstallMessageHandler(myMessageOutput);
+    #endif
     QApplication app(argc, argv);
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");
     app.setApplicationName("DatabaseAnime");
-    app.setApplicationVersion("0.1.2 Pre-Alpha");
+    app.setApplicationVersion("0.1.3 Pre-Alpha");
     app.setApplicationDisplayName( QObject::tr("Database Anime") );
     app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
 

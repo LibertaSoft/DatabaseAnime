@@ -187,7 +187,9 @@ bool MngrQuerys::createTable_Anime()
                   ");").arg( getTableName( sections::anime ) );
     QSqlQuery query;
     if( !query.exec(sql) ){
-        qDebug() << QString("Table %1 is not created! Error: ").arg( getTableName(sections::anime) ) << query.lastError();
+        qCritical() << QString("Table %1 is not created!").arg( getTableName(sections::anime) )
+                    << "\nSqlError: "
+                    << query.lastError();
         return false;
     }
     return true;
@@ -220,7 +222,9 @@ bool MngrQuerys::createTable_Manga()
                   ");").arg( getTableName( sections::manga ) );
     QSqlQuery query;
     if( !query.exec(sql) ){
-        qDebug() << QString("Table %1 is not created! Error: ").arg( getTableName(sections::manga) ) << query.lastError();
+        qCritical() << QString("Table %1 is not created!").arg( getTableName(sections::manga) )
+                    << "\nSqlError: "
+                    << query.lastError();
         return false;
     }
     return true;
@@ -247,7 +251,9 @@ bool MngrQuerys::createTable_Amv()
                   ");").arg( getTableName( sections::amv ) );
     QSqlQuery query;
     if( !query.exec(sql) ){
-        qDebug() << QString("Table %1 is not created! Error: ").arg( getTableName(sections::amv) ) << query.lastError();
+        qCritical() << QString("Table %1 is not created!").arg( getTableName(sections::amv) )
+                    << "\nSqlError: "
+                    << query.lastError();
         return false;
     }
     return true;
@@ -281,7 +287,9 @@ bool MngrQuerys::createTable_Dorama()
                   ");").arg( getTableName( sections::dorama ) );
     QSqlQuery query;
     if( !query.exec(sql) ){
-        qDebug() << QString("Table %1 is not created! Error: ").arg( getTableName(sections::dorama) ) << query.lastError();
+        qCritical() << QString("Table %1 is not created!").arg( getTableName(sections::dorama) )
+                    << "\nSqlError: "
+                    << query.lastError();
         return false;
     }
     return true;
@@ -397,7 +405,9 @@ bool MngrQuerys::updateRecord(sections::section table, unsigned int recoord_id, 
     query.bindValue(":value", newValue);
     query.bindValue(":id", recoord_id );
     if( !query.exec() ){
-        qDebug() << QString("Cannot update data in table %1: ").arg( getTableName( table ) ) << query.lastError();
+        qCritical() << QString("Cannot update data in table %1").arg( getTableName( table ) )
+                    << "\nSqlError: "
+                    << query.lastError();
         return false;
     }
     return true;

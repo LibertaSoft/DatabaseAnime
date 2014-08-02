@@ -180,9 +180,9 @@ bool DialogAddAmv::insert_Amv(){
 
 
     if( !query.exec() ){
-        qDebug() << QString("Cannot insert data in table %1: ").arg(
-                        MngrQuerys::getTableName( sections::amv ) ) << query.lastError();
-        QMessageBox::warning( this, tr("Warning"), tr("Cannot insert data.") );
+        qCritical() << QString("Cannot insert data in table %1").arg(
+                        MngrQuerys::getTableName( sections::amv ) ) << "\nSqlError: " << query.lastError();
+        QMessageBox::critical( this, tr("Critical"), tr("Cannot insert data.") );
         return false;
     }
     return true;

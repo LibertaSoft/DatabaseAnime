@@ -261,10 +261,11 @@ bool DialogAddDorama::insert_Dorama(){
     }
     query.bindValue(":ImagePath", coverName );
     if( !query.exec() ){
-        qDebug() << QString("Cannot insert data in table %1: ").arg(
-                        MngrQuerys::getTableName( sections::dorama ) ) << query.lastError();
-        QMessageBox::warning(this, tr("Warning"), tr("Cannot insert data."));
-        QMessageBox::information(this, tr("Warning"), query.executedQuery() );
+        qCritical() << QString("Cannot insert data in table %1").arg(
+                        MngrQuerys::getTableName( sections::dorama ) )
+                    << "\nSqlError: "
+                    << query.lastError();
+        QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data."));
         return false;
     }
     return true;

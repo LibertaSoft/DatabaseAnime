@@ -202,8 +202,11 @@ void MainWindow::on_TButton_Delete_clicked()
         query.bindValue(":id",
                         ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt());
         if( !query.exec() ){
-            qDebug() << "It was not succeeded to remove record. Error: " << query.lastError();
-            QMessageBox::warning(this, tr("Warning"), tr("It was not succeeded to remove record") );
+            qCritical() << QString("It was not succeeded to remove record from table %1"
+                                   ).arg( getActiveTableName() )
+                        << "\nSqlError: "
+                        << query.lastError();
+            QMessageBox::critical(this, tr("Critical"), tr("It was not succeeded to remove record") );
         }else{
             if( coverPath.isNull() == false ){
                 QDir().remove( coverPath );

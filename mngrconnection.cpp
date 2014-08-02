@@ -10,10 +10,11 @@ MngrConnection::MngrConnection()
     const QString dbPass("");
 
     db = QSqlDatabase::addDatabase("QSQLITE");
-    QDir dir;
     QUrl DBPath( QDir::homePath() + "/."+QApplication::organizationName()+"/"+QApplication::applicationName() );
-    if( !dir.mkpath( DBPath.toString() ) ){
-        qDebug() << "Cannot createed app directory in home path";
+    if( !QDir().mkpath( DBPath.toString() ) ){
+        qCritical() << "Cannot createed app directory in home path"
+                    << "\nPath: "
+                    << DBPath;
 //        QMessageBox::warning( 0, QObject::tr("Warning"), QObject::tr("It was not succeeded to create a directory for a database.") );
     }else{
         db.setDatabaseName( DBPath.toString() +"/DatabaseAnime.sqlite");

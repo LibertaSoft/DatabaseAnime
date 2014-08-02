@@ -313,8 +313,11 @@ bool DialogAddManga::insert_Manga(){
         dir.remove( MngrQuerys::getMangaCoversPath() + _oldCover );
     query.bindValue(":ImagePath", coverName );
     if( !query.exec() ){
-        qDebug() << QString("Cannot insert data in table %1: ").arg(
-                        MngrQuerys::getTableName( sections::manga ) ) << query.lastError();
+        qCritical() << QString("Cannot insert data in table %1").arg(
+                        MngrQuerys::getTableName( sections::manga ) )
+                    << "\nSqlError: "
+                    << query.lastError();
+        QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data"));
         return false;
     }
     return true;
