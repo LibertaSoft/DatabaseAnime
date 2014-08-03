@@ -19,12 +19,12 @@
 ### Установка
 - Скачайте последний стабильный [релиз](https://github.com/LibertaSoft/DatabaseAnime/releases) для вашей системы
 - Или скомпилируйте из исходников.
-  - Файлы с переводами должны лежать в директории приложения (qtbase_??.qm, DatabaseAnime_??.qm)
+  - Файлы с переводами должны находиться в директории приложения (qtbase_??.qm, DatabaseAnime_??.qm)
 
 ### Разработка
 - В будующих версиях планируется: [ToDo](./ToDo.md)
 - Если нашли ошибку [создайте новое issue](https://github.com/LibertaSoft/DatabaseAnime/issues/new) и помогите сделать проект лучше
-- Что то не понравилось? не хватает функционала? знаете Qt & C++ - [форкните](https://github.com/LibertaSoft/DatabaseAnime/fork) проект, внесите изменения и отправьте [Pull Request](https://github.com/LibertaSoft/DatabaseAnime/pulls)
+- Хотите помочь? знаете Qt & C++ ? - [форкните](https://github.com/LibertaSoft/DatabaseAnime/fork) проект, внесите изменения и отправьте [Pull Request](https://github.com/LibertaSoft/DatabaseAnime/pulls)
 
 ### Контакты
 - Группа [ВКонтакте](https://vk.com/db_anime)
