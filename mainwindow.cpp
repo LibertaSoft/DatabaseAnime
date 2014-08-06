@@ -873,8 +873,10 @@ void MainWindow::selectDoramaData()
         delete pbMovie;
         pbMovie = NULL;
     }
-    if( _btnPlay )
+    if( _btnPlay ){
         _btnPlay->deleteLater();
+        _btnPlay = NULL;
+    }
 
     if( m1.record(0).value("SeriesTV").toInt() > 0 ){
         pbTV = new LookProgressBar(this);
