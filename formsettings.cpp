@@ -1,17 +1,22 @@
 #include "formsettings.h"
 #include "ui_formsettings.h"
+#include "mngrconnection.h"
 
 #include <QSettings>
+#include <QVariant>
 
 #include <QMessageBox>
 #include <QDebug>
+
+#include <QtXml>
 
 FormSettings::FormSettings(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::FormSettings), restoreDefault(false)
 {
     ui->setupUi(this);
-    ui->tabWidget->setCurrentIndex(0);
+    ui->tabWidget_General->setCurrentIndex(0);
+    ui->tabWidget_ImpExp->setCurrentIndex(0);
 
     QSettings settings;
 
@@ -162,4 +167,125 @@ void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
         default:
             this->close();
     }
+}
+/*[Export]*/
+
+QDomElement makeElement(      QDomDocument& domDoc,
+                        const QString&      strName,
+                        const QString&      strAttr = QString::null,
+                        const QString&      strText = QString::null
+                       )
+{
+    QDomElement domElement = domDoc.createElement(strName);
+
+    if (!strAttr.isEmpty()) {
+        QDomAttr domAttr = domDoc.createAttribute("number");
+        domAttr.setValue(strAttr);
+        domElement.setAttributeNode(domAttr);
+    }
+
+    if (!strText.isEmpty()) {
+        QDomText domText = domDoc.createTextNode(strText);
+        domElement.appendChild(domText);
+    }
+    return domElement;
+}
+
+
+QDomElement anime(  QDomDocument& domDoc,
+                    const QMap<QString, QString> &data
+                    )
+{
+    QDomElement domElement = makeElement(domDoc,
+                                         "anime"
+                                         );
+    domElement.appendChild(makeElement(domDoc, "isHaveLooked",  "", data["isHaveLooked"]));
+    domElement.appendChild(makeElement(domDoc, "isEditingDone", "", data["isEditingDone"]));
+    domElement.appendChild(makeElement(domDoc, "isAdult",       "", data["isAdult"]));
+    domElement.appendChild(makeElement(domDoc, "Title",         "", data["Title"]));
+    domElement.appendChild(makeElement(domDoc, "OrigTitle",     "", data["OrigTitle"]));
+    domElement.appendChild(makeElement(domDoc, "Director",      "", data["Director"]));
+    domElement.appendChild(makeElement(domDoc, "PostScoring",   "", data["PostScoring"]));
+    domElement.appendChild(makeElement(domDoc, "SeriesTV",      "", data["SeriesTV"]));
+    domElement.appendChild(makeElement(domDoc, "SeriesOVA",     "", data["SeriesOVA"]));
+    domElement.appendChild(makeElement(domDoc, "SeriesONA",     "", data["SeriesONA"]));
+    domElement.appendChild(makeElement(domDoc, "SeriesSpecial", "", data["SeriesSpecial"]));
+    domElement.appendChild(makeElement(domDoc, "SeriesMovie",   "", data["SeriesMovie"]));
+    domElement.appendChild(makeElement(domDoc, "vSeriesTV",     "", data["vSeriesTV"]));
+    domElement.appendChild(makeElement(domDoc, "vSeriesOVA",    "", data["vSeriesOVA"]));
+    domElement.appendChild(makeElement(domDoc, "vSeriesONA",    "", data["vSeriesONA"]));
+    domElement.appendChild(makeElement(domDoc, "vSeriesSpecial","", data["vSeriesSpecial"]));
+    domElement.appendChild(makeElement(domDoc, "vSeriesMovie",  "", data["vSeriesMovie"]));
+    domElement.appendChild(makeElement(domDoc, "Score",         "", data["Score"]));
+    domElement.appendChild(makeElement(domDoc, "Year",          "", data["Year"]));
+    domElement.appendChild(makeElement(domDoc, "Season",        "", data["Season"]));
+    domElement.appendChild(makeElement(domDoc, "Studios",       "", data["Studios"]));
+    domElement.appendChild(makeElement(domDoc, "Tags",          "", data["Tags"]));
+    domElement.appendChild(makeElement(domDoc, "Description",   "", data["Description"]));
+    domElement.appendChild(makeElement(domDoc, "URL",           "", data["URL"]));
+    domElement.appendChild(makeElement(domDoc, "Dir",           "", data["Dir"]));
+    domElement.appendChild(makeElement(domDoc, "ImagePath",     "", data["ImagePath"]));
+
+    return domElement;
+}
+
+
+void FormSettings::on_PBtn_Export2xml_clicked()
+{
+        QDomDocument doc("DatabaseAnime");
+        QDomElement  dom = doc.createElement("DatabaseAnime");
+        doc.appendChild(dom);
+
+        QSqlQuery query;
+        if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::anime)) ) ){
+            qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::anime) );
+            QMessageBox::critical(0, tr("Critical"), tr("Cannot select data in database") );
+            return;
+        }
+        QDomElement  domAnime = doc.createElement("Section");
+        domAnime.setAttribute("type", "anime");
+        dom.appendChild(domAnime);
+        while (query.next()) {
+            QMap<QString, QString> data;
+
+            data["isHaveLooked"]    = query.value("isHaveLooked"    ).toString();
+            data["isEditingDone"]   = query.value("isEditingDone"   ).toString();
+            data["isAdult"]         = query.value("isAdult"         ).toString();
+            data["Title"]           = query.value("Title"           ).toString();
+            data["OrigTitle"]       = query.value("OrigTitle"       ).toString();
+            data["Director"]        = query.value("Director"        ).toString();
+            data["PostScoring"]     = query.value("PostScoring"     ).toString();
+            data["SeriesTV"]        = query.value("SeriesTV"        ).toString();
+            data["SeriesOVA"]       = query.value("SeriesOVA"       ).toString();
+            data["SeriesONA"]       = query.value("SeriesONA"       ).toString();
+            data["SeriesSpecial"]   = query.value("SeriesSpecial"   ).toString();
+            data["SeriesMovie"]     = query.value("SeriesMovie"     ).toString();
+            data["vSeriesTV"]       = query.value("vSeriesTV"       ).toString();
+            data["vSeriesOVA"]      = query.value("vSeriesOVA"      ).toString();
+            data["vSeriesONA"]      = query.value("vSeriesONA"      ).toString();
+            data["vSeriesSpecial"]  = query.value("vSeriesSpecial"  ).toString();
+            data["vSeriesMovie"]    = query.value("vSeriesMovie"    ).toString();
+            data["Score"]           = query.value("Score"           ).toString();
+            data["Year"]            = query.value("Year"            ).toString();
+            data["Season"]          = query.value("Season"          ).toString();
+            data["Studios"]         = query.value("Studios"         ).toString();
+            data["Tags"]            = query.value("Tags"            ).toString();
+            data["Description"]     = query.value("Description"     ).toString();
+            data["URL"]             = query.value("URL"             ).toString();
+            data["Dir"]             = query.value("Dir"             ).toString();
+            data["ImagePath"]       = query.value("ImagePath"       ).toString();
+
+            domAnime.appendChild( anime(doc, data) );
+        }
+
+
+        QFile file("/tmp/DatabaseAnime.xml");
+        if( file.open(QIODevice::WriteOnly) ) {
+            QTextStream(&file) << doc.toString(4);
+            file.close();
+        }else{
+            qCritical() << file.errorString()
+                        << "\nFileName: " << file.fileName();
+            QMessageBox::critical(0, tr("Critical"), tr("File is not created"));
+        }
 }

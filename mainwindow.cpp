@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
     this->restoreState( settings.value("MainWindow/State").toByteArray() );
+    ui->splitter->restoreGeometry( settings.value("MainWindow/SplitterGeometry").toByteArray() );
+    ui->splitter->restoreState( settings.value("MainWindow/SplitterState").toByteArray() );
     _sort = static_cast<Sort::sort>( settings.value("Sorting", Sort::asc).toInt() );
     bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
     ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
@@ -72,7 +74,9 @@ void MainWindow::closeEvent(QCloseEvent *e){
         settings.remove("btnSwitchSection/selected");
     }
 
-    ui->dockMenu->close();
+//    ui->dockMenu->close();
+    settings.setValue("MainWindow/SplitterGeometry", ui->splitter->saveGeometry() );
+    settings.setValue("MainWindow/SplitterState", ui->splitter->saveState() );
     e->accept();
 }
 

@@ -28,6 +28,7 @@ private slots:
     void on_BtnBox_accepted();
     void BtnBox_resetDefaults();
     void on_BtnBox_clicked(QAbstractButton *button);
+    void on_PBtn_Export2xml_clicked();
 };
 
 #endif // FORMSETTINGS_H

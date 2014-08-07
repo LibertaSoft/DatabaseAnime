@@ -183,7 +183,7 @@
               </size>
              </property>
              <property name="text">
-              <string>Specials</string>
+              <string>Special</string>
              </property>
             </widget>
            </item>
@@ -203,7 +203,7 @@
               </size>
              </property>
              <property name="text">
-              <string>Movies</string>
+              <string>Movie</string>
              </property>
             </widget>
            </item>
