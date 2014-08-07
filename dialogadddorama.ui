@@ -338,77 +338,23 @@
            </item>
            <item>
             <widget class="QListView" name="ListView_Tags">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="baseSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="layoutDirection">
-              <enum>Qt::LeftToRight</enum>
-             </property>
              <property name="frameShape">
               <enum>QFrame::Panel</enum>
-             </property>
-             <property name="horizontalScrollBarPolicy">
-              <enum>Qt::ScrollBarAsNeeded</enum>
              </property>
              <property name="sizeAdjustPolicy">
               <enum>QAbstractScrollArea::AdjustToContents</enum>
              </property>
-             <property name="autoScroll">
-              <bool>true</bool>
-             </property>
              <property name="editTriggers">
-              <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
-             </property>
-             <property name="alternatingRowColors">
-              <bool>false</bool>
+              <set>QAbstractItemView::NoEditTriggers</set>
              </property>
              <property name="selectionMode">
               <enum>QAbstractItemView::MultiSelection</enum>
-             </property>
-             <property name="selectionBehavior">
-              <enum>QAbstractItemView::SelectItems</enum>
-             </property>
-             <property name="flow">
-              <enum>QListView::LeftToRight</enum>
              </property>
              <property name="isWrapping" stdset="0">
               <bool>true</bool>
              </property>
              <property name="resizeMode">
-              <enum>QListView::Fixed</enum>
-             </property>
-             <property name="layoutMode">
-              <enum>QListView::SinglePass</enum>
-             </property>
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <property name="gridSize">
-              <size>
-               <width>130</width>
-               <height>26</height>
-              </size>
-             </property>
-             <property name="modelColumn">
-              <number>0</number>
-             </property>
-             <property name="uniformItemSizes">
-              <bool>false</bool>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-             <property name="selectionRectVisible">
-              <bool>false</bool>
+              <enum>QListView::Adjust</enum>
              </property>
             </widget>
            </item>

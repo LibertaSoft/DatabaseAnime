@@ -8,7 +8,10 @@
 
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    QFile f( QDir::homePath() + "/." + QApplication::organizationName() + "/" + QApplication::applicationName() + "/log.txt" );
+    QFile f( QDir::homePath() + QDir::separator()
+             + "." + QApplication::organizationName()
+             + QDir::separator() + QApplication::applicationName()
+             + QDir::separator() + "log.txt" );
     f.open(QFile::Append);
     switch (type) {
      case QtDebugMsg:
@@ -69,7 +72,7 @@ int main(int argc, char *argv[])
         /*, QLibraryInfo::location(QLibraryInfo::TranslationsPath)*/
         qtTr.load( "qtbase_" + QLocale::system().name() );
     }else{
-        qtTr.load( QApplication::applicationDirPath() + "/qtbase_" + set_language + ".qm" );
+        qtTr.load( QApplication::applicationDirPath() + QDir::separator() + "qtbase_" + set_language + ".qm" );
     }
     app.installTranslator(&qtTr);
 
@@ -77,7 +80,7 @@ int main(int argc, char *argv[])
     if( set_language_index == 0 ){
         dbaTr.load( "DatabaseAnime_" + QLocale::system().name() );
     }else{
-        dbaTr.load( QApplication::applicationDirPath() + "/DatabaseAnime_" + set_language + ".qm" );
+        dbaTr.load( QApplication::applicationDirPath() + QDir::separator() + "DatabaseAnime_" + set_language + ".qm" );
     }
     app.installTranslator(&dbaTr);
 

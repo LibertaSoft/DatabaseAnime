@@ -655,8 +655,7 @@ void MainWindow::selectMangaData()
     }
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
-    _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    _ScrArea_propertyes->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    _ScrArea_propertyes->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
     _ScrArea_propertyes->setMinimumWidth(300);
 
     QFormLayout *FLay_propertyes = new QFormLayout(_ScrArea_propertyes);
@@ -770,6 +769,7 @@ void MainWindow::selectAmvData()
 
     QFormLayout *FLay_propertyes = new QFormLayout(_ScrArea_propertyes);
     _ScrArea_propertyes->setLayout(FLay_propertyes);
+    _ScrArea_propertyes->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
     ui->VLay_AnimeDescrFull->addWidget(_ScrArea_propertyes);
 
     // Title
@@ -1031,6 +1031,6 @@ void MainWindow::on_TreeView_Dir_activated(const QModelIndex &index)
 {
     QDirModel *m = (QDirModel*)index.model();
     QDesktopServices::openUrl( QUrl::fromLocalFile( m->fileInfo(index).absolutePath()
-                                                    + "/" + index.data().toString()
+                                                    + QDir::separator() + index.data().toString()
                                                     )  );
 }

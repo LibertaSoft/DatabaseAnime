@@ -10,10 +10,16 @@ MngrConnection::MngrConnection()
     const QString dbHost("");
     const QString dbPass("");
 
+    if( !QSqlDatabase::isDriverAvailable("QSQLITE") ){
+        qCritical() << "Cannot avalible QSQLITE driver";
+        QMessageBox::critical(0 , QObject::tr("Critical"),
+                              QObject::tr("Cannot avalible database driver") );
+    }
+
     db = QSqlDatabase::addDatabase("QSQLITE");
-    const QString DBPath(QDir::homePath() + "/."
+    const QString DBPath(QDir::homePath() + QDir::separator() +"."
                          + QApplication::organizationName()
-                         + "/" + QApplication::applicationName() + "/");
+                         + QDir::separator() + QApplication::applicationName() + QDir::separator());
 
     QSettings settings;
     if( !QDir().mkpath( settings.value("WorkDirectory", DBPath).toString() ) ){
@@ -23,7 +29,7 @@ MngrConnection::MngrConnection()
         QMessageBox::critical(0 , QObject::tr("Critical"),
                               QObject::tr("It was not succeeded to create a directory for a database.") );
     }else{
-        db.setDatabaseName( settings.value("WorkDirectory", DBPath).toString() +"/DatabaseAnime.sqlite");
+        db.setDatabaseName( settings.value("WorkDirectory", DBPath).toString() + QDir::separator() + "DatabaseAnime.sqlite");
         db.setUserName( dbUser );
         db.setHostName( dbHost );
         db.setPassword( dbPass );

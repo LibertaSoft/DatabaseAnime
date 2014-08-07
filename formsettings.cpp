@@ -65,8 +65,8 @@ FormSettings::FormSettings(QWidget *parent) :
     ui->CBox_Sort->setCurrentIndex( sort );
 
     const QString homeDir(QDir::homePath()
-                          + "/." + QApplication::organizationName()
-                          + "/" + QApplication::applicationName() + "/");
+                          + QDir::separator() + "." + QApplication::organizationName()
+                          + QDir::separator() + QApplication::applicationName() + QDir::separator());
     ui->LineEdit_WorkDirectory->setText( settings.value( "WorkDirectory", homeDir ).toString() );
 }
 
@@ -144,8 +144,8 @@ void FormSettings::BtnBox_resetDefaults(){
     ui->CBox_Sort->setCurrentIndex(1);
 
     const QString homeDir(QDir::homePath()
-                          + "/." + QApplication::organizationName()
-                          + "/" + QApplication::applicationName() + "/");
+                          + QDir::separator() + "." + QApplication::organizationName()
+                          + QDir::separator() + QApplication::applicationName() + QDir::separator());
     ui->LineEdit_WorkDirectory->setText( homeDir );
 }
 
