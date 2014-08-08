@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>850</width>
-    <height>628</height>
+    <width>785</width>
+    <height>515</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -225,7 +225,7 @@
         <enum>QFrame::NoFrame</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="StartPage">
         <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -363,6 +363,9 @@
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::MinimumExpanding</enum>
+             </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>40</width>
@@ -381,7 +384,7 @@
              </property>
              <property name="minimumSize">
               <size>
-               <width>220</width>
+               <width>210</width>
                <height>100</height>
               </size>
              </property>
@@ -464,6 +467,9 @@
             <spacer name="HSpacer_2">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::MinimumExpanding</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
