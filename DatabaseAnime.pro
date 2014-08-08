@@ -44,6 +44,10 @@ OTHER_FILES += \
     README.md \
     README_eng.md \
     ToDo.md
+#[ win64 | win32 ]
+win{
+    RC_FILE += win_icon.rc
+}
 
 RESOURCES += \
     resource.qrc

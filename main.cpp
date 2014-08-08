@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
     paths.append(".");
 //    paths.append("imageformats");
     paths.append("platforms");
-//    paths.append("sqldrivers");
+    paths.append("sqldrivers");
     QCoreApplication::setLibraryPaths(paths);
 
     QApplication app(argc, argv);
