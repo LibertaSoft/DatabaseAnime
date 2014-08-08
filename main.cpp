@@ -56,6 +56,14 @@ int main(int argc, char *argv[])
     #ifndef QT_DEBUG
         qInstallMessageHandler(myMessageOutput);
     #endif
+
+    QStringList paths = QCoreApplication::libraryPaths();
+    paths.append(".");
+//    paths.append("imageformats");
+    paths.append("platforms");
+//    paths.append("sqldrivers");
+    QCoreApplication::setLibraryPaths(paths);
+
     QApplication app(argc, argv);
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");
