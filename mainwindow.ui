@@ -111,6 +111,12 @@
           </property>
           <item>
            <widget class="QToolButton" name="TButton_Add">
+            <property name="minimumSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
             <property name="toolTip">
              <string extracomment="Hint(toolTip) Button Add">Add</string>
             </property>
@@ -141,6 +147,12 @@
           </item>
           <item>
            <widget class="QToolButton" name="TButton_Edit">
+            <property name="minimumSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
             <property name="toolTip">
              <string extracomment="Hint(toolTip) Button Edit">Edit</string>
             </property>
@@ -171,6 +183,12 @@
           </item>
           <item>
            <widget class="QToolButton" name="TButton_Delete">
+            <property name="minimumSize">
+             <size>
+              <width>32</width>
+              <height>32</height>
+             </size>
+            </property>
             <property name="toolTip">
              <string extracomment="Hint(toolTip) Button Delete">Delete</string>
             </property>
