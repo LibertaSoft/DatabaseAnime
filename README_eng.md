@@ -35,5 +35,5 @@ Idea of a logo of the application: [Pavel Enotin](https://vk.com/everydayiamsuff
 - **Yandex money:**
   - 410012424335934
 - **WebMoney:**
-  - R234505724764
-  - Z314448260794
+  - R368213390629
+  - Z559048928381
