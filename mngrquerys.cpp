@@ -367,39 +367,41 @@ QStringList MngrQuerys::getDoramaTags()
 
 QString MngrQuerys::getAnimeCoversPath()
 {
-    const QString DBPath(QDir::homePath() + "/."
+    const QString DBPath(QDir::homePath() + QDir::separator() + "."
                              + QApplication::organizationName()
-                             + "/" + QApplication::applicationName() + "/");
+                             + QDir::separator() + QApplication::applicationName() + QDir::separator());
 
     QSettings settings;
-    return QString( settings.value("WorkDirectory", DBPath).toString() + "/animeCovers" + "/" );
+    return QString( settings.value("WorkDirectory", DBPath).toString()
+                    + QDir::separator()
+                    + "animeCovers" + QDir::separator() );
 }
 QString MngrQuerys::getMangaCoversPath()
 {
-    const QString DBPath(QDir::homePath() + "/."
+    const QString DBPath(QDir::homePath() + QDir::separator() + "."
                              + QApplication::organizationName()
-                             + "/" + QApplication::applicationName() + "/");
+                             + QDir::separator() + QApplication::applicationName() + QDir::separator());
 
     QSettings settings;
-    return QString( settings.value("WorkDirectory", DBPath).toString() + "/mangaCovers" + "/" );
+    return QString( settings.value("WorkDirectory", DBPath).toString() + QDir::separator() + "mangaCovers" + QDir::separator() );
 }
 QString MngrQuerys::getAmvCoversPath()
 {
-    const QString DBPath(QDir::homePath() + "/."
+    const QString DBPath(QDir::homePath() + QDir::separator() + "."
                              + QApplication::organizationName()
-                             + "/" + QApplication::applicationName() + "/");
+                             + QDir::separator() + QApplication::applicationName() + QDir::separator());
 
     QSettings settings;
-    return QString( settings.value("WorkDirectory", DBPath).toString() + "/amvCovers" + "/" );
+    return QString( settings.value("WorkDirectory", DBPath).toString() + QDir::separator() + "amvCovers" + QDir::separator() );
 }
 QString MngrQuerys::getDoramaCoversPath()
 {
-    const QString DBPath(QDir::homePath() + "/."
+    const QString DBPath(QDir::homePath() + QDir::separator() + "."
                              + QApplication::organizationName()
-                             + "/" + QApplication::applicationName() + "/");
+                             + QDir::separator() + QApplication::applicationName() + QDir::separator());
 
     QSettings settings;
-    return QString( settings.value("WorkDirectory", DBPath).toString() + "/doramaCovers" + "/" );
+    return QString( settings.value("WorkDirectory", DBPath).toString() + QDir::separator() + "doramaCovers" + QDir::separator() );
 }
 
 bool MngrQuerys::updateRecord(sections::section table, unsigned int recoord_id, QString field, QString newValue)
