@@ -57,8 +57,6 @@ int main(int argc, char *argv[])
         qInstallMessageHandler(myMessageOutput);
     #endif
 
-    qDebug() << "Program start";
-
     QStringList paths = QCoreApplication::libraryPaths();
     paths.append(".");
 //    paths.append("imageformats");

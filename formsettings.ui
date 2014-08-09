@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>751</width>
-    <height>442</height>
+    <width>726</width>
+    <height>446</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,13 +21,13 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="GBox_General">
      <property name="title">
       <string>General:</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <layout class="QHBoxLayout" name="HLay_LangSort">
         <property name="topMargin">
          <number>0</number>
         </property>
@@ -102,7 +102,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <layout class="QHBoxLayout" name="HLay_SwitchToDirOnHoverACover">
         <property name="topMargin">
          <number>0</number>
         </property>
@@ -143,7 +143,7 @@
           <enum>QTabWidget::North</enum>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_activeMenuItems">
           <attribute name="title">
@@ -354,7 +354,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="GBox_WD">
+        <widget class="QGroupBox" name="GBox_WorkDir">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -400,7 +400,7 @@
         <enum>QTabWidget::North</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_export">
         <attribute name="title">
@@ -408,7 +408,7 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <layout class="QHBoxLayout" name="HLay_Dir">
            <property name="spacing">
             <number>0</number>
            </property>
@@ -416,14 +416,14 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QLineEdit" name="lineEdit">
+            <widget class="QLineEdit" name="LineEdit_ExDir">
              <property name="placeholderText">
               <string>Choose a directory</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="toolButton">
+            <widget class="QToolButton" name="TBtn_ChooseDir">
              <property name="text">
               <string/>
              </property>
@@ -436,7 +436,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_2">
+          <widget class="QGroupBox" name="GBox_Format">
            <property name="enabled">
             <bool>true</bool>
            </property>
@@ -460,7 +460,7 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QRadioButton" name="radioButton">
+             <widget class="QRadioButton" name="RBtn_ExXml">
               <property name="text">
                <string>XML</string>
               </property>
@@ -470,7 +470,10 @@
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_2">
+             <widget class="QRadioButton" name="RBtn_ExSqlite">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string>SQLite</string>
               </property>
@@ -480,7 +483,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="groupBox_3">
+          <widget class="QGroupBox" name="GBox_Section">
            <property name="title">
             <string>Sections</string>
            </property>
@@ -495,7 +498,7 @@
              <number>0</number>
             </property>
             <item row="0" column="0">
-             <widget class="QCheckBox" name="checkBox">
+             <widget class="QCheckBox" name="CBox_ExAnime">
               <property name="text">
                <string>Anime</string>
               </property>
@@ -505,7 +508,7 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QCheckBox" name="checkBox_2">
+             <widget class="QCheckBox" name="CBox_ExManga">
               <property name="text">
                <string>Manga</string>
               </property>
@@ -515,7 +518,7 @@
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QCheckBox" name="checkBox_3">
+             <widget class="QCheckBox" name="CBox_ExAmv">
               <property name="text">
                <string>Amv</string>
               </property>
@@ -525,7 +528,7 @@
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QCheckBox" name="checkBox_4">
+             <widget class="QCheckBox" name="CBox_ExDorama">
               <property name="text">
                <string>Dorama</string>
               </property>
@@ -538,7 +541,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="PBtn_Export2xml">
+          <widget class="QPushButton" name="PBtn_Export">
            <property name="text">
             <string>Export</string>
            </property>
@@ -552,7 +555,7 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="Lbl_ImDropArea">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -574,11 +577,11 @@
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <layout class="QHBoxLayout" name="HLay_AddReplace">
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="PBtn_ImAppend">
              <property name="toolTip">
-              <UInt>0</UInt>
+              <string>Append to existing database</string>
              </property>
              <property name="text">
               <string>Append</string>
@@ -590,7 +593,10 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="PBtn_ImReplace">
+             <property name="toolTip">
+              <string>Replace existing database</string>
+             </property>
              <property name="text">
               <string>Replace</string>
              </property>
