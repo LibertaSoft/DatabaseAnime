@@ -57,18 +57,18 @@ int main(int argc, char *argv[])
         qInstallMessageHandler(myMessageOutput);
     #endif
 
-    QStringList paths = QCoreApplication::libraryPaths();
-    paths.append(".");
+//    QStringList paths = QCoreApplication::libraryPaths();
+//    paths.append(".");
 //    paths.append("imageformats");
-    paths.append("platforms");
-    paths.append("sqldrivers");
-    QCoreApplication::setLibraryPaths(paths);
+//    paths.append("platforms");
+//    paths.append("sqldrivers");
+//    QCoreApplication::setLibraryPaths(paths);
 
     QApplication app(argc, argv);
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");
     app.setApplicationName("DatabaseAnime");
-    app.setApplicationVersion("0.1.4 Pre-Alpha");
+    app.setApplicationVersion("0.1.5 Pre-Alpha");
     app.setApplicationDisplayName( QObject::tr("Database Anime") );
     app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
 
@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
     QTranslator qtTr;
     if( set_language_index == 0 ){
         /*, QLibraryInfo::location(QLibraryInfo::TranslationsPath)*/
-        qtTr.load( "qtbase_" + QLocale::system().name() );
+        qtTr.load( QApplication::applicationDirPath() + QDir::separator() + "qtbase_" + QLocale::system().name().left(2) + ".qm" );
     }else{
         qtTr.load( QApplication::applicationDirPath() + QDir::separator() + "qtbase_" + set_language + ".qm" );
     }
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 
     QTranslator dbaTr;
     if( set_language_index == 0 ){
-        dbaTr.load( "DatabaseAnime_" + QLocale::system().name() );
+        dbaTr.load( QApplication::applicationDirPath() + QDir::separator() + "DatabaseAnime_" + QLocale::system().name().left(2) + ".qm" );
     }else{
         dbaTr.load( QApplication::applicationDirPath() + QDir::separator() + "DatabaseAnime_" + set_language + ".qm" );
     }

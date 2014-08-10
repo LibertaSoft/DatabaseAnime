@@ -13,6 +13,7 @@
 
 #include <QMessageBox>
 #include <QDebug>
+#include <QFontDatabase>
 //#include <QSvgWidget>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -27,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->StackWgt_CoverOrDir->setCurrentIndex(0);
     ui->lbl_AppTitle->setText( QApplication::applicationDisplayName() );
     ui->Lbl_VVersion->setText( QApplication::applicationVersion() );
+
+//    int fAppName_id = QFontDatabase::addApplicationFont("./urw-chancery-l-medium-italic.ttf");
+//    ui->lbl_AppTitle->setFont(QFont(QFontDatabase::applicationFontFamilies(fAppName_id).first(),28));
 
 //    ui->Lbl_logo->setVisible( false );
 //    QSvgWidget *logo = new QSvgWidget("/tmp/DBA_logo.svg");

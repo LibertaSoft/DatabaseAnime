@@ -16,11 +16,11 @@ FormSettings::FormSettings(QWidget *parent) :
     ui(new Ui::FormSettings), restoreDefault(false)
 {
     ui->setupUi(this);
+    QSettings settings;
+    this->restoreGeometry( settings.value("WindowSettings/Geometry").toByteArray() );
     ui->tabWidget_General->setCurrentIndex(0);
     ui->tabWidget_ImpExp->setCurrentIndex(0);
     ui->LineEdit_ExDir->setText( QStandardPaths::writableLocation( QStandardPaths::TempLocation ) );
-
-    QSettings settings;
 
     bool b1 = settings.value( "enableSection/Anime",   true ).toBool();
     bool b2 = settings.value( "enableSection/Manga",  false ).toBool();
@@ -79,6 +79,8 @@ FormSettings::FormSettings(QWidget *parent) :
 
 FormSettings::~FormSettings()
 {
+    QSettings settings;
+    settings.setValue("WindowSettings/Geometry", this->saveGeometry() );
     delete ui;
 }
 
@@ -374,6 +376,7 @@ void FormSettings::on_PBtn_Export_clicked()
             data["ImagePath"]       = query.value("ImagePath"       ).toString();
 
             domAnime.appendChild( Export::anime(doc, data) );
+            QCoreApplication::processEvents();
         }
     }
     if( ui->CBox_ExManga->isChecked() ){
@@ -412,6 +415,7 @@ void FormSettings::on_PBtn_Export_clicked()
             data["ImagePath"]       = query.value("ImagePath"       ).toString();
 
             domManga.appendChild( Export::manga(doc, data) );
+            QCoreApplication::processEvents();
         }
     }
 
@@ -443,6 +447,7 @@ void FormSettings::on_PBtn_Export_clicked()
             data["ImagePath"]       = query.value("ImagePath"       ).toString();
 
             domAmv.appendChild( Export::amv(doc, data) );
+            QCoreApplication::processEvents();
         }
     }
 
@@ -481,6 +486,7 @@ void FormSettings::on_PBtn_Export_clicked()
             data["ImagePath"]       = query.value("ImagePath"       ).toString();
 
             domDorama.appendChild( Export::dorama(doc, data) );
+            QCoreApplication::processEvents();
         }
     }
 
@@ -497,6 +503,7 @@ void FormSettings::on_PBtn_Export_clicked()
             while( it.hasNext() ){
                 it.next();
                 QFile( it.filePath() ).copy( animeCoversExportPath + it.fileName() );
+                QCoreApplication::processEvents();
             }
         }
         if( ui->CBox_ExManga->isChecked() ){
@@ -506,6 +513,7 @@ void FormSettings::on_PBtn_Export_clicked()
             while( it.hasNext() ){
                 it.next();
                 QFile( it.filePath() ).copy( mangaCoversExportPath + it.fileName() );
+                QCoreApplication::processEvents();
             }
         }
         if( ui->CBox_ExAmv->isChecked() ){
@@ -515,6 +523,7 @@ void FormSettings::on_PBtn_Export_clicked()
             while( it.hasNext() ){
                 it.next();
                 QFile( it.filePath() ).copy( amvCoversExportPath + it.fileName() );
+                QCoreApplication::processEvents();
             }
         }
         if( ui->CBox_ExDorama->isChecked() ){
@@ -524,6 +533,7 @@ void FormSettings::on_PBtn_Export_clicked()
             while( it.hasNext() ){
                 it.next();
                 QFile( it.filePath() ).copy( doramaCoversExportPath + it.fileName() );
+                QCoreApplication::processEvents();
             }
         }
 
