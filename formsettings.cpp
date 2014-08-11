@@ -21,6 +21,7 @@ FormSettings::FormSettings(QWidget *parent) :
     ui->tabWidget_General->setCurrentIndex(0);
     ui->tabWidget_ImpExp->setCurrentIndex(0);
     ui->LineEdit_ExDir->setText( QStandardPaths::writableLocation( QStandardPaths::TempLocation ) );
+    ui->LineEdit_ImFile->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
 
     bool b1 = settings.value( "enableSection/Anime",   true ).toBool();
     bool b2 = settings.value( "enableSection/Manga",  false ).toBool();
@@ -502,6 +503,8 @@ void FormSettings::on_PBtn_Export_clicked()
             QDir().mkpath( animeCoversExportPath );
             while( it.hasNext() ){
                 it.next();
+                if( it.fileName() == "." || it.fileName() == ".." )
+                    continue;
                 QFile( it.filePath() ).copy( animeCoversExportPath + it.fileName() );
                 QCoreApplication::processEvents();
             }
@@ -512,6 +515,8 @@ void FormSettings::on_PBtn_Export_clicked()
             QDir().mkpath( mangaCoversExportPath );
             while( it.hasNext() ){
                 it.next();
+                if( it.fileName() == "." || it.fileName() == ".." )
+                    continue;
                 QFile( it.filePath() ).copy( mangaCoversExportPath + it.fileName() );
                 QCoreApplication::processEvents();
             }
@@ -522,6 +527,8 @@ void FormSettings::on_PBtn_Export_clicked()
             QDir().mkpath( amvCoversExportPath );
             while( it.hasNext() ){
                 it.next();
+                if( it.fileName() == "." || it.fileName() == ".." )
+                    continue;
                 QFile( it.filePath() ).copy( amvCoversExportPath + it.fileName() );
                 QCoreApplication::processEvents();
             }
@@ -532,6 +539,8 @@ void FormSettings::on_PBtn_Export_clicked()
             QDir().mkpath( doramaCoversExportPath );
             while( it.hasNext() ){
                 it.next();
+                if( it.fileName() == "." || it.fileName() == ".." )
+                    continue;
                 QFile( it.filePath() ).copy( doramaCoversExportPath + it.fileName() );
                 QCoreApplication::processEvents();
             }
@@ -643,17 +652,237 @@ bool readXml_AnimeItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
             }
         }
         xml.readNext();
+        QCoreApplication::processEvents();
     }
-//    qDebug() << data;
+    return true;
+}
+bool readXml_MangaItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
+    xml.readNext();
+    while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
+        if( xml.hasError() ){
+            qCritical() << xml.errorString();
+            return false;
+        }
+        if (xml.tokenType() == QXmlStreamReader::StartElement){
+            if (xml.name() == "isHaveLooked"){
+                xml.readNext();
+                data["isHaveLooked"]    = xml.text().toString();
+            }else if (xml.name() == "isEditingDone"){
+                xml.readNext();
+                data["isEditingDone"]   = xml.text().toString();
+            }else if (xml.name() == "isAdult"){
+                xml.readNext();
+                data["isAdult"]         = xml.text().toString();
+            }else if (xml.name() == "Title"){
+                xml.readNext();
+                data["Title"]           = xml.text().toString();
+            }else if (xml.name() == "AltTitle"){
+                xml.readNext();
+                data["AltTitle"]       = xml.text().toString();
+            }else if (xml.name() == "Author"){
+                xml.readNext();
+                data["Author"]        = xml.text().toString();
+            }else if (xml.name() == "Translation"){
+                xml.readNext();
+                data["Translation"]     = xml.text().toString();
+            }else if (xml.name() == "Vol"){
+                xml.readNext();
+                data["Vol"]        = xml.text().toString();
+            }else if (xml.name() == "Ch"){
+                xml.readNext();
+                data["Ch"]       = xml.text().toString();
+            }else if (xml.name() == "Pages"){
+                xml.readNext();
+                data["Pages"]       = xml.text().toString();
+            }else if (xml.name() == "vVol"){
+                xml.readNext();
+                data["vVol"]   = xml.text().toString();
+            }else if (xml.name() == "vCh"){
+                xml.readNext();
+                data["vCh"]     = xml.text().toString();
+            }else if (xml.name() == "vPages"){
+                xml.readNext();
+                data["vPages"]       = xml.text().toString();
+            }else if (xml.name() == "Score"){
+                xml.readNext();
+                data["Score"]           = xml.text().toString();
+            }else if (xml.name() == "Year"){
+                xml.readNext();
+                data["Year"]            = xml.text().toString();
+            }else if (xml.name() == "Season"){
+                xml.readNext();
+                data["Season"]          = xml.text().toString();
+            }else if (xml.name() == "Studios"){
+                xml.readNext();
+                data["Studios"]         = xml.text().toString();
+            }else if (xml.name() == "Tags"){
+                xml.readNext();
+                data["Tags"]            = xml.text().toString();
+            }else if (xml.name() == "Description"){
+                xml.readNext();
+                data["Description"]     = xml.text().toString();
+            }else if (xml.name() == "URL"){
+                xml.readNext();
+                data["URL"]             = xml.text().toString();
+            }else if (xml.name() == "Dir"){
+                xml.readNext();
+                data["Dir"]             = xml.text().toString();
+            }else if (xml.name() == "ImagePath"){
+                xml.readNext();
+                data["ImagePath"]       = xml.text().toString();
+            }
+        }
+        xml.readNext();
+        QCoreApplication::processEvents();
+    }
+    return true;
+}
+bool readXml_AmvItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
+    xml.readNext();
+    while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
+        if( xml.hasError() ){
+            qCritical() << xml.errorString();
+            return false;
+        }
+        if (xml.tokenType() == QXmlStreamReader::StartElement){
+            if (xml.name() == "isEditingDone"){
+                xml.readNext();
+                data["isEditingDone"]   = xml.text().toString();
+            }else if (xml.name() == "isAdult"){
+                xml.readNext();
+                data["isAdult"]         = xml.text().toString();
+            }else if (xml.name() == "Title"){
+                xml.readNext();
+                data["Title"]           = xml.text().toString();
+            }else if (xml.name() == "Author"){
+                xml.readNext();
+                data["Author"]          = xml.text().toString();
+            }else if (xml.name() == "Сontestant"){
+                xml.readNext();
+                data["Сontestant"]        = xml.text().toString();
+            }else if (xml.name() == "Score"){
+                xml.readNext();
+                data["Score"]           = xml.text().toString();
+            }else if (xml.name() == "Year"){
+                xml.readNext();
+                data["Year"]            = xml.text().toString();
+            }else if (xml.name() == "Tags"){
+                xml.readNext();
+                data["Tags"]            = xml.text().toString();
+            }else if (xml.name() == "ContainingMusic"){
+                xml.readNext();
+                data["ContainingMusic"]     = xml.text().toString();
+            }else if (xml.name() == "ContainingAnime"){
+                xml.readNext();
+                data["ContainingAnime"]     = xml.text().toString();
+            }else if (xml.name() == "AuthorComment"){
+                xml.readNext();
+                data["AuthorComment"]     = xml.text().toString();
+            }else if (xml.name() == "Actors"){
+                xml.readNext();
+                data["Actors"]     = xml.text().toString();
+            }else if (xml.name() == "URL"){
+                xml.readNext();
+                data["URL"]             = xml.text().toString();
+            }else if (xml.name() == "Dir"){
+                xml.readNext();
+                data["Dir"]             = xml.text().toString();
+            }else if (xml.name() == "ImagePath"){
+                xml.readNext();
+                data["ImagePath"]       = xml.text().toString();
+            }
+        }
+        xml.readNext();
+        QCoreApplication::processEvents();
+    }
+    return true;
+}
+bool readXml_DoramaItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
+    xml.readNext();
+    while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
+        if( xml.hasError() ){
+            qCritical() << xml.errorString();
+            return false;
+        }
+        if (xml.tokenType() == QXmlStreamReader::StartElement){
+            if (xml.name() == "isHaveLooked"){                xml.readNext();
+                data["isHaveLooked"]    = xml.text().toString();
+            }else if (xml.name() == "isEditingDone"){
+                xml.readNext();
+                data["isEditingDone"]   = xml.text().toString();
+            }else if (xml.name() == "isAdult"){
+                xml.readNext();
+                data["isAdult"]         = xml.text().toString();
+            }else if (xml.name() == "Title"){
+                xml.readNext();
+                data["Title"]           = xml.text().toString();
+            }else if (xml.name() == "AltTitle"){
+                xml.readNext();
+                data["AltTitle"]       = xml.text().toString();
+            }else if (xml.name() == "Director"){
+                xml.readNext();
+                data["Director"]        = xml.text().toString();
+            }else if (xml.name() == "PostScoring"){
+                xml.readNext();
+                data["PostScoring"]     = xml.text().toString();
+            }else if (xml.name() == "SeriesTV"){
+                xml.readNext();
+                data["SeriesTV"]        = xml.text().toString();
+            }else if (xml.name() == "SeriesSpecial"){
+                xml.readNext();
+                data["SeriesSpecial"]   = xml.text().toString();
+            }else if (xml.name() == "SeriesMovie"){
+                xml.readNext();
+                data["SeriesMovie"]     = xml.text().toString();
+            }else if (xml.name() == "vSeriesTV"){
+                xml.readNext();
+                data["vSeriesTV"]       = xml.text().toString();
+            }else if (xml.name() == "vSeriesSpecial"){
+                xml.readNext();
+                data["vSeriesSpecial"]  = xml.text().toString();
+            }else if (xml.name() == "vSeriesMovie"){
+                xml.readNext();
+                data["vSeriesMovie"]    = xml.text().toString();
+            }else if (xml.name() == "Score"){
+                xml.readNext();
+                data["Score"]           = xml.text().toString();
+            }else if (xml.name() == "Year"){
+                xml.readNext();
+                data["Year"]            = xml.text().toString();
+            }else if (xml.name() == "Season"){
+                xml.readNext();
+                data["Season"]          = xml.text().toString();
+            }else if (xml.name() == "Tags"){
+                xml.readNext();
+                data["Tags"]            = xml.text().toString();
+            }else if (xml.name() == "Description"){
+                xml.readNext();
+                data["Description"]     = xml.text().toString();
+            }else if (xml.name() == "Actors"){
+                xml.readNext();
+                data["Actors"]     = xml.text().toString();
+            }else if (xml.name() == "URL"){
+                xml.readNext();
+                data["URL"]             = xml.text().toString();
+            }else if (xml.name() == "Dir"){
+                xml.readNext();
+                data["Dir"]             = xml.text().toString();
+            }else if (xml.name() == "ImagePath"){
+                xml.readNext();
+                data["ImagePath"]       = xml.text().toString();
+            }
+        }
+        xml.readNext();
+        QCoreApplication::processEvents();
+    }
     return true;
 }
 
 void FormSettings::on_PBtn_ImAppend_clicked()
 {
-//    return; // #FixMe : Временная загрушка
-    if( ui->LineEdit_ExDir->text().isEmpty() ){
-        QMessageBox::warning(this, tr("Warning"), tr("The directory for export isn't choose"));
-        ui->LineEdit_ExDir->setFocus();
+    if( ui->LineEdit_ImFile->text().isEmpty() ){
+        QMessageBox::warning(this, tr("Warning"), tr("The exported file isn't selected"));
+        ui->LineEdit_ImFile->setFocus();
         return;
     }
 
@@ -677,16 +906,25 @@ void FormSettings::on_PBtn_ImAppend_clicked()
 
         if (token == QXmlStreamReader::StartElement)
         {
-            if ( ui->CBox_ImAnime->isChecked() && xml.name() == "Anime")
+            if ( xml.name() == "Anime")
                 currentReadSection = sections::anime;
-            else if ( ui->CBox_ImManga->isChecked() && xml.name() == "Manga")
+            else if ( xml.name() == "Manga")
                 currentReadSection = sections::manga;
-            else if ( ui->CBox_ImAmv->isChecked() && xml.name() == "Amv")
+            else if ( xml.name() == "Amv")
                 currentReadSection = sections::amv;
-            else if ( ui->CBox_ImDorama->isChecked() && xml.name() == "Dorama")
+            else if ( xml.name() == "Dorama")
                 currentReadSection = sections::dorama;
 
             if( xml.name() == "item" ){
+                if( currentReadSection == sections::anime && ui->CBox_ImAnime->isChecked() == false )
+                    continue;
+                if( currentReadSection == sections::manga && ui->CBox_ImManga->isChecked() == false )
+                    continue;
+                if( currentReadSection == sections::amv && ui->CBox_ImAmv->isChecked() == false )
+                    continue;
+                if( currentReadSection == sections::dorama && ui->CBox_ImDorama->isChecked() == false )
+                    continue;
+
                 QMap<QString,QString> data;
                 switch (currentReadSection) {
                 case sections::anime :
@@ -694,21 +932,106 @@ void FormSettings::on_PBtn_ImAppend_clicked()
                     MngrQuerys::insertAnime(data);
                     break;
                 case sections::manga :
+                    readXml_MangaItem(xml, data);
+                    MngrQuerys::insertManga(data);
                     break;
                 case sections::amv :
+                    readXml_AmvItem(xml, data);
+                    MngrQuerys::insertAmv(data);
                     break;
                 case sections::dorama :
+                    readXml_DoramaItem(xml, data);
+                    MngrQuerys::insertDorama(data);
                     break;
                 case sections::none :
+                    qWarning() << "Import process. None Section";
                 default:
                     break;
                 }
             }
         }
-
+        QCoreApplication::processEvents();
     }
 
-    QSqlQuery query;
+    QString importPath( QDir( ui->LineEdit_ImFile->text() ).path().left(
+                            ui->LineEdit_ImFile->text().lastIndexOf( QDir::separator() ) ) );
 
+    if( ui->CBox_ImAnime->isChecked() ){
+        QDirIterator it( importPath + QDir::separator() + "animeCovers" + QDir::separator() );
+        QDir().mkpath( MngrQuerys::getAnimeCoversPath() );
+        while( it.hasNext() ){
+            it.next();
+            if( it.fileName() == "." || it.fileName() == ".." )
+                continue;
+            QFile( it.filePath() ).copy( MngrQuerys::getAnimeCoversPath() + it.fileName() );
+            QCoreApplication::processEvents();
+        }
+    }
+    if( ui->CBox_ImManga->isChecked() ){
+        QDirIterator it( importPath + QDir::separator() + "mangaCovers" + QDir::separator() );
+        QDir().mkpath( MngrQuerys::getMangaCoversPath() );
+        while( it.hasNext() ){
+            it.next();
+            if( it.fileName() == "." || it.fileName() == ".." )
+                continue;
+            QFile( it.filePath() ).copy( MngrQuerys::getMangaCoversPath() + it.fileName() );
+            QCoreApplication::processEvents();
+        }
+    }
+    if( ui->CBox_ImAmv->isChecked() ){
+        QDirIterator it( importPath + QDir::separator() + "amvCovers" + QDir::separator() );
+        QDir().mkpath( MngrQuerys::getAmvCoversPath() );
+        while( it.hasNext() ){
+            it.next();
+            if( it.fileName() == "." || it.fileName() == ".." )
+                continue;
+            QFile( it.filePath() ).copy( MngrQuerys::getAmvCoversPath() + it.fileName() );
+            QCoreApplication::processEvents();
+        }
+    }
+    if( ui->CBox_ImDorama->isChecked() ){
+        QDirIterator it( importPath + QDir::separator() + "doramaCovers" + QDir::separator() );
+        QDir().mkpath( MngrQuerys::getDoramaCoversPath() );
+        while( it.hasNext() ){
+            it.next();
+            if( it.fileName() == "." || it.fileName() == ".." )
+                continue;
+            QFile( it.filePath() ).copy( MngrQuerys::getDoramaCoversPath() + it.fileName() );
+            QCoreApplication::processEvents();
+        }
+    }
+}
 
+void FormSettings::on_TBtn_ImFile_clicked()
+{
+    ui->LineEdit_ImFile->setText(
+                QFileDialog::getOpenFileName(this,
+                                              tr("Choose a xml file for import"),
+                                              QStandardPaths::writableLocation( QStandardPaths::HomeLocation )
+                                              ) );
+}
+
+void FormSettings::on_PBtn_ImReplace_clicked()
+{
+    QMessageBox* pmbx =
+    new QMessageBox(QMessageBox::Question,
+        tr("Warning"),
+        tr("<b>Delete</b> your database?"),
+        QMessageBox::Yes | QMessageBox::No
+    );
+    int n = pmbx->exec();
+    delete pmbx;
+    if (n == QMessageBox::Yes) {
+        QSqlQuery query;
+        query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::anime ) ) );
+        query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::manga ) ) );
+        query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::amv ) ) );
+        query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::dorama ) ) );
+
+        MngrQuerys::createTable_Anime();
+        MngrQuerys::createTable_Manga();
+        MngrQuerys::createTable_Amv();
+        MngrQuerys::createTable_Dorama();
+        on_PBtn_ImAppend_clicked();
+    }
 }

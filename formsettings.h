@@ -33,6 +33,8 @@ private slots:
     void on_PBtn_Export_clicked();
     void on_TBtn_ChooseDir_clicked();
     void on_PBtn_ImAppend_clicked();
+    void on_TBtn_ImFile_clicked();
+    void on_PBtn_ImReplace_clicked();
 };
 
 #endif // FORMSETTINGS_H

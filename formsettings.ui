@@ -417,8 +417,20 @@
            </property>
            <item>
             <widget class="QLineEdit" name="LineEdit_ExDir">
+             <property name="maxLength">
+              <number>255</number>
+             </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
+             </property>
              <property name="placeholderText">
               <string>Choose a directory</string>
+             </property>
+             <property name="cursorMoveStyle">
+              <enum>Qt::LogicalMoveStyle</enum>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -560,7 +572,20 @@
             <number>0</number>
            </property>
            <item>
-            <widget class="QLineEdit" name="LineEdit_ImFile"/>
+            <widget class="QLineEdit" name="LineEdit_ImFile">
+             <property name="maxLength">
+              <number>255</number>
+             </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
+             </property>
+             <property name="placeholderText">
+              <string>Choose xml file</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QToolButton" name="TBtn_ImFile">

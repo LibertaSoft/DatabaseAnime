@@ -45,6 +45,9 @@ public:
 
     static bool updateRecord(sections::section table, unsigned int recoord_id, QString field, QString newValue);
     static bool insertAnime(QMap<QString, QString> &data);
+    static bool insertManga(QMap<QString, QString> &data);
+    static bool insertAmv(QMap<QString, QString> &data);
+    static bool insertDorama(QMap<QString, QString> &data);
 
 };
 

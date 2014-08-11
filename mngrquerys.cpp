@@ -496,3 +496,206 @@ bool MngrQuerys::insertAnime(QMap<QString, QString> &data)
     }
     return true;
 }
+bool MngrQuerys::insertManga(QMap<QString, QString> &data)
+{
+    QSqlQuery query;
+
+    /*[OldVersion]*/
+    query.prepare( QString("INSERT INTO %1("
+                  "isHaveLooked, isEditingDone, Title,"
+                  "AltTitle, Author, Translation,"
+                  "Vol, Ch, Pages,"
+                  "vVol, vCh, vPages,"
+                  "Year,"
+                  "Tags, Description,"
+                  "URL, Dir, ImagePath"
+                  ") VALUES "
+                  "(:isHaveLooked, :isEditingDone, :Title,"
+                  ":AltTitle, :Author, :Translation,"
+                  ":Vol, :Ch, :Pages,"
+                  ":vVol, :vCh, :vPages,"
+                  ":Year,"
+                  ":Tags, :Description,"
+                  ":URL, :Dir, :ImagePath)"
+                  ).arg( MngrQuerys::getTableName( sections::manga ) ) );
+    /*[NewVersion] // #FixMe
+        query.prepare( QString("INSERT INTO %1("
+                      "isHaveLooked, isEditingDone, isAdult, Title,"
+                      "AltTitle, Author, Translation,"
+                      "Vol, Ch, Pages,"
+                      "vVol, vCh, vPages,"
+                      "Score, Year,"
+                      "Tags, Description,"
+                      "URL, Dir, ImagePath"
+                      ") VALUES "
+                      "(:isHaveLooked, :isEditingDone, :isAdult, :Title,"
+                      ":AltTitle, :Author, :Translation,"
+                      ":Vol, :Ch, :Pages,"
+                      ":vVol, :vCh, :vPages,"
+                      ":Score, :Year,"
+                      ":Tags, :Description,"
+                      ":URL, :Dir, :ImagePath)"
+                      ).arg( MngrQuerys::getTableName( sections::manga ) ) );
+    */
+
+    query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
+    query.bindValue( ":isEditingDone", data["isEditingDone"] );
+    query.bindValue( ":isAdult",       data["isAdult"] );
+    query.bindValue( ":Title",         data["Title"] );
+    query.bindValue( ":AltTitle",      data["AltTitle"] );
+    query.bindValue( ":Author",        data["Author"] );
+    query.bindValue( ":Translation",   data["Translation"] );
+    query.bindValue( ":Vol",           data["Vol"] );
+    query.bindValue( ":Ch",            data["Ch"] );
+    query.bindValue( ":Pages",         data["Pages"] );
+    query.bindValue( ":vVol",          data["vVol"] );
+    query.bindValue( ":vCh",           data["vCh"] );
+    query.bindValue( ":vPages",        data["vPages"] );
+    query.bindValue( ":Score",         data["Score"] );
+    query.bindValue( ":Year",          data["Year"] );
+    query.bindValue( ":Season",        data["Season"] );
+    query.bindValue( ":Studios",       data["Studios"] );
+    query.bindValue( ":Tags",          data["Tags"] );
+    query.bindValue( ":Description",   data["Description"] );
+    query.bindValue( ":URL",           data["URL"] );
+    query.bindValue( ":Dir",           data["Dir"] );
+    query.bindValue( ":ImagePath",     data["ImagePath"] );
+    if( !query.exec() ){
+        qCritical() << QString("Cannot insert data in table %1").arg(
+                        MngrQuerys::getTableName( sections::manga ) )
+                    << "\nSqlError: "
+                    << query.lastError();
+        return false;
+    }
+    return true;
+}
+bool MngrQuerys::insertAmv(QMap<QString, QString> &data)
+{
+    QSqlQuery query;
+
+    /*[OldVersion]*/
+    query.prepare( QString("INSERT INTO %1("
+                  "isEditingDone, Title,"
+                  "Author, Сontestant,"
+                  "Year, Tags,"
+                  "ContainingMusic, ContainingAnime, AuthorComment,"
+                  "URL, Dir, ImagePath"
+                  ") VALUES ("
+                  ":isEditingDone, :Title,"
+                  ":Author, :Concursant,"
+                  ":Year, :Tags,"
+                  ":ContainingMusic, :ContainingAnime, :AuthorComment,"
+                  ":URL, :Dir, :ImagePath)"
+                  ).arg( MngrQuerys::getTableName( sections::amv ) ) );
+    /*[NewVersion] // #FixMe
+        query.prepare( QString("INSERT INTO %1("
+                      "isEditingDone, isAdult, Title,"
+                      "Author, Сontestant,"
+                      "Score, Year, Tags,"
+                      "ContainingMusic, ContainingAnime, AuthorComment,"
+                      "URL, Dir, ImagePath"
+                      ") VALUES ("
+                      ":isEditingDone, :isAdult, :Title,"
+                      ":Author, :Concursant,"
+                      ":Score, :Year, :Tags,"
+                      ":ContainingMusic, :ContainingAnime, :AuthorComment,"
+                      ":URL, :Dir, :ImagePath)"
+                      ).arg( MngrQuerys::getTableName( sections::amv ) ) );
+    */
+
+    query.bindValue( ":isEditingDone",   data["isEditingDone"] );
+    query.bindValue( ":isAdult",         data["isAdult"] );
+    query.bindValue( ":Title",           data["Title"] );
+    query.bindValue( ":Author",          data["Author"] );
+    query.bindValue( ":Concursant",      data["Сontestant"] );
+    query.bindValue( ":Score",           data["Score"] );
+    query.bindValue( ":Year",            data["Year"] );
+    query.bindValue( ":Tags",            data["Tags"] );
+    query.bindValue( ":ContainingMusic", data["ContainingMusic"] );
+    query.bindValue( ":ContainingAnime", data["ContainingAnime"] );
+    query.bindValue( ":AuthorComment",   data["AuthorComment"] );
+    query.bindValue( ":URL",             data["URL"] );
+    query.bindValue( ":Dir",             data["Dir"] );
+    query.bindValue( ":ImagePath",       data["ImagePath"] );
+    if( !query.exec() ){
+        qCritical() << QString("Cannot insert data in table %1").arg(
+                        MngrQuerys::getTableName( sections::amv ) )
+                    << "\nSqlError: "
+                    << query.lastError();
+        return false;
+    }
+    return true;
+}
+bool MngrQuerys::insertDorama(QMap<QString, QString> &data)
+{
+    QSqlQuery query;
+
+    /*[OldVersion]*/
+    query.prepare( QString("INSERT INTO %1("
+                  "isHaveLooked, isEditingDone, Title,"
+                  "AltTitle, Director,"
+                  "SeriesTV, SeriesSpecial, SeriesMovie,"
+                  "vSeriesTV, vSeriesSpecial, vSeriesMovie,"
+                  "Year, Season,"
+                  "Tags, Description, Actors,"
+                  "URL, Dir, ImagePath"
+                  ") VALUES "
+                  "(:isHaveLooked, :isEditingDone, :Title,"
+                  ":AltTitle, :Director,"
+                  ":SeriesTV, :SeriesSpecial, :SeriesMovie,"
+                  ":vSeriesTV, :vSeriesSpecial, :vSeriesMovie,"
+                  ":Year, :Season,"
+                  ":Tags, :Description, :Actors,"
+                  ":URL, :Dir, :ImagePath)"
+                  ).arg( MngrQuerys::getTableName( sections::dorama ) ) );
+    /*[NewVersion] // #FixMe
+        query.prepare( QString("INSERT INTO %1("
+                      "isHaveLooked, isEditingDone, isAdult, Title,"
+                      "AltTitle, Director,"
+                      "SeriesTV, SeriesSpecial, SeriesMovie,"
+                      "vSeriesTV, vSeriesSpecial, vSeriesMovie,"
+                      "Score, Year, Season,"
+                      "Tags, Description, Actors,"
+                      "URL, Dir, ImagePath"
+                      ") VALUES "
+                      "(:isHaveLooked, :isEditingDone, :isAdult, :Title,"
+                      ":AltTitle, :Director,"
+                      ":SeriesTV, :SeriesSpecial, :SeriesMovie,"
+                      ":vSeriesTV, :vSeriesSpecial, :vSeriesMovie,"
+                      ":Score, :Year, :Season,"
+                      ":Tags, :Description, :Actors,"
+                      ":URL, :Dir, :ImagePath)"
+                      ).arg( MngrQuerys::getTableName( sections::dorama ) ) );
+    */
+
+    query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
+    query.bindValue( ":isEditingDone", data["isEditingDone"] );
+    query.bindValue( ":isAdult",       data["isAdult"] );
+    query.bindValue( ":Title",         data["Title"] );
+    query.bindValue( ":AltTitle",      data["AltTitle"] );
+    query.bindValue( ":Director",      data["Director"] );
+    query.bindValue( ":PostScoring",   data["PostScoring"] );
+    query.bindValue( ":SeriesTV",      data["SeriesTV"] );
+    query.bindValue( ":SeriesSpecial", data["SeriesSpecial"] );
+    query.bindValue( ":SeriesMovie",   data["SeriesMovie"] );
+    query.bindValue( ":vSeriesTV",     data["vSeriesTV"] );
+    query.bindValue( ":vSeriesSpecial",data["vSeriesSpecial"] );
+    query.bindValue( ":vSeriesMovie",  data["vSeriesMovie"] );
+    query.bindValue( ":Score",         data["Score"] );
+    query.bindValue( ":Year",          data["Year"] );
+    query.bindValue( ":Season",        data["Season"] );
+    query.bindValue( ":Tags",          data["Tags"] );
+    query.bindValue( ":Description",   data["Description"] );
+    query.bindValue( ":Actors",        data["Actors"] );
+    query.bindValue( ":URL",           data["URL"] );
+    query.bindValue( ":Dir",           data["Dir"] );
+    query.bindValue( ":ImagePath",     data["ImagePath"] );
+    if( !query.exec() ){
+        qCritical() << QString("Cannot insert data in table %1").arg(
+                        MngrQuerys::getTableName( sections::dorama ) )
+                    << "\nSqlError: "
+                    << query.lastError();
+        return false;
+    }
+    return true;
+}
