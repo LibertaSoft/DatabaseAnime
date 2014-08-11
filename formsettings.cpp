@@ -196,130 +196,130 @@ QDomElement makeElement(      QDomDocument& domDoc,
 }
 
 namespace Export{
-QDomElement anime(  QDomDocument& domDoc,
-                    const QMap<QString, QString> &data
-                    )
-{
-    QDomElement domElement = makeElement(domDoc,
-                                         "item"
-                                         );
-    domElement.appendChild(makeElement(domDoc, "isHaveLooked",  "", data["isHaveLooked"]));
-    domElement.appendChild(makeElement(domDoc, "isEditingDone", "", data["isEditingDone"]));
-    domElement.appendChild(makeElement(domDoc, "isAdult",       "", data["isAdult"]));
-    domElement.appendChild(makeElement(domDoc, "Title",         "", data["Title"]));
-    domElement.appendChild(makeElement(domDoc, "OrigTitle",     "", data["OrigTitle"]));
-    domElement.appendChild(makeElement(domDoc, "Director",      "", data["Director"]));
-    domElement.appendChild(makeElement(domDoc, "PostScoring",   "", data["PostScoring"]));
-    domElement.appendChild(makeElement(domDoc, "SeriesTV",      "", data["SeriesTV"]));
-    domElement.appendChild(makeElement(domDoc, "SeriesOVA",     "", data["SeriesOVA"]));
-    domElement.appendChild(makeElement(domDoc, "SeriesONA",     "", data["SeriesONA"]));
-    domElement.appendChild(makeElement(domDoc, "SeriesSpecial", "", data["SeriesSpecial"]));
-    domElement.appendChild(makeElement(domDoc, "SeriesMovie",   "", data["SeriesMovie"]));
-    domElement.appendChild(makeElement(domDoc, "vSeriesTV",     "", data["vSeriesTV"]));
-    domElement.appendChild(makeElement(domDoc, "vSeriesOVA",    "", data["vSeriesOVA"]));
-    domElement.appendChild(makeElement(domDoc, "vSeriesONA",    "", data["vSeriesONA"]));
-    domElement.appendChild(makeElement(domDoc, "vSeriesSpecial","", data["vSeriesSpecial"]));
-    domElement.appendChild(makeElement(domDoc, "vSeriesMovie",  "", data["vSeriesMovie"]));
-    domElement.appendChild(makeElement(domDoc, "Score",         "", data["Score"]));
-    domElement.appendChild(makeElement(domDoc, "Year",          "", data["Year"]));
-    domElement.appendChild(makeElement(domDoc, "Season",        "", data["Season"]));
-    domElement.appendChild(makeElement(domDoc, "Studios",       "", data["Studios"]));
-    domElement.appendChild(makeElement(domDoc, "Tags",          "", data["Tags"]));
-    domElement.appendChild(makeElement(domDoc, "Description",   "", data["Description"]));
-    domElement.appendChild(makeElement(domDoc, "URL",           "", data["URL"]));
-    domElement.appendChild(makeElement(domDoc, "Dir",           "", data["Dir"]));
-    domElement.appendChild(makeElement(domDoc, "ImagePath",     "", data["ImagePath"]));
+    QDomElement anime(  QDomDocument& domDoc,
+                        const QMap<QString, QString> &data
+                        )
+    {
+        QDomElement domElement = makeElement(domDoc,
+                                             "item"
+                                             );
+        domElement.appendChild(makeElement(domDoc, "isHaveLooked",  "", data["isHaveLooked"]));
+        domElement.appendChild(makeElement(domDoc, "isEditingDone", "", data["isEditingDone"]));
+        domElement.appendChild(makeElement(domDoc, "isAdult",       "", data["isAdult"]));
+        domElement.appendChild(makeElement(domDoc, "Title",         "", data["Title"]));
+        domElement.appendChild(makeElement(domDoc, "OrigTitle",     "", data["OrigTitle"]));
+        domElement.appendChild(makeElement(domDoc, "Director",      "", data["Director"]));
+        domElement.appendChild(makeElement(domDoc, "PostScoring",   "", data["PostScoring"]));
+        domElement.appendChild(makeElement(domDoc, "SeriesTV",      "", data["SeriesTV"]));
+        domElement.appendChild(makeElement(domDoc, "SeriesOVA",     "", data["SeriesOVA"]));
+        domElement.appendChild(makeElement(domDoc, "SeriesONA",     "", data["SeriesONA"]));
+        domElement.appendChild(makeElement(domDoc, "SeriesSpecial", "", data["SeriesSpecial"]));
+        domElement.appendChild(makeElement(domDoc, "SeriesMovie",   "", data["SeriesMovie"]));
+        domElement.appendChild(makeElement(domDoc, "vSeriesTV",     "", data["vSeriesTV"]));
+        domElement.appendChild(makeElement(domDoc, "vSeriesOVA",    "", data["vSeriesOVA"]));
+        domElement.appendChild(makeElement(domDoc, "vSeriesONA",    "", data["vSeriesONA"]));
+        domElement.appendChild(makeElement(domDoc, "vSeriesSpecial","", data["vSeriesSpecial"]));
+        domElement.appendChild(makeElement(domDoc, "vSeriesMovie",  "", data["vSeriesMovie"]));
+        domElement.appendChild(makeElement(domDoc, "Score",         "", data["Score"]));
+        domElement.appendChild(makeElement(domDoc, "Year",          "", data["Year"]));
+        domElement.appendChild(makeElement(domDoc, "Season",        "", data["Season"]));
+        domElement.appendChild(makeElement(domDoc, "Studios",       "", data["Studios"]));
+        domElement.appendChild(makeElement(domDoc, "Tags",          "", data["Tags"]));
+        domElement.appendChild(makeElement(domDoc, "Description",   "", data["Description"]));
+        domElement.appendChild(makeElement(domDoc, "URL",           "", data["URL"]));
+        domElement.appendChild(makeElement(domDoc, "Dir",           "", data["Dir"]));
+        domElement.appendChild(makeElement(domDoc, "ImagePath",     "", data["ImagePath"]));
 
-    return domElement;
-}
-QDomElement manga(  QDomDocument& domDoc,
-                    const QMap<QString, QString> &data
-                    )
-{
-    QDomElement domElement = makeElement(domDoc,
-                                         "item"
-                                         );
-    domElement.appendChild(makeElement(domDoc, "isHaveLooked",  "", data["isHaveLooked"]));
-    domElement.appendChild(makeElement(domDoc, "isEditingDone", "", data["isEditingDone"]));
-    domElement.appendChild(makeElement(domDoc, "isAdult",       "", data["isAdult"]));
-    domElement.appendChild(makeElement(domDoc, "Title",         "", data["Title"]));
-    domElement.appendChild(makeElement(domDoc, "AltTitle",      "", data["AltTitle"]));
-    domElement.appendChild(makeElement(domDoc, "Author",        "", data["Author"]));
-    domElement.appendChild(makeElement(domDoc, "Translation",   "", data["Translation"]));
-    domElement.appendChild(makeElement(domDoc, "Vol",           "", data["Vol"]));
-    domElement.appendChild(makeElement(domDoc, "Ch",            "", data["Ch"]));
-    domElement.appendChild(makeElement(domDoc, "Pages",         "", data["Pages"]));
-    domElement.appendChild(makeElement(domDoc, "vVol",          "", data["vVol"]));
-    domElement.appendChild(makeElement(domDoc, "vCh",           "", data["vCh"]));
-    domElement.appendChild(makeElement(domDoc, "vPages",        "", data["vPages"]));
-    domElement.appendChild(makeElement(domDoc, "Score",         "", data["Score"]));
-    domElement.appendChild(makeElement(domDoc, "Year",          "", data["Year"]));
-    domElement.appendChild(makeElement(domDoc, "Season",        "", data["Season"]));
-    domElement.appendChild(makeElement(domDoc, "Studios",       "", data["Studios"]));
-    domElement.appendChild(makeElement(domDoc, "Tags",          "", data["Tags"]));
-    domElement.appendChild(makeElement(domDoc, "Description",   "", data["Description"]));
-    domElement.appendChild(makeElement(domDoc, "URL",           "", data["URL"]));
-    domElement.appendChild(makeElement(domDoc, "Dir",           "", data["Dir"]));
-    domElement.appendChild(makeElement(domDoc, "ImagePath",     "", data["ImagePath"]));
+        return domElement;
+    }
+    QDomElement manga(  QDomDocument& domDoc,
+                        const QMap<QString, QString> &data
+                        )
+    {
+        QDomElement domElement = makeElement(domDoc,
+                                             "item"
+                                             );
+        domElement.appendChild(makeElement(domDoc, "isHaveLooked",  "", data["isHaveLooked"]));
+        domElement.appendChild(makeElement(domDoc, "isEditingDone", "", data["isEditingDone"]));
+        domElement.appendChild(makeElement(domDoc, "isAdult",       "", data["isAdult"]));
+        domElement.appendChild(makeElement(domDoc, "Title",         "", data["Title"]));
+        domElement.appendChild(makeElement(domDoc, "AltTitle",      "", data["AltTitle"]));
+        domElement.appendChild(makeElement(domDoc, "Author",        "", data["Author"]));
+        domElement.appendChild(makeElement(domDoc, "Translation",   "", data["Translation"]));
+        domElement.appendChild(makeElement(domDoc, "Vol",           "", data["Vol"]));
+        domElement.appendChild(makeElement(domDoc, "Ch",            "", data["Ch"]));
+        domElement.appendChild(makeElement(domDoc, "Pages",         "", data["Pages"]));
+        domElement.appendChild(makeElement(domDoc, "vVol",          "", data["vVol"]));
+        domElement.appendChild(makeElement(domDoc, "vCh",           "", data["vCh"]));
+        domElement.appendChild(makeElement(domDoc, "vPages",        "", data["vPages"]));
+        domElement.appendChild(makeElement(domDoc, "Score",         "", data["Score"]));
+        domElement.appendChild(makeElement(domDoc, "Year",          "", data["Year"]));
+        domElement.appendChild(makeElement(domDoc, "Season",        "", data["Season"]));
+        domElement.appendChild(makeElement(domDoc, "Studios",       "", data["Studios"]));
+        domElement.appendChild(makeElement(domDoc, "Tags",          "", data["Tags"]));
+        domElement.appendChild(makeElement(domDoc, "Description",   "", data["Description"]));
+        domElement.appendChild(makeElement(domDoc, "URL",           "", data["URL"]));
+        domElement.appendChild(makeElement(domDoc, "Dir",           "", data["Dir"]));
+        domElement.appendChild(makeElement(domDoc, "ImagePath",     "", data["ImagePath"]));
 
-    return domElement;
-}
-QDomElement amv(  QDomDocument& domDoc,
-                    const QMap<QString, QString> &data
-                    )
-{
-    QDomElement domElement = makeElement(domDoc,
-                                         "item"
-                                         );
-    domElement.appendChild(makeElement(domDoc, "isEditingDone",   "", data["isEditingDone"]));
-    domElement.appendChild(makeElement(domDoc, "isAdult",         "", data["isAdult"]));
-    domElement.appendChild(makeElement(domDoc, "Title",           "", data["Title"]));
-    domElement.appendChild(makeElement(domDoc, "Author",          "", data["Author"]));
-    domElement.appendChild(makeElement(domDoc, "Сontestant",      "", data["Сontestant"]));
-    domElement.appendChild(makeElement(domDoc, "Score",           "", data["Score"]));
-    domElement.appendChild(makeElement(domDoc, "Year",            "", data["Year"]));
-    domElement.appendChild(makeElement(domDoc, "Tags",            "", data["Tags"]));
-    domElement.appendChild(makeElement(domDoc, "ContainingMusic", "", data["ContainingMusic"]));
-    domElement.appendChild(makeElement(domDoc, "ContainingAnime", "", data["ContainingAnime"]));
-    domElement.appendChild(makeElement(domDoc, "AuthorComment",   "", data["AuthorComment"]));
-    domElement.appendChild(makeElement(domDoc, "URL",             "", data["URL"]));
-    domElement.appendChild(makeElement(domDoc, "Dir",             "", data["Dir"]));
-    domElement.appendChild(makeElement(domDoc, "ImagePath",       "", data["ImagePath"]));
+        return domElement;
+    }
+    QDomElement amv(  QDomDocument& domDoc,
+                        const QMap<QString, QString> &data
+                        )
+    {
+        QDomElement domElement = makeElement(domDoc,
+                                             "item"
+                                             );
+        domElement.appendChild(makeElement(domDoc, "isEditingDone",   "", data["isEditingDone"]));
+        domElement.appendChild(makeElement(domDoc, "isAdult",         "", data["isAdult"]));
+        domElement.appendChild(makeElement(domDoc, "Title",           "", data["Title"]));
+        domElement.appendChild(makeElement(domDoc, "Author",          "", data["Author"]));
+        domElement.appendChild(makeElement(domDoc, "Сontestant",      "", data["Сontestant"]));
+        domElement.appendChild(makeElement(domDoc, "Score",           "", data["Score"]));
+        domElement.appendChild(makeElement(domDoc, "Year",            "", data["Year"]));
+        domElement.appendChild(makeElement(domDoc, "Tags",            "", data["Tags"]));
+        domElement.appendChild(makeElement(domDoc, "ContainingMusic", "", data["ContainingMusic"]));
+        domElement.appendChild(makeElement(domDoc, "ContainingAnime", "", data["ContainingAnime"]));
+        domElement.appendChild(makeElement(domDoc, "AuthorComment",   "", data["AuthorComment"]));
+        domElement.appendChild(makeElement(domDoc, "URL",             "", data["URL"]));
+        domElement.appendChild(makeElement(domDoc, "Dir",             "", data["Dir"]));
+        domElement.appendChild(makeElement(domDoc, "ImagePath",       "", data["ImagePath"]));
 
-    return domElement;
-}
+        return domElement;
+    }
 
-QDomElement dorama(  QDomDocument& domDoc,
-                    const QMap<QString, QString> &data
-                    )
-{
-    QDomElement domElement = makeElement(domDoc,
-                                         "item"
-                                         );
-    domElement.appendChild(makeElement(domDoc, "isHaveLooked",  "", data["isHaveLooked"]));
-    domElement.appendChild(makeElement(domDoc, "isEditingDone", "", data["isEditingDone"]));
-    domElement.appendChild(makeElement(domDoc, "isAdult",       "", data["isAdult"]));
-    domElement.appendChild(makeElement(domDoc, "Title",         "", data["Title"]));
-    domElement.appendChild(makeElement(domDoc, "AltTitle",      "", data["AltTitle"]));
-    domElement.appendChild(makeElement(domDoc, "Director",      "", data["Director"]));
-    domElement.appendChild(makeElement(domDoc, "SeriesTV",      "", data["SeriesTV"]));
-    domElement.appendChild(makeElement(domDoc, "SeriesSpecial", "", data["SeriesSpecial"]));
-    domElement.appendChild(makeElement(domDoc, "SeriesMovie",   "", data["SeriesMovie"]));
-    domElement.appendChild(makeElement(domDoc, "vSeriesTV",     "", data["vSeriesTV"]));
-    domElement.appendChild(makeElement(domDoc, "vSeriesSpecial","", data["vSeriesSpecial"]));
-    domElement.appendChild(makeElement(domDoc, "vSeriesMovie",  "", data["vSeriesMovie"]));
-    domElement.appendChild(makeElement(domDoc, "Score",         "", data["Score"]));
-    domElement.appendChild(makeElement(domDoc, "Year",          "", data["Year"]));
-    domElement.appendChild(makeElement(domDoc, "Season",        "", data["Season"]));
-    domElement.appendChild(makeElement(domDoc, "Tags",          "", data["Tags"]));
-    domElement.appendChild(makeElement(domDoc, "Description",   "", data["Description"]));
-    domElement.appendChild(makeElement(domDoc, "Actors",        "", data["Actors"]));
-    domElement.appendChild(makeElement(domDoc, "URL",           "", data["URL"]));
-    domElement.appendChild(makeElement(domDoc, "Dir",           "", data["Dir"]));
-    domElement.appendChild(makeElement(domDoc, "ImagePath",     "", data["ImagePath"]));
+    QDomElement dorama(  QDomDocument& domDoc,
+                        const QMap<QString, QString> &data
+                        )
+    {
+        QDomElement domElement = makeElement(domDoc,
+                                             "item"
+                                             );
+        domElement.appendChild(makeElement(domDoc, "isHaveLooked",  "", data["isHaveLooked"]));
+        domElement.appendChild(makeElement(domDoc, "isEditingDone", "", data["isEditingDone"]));
+        domElement.appendChild(makeElement(domDoc, "isAdult",       "", data["isAdult"]));
+        domElement.appendChild(makeElement(domDoc, "Title",         "", data["Title"]));
+        domElement.appendChild(makeElement(domDoc, "AltTitle",      "", data["AltTitle"]));
+        domElement.appendChild(makeElement(domDoc, "Director",      "", data["Director"]));
+        domElement.appendChild(makeElement(domDoc, "SeriesTV",      "", data["SeriesTV"]));
+        domElement.appendChild(makeElement(domDoc, "SeriesSpecial", "", data["SeriesSpecial"]));
+        domElement.appendChild(makeElement(domDoc, "SeriesMovie",   "", data["SeriesMovie"]));
+        domElement.appendChild(makeElement(domDoc, "vSeriesTV",     "", data["vSeriesTV"]));
+        domElement.appendChild(makeElement(domDoc, "vSeriesSpecial","", data["vSeriesSpecial"]));
+        domElement.appendChild(makeElement(domDoc, "vSeriesMovie",  "", data["vSeriesMovie"]));
+        domElement.appendChild(makeElement(domDoc, "Score",         "", data["Score"]));
+        domElement.appendChild(makeElement(domDoc, "Year",          "", data["Year"]));
+        domElement.appendChild(makeElement(domDoc, "Season",        "", data["Season"]));
+        domElement.appendChild(makeElement(domDoc, "Tags",          "", data["Tags"]));
+        domElement.appendChild(makeElement(domDoc, "Description",   "", data["Description"]));
+        domElement.appendChild(makeElement(domDoc, "Actors",        "", data["Actors"]));
+        domElement.appendChild(makeElement(domDoc, "URL",           "", data["URL"]));
+        domElement.appendChild(makeElement(domDoc, "Dir",           "", data["Dir"]));
+        domElement.appendChild(makeElement(domDoc, "ImagePath",     "", data["ImagePath"]));
 
-    return domElement;
-}
+        return domElement;
+    }
 }
 
 void FormSettings::on_PBtn_Export_clicked()
@@ -551,4 +551,164 @@ void FormSettings::on_TBtn_ChooseDir_clicked()
                                                   tr("Choose a directory for export file"),
                                                   QStandardPaths::writableLocation( QStandardPaths::HomeLocation )
                                                   ) );
+}
+
+bool readXml_AnimeItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
+    xml.readNext();
+//    QMap<QString,QString> data;
+    while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
+        if( xml.hasError() ){
+            qCritical() << xml.errorString();
+            return false;
+        }
+        if (xml.tokenType() == QXmlStreamReader::StartElement){
+            if (xml.name() == "isHaveLooked"){
+                xml.readNext();
+                data["isHaveLooked"]    = xml.text().toString();
+            }else if (xml.name() == "isEditingDone"){
+                xml.readNext();
+                data["isEditingDone"]   = xml.text().toString();
+            }else if (xml.name() == "isAdult"){
+                xml.readNext();
+                data["isAdult"]         = xml.text().toString();
+            }else if (xml.name() == "Title"){
+                xml.readNext();
+                data["Title"]           = xml.text().toString();
+            }else if (xml.name() == "OrigTitle"){
+                xml.readNext();
+                data["OrigTitle"]       = xml.text().toString();
+            }else if (xml.name() == "Director"){
+                xml.readNext();
+                data["Director"]        = xml.text().toString();
+            }else if (xml.name() == "PostScoring"){
+                xml.readNext();
+                data["PostScoring"]     = xml.text().toString();
+            }else if (xml.name() == "SeriesTV"){
+                xml.readNext();
+                data["SeriesTV"]        = xml.text().toString();
+            }else if (xml.name() == "SeriesOVA"){
+                xml.readNext();
+                data["SeriesOVA"]       = xml.text().toString();
+            }else if (xml.name() == "SeriesONA"){
+                xml.readNext();
+                data["SeriesONA"]       = xml.text().toString();
+            }else if (xml.name() == "SeriesSpecial"){
+                xml.readNext();
+                data["SeriesSpecial"]   = xml.text().toString();
+            }else if (xml.name() == "SeriesMovie"){
+                xml.readNext();
+                data["SeriesMovie"]     = xml.text().toString();
+            }else if (xml.name() == "vSeriesTV"){
+                xml.readNext();
+                data["vSeriesTV"]       = xml.text().toString();
+            }else if (xml.name() == "vSeriesOVA"){
+                xml.readNext();
+                data["vSeriesOVA"]      = xml.text().toString();
+            }else if (xml.name() == "vSeriesONA"){
+                xml.readNext();
+                data["vSeriesONA"]      = xml.text().toString();
+            }else if (xml.name() == "vSeriesSpecial"){
+                xml.readNext();
+                data["vSeriesSpecial"]  = xml.text().toString();
+            }else if (xml.name() == "vSeriesMovie"){
+                xml.readNext();
+                data["vSeriesMovie"]    = xml.text().toString();
+            }else if (xml.name() == "Score"){
+                xml.readNext();
+                data["Score"]           = xml.text().toString();
+            }else if (xml.name() == "Year"){
+                xml.readNext();
+                data["Year"]            = xml.text().toString();
+            }else if (xml.name() == "Season"){
+                xml.readNext();
+                data["Season"]          = xml.text().toString();
+            }else if (xml.name() == "Studios"){
+                xml.readNext();
+                data["Studios"]         = xml.text().toString();
+            }else if (xml.name() == "Tags"){
+                xml.readNext();
+                data["Tags"]            = xml.text().toString();
+            }else if (xml.name() == "Description"){
+                xml.readNext();
+                data["Description"]     = xml.text().toString();
+            }else if (xml.name() == "URL"){
+                xml.readNext();
+                data["URL"]             = xml.text().toString();
+            }else if (xml.name() == "Dir"){
+                xml.readNext();
+                data["Dir"]             = xml.text().toString();
+            }else if (xml.name() == "ImagePath"){
+                xml.readNext();
+                data["ImagePath"]       = xml.text().toString();
+            }
+        }
+        xml.readNext();
+    }
+//    qDebug() << data;
+    return true;
+}
+
+void FormSettings::on_PBtn_ImAppend_clicked()
+{
+//    return; // #FixMe : Временная загрушка
+    if( ui->LineEdit_ExDir->text().isEmpty() ){
+        QMessageBox::warning(this, tr("Warning"), tr("The directory for export isn't choose"));
+        ui->LineEdit_ExDir->setFocus();
+        return;
+    }
+
+    QXmlStreamReader xml;
+    QFile file( QDir(ui->LineEdit_ImFile->text()).path() );
+    if( file.open(QIODevice::ReadOnly) ){
+//        xml.setDevice(&file);
+        xml.addData( file.readAll() );
+        file.close();
+    }else{
+        qCritical() << file.errorString()
+                    << "\nFileName: " << file.fileName();
+        QMessageBox::critical(this, tr("Critical"), tr("File is not open"));
+        return;
+    }
+
+    sections::section currentReadSection = sections::none;
+    while (!xml.atEnd() && !xml.hasError())
+    {
+        QXmlStreamReader::TokenType token = xml.readNext();
+
+        if (token == QXmlStreamReader::StartElement)
+        {
+            if ( ui->CBox_ImAnime->isChecked() && xml.name() == "Anime")
+                currentReadSection = sections::anime;
+            else if ( ui->CBox_ImManga->isChecked() && xml.name() == "Manga")
+                currentReadSection = sections::manga;
+            else if ( ui->CBox_ImAmv->isChecked() && xml.name() == "Amv")
+                currentReadSection = sections::amv;
+            else if ( ui->CBox_ImDorama->isChecked() && xml.name() == "Dorama")
+                currentReadSection = sections::dorama;
+
+            if( xml.name() == "item" ){
+                QMap<QString,QString> data;
+                switch (currentReadSection) {
+                case sections::anime :
+                    readXml_AnimeItem(xml, data);
+                    MngrQuerys::insertAnime(data);
+                    break;
+                case sections::manga :
+                    break;
+                case sections::amv :
+                    break;
+                case sections::dorama :
+                    break;
+                case sections::none :
+                default:
+                    break;
+                }
+            }
+        }
+
+    }
+
+    QSqlQuery query;
+
+
 }

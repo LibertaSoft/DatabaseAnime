@@ -400,7 +400,7 @@
         <enum>QTabWidget::North</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_export">
         <attribute name="title">
@@ -483,7 +483,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QGroupBox" name="GBox_Section">
+          <widget class="QGroupBox" name="GBox_ExSection">
            <property name="title">
             <string>Sections</string>
            </property>
@@ -555,25 +555,91 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QLabel" name="Lbl_ImDropArea">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QLineEdit" name="LineEdit_ImFile"/>
+           </item>
+           <item>
+            <widget class="QToolButton" name="TBtn_ImFile">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="icon">
+              <iconset resource="resource.qrc">
+               <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="GBox_ImSections">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
-           <property name="frameShape">
-            <enum>QFrame::Box</enum>
+           <property name="title">
+            <string>Sections</string>
            </property>
-           <property name="frameShadow">
-            <enum>QFrame::Sunken</enum>
-           </property>
-           <property name="text">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Drop here or duble click&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="wordWrap">
-            <bool>true</bool>
-           </property>
+           <layout class="QGridLayout" name="gridLayout_5">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="CBox_ImAnime">
+              <property name="text">
+               <string>Anime</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QCheckBox" name="CBox_ImManga">
+              <property name="text">
+               <string>Manga</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="CBox_ImAmv">
+              <property name="text">
+               <string>Amv</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="CBox_ImDorama">
+              <property name="text">
+               <string>Dorama</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </item>
          <item>

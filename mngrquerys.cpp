@@ -418,3 +418,81 @@ bool MngrQuerys::updateRecord(sections::section table, unsigned int recoord_id, 
     }
     return true;
 }
+
+bool MngrQuerys::insertAnime(QMap<QString, QString> &data)
+{
+    QSqlQuery query;
+
+    /*[OldVersion]*/
+    query.prepare( QString("INSERT INTO %1("
+                  "isHaveLooked, isEditingDone, Title,"
+                  "OrigTitle, Director, PostScoring,"
+                  "SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesMovie,"
+                  "vSeriesTV, vSeriesOVA, vSeriesONA, vSeriesSpecial, vSeriesMovie,"
+                  "Year, Season, Studios,"
+                  "Tags, Description,"
+                  "URL, Dir, ImagePath"
+                  ") VALUES "
+                  "(:isHaveLooked, :isEditingDone, :Title,"
+                  ":OrigTitle, :Director, :PostScoring,"
+                  ":SeriesTV, :SeriesOVA, :SeriesONA, :SeriesSpecial, :SeriesMovie,"
+                  ":vSeriesTV, :vSeriesOVA, :vSeriesONA, :vSeriesSpecial, :vSeriesMovie,"
+                  ":Year, :Season, :Studios,"
+                  ":Tags, :Description,"
+                  ":URL, :Dir, :ImagePath)"
+                  ).arg( MngrQuerys::getTableName( sections::anime ) ) );
+    /*[NewVersion] // #FixMe
+    query.prepare( QString("INSERT INTO %1("
+                  "isHaveLooked, isEditingDone, isAdult, Title,"
+                  "OrigTitle, Director, PostScoring,"
+                  "SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesMovie,"
+                  "vSeriesTV, vSeriesOVA, vSeriesONA, vSeriesSpecial, vSeriesMovie,"
+                  "Score, Year, Season, Studios,"
+                  "Tags, Description,"
+                  "URL, Dir, ImagePath"
+                  ") VALUES "
+                  "(:isHaveLooked, :isEditingDone, :isAdult, :Title,"
+                  ":OrigTitle, :Director, :PostScoring,"
+                  ":SeriesTV, :SeriesOVA, :SeriesONA, :SeriesSpecial, :SeriesMovie,"
+                  ":vSeriesTV, :vSeriesOVA, :vSeriesONA, :vSeriesSpecial, :vSeriesMovie,"
+                  ":Score, :Year, :Season, :Studios,"
+                  ":Tags, :Description,"
+                  ":URL, :Dir, :ImagePath)"
+                  ).arg( MngrQuerys::getTableName( sections::anime ) ) );
+    */
+
+    query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
+    query.bindValue( ":isEditingDone", data["isEditingDone"] );
+    query.bindValue( ":isAdult",       data["isAdult"] );
+    query.bindValue( ":Title",         data["Title"] );
+    query.bindValue( ":OrigTitle",     data["OrigTitle"] );
+    query.bindValue( ":Director",      data["Director"] );
+    query.bindValue( ":PostScoring",   data["PostScoring"] );
+    query.bindValue( ":SeriesTV",      data["SeriesTV"] );
+    query.bindValue( ":SeriesOVA",     data["SeriesOVA"] );
+    query.bindValue( ":SeriesONA",     data["SeriesONA"] );
+    query.bindValue( ":SeriesSpecial", data["SeriesSpecial"] );
+    query.bindValue( ":SeriesMovie",   data["SeriesMovie"] );
+    query.bindValue( ":vSeriesTV",     data["vSeriesTV"] );
+    query.bindValue( ":vSeriesOVA",    data["vSeriesOVA"] );
+    query.bindValue( ":vSeriesONA",    data["vSeriesONA"] );
+    query.bindValue( ":vSeriesSpecial",data["vSeriesSpecial"] );
+    query.bindValue( ":vSeriesMovie",  data["vSeriesMovie"] );
+    query.bindValue( ":Score",         data["Score"] );
+    query.bindValue( ":Year",          data["Year"] );
+    query.bindValue( ":Season",        data["Season"] );
+    query.bindValue( ":Studios",       data["Studios"] );
+    query.bindValue( ":Tags",          data["Tags"] );
+    query.bindValue( ":Description",   data["Description"] );
+    query.bindValue( ":URL",           data["URL"] );
+    query.bindValue( ":Dir",           data["Dir"] );
+    query.bindValue( ":ImagePath",     data["ImagePath"] );
+    if( !query.exec() ){
+        qCritical() << QString("Cannot insert data in table %1").arg(
+                        MngrQuerys::getTableName( sections::anime ) )
+                    << "\nSqlError: "
+                    << query.lastError();
+        return false;
+    }
+    return true;
+}

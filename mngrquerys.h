@@ -44,6 +44,7 @@ public:
     static QString getDoramaCoversPath();
 
     static bool updateRecord(sections::section table, unsigned int recoord_id, QString field, QString newValue);
+    static bool insertAnime(QMap<QString, QString> &data);
 
 };
 
