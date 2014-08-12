@@ -235,52 +235,23 @@ void DialogAddManga::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddManga::insert_Manga(){
-    QSqlQuery query;
-    if( !_isEditRole ){
-        query.prepare( QString("INSERT INTO %1("
-                      "isHaveLooked, isEditingDone, Title,"
-                      "AltTitle, Author, Translation,"
-                      "Vol, Ch, Pages,"
-                      "vVol, vCh, vPages,"
-                      "Year,"
-                      "Tags, Description,"
-                      "URL, Dir, ImagePath"
-                      ") VALUES "
-                      "(:isHaveLooked, :isEditingDone, :Title,"
-                      ":AltTitle, :Author, :Translation,"
-                      ":Vol, :Ch, :Pages,"
-                      ":vVol, :vCh, :vPages,"
-                      ":Year,"
-                      ":Tags, :Description,"
-                      ":URL, :Dir, :ImagePath)"
-                      ).arg( MngrQuerys::getTableName( sections::manga ) ) );
-    }else{
-        query.prepare( QString("UPDATE %1 SET "
-                      "isHaveLooked = :isHaveLooked, isEditingDone = :isEditingDone, Title = :Title,"
-                      "AltTitle = :AltTitle, Author = :Author, Translation = :Translation,"
-                      "Vol = :Vol, Ch = :Ch, Pages = :Pages,"
-                      "vVol = :vVol, vCh = :vCh, vPages = :vPages,"
-                      "Year = :Year,"
-                      "Tags = :Tags, Description = :Description,"
-                      "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;").arg(
-                           MngrQuerys::getTableName( sections::manga ) )
-                      );
-    }
-    query.bindValue( ":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
-    query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
-    query.bindValue( ":id",            _recordId );
-    query.bindValue( ":Title",         ui->LineEdit_Title->text() );
-    query.bindValue( ":AltTitle",      (LineEdit_AltTitle   ) ?    LineEdit_AltTitle->text() : "" );
-    query.bindValue( ":Author",        (LineEdit_Author     ) ?      LineEdit_Author->text() : "" );
-    query.bindValue( ":Translation",   (LineEdit_Translation) ? LineEdit_Translation->text() : "" );
+    QMap<QString, QVariant> data;
 
-    query.bindValue(":Vol",    ui->SpinBox_aVol->value()   );
-    query.bindValue(":Ch",     ui->SpinBox_aCh->value()    );
-    query.bindValue(":Pages",  ui->SpinBox_aPages->value() );
-    query.bindValue(":vVol",   ui->SpinBox_vVol->value()   );
-    query.bindValue(":vCh",    ui->SpinBox_vCh->value()    );
-    query.bindValue(":vPages", ui->SpinBox_vPages->value() );
-    query.bindValue(":Year",  (ui->CBox_Year->isChecked()  ) ? ui->SpinBox_Year->value() : 0 );
+    data["isHaveLooked"]  = !ui->CheckBox_LookLater->isChecked();
+    data["isEditingDone"] = !ui->CheckBox_Editing->isChecked();
+    data["id"]            = _recordId;
+    data["Title"]         = ui->LineEdit_Title->text();
+    data["AltTitle"]      = (LineEdit_AltTitle   ) ?    LineEdit_AltTitle->text() : "";
+    data["Author"]        = (LineEdit_Author     ) ?      LineEdit_Author->text() : "";
+    data["Translation"]   = (LineEdit_Translation) ? LineEdit_Translation->text() : "";
+
+    data["Vol"]    = ui->SpinBox_aVol->value();
+    data["Ch"]     = ui->SpinBox_aCh->value();
+    data["Pages"]  = ui->SpinBox_aPages->value();
+    data["vVol"]   = ui->SpinBox_vVol->value();
+    data["vCh"]    = ui->SpinBox_vCh->value();
+    data["vPages"] = ui->SpinBox_vPages->value();
+    data["Year"]   = (ui->CBox_Year->isChecked()) ? ui->SpinBox_Year->value() : 0 ;
 
     QString tagsList;
     QStringList list;
@@ -300,10 +271,10 @@ bool DialogAddManga::insert_Manga(){
     }
     tagsList += ui->LineEdit_Tags->text();
 
-    query.bindValue( ":Tags",          tagsList );
-    query.bindValue( ":Description",   ui->PlainTextEdit_Description->toPlainText() );
-    query.bindValue( ":URL",           ui->LineEdit_URL->text() );
-    query.bindValue( ":Dir",           ui->LineEdit_Dir->text() );
+    data["Tags"]         = tagsList;
+    data["Description"]  = ui->PlainTextEdit_Description->toPlainText();
+    data["URL"]          = ui->LineEdit_URL->text();
+    data["Dir"]          = ui->LineEdit_Dir->text();
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
@@ -314,14 +285,18 @@ bool DialogAddManga::insert_Manga(){
     }
     if( _isEditRole && !_oldCover.isEmpty() )
         dir.remove( MngrQuerys::getMangaCoversPath() + _oldCover );
-    query.bindValue(":ImagePath", coverName );
-    if( !query.exec() ){
-        qCritical() << QString("Cannot insert data in table %1").arg(
-                        MngrQuerys::getTableName( sections::manga ) )
-                    << "\nSqlError: "
-                    << query.lastError();
-        QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data"));
-        return false;
+    data["ImagePath"] = coverName;
+
+    if( !_isEditRole ){
+        if( MngrQuerys::insertManga(data) == false ){
+            QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data"));
+            return false;
+        }
+    }else{
+        if( MngrQuerys::updateManga(data) == false ){
+            QMessageBox::critical(this, tr("Critical"), tr("Cannot update data"));
+            return false;
+        }
     }
     return true;
 }

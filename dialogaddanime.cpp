@@ -212,56 +212,29 @@ void DialogAddAnime::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddAnime::insert_Anime(){
-    QSqlQuery query;
-    if( !_isEditRole ){
-        query.prepare( QString("INSERT INTO %1("
-                      "isHaveLooked, isEditingDone, Title,"
-                      "OrigTitle, Director, PostScoring,"
-                      "SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesMovie,"
-                      "vSeriesTV, vSeriesOVA, vSeriesONA, vSeriesSpecial, vSeriesMovie,"
-                      "Year, Season, Studios,"
-                      "Tags, Description,"
-                      "URL, Dir, ImagePath"
-                      ") VALUES "
-                      "(:isHaveLooked, :isEditingDone, :Title,"
-                      ":OrigTitle, :Director, :PostScoring,"
-                      ":SeriesTV, :SeriesOVA, :SeriesONA, :SeriesSpecial, :SeriesMovie,"
-                      ":vSeriesTV, :vSeriesOVA, :vSeriesONA, :vSeriesSpecial, :vSeriesMovie,"
-                      ":Year, :Season, :Studios,"
-                      ":Tags, :Description,"
-                      ":URL, :Dir, :ImagePath)"
-                      ).arg( MngrQuerys::getTableName( sections::anime ) ) );
-    }else{
-        query.prepare( QString("UPDATE %1 SET "
-                      "isHaveLooked = :isHaveLooked, isEditingDone = :isEditingDone, Title = :Title,"
-                      "OrigTitle = :OrigTitle, Director = :Director, PostScoring = :PostScoring,"
-                      "SeriesTV = :SeriesTV, SeriesOVA = :SeriesOVA, SeriesONA = :SeriesONA, SeriesSpecial = :SeriesSpecial, SeriesMovie = :SeriesMovie,"
-                      "vSeriesTV = :vSeriesTV, vSeriesOVA = :vSeriesOVA, vSeriesONA = :vSeriesONA, vSeriesSpecial = :vSeriesSpecial, vSeriesMovie = :vSeriesMovie,"
-                      "Year = :Year, Season = :Season, Studios = :Studios,"
-                      "Tags = :Tags, Description = :Description,"
-                      "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;").arg( MngrQuerys::getTableName( sections::anime ) )
-                      );
-    }
-    query.bindValue( ":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
-    query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
-    query.bindValue( ":id",            _recordId );
-    query.bindValue( ":Title",        ui->LineEdit_Title->text() );
-    query.bindValue( ":OrigTitle",   (LineEdit_OrigTitle)?this->LineEdit_OrigTitle->text():"" );
-    query.bindValue( ":Director",    (LineEdit_Director)?this->LineEdit_Director->text():"" );
-    query.bindValue(":PostScoring",  (LineEdit_PostScoring)?this->LineEdit_PostScoring->text(): "");
-    query.bindValue(":SeriesTV",      ui->SpinBox_aTV->value()    );
-    query.bindValue(":SeriesOVA",     ui->SpinBox_aOVA->value()   );
-    query.bindValue(":SeriesONA",     ui->SpinBox_aONA->value()   );
-    query.bindValue(":SeriesSpecial", ui->SpinBox_aSpec->value()  );
-    query.bindValue(":SeriesMovie",   ui->SpinBox_aMovie->value() );
-    query.bindValue(":vSeriesTV",     ui->SpinBox_vTV->value()    );
-    query.bindValue(":vSeriesOVA",    ui->SpinBox_vOVA->value()   );
-    query.bindValue(":vSeriesONA",    ui->SpinBox_vONA->value()   );
-    query.bindValue(":vSeriesSpecial",ui->SpinBox_vSpec->value()  );
-    query.bindValue(":vSeriesMovie",  ui->SpinBox_vMovie->value() );
-    query.bindValue(":Year",         (ui->CBox_Year->isChecked()  )? ui->SpinBox_Year->value() :0 );
-    query.bindValue(":Season",        ui->SpinBox_Season->value() );
-    query.bindValue(":Studios",       ui->ComboBox_Studio->currentText() );
+    QMap<QString, QVariant> data;
+    data["isHaveLooked"]   = !ui->CheckBox_LookLater->isChecked();
+    data["isEditingDone"]  = !ui->CheckBox_Editing->isChecked();
+    data["isAdult"]        = false;
+    data["id"]             = _recordId;
+    data["Title"]          = ui->LineEdit_Title->text();
+    data["OrigTitle"]      = (LineEdit_OrigTitle  )?  this->LineEdit_OrigTitle->text() : "";
+    data["Director"]       = (LineEdit_Director   )?   this->LineEdit_Director->text() : "";
+    data["PostScoring"]    = (LineEdit_PostScoring)?this->LineEdit_PostScoring->text() : "";
+    data["SeriesTV"]       = ui->SpinBox_aTV->value();
+    data["SeriesOVA"]      = ui->SpinBox_aOVA->value();
+    data["SeriesONA"]      = ui->SpinBox_aONA->value();
+    data["SeriesSpecial"]  = ui->SpinBox_aSpec->value();
+    data["SeriesMovie"]    = ui->SpinBox_aMovie->value();
+    data["vSeriesTV"]      = ui->SpinBox_vTV->value();
+    data["vSeriesOVA"]     = ui->SpinBox_vOVA->value();
+    data["vSeriesONA"]     = ui->SpinBox_vONA->value();
+    data["vSeriesSpecial"] = ui->SpinBox_vSpec->value();
+    data["vSeriesMovie"]   = ui->SpinBox_vMovie->value();
+    data["Score"]          = 0;
+    data["Year"]           = (ui->CBox_Year->isChecked()  )? ui->SpinBox_Year->value() :0;
+    data["Season"]         = ui->SpinBox_Season->value();
+    data["Studios"]        = ui->ComboBox_Studio->currentText();
 
     QString tagsList;
     QStringList list;
@@ -281,10 +254,10 @@ bool DialogAddAnime::insert_Anime(){
     }
     tagsList += ui->LineEdit_Tags->text();
 
-    query.bindValue( ":Tags",          tagsList );
-    query.bindValue( ":Description",   ui->PlainTextEdit_Description->toPlainText() );
-    query.bindValue( ":URL",           ui->LineEdit_URL->text() );
-    query.bindValue( ":Dir",           ui->LineEdit_Dir->text() );
+    data["Tags"]        = tagsList;
+    data["Description"] = ui->PlainTextEdit_Description->toPlainText();
+    data["URL"]         = ui->LineEdit_URL->text();
+    data["Dir"]         = ui->LineEdit_Dir->text();
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
@@ -295,14 +268,19 @@ bool DialogAddAnime::insert_Anime(){
     if( _isEditRole && !_oldCover.isEmpty() ){
             dir.remove( MngrQuerys::getAnimeCoversPath() + _oldCover );
     }
-    query.bindValue(":ImagePath", coverName );
-    if( !query.exec() ){
-        qCritical() << QString("Cannot insert data in table %1").arg(
-                        MngrQuerys::getTableName( sections::anime ) )
-                    << "\nSqlError: "
-                    << query.lastError();
-        QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data."));
-        return false;
+
+    data["ImagePath"] = coverName;
+
+    if( !_isEditRole ){
+        if( MngrQuerys::insertAnime(data) == false ){
+            QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data."));
+            return false;
+        }
+    }else{
+        if( MngrQuerys::updateAnime(data) == false ){
+            QMessageBox::critical(this, tr("Critical"), tr("Cannot update data."));
+            return false;
+        }
     }
     return true;
 }

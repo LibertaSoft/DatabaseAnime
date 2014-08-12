@@ -183,50 +183,24 @@ void DialogAddDorama::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddDorama::insert_Dorama(){
-    QSqlQuery query;
-    if( !_isEditRole ){
-        query.prepare( QString("INSERT INTO %1("
-                      "isHaveLooked, isEditingDone, Title,"
-                      "AltTitle, Director,"
-                      "SeriesTV, SeriesSpecial, SeriesMovie,"
-                      "vSeriesTV, vSeriesSpecial, vSeriesMovie,"
-                      "Year, Season,"
-                      "Tags, Description, Actors,"
-                      "URL, Dir, ImagePath"
-                      ") VALUES "
-                      "(:isHaveLooked, :isEditingDone, :Title,"
-                      ":AltTitle, :Director,"
-                      ":SeriesTV, :SeriesSpecial, :SeriesMovie,"
-                      ":vSeriesTV, :vSeriesSpecial, :vSeriesMovie,"
-                      ":Year, :Season,"
-                      ":Tags, :Description, :Actors,"
-                      ":URL, :Dir, :ImagePath)"
-                      ).arg( MngrQuerys::getTableName( sections::dorama ) ) );
-    }else{
-        query.prepare( QString("UPDATE %1 SET "
-                      "isHaveLooked = :isHaveLooked, isEditingDone = :isEditingDone, Title = :Title,"
-                      "AltTitle = :AltTitle, Director = :Director,"
-                      "SeriesTV = :SeriesTV, SeriesSpecial = :SeriesSpecial, SeriesMovie = :SeriesMovie,"
-                      "vSeriesTV = :vSeriesTV, vSeriesSpecial = :vSeriesSpecial, vSeriesMovie = :vSeriesMovie,"
-                      "Year = :Year, Season = :Season,"
-                      "Tags = :Tags, Description = :Description, Actors = :Actors,"
-                      "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;").arg( MngrQuerys::getTableName( sections::dorama ) )
-                      );
-    }
-    query.bindValue( ":isHaveLooked",  !ui->CheckBox_LookLater->isChecked() );
-    query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
-    query.bindValue( ":id",            _recordId );
-    query.bindValue( ":Title",         ui->LineEdit_Title->text() );
-    query.bindValue( ":AltTitle",     (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():"" );
-    query.bindValue( ":Director",     (LineEdit_Director)?this->LineEdit_Director->text():"" );
-    query.bindValue(":SeriesTV",       ui->SpinBox_aTV->value()   );
-    query.bindValue(":SeriesSpecial",  ui->SpinBox_aSpec->value() );
-    query.bindValue(":SeriesMovie",    ui->SpinBox_aMovie->value());
-    query.bindValue(":vSeriesTV",      ui->SpinBox_vTV->value()   );
-    query.bindValue(":vSeriesSpecial", ui->SpinBox_vSpec->value() );
-    query.bindValue(":vSeriesMovie",   ui->SpinBox_vMovie->value());
-    query.bindValue(":Year",          (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0 );
-    query.bindValue(":Season",         ui->SpinBox_Season->value());
+    QMap<QString, QVariant> data;
+
+    data["isHaveLooked"]   = !ui->CheckBox_LookLater->isChecked();
+    data["isEditingDone"]  = !ui->CheckBox_Editing->isChecked();
+    data["isAdult"]        = false;
+    data["id"]             = _recordId;
+    data["Title"]          = ui->LineEdit_Title->text();
+    data["AltTitle"]       = (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():"";
+    data["Director"]       = (LineEdit_Director)?this->LineEdit_Director->text():"";
+    data["SeriesTV"]       = ui->SpinBox_aTV->value()   ;
+    data["SeriesSpecial"]  = ui->SpinBox_aSpec->value() ;
+    data["SeriesMovie"]    = ui->SpinBox_aMovie->value();
+    data["vSeriesTV"]      = ui->SpinBox_vTV->value()   ;
+    data["vSeriesSpecial"] = ui->SpinBox_vSpec->value() ;
+    data["vSeriesMovie"]   = ui->SpinBox_vMovie->value();
+    data["Score"]          = 0;
+    data["Year"]           = (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0;
+    data["Season"]         = ui->SpinBox_Season->value();
 
     QString tagsList;
     QStringList list;
@@ -246,11 +220,11 @@ bool DialogAddDorama::insert_Dorama(){
     }
     tagsList += ui->LineEdit_Tags->text();
 
-    query.bindValue( ":Tags",          tagsList );
-    query.bindValue( ":Description",   ui->PlainTextEdit_Description->toPlainText() );
-    query.bindValue( ":Actors",        ui->PlainTextEdit_Actors->toPlainText() );
-    query.bindValue( ":URL",           ui->LineEdit_URL->text() );
-    query.bindValue( ":Dir",           ui->LineEdit_Dir->text() );
+    data["Tags"]         = tagsList;
+    data["Description"]  = ui->PlainTextEdit_Description->toPlainText();
+    data["Actors"]       = ui->PlainTextEdit_Actors->toPlainText();
+    data["URL"]          = ui->LineEdit_URL->text();
+    data["Dir"]          = ui->LineEdit_Dir->text();
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
@@ -261,14 +235,18 @@ bool DialogAddDorama::insert_Dorama(){
     if( _isEditRole && !_oldCover.isEmpty() ){
             dir.remove( MngrQuerys::getDoramaCoversPath() + _oldCover );
     }
-    query.bindValue(":ImagePath", coverName );
-    if( !query.exec() ){
-        qCritical() << QString("Cannot insert data in table %1").arg(
-                        MngrQuerys::getTableName( sections::dorama ) )
-                    << "\nSqlError: "
-                    << query.lastError();
-        QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data."));
-        return false;
+    data["ImagePath"] = coverName;
+
+    if( !_isEditRole ){
+        if( MngrQuerys::insertDorama(data) == false ){
+            QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data."));
+            return false;
+        }
+    }else{
+        if( MngrQuerys::updateDorama(data) == false ){
+            QMessageBox::critical(this, tr("Critical"), tr("Cannot update data."));
+            return false;
+        }
     }
     return true;
 }

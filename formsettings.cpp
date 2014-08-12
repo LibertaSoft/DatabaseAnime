@@ -564,7 +564,7 @@ void FormSettings::on_TBtn_ChooseDir_clicked()
                                                   ) );
 }
 
-bool readXml_AnimeItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
+bool readXml_AnimeItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
     xml.readNext();
 //    QMap<QString,QString> data;
     while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
@@ -658,7 +658,7 @@ bool readXml_AnimeItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
     }
     return true;
 }
-bool readXml_MangaItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
+bool readXml_MangaItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
     xml.readNext();
     while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
         if( xml.hasError() ){
@@ -739,7 +739,7 @@ bool readXml_MangaItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
     }
     return true;
 }
-bool readXml_AmvItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
+bool readXml_AmvItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
     xml.readNext();
     while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
         if( xml.hasError() ){
@@ -799,7 +799,7 @@ bool readXml_AmvItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
     }
     return true;
 }
-bool readXml_DoramaItem(QXmlStreamReader& xml, QMap<QString,QString> &data){
+bool readXml_DoramaItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
     xml.readNext();
     while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
         if( xml.hasError() ){
@@ -935,7 +935,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
                 if( currentReadSection == sections::dorama && ui->CBox_ImDorama->isChecked() == false )
                     continue;
 
-                QMap<QString,QString> data;
+                QMap<QString,QVariant> data;
                 switch (currentReadSection) {
                 case sections::anime :
                     readXml_AnimeItem(xml, data);

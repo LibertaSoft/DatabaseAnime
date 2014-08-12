@@ -109,37 +109,17 @@ void DialogAddAmv::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddAmv::insert_Amv(){
-    QSqlQuery query;
-    if( !_isEditRole ){
-        query.prepare( QString("INSERT INTO %1("
-                      "isEditingDone, Title,"
-                      "Author, Сontestant,"
-                      "Year, Tags,"
-                      "ContainingMusic, ContainingAnime, AuthorComment,"
-                      "URL, Dir, ImagePath"
-                      ") VALUES ("
-                      ":isEditingDone, :Title,"
-                      ":Author, :Concursant,"
-                      ":Year, :Tags,"
-                      ":ContainingMusic, :ContainingAnime, :AuthorComment,"
-                      ":URL, :Dir, :ImagePath)"
-                      ).arg( MngrQuerys::getTableName( sections::amv ) ) );
-    }else{
-        query.prepare( QString("UPDATE %1 SET "
-                      "isEditingDone = :isEditingDone, Title = :Title,"
-                      "Author = :Author, Сontestant = :Concursant,"
-                      "Year = :Year, Tags = :Tags,"
-                      "ContainingMusic = :ContainingMusic, ContainingAnime = :ContainingAnime, AuthorComment = :AuthorComment,"
-                      "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;"
-                      ).arg( MngrQuerys::getTableName( sections::amv ) ) );
-    }
-    query.bindValue( ":id",             _recordId );
-    query.bindValue( ":isEditingDone", !ui->CheckBox_Editing->isChecked() );
-    query.bindValue( ":Title",          ui->LineEdit_Title->text() );
 
-    query.bindValue( ":Author",         ui->LineEdit_Author->text() );
-    query.bindValue( ":Concursant",     ui->LineEdit_Contestant->text() );
-    query.bindValue( ":Year",          (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0);
+    QMap<QString, QVariant> data;
+
+    data["id"]            = _recordId;
+    data["isEditingDone"] = !ui->CheckBox_Editing->isChecked();
+    data["isAdult"]       =  false;
+    data["Title"]         =  ui->LineEdit_Title->text();
+    data["Author"]        =  ui->LineEdit_Author->text();
+    data["Сontestant"]    =  ui->LineEdit_Contestant->text();
+    data["Score"]         =  0;
+    data["Year"]          = (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0;
 
     QString tagsList;
     QStringList list;
@@ -159,13 +139,13 @@ bool DialogAddAmv::insert_Amv(){
     }
     tagsList += ui->LineEdit_Tags->text();
 
-    query.bindValue( ":Tags",           tagsList );
-    query.bindValue( ":ContainingMusic",ui->plainTextEdit_ContMusic->toPlainText() );
-    query.bindValue( ":ContainingAnime",ui->plainTextEdit_ContAnime->toPlainText() );
-    query.bindValue( ":AuthorComment",  ui->PlainTextEdit_AuthorComment->toPlainText() );
+    data["Tags"]            = tagsList;
+    data["ContainingMusic"] = ui->plainTextEdit_ContMusic->toPlainText();
+    data["ContainingAnime"] = ui->plainTextEdit_ContAnime->toPlainText();
+    data["AuthorComment"]   = ui->PlainTextEdit_AuthorComment->toPlainText();
 
-    query.bindValue( ":URL",           ui->LineEdit_URL->text() );
-    query.bindValue( ":Dir",           ui->LineEdit_Dir->text() );
+    data["URL"] = ui->LineEdit_URL->text();
+    data["Dir"] = ui->LineEdit_Dir->text();
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
@@ -176,14 +156,18 @@ bool DialogAddAmv::insert_Amv(){
     if( _isEditRole && !_oldCover.isEmpty() ){
             dir.remove( MngrQuerys::getAmvCoversPath() + _oldCover );
     }
-    query.bindValue(":ImagePath", coverName );
+    data["ImagePath"] = coverName;
 
-
-    if( !query.exec() ){
-        qCritical() << QString("Cannot insert data in table %1").arg(
-                        MngrQuerys::getTableName( sections::amv ) ) << "\nSqlError: " << query.lastError();
-        QMessageBox::critical( this, tr("Critical"), tr("Cannot insert data.") );
-        return false;
+    if( !_isEditRole ){
+        if( MngrQuerys::insertAmv(data) == false ){
+            QMessageBox::critical( this, tr("Critical"), tr("Cannot insert data.") );
+            return false;
+        }
+    }else{
+        if( MngrQuerys::updateAmv(data) == false ){
+            QMessageBox::critical( this, tr("Critical"), tr("Cannot update data.") );
+            return false;
+        }
     }
     return true;
 }
