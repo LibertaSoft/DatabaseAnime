@@ -8,6 +8,7 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QFileDialog>
+#include <QProgressDialog>
 
 #include <QtXml>
 
@@ -551,6 +552,7 @@ void FormSettings::on_PBtn_Export_clicked()
                     << "\nFileName: " << file.fileName();
         QMessageBox::critical(this, tr("Critical"), tr("File is not created"));
     }
+    QMessageBox::information(this, "Accept", "Export is finished");
 }
 
 void FormSettings::on_TBtn_ChooseDir_clicked()
@@ -899,6 +901,14 @@ void FormSettings::on_PBtn_ImAppend_clicked()
         return;
     }
 
+//    QProgressDialog* process = new QProgressDialog("Progressing the import", "&Cancel", 0, 100, this);
+//    int n_process = 0;
+//    process->setMinimumDuration(0);
+//    process->setAutoReset(false);
+//    process->setWindowTitle("Import");
+
+
+
     sections::section currentReadSection = sections::none;
     while (!xml.atEnd() && !xml.hasError())
     {
@@ -950,6 +960,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
                 }
             }
         }
+//        process->setValue(++n_process);
         QCoreApplication::processEvents();
     }
 
@@ -964,6 +975,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
             if( it.fileName() == "." || it.fileName() == ".." )
                 continue;
             QFile( it.filePath() ).copy( MngrQuerys::getAnimeCoversPath() + it.fileName() );
+//            process->setValue(++n_process);
             QCoreApplication::processEvents();
         }
     }
@@ -975,6 +987,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
             if( it.fileName() == "." || it.fileName() == ".." )
                 continue;
             QFile( it.filePath() ).copy( MngrQuerys::getMangaCoversPath() + it.fileName() );
+//            process->setValue(++n_process);
             QCoreApplication::processEvents();
         }
     }
@@ -986,6 +999,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
             if( it.fileName() == "." || it.fileName() == ".." )
                 continue;
             QFile( it.filePath() ).copy( MngrQuerys::getAmvCoversPath() + it.fileName() );
+//            process->setValue(++n_process);
             QCoreApplication::processEvents();
         }
     }
@@ -997,9 +1011,13 @@ void FormSettings::on_PBtn_ImAppend_clicked()
             if( it.fileName() == "." || it.fileName() == ".." )
                 continue;
             QFile( it.filePath() ).copy( MngrQuerys::getDoramaCoversPath() + it.fileName() );
+//            process->setValue(++n_process);
             QCoreApplication::processEvents();
         }
     }
+//    process->setMaximum();
+//    delete process;
+    QMessageBox::information(this, "Accept", "Import is finished");
 }
 
 void FormSettings::on_TBtn_ImFile_clicked()

@@ -30,6 +30,8 @@
           <widget class="QLabel" name="label">
            <property name="font">
             <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
              <weight>75</weight>
              <bold>true</bold>
             </font>
@@ -41,6 +43,12 @@
          </item>
          <item>
           <spacer name="HSpacer_0">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -54,6 +62,12 @@
          </item>
          <item>
           <widget class="QCheckBox" name="CheckBox_Editing">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Editing</string>
            </property>
@@ -68,8 +82,17 @@
          </property>
          <item>
           <widget class="QLineEdit" name="LineEdit_Title">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="maxLength">
             <number>128</number>
+           </property>
+           <property name="dragEnabled">
+            <bool>true</bool>
            </property>
            <property name="placeholderText">
             <string>Title</string>
@@ -78,6 +101,12 @@
          </item>
          <item>
           <widget class="QCheckBox" name="CBox_Year">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Year:</string>
            </property>
@@ -85,6 +114,12 @@
          </item>
          <item>
           <widget class="QSpinBox" name="SpinBox_Year">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="minimum">
             <number>1900</number>
            </property>
@@ -105,6 +140,15 @@
          </property>
          <item>
           <widget class="QLineEdit" name="LineEdit_Author">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="dragEnabled">
+            <bool>true</bool>
+           </property>
            <property name="placeholderText">
             <string>Author</string>
            </property>
@@ -112,6 +156,15 @@
          </item>
          <item>
           <widget class="QLineEdit" name="LineEdit_Contestant">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="dragEnabled">
+            <bool>true</bool>
+           </property>
            <property name="placeholderText">
             <string>Сontestant</string>
            </property>
@@ -124,8 +177,14 @@
          <property name="enabled">
           <bool>true</bool>
          </property>
+         <property name="font">
+          <font>
+           <family>Cantarell</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>4</number>
          </property>
          <property name="usesScrollButtons">
           <bool>true</bool>
@@ -152,8 +211,14 @@
              <property name="maxLength">
               <number>256</number>
              </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
+             </property>
              <property name="placeholderText">
               <string>Enter through a comma, or choose from the list lower</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -223,16 +288,34 @@
             <layout class="QHBoxLayout" name="HLayout_Dir">
              <item>
               <widget class="QLineEdit" name="LineEdit_Dir">
+               <property name="font">
+                <font>
+                 <family>Cantarell</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
                <property name="maxLength">
                 <number>256</number>
                </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
                <property name="placeholderText">
                 <string>File</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QToolButton" name="toolButton">
+               <property name="font">
+                <font>
+                 <family>Cantarell</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
                <property name="toolTip">
                 <string/>
                </property>
@@ -258,8 +341,17 @@
            </item>
            <item>
             <widget class="QLineEdit" name="LineEdit_URL">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="maxLength">
               <number>256</number>
+             </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
              </property>
              <property name="placeholderText">
               <string>URL</string>
@@ -271,6 +363,12 @@
            </item>
            <item>
             <spacer name="VSpacer_0">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -314,6 +412,12 @@
          <height>0</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <family>Cantarell</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="toolTip">
         <string>Drop image here, or a double click for a file choice</string>
        </property>
@@ -344,6 +448,12 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="BtnBox">
+     <property name="font">
+      <font>
+       <family>Cantarell</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Reset|QDialogButtonBox::Save</set>
      </property>

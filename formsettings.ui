@@ -22,6 +22,12 @@
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QGroupBox" name="GBox_General">
+     <property name="font">
+      <font>
+       <family>Cantarell</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
      <property name="title">
       <string>General:</string>
      </property>
@@ -33,6 +39,12 @@
         </property>
         <item>
          <widget class="QLabel" name="Lbl_Lanuage">
+          <property name="font">
+           <font>
+            <family>Cantarell</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Language:</string>
           </property>
@@ -52,6 +64,12 @@
             <height>0</height>
            </size>
           </property>
+          <property name="font">
+           <font>
+            <family>Cantarell</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
           <property name="currentText">
            <string/>
           </property>
@@ -59,6 +77,12 @@
         </item>
         <item>
          <spacer name="HSpacer">
+          <property name="font">
+           <font>
+            <family>Cantarell</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -75,6 +99,12 @@
         </item>
         <item>
          <widget class="QLabel" name="Lbl_Sort">
+          <property name="font">
+           <font>
+            <family>Cantarell</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Sorting:</string>
           </property>
@@ -82,6 +112,12 @@
         </item>
         <item>
          <widget class="QComboBox" name="CBox_Sort">
+          <property name="font">
+           <font>
+            <family>Cantarell</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
           <item>
            <property name="text">
             <string>None</string>
@@ -111,6 +147,12 @@
           <property name="enabled">
            <bool>true</bool>
           </property>
+          <property name="font">
+           <font>
+            <family>Cantarell</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>To switch to a directory in case of induction on a cover</string>
           </property>
@@ -138,6 +180,12 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Cantarell</family>
+           <pointsize>11</pointsize>
+          </font>
          </property>
          <property name="tabPosition">
           <enum>QTabWidget::North</enum>
@@ -167,6 +215,12 @@
            </property>
            <item>
             <widget class="QCheckBox" name="CheckBox_EnableAnime">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>Anime</string>
              </property>
@@ -176,6 +230,12 @@
             <widget class="QCheckBox" name="CheckBox_EnableManga">
              <property name="enabled">
               <bool>true</bool>
+             </property>
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
              </property>
              <property name="text">
               <string>Manga</string>
@@ -187,6 +247,12 @@
              <property name="enabled">
               <bool>true</bool>
              </property>
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>AMV</string>
              </property>
@@ -196,6 +262,12 @@
             <widget class="QCheckBox" name="CheckBox_EnableDorama">
              <property name="enabled">
               <bool>true</bool>
+             </property>
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
              </property>
              <property name="text">
               <string>Dorama</string>
@@ -361,6 +433,12 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="font">
+          <font>
+           <family>Cantarell</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="title">
           <string>Work directory:</string>
          </property>
@@ -378,7 +456,17 @@
            <number>6</number>
           </property>
           <item>
-           <widget class="QLineEdit" name="LineEdit_WorkDirectory"/>
+           <widget class="QLineEdit" name="LineEdit_WorkDirectory">
+            <property name="font">
+             <font>
+              <family>Cantarell</family>
+              <pointsize>11</pointsize>
+             </font>
+            </property>
+            <property name="dragEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -396,11 +484,17 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="font">
+        <font>
+         <family>Cantarell</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="tabPosition">
         <enum>QTabWidget::North</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tab_export">
         <attribute name="title">
@@ -417,6 +511,12 @@
            </property>
            <item>
             <widget class="QLineEdit" name="LineEdit_ExDir">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="maxLength">
               <number>255</number>
              </property>
@@ -436,6 +536,12 @@
            </item>
            <item>
             <widget class="QToolButton" name="TBtn_ChooseDir">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string/>
              </property>
@@ -458,6 +564,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="title">
             <string>Format</string>
            </property>
@@ -473,6 +585,12 @@
             </property>
             <item>
              <widget class="QRadioButton" name="RBtn_ExXml">
+              <property name="font">
+               <font>
+                <family>Cantarell</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>XML</string>
               </property>
@@ -486,6 +604,12 @@
               <property name="enabled">
                <bool>false</bool>
               </property>
+              <property name="font">
+               <font>
+                <family>Cantarell</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>SQLite</string>
               </property>
@@ -496,6 +620,12 @@
          </item>
          <item>
           <widget class="QGroupBox" name="GBox_ExSection">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="title">
             <string>Sections</string>
            </property>
@@ -511,6 +641,12 @@
             </property>
             <item row="0" column="0">
              <widget class="QCheckBox" name="CBox_ExAnime">
+              <property name="font">
+               <font>
+                <family>Cantarell</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Anime</string>
               </property>
@@ -521,6 +657,12 @@
             </item>
             <item row="0" column="1">
              <widget class="QCheckBox" name="CBox_ExManga">
+              <property name="font">
+               <font>
+                <family>Cantarell</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Manga</string>
               </property>
@@ -531,6 +673,12 @@
             </item>
             <item row="1" column="0">
              <widget class="QCheckBox" name="CBox_ExAmv">
+              <property name="font">
+               <font>
+                <family>Cantarell</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Amv</string>
               </property>
@@ -541,6 +689,12 @@
             </item>
             <item row="1" column="1">
              <widget class="QCheckBox" name="CBox_ExDorama">
+              <property name="font">
+               <font>
+                <family>Cantarell</family>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Dorama</string>
               </property>
@@ -554,6 +708,12 @@
          </item>
          <item>
           <widget class="QPushButton" name="PBtn_Export">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Export</string>
            </property>
@@ -713,6 +873,12 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="BtnBox">
+     <property name="font">
+      <font>
+       <family>Cantarell</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::RestoreDefaults</set>
      </property>

@@ -423,25 +423,7 @@ bool MngrQuerys::insertAnime(QMap<QString, QString> &data)
 {
     QSqlQuery query;
 
-    /*[OldVersion]*/
-    query.prepare( QString("INSERT INTO %1("
-                  "isHaveLooked, isEditingDone, Title,"
-                  "OrigTitle, Director, PostScoring,"
-                  "SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesMovie,"
-                  "vSeriesTV, vSeriesOVA, vSeriesONA, vSeriesSpecial, vSeriesMovie,"
-                  "Year, Season, Studios,"
-                  "Tags, Description,"
-                  "URL, Dir, ImagePath"
-                  ") VALUES "
-                  "(:isHaveLooked, :isEditingDone, :Title,"
-                  ":OrigTitle, :Director, :PostScoring,"
-                  ":SeriesTV, :SeriesOVA, :SeriesONA, :SeriesSpecial, :SeriesMovie,"
-                  ":vSeriesTV, :vSeriesOVA, :vSeriesONA, :vSeriesSpecial, :vSeriesMovie,"
-                  ":Year, :Season, :Studios,"
-                  ":Tags, :Description,"
-                  ":URL, :Dir, :ImagePath)"
-                  ).arg( MngrQuerys::getTableName( sections::anime ) ) );
-    /*[NewVersion] // #FixMe
+
     query.prepare( QString("INSERT INTO %1("
                   "isHaveLooked, isEditingDone, isAdult, Title,"
                   "OrigTitle, Director, PostScoring,"
@@ -459,7 +441,7 @@ bool MngrQuerys::insertAnime(QMap<QString, QString> &data)
                   ":Tags, :Description,"
                   ":URL, :Dir, :ImagePath)"
                   ).arg( MngrQuerys::getTableName( sections::anime ) ) );
-    */
+
 
     query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
     query.bindValue( ":isEditingDone", data["isEditingDone"] );
@@ -500,43 +482,23 @@ bool MngrQuerys::insertManga(QMap<QString, QString> &data)
 {
     QSqlQuery query;
 
-    /*[OldVersion]*/
     query.prepare( QString("INSERT INTO %1("
-                  "isHaveLooked, isEditingDone, Title,"
+                  "isHaveLooked, isEditingDone, isAdult, Title,"
                   "AltTitle, Author, Translation,"
                   "Vol, Ch, Pages,"
                   "vVol, vCh, vPages,"
-                  "Year,"
+                  "Score, Year,"
                   "Tags, Description,"
                   "URL, Dir, ImagePath"
                   ") VALUES "
-                  "(:isHaveLooked, :isEditingDone, :Title,"
+                  "(:isHaveLooked, :isEditingDone, :isAdult, :Title,"
                   ":AltTitle, :Author, :Translation,"
                   ":Vol, :Ch, :Pages,"
                   ":vVol, :vCh, :vPages,"
-                  ":Year,"
+                  ":Score, :Year,"
                   ":Tags, :Description,"
                   ":URL, :Dir, :ImagePath)"
                   ).arg( MngrQuerys::getTableName( sections::manga ) ) );
-    /*[NewVersion] // #FixMe
-        query.prepare( QString("INSERT INTO %1("
-                      "isHaveLooked, isEditingDone, isAdult, Title,"
-                      "AltTitle, Author, Translation,"
-                      "Vol, Ch, Pages,"
-                      "vVol, vCh, vPages,"
-                      "Score, Year,"
-                      "Tags, Description,"
-                      "URL, Dir, ImagePath"
-                      ") VALUES "
-                      "(:isHaveLooked, :isEditingDone, :isAdult, :Title,"
-                      ":AltTitle, :Author, :Translation,"
-                      ":Vol, :Ch, :Pages,"
-                      ":vVol, :vCh, :vPages,"
-                      ":Score, :Year,"
-                      ":Tags, :Description,"
-                      ":URL, :Dir, :ImagePath)"
-                      ).arg( MngrQuerys::getTableName( sections::manga ) ) );
-    */
 
     query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
     query.bindValue( ":isEditingDone", data["isEditingDone"] );
@@ -573,35 +535,19 @@ bool MngrQuerys::insertAmv(QMap<QString, QString> &data)
 {
     QSqlQuery query;
 
-    /*[OldVersion]*/
     query.prepare( QString("INSERT INTO %1("
-                  "isEditingDone, Title,"
+                  "isEditingDone, isAdult, Title,"
                   "Author, Сontestant,"
-                  "Year, Tags,"
+                  "Score, Year, Tags,"
                   "ContainingMusic, ContainingAnime, AuthorComment,"
                   "URL, Dir, ImagePath"
                   ") VALUES ("
-                  ":isEditingDone, :Title,"
+                  ":isEditingDone, :isAdult, :Title,"
                   ":Author, :Concursant,"
-                  ":Year, :Tags,"
+                  ":Score, :Year, :Tags,"
                   ":ContainingMusic, :ContainingAnime, :AuthorComment,"
                   ":URL, :Dir, :ImagePath)"
                   ).arg( MngrQuerys::getTableName( sections::amv ) ) );
-    /*[NewVersion] // #FixMe
-        query.prepare( QString("INSERT INTO %1("
-                      "isEditingDone, isAdult, Title,"
-                      "Author, Сontestant,"
-                      "Score, Year, Tags,"
-                      "ContainingMusic, ContainingAnime, AuthorComment,"
-                      "URL, Dir, ImagePath"
-                      ") VALUES ("
-                      ":isEditingDone, :isAdult, :Title,"
-                      ":Author, :Concursant,"
-                      ":Score, :Year, :Tags,"
-                      ":ContainingMusic, :ContainingAnime, :AuthorComment,"
-                      ":URL, :Dir, :ImagePath)"
-                      ).arg( MngrQuerys::getTableName( sections::amv ) ) );
-    */
 
     query.bindValue( ":isEditingDone",   data["isEditingDone"] );
     query.bindValue( ":isAdult",         data["isAdult"] );
@@ -630,43 +576,24 @@ bool MngrQuerys::insertDorama(QMap<QString, QString> &data)
 {
     QSqlQuery query;
 
-    /*[OldVersion]*/
     query.prepare( QString("INSERT INTO %1("
-                  "isHaveLooked, isEditingDone, Title,"
+                  "isHaveLooked, isEditingDone, isAdult, Title,"
                   "AltTitle, Director,"
                   "SeriesTV, SeriesSpecial, SeriesMovie,"
                   "vSeriesTV, vSeriesSpecial, vSeriesMovie,"
-                  "Year, Season,"
+                  "Score, Year, Season,"
                   "Tags, Description, Actors,"
                   "URL, Dir, ImagePath"
                   ") VALUES "
-                  "(:isHaveLooked, :isEditingDone, :Title,"
+                  "(:isHaveLooked, :isEditingDone, :isAdult, :Title,"
                   ":AltTitle, :Director,"
                   ":SeriesTV, :SeriesSpecial, :SeriesMovie,"
                   ":vSeriesTV, :vSeriesSpecial, :vSeriesMovie,"
-                  ":Year, :Season,"
+                  ":Score, :Year, :Season,"
                   ":Tags, :Description, :Actors,"
                   ":URL, :Dir, :ImagePath)"
                   ).arg( MngrQuerys::getTableName( sections::dorama ) ) );
-    /*[NewVersion] // #FixMe
-        query.prepare( QString("INSERT INTO %1("
-                      "isHaveLooked, isEditingDone, isAdult, Title,"
-                      "AltTitle, Director,"
-                      "SeriesTV, SeriesSpecial, SeriesMovie,"
-                      "vSeriesTV, vSeriesSpecial, vSeriesMovie,"
-                      "Score, Year, Season,"
-                      "Tags, Description, Actors,"
-                      "URL, Dir, ImagePath"
-                      ") VALUES "
-                      "(:isHaveLooked, :isEditingDone, :isAdult, :Title,"
-                      ":AltTitle, :Director,"
-                      ":SeriesTV, :SeriesSpecial, :SeriesMovie,"
-                      ":vSeriesTV, :vSeriesSpecial, :vSeriesMovie,"
-                      ":Score, :Year, :Season,"
-                      ":Tags, :Description, :Actors,"
-                      ":URL, :Dir, :ImagePath)"
-                      ).arg( MngrQuerys::getTableName( sections::dorama ) ) );
-    */
+
 
     query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
     query.bindValue( ":isEditingDone", data["isEditingDone"] );

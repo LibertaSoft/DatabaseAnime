@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
+    <width>830</width>
     <height>597</height>
    </rect>
   </property>
@@ -30,6 +30,8 @@
           <widget class="QLabel" name="label">
            <property name="font">
             <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
              <weight>75</weight>
              <bold>true</bold>
             </font>
@@ -41,6 +43,12 @@
          </item>
          <item>
           <spacer name="HSpacer_0">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -54,6 +62,12 @@
          </item>
          <item>
           <widget class="QCheckBox" name="CheckBox_LookLater">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Want to look</string>
            </property>
@@ -61,6 +75,12 @@
          </item>
          <item>
           <widget class="Line" name="line">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
@@ -68,6 +88,12 @@
          </item>
          <item>
           <widget class="QCheckBox" name="CheckBox_Editing">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Editing</string>
            </property>
@@ -77,8 +103,17 @@
        </item>
        <item>
         <widget class="QLineEdit" name="LineEdit_Title">
+         <property name="font">
+          <font>
+           <family>Cantarell</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="maxLength">
           <number>128</number>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
          </property>
          <property name="placeholderText">
           <string>Title</string>
@@ -99,6 +134,12 @@
          </property>
          <item>
           <widget class="QCheckBox" name="CBox_Year">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Year:</string>
            </property>
@@ -106,6 +147,12 @@
          </item>
          <item>
           <widget class="QSpinBox" name="SpinBox_Year">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="minimum">
             <number>1900</number>
            </property>
@@ -119,6 +166,12 @@
          </item>
          <item>
           <spacer name="HSpacer_1">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -135,16 +188,35 @@
          </item>
          <item>
           <widget class="QLabel" name="Lbl_Season">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="text">
             <string>Season:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="SpinBox_Season"/>
+          <widget class="QSpinBox" name="SpinBox_Season">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="HSpacer_2">
+           <property name="font">
+            <font>
+             <family>Cantarell</family>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -166,14 +238,33 @@
            <height>120</height>
           </size>
          </property>
+         <property name="font">
+          <font>
+           <family>Cantarell</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_allSeries">
           <attribute name="title">
            <string>Total series</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="Lbl_TV1">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>TV</string>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="1">
             <widget class="QLabel" name="Lbl_Spec1">
              <property name="maximumSize">
@@ -184,13 +275,6 @@
              </property>
              <property name="text">
               <string>Special</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QSpinBox" name="SpinBox_aTV">
-             <property name="maximum">
-              <number>9999</number>
              </property>
             </widget>
            </item>
@@ -207,21 +291,8 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="Lbl_TV1">
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>40</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>TV</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QSpinBox" name="SpinBox_aMovie">
+           <item row="1" column="0">
+            <widget class="QSpinBox" name="SpinBox_aTV">
              <property name="maximum">
               <number>9999</number>
              </property>
@@ -229,6 +300,13 @@
            </item>
            <item row="1" column="1">
             <widget class="QSpinBox" name="SpinBox_aSpec">
+             <property name="maximum">
+              <number>9999</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QSpinBox" name="SpinBox_aMovie">
              <property name="maximum">
               <number>9999</number>
              </property>
@@ -256,34 +334,25 @@
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="0" column="0">
             <widget class="QLabel" name="Lbl_TV2">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>TV</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
-            <widget class="QSpinBox" name="SpinBox_vMovie">
-             <property name="maximum">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="SpinBox_vSpec">
-             <property name="maximum">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QSpinBox" name="SpinBox_vTV">
-             <property name="maximum">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="1">
             <widget class="QLabel" name="Lbl_Spec2">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>Special</string>
              </property>
@@ -291,13 +360,64 @@
            </item>
            <item row="0" column="2">
             <widget class="QLabel" name="Lbl_Film2">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>Movie</string>
              </property>
             </widget>
            </item>
+           <item row="1" column="0">
+            <widget class="QSpinBox" name="SpinBox_vTV">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="SpinBox_vSpec">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QSpinBox" name="SpinBox_vMovie">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="1">
             <spacer name="VSpacer_2">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -315,8 +435,14 @@
        </item>
        <item>
         <widget class="QTabWidget" name="TabWidget_Info">
+         <property name="font">
+          <font>
+           <family>Cantarell</family>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -331,8 +457,14 @@
              <property name="maxLength">
               <number>256</number>
              </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
+             </property>
              <property name="placeholderText">
               <string>Enter through a comma, or choose from the list lower</string>
+             </property>
+             <property name="clearButtonEnabled">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -397,16 +529,34 @@
             <layout class="QHBoxLayout" name="HLayout_Dir">
              <item>
               <widget class="QLineEdit" name="LineEdit_Dir">
+               <property name="font">
+                <font>
+                 <family>Cantarell</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
                <property name="maxLength">
                 <number>256</number>
                </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
                <property name="placeholderText">
                 <string>File</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QToolButton" name="toolButton">
+               <property name="font">
+                <font>
+                 <family>Cantarell</family>
+                 <pointsize>11</pointsize>
+                </font>
+               </property>
                <property name="toolTip">
                 <string/>
                </property>
@@ -429,8 +579,17 @@
            </item>
            <item>
             <widget class="QLineEdit" name="LineEdit_URL">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="maxLength">
               <number>256</number>
+             </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
              </property>
              <property name="placeholderText">
               <string>URL</string>
@@ -442,6 +601,12 @@
            </item>
            <item>
             <spacer name="VSpacer_0">
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -485,6 +650,12 @@
          <height>0</height>
         </size>
        </property>
+       <property name="font">
+        <font>
+         <family>Cantarell</family>
+         <pointsize>11</pointsize>
+        </font>
+       </property>
        <property name="toolTip">
         <string>Drop image here, or a double click for a file choice</string>
        </property>
@@ -515,6 +686,12 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="BtnBox">
+     <property name="font">
+      <font>
+       <family>Cantarell</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Reset|QDialogButtonBox::Save</set>
      </property>

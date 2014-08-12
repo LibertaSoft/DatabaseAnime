@@ -89,18 +89,21 @@ void DialogAddManga::createOptionalFields()
     if( settings.value( "optionalField/manga/AltTitle", false ).toBool() ){
         this->LineEdit_AltTitle = new QLineEdit(this);
         this->LineEdit_AltTitle->setMaxLength(128);
+        this->LineEdit_AltTitle->setDragEnabled(true);
         this->LineEdit_AltTitle->setPlaceholderText( tr("Alternative title") );
         ui->VLay_AltTitle->addWidget( this->LineEdit_AltTitle );
     }
     if( settings.value( "optionalField/manga/Author", false ).toBool() ){
         this->LineEdit_Author = new QLineEdit(this);
         this->LineEdit_Author->setMaxLength(32);
+        this->LineEdit_Author->setDragEnabled(true);
         this->LineEdit_Author->setPlaceholderText( tr("Author") );
         ui->HLay_AuthorAndSound->addWidget( this->LineEdit_Author );
     }
     if( settings.value( "optionalField/manga/Translation", false ).toBool() ){
         this->LineEdit_Translation = new QLineEdit(this);
         this->LineEdit_Translation->setMaxLength(128);
+        this->LineEdit_Translation->setDragEnabled(true);
         this->LineEdit_Translation->setPlaceholderText( tr("Translation") );
         ui->HLay_AuthorAndSound->addWidget( this->LineEdit_Translation );
     }

@@ -68,6 +68,12 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="font">
+           <font>
+            <family>Cantarell</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string notr="true"/>
           </property>
@@ -75,6 +81,9 @@
            <number>256</number>
           </property>
           <property name="frame">
+           <bool>true</bool>
+          </property>
+          <property name="dragEnabled">
            <bool>true</bool>
           </property>
           <property name="placeholderText">
@@ -267,6 +276,12 @@
                <height>16777215</height>
               </size>
              </property>
+             <property name="font">
+              <font>
+               <family>Cantarell</family>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>&amp;Options</string>
              </property>
@@ -344,10 +359,8 @@
             <font>
              <family>URW Chancery L</family>
              <pointsize>26</pointsize>
-             <weight>50</weight>
              <italic>true</italic>
-             <bold>false</bold>
-             <underline>false</underline>
+             <stylestrategy>PreferAntialias</stylestrategy>
              <kerning>true</kerning>
             </font>
            </property>
@@ -403,6 +416,14 @@
              <layout class="QFormLayout" name="formLayout">
               <item row="0" column="0">
                <widget class="QLabel" name="Lbl_TCoder">
+                <property name="font">
+                 <font>
+                  <family>Cantarell</family>
+                  <pointsize>11</pointsize>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Developer:</string>
                 </property>
@@ -410,6 +431,14 @@
               </item>
               <item row="0" column="1">
                <widget class="QLabel" name="Lbl_VCoder">
+                <property name="font">
+                 <font>
+                  <family>Cantarell</family>
+                  <pointsize>11</pointsize>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
                 <property name="text">
                  <string notr="true" extracomment="Label Value Coder">Demetrio</string>
                 </property>
@@ -417,6 +446,14 @@
               </item>
               <item row="1" column="0">
                <widget class="QLabel" name="Lbl_TDesignAuthor">
+                <property name="font">
+                 <font>
+                  <family>Cantarell</family>
+                  <pointsize>11</pointsize>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Designer:</string>
                 </property>
@@ -424,6 +461,14 @@
               </item>
               <item row="1" column="1">
                <widget class="QLabel" name="Lbl_VDesignAuthor">
+                <property name="font">
+                 <font>
+                  <family>Cantarell</family>
+                  <pointsize>11</pointsize>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
                 <property name="text">
                  <string notr="true" extracomment="Label Value Design Author">Макс Вольный</string>
                 </property>
@@ -431,6 +476,14 @@
               </item>
               <item row="2" column="0">
                <widget class="QLabel" name="Lbl_TVersion">
+                <property name="font">
+                 <font>
+                  <family>Cantarell</family>
+                  <pointsize>11</pointsize>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
                 <property name="text">
                  <string>Version:</string>
                 </property>
@@ -438,6 +491,14 @@
               </item>
               <item row="2" column="1">
                <widget class="QLabel" name="Lbl_VVersion">
+                <property name="font">
+                 <font>
+                  <family>Cantarell</family>
+                  <pointsize>11</pointsize>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
                 <property name="text">
                  <string notr="true" extracomment="[unsed]">0.0.0</string>
                 </property>
@@ -445,6 +506,14 @@
               </item>
               <item row="3" column="0">
                <widget class="QLabel" name="Lbl_TLicense">
+                <property name="font">
+                 <font>
+                  <family>Cantarell</family>
+                  <pointsize>11</pointsize>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
                 <property name="text">
                  <string>License:</string>
                 </property>
@@ -452,6 +521,14 @@
               </item>
               <item row="3" column="1">
                <widget class="QLabel" name="Lbl_VLicense">
+                <property name="font">
+                 <font>
+                  <family>Cantarell</family>
+                  <pointsize>11</pointsize>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
                 <property name="toolTip">
                  <string notr="true"/>
                 </property>
@@ -513,6 +590,14 @@
              <layout class="QFormLayout" name="formLayout_3">
               <item row="0" column="0">
                <widget class="QLabel" name="Lbl_TGitHub">
+                <property name="font">
+                 <font>
+                  <family>Cantarell</family>
+                  <pointsize>11</pointsize>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
                 <property name="text">
                  <string notr="true" extracomment="GitHub - site name">GitHub:</string>
                 </property>
@@ -520,6 +605,14 @@
               </item>
               <item row="0" column="1">
                <widget class="QLabel" name="Lbl_VGitHub">
+                <property name="font">
+                 <font>
+                  <family>Cantarell</family>
+                  <pointsize>11</pointsize>
+                  <stylestrategy>PreferAntialias</stylestrategy>
+                  <kerning>true</kerning>
+                 </font>
+                </property>
                 <property name="text">
                  <string notr="true" extracomment="Link to sire GitHub">&lt;a href=&quot;https://github.com/LibertaSoft/DatabaseAnime&quot;&gt;https://github.com/LibertaSoft/DatabaseAnime&lt;/a&gt;</string>
                 </property>

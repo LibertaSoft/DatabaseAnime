@@ -24,18 +24,21 @@ void DialogAddAnime::initOptionalFields()
     if( settings.value( "optionalField/anime/OrigTitle", false ).toBool() ){
         this->LineEdit_OrigTitle = new QLineEdit(this);
         this->LineEdit_OrigTitle->setMaxLength(128);
+        this->LineEdit_OrigTitle->setDragEnabled(true);
         this->LineEdit_OrigTitle->setPlaceholderText( tr("Alternative title") );
         ui->VLay_OrigTitle->addWidget( this->LineEdit_OrigTitle );
     }
     if( settings.value( "optionalField/anime/Director", false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
+        this->LineEdit_Director->setDragEnabled(true);
         this->LineEdit_Director->setPlaceholderText( tr("Director") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_Director );
     }
     if( settings.value( "optionalField/anime/PostScoring", false ).toBool() ){
         this->LineEdit_PostScoring = new QLineEdit(this);
         this->LineEdit_PostScoring->setMaxLength(128);
+        this->LineEdit_PostScoring->setDragEnabled(true);
         this->LineEdit_PostScoring->setPlaceholderText( tr("Postscoring") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_PostScoring );
     }
