@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/video.png</file>
         <file>images/list-remove-active.png</file>
         <file>images/list-add-active.png</file>
         <file>images/NoImage.png</file>
@@ -17,15 +16,16 @@
         <file>images/icon-section/section-dorama.png</file>
         <file>images/icon-section/section-anime.png</file>
         <file>images/icon-section/section-amv.png</file>
-        <file>images/icon-filters/filter_tv.png</file>
-        <file>images/icon-filters/filter_special.png</file>
-        <file>images/icon-filters/filter_ova.png</file>
-        <file>images/icon-filters/filter_ona.png</file>
-        <file>images/icon-filters/filter_movie.png</file>
-        <file>images/icon-filters/filter_look.png</file>
-        <file>images/icon-filters/filter_edit.png</file>
-        <file>images/icon-filters/filter_all.png</file>
         <file>images/play.png</file>
         <file>images/refresh.png</file>
+        <file>images/icon-filters/Looked.png</file>
+        <file>images/icon-filters/Movie.png</file>
+        <file>images/icon-filters/Tv.png</file>
+        <file>images/icon-filters/Edit.png</file>
+        <file>images/icon-filters/WantLook.png</file>
+        <file>images/icon-filters/All.png</file>
+        <file>images/icon-filters/Special.png</file>
+        <file>images/icon-filters/MonitorONA.png</file>
+        <file>images/icon-filters/MonitorOVA.png</file>
     </qresource>
 </RCC>

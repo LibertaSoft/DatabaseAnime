@@ -57,18 +57,11 @@ int main(int argc, char *argv[])
         qInstallMessageHandler(myMessageOutput);
     #endif
 
-//    QStringList paths = QCoreApplication::libraryPaths();
-//    paths.append(".");
-//    paths.append("imageformats");
-//    paths.append("platforms");
-//    paths.append("sqldrivers");
-//    QCoreApplication::setLibraryPaths(paths);
-
     QApplication app(argc, argv);
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");
     app.setApplicationName("DatabaseAnime");
-    app.setApplicationVersion("0.2.2 Pre-Alpha");
+    app.setApplicationVersion("0.2.3 Pre-Alpha");
     app.setApplicationDisplayName( QObject::tr("Database Anime") );
     app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
 

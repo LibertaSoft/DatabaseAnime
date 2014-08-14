@@ -91,7 +91,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_PButton_Options_clicked()
 {
-    FormSettings formSettings(this);
+    FormSettings formSettings(mngrConnection, this);
     formSettings.setModal(true);
     formSettings.exec();
 
@@ -320,7 +320,7 @@ void MainWindow::reloadSectionsList()
             = static_cast<sections::section>(
                 settings.value("btnSwitchSection/selected", sections::none).toInt() );
     ui->CB_Section->clear();
-    ui->CB_Section->addItem( QIcon("://images/icon-filters/filter_edit.png"),
+    ui->CB_Section->addItem( QIcon("://images/DBA_Icon.png"),
                              tr("Main"), sections::none );
     if( set_enableBtnAnime ){
         ui->CB_Section->addItem( QIcon("://images/icon-section/section-anime.png"),
@@ -349,53 +349,53 @@ void MainWindow::reloadSectionsList()
 }
 
 void MainWindow::loadAnimeFilters(){
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_all.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/All.png"),
                             tr("All"),          Filter::all );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_edit.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Edit.png"),
                             tr("Editing"),      Filter::editing );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_look.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/WantLook.png"),
                             tr("Want to look"), Filter::wanttolook );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_look.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Looked.png"),
                             tr("Looked"), Filter::looked );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_tv.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Tv.png"),
                             tr("TV"),           Filter::tv );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_ova.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/MonitorOVA.png"),
                             tr("OVA"),          Filter::ova );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_ona.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/MonitorONA.png"),
                             tr("ONA"),          Filter::ona );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_special.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Special.png"),
                             tr("Special"),      Filter::special );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_movie.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Movie.png"),
                             tr("Movie"),        Filter::movie );
 }
 void MainWindow::loadMangaFilters(){
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_all.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/All.png"),
                             tr("All"),          Filter::all );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_edit.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Edit.png"),
                             tr("Editing"),      Filter::editing );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_look.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/WantLook.png"),
                             tr("Want to read"), Filter::wanttolook );
 }
 void MainWindow::loadAmvFilters(){
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_all.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/All.png"),
                             tr("All"),          Filter::all );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_edit.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Edit.png"),
                             tr("Editing"),      Filter::editing );
 }
 void MainWindow::loadDoramaFilters(){
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_all.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/All.png"),
                             tr("All"),          Filter::all );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_edit.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Edit.png"),
                             tr("Editing"),      Filter::editing );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_look.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/WantLook.png"),
                             tr("Want to look"), Filter::wanttolook );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_look.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Looked.png"),
                             tr("Looked"), Filter::looked );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_tv.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Tv.png"),
                             tr("TV"),           Filter::tv );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_special.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Special.png"),
                             tr("Special"),      Filter::special );
-    ui->CB_Filter->addItem( QIcon("://images/icon-filters/filter_movie.png"),
+    ui->CB_Filter->addItem( QIcon("://images/icon-filters/Movie.png"),
                             tr("Movie"),        Filter::movie );
 }
 

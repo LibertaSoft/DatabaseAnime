@@ -68,12 +68,6 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="font">
-           <font>
-            <family>Cantarell</family>
-            <pointsize>11</pointsize>
-           </font>
-          </property>
           <property name="text">
            <string notr="true"/>
           </property>
@@ -130,7 +124,7 @@
              <string extracomment="Hint(toolTip) Button Add">Add</string>
             </property>
             <property name="text">
-             <string comment="Text on button add [unused]">+</string>
+             <string notr="true" comment="Text on button add [unused]">+</string>
             </property>
             <property name="icon">
              <iconset resource="resource.qrc">
@@ -166,7 +160,7 @@
              <string extracomment="Hint(toolTip) Button Edit">Edit</string>
             </property>
             <property name="text">
-             <string comment="Text on button edit [unused]">*</string>
+             <string notr="true" comment="Text on button edit [unused]">/</string>
             </property>
             <property name="icon">
              <iconset resource="resource.qrc">
@@ -202,7 +196,7 @@
              <string extracomment="Hint(toolTip) Button Delete">Delete</string>
             </property>
             <property name="text">
-             <string comment="Text on button delete [unused]">-</string>
+             <string notr="true" comment="Text on button delete [unused]">-</string>
             </property>
             <property name="icon">
              <iconset resource="resource.qrc">
@@ -269,18 +263,6 @@
             <widget class="QPushButton" name="PButton_Options">
              <property name="enabled">
               <bool>true</bool>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>Cantarell</family>
-               <pointsize>11</pointsize>
-              </font>
              </property>
              <property name="text">
               <string>&amp;Options</string>
@@ -359,7 +341,9 @@
             <font>
              <family>URW Chancery L</family>
              <pointsize>26</pointsize>
-             <italic>true</italic>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
              <stylestrategy>PreferAntialias</stylestrategy>
              <kerning>true</kerning>
             </font>
@@ -389,22 +373,10 @@
            </item>
            <item>
             <widget class="QFrame" name="frame_AppInfo">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
              <property name="minimumSize">
               <size>
-               <width>210</width>
-               <height>100</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>300</width>
-               <height>120</height>
+               <width>200</width>
+               <height>0</height>
               </size>
              </property>
              <property name="frameShape">
@@ -414,6 +386,24 @@
               <enum>QFrame::Raised</enum>
              </property>
              <layout class="QFormLayout" name="formLayout">
+              <property name="horizontalSpacing">
+               <number>10</number>
+              </property>
+              <property name="verticalSpacing">
+               <number>3</number>
+              </property>
+              <property name="leftMargin">
+               <number>6</number>
+              </property>
+              <property name="topMargin">
+               <number>6</number>
+              </property>
+              <property name="rightMargin">
+               <number>6</number>
+              </property>
+              <property name="bottomMargin">
+               <number>6</number>
+              </property>
               <item row="0" column="0">
                <widget class="QLabel" name="Lbl_TCoder">
                 <property name="font">
@@ -446,6 +436,12 @@
               </item>
               <item row="1" column="0">
                <widget class="QLabel" name="Lbl_TDesignAuthor">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="font">
                  <font>
                   <family>Cantarell</family>
@@ -590,14 +586,6 @@
              <layout class="QFormLayout" name="formLayout_3">
               <item row="0" column="0">
                <widget class="QLabel" name="Lbl_TGitHub">
-                <property name="font">
-                 <font>
-                  <family>Cantarell</family>
-                  <pointsize>11</pointsize>
-                  <stylestrategy>PreferAntialias</stylestrategy>
-                  <kerning>true</kerning>
-                 </font>
-                </property>
                 <property name="text">
                  <string notr="true" extracomment="GitHub - site name">GitHub:</string>
                 </property>
@@ -605,14 +593,6 @@
               </item>
               <item row="0" column="1">
                <widget class="QLabel" name="Lbl_VGitHub">
-                <property name="font">
-                 <font>
-                  <family>Cantarell</family>
-                  <pointsize>11</pointsize>
-                  <stylestrategy>PreferAntialias</stylestrategy>
-                  <kerning>true</kerning>
-                 </font>
-                </property>
                 <property name="text">
                  <string notr="true" extracomment="Link to sire GitHub">&lt;a href=&quot;https://github.com/LibertaSoft/DatabaseAnime&quot;&gt;https://github.com/LibertaSoft/DatabaseAnime&lt;/a&gt;</string>
                 </property>

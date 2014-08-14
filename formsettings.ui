@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>726</width>
-    <height>446</height>
+    <width>631</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -164,12 +164,12 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="HLay_2">
      <property name="topMargin">
       <number>0</number>
      </property>
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_5">
+      <layout class="QVBoxLayout" name="VLay_5">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -202,7 +202,7 @@
             <number>0</number>
            </property>
            <property name="leftMargin">
-            <number>0</number>
+            <number>6</number>
            </property>
            <property name="topMargin">
             <number>0</number>
@@ -280,7 +280,7 @@
           <attribute name="title">
            <string>Optional fields</string>
           </attribute>
-          <layout class="QHBoxLayout" name="horizontalLayout">
+          <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
             <widget class="QGroupBox" name="GBox_FieldsForEdit">
              <property name="styleSheet">
@@ -292,26 +292,23 @@
              <property name="checkable">
               <bool>false</bool>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_8">
-              <property name="spacing">
-               <number>0</number>
-              </property>
+             <layout class="QHBoxLayout" name="horizontalLayout">
               <property name="leftMargin">
-               <number>0</number>
+               <number>3</number>
               </property>
               <property name="topMargin">
-               <number>6</number>
+               <number>3</number>
               </property>
               <property name="rightMargin">
-               <number>0</number>
+               <number>3</number>
               </property>
               <property name="bottomMargin">
-               <number>0</number>
+               <number>3</number>
               </property>
               <item>
-               <widget class="QCheckBox" name="CBox_Anime_PostScoring">
+               <widget class="QCheckBox" name="CBox_Anime_Director">
                 <property name="text">
-                 <string>Postscoring</string>
+                 <string>Director</string>
                 </property>
                </widget>
               </item>
@@ -323,9 +320,9 @@
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="CBox_Anime_Director">
+               <widget class="QCheckBox" name="CBox_Anime_PostScoring">
                 <property name="text">
-                 <string>Director</string>
+                 <string>Postscoring</string>
                 </property>
                </widget>
               </item>
@@ -340,26 +337,23 @@
              <property name="checkable">
               <bool>false</bool>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_9">
-              <property name="spacing">
-               <number>0</number>
-              </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_2">
               <property name="leftMargin">
-               <number>0</number>
+               <number>3</number>
               </property>
               <property name="topMargin">
-               <number>6</number>
+               <number>3</number>
               </property>
               <property name="rightMargin">
-               <number>0</number>
+               <number>3</number>
               </property>
               <property name="bottomMargin">
-               <number>0</number>
+               <number>3</number>
               </property>
               <item>
-               <widget class="QCheckBox" name="CBox_Manga_Translation">
+               <widget class="QCheckBox" name="CBox_Manga_Author">
                 <property name="text">
-                 <string>Translation</string>
+                 <string>Author</string>
                 </property>
                </widget>
               </item>
@@ -371,9 +365,9 @@
                </widget>
               </item>
               <item>
-               <widget class="QCheckBox" name="CBox_Manga_Author">
+               <widget class="QCheckBox" name="CBox_Manga_Translation">
                 <property name="text">
-                 <string>Author</string>
+                 <string>Translation</string>
                 </property>
                </widget>
               </item>
@@ -388,33 +382,30 @@
              <property name="checkable">
               <bool>false</bool>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_10">
-              <property name="spacing">
-               <number>0</number>
-              </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_3">
               <property name="leftMargin">
-               <number>0</number>
+               <number>3</number>
               </property>
               <property name="topMargin">
-               <number>6</number>
+               <number>3</number>
               </property>
               <property name="rightMargin">
-               <number>0</number>
+               <number>3</number>
               </property>
               <property name="bottomMargin">
-               <number>0</number>
+               <number>3</number>
               </property>
-              <item>
-               <widget class="QCheckBox" name="CBox_Dorama_AltTitle">
-                <property name="text">
-                 <string>Alternative title</string>
-                </property>
-               </widget>
-              </item>
               <item>
                <widget class="QCheckBox" name="CBox_Dorama_Director">
                 <property name="text">
                  <string>Director</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="CBox_Dorama_AltTitle">
+                <property name="text">
+                 <string>Alternative title</string>
                 </property>
                </widget>
               </item>
@@ -502,12 +493,9 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <layout class="QHBoxLayout" name="HLay_Dir">
+          <layout class="QHBoxLayout" name="HLay_ExDir">
            <property name="spacing">
-            <number>0</number>
-           </property>
-           <property name="topMargin">
-            <number>0</number>
+            <number>3</number>
            </property>
            <item>
             <widget class="QLineEdit" name="LineEdit_ExDir">
@@ -554,10 +542,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QGroupBox" name="GBox_Format">
-           <property name="enabled">
-            <bool>true</bool>
-           </property>
+          <widget class="QGroupBox" name="GBox_ExSection">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
              <horstretch>0</horstretch>
@@ -571,66 +556,13 @@
             </font>
            </property>
            <property name="title">
-            <string>Format</string>
-           </property>
-           <layout class="QHBoxLayout" name="horizontalLayout_7">
-            <property name="leftMargin">
-             <number>0</number>
-            </property>
-            <property name="rightMargin">
-             <number>0</number>
-            </property>
-            <property name="bottomMargin">
-             <number>0</number>
-            </property>
-            <item>
-             <widget class="QRadioButton" name="RBtn_ExXml">
-              <property name="font">
-               <font>
-                <family>Cantarell</family>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>XML</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QRadioButton" name="RBtn_ExSqlite">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="font">
-               <font>
-                <family>Cantarell</family>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>SQLite</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="GBox_ExSection">
-           <property name="font">
-            <font>
-             <family>Cantarell</family>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
-           <property name="title">
             <string>Sections</string>
            </property>
            <layout class="QGridLayout" name="gridLayout">
             <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
              <number>0</number>
             </property>
             <property name="rightMargin">
@@ -708,6 +640,12 @@
          </item>
          <item>
           <widget class="QPushButton" name="PBtn_Export">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="font">
             <font>
              <family>Cantarell</family>
@@ -727,9 +665,9 @@
         </attribute>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <property name="topMargin">
-            <number>0</number>
+          <layout class="QHBoxLayout" name="HLay_ImDir">
+           <property name="spacing">
+            <number>3</number>
            </property>
            <item>
             <widget class="QLineEdit" name="LineEdit_ImFile">
@@ -829,6 +767,9 @@
          </item>
          <item>
           <layout class="QHBoxLayout" name="HLay_AddReplace">
+           <property name="spacing">
+            <number>6</number>
+           </property>
            <item>
             <widget class="QPushButton" name="PBtn_ImAppend">
              <property name="toolTip">
@@ -840,6 +781,12 @@
              <property name="icon">
               <iconset resource="resource.qrc">
                <normaloff>:/images/list-add-active.png</normaloff>:/images/list-add-active.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
              </property>
             </widget>
            </item>
@@ -857,8 +804,8 @@
              </property>
              <property name="iconSize">
               <size>
-               <width>16</width>
-               <height>16</height>
+               <width>20</width>
+               <height>20</height>
               </size>
              </property>
             </widget>

@@ -28,14 +28,6 @@
         <layout class="QHBoxLayout" name="HLay_1">
          <item>
           <widget class="QLabel" name="label">
-           <property name="font">
-            <font>
-             <family>Cantarell</family>
-             <pointsize>11</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
            <property name="text">
             <string>Manga</string>
            </property>
@@ -43,12 +35,6 @@
          </item>
          <item>
           <spacer name="HSpacer_0">
-           <property name="font">
-            <font>
-             <family>Cantarell</family>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -62,12 +48,6 @@
          </item>
          <item>
           <widget class="QCheckBox" name="CheckBox_LookLater">
-           <property name="font">
-            <font>
-             <family>Cantarell</family>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
            <property name="text">
             <string>Want to read</string>
            </property>
@@ -75,12 +55,6 @@
          </item>
          <item>
           <widget class="Line" name="line">
-           <property name="font">
-            <font>
-             <family>Cantarell</family>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
@@ -88,12 +62,6 @@
          </item>
          <item>
           <widget class="QCheckBox" name="CheckBox_Editing">
-           <property name="font">
-            <font>
-             <family>Cantarell</family>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
            <property name="text">
             <string>Editing</string>
            </property>
@@ -108,12 +76,6 @@
          </property>
          <item>
           <widget class="QLineEdit" name="LineEdit_Title">
-           <property name="font">
-            <font>
-             <family>Cantarell</family>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
            <property name="maxLength">
             <number>128</number>
            </property>
@@ -127,12 +89,6 @@
          </item>
          <item>
           <widget class="QCheckBox" name="CBox_Year">
-           <property name="font">
-            <font>
-             <family>Cantarell</family>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
            <property name="text">
             <string>Year:</string>
            </property>
@@ -140,12 +96,6 @@
          </item>
          <item>
           <widget class="QSpinBox" name="SpinBox_Year">
-           <property name="font">
-            <font>
-             <family>Cantarell</family>
-             <pointsize>11</pointsize>
-            </font>
-           </property>
            <property name="minimum">
             <number>1900</number>
            </property>
@@ -181,12 +131,6 @@
            <height>120</height>
           </size>
          </property>
-         <property name="font">
-          <font>
-           <family>Cantarell</family>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
          <property name="currentIndex">
           <number>0</number>
          </property>
@@ -203,12 +147,6 @@
                <height>40</height>
               </size>
              </property>
-             <property name="font">
-              <font>
-               <family>Cantarell</family>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
              <property name="text">
               <string>Volumes</string>
              </property>
@@ -221,12 +159,6 @@
                <width>16777215</width>
                <height>40</height>
               </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>Cantarell</family>
-               <pointsize>11</pointsize>
-              </font>
              </property>
              <property name="text">
               <string>Charapters</string>
@@ -241,46 +173,19 @@
                <height>40</height>
               </size>
              </property>
-             <property name="font">
-              <font>
-               <family>Cantarell</family>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
              <property name="text">
               <string>Pages</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QSpinBox" name="SpinBox_aVol">
-             <property name="font">
-              <font>
-               <family>Cantarell</family>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-            </widget>
+            <widget class="QSpinBox" name="SpinBox_aVol"/>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="SpinBox_aCh">
-             <property name="font">
-              <font>
-               <family>Cantarell</family>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-            </widget>
+            <widget class="QSpinBox" name="SpinBox_aCh"/>
            </item>
            <item row="1" column="2">
-            <widget class="QSpinBox" name="SpinBox_aPages">
-             <property name="font">
-              <font>
-               <family>Cantarell</family>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-            </widget>
+            <widget class="QSpinBox" name="SpinBox_aPages"/>
            </item>
           </layout>
          </widget>
@@ -337,12 +242,6 @@
        </item>
        <item>
         <widget class="QTabWidget" name="TabWidget_Info">
-         <property name="font">
-          <font>
-           <family>Cantarell</family>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
          <property name="currentIndex">
           <number>0</number>
          </property>
@@ -353,12 +252,6 @@
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
             <widget class="QLineEdit" name="LineEdit_Tags">
-             <property name="font">
-              <font>
-               <family>Cantarell</family>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
              <property name="text">
               <string/>
              </property>
@@ -389,12 +282,6 @@
                <width>0</width>
                <height>0</height>
               </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>Cantarell</family>
-               <pointsize>11</pointsize>
-              </font>
              </property>
              <property name="frameShape">
               <enum>QFrame::Panel</enum>
@@ -532,12 +419,6 @@
          <height>0</height>
         </size>
        </property>
-       <property name="font">
-        <font>
-         <family>Cantarell</family>
-         <pointsize>11</pointsize>
-        </font>
-       </property>
        <property name="toolTip">
         <string>Drop image here, or a double click for a file choice</string>
        </property>
@@ -568,12 +449,6 @@
    </item>
    <item>
     <widget class="QDialogButtonBox" name="BtnBox">
-     <property name="font">
-      <font>
-       <family>Cantarell</family>
-       <pointsize>11</pointsize>
-      </font>
-     </property>
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Reset|QDialogButtonBox::Save</set>
      </property>

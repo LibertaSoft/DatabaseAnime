@@ -515,8 +515,6 @@ bool MngrQuerys::insertManga(QMap<QString, QVariant> &data)
     query.bindValue( ":vPages",        data["vPages"] );
     query.bindValue( ":Score",         data["Score"] );
     query.bindValue( ":Year",          data["Year"] );
-    query.bindValue( ":Season",        data["Season"] );
-    query.bindValue( ":Studios",       data["Studios"] );
     query.bindValue( ":Tags",          data["Tags"] );
     query.bindValue( ":Description",   data["Description"] );
     query.bindValue( ":URL",           data["URL"] );
@@ -709,8 +707,6 @@ bool MngrQuerys::updateManga(QMap<QString, QVariant> &data)
     query.bindValue( ":vPages",        data["vPages"] );
     query.bindValue( ":Score",         data["Score"] );
     query.bindValue( ":Year",          data["Year"] );
-    query.bindValue( ":Season",        data["Season"] );
-    query.bindValue( ":Studios",       data["Studios"] );
     query.bindValue( ":Tags",          data["Tags"] );
     query.bindValue( ":Description",   data["Description"] );
     query.bindValue( ":URL",           data["URL"] );

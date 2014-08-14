@@ -1,5 +1,6 @@
 #ifndef FORMSETTINGS_H
 #define FORMSETTINGS_H
+#include "mngrconnection.h"
 #include "mngrquerys.h"
 
 #include <QWidget>
@@ -16,8 +17,10 @@ class FormSettings : public QDialog
 private:
     Ui::FormSettings *ui;
     bool restoreDefault;
+    MngrConnection MngrConnect;
 public:
-    explicit FormSettings(QWidget *parent = 0);
+//    explicit FormSettings(QWidget *parent = 0);
+    explicit FormSettings(MngrConnection &MngrCon, QWidget *parent = 0);
     ~FormSettings();
 
     Sort::sort getSort();

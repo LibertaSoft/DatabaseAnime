@@ -12,9 +12,9 @@
 
 #include <QtXml>
 
-FormSettings::FormSettings(QWidget *parent) :
+FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::FormSettings), restoreDefault(false)
+    ui(new Ui::FormSettings), restoreDefault(false), MngrConnect(MngrCon)
 {
     ui->setupUi(this);
     QSettings settings;
@@ -256,8 +256,6 @@ namespace Export{
         domElement.appendChild(makeElement(domDoc, "vPages",        "", data["vPages"]));
         domElement.appendChild(makeElement(domDoc, "Score",         "", data["Score"]));
         domElement.appendChild(makeElement(domDoc, "Year",          "", data["Year"]));
-        domElement.appendChild(makeElement(domDoc, "Season",        "", data["Season"]));
-        domElement.appendChild(makeElement(domDoc, "Studios",       "", data["Studios"]));
         domElement.appendChild(makeElement(domDoc, "Tags",          "", data["Tags"]));
         domElement.appendChild(makeElement(domDoc, "Description",   "", data["Description"]));
         domElement.appendChild(makeElement(domDoc, "URL",           "", data["URL"]));
@@ -408,8 +406,6 @@ void FormSettings::on_PBtn_Export_clicked()
             data["vPages"]          = query.value("vPages"          ).toString();
             data["Score"]           = query.value("Score"           ).toString();
             data["Year"]            = query.value("Year"            ).toString();
-            data["Season"]          = query.value("Season"          ).toString();
-            data["Studios"]         = query.value("Studios"         ).toString();
             data["Tags"]            = query.value("Tags"            ).toString();
             data["Description"]     = query.value("Description"     ).toString();
             data["URL"]             = query.value("URL"             ).toString();
@@ -495,7 +491,8 @@ void FormSettings::on_PBtn_Export_clicked()
     QDir().mkpath( ui->LineEdit_ExDir->text() );
     QFile file( QDir(ui->LineEdit_ExDir->text()).path() + QDir::separator() + "DatabaseAnime.xml" );
     if( file.open(QIODevice::WriteOnly) ) {
-        QTextStream(&file) << doc.toString(4);
+//        QTextStream.setCodec( QTextCodec:: );
+        QTextStream(&file) << doc.toString(4).toUtf8();
         file.close();
 
         if( ui->CBox_ExAnime->isChecked() ){
@@ -566,92 +563,15 @@ void FormSettings::on_TBtn_ChooseDir_clicked()
 
 bool readXml_AnimeItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
     xml.readNext();
-//    QMap<QString,QString> data;
     while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
         if( xml.hasError() ){
             qCritical() << xml.errorString();
             return false;
         }
         if (xml.tokenType() == QXmlStreamReader::StartElement){
-            if (xml.name() == "isHaveLooked"){
-                xml.readNext();
-                data["isHaveLooked"]    = xml.text().toString();
-            }else if (xml.name() == "isEditingDone"){
-                xml.readNext();
-                data["isEditingDone"]   = xml.text().toString();
-            }else if (xml.name() == "isAdult"){
-                xml.readNext();
-                data["isAdult"]         = xml.text().toString();
-            }else if (xml.name() == "Title"){
-                xml.readNext();
-                data["Title"]           = xml.text().toString();
-            }else if (xml.name() == "OrigTitle"){
-                xml.readNext();
-                data["OrigTitle"]       = xml.text().toString();
-            }else if (xml.name() == "Director"){
-                xml.readNext();
-                data["Director"]        = xml.text().toString();
-            }else if (xml.name() == "PostScoring"){
-                xml.readNext();
-                data["PostScoring"]     = xml.text().toString();
-            }else if (xml.name() == "SeriesTV"){
-                xml.readNext();
-                data["SeriesTV"]        = xml.text().toString();
-            }else if (xml.name() == "SeriesOVA"){
-                xml.readNext();
-                data["SeriesOVA"]       = xml.text().toString();
-            }else if (xml.name() == "SeriesONA"){
-                xml.readNext();
-                data["SeriesONA"]       = xml.text().toString();
-            }else if (xml.name() == "SeriesSpecial"){
-                xml.readNext();
-                data["SeriesSpecial"]   = xml.text().toString();
-            }else if (xml.name() == "SeriesMovie"){
-                xml.readNext();
-                data["SeriesMovie"]     = xml.text().toString();
-            }else if (xml.name() == "vSeriesTV"){
-                xml.readNext();
-                data["vSeriesTV"]       = xml.text().toString();
-            }else if (xml.name() == "vSeriesOVA"){
-                xml.readNext();
-                data["vSeriesOVA"]      = xml.text().toString();
-            }else if (xml.name() == "vSeriesONA"){
-                xml.readNext();
-                data["vSeriesONA"]      = xml.text().toString();
-            }else if (xml.name() == "vSeriesSpecial"){
-                xml.readNext();
-                data["vSeriesSpecial"]  = xml.text().toString();
-            }else if (xml.name() == "vSeriesMovie"){
-                xml.readNext();
-                data["vSeriesMovie"]    = xml.text().toString();
-            }else if (xml.name() == "Score"){
-                xml.readNext();
-                data["Score"]           = xml.text().toString();
-            }else if (xml.name() == "Year"){
-                xml.readNext();
-                data["Year"]            = xml.text().toString();
-            }else if (xml.name() == "Season"){
-                xml.readNext();
-                data["Season"]          = xml.text().toString();
-            }else if (xml.name() == "Studios"){
-                xml.readNext();
-                data["Studios"]         = xml.text().toString();
-            }else if (xml.name() == "Tags"){
-                xml.readNext();
-                data["Tags"]            = xml.text().toString();
-            }else if (xml.name() == "Description"){
-                xml.readNext();
-                data["Description"]     = xml.text().toString();
-            }else if (xml.name() == "URL"){
-                xml.readNext();
-                data["URL"]             = xml.text().toString();
-            }else if (xml.name() == "Dir"){
-                xml.readNext();
-                data["Dir"]             = xml.text().toString();
-            }else if (xml.name() == "ImagePath"){
-                xml.readNext();
-                data["ImagePath"]       = xml.text().toString();
-            }
+             QString tagName( xml.name().toString() );
+             xml.readNext();
+             data[tagName]    = xml.text().toString();
         }
         xml.readNext();
         QCoreApplication::processEvents();
@@ -666,73 +586,9 @@ bool readXml_MangaItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
             return false;
         }
         if (xml.tokenType() == QXmlStreamReader::StartElement){
-            if (xml.name() == "isHaveLooked"){
-                xml.readNext();
-                data["isHaveLooked"]    = xml.text().toString();
-            }else if (xml.name() == "isEditingDone"){
-                xml.readNext();
-                data["isEditingDone"]   = xml.text().toString();
-            }else if (xml.name() == "isAdult"){
-                xml.readNext();
-                data["isAdult"]         = xml.text().toString();
-            }else if (xml.name() == "Title"){
-                xml.readNext();
-                data["Title"]           = xml.text().toString();
-            }else if (xml.name() == "AltTitle"){
-                xml.readNext();
-                data["AltTitle"]       = xml.text().toString();
-            }else if (xml.name() == "Author"){
-                xml.readNext();
-                data["Author"]        = xml.text().toString();
-            }else if (xml.name() == "Translation"){
-                xml.readNext();
-                data["Translation"]     = xml.text().toString();
-            }else if (xml.name() == "Vol"){
-                xml.readNext();
-                data["Vol"]        = xml.text().toString();
-            }else if (xml.name() == "Ch"){
-                xml.readNext();
-                data["Ch"]       = xml.text().toString();
-            }else if (xml.name() == "Pages"){
-                xml.readNext();
-                data["Pages"]       = xml.text().toString();
-            }else if (xml.name() == "vVol"){
-                xml.readNext();
-                data["vVol"]   = xml.text().toString();
-            }else if (xml.name() == "vCh"){
-                xml.readNext();
-                data["vCh"]     = xml.text().toString();
-            }else if (xml.name() == "vPages"){
-                xml.readNext();
-                data["vPages"]       = xml.text().toString();
-            }else if (xml.name() == "Score"){
-                xml.readNext();
-                data["Score"]           = xml.text().toString();
-            }else if (xml.name() == "Year"){
-                xml.readNext();
-                data["Year"]            = xml.text().toString();
-            }else if (xml.name() == "Season"){
-                xml.readNext();
-                data["Season"]          = xml.text().toString();
-            }else if (xml.name() == "Studios"){
-                xml.readNext();
-                data["Studios"]         = xml.text().toString();
-            }else if (xml.name() == "Tags"){
-                xml.readNext();
-                data["Tags"]            = xml.text().toString();
-            }else if (xml.name() == "Description"){
-                xml.readNext();
-                data["Description"]     = xml.text().toString();
-            }else if (xml.name() == "URL"){
-                xml.readNext();
-                data["URL"]             = xml.text().toString();
-            }else if (xml.name() == "Dir"){
-                xml.readNext();
-                data["Dir"]             = xml.text().toString();
-            }else if (xml.name() == "ImagePath"){
-                xml.readNext();
-                data["ImagePath"]       = xml.text().toString();
-            }
+             QString tagName( xml.name().toString() );
+             xml.readNext();
+             data[tagName]    = xml.text().toString();
         }
         xml.readNext();
         QCoreApplication::processEvents();
@@ -747,52 +603,9 @@ bool readXml_AmvItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
             return false;
         }
         if (xml.tokenType() == QXmlStreamReader::StartElement){
-            if (xml.name() == "isEditingDone"){
-                xml.readNext();
-                data["isEditingDone"]   = xml.text().toString();
-            }else if (xml.name() == "isAdult"){
-                xml.readNext();
-                data["isAdult"]         = xml.text().toString();
-            }else if (xml.name() == "Title"){
-                xml.readNext();
-                data["Title"]           = xml.text().toString();
-            }else if (xml.name() == "Author"){
-                xml.readNext();
-                data["Author"]          = xml.text().toString();
-            }else if (xml.name() == "Сontestant"){
-                xml.readNext();
-                data["Сontestant"]        = xml.text().toString();
-            }else if (xml.name() == "Score"){
-                xml.readNext();
-                data["Score"]           = xml.text().toString();
-            }else if (xml.name() == "Year"){
-                xml.readNext();
-                data["Year"]            = xml.text().toString();
-            }else if (xml.name() == "Tags"){
-                xml.readNext();
-                data["Tags"]            = xml.text().toString();
-            }else if (xml.name() == "ContainingMusic"){
-                xml.readNext();
-                data["ContainingMusic"]     = xml.text().toString();
-            }else if (xml.name() == "ContainingAnime"){
-                xml.readNext();
-                data["ContainingAnime"]     = xml.text().toString();
-            }else if (xml.name() == "AuthorComment"){
-                xml.readNext();
-                data["AuthorComment"]     = xml.text().toString();
-            }else if (xml.name() == "Actors"){
-                xml.readNext();
-                data["Actors"]     = xml.text().toString();
-            }else if (xml.name() == "URL"){
-                xml.readNext();
-                data["URL"]             = xml.text().toString();
-            }else if (xml.name() == "Dir"){
-                xml.readNext();
-                data["Dir"]             = xml.text().toString();
-            }else if (xml.name() == "ImagePath"){
-                xml.readNext();
-                data["ImagePath"]       = xml.text().toString();
-            }
+             QString tagName( xml.name().toString() );
+             xml.readNext();
+             data[tagName]    = xml.text().toString();
         }
         xml.readNext();
         QCoreApplication::processEvents();
@@ -801,78 +614,15 @@ bool readXml_AmvItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
 }
 bool readXml_DoramaItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
     xml.readNext();
-    while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
+    while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item" ) ){
         if( xml.hasError() ){
             qCritical() << xml.errorString();
             return false;
         }
         if (xml.tokenType() == QXmlStreamReader::StartElement){
-            if (xml.name() == "isHaveLooked"){                xml.readNext();
-                data["isHaveLooked"]    = xml.text().toString();
-            }else if (xml.name() == "isEditingDone"){
-                xml.readNext();
-                data["isEditingDone"]   = xml.text().toString();
-            }else if (xml.name() == "isAdult"){
-                xml.readNext();
-                data["isAdult"]         = xml.text().toString();
-            }else if (xml.name() == "Title"){
-                xml.readNext();
-                data["Title"]           = xml.text().toString();
-            }else if (xml.name() == "AltTitle"){
-                xml.readNext();
-                data["AltTitle"]       = xml.text().toString();
-            }else if (xml.name() == "Director"){
-                xml.readNext();
-                data["Director"]        = xml.text().toString();
-            }else if (xml.name() == "PostScoring"){
-                xml.readNext();
-                data["PostScoring"]     = xml.text().toString();
-            }else if (xml.name() == "SeriesTV"){
-                xml.readNext();
-                data["SeriesTV"]        = xml.text().toString();
-            }else if (xml.name() == "SeriesSpecial"){
-                xml.readNext();
-                data["SeriesSpecial"]   = xml.text().toString();
-            }else if (xml.name() == "SeriesMovie"){
-                xml.readNext();
-                data["SeriesMovie"]     = xml.text().toString();
-            }else if (xml.name() == "vSeriesTV"){
-                xml.readNext();
-                data["vSeriesTV"]       = xml.text().toString();
-            }else if (xml.name() == "vSeriesSpecial"){
-                xml.readNext();
-                data["vSeriesSpecial"]  = xml.text().toString();
-            }else if (xml.name() == "vSeriesMovie"){
-                xml.readNext();
-                data["vSeriesMovie"]    = xml.text().toString();
-            }else if (xml.name() == "Score"){
-                xml.readNext();
-                data["Score"]           = xml.text().toString();
-            }else if (xml.name() == "Year"){
-                xml.readNext();
-                data["Year"]            = xml.text().toString();
-            }else if (xml.name() == "Season"){
-                xml.readNext();
-                data["Season"]          = xml.text().toString();
-            }else if (xml.name() == "Tags"){
-                xml.readNext();
-                data["Tags"]            = xml.text().toString();
-            }else if (xml.name() == "Description"){
-                xml.readNext();
-                data["Description"]     = xml.text().toString();
-            }else if (xml.name() == "Actors"){
-                xml.readNext();
-                data["Actors"]     = xml.text().toString();
-            }else if (xml.name() == "URL"){
-                xml.readNext();
-                data["URL"]             = xml.text().toString();
-            }else if (xml.name() == "Dir"){
-                xml.readNext();
-                data["Dir"]             = xml.text().toString();
-            }else if (xml.name() == "ImagePath"){
-                xml.readNext();
-                data["ImagePath"]       = xml.text().toString();
-            }
+             QString tagName( xml.name().toString() );
+             xml.readNext();
+             data[tagName]    = xml.text().toString();
         }
         xml.readNext();
         QCoreApplication::processEvents();
@@ -910,6 +660,9 @@ void FormSettings::on_PBtn_ImAppend_clicked()
 
 
     sections::section currentReadSection = sections::none;
+    qDebug() << "Import started: " << QTime().currentTime().toString();
+    MngrConnect.transaction();
+    unsigned long n(0);
     while (!xml.atEnd() && !xml.hasError())
     {
         QXmlStreamReader::TokenType token = xml.readNext();
@@ -940,18 +693,22 @@ void FormSettings::on_PBtn_ImAppend_clicked()
                 case sections::anime :
                     readXml_AnimeItem(xml, data);
                     MngrQuerys::insertAnime(data);
+                    n++;
                     break;
                 case sections::manga :
                     readXml_MangaItem(xml, data);
                     MngrQuerys::insertManga(data);
+                    n++;
                     break;
                 case sections::amv :
                     readXml_AmvItem(xml, data);
                     MngrQuerys::insertAmv(data);
+                    n++;
                     break;
                 case sections::dorama :
                     readXml_DoramaItem(xml, data);
                     MngrQuerys::insertDorama(data);
+                    n++;
                     break;
                 case sections::none :
                     qWarning() << "Import process. None Section";
@@ -963,6 +720,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
 //        process->setValue(++n_process);
         QCoreApplication::processEvents();
     }
+    MngrConnect.commit();
 
     QString importPath( QDir( ui->LineEdit_ImFile->text() ).path().left(
                             ui->LineEdit_ImFile->text().lastIndexOf( QDir::separator() ) ) );
@@ -1017,6 +775,9 @@ void FormSettings::on_PBtn_ImAppend_clicked()
     }
 //    process->setMaximum();
 //    delete process;
+
+    qDebug() << "Import finished:" << QTime().currentTime().toString();
+    qDebug() << "Imported Records: " << n;
     QMessageBox::information(this, "Accept", "Import is finished");
 }
 
@@ -1040,16 +801,23 @@ void FormSettings::on_PBtn_ImReplace_clicked()
     int n = pmbx->exec();
     delete pmbx;
     if (n == QMessageBox::Yes) {
+        MngrConnect.transaction();
         QSqlQuery query;
-        query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::anime ) ) );
-        query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::manga ) ) );
-        query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::amv ) ) );
-        query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::dorama ) ) );
+        if( ui->CBox_ImAnime->isChecked() )
+            query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::anime ) ) );
+        if( ui->CBox_ImManga->isChecked() )
+            query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::manga ) ) );
+        if( ui->CBox_ImAmv->isChecked() )
+            query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::amv ) ) );
+        if( ui->CBox_ImDorama->isChecked() )
+            query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::dorama ) ) );
 
         MngrQuerys::createTable_Anime();
         MngrQuerys::createTable_Manga();
         MngrQuerys::createTable_Amv();
         MngrQuerys::createTable_Dorama();
+        MngrConnect.commit();
+
         on_PBtn_ImAppend_clicked();
     }
 }
