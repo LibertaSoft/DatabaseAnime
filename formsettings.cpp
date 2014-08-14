@@ -21,7 +21,7 @@ FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
     this->restoreGeometry( settings.value("WindowSettings/Geometry").toByteArray() );
     ui->tabWidget_General->setCurrentIndex(0);
     ui->tabWidget_ImpExp->setCurrentIndex(0);
-    ui->LineEdit_ExDir->setText( QStandardPaths::writableLocation( QStandardPaths::TempLocation ) );
+    ui->LineEdit_ExDir->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
     ui->LineEdit_ImFile->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
 
     bool b1 = settings.value( "enableSection/Anime",   true ).toBool();
@@ -73,7 +73,7 @@ FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
     Sort::sort sort = static_cast<Sort::sort>( settings.value( "Sorting", Sort::asc ).toInt() );
     ui->CBox_Sort->setCurrentIndex( sort );
 
-    const QString homeDir(QDir::homePath()
+    const QString homeDir(  QStandardPaths::writableLocation( QStandardPaths::HomeLocation )
                           + QDir::separator() + "." + QApplication::organizationName()
                           + QDir::separator() + QApplication::applicationName() + QDir::separator());
     ui->LineEdit_WorkDirectory->setText( settings.value( "WorkDirectory", homeDir ).toString() );
@@ -549,16 +549,19 @@ void FormSettings::on_PBtn_Export_clicked()
                     << "\nFileName: " << file.fileName();
         QMessageBox::critical(this, tr("Critical"), tr("File is not created"));
     }
-    QMessageBox::information(this, "Accept", "Export is finished");
+    QMessageBox::information( this, tr("Accept"), tr("Export is finished") );
 }
 
 void FormSettings::on_TBtn_ChooseDir_clicked()
 {
-    ui->LineEdit_ExDir->setText(
-                QFileDialog::getExistingDirectory(this,
-                                                  tr("Choose a directory for export file"),
-                                                  QStandardPaths::writableLocation( QStandardPaths::HomeLocation )
-                                                  ) );
+    QString dir = QFileDialog::getExistingDirectory(this,
+                                                    tr("Choose a directory for export file"),
+                                                    ui->LineEdit_ExDir->text()
+                                                    );
+    if( dir.isEmpty() )
+        ui->LineEdit_ExDir->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
+    else
+        ui->LineEdit_ExDir->setText( dir );
 }
 
 bool readXml_AnimeItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
@@ -778,16 +781,21 @@ void FormSettings::on_PBtn_ImAppend_clicked()
 
     qDebug() << "Import finished:" << QTime().currentTime().toString();
     qDebug() << "Imported Records: " << n;
-    QMessageBox::information(this, "Accept", "Import is finished");
+    QMessageBox::information(this, tr("Accept"),"<b>" + tr("Import is finished") + "</b><br>"
+                                                + tr("Records it is imported:")+ " " + QString::number(n) + "   "
+                                                    );
 }
 
 void FormSettings::on_TBtn_ImFile_clicked()
 {
-    ui->LineEdit_ImFile->setText(
-                QFileDialog::getOpenFileName(this,
-                                              tr("Choose a xml file for import"),
-                                              QStandardPaths::writableLocation( QStandardPaths::HomeLocation )
-                                              ) );
+    QString file = QFileDialog::getOpenFileName(this,
+                                                tr("Choose a xml file for import"),
+                                                ui->LineEdit_ImFile->text()
+                                                );
+    if( file.isEmpty() )
+        ui->LineEdit_ImFile->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
+    else
+        ui->LineEdit_ImFile->setText( file );
 }
 
 void FormSettings::on_PBtn_ImReplace_clicked()
@@ -795,29 +803,61 @@ void FormSettings::on_PBtn_ImReplace_clicked()
     QMessageBox* pmbx =
     new QMessageBox(QMessageBox::Question,
         tr("Warning"),
-        tr("<b>Delete</b> your database?"),
+        tr("<b>Delete</b> your database?<br>"
+           "<i>Fields marked by a checkbox will be deleted</i>"),
         QMessageBox::Yes | QMessageBox::No
     );
     int n = pmbx->exec();
     delete pmbx;
+
+    bool isOk(true);
     if (n == QMessageBox::Yes) {
         MngrConnect.transaction();
         QSqlQuery query;
-        if( ui->CBox_ImAnime->isChecked() )
-            query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::anime ) ) );
-        if( ui->CBox_ImManga->isChecked() )
-            query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::manga ) ) );
-        if( ui->CBox_ImAmv->isChecked() )
-            query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::amv ) ) );
-        if( ui->CBox_ImDorama->isChecked() )
-            query.exec( QString("DROP TABLE IF EXISTS %1;").arg( MngrQuerys::getTableName( sections::dorama ) ) );
+        if( ui->CBox_ImAnime->isChecked() ){
+            if( false == query.exec( QString("DROP TABLE IF EXISTS %1").arg( MngrQuerys::getTableName( sections::anime ) ) ) ){
+                qCritical() << QString("Error when deleting a table %1").arg( MngrQuerys::getTableName( sections::anime ) )
+                            << query.lastError();
+                isOk = false;
+                MngrConnect.rollback();
+            }
+        }
+        if( ui->CBox_ImManga->isChecked() ){
+            if( false == query.exec( QString("DROP TABLE IF EXISTS %1").arg( MngrQuerys::getTableName( sections::manga ) ) ) ){
+                qCritical() << QString("Error when deleting a table %1").arg( MngrQuerys::getTableName( sections::manga ) )
+                            << query.lastError();
+                isOk = false;
+                MngrConnect.rollback();
+            }
+        }
+        if( ui->CBox_ImAmv->isChecked() ){
+            if( false == query.exec( QString("DROP TABLE IF EXISTS %1").arg( MngrQuerys::getTableName( sections::amv ) ) ) ){
+                qCritical() << QString("Error when deleting a table %1").arg( MngrQuerys::getTableName( sections::amv ) )
+                            << query.lastError();
+                isOk = false;
+                MngrConnect.rollback();
+            }
+        }
+        if( ui->CBox_ImDorama->isChecked() ){
+            if( false == query.exec( QString("DROP TABLE IF EXISTS %1").arg( MngrQuerys::getTableName( sections::dorama ) ) ) ){
+                qCritical() << QString("Error when deleting a table %1").arg( MngrQuerys::getTableName( sections::dorama ) )
+                            << query.lastError();
+                isOk = false;
+                MngrConnect.rollback();
+            }
+        }
 
-        MngrQuerys::createTable_Anime();
-        MngrQuerys::createTable_Manga();
-        MngrQuerys::createTable_Amv();
-        MngrQuerys::createTable_Dorama();
-        MngrConnect.commit();
-
-        on_PBtn_ImAppend_clicked();
+        if( isOk ){
+            MngrQuerys::createTable_Anime();
+            MngrQuerys::createTable_Manga();
+            MngrQuerys::createTable_Amv();
+            MngrQuerys::createTable_Dorama();
+            MngrConnect.commit();
+        }else{
+            QMessageBox::critical(this, tr("Critical"), tr("Error when deleting a database"));
+            return;
+        }
+        if( ui->LineEdit_ImFile->text().isEmpty() == false )
+            on_PBtn_ImAppend_clicked();
     }
 }

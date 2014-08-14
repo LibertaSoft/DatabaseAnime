@@ -28,6 +28,12 @@
         <layout class="QHBoxLayout" name="HLay_1">
          <item>
           <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
             <string>AMV</string>
            </property>

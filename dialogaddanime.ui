@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
+    <width>925</width>
     <height>597</height>
    </rect>
   </property>
@@ -28,6 +28,12 @@
         <layout class="QHBoxLayout" name="HLay_1">
          <item>
           <widget class="QLabel" name="label">
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
             <string>Anime</string>
            </property>
@@ -1002,6 +1008,12 @@
        </item>
        <item>
         <widget class="QTabWidget" name="TabWidget_Series">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="maximumSize">
           <size>
            <width>16777215</width>
@@ -1088,6 +1100,13 @@
              </property>
             </widget>
            </item>
+           <item row="1" column="3">
+            <widget class="QSpinBox" name="SpinBox_aSpec">
+             <property name="maximum">
+              <number>9999</number>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="1">
             <widget class="QSpinBox" name="SpinBox_aOVA">
              <property name="maximum">
@@ -1102,32 +1121,12 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="3">
-            <widget class="QSpinBox" name="SpinBox_aSpec">
-             <property name="maximum">
-              <number>9999</number>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="4">
             <widget class="QSpinBox" name="SpinBox_aMovie">
              <property name="maximum">
               <number>9999</number>
              </property>
             </widget>
-           </item>
-           <item row="2" column="0" colspan="5">
-            <spacer name="VSpacer_SeriesAll">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </widget>
@@ -1136,6 +1135,13 @@
            <string>Sees</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="4">
+            <widget class="QLabel" name="Lbl_Film2">
+             <property name="text">
+              <string>Movie</string>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="Lbl_TV2">
              <property name="text">
@@ -1161,13 +1167,6 @@
             <widget class="QLabel" name="Lbl_Spec2">
              <property name="text">
               <string>Special</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <widget class="QLabel" name="Lbl_Film2">
-             <property name="text">
-              <string>Movie</string>
              </property>
             </widget>
            </item>
@@ -1206,19 +1205,6 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="0" colspan="5">
-            <spacer name="VSpacer_SeriesSee">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
           </layout>
          </widget>
         </widget>
@@ -1226,7 +1212,7 @@
        <item>
         <widget class="QTabWidget" name="TabWidget_Info">
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -1356,7 +1342,7 @@
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>138</height>
+               <height>40</height>
               </size>
              </property>
             </spacer>
