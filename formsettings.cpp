@@ -330,6 +330,8 @@ void FormSettings::on_PBtn_Export_clicked()
         return;
     }
 
+    this->setDisabled( true );
+
     QDomDocument doc("DatabaseAnime");
     QDomElement  dom = doc.createElement("DatabaseAnime");
     doc.appendChild(dom);
@@ -547,8 +549,11 @@ void FormSettings::on_PBtn_Export_clicked()
     }else{
         qCritical() << file.errorString()
                     << "\nFileName: " << file.fileName();
+        this->setEnabled( true );
         QMessageBox::critical(this, tr("Critical"), tr("File is not created"));
+        return;
     }
+    this->setEnabled( true );
     QMessageBox::information( this, tr("Accept"), tr("Export is finished") );
 }
 
@@ -650,6 +655,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
     }else{
         qCritical() << file.errorString()
                     << "\nFileName: " << file.fileName();
+        this->setEnabled( true );
         QMessageBox::critical(this, tr("Critical"), tr("File is not open"));
         return;
     }
@@ -660,7 +666,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
 //    process->setAutoReset(false);
 //    process->setWindowTitle("Import");
 
-
+    this->setDisabled( true );
 
     sections::section currentReadSection = sections::none;
     qDebug() << "Import started: " << QTime().currentTime().toString();
@@ -781,6 +787,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
 
     qDebug() << "Import finished:" << QTime().currentTime().toString();
     qDebug() << "Imported Records: " << n;
+    this->setEnabled( true );
     QMessageBox::information(this, tr("Accept"),"<b>" + tr("Import is finished") + "</b><br>"
                                                 + tr("Records it is imported:")+ " " + QString::number(n) + "   "
                                                     );
@@ -812,6 +819,7 @@ void FormSettings::on_PBtn_ImReplace_clicked()
 
     bool isOk(true);
     if (n == QMessageBox::Yes) {
+        this->setDisabled( true );
         MngrConnect.transaction();
         QSqlQuery query;
         if( ui->CBox_ImAnime->isChecked() ){
@@ -859,5 +867,7 @@ void FormSettings::on_PBtn_ImReplace_clicked()
         }
         if( ui->LineEdit_ImFile->text().isEmpty() == false )
             on_PBtn_ImAppend_clicked();
+        else
+            this->setEnabled( true );
     }
 }
