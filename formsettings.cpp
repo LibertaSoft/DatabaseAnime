@@ -829,6 +829,15 @@ void FormSettings::on_PBtn_ImReplace_clicked()
                 isOk = false;
                 MngrConnect.rollback();
             }
+
+            QDirIterator it( MngrQuerys::getAnimeCoversPath() );
+            while( it.hasNext() ){
+                it.next();
+                if( it.fileName() == "." || it.fileName() == ".." )
+                    continue;
+                QFile( it.filePath() ).remove();
+                QCoreApplication::processEvents();
+            }
         }
         if( ui->CBox_ImManga->isChecked() ){
             if( false == query.exec( QString("DROP TABLE IF EXISTS %1").arg( MngrQuerys::getTableName( sections::manga ) ) ) ){
@@ -836,6 +845,15 @@ void FormSettings::on_PBtn_ImReplace_clicked()
                             << query.lastError();
                 isOk = false;
                 MngrConnect.rollback();
+            }
+
+            QDirIterator it( MngrQuerys::getMangaCoversPath() );
+            while( it.hasNext() ){
+                it.next();
+                if( it.fileName() == "." || it.fileName() == ".." )
+                    continue;
+                QFile( it.filePath() ).remove();
+                QCoreApplication::processEvents();
             }
         }
         if( ui->CBox_ImAmv->isChecked() ){
@@ -845,6 +863,15 @@ void FormSettings::on_PBtn_ImReplace_clicked()
                 isOk = false;
                 MngrConnect.rollback();
             }
+
+            QDirIterator it( MngrQuerys::getAmvCoversPath() );
+            while( it.hasNext() ){
+                it.next();
+                if( it.fileName() == "." || it.fileName() == ".." )
+                    continue;
+                QFile( it.filePath() ).remove();
+                QCoreApplication::processEvents();
+            }
         }
         if( ui->CBox_ImDorama->isChecked() ){
             if( false == query.exec( QString("DROP TABLE IF EXISTS %1").arg( MngrQuerys::getTableName( sections::dorama ) ) ) ){
@@ -852,6 +879,15 @@ void FormSettings::on_PBtn_ImReplace_clicked()
                             << query.lastError();
                 isOk = false;
                 MngrConnect.rollback();
+            }
+
+            QDirIterator it( MngrQuerys::getDoramaCoversPath() );
+            while( it.hasNext() ){
+                it.next();
+                if( it.fileName() == "." || it.fileName() == ".." )
+                    continue;
+                QFile( it.filePath() ).remove();
+                QCoreApplication::processEvents();
             }
         }
 
