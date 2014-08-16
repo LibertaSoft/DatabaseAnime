@@ -28,7 +28,7 @@ Idea of a logo of the application: [Pavel Enotin](https://vk.com/everydayiamsuff
 - eMail: [LibertaSoft@ya.ru](mailto:libertasoft@ya.ru)
 
 ### License
-- DatabaseAnime licensed by [GNU GPLv3](./LICENSE)
+- DatabaseAnime is licensed under [GNU GPLv3](./LICENSE)
 
 ### Donation
 *We will be very grateful if you send the decimal sum to one of these purses*
