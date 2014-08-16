@@ -43,7 +43,8 @@ HEADERS += \
 OTHER_FILES += \
     README.md \
     README_eng.md \
-    ToDo.md
+    ToDo.md \
+    ChangeLog.md
 
 win32:RC_FILE += win_icon.rc
 win64:RC_FILE += win_icon.rc
