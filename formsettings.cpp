@@ -330,6 +330,11 @@ void FormSettings::on_PBtn_Export_clicked()
         return;
     }
 
+    if( QDir::isAbsolutePath( ui->LineEdit_ExDir->text() ) == false ){
+        QMessageBox::information( this, tr("Warning"), tr("The path shall be absolute") );
+        return;
+    }
+
     this->setDisabled( true );
 
     QDomDocument doc("DatabaseAnime");
@@ -492,12 +497,17 @@ void FormSettings::on_PBtn_Export_clicked()
 
     QDir().mkpath( ui->LineEdit_ExDir->text() );
     QFile file( QDir(ui->LineEdit_ExDir->text()).path() + QDir::separator() + "DatabaseAnime.xml" );
+    QFile file1( QDir(ui->LineEdit_ExDir->text()).path() + QDir::separator() + "DatabaseAnime1.xml" );
     if( file.open(QIODevice::WriteOnly) ) {
+        file1.open(QIODevice::WriteOnly);
 //        QTextStream.setCodec( QTextCodec:: );
         QTextStream(&file) << doc.toString(4).toUtf8();
+        QTextStream(&file1) << doc.toByteArray();
+        QMessageBox::information(this, "fileExport", "toByteArray");
         file.close();
+        file1.close();
 
-        if( ui->CBox_ExAnime->isChecked() ){
+        if( ui->CBox_ExAnime->isChecked()  && ui->CBox_ExportImages->isChecked() ){
             QDirIterator it( MngrQuerys::getAnimeCoversPath() );
             QString animeCoversExportPath( ui->LineEdit_ExDir->text() + QDir::separator() + "animeCovers" + QDir::separator() );
             QDir().mkpath( animeCoversExportPath );
@@ -509,7 +519,7 @@ void FormSettings::on_PBtn_Export_clicked()
                 QCoreApplication::processEvents();
             }
         }
-        if( ui->CBox_ExManga->isChecked() ){
+        if( ui->CBox_ExManga->isChecked()  && ui->CBox_ExportImages->isChecked() ){
             QDirIterator it( MngrQuerys::getMangaCoversPath() );
             QString mangaCoversExportPath( ui->LineEdit_ExDir->text() + QDir::separator() + "mangaCovers" + QDir::separator() );
             QDir().mkpath( mangaCoversExportPath );
@@ -521,7 +531,7 @@ void FormSettings::on_PBtn_Export_clicked()
                 QCoreApplication::processEvents();
             }
         }
-        if( ui->CBox_ExAmv->isChecked() ){
+        if( ui->CBox_ExAmv->isChecked()    && ui->CBox_ExportImages->isChecked() ){
             QDirIterator it( MngrQuerys::getAmvCoversPath() );
             QString amvCoversExportPath( ui->LineEdit_ExDir->text() + QDir::separator() + "amvCovers" + QDir::separator() );
             QDir().mkpath( amvCoversExportPath );
@@ -533,7 +543,7 @@ void FormSettings::on_PBtn_Export_clicked()
                 QCoreApplication::processEvents();
             }
         }
-        if( ui->CBox_ExDorama->isChecked() ){
+        if( ui->CBox_ExDorama->isChecked() && ui->CBox_ExportImages->isChecked() ){
             QDirIterator it( MngrQuerys::getDoramaCoversPath() );
             QString doramaCoversExportPath( ui->LineEdit_ExDir->text() + QDir::separator() + "doramaCovers" + QDir::separator() );
             QDir().mkpath( doramaCoversExportPath );
@@ -554,7 +564,7 @@ void FormSettings::on_PBtn_Export_clicked()
         return;
     }
     this->setEnabled( true );
-    QMessageBox::information( this, tr("Accept"), tr("Export is finished") );
+    QMessageBox::information( this, tr("Export"), tr("Export is successfully finished") );
 }
 
 void FormSettings::on_TBtn_ChooseDir_clicked()
@@ -641,8 +651,9 @@ bool readXml_DoramaItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
 void FormSettings::on_PBtn_ImAppend_clicked()
 {
     if( ui->LineEdit_ImFile->text().isEmpty() ){
-        QMessageBox::warning(this, tr("Warning"), tr("The exported file isn't selected"));
+        QMessageBox::warning(this, tr("Warning"), tr("The imported file isn't selected"));
         ui->LineEdit_ImFile->setFocus();
+        this->setEnabled( true );
         return;
     }
 
@@ -669,7 +680,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
     this->setDisabled( true );
 
     sections::section currentReadSection = sections::none;
-    qDebug() << "Import started: " << QTime().currentTime().toString();
+//    qDebug() << "Import started: " << QTime().currentTime().toString();
     MngrConnect.transaction();
     unsigned long n(0);
     while (!xml.atEnd() && !xml.hasError())
@@ -734,7 +745,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
     QString importPath( QDir( ui->LineEdit_ImFile->text() ).path().left(
                             ui->LineEdit_ImFile->text().lastIndexOf( QDir::separator() ) ) );
 
-    if( ui->CBox_ImAnime->isChecked() ){
+    if( ui->CBox_ImAnime->isChecked()  && ui->CBox_ImportImages->isChecked() ){
         QDirIterator it( importPath + QDir::separator() + "animeCovers" + QDir::separator() );
         QDir().mkpath( MngrQuerys::getAnimeCoversPath() );
         while( it.hasNext() ){
@@ -746,7 +757,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
             QCoreApplication::processEvents();
         }
     }
-    if( ui->CBox_ImManga->isChecked() ){
+    if( ui->CBox_ImManga->isChecked()  && ui->CBox_ImportImages->isChecked() ){
         QDirIterator it( importPath + QDir::separator() + "mangaCovers" + QDir::separator() );
         QDir().mkpath( MngrQuerys::getMangaCoversPath() );
         while( it.hasNext() ){
@@ -758,7 +769,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
             QCoreApplication::processEvents();
         }
     }
-    if( ui->CBox_ImAmv->isChecked() ){
+    if( ui->CBox_ImAmv->isChecked()    && ui->CBox_ImportImages->isChecked() ){
         QDirIterator it( importPath + QDir::separator() + "amvCovers" + QDir::separator() );
         QDir().mkpath( MngrQuerys::getAmvCoversPath() );
         while( it.hasNext() ){
@@ -770,7 +781,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
             QCoreApplication::processEvents();
         }
     }
-    if( ui->CBox_ImDorama->isChecked() ){
+    if( ui->CBox_ImDorama->isChecked() && ui->CBox_ImportImages->isChecked() ){
         QDirIterator it( importPath + QDir::separator() + "doramaCovers" + QDir::separator() );
         QDir().mkpath( MngrQuerys::getDoramaCoversPath() );
         while( it.hasNext() ){
@@ -785,10 +796,10 @@ void FormSettings::on_PBtn_ImAppend_clicked()
 //    process->setMaximum();
 //    delete process;
 
-    qDebug() << "Import finished:" << QTime().currentTime().toString();
-    qDebug() << "Imported Records: " << n;
+//    qDebug() << "Import finished:" << QTime().currentTime().toString();
+//    qDebug() << "Imported Records: " << n;
     this->setEnabled( true );
-    QMessageBox::information(this, tr("Accept"),"<b>" + tr("Import is finished") + "</b><br>"
+    QMessageBox::information(this, tr("Import"),"<b>" + tr("Import is successfully finished") + "</b><br>"
                                                 + tr("Records it is imported:")+ " " + QString::number(n) + "   "
                                                     );
 }
@@ -830,13 +841,16 @@ void FormSettings::on_PBtn_ImReplace_clicked()
                 MngrConnect.rollback();
             }
 
-            QDirIterator it( MngrQuerys::getAnimeCoversPath() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
+            // #FixMe : В случаае ошибки, изменения в БД откатятся, а картинки будут удалены
+            if( ui->CBox_ImportImages->isChecked() && isOk ){
+                QDirIterator it( MngrQuerys::getAnimeCoversPath() );
+                while( it.hasNext() ){
+                    it.next();
+                    if( it.fileName() == "." || it.fileName() == ".." )
+                        continue;
+                    QFile( it.filePath() ).remove();
+                    QCoreApplication::processEvents();
+                }
             }
         }
         if( ui->CBox_ImManga->isChecked() ){
@@ -847,13 +861,15 @@ void FormSettings::on_PBtn_ImReplace_clicked()
                 MngrConnect.rollback();
             }
 
-            QDirIterator it( MngrQuerys::getMangaCoversPath() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
+            if( ui->CBox_ImportImages->isChecked() && isOk ){
+                QDirIterator it( MngrQuerys::getMangaCoversPath() );
+                while( it.hasNext() ){
+                    it.next();
+                    if( it.fileName() == "." || it.fileName() == ".." )
+                        continue;
+                    QFile( it.filePath() ).remove();
+                    QCoreApplication::processEvents();
+                }
             }
         }
         if( ui->CBox_ImAmv->isChecked() ){
@@ -864,13 +880,15 @@ void FormSettings::on_PBtn_ImReplace_clicked()
                 MngrConnect.rollback();
             }
 
-            QDirIterator it( MngrQuerys::getAmvCoversPath() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
+            if( ui->CBox_ImportImages->isChecked() && isOk ){
+                QDirIterator it( MngrQuerys::getAmvCoversPath() );
+                while( it.hasNext() ){
+                    it.next();
+                    if( it.fileName() == "." || it.fileName() == ".." )
+                        continue;
+                    QFile( it.filePath() ).remove();
+                    QCoreApplication::processEvents();
+                }
             }
         }
         if( ui->CBox_ImDorama->isChecked() ){
@@ -881,13 +899,15 @@ void FormSettings::on_PBtn_ImReplace_clicked()
                 MngrConnect.rollback();
             }
 
-            QDirIterator it( MngrQuerys::getDoramaCoversPath() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
+            if( ui->CBox_ImportImages->isChecked() && isOk ){
+                QDirIterator it( MngrQuerys::getDoramaCoversPath() );
+                while( it.hasNext() ){
+                    it.next();
+                    if( it.fileName() == "." || it.fileName() == ".." )
+                        continue;
+                    QFile( it.filePath() ).remove();
+                    QCoreApplication::processEvents();
+                }
             }
         }
 

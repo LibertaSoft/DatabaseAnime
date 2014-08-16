@@ -545,6 +545,16 @@
           </widget>
          </item>
          <item>
+          <widget class="QCheckBox" name="CBox_ExportImages">
+           <property name="text">
+            <string>Export images</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QPushButton" name="PBtn_Export">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -663,6 +673,16 @@
              </widget>
             </item>
            </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="CBox_ImportImages">
+           <property name="text">
+            <string>Import images</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
