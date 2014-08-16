@@ -497,15 +497,10 @@ void FormSettings::on_PBtn_Export_clicked()
 
     QDir().mkpath( ui->LineEdit_ExDir->text() );
     QFile file( QDir(ui->LineEdit_ExDir->text()).path() + QDir::separator() + "DatabaseAnime.xml" );
-    QFile file1( QDir(ui->LineEdit_ExDir->text()).path() + QDir::separator() + "DatabaseAnime1.xml" );
-    if( file.open(QIODevice::WriteOnly) ) {
-        file1.open(QIODevice::WriteOnly);
-//        QTextStream.setCodec( QTextCodec:: );
-        QTextStream(&file) << doc.toString(4).toUtf8();
-        QTextStream(&file1) << doc.toByteArray();
-        QMessageBox::information(this, "fileExport", "toByteArray");
+    if( file.open( QIODevice::WriteOnly | QIODevice::Text ) ) {
+        QTextStream fstream(&file);
+        doc.save( fstream, 4 );
         file.close();
-        file1.close();
 
         if( ui->CBox_ExAnime->isChecked()  && ui->CBox_ExportImages->isChecked() ){
             QDirIterator it( MngrQuerys::getAnimeCoversPath() );
@@ -657,19 +652,16 @@ void FormSettings::on_PBtn_ImAppend_clicked()
         return;
     }
 
-    QXmlStreamReader xml;
     QFile file( QDir(ui->LineEdit_ImFile->text()).path() );
-    if( file.open(QIODevice::ReadOnly) ){
-//        xml.setDevice(&file);
-        xml.addData( file.readAll() );
-        file.close();
-    }else{
+    if( !file.open(QIODevice::ReadOnly | QIODevice::Text) ){
         qCritical() << file.errorString()
-                    << "\nFileName: " << file.fileName();
+                    << "\nFileName: " << file.fileName()
+                    << "\nFileError: " << file.error();
         this->setEnabled( true );
         QMessageBox::critical(this, tr("Critical"), tr("File is not open"));
         return;
     }
+    QXmlStreamReader xml(&file);
 
 //    QProgressDialog* process = new QProgressDialog("Progressing the import", "&Cancel", 0, 100, this);
 //    int n_process = 0;
@@ -802,6 +794,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
     QMessageBox::information(this, tr("Import"),"<b>" + tr("Import is successfully finished") + "</b><br>"
                                                 + tr("Records it is imported:")+ " " + QString::number(n) + "   "
                                                     );
+    file.close();
 }
 
 void FormSettings::on_TBtn_ImFile_clicked()
