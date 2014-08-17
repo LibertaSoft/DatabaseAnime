@@ -185,7 +185,7 @@
             <set>Qt::ImhSensitiveData</set>
            </property>
            <property name="editable">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="currentText">
             <string notr="true">None</string>
@@ -1212,7 +1212,7 @@
        <item>
         <widget class="QTabWidget" name="TabWidget_Info">
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">

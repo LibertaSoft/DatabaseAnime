@@ -28,5 +28,7 @@
         <file>images/icon-section/Dorama.png</file>
         <file>images/icon-section/Anime.png</file>
         <file>images/icon-section/Amv.png</file>
+        <file>images/export.png</file>
+        <file>images/import.png</file>
     </qresource>
 </RCC>

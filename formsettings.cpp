@@ -734,8 +734,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
     }
     MngrConnect.commit();
 
-    QString importPath( QDir( ui->LineEdit_ImFile->text() ).path().left(
-                            ui->LineEdit_ImFile->text().lastIndexOf( QDir::separator() ) ) );
+    QString importPath( QFileInfo( ui->LineEdit_ImFile->text() ).path() );
 
     if( ui->CBox_ImAnime->isChecked()  && ui->CBox_ImportImages->isChecked() ){
         QDirIterator it( importPath + QDir::separator() + "animeCovers" + QDir::separator() );
