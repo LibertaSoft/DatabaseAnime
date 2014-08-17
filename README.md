@@ -23,6 +23,7 @@
 
 ### Разработка
 - В будующих версиях планируется: [ToDo](./ToDo.md)
+- Уже реализовано: [ChangeLog](./ChangeLog.md)
 - Если нашли ошибку [создайте новое issue](https://github.com/LibertaSoft/DatabaseAnime/issues/new) и помогите сделать проект лучше
 - Хотите помочь? знаете Qt & C++ ? - [форкните](https://github.com/LibertaSoft/DatabaseAnime/fork) проект, внесите изменения и отправьте [Pull Request](https://github.com/LibertaSoft/DatabaseAnime/pulls)
 

@@ -21,6 +21,7 @@ Idea of a logo of the application: [Pavel Enotin](https://vk.com/everydayiamsuff
 
 ### Develop
 - In future versions it is planned: [ToDo](./ToDo.md)
+- That done: [ChangeLog](./ChangeLog.md)
 - If found a error [create new issue](https://github.com/LibertaSoft/DatabaseAnime/issues/new)
 
 ### Contacts
