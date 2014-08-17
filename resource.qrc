@@ -12,10 +12,6 @@
         <file>images/folder.png</file>
         <file>images/edit.png</file>
         <file>images/config.png</file>
-        <file>images/icon-section/section-manga.png</file>
-        <file>images/icon-section/section-dorama.png</file>
-        <file>images/icon-section/section-anime.png</file>
-        <file>images/icon-section/section-amv.png</file>
         <file>images/play.png</file>
         <file>images/refresh.png</file>
         <file>images/icon-filters/Looked.png</file>
@@ -27,5 +23,10 @@
         <file>images/icon-filters/Special.png</file>
         <file>images/icon-filters/MonitorONA.png</file>
         <file>images/icon-filters/MonitorOVA.png</file>
+        <file>images/icon-section/Main.png</file>
+        <file>images/icon-section/Manga.png</file>
+        <file>images/icon-section/Dorama.png</file>
+        <file>images/icon-section/Anime.png</file>
+        <file>images/icon-section/Amv.png</file>
     </qresource>
 </RCC>

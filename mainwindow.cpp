@@ -320,28 +320,28 @@ void MainWindow::reloadSectionsList()
             = static_cast<sections::section>(
                 settings.value("btnSwitchSection/selected", sections::none).toInt() );
     ui->CB_Section->clear();
-    ui->CB_Section->addItem( QIcon("://images/DBA_Icon.png"),
+    ui->CB_Section->addItem( QIcon("://images/icon-section/Main.png"),
                              tr("Main"), sections::none );
     if( set_enableBtnAnime ){
-        ui->CB_Section->addItem( QIcon("://images/icon-section/section-anime.png"),
+        ui->CB_Section->addItem( QIcon("://images/icon-section/Anime.png"),
                                  tr("Anime"),  sections::anime );
         if( set_select == sections::anime )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnManga ){
-        ui->CB_Section->addItem( QIcon("://images/icon-section/section-manga.png"),
+        ui->CB_Section->addItem( QIcon("://images/icon-section/Manga.png"),
                                  tr("Manga"),  sections::manga );
         if( set_select == sections::manga )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnAMV ){
-        ui->CB_Section->addItem( QIcon("://images/icon-section/section-amv.png"),
+        ui->CB_Section->addItem( QIcon("://images/icon-section/Amv.png"),
                                  tr("AMV"),    sections::amv );
         if( set_select == sections::amv )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
     }
     if( set_enableBtnDorama ){
-        ui->CB_Section->addItem( QIcon("://images/icon-section/section-dorama.png"),
+        ui->CB_Section->addItem( QIcon("://images/icon-section/Dorama.png"),
                                  tr("Dorama"), sections::dorama );
         if( set_select == sections::dorama )
             ui->CB_Section->setCurrentIndex( ui->CB_Section->count()-1 );
