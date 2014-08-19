@@ -12,7 +12,7 @@
 void DialogAddManga::initTags()
 {
     _tags.setStringList( MngrQuerys::getMangaTags() );
-
+    _tags.sort(1, Qt::AscendingOrder);
     ui->ListView_Tags->setModel( &_tags );
     ui->ListView_Tags->setWrapping( true );
     ui->ListView_Tags->setSelectionMode( QAbstractItemView::MultiSelection );

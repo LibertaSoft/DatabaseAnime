@@ -12,6 +12,7 @@
 void DialogAddAmv::initTags()
 {
     _tags.setStringList( MngrQuerys::getAmvTags() );
+    _tags.sort(1, Qt::AscendingOrder);
     ui->LView_Tags->setModel( &_tags );
     ui->LView_Tags->setWrapping( true );
     ui->LView_Tags->setSelectionMode( QAbstractItemView::MultiSelection );
