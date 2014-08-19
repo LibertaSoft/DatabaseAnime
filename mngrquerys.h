@@ -17,7 +17,7 @@ namespace Tables {
 }
 
 namespace Sort{
-    enum sort{none = 0, asc, desc};
+    enum sort{none = 0, asc, desc, year};
 }
 
 class MngrQuerys

@@ -188,7 +188,7 @@
             <bool>true</bool>
            </property>
            <property name="currentText">
-            <string notr="true">None</string>
+            <string notr="true"/>
            </property>
            <property name="currentIndex">
             <number>0</number>
@@ -204,7 +204,7 @@
            </property>
            <item>
             <property name="text">
-             <string>None</string>
+             <string/>
             </property>
            </item>
            <item>
@@ -374,6 +374,11 @@
            </item>
            <item>
             <property name="text">
+             <string notr="true">Dagakobo</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
              <string notr="true">Daume</string>
             </property>
            </item>
@@ -399,12 +404,12 @@
            </item>
            <item>
             <property name="text">
-             <string notr="true">DISCOVERY</string>
+             <string>Diomedéa</string>
             </property>
            </item>
            <item>
             <property name="text">
-             <string notr="true">Dagakobo</string>
+             <string notr="true">DISCOVERY</string>
             </property>
            </item>
            <item>

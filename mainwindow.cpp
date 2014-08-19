@@ -95,8 +95,8 @@ void MainWindow::on_PButton_Options_clicked()
     formSettings.setModal(true);
     formSettings.exec();
 
-    reloadSectionsList();
     _sort = formSettings.getSort();
+    reloadSectionsList();
     ui->StackWgt_CoverOrDir->setOptSwitch( formSettings.getSwitchToDir() );
     _restoreDefSettings = formSettings.getRestoreDefault();
 }

@@ -60,10 +60,13 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, 
     QString strSort("");
     switch( sort ){
     case Sort::asc :
-        strSort = "ORDER BY Title ASC, Year ASC";
+        strSort = "ORDER BY Title ASC";
         break;
     case Sort::desc :
-        strSort = "ORDER BY Title DESC, Year ASC";
+        strSort = "ORDER BY Title DESC";
+        break;
+    case Sort::year :
+        strSort = "ORDER BY Year DESC, Title ASC";
         break;
     case Sort::none :
     default:
@@ -104,6 +107,7 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, 
     return 0;
 }
 
+// #Duplicate, #FixMe
 int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, Filter::filter filter, Sort::sort sort )
 {
     QString strFilter("WHERE ");
@@ -140,10 +144,13 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, 
     QString strSort("");
     switch( sort ){
     case Sort::asc :
-        strSort = "ORDER BY Title ASC, Year ASC";
+        strSort = "ORDER BY Title ASC";
         break;
     case Sort::desc :
-        strSort += "ORDER BY Title DESC, Year ASC";
+        strSort += "ORDER BY Title DESC";
+        break;
+    case Sort::year :
+        strSort = "ORDER BY Year DESC, Title ASC";
         break;
     case Sort::none :
     default:

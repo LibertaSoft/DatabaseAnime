@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>631</width>
-    <height>460</height>
+    <width>626</width>
+    <height>522</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -97,6 +97,11 @@
             <string>DESC</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>Year</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>
@@ -117,6 +122,52 @@
          </widget>
         </item>
        </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Active menu items:</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QCheckBox" name="CheckBox_EnableAnime">
+        <property name="text">
+         <string>Anime</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="CheckBox_EnableManga">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>Manga</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="CheckBox_EnableAMV">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>AMV</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="CheckBox_EnableDorama">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>Dorama</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -145,65 +196,6 @@
          <property name="currentIndex">
           <number>0</number>
          </property>
-         <widget class="QWidget" name="tab_activeMenuItems">
-          <attribute name="title">
-           <string>Active menu items</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
-           <property name="spacing">
-            <number>6</number>
-           </property>
-           <property name="leftMargin">
-            <number>6</number>
-           </property>
-           <property name="topMargin">
-            <number>6</number>
-           </property>
-           <property name="rightMargin">
-            <number>6</number>
-           </property>
-           <property name="bottomMargin">
-            <number>6</number>
-           </property>
-           <item>
-            <widget class="QCheckBox" name="CheckBox_EnableAnime">
-             <property name="text">
-              <string>Anime</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="CheckBox_EnableManga">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="text">
-              <string>Manga</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="CheckBox_EnableAMV">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="text">
-              <string>AMV</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="CheckBox_EnableDorama">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="text">
-              <string>Dorama</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
          <widget class="QWidget" name="tab_OptionalFields">
           <attribute name="title">
            <string>Optional fields</string>
@@ -779,8 +771,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>327</x>
-     <y>476</y>
+     <x>336</x>
+     <y>444</y>
     </hint>
     <hint type="destinationlabel">
      <x>327</x>
