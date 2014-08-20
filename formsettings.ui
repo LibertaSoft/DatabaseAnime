@@ -425,7 +425,7 @@
         <enum>QTabWidget::North</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_export">
         <attribute name="icon">
@@ -760,6 +760,44 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>CB_Language</tabstop>
+  <tabstop>CBox_Sort</tabstop>
+  <tabstop>CBox_SwitchToDirOnHoverCover</tabstop>
+  <tabstop>CheckBox_EnableAnime</tabstop>
+  <tabstop>CheckBox_EnableManga</tabstop>
+  <tabstop>CheckBox_EnableAMV</tabstop>
+  <tabstop>CheckBox_EnableDorama</tabstop>
+  <tabstop>tabWidget_General</tabstop>
+  <tabstop>CBox_Anime_Director</tabstop>
+  <tabstop>CBox_Anime_AltTitle</tabstop>
+  <tabstop>CBox_Anime_PostScoring</tabstop>
+  <tabstop>CBox_Manga_Author</tabstop>
+  <tabstop>CBox_Manga_AltTitle</tabstop>
+  <tabstop>CBox_Manga_Translation</tabstop>
+  <tabstop>CBox_Dorama_Director</tabstop>
+  <tabstop>CBox_Dorama_AltTitle</tabstop>
+  <tabstop>GBox_WorkDir</tabstop>
+  <tabstop>LineEdit_WorkDirectory</tabstop>
+  <tabstop>tabWidget_ImpExp</tabstop>
+  <tabstop>LineEdit_ExDir</tabstop>
+  <tabstop>TBtn_ChooseDir</tabstop>
+  <tabstop>CBox_ExAnime</tabstop>
+  <tabstop>CBox_ExManga</tabstop>
+  <tabstop>CBox_ExAmv</tabstop>
+  <tabstop>CBox_ExDorama</tabstop>
+  <tabstop>CBox_ExportImages</tabstop>
+  <tabstop>PBtn_Export</tabstop>
+  <tabstop>LineEdit_ImFile</tabstop>
+  <tabstop>TBtn_ImFile</tabstop>
+  <tabstop>CBox_ImAnime</tabstop>
+  <tabstop>CBox_ImManga</tabstop>
+  <tabstop>CBox_ImAmv</tabstop>
+  <tabstop>CBox_ImDorama</tabstop>
+  <tabstop>CBox_ImportImages</tabstop>
+  <tabstop>PBtn_ImAppend</tabstop>
+  <tabstop>PBtn_ImReplace</tabstop>
+ </tabstops>
  <resources>
   <include location="resource.qrc"/>
  </resources>

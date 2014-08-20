@@ -1026,7 +1026,7 @@
           </size>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_allSeries">
           <attribute name="title">
@@ -1217,7 +1217,7 @@
        <item>
         <widget class="QTabWidget" name="TabWidget_Info">
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -1428,6 +1428,33 @@
    <header location="global">imagecover.h</header>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>CheckBox_LookLater</tabstop>
+  <tabstop>CheckBox_Editing</tabstop>
+  <tabstop>LineEdit_Title</tabstop>
+  <tabstop>CBox_Year</tabstop>
+  <tabstop>SpinBox_Year</tabstop>
+  <tabstop>SpinBox_Season</tabstop>
+  <tabstop>ComboBox_Studio</tabstop>
+  <tabstop>TabWidget_Series</tabstop>
+  <tabstop>SpinBox_aTV</tabstop>
+  <tabstop>SpinBox_aOVA</tabstop>
+  <tabstop>SpinBox_aONA</tabstop>
+  <tabstop>SpinBox_aSpec</tabstop>
+  <tabstop>SpinBox_aMovie</tabstop>
+  <tabstop>SpinBox_vTV</tabstop>
+  <tabstop>SpinBox_vOVA</tabstop>
+  <tabstop>SpinBox_vONA</tabstop>
+  <tabstop>SpinBox_vSpec</tabstop>
+  <tabstop>SpinBox_vMovie</tabstop>
+  <tabstop>TabWidget_Info</tabstop>
+  <tabstop>LineEdit_Tags</tabstop>
+  <tabstop>ListView_Tags</tabstop>
+  <tabstop>PlainTextEdit_Description</tabstop>
+  <tabstop>LineEdit_Dir</tabstop>
+  <tabstop>toolButton</tabstop>
+  <tabstop>LineEdit_URL</tabstop>
+ </tabstops>
  <resources>
   <include location="resource.qrc"/>
  </resources>
