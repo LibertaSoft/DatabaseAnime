@@ -65,7 +65,7 @@ FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
     ui->CB_Language->addItem( tr("<System>"), 0 );
     QDir dir( QApplication::applicationDirPath() );
     QStringList l10n = dir.entryList( QStringList("DatabaseAnime_*.qm") );
-    for(int i = 0; i < l10n.count(); ++i){
+    for(int i = 0; i < l10n.count(); ++i){ // #FixMe : Не нравится мне это ...
         ui->CB_Language->addItem( l10n.at(i).right(5).left(2) );
         if( set_language == l10n.at(i).right(5).left(2) )
             ui->CB_Language->setCurrentIndex(i+1);
@@ -76,7 +76,7 @@ FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
     const QString homeDir(  QStandardPaths::writableLocation( QStandardPaths::HomeLocation )
                           + QDir::separator() + "." + QApplication::organizationName()
                           + QDir::separator() + QApplication::applicationName() + QDir::separator());
-    ui->LineEdit_WorkDirectory->setText( settings.value( "WorkDirectory", homeDir ).toString() );
+    ui->LineEdit_WorkDirectory->setText( settings.value( "WorkDirectory", QDir::toNativeSeparators(homeDir) ).toString() );
 }
 
 FormSettings::~FormSettings()

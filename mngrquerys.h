@@ -22,6 +22,9 @@ namespace Sort{
 
 class MngrQuerys
 {
+private:
+    static QString filterToString(Filter::filter);
+    static QString sortToString(Sort::sort);
 public:
     MngrQuerys();
     static QString getTableName( Tables::table );
