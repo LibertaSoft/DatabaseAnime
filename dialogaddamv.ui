@@ -54,6 +54,9 @@
          </item>
          <item>
           <widget class="QCheckBox" name="CheckBox_Editing">
+           <property name="whatsThis">
+            <string>If you didn't finish editing - deliver a checkbox for display it in the special filter</string>
+           </property>
            <property name="text">
             <string>Editing</string>
            </property>
@@ -81,6 +84,9 @@
          </item>
          <item>
           <widget class="QCheckBox" name="CBox_Year">
+           <property name="whatsThis">
+            <string>If this checkbox isn't active - year won't be displayed</string>
+           </property>
            <property name="text">
             <string>Year:</string>
            </property>
@@ -88,6 +94,9 @@
          </item>
          <item>
           <widget class="QSpinBox" name="SpinBox_Year">
+           <property name="whatsThis">
+            <string>You can use a mouse wheel for value change</string>
+           </property>
            <property name="minimum">
             <number>1900</number>
            </property>
@@ -133,8 +142,11 @@
          <property name="enabled">
           <bool>true</bool>
          </property>
+         <property name="whatsThis">
+          <string>You can use a mouse wheel for switching on tabs</string>
+         </property>
          <property name="currentIndex">
-          <number>4</number>
+          <number>0</number>
          </property>
          <property name="usesScrollButtons">
           <bool>true</bool>

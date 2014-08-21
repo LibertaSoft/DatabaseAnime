@@ -54,6 +54,9 @@
          </item>
          <item>
           <widget class="QCheckBox" name="CheckBox_LookLater">
+           <property name="whatsThis">
+            <string>If you want to look at this anime later - deliver a checkbox for display it in the special filter</string>
+           </property>
            <property name="text">
             <string>Want to look</string>
            </property>
@@ -68,6 +71,9 @@
          </item>
          <item>
           <widget class="QCheckBox" name="CheckBox_Editing">
+           <property name="whatsThis">
+            <string>If you didn't finish editing - deliver a checkbox for display it in the special filter</string>
+           </property>
            <property name="text">
             <string>Editing</string>
            </property>
@@ -109,6 +115,9 @@
          </property>
          <item>
           <widget class="QCheckBox" name="CBox_Year">
+           <property name="whatsThis">
+            <string>If this checkbox isn't active - year won't be displayed</string>
+           </property>
            <property name="text">
             <string>Year:</string>
            </property>
@@ -116,6 +125,9 @@
          </item>
          <item>
           <widget class="QSpinBox" name="SpinBox_Year">
+           <property name="whatsThis">
+            <string>You can use a mouse wheel for value change</string>
+           </property>
            <property name="minimum">
             <number>1900</number>
            </property>
@@ -151,7 +163,11 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="SpinBox_Season"/>
+          <widget class="QSpinBox" name="SpinBox_Season">
+           <property name="whatsThis">
+            <string>You can use a mouse wheel for value change</string>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="HSpacer_2">
@@ -180,6 +196,9 @@
              <width>180</width>
              <height>16777215</height>
             </size>
+           </property>
+           <property name="whatsThis">
+            <string>You can use a mouse wheel for value change</string>
            </property>
            <property name="inputMethodHints">
             <set>Qt::ImhSensitiveData</set>
@@ -1025,8 +1044,11 @@
            <height>120</height>
           </size>
          </property>
+         <property name="whatsThis">
+          <string>You can use a mouse wheel for switching on tabs</string>
+         </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab_allSeries">
           <attribute name="title">
@@ -1100,6 +1122,9 @@
            </item>
            <item row="1" column="0">
             <widget class="QSpinBox" name="SpinBox_aTV">
+             <property name="whatsThis">
+              <string>You can use a mouse wheel for value change</string>
+             </property>
              <property name="maximum">
               <number>9999</number>
              </property>
@@ -1107,6 +1132,9 @@
            </item>
            <item row="1" column="3">
             <widget class="QSpinBox" name="SpinBox_aSpec">
+             <property name="whatsThis">
+              <string>You can use a mouse wheel for value change</string>
+             </property>
              <property name="maximum">
               <number>9999</number>
              </property>
@@ -1114,6 +1142,9 @@
            </item>
            <item row="1" column="1">
             <widget class="QSpinBox" name="SpinBox_aOVA">
+             <property name="whatsThis">
+              <string>You can use a mouse wheel for value change</string>
+             </property>
              <property name="maximum">
               <number>9999</number>
              </property>
@@ -1121,6 +1152,9 @@
            </item>
            <item row="1" column="2">
             <widget class="QSpinBox" name="SpinBox_aONA">
+             <property name="whatsThis">
+              <string>You can use a mouse wheel for value change</string>
+             </property>
              <property name="maximum">
               <number>9999</number>
              </property>
@@ -1128,6 +1162,9 @@
            </item>
            <item row="1" column="4">
             <widget class="QSpinBox" name="SpinBox_aMovie">
+             <property name="whatsThis">
+              <string>You can use a mouse wheel for value change</string>
+             </property>
              <property name="maximum">
               <number>9999</number>
              </property>
@@ -1177,6 +1214,9 @@
            </item>
            <item row="1" column="0">
             <widget class="QSpinBox" name="SpinBox_vTV">
+             <property name="whatsThis">
+              <string>You can use a mouse wheel for value change</string>
+             </property>
              <property name="maximum">
               <number>0</number>
              </property>
@@ -1184,6 +1224,9 @@
            </item>
            <item row="1" column="1">
             <widget class="QSpinBox" name="SpinBox_vOVA">
+             <property name="whatsThis">
+              <string>You can use a mouse wheel for value change</string>
+             </property>
              <property name="maximum">
               <number>0</number>
              </property>
@@ -1191,6 +1234,9 @@
            </item>
            <item row="1" column="2">
             <widget class="QSpinBox" name="SpinBox_vONA">
+             <property name="whatsThis">
+              <string>You can use a mouse wheel for value change</string>
+             </property>
              <property name="maximum">
               <number>0</number>
              </property>
@@ -1198,6 +1244,9 @@
            </item>
            <item row="1" column="3">
             <widget class="QSpinBox" name="SpinBox_vSpec">
+             <property name="whatsThis">
+              <string>You can use a mouse wheel for value change</string>
+             </property>
              <property name="maximum">
               <number>0</number>
              </property>
@@ -1205,6 +1254,9 @@
            </item>
            <item row="1" column="4">
             <widget class="QSpinBox" name="SpinBox_vMovie">
+             <property name="whatsThis">
+              <string>You can use a mouse wheel for value change</string>
+             </property>
              <property name="maximum">
               <number>0</number>
              </property>
@@ -1216,8 +1268,11 @@
        </item>
        <item>
         <widget class="QTabWidget" name="TabWidget_Info">
+         <property name="whatsThis">
+          <string>You can use a mouse wheel for switching on tabs</string>
+         </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
