@@ -9,90 +9,110 @@
         <translation>Добавление AMV</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="38"/>
+        <location filename="dialogaddamv.ui" line="42"/>
         <source>AMV</source>
         <translation>AMV</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="58"/>
+        <location filename="dialogaddamv.ui" line="62"/>
+        <source>If you didn&apos;t finish editing - deliver a checkbox for display it in the special filter</source>
+        <translation>Если вы не закончили оформление - поставьте флажок для отображения его в специальном фильтре</translation>
+    </message>
+    <message>
+        <location filename="dialogaddamv.ui" line="65"/>
         <source>Editing</source>
         <translation>Редактируемое</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="78"/>
+        <location filename="dialogaddamv.ui" line="85"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="85"/>
+        <location filename="dialogaddamv.ui" line="92"/>
+        <source>If this checkbox isn&apos;t active - year won&apos;t be displayed</source>
+        <translation>Если данный флажок не активен - год не будет отображаться</translation>
+    </message>
+    <message>
+        <location filename="dialogaddamv.ui" line="95"/>
         <source>Year:</source>
         <translation>Год:</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="115"/>
+        <location filename="dialogaddamv.ui" line="102"/>
+        <source>You can use a mouse wheel for value change</source>
+        <translation>Вы можете использовать колёсико мыши для изменения значения</translation>
+    </message>
+    <message>
+        <location filename="dialogaddamv.ui" line="128"/>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="125"/>
+        <location filename="dialogaddamv.ui" line="138"/>
         <source>Сontestant</source>
         <translation>Конкурсант</translation>
     </message>
     <message>
         <location filename="dialogaddamv.ui" line="150"/>
+        <source>You can use a mouse wheel for switching on tabs</source>
+        <translation>Вы можете использовать колёсико мыши для переключения по вкладкам</translation>
+    </message>
+    <message>
+        <location filename="dialogaddamv.ui" line="166"/>
         <source>Tags</source>
         <translation>Теги</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="156"/>
+        <location filename="dialogaddamv.ui" line="172"/>
         <source>Separator: comma</source>
         <translation>Разделитель: запятая</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="168"/>
+        <location filename="dialogaddamv.ui" line="184"/>
         <source>Enter through a comma, or choose from the list lower</source>
         <translation>Введите через запятую или выберете из списка ниже</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="192"/>
-        <location filename="dialogaddamv.ui" line="198"/>
+        <location filename="dialogaddamv.ui" line="208"/>
+        <location filename="dialogaddamv.ui" line="214"/>
         <source>Video source</source>
         <translation>Видео исходник</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="206"/>
-        <location filename="dialogaddamv.ui" line="212"/>
+        <location filename="dialogaddamv.ui" line="222"/>
+        <location filename="dialogaddamv.ui" line="228"/>
         <source>Containing music</source>
         <translation>Используемая музыка</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="220"/>
-        <location filename="dialogaddamv.ui" line="226"/>
+        <location filename="dialogaddamv.ui" line="236"/>
+        <location filename="dialogaddamv.ui" line="242"/>
         <source>Author comment</source>
         <translation>Коментарий автора</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="234"/>
+        <location filename="dialogaddamv.ui" line="250"/>
         <source>Media</source>
         <translation>Медиа</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="248"/>
+        <location filename="dialogaddamv.ui" line="264"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="261"/>
+        <location filename="dialogaddamv.ui" line="277"/>
         <source>*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="289"/>
+        <location filename="dialogaddamv.ui" line="305"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="dialogaddamv.ui" line="342"/>
+        <location filename="dialogaddamv.ui" line="358"/>
         <source>Drop image here, or a double click for a file choice</source>
         <translation>Перетащите изображение сюда или сделайте двойной клик для выбора</translation>
     </message>
@@ -142,123 +162,156 @@
         <translation>Добавление аниме</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="38"/>
+        <location filename="dialogaddanime.ui" line="42"/>
         <source>Anime</source>
         <translation>Аниме</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="58"/>
+        <location filename="dialogaddanime.ui" line="62"/>
+        <source>If you want to look at this anime later - deliver a checkbox for display it in the special filter</source>
+        <translation>Если вы хотите посмотреть данное аниме позже - поставьте флажок для отображения его в специальном фильтре</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="65"/>
         <source>Want to look</source>
         <translation>Хочу посмотреть</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="72"/>
+        <location filename="dialogaddanime.ui" line="79"/>
+        <source>If you didn&apos;t finish editing - deliver a checkbox for display it in the special filter</source>
+        <translation>Если вы не закончили оформление - поставьте флажок для отображения его в специальном фильтре</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="82"/>
         <source>Editing</source>
         <translation>Редактируемое</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="87"/>
+        <location filename="dialogaddanime.ui" line="97"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="113"/>
+        <location filename="dialogaddanime.ui" line="123"/>
+        <source>If this checkbox isn&apos;t active - year won&apos;t be displayed</source>
+        <translation>Если данный флажок не активен - год не будет отображаться</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="126"/>
         <source>Year:</source>
         <translation>Год:</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="149"/>
+        <location filename="dialogaddanime.ui" line="133"/>
+        <location filename="dialogaddanime.ui" line="172"/>
+        <location filename="dialogaddanime.ui" line="205"/>
+        <location filename="dialogaddanime.ui" line="1130"/>
+        <location filename="dialogaddanime.ui" line="1140"/>
+        <location filename="dialogaddanime.ui" line="1150"/>
+        <location filename="dialogaddanime.ui" line="1160"/>
+        <location filename="dialogaddanime.ui" line="1170"/>
+        <location filename="dialogaddanime.ui" line="1222"/>
+        <location filename="dialogaddanime.ui" line="1232"/>
+        <location filename="dialogaddanime.ui" line="1242"/>
+        <location filename="dialogaddanime.ui" line="1252"/>
+        <location filename="dialogaddanime.ui" line="1262"/>
+        <source>You can use a mouse wheel for value change</source>
+        <translation>Вы можете использовать колёсико мыши для изменения значения</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="165"/>
         <source>Season:</source>
         <translation>Сезон:</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="172"/>
+        <location filename="dialogaddanime.ui" line="192"/>
         <source>Studio:</source>
         <translation>Студия:</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="407"/>
-        <source>Diomedéa</source>
-        <translation></translation>
+        <location filename="dialogaddanime.ui" line="1052"/>
+        <location filename="dialogaddanime.ui" line="1276"/>
+        <source>You can use a mouse wheel for switching on tabs</source>
+        <translation>Вы можете использовать колёсико мыши для переключения по вкладкам</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1033"/>
+        <location filename="dialogaddanime.ui" line="1059"/>
         <source>Total series</source>
         <translation>Всего серий</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1045"/>
-        <location filename="dialogaddanime.ui" line="1153"/>
+        <location filename="dialogaddanime.ui" line="1071"/>
+        <location filename="dialogaddanime.ui" line="1194"/>
         <source>TV</source>
         <translation>TV</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1058"/>
-        <location filename="dialogaddanime.ui" line="1160"/>
+        <location filename="dialogaddanime.ui" line="1084"/>
+        <location filename="dialogaddanime.ui" line="1201"/>
         <source>OVA</source>
         <translation>OVA</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1071"/>
-        <location filename="dialogaddanime.ui" line="1167"/>
+        <location filename="dialogaddanime.ui" line="1097"/>
+        <location filename="dialogaddanime.ui" line="1208"/>
         <source>ONA</source>
         <translation>ONA</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1084"/>
-        <location filename="dialogaddanime.ui" line="1174"/>
+        <location filename="dialogaddanime.ui" line="1110"/>
+        <location filename="dialogaddanime.ui" line="1215"/>
         <source>Special</source>
         <translation>Special</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1097"/>
-        <location filename="dialogaddanime.ui" line="1146"/>
+        <location filename="dialogaddanime.ui" line="1123"/>
+        <location filename="dialogaddanime.ui" line="1187"/>
         <source>Movie</source>
         <translation>Movie</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1140"/>
+        <location filename="dialogaddanime.ui" line="1181"/>
         <source>Sees</source>
         <translation>Просмотрено</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1224"/>
+        <location filename="dialogaddanime.ui" line="1283"/>
         <source>Genres</source>
         <translation>Жанры</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1239"/>
+        <location filename="dialogaddanime.ui" line="1298"/>
         <source>Enter through a comma, or choose from the list lower</source>
         <translation>Введите через запятую или выберете из списка ниже</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1269"/>
-        <location filename="dialogaddanime.ui" line="1275"/>
+        <location filename="dialogaddanime.ui" line="1328"/>
+        <location filename="dialogaddanime.ui" line="1334"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1283"/>
+        <location filename="dialogaddanime.ui" line="1342"/>
         <source>Media</source>
         <translation>Медиа</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1297"/>
+        <location filename="dialogaddanime.ui" line="1356"/>
         <source>Directory</source>
         <translation>Директория</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1310"/>
+        <location filename="dialogaddanime.ui" line="1369"/>
         <source>*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1335"/>
+        <location filename="dialogaddanime.ui" line="1394"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1388"/>
+        <location filename="dialogaddanime.ui" line="1447"/>
         <source>Drop image here, or a double click for a file choice</source>
         <translation>Перетащите изображение сюда или сделайте двойной клик для выбора</translation>
     </message>
@@ -323,107 +376,140 @@
         <translation>Добавление дорамы</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="38"/>
+        <location filename="dialogadddorama.ui" line="42"/>
         <source>Dorama</source>
         <translation>Дорама</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="58"/>
+        <location filename="dialogadddorama.ui" line="62"/>
+        <source>If you want to look at this dorama later - deliver a checkbox for display it in the special filter</source>
+        <translation>Если вы хотите посмотреть данную дораму позже - поставьте флажок для отображения его в специальном фильтре</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="65"/>
         <source>Want to look</source>
         <translation>Хочу посмотреть</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="72"/>
+        <location filename="dialogadddorama.ui" line="79"/>
+        <source>If you didn&apos;t finish editing - deliver a checkbox for display it in the special filter</source>
+        <translation>Если вы не закончили оформление - поставьте флажок для отображения его в специальном фильтре</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="82"/>
         <source>Editing</source>
         <translation>Редактируемое</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="87"/>
+        <location filename="dialogadddorama.ui" line="97"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="106"/>
+        <location filename="dialogadddorama.ui" line="116"/>
+        <source>If this checkbox isn&apos;t active - year won&apos;t be displayed</source>
+        <translation>Если данный флажок не активен - год не будет отображаться</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="119"/>
         <source>Year:</source>
         <translation>Год:</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="142"/>
+        <location filename="dialogadddorama.ui" line="126"/>
+        <location filename="dialogadddorama.ui" line="165"/>
+        <location filename="dialogadddorama.ui" line="251"/>
+        <location filename="dialogadddorama.ui" line="261"/>
+        <location filename="dialogadddorama.ui" line="271"/>
+        <location filename="dialogadddorama.ui" line="309"/>
+        <location filename="dialogadddorama.ui" line="319"/>
+        <location filename="dialogadddorama.ui" line="329"/>
+        <source>You can use a mouse wheel for value change</source>
+        <translation>Вы можете использовать колёсико мыши для изменения значения</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="158"/>
         <source>Season:</source>
         <translation>Сезон:</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="183"/>
+        <location filename="dialogadddorama.ui" line="199"/>
+        <location filename="dialogadddorama.ui" line="343"/>
+        <source>You can use a mouse wheel for switching on tabs</source>
+        <translation>Вы можете использовать колёсико мыши для переключения по вкладкам</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="206"/>
         <source>Total series</source>
         <translation>Всего серий</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="195"/>
-        <location filename="dialogadddorama.ui" line="256"/>
+        <location filename="dialogadddorama.ui" line="218"/>
+        <location filename="dialogadddorama.ui" line="288"/>
         <source>TV</source>
         <translation>TV</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="208"/>
-        <location filename="dialogadddorama.ui" line="263"/>
+        <location filename="dialogadddorama.ui" line="231"/>
+        <location filename="dialogadddorama.ui" line="295"/>
         <source>Special</source>
         <translation>Special</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="221"/>
-        <location filename="dialogadddorama.ui" line="270"/>
+        <location filename="dialogadddorama.ui" line="244"/>
+        <location filename="dialogadddorama.ui" line="302"/>
         <source>Movie</source>
         <translation>Movie</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="250"/>
+        <location filename="dialogadddorama.ui" line="282"/>
         <source>Sees</source>
         <translation>Просмотрено</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="306"/>
+        <location filename="dialogadddorama.ui" line="350"/>
         <source>Genres</source>
         <translation>Жанры</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="321"/>
+        <location filename="dialogadddorama.ui" line="365"/>
         <source>Enter through a comma, or choose from the list lower</source>
         <translation>Введите через запятую или выберете из списка ниже</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="354"/>
-        <location filename="dialogadddorama.ui" line="360"/>
+        <location filename="dialogadddorama.ui" line="398"/>
+        <location filename="dialogadddorama.ui" line="404"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="368"/>
-        <location filename="dialogadddorama.ui" line="374"/>
+        <location filename="dialogadddorama.ui" line="412"/>
+        <location filename="dialogadddorama.ui" line="418"/>
         <source>In roles</source>
         <translation>В ролях</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="382"/>
+        <location filename="dialogadddorama.ui" line="426"/>
         <source>Media</source>
         <translation>Медиа</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="396"/>
+        <location filename="dialogadddorama.ui" line="440"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="409"/>
+        <location filename="dialogadddorama.ui" line="453"/>
         <source>*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="434"/>
+        <location filename="dialogadddorama.ui" line="478"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="dialogadddorama.ui" line="487"/>
+        <location filename="dialogadddorama.ui" line="531"/>
         <source>Drop image here, or a double click for a file choice</source>
         <translation>Перетащите изображение сюда или сделайте двойной клик для выбора</translation>
     </message>
@@ -483,108 +569,140 @@
         <translation>Добавление манги</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="38"/>
+        <location filename="dialogaddmanga.ui" line="42"/>
         <source>Manga</source>
         <translation>Манга</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="58"/>
+        <location filename="dialogaddmanga.ui" line="62"/>
+        <source>If you want to read this manga later - deliver a checkbox for display it in the special filter</source>
+        <translation>Если вы хотите прочитать данную мангу позже - поставьте флажок для отображения его в специальном фильтре</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="65"/>
         <source>Want to read</source>
         <translation>Хочу прочесть</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="72"/>
+        <location filename="dialogaddmanga.ui" line="79"/>
+        <source>If you didn&apos;t finish editing - deliver a checkbox for display it in the special filter</source>
+        <translation>Если вы не закончили оформление - поставьте флажок для отображения его в специальном фильтре</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="82"/>
         <source>Editing</source>
         <translation>Редактируемое</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="92"/>
+        <location filename="dialogaddmanga.ui" line="102"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="99"/>
+        <location filename="dialogaddmanga.ui" line="109"/>
+        <source>If this checkbox isn&apos;t active - year won&apos;t be displayed</source>
+        <translation>Если данный флажок не активен - год не будет отображаться</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="112"/>
         <source>Year:</source>
         <translation>Год:</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="151"/>
+        <location filename="dialogaddmanga.ui" line="119"/>
+        <location filename="dialogaddmanga.ui" line="215"/>
+        <location filename="dialogaddmanga.ui" line="222"/>
+        <location filename="dialogaddmanga.ui" line="229"/>
+        <location filename="dialogaddmanga.ui" line="264"/>
+        <location filename="dialogaddmanga.ui" line="274"/>
+        <location filename="dialogaddmanga.ui" line="284"/>
+        <source>You can use a mouse wheel for value change</source>
+        <translation>Вы можете использовать колёсико мыши для изменения значения</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="163"/>
+        <location filename="dialogaddmanga.ui" line="298"/>
+        <source>You can use a mouse wheel for switching on tabs</source>
+        <translation>Вы можете использовать колёсико мыши для переключения по вкладкам</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="170"/>
         <source>Total books</source>
         <translation>Всего книг</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="163"/>
+        <location filename="dialogaddmanga.ui" line="182"/>
         <source>Volumes</source>
         <translation>Тома</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="176"/>
+        <location filename="dialogaddmanga.ui" line="195"/>
         <source>Charapters</source>
         <translation>Главы</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="189"/>
+        <location filename="dialogaddmanga.ui" line="208"/>
         <source>Pages</source>
         <translation>Страницы</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="206"/>
+        <location filename="dialogaddmanga.ui" line="237"/>
         <source>Read</source>
         <translation>Прочтено</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="212"/>
+        <location filename="dialogaddmanga.ui" line="243"/>
         <source>Volume</source>
         <translation>Том</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="219"/>
+        <location filename="dialogaddmanga.ui" line="250"/>
         <source>Charapter</source>
         <translation>Глава</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="226"/>
+        <location filename="dialogaddmanga.ui" line="257"/>
         <source>Page</source>
         <translation>Страница</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="262"/>
+        <location filename="dialogaddmanga.ui" line="305"/>
         <source>Genres</source>
         <translation>Жанры</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="277"/>
+        <location filename="dialogaddmanga.ui" line="320"/>
         <source>Enter through a comma, or choose from the list lower</source>
         <translation>Введите через запятую или выберете из списка ниже</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="325"/>
-        <location filename="dialogaddmanga.ui" line="331"/>
+        <location filename="dialogaddmanga.ui" line="368"/>
+        <location filename="dialogaddmanga.ui" line="374"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="339"/>
+        <location filename="dialogaddmanga.ui" line="382"/>
         <source>Media</source>
         <translation>Медиа</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="350"/>
+        <location filename="dialogaddmanga.ui" line="393"/>
         <source>Directory</source>
         <translation>Директория</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="360"/>
+        <location filename="dialogaddmanga.ui" line="403"/>
         <source>*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="382"/>
+        <location filename="dialogaddmanga.ui" line="425"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="dialogaddmanga.ui" line="435"/>
+        <location filename="dialogaddmanga.ui" line="478"/>
         <source>Drop image here, or a double click for a file choice</source>
         <translation>Перетащите изображение сюда или сделайте двойной клик для выбора</translation>
     </message>
@@ -659,185 +777,196 @@
         <translation>Язык:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="79"/>
+        <location filename="formsettings.ui" line="56"/>
+        <location filename="formsettings.ui" line="89"/>
+        <source>You can use a mouse wheel for value change</source>
+        <translation>Вы можете использовать колёсико мыши для изменения значения</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="82"/>
         <source>Sorting:</source>
         <translation>Сортировка:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="87"/>
+        <location filename="formsettings.ui" line="93"/>
         <source>None</source>
         <translation>Нет</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="92"/>
+        <location filename="formsettings.ui" line="98"/>
         <source>ASC</source>
         <translation>А-Я</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="97"/>
+        <location filename="formsettings.ui" line="103"/>
         <source>DESC</source>
         <translation>Я-А</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="102"/>
+        <location filename="formsettings.ui" line="108"/>
         <source>Year</source>
         <translation>Год</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="120"/>
+        <location filename="formsettings.ui" line="126"/>
         <source>To switch to a directory in case of induction on a cover</source>
         <translation>Отображать директорию при наведении на обложку</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="132"/>
+        <location filename="formsettings.ui" line="138"/>
         <source>Active menu items:</source>
         <translation>Активные разделы меню:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="138"/>
-        <location filename="formsettings.ui" line="503"/>
-        <location filename="formsettings.ui" line="648"/>
+        <location filename="formsettings.ui" line="144"/>
+        <location filename="formsettings.ui" line="512"/>
+        <location filename="formsettings.ui" line="657"/>
         <source>Anime</source>
         <translation>Аниме</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="148"/>
-        <location filename="formsettings.ui" line="513"/>
-        <location filename="formsettings.ui" line="658"/>
+        <location filename="formsettings.ui" line="154"/>
+        <location filename="formsettings.ui" line="522"/>
+        <location filename="formsettings.ui" line="667"/>
         <source>Manga</source>
         <translation>Манга</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="158"/>
+        <location filename="formsettings.ui" line="164"/>
         <source>AMV</source>
         <translation>AMV</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="168"/>
-        <location filename="formsettings.ui" line="533"/>
-        <location filename="formsettings.ui" line="678"/>
+        <location filename="formsettings.ui" line="174"/>
+        <location filename="formsettings.ui" line="542"/>
+        <location filename="formsettings.ui" line="687"/>
         <source>Dorama</source>
         <translation>Дорама</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="201"/>
+        <location filename="formsettings.ui" line="207"/>
         <source>Optional fields</source>
         <translation>Опциональные поля</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="222"/>
+        <location filename="formsettings.ui" line="228"/>
         <source>Anime:</source>
         <translation>Аниме:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="243"/>
-        <location filename="formsettings.ui" line="346"/>
+        <location filename="formsettings.ui" line="249"/>
+        <location filename="formsettings.ui" line="352"/>
         <source>Director</source>
         <translation>Режиссёр</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="250"/>
+        <location filename="formsettings.ui" line="256"/>
         <source>Original title</source>
         <translation>Альтернативное название</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="257"/>
+        <location filename="formsettings.ui" line="263"/>
         <source>Postscoring</source>
         <translation>Озвучивание</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="267"/>
+        <location filename="formsettings.ui" line="273"/>
         <source>Manga:</source>
         <translation>Манга:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="288"/>
+        <location filename="formsettings.ui" line="294"/>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="295"/>
-        <location filename="formsettings.ui" line="353"/>
+        <location filename="formsettings.ui" line="301"/>
+        <location filename="formsettings.ui" line="359"/>
         <source>Alternative title</source>
         <translation>Альтернативное название</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="302"/>
+        <location filename="formsettings.ui" line="308"/>
         <source>Translation</source>
         <translation>Переводчик</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="312"/>
+        <location filename="formsettings.ui" line="318"/>
         <source>Dorama:</source>
         <translation>Дорама:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="386"/>
+        <location filename="formsettings.ui" line="392"/>
+        <source>This field becomes not the active, for the purpose of safety</source>
+        <translation>Данное поле становится не активным, в целях безопасности</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="395"/>
         <source>Work directory:</source>
         <translation>Рабочая директория:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="436"/>
-        <location filename="formsettings.ui" line="562"/>
+        <location filename="formsettings.ui" line="445"/>
+        <location filename="formsettings.ui" line="571"/>
         <location filename="formsettings.cpp" line="562"/>
         <source>Export</source>
         <translation>Экспорт</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="453"/>
+        <location filename="formsettings.ui" line="462"/>
         <source>Choose a directory</source>
         <translation>Выберете директорию</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="485"/>
-        <location filename="formsettings.ui" line="630"/>
-        <source>Sections</source>
+        <location filename="formsettings.ui" line="494"/>
+        <location filename="formsettings.ui" line="639"/>
+        <source>Sections:</source>
         <translation>Разделы:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="523"/>
-        <location filename="formsettings.ui" line="668"/>
+        <location filename="formsettings.ui" line="532"/>
+        <location filename="formsettings.ui" line="677"/>
         <source>Amv</source>
         <translation>AMV</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="546"/>
+        <location filename="formsettings.ui" line="555"/>
         <source>Export images</source>
         <translation>Экспортировать изображения</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="584"/>
+        <location filename="formsettings.ui" line="593"/>
         <location filename="formsettings.cpp" line="793"/>
         <source>Import</source>
         <translation>Импорт</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="601"/>
+        <location filename="formsettings.ui" line="610"/>
         <source>Choose xml file</source>
         <translation>Выберете xml файл</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="691"/>
+        <location filename="formsettings.ui" line="700"/>
         <source>Import images</source>
         <translation>Импортировать изображения</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="706"/>
+        <location filename="formsettings.ui" line="715"/>
         <source>Append to existing database</source>
         <translation>Добавить к существующей базе данных</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="709"/>
+        <location filename="formsettings.ui" line="718"/>
         <source>Append</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="726"/>
+        <location filename="formsettings.ui" line="735"/>
         <source>Replace existing database</source>
         <translation>Заменить существующую базу данных</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="729"/>
+        <location filename="formsettings.ui" line="738"/>
         <source>Replace</source>
         <translation>Заменить</translation>
     </message>
@@ -971,60 +1100,59 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="mainwindow.ui" line="14"/>
         <source>Database Anime</source>
-        <translation>Database Anime</translation>
+        <translation type="vanished">Database Anime</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="84"/>
+        <location filename="mainwindow.ui" line="88"/>
         <source>Search</source>
         <translation>Поиск</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="124"/>
+        <location filename="mainwindow.ui" line="128"/>
         <source>Add</source>
         <extracomment>Hint(toolTip) Button Add</extracomment>
         <translation>Добавить в текущий раздел</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="160"/>
+        <location filename="mainwindow.ui" line="164"/>
         <source>Edit</source>
         <extracomment>Hint(toolTip) Button Edit</extracomment>
         <translation>Редактировать выбранное</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="196"/>
+        <location filename="mainwindow.ui" line="200"/>
         <source>Delete</source>
         <extracomment>Hint(toolTip) Button Delete</extracomment>
         <translation>Удалить выбранное</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="268"/>
+        <location filename="mainwindow.ui" line="272"/>
         <source>&amp;Options</source>
         <translation>&amp;Опции</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="275"/>
+        <location filename="mainwindow.ui" line="279"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="404"/>
+        <location filename="mainwindow.ui" line="408"/>
         <source>Developer:</source>
         <translation>Разработчик:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="424"/>
+        <location filename="mainwindow.ui" line="428"/>
         <source>Designer:</source>
         <translation>Дизайнер:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="438"/>
+        <location filename="mainwindow.ui" line="442"/>
         <source>Version:</source>
         <translation>Версия:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="452"/>
+        <location filename="mainwindow.ui" line="456"/>
         <source>License:</source>
         <translation>Лицензия:</translation>
     </message>

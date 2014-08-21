@@ -10,8 +10,9 @@
     <height>557</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>Database Anime</string>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/images/DBA_Icon.png</normaloff>:/images/DBA_Icon.png</iconset>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedKingdom"/>
@@ -32,6 +33,9 @@
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
       <property name="handleWidth">
        <number>12</number>
       </property>
