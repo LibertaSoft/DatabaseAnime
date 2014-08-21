@@ -2,158 +2,643 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
-    <name>DialogAddEdit</name>
+    <name>DialogAddAmv</name>
     <message>
-        <location filename="dialogaddanime.ui" line="14"/>
-        <source>Add anime</source>
-        <translation></translation>
+        <location filename="dialogaddamv.ui" line="14"/>
+        <source>Add AMV</source>
+        <translation>Adding of AMV</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="45"/>
-        <source>Want to look</source>
-        <translation></translation>
+        <location filename="dialogaddamv.ui" line="38"/>
+        <source>AMV</source>
+        <translation>AMV</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="59"/>
+        <location filename="dialogaddamv.ui" line="58"/>
         <source>Editing</source>
-        <translation></translation>
+        <translation>Editing</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="71"/>
+        <location filename="dialogaddamv.ui" line="78"/>
         <source>Title</source>
-        <translation></translation>
+        <translation>Title</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="97"/>
+        <location filename="dialogaddamv.ui" line="85"/>
         <source>Year:</source>
-        <translation></translation>
+        <translation>Year:</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="133"/>
-        <source>Season:</source>
-        <translation></translation>
+        <location filename="dialogaddamv.ui" line="115"/>
+        <source>Author</source>
+        <translation>Author</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="163"/>
-        <source>Studio:</source>
-        <translation></translation>
+        <location filename="dialogaddamv.ui" line="125"/>
+        <source>Сontestant</source>
+        <translation>Contestant</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1008"/>
-        <source>Total series</source>
-        <translation></translation>
+        <location filename="dialogaddamv.ui" line="150"/>
+        <source>Tags</source>
+        <translation>Tags</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1020"/>
-        <location filename="dialogaddanime.ui" line="1121"/>
-        <source>TV</source>
-        <translation></translation>
+        <location filename="dialogaddamv.ui" line="156"/>
+        <source>Separator: comma</source>
+        <translation>Separator: comma</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1033"/>
-        <location filename="dialogaddanime.ui" line="1128"/>
-        <source>OVA</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="dialogaddanime.ui" line="1046"/>
-        <location filename="dialogaddanime.ui" line="1135"/>
-        <source>ONA</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="dialogaddanime.ui" line="1059"/>
-        <location filename="dialogaddanime.ui" line="1142"/>
-        <source>Special</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="dialogaddanime.ui" line="1072"/>
-        <location filename="dialogaddanime.ui" line="1149"/>
-        <source>Movie</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="dialogaddanime.ui" line="1115"/>
-        <source>Sees</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="dialogaddanime.ui" line="1199"/>
-        <source>Genres</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="dialogaddanime.ui" line="1211"/>
+        <location filename="dialogaddamv.ui" line="168"/>
         <source>Enter through a comma, or choose from the list lower</source>
-        <translation></translation>
+        <translation>Enter through a comma, or choose from the list lower</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1295"/>
-        <location filename="dialogaddanime.ui" line="1301"/>
-        <source>Description</source>
-        <translation></translation>
+        <location filename="dialogaddamv.ui" line="192"/>
+        <location filename="dialogaddamv.ui" line="198"/>
+        <source>Video source</source>
+        <translation>Video source</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1309"/>
+        <location filename="dialogaddamv.ui" line="206"/>
+        <location filename="dialogaddamv.ui" line="212"/>
+        <source>Containing music</source>
+        <translation>Containing music</translation>
+    </message>
+    <message>
+        <location filename="dialogaddamv.ui" line="220"/>
+        <location filename="dialogaddamv.ui" line="226"/>
+        <source>Author comment</source>
+        <translation>Author comment</translation>
+    </message>
+    <message>
+        <location filename="dialogaddamv.ui" line="234"/>
         <source>Media</source>
-        <translation></translation>
+        <translation>Media</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1320"/>
-        <source>Directory</source>
-        <translation></translation>
+        <location filename="dialogaddamv.ui" line="248"/>
+        <source>File</source>
+        <translation>File</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1330"/>
+        <location filename="dialogaddamv.ui" line="261"/>
         <source>*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1352"/>
+        <location filename="dialogaddamv.ui" line="289"/>
         <source>URL</source>
-        <translation></translation>
+        <translation>URL</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.ui" line="1405"/>
+        <location filename="dialogaddamv.ui" line="342"/>
         <source>Drop image here, or a double click for a file choice</source>
-        <translation></translation>
+        <translation>Drop image here, or a double click for a file choice</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="34"/>
-        <source>Original title</source>
-        <translation></translation>
+        <location filename="dialogaddamv.cpp" line="164"/>
+        <location filename="dialogaddamv.cpp" line="169"/>
+        <source>Critical</source>
+        <translation>Critical error</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="40"/>
-        <source>Director</source>
-        <translation></translation>
+        <location filename="dialogaddamv.cpp" line="164"/>
+        <source>Cannot insert data.</source>
+        <translation>Cannot insert data.</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="46"/>
-        <source>Postscoring</source>
-        <translation></translation>
+        <location filename="dialogaddamv.cpp" line="169"/>
+        <source>Cannot update data.</source>
+        <translation>Cannot update data.</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="295"/>
-        <location filename="dialogaddanime.cpp" line="302"/>
+        <location filename="dialogaddamv.cpp" line="180"/>
+        <location filename="dialogaddamv.cpp" line="187"/>
         <source>Warning</source>
-        <translation></translation>
+        <translation>Warning</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="295"/>
-        <source>The field &apos;Dir&apos; is uncorrect</source>
-        <translation></translation>
+        <location filename="dialogaddamv.cpp" line="180"/>
+        <source>The field &apos;File&apos; is uncorrect</source>
+        <translation>The field &apos;File&apos; is uncorrect</translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="302"/>
+        <location filename="dialogaddamv.cpp" line="187"/>
         <source>The field &apos;Title&apos; is not filled</source>
+        <translation>The field &apos;Title&apos; is not filled</translation>
+    </message>
+    <message>
+        <location filename="dialogaddamv.cpp" line="201"/>
+        <source>Choose a video file</source>
+        <translation>Choose a video file</translation>
+    </message>
+</context>
+<context>
+    <name>DialogAddAnime</name>
+    <message>
+        <location filename="dialogaddanime.ui" line="14"/>
+        <source>Add anime</source>
+        <translation>Adding of anime</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="38"/>
+        <source>Anime</source>
+        <translation>Anime</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="58"/>
+        <source>Want to look</source>
+        <translation>Want to look</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="72"/>
+        <source>Editing</source>
+        <translation>Editing</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="87"/>
+        <source>Title</source>
+        <translation>Title</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="113"/>
+        <source>Year:</source>
+        <translation>Year:</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="149"/>
+        <source>Season:</source>
+        <translation>Season:</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="172"/>
+        <source>Studio:</source>
+        <translation>Studio:</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="407"/>
+        <source>Diomedéa</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dialogaddanime.cpp" line="341"/>
-        <source>Choose a directory with video files</source>
+        <location filename="dialogaddanime.ui" line="1033"/>
+        <source>Total series</source>
+        <translation>Total series</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1045"/>
+        <location filename="dialogaddanime.ui" line="1153"/>
+        <source>TV</source>
+        <translation>TV</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1058"/>
+        <location filename="dialogaddanime.ui" line="1160"/>
+        <source>OVA</source>
+        <translation>OVA</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1071"/>
+        <location filename="dialogaddanime.ui" line="1167"/>
+        <source>ONA</source>
+        <translation>ONA</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1084"/>
+        <location filename="dialogaddanime.ui" line="1174"/>
+        <source>Special</source>
+        <translation>Special</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1097"/>
+        <location filename="dialogaddanime.ui" line="1146"/>
+        <source>Movie</source>
+        <translation>Movie</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1140"/>
+        <source>Sees</source>
+        <translation>Sees</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1224"/>
+        <source>Genres</source>
+        <translation>Ganres</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1239"/>
+        <source>Enter through a comma, or choose from the list lower</source>
+        <translation>Enter through a comma, or choose from the list lower</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1269"/>
+        <location filename="dialogaddanime.ui" line="1275"/>
+        <source>Description</source>
+        <translation>Description</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1283"/>
+        <source>Media</source>
+        <translation>Media</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1297"/>
+        <source>Directory</source>
+        <translation>Directory</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1310"/>
+        <source>*</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1335"/>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.ui" line="1388"/>
+        <source>Drop image here, or a double click for a file choice</source>
+        <translation>Drop image here, or a double click for a file choice</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.cpp" line="29"/>
+        <source>Alternative title</source>
+        <translation>Alternative title</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.cpp" line="36"/>
+        <source>Director</source>
+        <translation>Director</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.cpp" line="43"/>
+        <source>Postscoring</source>
+        <translation>Postscoring</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.cpp" line="277"/>
+        <location filename="dialogaddanime.cpp" line="282"/>
+        <source>Critical</source>
+        <translation>Critical error</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.cpp" line="277"/>
+        <source>Cannot insert data.</source>
+        <translation>Cannot insert data.</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.cpp" line="282"/>
+        <source>Cannot update data.</source>
+        <translation>Cannot update data.</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.cpp" line="293"/>
+        <location filename="dialogaddanime.cpp" line="300"/>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.cpp" line="293"/>
+        <source>The field &apos;Directory&apos; is uncorrect</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.cpp" line="300"/>
+        <source>The field &apos;Title&apos; is not filled</source>
+        <translation>The field &apos;Title&apos; is not filled</translation>
+    </message>
+    <message>
+        <location filename="dialogaddanime.cpp" line="339"/>
+        <source>Choose a directory with video files</source>
+        <translation>Choose a directory with video files</translation>
+    </message>
+</context>
+<context>
+    <name>DialogAddDorama</name>
+    <message>
+        <location filename="dialogadddorama.ui" line="14"/>
+        <source>Add dorama</source>
+        <translation>Adding of dorama</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="38"/>
+        <source>Dorama</source>
+        <translation>Dorama</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="58"/>
+        <source>Want to look</source>
+        <translation>Want to look</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="72"/>
+        <source>Editing</source>
+        <translation>Editing</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="87"/>
+        <source>Title</source>
+        <translation>Title</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="106"/>
+        <source>Year:</source>
+        <translation>Year:</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="142"/>
+        <source>Season:</source>
+        <translation>Season:</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="183"/>
+        <source>Total series</source>
+        <translation>Total series</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="195"/>
+        <location filename="dialogadddorama.ui" line="256"/>
+        <source>TV</source>
+        <translation>TV</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="208"/>
+        <location filename="dialogadddorama.ui" line="263"/>
+        <source>Special</source>
+        <translation>Special</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="221"/>
+        <location filename="dialogadddorama.ui" line="270"/>
+        <source>Movie</source>
+        <translation>Movie</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="250"/>
+        <source>Sees</source>
+        <translation>Sees</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="306"/>
+        <source>Genres</source>
+        <translation>Ganres</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="321"/>
+        <source>Enter through a comma, or choose from the list lower</source>
+        <translation>Enter through a comma, or choose from the list lower</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="354"/>
+        <location filename="dialogadddorama.ui" line="360"/>
+        <source>Description</source>
+        <translation>Description</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="368"/>
+        <location filename="dialogadddorama.ui" line="374"/>
+        <source>In roles</source>
+        <translation>In roles</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="382"/>
+        <source>Media</source>
+        <translation>Media</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="396"/>
+        <source>File</source>
+        <translation>File</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="409"/>
+        <source>*</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="434"/>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.ui" line="487"/>
+        <source>Drop image here, or a double click for a file choice</source>
+        <translation>Drop image here, or a double click for a file choice</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.cpp" line="28"/>
+        <source>Alternative title</source>
+        <translation>Alternative title</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.cpp" line="35"/>
+        <source>Director</source>
+        <translation>Director</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.cpp" line="243"/>
+        <location filename="dialogadddorama.cpp" line="248"/>
+        <source>Critical</source>
+        <translation>Critical error</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.cpp" line="243"/>
+        <source>Cannot insert data.</source>
+        <translation>Cannot insert data.</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.cpp" line="248"/>
+        <source>Cannot update data.</source>
+        <translation>Cannot update data.</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.cpp" line="259"/>
+        <location filename="dialogadddorama.cpp" line="266"/>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.cpp" line="259"/>
+        <source>The field &apos;Directory&apos; is uncorrect</source>
+        <translation>The field &apos;Directory&apos; is uncorrect</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.cpp" line="266"/>
+        <source>The field &apos;Title&apos; is not filled</source>
+        <translation>The field &apos;Title&apos; is not filled</translation>
+    </message>
+    <message>
+        <location filename="dialogadddorama.cpp" line="295"/>
+        <source>Choose a directory with video files</source>
+        <translation>Choose a directory with video files</translation>
+    </message>
+</context>
+<context>
+    <name>DialogAddManga</name>
+    <message>
+        <location filename="dialogaddmanga.ui" line="14"/>
+        <source>Add manga</source>
+        <translation>Adding of manga</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="38"/>
+        <source>Manga</source>
+        <translation>Manga</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="58"/>
+        <source>Want to read</source>
+        <translation>Want to read</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="72"/>
+        <source>Editing</source>
+        <translation>Editing</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="92"/>
+        <source>Title</source>
+        <translation>Title</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="99"/>
+        <source>Year:</source>
+        <translation>Year:</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="151"/>
+        <source>Total books</source>
+        <translation>Total books</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="163"/>
+        <source>Volumes</source>
+        <translation>Volumes</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="176"/>
+        <source>Charapters</source>
+        <translation>Charapters</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="189"/>
+        <source>Pages</source>
+        <translation>Pages</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="206"/>
+        <source>Read</source>
+        <translation>Read</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="212"/>
+        <source>Volume</source>
+        <translation>Volume</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="219"/>
+        <source>Charapter</source>
+        <translation>Charapter</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="226"/>
+        <source>Page</source>
+        <translation>Page</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="262"/>
+        <source>Genres</source>
+        <translation>Ganres</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="277"/>
+        <source>Enter through a comma, or choose from the list lower</source>
+        <translation>Enter through a comma, or choose from the list lower</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="325"/>
+        <location filename="dialogaddmanga.ui" line="331"/>
+        <source>Description</source>
+        <translation>Description</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="339"/>
+        <source>Media</source>
+        <translation>Media</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="350"/>
+        <source>Directory</source>
+        <translation>Directory</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="360"/>
+        <source>*</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="382"/>
+        <source>URL</source>
+        <translation>URL</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.ui" line="435"/>
+        <source>Drop image here, or a double click for a file choice</source>
+        <translation>Drop image here, or a double click for a file choice</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.cpp" line="93"/>
+        <source>Alternative title</source>
+        <translation>Alternative title</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.cpp" line="100"/>
+        <source>Author</source>
+        <translation>Author</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.cpp" line="107"/>
+        <source>Translation</source>
+        <translation>Translator</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.cpp" line="292"/>
+        <location filename="dialogaddmanga.cpp" line="297"/>
+        <source>Critical</source>
+        <translation>Critical error</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.cpp" line="292"/>
+        <source>Cannot insert data</source>
+        <translation>Cannot insert data</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.cpp" line="297"/>
+        <source>Cannot update data</source>
+        <translation>Cannot update data</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.cpp" line="308"/>
+        <location filename="dialogaddmanga.cpp" line="315"/>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.cpp" line="308"/>
+        <source>The field &apos;Directory&apos; is uncorrect</source>
+        <translation>The field &apos;Directory&apos; is uncorrect</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.cpp" line="315"/>
+        <source>The field &apos;Title&apos; is not filled</source>
+        <translation>The field &apos;Title&apos; is not filled</translation>
+    </message>
+    <message>
+        <location filename="dialogaddmanga.cpp" line="353"/>
+        <source>Choose a directory with picture files</source>
+        <translation>Choose a directory with a manga</translation>
     </message>
 </context>
 <context>
@@ -161,130 +646,326 @@
     <message>
         <location filename="formsettings.ui" line="17"/>
         <source>Options</source>
-        <translation></translation>
+        <translation>Options</translation>
     </message>
     <message>
         <location filename="formsettings.ui" line="26"/>
         <source>General:</source>
-        <translation></translation>
+        <translation>General:</translation>
     </message>
     <message>
         <location filename="formsettings.ui" line="37"/>
         <source>Language:</source>
-        <translation></translation>
+        <translation>Language:</translation>
     </message>
     <message>
         <location filename="formsettings.ui" line="79"/>
         <source>Sorting:</source>
-        <translation></translation>
+        <translation>Sorting:</translation>
     </message>
     <message>
         <location filename="formsettings.ui" line="87"/>
         <source>None</source>
-        <translation></translation>
+        <translation>None</translation>
     </message>
     <message>
         <location filename="formsettings.ui" line="92"/>
         <source>ASC</source>
-        <translation>A-Z</translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="formsettings.ui" line="97"/>
         <source>DESC</source>
-        <translation>Z-A</translation>
+        <translation></translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="112"/>
+        <location filename="formsettings.ui" line="102"/>
+        <source>Year</source>
+        <translation>Year</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="120"/>
         <source>To switch to a directory in case of induction on a cover</source>
-        <translation></translation>
+        <translation>To switch to a directory in case of induction on a cover</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="124"/>
+        <location filename="formsettings.ui" line="132"/>
         <source>Active menu items:</source>
-        <translation></translation>
+        <translation>Active menu sections:</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="130"/>
-        <location filename="formsettings.ui" line="195"/>
+        <location filename="formsettings.ui" line="138"/>
+        <location filename="formsettings.ui" line="503"/>
+        <location filename="formsettings.ui" line="648"/>
         <source>Anime</source>
-        <translation></translation>
+        <translation>Anime</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="140"/>
-        <location filename="formsettings.ui" line="235"/>
+        <location filename="formsettings.ui" line="148"/>
+        <location filename="formsettings.ui" line="513"/>
+        <location filename="formsettings.ui" line="658"/>
         <source>Manga</source>
-        <translation></translation>
+        <translation>Manga</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="150"/>
-        <location filename="formsettings.ui" line="240"/>
+        <location filename="formsettings.ui" line="158"/>
         <source>AMV</source>
-        <translation></translation>
+        <translation>AMV</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="160"/>
-        <location filename="formsettings.ui" line="245"/>
+        <location filename="formsettings.ui" line="168"/>
+        <location filename="formsettings.ui" line="533"/>
+        <location filename="formsettings.ui" line="678"/>
         <source>Dorama</source>
-        <translation></translation>
+        <translation>Dorama</translation>
     </message>
     <message>
         <location filename="formsettings.ui" line="201"/>
-        <source>Optional fields:</source>
-        <translation></translation>
+        <source>Optional fields</source>
+        <translation>Optional fields</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="210"/>
+        <location filename="formsettings.ui" line="222"/>
+        <source>Anime:</source>
+        <translation>Anime:</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="243"/>
+        <location filename="formsettings.ui" line="346"/>
         <source>Director</source>
-        <translation></translation>
+        <translation>Director</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="217"/>
+        <location filename="formsettings.ui" line="250"/>
         <source>Original title</source>
-        <translation></translation>
+        <translation>Alternative title</translation>
     </message>
     <message>
-        <location filename="formsettings.ui" line="224"/>
+        <location filename="formsettings.ui" line="257"/>
         <source>Postscoring</source>
+        <translation>Postscoring</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="267"/>
+        <source>Manga:</source>
+        <translation>Manga:</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="288"/>
+        <source>Author</source>
+        <translation>Author</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="295"/>
+        <location filename="formsettings.ui" line="353"/>
+        <source>Alternative title</source>
+        <translation>Alternative title</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="302"/>
+        <source>Translation</source>
+        <translation>Translator</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="312"/>
+        <source>Dorama:</source>
+        <translation>Dorama:</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="386"/>
+        <source>Work directory:</source>
+        <translation>Work directory:</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="436"/>
+        <location filename="formsettings.ui" line="562"/>
+        <location filename="formsettings.cpp" line="562"/>
+        <source>Export</source>
+        <translation>Export</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="453"/>
+        <source>Choose a directory</source>
+        <translation>Choose a directory</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="485"/>
+        <location filename="formsettings.ui" line="630"/>
+        <source>Sections</source>
+        <translation>Sections:</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="523"/>
+        <location filename="formsettings.ui" line="668"/>
+        <source>Amv</source>
+        <translation>AMV</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="546"/>
+        <source>Export images</source>
+        <translation>Export images</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="584"/>
+        <location filename="formsettings.cpp" line="793"/>
+        <source>Import</source>
+        <translation>Import</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="601"/>
+        <source>Choose xml file</source>
+        <translation>Choose xml file</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="691"/>
+        <source>Import images</source>
+        <translation>Import images</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="706"/>
+        <source>Append to existing database</source>
+        <translation>Append to existing database</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="709"/>
+        <source>Append</source>
+        <translation>Append</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="726"/>
+        <source>Replace existing database</source>
+        <translation>Replace existing database</translation>
+    </message>
+    <message>
+        <location filename="formsettings.ui" line="729"/>
+        <source>Replace</source>
+        <translation>Replace</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="63"/>
+        <location filename="formsettings.cpp" line="65"/>
+        <source>&lt;System&gt;</source>
+        <translation>System</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="328"/>
+        <location filename="formsettings.cpp" line="334"/>
+        <location filename="formsettings.cpp" line="649"/>
+        <location filename="formsettings.cpp" line="815"/>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="328"/>
+        <source>The directory for export isn&apos;t choose</source>
+        <translation>The directory for export isn&apos;t choose</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="334"/>
+        <source>The path shall be absolute</source>
+        <translation>The path shall be absolute</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="349"/>
+        <location filename="formsettings.cpp" line="392"/>
+        <location filename="formsettings.cpp" line="430"/>
+        <location filename="formsettings.cpp" line="462"/>
+        <location filename="formsettings.cpp" line="558"/>
+        <location filename="formsettings.cpp" line="661"/>
+        <location filename="formsettings.cpp" line="913"/>
+        <source>Critical</source>
+        <translation>Critical error</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="349"/>
+        <location filename="formsettings.cpp" line="392"/>
+        <location filename="formsettings.cpp" line="430"/>
+        <location filename="formsettings.cpp" line="462"/>
+        <source>Cannot export data</source>
+        <translation>Cannot export data</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="558"/>
+        <source>File is not created</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="formsettings.cpp" line="46"/>
-        <location filename="formsettings.cpp" line="48"/>
-        <source>&lt;System&gt;</source>
-        <translation></translation>
+        <location filename="formsettings.cpp" line="562"/>
+        <source>Export is successfully finished</source>
+        <translation>Export is successfully finished</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="568"/>
+        <source>Choose a directory for export file</source>
+        <translation>Choose a directory for export file</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="649"/>
+        <source>The imported file isn&apos;t selected</source>
+        <translation>The imported file isn&apos;t selected</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="661"/>
+        <source>File is not open</source>
+        <translation>Cannot open file</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="793"/>
+        <source>Import is successfully finished</source>
+        <translation>Import is successfully finished</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="794"/>
+        <source>Records it is imported:</source>
+        <translation>Records it is imported:</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="802"/>
+        <source>Choose a xml file for import</source>
+        <translation>Choose a xml file for import</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="816"/>
+        <source>&lt;b&gt;Delete&lt;/b&gt; your database?&lt;br&gt;&lt;i&gt;Fields marked by a checkbox will be deleted&lt;/i&gt;</source>
+        <translation>&lt;b&gt;Delete&lt;/b&gt; your database?&lt;br&gt;&lt;i&gt;Fields marked by a checkbox will be deleted&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location filename="formsettings.cpp" line="913"/>
+        <source>Error when deleting a database</source>
+        <translation>Error when deleting a database</translation>
     </message>
 </context>
 <context>
     <name>ImageCover</name>
     <message>
-        <location filename="imagecover.cpp" line="19"/>
+        <location filename="imagecover.cpp" line="22"/>
         <source>&amp;Choose image</source>
-        <translation></translation>
+        <translation>&amp;Choose image</translation>
     </message>
     <message>
-        <location filename="imagecover.cpp" line="20"/>
+        <location filename="imagecover.cpp" line="23"/>
         <source>Clea&amp;n image</source>
-        <translation></translation>
+        <translation>Clea&amp;n image</translation>
     </message>
     <message>
-        <location filename="imagecover.cpp" line="47"/>
+        <location filename="imagecover.cpp" line="49"/>
         <source>Open picture</source>
-        <translation></translation>
+        <translation>Choose picture</translation>
     </message>
     <message>
-        <location filename="imagecover.cpp" line="47"/>
+        <location filename="imagecover.cpp" line="50"/>
         <source>Images</source>
-        <translation></translation>
+        <translation>Images</translation>
     </message>
     <message>
         <location filename="imagecover.cpp" line="79"/>
         <source>Warning</source>
-        <translation></translation>
+        <translation>Warning</translation>
     </message>
     <message>
         <location filename="imagecover.cpp" line="79"/>
         <source>It was not succeeded to load the picture</source>
-        <translation></translation>
+        <translation>It was not succeeded to load the picture</translation>
     </message>
 </context>
 <context>
@@ -292,955 +973,868 @@
     <message>
         <location filename="mainwindow.ui" line="14"/>
         <source>Database Anime</source>
-        <translation></translation>
+        <translation>Database Anime</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="88"/>
+        <location filename="mainwindow.ui" line="84"/>
+        <source>Search</source>
+        <translation>Search</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="124"/>
+        <source>Add</source>
+        <extracomment>Hint(toolTip) Button Add</extracomment>
+        <translation>To add in the current section</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="160"/>
+        <source>Edit</source>
+        <extracomment>Hint(toolTip) Button Edit</extracomment>
+        <translation>To edit the selected</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="196"/>
+        <source>Delete</source>
+        <extracomment>Hint(toolTip) Button Delete</extracomment>
+        <translation>To delete the selected</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="268"/>
         <source>&amp;Options</source>
-        <translation></translation>
+        <translation>&amp;Options</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="95"/>
+        <location filename="mainwindow.ui" line="275"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="226"/>
+        <location filename="mainwindow.ui" line="404"/>
         <source>Developer:</source>
-        <translation></translation>
+        <translation>Developer:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="252"/>
+        <location filename="mainwindow.ui" line="424"/>
         <source>Designer:</source>
-        <translation></translation>
+        <translation>Designer:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="278"/>
+        <location filename="mainwindow.ui" line="438"/>
         <source>Version:</source>
-        <translation></translation>
+        <translation>Version:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="304"/>
+        <location filename="mainwindow.ui" line="452"/>
         <source>License:</source>
-        <translation></translation>
+        <translation>License:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="502"/>
-        <source>Title:</source>
-        <translation></translation>
+        <location filename="mainwindow.cpp" line="181"/>
+        <source>Warning</source>
+        <translation>Warning</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="525"/>
-        <source>Original title:</source>
-        <translation></translation>
+        <location filename="mainwindow.cpp" line="182"/>
+        <source>&lt;b&gt;Delete&lt;/b&gt; selected item?</source>
+        <translation>&lt;b&gt;Delete&lt;/b&gt; selected item?</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="548"/>
-        <source>Director:</source>
-        <translation></translation>
+        <location filename="mainwindow.cpp" line="224"/>
+        <source>Critical</source>
+        <translation>Critical error</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="571"/>
-        <source>Year:</source>
-        <translation></translation>
+        <location filename="mainwindow.cpp" line="224"/>
+        <source>It was not succeeded to remove record</source>
+        <translation>It was not succeeded to remove record</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="594"/>
-        <source>Ganres:</source>
-        <translation></translation>
+        <location filename="mainwindow.cpp" line="324"/>
+        <source>Main</source>
+        <translation>Main</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="623"/>
-        <source>Studio:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="646"/>
-        <source>Description:</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="831"/>
-        <source>Menu</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="853"/>
-        <source>Search</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="893"/>
-        <source>Add</source>
-        <extracomment>Hint(toolTip) Button Add</extracomment>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="896"/>
-        <source>+</source>
-        <comment>Text on button add [unused]</comment>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="926"/>
-        <source>Edit</source>
-        <extracomment>Hint(toolTip) Button Edit</extracomment>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="929"/>
-        <source>*</source>
-        <comment>Text on button edit [unused]</comment>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="959"/>
-        <source>Delete</source>
-        <extracomment>Hint(toolTip) Button Delete</extracomment>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="962"/>
-        <source>-</source>
-        <comment>Text on button delete [unused]</comment>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.cpp" line="216"/>
+        <location filename="mainwindow.cpp" line="327"/>
         <source>Anime</source>
-        <translation></translation>
+        <translation>Anime</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="222"/>
+        <location filename="mainwindow.cpp" line="333"/>
         <source>Manga</source>
-        <translation></translation>
+        <translation>Manga</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="228"/>
+        <location filename="mainwindow.cpp" line="339"/>
         <source>AMV</source>
-        <translation></translation>
+        <translation>AMV</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="234"/>
+        <location filename="mainwindow.cpp" line="345"/>
         <source>Dorama</source>
-        <translation></translation>
+        <translation>Dorama</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="244"/>
+        <location filename="mainwindow.cpp" line="353"/>
+        <location filename="mainwindow.cpp" line="373"/>
+        <location filename="mainwindow.cpp" line="381"/>
+        <location filename="mainwindow.cpp" line="387"/>
         <source>All</source>
-        <translation></translation>
+        <translation>All</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="246"/>
+        <location filename="mainwindow.cpp" line="355"/>
+        <location filename="mainwindow.cpp" line="375"/>
+        <location filename="mainwindow.cpp" line="383"/>
+        <location filename="mainwindow.cpp" line="389"/>
         <source>Editing</source>
-        <translation></translation>
+        <translation>Editing</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="248"/>
+        <location filename="mainwindow.cpp" line="357"/>
+        <location filename="mainwindow.cpp" line="391"/>
         <source>Want to look</source>
-        <translation></translation>
+        <translation>Want to look</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="250"/>
+        <location filename="mainwindow.cpp" line="359"/>
+        <location filename="mainwindow.cpp" line="393"/>
+        <source>Looked</source>
+        <translation>Looked</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="361"/>
+        <location filename="mainwindow.cpp" line="395"/>
         <source>TV</source>
-        <translation></translation>
+        <translation>TV</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="252"/>
+        <location filename="mainwindow.cpp" line="363"/>
         <source>OVA</source>
-        <translation></translation>
+        <translation>OVA</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="254"/>
+        <location filename="mainwindow.cpp" line="365"/>
         <source>ONA</source>
-        <translation></translation>
+        <translation>ONA</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="256"/>
+        <location filename="mainwindow.cpp" line="367"/>
+        <location filename="mainwindow.cpp" line="397"/>
         <source>Special</source>
-        <translation></translation>
+        <translation>Special</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="258"/>
+        <location filename="mainwindow.cpp" line="369"/>
+        <location filename="mainwindow.cpp" line="399"/>
         <source>Movie</source>
-        <translation></translation>
+        <translation>Movie</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="377"/>
+        <source>Want to read</source>
+        <translation>Want to read</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="531"/>
+        <location filename="mainwindow.cpp" line="682"/>
+        <location filename="mainwindow.cpp" line="792"/>
+        <location filename="mainwindow.cpp" line="940"/>
+        <source>Title:</source>
+        <translation>Title:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="535"/>
+        <location filename="mainwindow.cpp" line="686"/>
+        <location filename="mainwindow.cpp" line="944"/>
+        <source>Alt title:</source>
+        <translation>Alt title:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="540"/>
+        <location filename="mainwindow.cpp" line="691"/>
+        <location filename="mainwindow.cpp" line="949"/>
+        <source>Director:</source>
+        <translation>Director:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="545"/>
+        <location filename="mainwindow.cpp" line="701"/>
+        <location filename="mainwindow.cpp" line="806"/>
+        <location filename="mainwindow.cpp" line="954"/>
+        <source>Year:</source>
+        <translation>Year:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="550"/>
+        <location filename="mainwindow.cpp" line="959"/>
+        <source>Season:</source>
+        <translation>Season:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="555"/>
+        <location filename="mainwindow.cpp" line="964"/>
+        <source>Postscoring:</source>
+        <translation>Postscoring:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="560"/>
+        <source>Studio:</source>
+        <translation>Studio:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="565"/>
+        <location filename="mainwindow.cpp" line="706"/>
+        <location filename="mainwindow.cpp" line="811"/>
+        <location filename="mainwindow.cpp" line="969"/>
+        <source>Ganres:</source>
+        <translation>Ganres:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="569"/>
+        <location filename="mainwindow.cpp" line="710"/>
+        <location filename="mainwindow.cpp" line="980"/>
+        <source>Description:</source>
+        <translation>Description:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="696"/>
+        <source>Translator:</source>
+        <translation>Translator:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="796"/>
+        <source>Author:</source>
+        <translation>Author:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="801"/>
+        <source>Сontestant:</source>
+        <translation>Contestant:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="815"/>
+        <source>Author comment:</source>
+        <translation>Author comment:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="822"/>
+        <source>Containing music:</source>
+        <translation>Containing music:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="829"/>
+        <source>Containing anime:</source>
+        <translation>Containing music:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="850"/>
+        <source>Play</source>
+        <translation>Play</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="973"/>
+        <source>In roles:</source>
+        <translation>In roles:</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="main.cpp" line="14"/>
+        <location filename="main.cpp" line="65"/>
         <source>Database Anime</source>
-        <translation type="unfinished"></translation>
+        <translation>Database Anime</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="170"/>
-        <location filename="mngrquerys.cpp" line="190"/>
-        <location filename="mngrquerys.cpp" line="210"/>
+        <location filename="mngrconnection.cpp" line="15"/>
+        <location filename="mngrconnection.cpp" line="29"/>
+        <source>Critical</source>
+        <translation>Critical error</translation>
+    </message>
+    <message>
+        <location filename="mngrconnection.cpp" line="16"/>
+        <source>Cannot avalible database driver</source>
+        <translation>Cannot avalible database driver</translation>
+    </message>
+    <message>
+        <location filename="mngrconnection.cpp" line="30"/>
+        <source>It was not succeeded to create a directory for a database.</source>
+        <translation>It was not succeeded to create a directory for a database.</translation>
+    </message>
+    <message>
+        <location filename="mngrquerys.cpp" line="257"/>
+        <location filename="mngrquerys.cpp" line="277"/>
+        <location filename="mngrquerys.cpp" line="297"/>
         <source>Action</source>
-        <comment>1.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Action</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="170"/>
-        <location filename="mngrquerys.cpp" line="190"/>
+        <location filename="mngrquerys.cpp" line="257"/>
+        <location filename="mngrquerys.cpp" line="277"/>
         <source>Futunari</source>
-        <comment>1.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Futunari</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="170"/>
-        <location filename="mngrquerys.cpp" line="190"/>
+        <location filename="mngrquerys.cpp" line="257"/>
+        <location filename="mngrquerys.cpp" line="277"/>
         <source>Music</source>
-        <comment>1.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Music</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="170"/>
-        <location filename="mngrquerys.cpp" line="190"/>
+        <location filename="mngrquerys.cpp" line="257"/>
+        <location filename="mngrquerys.cpp" line="277"/>
         <source>Shounen</source>
-        <comment>1.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Shounen</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="171"/>
-        <location filename="mngrquerys.cpp" line="191"/>
+        <location filename="mngrquerys.cpp" line="258"/>
+        <location filename="mngrquerys.cpp" line="278"/>
+        <location filename="mngrquerys.cpp" line="307"/>
         <source>Adventure</source>
-        <comment>2.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Adventure</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="171"/>
-        <location filename="mngrquerys.cpp" line="191"/>
-        <location filename="mngrquerys.cpp" line="221"/>
+        <location filename="mngrquerys.cpp" line="258"/>
+        <location filename="mngrquerys.cpp" line="278"/>
+        <location filename="mngrquerys.cpp" line="308"/>
         <source>Game</source>
-        <comment>2.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Game</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="171"/>
-        <location filename="mngrquerys.cpp" line="191"/>
+        <location filename="mngrquerys.cpp" line="258"/>
+        <location filename="mngrquerys.cpp" line="278"/>
         <source>Mystery</source>
-        <comment>2.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mystery</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="171"/>
-        <location filename="mngrquerys.cpp" line="191"/>
+        <location filename="mngrquerys.cpp" line="258"/>
+        <location filename="mngrquerys.cpp" line="278"/>
         <source>Shounen-ai (Yaoi)</source>
-        <comment>2.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Shounen-ai (Yaoi)</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="172"/>
-        <location filename="mngrquerys.cpp" line="192"/>
+        <location filename="mngrquerys.cpp" line="259"/>
+        <location filename="mngrquerys.cpp" line="279"/>
         <source>Bara</source>
-        <comment>3.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bara</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="172"/>
-        <location filename="mngrquerys.cpp" line="192"/>
+        <location filename="mngrquerys.cpp" line="259"/>
+        <location filename="mngrquerys.cpp" line="279"/>
+        <location filename="mngrquerys.cpp" line="310"/>
         <source>Gender intrigue</source>
-        <comment>3.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Gender intrigue</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="172"/>
-        <location filename="mngrquerys.cpp" line="192"/>
+        <location filename="mngrquerys.cpp" line="259"/>
+        <location filename="mngrquerys.cpp" line="279"/>
+        <location filename="mngrquerys.cpp" line="321"/>
         <source>Parody</source>
-        <comment>3.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Parody</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="172"/>
-        <location filename="mngrquerys.cpp" line="192"/>
+        <location filename="mngrquerys.cpp" line="259"/>
+        <location filename="mngrquerys.cpp" line="279"/>
         <source>Space</source>
-        <comment>3.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Space</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="173"/>
-        <location filename="mngrquerys.cpp" line="193"/>
+        <location filename="mngrquerys.cpp" line="260"/>
+        <location filename="mngrquerys.cpp" line="280"/>
+        <location filename="mngrquerys.cpp" line="311"/>
         <source>Comedy</source>
-        <comment>4.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Comedy</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="173"/>
-        <location filename="mngrquerys.cpp" line="193"/>
+        <location filename="mngrquerys.cpp" line="260"/>
+        <location filename="mngrquerys.cpp" line="280"/>
         <source>Guro</source>
-        <comment>4.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Guro</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="173"/>
-        <location filename="mngrquerys.cpp" line="193"/>
+        <location filename="mngrquerys.cpp" line="260"/>
+        <location filename="mngrquerys.cpp" line="280"/>
         <source>Philosophy</source>
-        <comment>4.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Philosophy</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="173"/>
-        <location filename="mngrquerys.cpp" line="193"/>
+        <location filename="mngrquerys.cpp" line="260"/>
+        <location filename="mngrquerys.cpp" line="280"/>
+        <location filename="mngrquerys.cpp" line="314"/>
         <source>Sport</source>
-        <comment>4.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sport</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="174"/>
-        <location filename="mngrquerys.cpp" line="194"/>
+        <location filename="mngrquerys.cpp" line="261"/>
+        <location filename="mngrquerys.cpp" line="281"/>
         <source>Cooking</source>
-        <comment>5.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cooking</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="174"/>
-        <location filename="mngrquerys.cpp" line="194"/>
+        <location filename="mngrquerys.cpp" line="261"/>
+        <location filename="mngrquerys.cpp" line="281"/>
         <source>Harem</source>
-        <comment>5.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Harem</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="174"/>
-        <location filename="mngrquerys.cpp" line="194"/>
+        <location filename="mngrquerys.cpp" line="261"/>
+        <location filename="mngrquerys.cpp" line="281"/>
         <source>Police</source>
-        <comment>5.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Police</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="174"/>
-        <location filename="mngrquerys.cpp" line="194"/>
+        <location filename="mngrquerys.cpp" line="261"/>
+        <location filename="mngrquerys.cpp" line="281"/>
         <source>Steampunk</source>
-        <comment>5.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Steampunk</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="175"/>
-        <location filename="mngrquerys.cpp" line="195"/>
+        <location filename="mngrquerys.cpp" line="262"/>
+        <location filename="mngrquerys.cpp" line="282"/>
         <source>Cyberpunk</source>
-        <comment>6.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cyberpunk</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="175"/>
-        <location filename="mngrquerys.cpp" line="195"/>
+        <location filename="mngrquerys.cpp" line="262"/>
+        <location filename="mngrquerys.cpp" line="282"/>
         <source>Hentai</source>
-        <comment>6.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Hentai</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="175"/>
-        <location filename="mngrquerys.cpp" line="195"/>
+        <location filename="mngrquerys.cpp" line="262"/>
+        <location filename="mngrquerys.cpp" line="282"/>
         <source>Post-apocalyptic</source>
-        <comment>6.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Post-apocalyptic</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="175"/>
-        <location filename="mngrquerys.cpp" line="195"/>
+        <location filename="mngrquerys.cpp" line="262"/>
+        <location filename="mngrquerys.cpp" line="282"/>
         <source>Supernatural</source>
-        <comment>6.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Supernatural</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="176"/>
-        <location filename="mngrquerys.cpp" line="196"/>
-        <location filename="mngrquerys.cpp" line="226"/>
+        <location filename="mngrquerys.cpp" line="263"/>
+        <location filename="mngrquerys.cpp" line="283"/>
+        <location filename="mngrquerys.cpp" line="313"/>
         <source>Daily occurrence</source>
-        <comment>7.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Daily occurrence</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="176"/>
-        <location filename="mngrquerys.cpp" line="196"/>
+        <location filename="mngrquerys.cpp" line="263"/>
+        <location filename="mngrquerys.cpp" line="283"/>
+        <location filename="mngrquerys.cpp" line="311"/>
         <source>Historical</source>
-        <comment>7.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Historical</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="176"/>
-        <location filename="mngrquerys.cpp" line="196"/>
+        <location filename="mngrquerys.cpp" line="263"/>
+        <location filename="mngrquerys.cpp" line="283"/>
+        <location filename="mngrquerys.cpp" line="308"/>
         <source>Psychology</source>
-        <comment>7.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Psychology</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="176"/>
-        <location filename="mngrquerys.cpp" line="196"/>
+        <location filename="mngrquerys.cpp" line="263"/>
+        <location filename="mngrquerys.cpp" line="283"/>
+        <location filename="mngrquerys.cpp" line="317"/>
         <source>Tale</source>
-        <comment>7.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tale</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="177"/>
-        <location filename="mngrquerys.cpp" line="197"/>
+        <location filename="mngrquerys.cpp" line="264"/>
+        <location filename="mngrquerys.cpp" line="284"/>
         <source>Demons</source>
-        <comment>8.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Demons</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="177"/>
-        <location filename="mngrquerys.cpp" line="197"/>
+        <location filename="mngrquerys.cpp" line="264"/>
+        <location filename="mngrquerys.cpp" line="284"/>
+        <location filename="mngrquerys.cpp" line="300"/>
+        <location filename="mngrquerys.cpp" line="312"/>
         <source>Horror</source>
-        <comment>8.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Horror</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="177"/>
-        <location filename="mngrquerys.cpp" line="197"/>
+        <location filename="mngrquerys.cpp" line="264"/>
+        <location filename="mngrquerys.cpp" line="284"/>
         <source>Ranobe</source>
-        <comment>8.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ranobe</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="177"/>
-        <location filename="mngrquerys.cpp" line="197"/>
+        <location filename="mngrquerys.cpp" line="264"/>
+        <location filename="mngrquerys.cpp" line="284"/>
         <source>Tentacles</source>
-        <comment>8.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tentacles</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="178"/>
-        <location filename="mngrquerys.cpp" line="198"/>
+        <location filename="mngrquerys.cpp" line="265"/>
+        <location filename="mngrquerys.cpp" line="285"/>
+        <location filename="mngrquerys.cpp" line="314"/>
         <source>Detective</source>
-        <comment>9.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Detective</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="178"/>
-        <location filename="mngrquerys.cpp" line="198"/>
+        <location filename="mngrquerys.cpp" line="265"/>
+        <location filename="mngrquerys.cpp" line="285"/>
         <source>Josei</source>
-        <comment>9.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Josei</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="178"/>
-        <location filename="mngrquerys.cpp" line="198"/>
+        <location filename="mngrquerys.cpp" line="265"/>
+        <location filename="mngrquerys.cpp" line="285"/>
         <source>Romantic</source>
-        <comment>9.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Romantic</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="178"/>
-        <location filename="mngrquerys.cpp" line="198"/>
+        <location filename="mngrquerys.cpp" line="265"/>
+        <location filename="mngrquerys.cpp" line="285"/>
         <source>The children&apos;s</source>
-        <comment>9.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>The children&apos;s</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="179"/>
-        <location filename="mngrquerys.cpp" line="199"/>
-        <location filename="mngrquerys.cpp" line="229"/>
+        <location filename="mngrquerys.cpp" line="266"/>
+        <location filename="mngrquerys.cpp" line="286"/>
+        <location filename="mngrquerys.cpp" line="297"/>
+        <location filename="mngrquerys.cpp" line="316"/>
         <source>Drama</source>
-        <comment>10.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Drama</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="179"/>
-        <location filename="mngrquerys.cpp" line="199"/>
+        <location filename="mngrquerys.cpp" line="266"/>
+        <location filename="mngrquerys.cpp" line="286"/>
         <source>Kodomo</source>
-        <comment>10.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kodomo</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="179"/>
-        <location filename="mngrquerys.cpp" line="199"/>
+        <location filename="mngrquerys.cpp" line="266"/>
+        <location filename="mngrquerys.cpp" line="286"/>
         <source>Samurai</source>
-        <comment>10.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Samurai</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="179"/>
-        <location filename="mngrquerys.cpp" line="199"/>
+        <location filename="mngrquerys.cpp" line="266"/>
+        <location filename="mngrquerys.cpp" line="286"/>
+        <location filename="mngrquerys.cpp" line="318"/>
         <source>Thriller</source>
-        <comment>10.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Thriller</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="180"/>
-        <location filename="mngrquerys.cpp" line="200"/>
+        <location filename="mngrquerys.cpp" line="267"/>
+        <location filename="mngrquerys.cpp" line="287"/>
+        <location filename="mngrquerys.cpp" line="298"/>
         <source>Ecchi</source>
-        <comment>11.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ecchi</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="180"/>
-        <location filename="mngrquerys.cpp" line="200"/>
+        <location filename="mngrquerys.cpp" line="267"/>
+        <location filename="mngrquerys.cpp" line="287"/>
         <source>Madness</source>
-        <comment>11.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Madness</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="180"/>
-        <location filename="mngrquerys.cpp" line="200"/>
+        <location filename="mngrquerys.cpp" line="267"/>
+        <location filename="mngrquerys.cpp" line="287"/>
+        <location filename="mngrquerys.cpp" line="311"/>
         <source>School</source>
-        <comment>11.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>School</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="180"/>
-        <location filename="mngrquerys.cpp" line="200"/>
+        <location filename="mngrquerys.cpp" line="267"/>
+        <location filename="mngrquerys.cpp" line="287"/>
+        <location filename="mngrquerys.cpp" line="320"/>
         <source>Tragedy</source>
-        <comment>11.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tragedy</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="181"/>
-        <location filename="mngrquerys.cpp" line="201"/>
-        <location filename="mngrquerys.cpp" line="231"/>
+        <location filename="mngrquerys.cpp" line="268"/>
+        <location filename="mngrquerys.cpp" line="288"/>
+        <location filename="mngrquerys.cpp" line="318"/>
         <source>Family</source>
-        <comment>12.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Family</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="181"/>
-        <location filename="mngrquerys.cpp" line="201"/>
+        <location filename="mngrquerys.cpp" line="268"/>
+        <location filename="mngrquerys.cpp" line="288"/>
         <source>Magic</source>
-        <comment>12.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Magic</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="181"/>
-        <location filename="mngrquerys.cpp" line="201"/>
+        <location filename="mngrquerys.cpp" line="268"/>
+        <location filename="mngrquerys.cpp" line="288"/>
         <source>Science Fiction</source>
-        <comment>12.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Science Fiction</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="181"/>
-        <location filename="mngrquerys.cpp" line="201"/>
+        <location filename="mngrquerys.cpp" line="268"/>
+        <location filename="mngrquerys.cpp" line="288"/>
+        <location filename="mngrquerys.cpp" line="307"/>
         <source>Vampires</source>
-        <comment>12.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vampires</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="182"/>
-        <location filename="mngrquerys.cpp" line="202"/>
-        <location filename="mngrquerys.cpp" line="232"/>
+        <location filename="mngrquerys.cpp" line="269"/>
+        <location filename="mngrquerys.cpp" line="289"/>
+        <location filename="mngrquerys.cpp" line="319"/>
         <source>Fantastic</source>
-        <comment>13.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fantastic</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="182"/>
-        <location filename="mngrquerys.cpp" line="202"/>
+        <location filename="mngrquerys.cpp" line="269"/>
+        <location filename="mngrquerys.cpp" line="289"/>
         <source>Magical girl</source>
-        <comment>13.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Magical girl</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="182"/>
-        <location filename="mngrquerys.cpp" line="202"/>
+        <location filename="mngrquerys.cpp" line="269"/>
+        <location filename="mngrquerys.cpp" line="289"/>
         <source>Seinen</source>
-        <comment>13.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Seinen</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="182"/>
-        <location filename="mngrquerys.cpp" line="202"/>
+        <location filename="mngrquerys.cpp" line="269"/>
+        <location filename="mngrquerys.cpp" line="289"/>
         <source>War</source>
-        <comment>13.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>War</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="183"/>
-        <location filename="mngrquerys.cpp" line="203"/>
-        <location filename="mngrquerys.cpp" line="233"/>
+        <location filename="mngrquerys.cpp" line="270"/>
+        <location filename="mngrquerys.cpp" line="290"/>
+        <location filename="mngrquerys.cpp" line="320"/>
         <source>Fantasy</source>
-        <comment>14.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fantasy</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="183"/>
-        <location filename="mngrquerys.cpp" line="203"/>
+        <location filename="mngrquerys.cpp" line="270"/>
+        <location filename="mngrquerys.cpp" line="290"/>
+        <location filename="mngrquerys.cpp" line="315"/>
         <source>Martial Arts</source>
-        <comment>14.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Martial Arts</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="183"/>
-        <location filename="mngrquerys.cpp" line="203"/>
+        <location filename="mngrquerys.cpp" line="270"/>
+        <location filename="mngrquerys.cpp" line="290"/>
         <source>Shojo</source>
-        <comment>14.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Shojo</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="183"/>
-        <location filename="mngrquerys.cpp" line="203"/>
+        <location filename="mngrquerys.cpp" line="270"/>
+        <location filename="mngrquerys.cpp" line="290"/>
         <source>Yonkoma</source>
-        <comment>14.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Yonkoma</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="184"/>
-        <location filename="mngrquerys.cpp" line="204"/>
-        <location filename="mngrquerys.cpp" line="234"/>
+        <location filename="mngrquerys.cpp" line="271"/>
+        <location filename="mngrquerys.cpp" line="291"/>
+        <location filename="mngrquerys.cpp" line="321"/>
         <source>Fighter</source>
-        <comment>15.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fighter</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="184"/>
-        <location filename="mngrquerys.cpp" line="204"/>
+        <location filename="mngrquerys.cpp" line="271"/>
+        <location filename="mngrquerys.cpp" line="291"/>
         <source>Mech</source>
-        <comment>15.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mech</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="184"/>
-        <location filename="mngrquerys.cpp" line="204"/>
+        <location filename="mngrquerys.cpp" line="271"/>
+        <location filename="mngrquerys.cpp" line="291"/>
         <source>Shojo-ai (Yuri)</source>
-        <comment>15.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Shojo-Ai (Yuri)</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="210"/>
-        <source>Drama</source>
-        <comment>1.2</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="210"/>
+        <location filename="mngrquerys.cpp" line="297"/>
         <source>M@D</source>
-        <comment>1.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>M@D</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="210"/>
+        <location filename="mngrquerys.cpp" line="297"/>
+        <location filename="mngrquerys.cpp" line="310"/>
         <source>Romance</source>
-        <comment>1.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Romance</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="211"/>
+        <location filename="mngrquerys.cpp" line="298"/>
         <source>Character Profile</source>
-        <comment>2.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Character Profile</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="211"/>
-        <source>Ecchi</source>
-        <comment>2.2</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="211"/>
+        <location filename="mngrquerys.cpp" line="298"/>
         <source>MEP</source>
-        <comment>2.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>MEP</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="211"/>
+        <location filename="mngrquerys.cpp" line="298"/>
         <source>Sentimental</source>
-        <comment>2.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sentimental</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="212"/>
+        <location filename="mngrquerys.cpp" line="299"/>
         <source>Comedy (Fun)</source>
-        <comment>3.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Comedy (Fun)</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="212"/>
+        <location filename="mngrquerys.cpp" line="299"/>
         <source>GMV</source>
-        <comment>3.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>GMV</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="212"/>
+        <location filename="mngrquerys.cpp" line="299"/>
         <source>MMV</source>
-        <comment>3.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>MMV</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="212"/>
+        <location filename="mngrquerys.cpp" line="299"/>
         <source>Story</source>
-        <comment>3.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Story</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="213"/>
+        <location filename="mngrquerys.cpp" line="300"/>
         <source>Cross-Over</source>
-        <comment>4.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Cross-Over</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="213"/>
-        <source>Horror</source>
-        <comment>4.2</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="213"/>
+        <location filename="mngrquerys.cpp" line="300"/>
         <source>Original Animation</source>
-        <comment>4.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Original Animation</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="213"/>
+        <location filename="mngrquerys.cpp" line="300"/>
         <source>Trailer</source>
-        <comment>4.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Trailer</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="214"/>
+        <location filename="mngrquerys.cpp" line="301"/>
         <source>Dance</source>
-        <comment>5.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Dance</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="214"/>
+        <location filename="mngrquerys.cpp" line="301"/>
         <source>Instrumental</source>
-        <comment>5.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Instrumental</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="214"/>
+        <location filename="mngrquerys.cpp" line="301"/>
         <source>Psychedelic</source>
-        <comment>5.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Psychedelic</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="220"/>
-        <source>Adventure</source>
-        <comment>1.1</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="220"/>
+        <location filename="mngrquerys.cpp" line="307"/>
         <source>Friendship</source>
-        <comment>1.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Friendship</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="220"/>
+        <location filename="mngrquerys.cpp" line="307"/>
         <source>Policy</source>
-        <comment>1.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Policy</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="220"/>
-        <source>Vampires</source>
-        <comment>1.4</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="221"/>
+        <location filename="mngrquerys.cpp" line="308"/>
         <source>Art-house</source>
-        <comment>2.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Art-house</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="221"/>
-        <source>Psychology</source>
-        <comment>2.3</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="221"/>
+        <location filename="mngrquerys.cpp" line="308"/>
         <source>Western</source>
-        <comment>2.4</comment>
-        <translation type="unfinished"></translation>
+        <translation>Western</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="222"/>
+        <location filename="mngrquerys.cpp" line="309"/>
         <source>Biography</source>
-        <comment>3.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Biography</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="222"/>
+        <location filename="mngrquerys.cpp" line="309"/>
         <source>Gay theme</source>
-        <comment>3.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Gay theme</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="222"/>
+        <location filename="mngrquerys.cpp" line="309"/>
         <source>Relationship</source>
-        <comment>3.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Relationship</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="223"/>
+        <location filename="mngrquerys.cpp" line="310"/>
         <source>Business</source>
-        <comment>4.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Business</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="223"/>
-        <source>Gender intrigue</source>
-        <comment>4.2</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="223"/>
-        <source>Romance</source>
-        <comment>4.3</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="224"/>
-        <source>Comedy</source>
-        <comment>5.1</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="224"/>
-        <source>Historical</source>
-        <comment>5.2</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="224"/>
-        <source>School</source>
-        <comment>5.3</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="225"/>
+        <location filename="mngrquerys.cpp" line="312"/>
         <source>Crime</source>
-        <comment>6.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Crime</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="225"/>
-        <source>Horror</source>
-        <comment>6.2</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="225"/>
+        <location filename="mngrquerys.cpp" line="312"/>
         <source>Sci-Fi</source>
-        <comment>6.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sci-Fi</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="226"/>
+        <location filename="mngrquerys.cpp" line="313"/>
         <source>Lesbian theme</source>
-        <comment>7.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lesbian theme</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="226"/>
+        <location filename="mngrquerys.cpp" line="313"/>
         <source>Sitcom</source>
-        <comment>7.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Sitcom</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="227"/>
-        <source>Detective</source>
-        <comment>8.1</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="227"/>
+        <location filename="mngrquerys.cpp" line="314"/>
         <source>Live-action</source>
-        <comment>8.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Live-action</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="227"/>
-        <source>Sport</source>
-        <comment>8.3</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="228"/>
+        <location filename="mngrquerys.cpp" line="315"/>
         <source>Documentary</source>
-        <comment>9.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Documentary</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="228"/>
-        <source>Martial Arts</source>
-        <comment>9.2</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="228"/>
+        <location filename="mngrquerys.cpp" line="315"/>
         <source>Suspense</source>
-        <comment>9.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Suspense</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="229"/>
+        <location filename="mngrquerys.cpp" line="316"/>
         <source>Medicine</source>
-        <comment>10.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Medicine</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="229"/>
+        <location filename="mngrquerys.cpp" line="316"/>
         <source>Taiga</source>
-        <comment>10.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Taiga</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="230"/>
+        <location filename="mngrquerys.cpp" line="317"/>
         <source>Erotic</source>
-        <comment>11.1</comment>
-        <translation type="unfinished"></translation>
+        <translation>Erotic</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="230"/>
+        <location filename="mngrquerys.cpp" line="317"/>
         <source>Melodrama</source>
-        <comment>11.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Melodrama</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="230"/>
-        <source>Tale</source>
-        <comment>11.3</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="231"/>
+        <location filename="mngrquerys.cpp" line="318"/>
         <source>Military</source>
-        <comment>12.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Military</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="231"/>
-        <source>Thriller</source>
-        <comment>12.3</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="232"/>
+        <location filename="mngrquerys.cpp" line="319"/>
         <source>Musical</source>
-        <comment>13.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Musical</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="232"/>
+        <location filename="mngrquerys.cpp" line="319"/>
         <source>Tokusatsu</source>
-        <comment>13.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>Tokusatsu</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="233"/>
+        <location filename="mngrquerys.cpp" line="320"/>
         <source>Mysticism</source>
-        <comment>14.2</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mysticism</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="233"/>
-        <source>Tragedy</source>
-        <comment>14.3</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="234"/>
-        <source>Parody</source>
-        <comment>15.2</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mngrquerys.cpp" line="234"/>
+        <location filename="mngrquerys.cpp" line="321"/>
         <source>TV Show</source>
-        <comment>15.3</comment>
-        <translation type="unfinished"></translation>
+        <translation>TV Show</translation>
     </message>
 </context>
 </TS>

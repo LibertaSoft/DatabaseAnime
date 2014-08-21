@@ -404,7 +404,7 @@
            </item>
            <item>
             <property name="text">
-             <string>Diomedéa</string>
+             <string notr="true">Diomedéa</string>
             </property>
            </item>
            <item>
