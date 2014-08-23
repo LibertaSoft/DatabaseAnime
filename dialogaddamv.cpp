@@ -53,6 +53,9 @@ DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned int record_id) :
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {
     ui->setupUi(this);
+    QSettings settings;
+    this->restoreGeometry( settings.value("DialogAddAmv/Geometry").toByteArray() );
+
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
 
@@ -65,6 +68,9 @@ DialogAddAmv::DialogAddAmv(QWidget *parent):
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {
     ui->setupUi(this);
+    QSettings settings;
+    this->restoreGeometry( settings.value("DialogAddAmv/Geometry").toByteArray() );
+
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
 
@@ -73,6 +79,8 @@ DialogAddAmv::DialogAddAmv(QWidget *parent):
 
 DialogAddAmv::~DialogAddAmv()
 {
+    QSettings settings;
+    settings.setValue("DialogAddAmv/Geometry", this->saveGeometry() );
     delete ui;
 }
 

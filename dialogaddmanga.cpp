@@ -157,6 +157,9 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned int record_id ) :
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
+    QSettings settings;
+    this->restoreGeometry( settings.value("DialogAddManga/Geometry").toByteArray() );
+
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
@@ -172,6 +175,9 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
+    QSettings settings;
+    this->restoreGeometry( settings.value("DialogAddManga/Geometry").toByteArray() );
+
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
@@ -183,6 +189,8 @@ DialogAddManga::DialogAddManga(QWidget *parent):
 
 DialogAddManga::~DialogAddManga()
 {
+    QSettings settings;
+    settings.setValue("DialogAddManga/Geometry", this->saveGeometry() );
     delete ui;
 }
 

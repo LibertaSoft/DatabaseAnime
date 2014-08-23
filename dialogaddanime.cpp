@@ -127,6 +127,9 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned int record_id) :
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {
     ui->setupUi(this);
+    QSettings settings;
+    this->restoreGeometry( settings.value("DialogAddAnime/Geometry").toByteArray() );
+
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
@@ -142,6 +145,9 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {
     ui->setupUi(this);
+    QSettings settings;
+    this->restoreGeometry( settings.value("DialogAddAnime/Geometry").toByteArray() );
+
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
@@ -153,6 +159,8 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
 
 DialogAddAnime::~DialogAddAnime()
 {
+    QSettings settings;
+    settings.setValue("DialogAddAnime/Geometry", this->saveGeometry() );
     delete ui;
 }
 

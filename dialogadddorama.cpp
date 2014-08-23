@@ -108,6 +108,9 @@ DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned int record_id) :
     LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {
     ui->setupUi(this);
+    QSettings settings;
+    this->restoreGeometry( settings.value("DialogAddDorama/Geometry").toByteArray() );
+
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
 
@@ -122,6 +125,9 @@ DialogAddDorama::DialogAddDorama(QWidget *parent):
     LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {
     ui->setupUi(this);
+    QSettings settings;
+    this->restoreGeometry( settings.value("DialogAddDorama/Geometry").toByteArray() );
+
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
 
@@ -132,6 +138,8 @@ DialogAddDorama::DialogAddDorama(QWidget *parent):
 
 DialogAddDorama::~DialogAddDorama()
 {
+    QSettings settings;
+    settings.setValue("DialogAddDorama/Geometry", this->saveGeometry() );
     delete ui;
 }
 
