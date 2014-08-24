@@ -5,6 +5,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = DatabaseAnime
 TEMPLATE = app
 
+VERSION = 0.3.1.0
+RC_ICONS = images/DBA_Icon.ico
+QMAKE_TARGET_COMPANY = LibertaSoft
+QMAKE_TARGET_PRODUCT = DatabaseAnime
+QMAKE_TARGET_DESCRIPTION = Your database of an anime
+QMAKE_TARGET_COPYRIGHT = (CopyLeft) LibertaSoft
+
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
@@ -46,8 +53,8 @@ OTHER_FILES += \
     ToDo.md \
     ChangeLog.md
 
-win32:RC_FILE += win_icon.rc
-win64:RC_FILE += win_icon.rc
+#win32:RC_FILE += win_icon.rc
+#win64:RC_FILE += win_icon.rc
 
 RESOURCES += \
     resource.qrc
