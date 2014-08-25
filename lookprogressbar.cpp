@@ -213,3 +213,12 @@ void LookProgressBar::mouseMoveEvent(QMouseEvent *pe)
             repaint();
     }
 }
+
+void LookProgressBar::wheelEvent(QWheelEvent *pe)
+{
+    if( pe->delta() > 0 ){
+        progressInc();
+    }else{
+        progressDec();
+    }
+}

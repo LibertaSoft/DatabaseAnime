@@ -8,7 +8,7 @@
 which you ever watched, you want to look or simply heard about them, actually
 you can define *as* and *for what* to use the program.
 
-Is is my first project on **Qt**, difficult features can is entered long enough.
+It is my first project on **Qt**, difficult functions can be developed long enough.
 
 Idea, design and testing of application - [Maxx Volniy](https://vk.com/id233189085)
 

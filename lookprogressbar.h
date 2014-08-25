@@ -55,6 +55,7 @@ protected:
     virtual void paintEvent(QPaintEvent *pe);
     virtual void mousePressEvent(QMouseEvent *pe);
     virtual void mouseMoveEvent(QMouseEvent *pe);
+    virtual void wheelEvent(QWheelEvent *pe);
     virtual void leaveEvent(QEvent*);
 
 
