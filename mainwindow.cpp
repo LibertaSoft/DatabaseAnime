@@ -57,8 +57,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->lineEdit_Search->setFocus();
     QueryModel_ListItemsSection = new QSqlQueryModel(this);
-    ui->listView_ListItemsSection->setModel(QueryModel_ListItemsSection);
-    ui->listView_ListItemsSection->setModelColumn(1);
+    ui->TreeView_List->setModel(QueryModel_ListItemsSection);
 
     reloadSectionsList();
     reloadFiltersList();
@@ -133,12 +132,11 @@ void MainWindow::on_TButton_Add_clicked()
             return;
     }
     QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
-    ui->listView_ListItemsSection->setModelColumn(1);
 }
 
 void MainWindow::on_TButton_Edit_clicked()
 {
-    if( !ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() ){
+    if( ui->TreeView_List->selectionModel()->selectedIndexes().isEmpty() == false ){
         switch( getActiveTable() ){
             case sections::anime :{
                 DialogAddAnime dialogAddAnime(this, _currentItemId);
@@ -169,13 +167,12 @@ void MainWindow::on_TButton_Edit_clicked()
                 return;
         }
         QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
-        ui->listView_ListItemsSection->setModelColumn(1);
     }
 }
 
 void MainWindow::on_TButton_Delete_clicked()
 {
-    if( ui->listView_ListItemsSection->selectionModel()->selectedIndexes().isEmpty() == false ){
+    if( ui->TreeView_List->selectionModel()->selectedIndexes().isEmpty() == false ){
         QMessageBox* pmbx =
         new QMessageBox(QMessageBox::Question,
             tr("Warning"),
@@ -215,7 +212,7 @@ void MainWindow::on_TButton_Delete_clicked()
         QSqlQuery query;
         query.prepare( QString("DELETE FROM '%1' WHERE id = :id;").arg( getActiveTableName() ) );
         query.bindValue(":id",
-                        ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt());
+                        ui->TreeView_List->selectionModel()->selectedIndexes().at(0).data().toInt());
         if( !query.exec() ){
             qCritical() << QString("It was not succeeded to remove record from table %1"
                                    ).arg( getActiveTableName() )
@@ -232,9 +229,9 @@ void MainWindow::on_TButton_Delete_clicked()
     }
 }
 
-void MainWindow::on_listView_ListItemsSection_activated(const QModelIndex&)
+void MainWindow::on_TreeView_List_activated(const QModelIndex&)
 {
-    _currentItemId = ui->listView_ListItemsSection->selectionModel()->selectedIndexes().at(0).data().toInt();
+    _currentItemId = ui->TreeView_List->selectionModel()->selectedIndexes().at(0).data().toInt();
     ui->stackedWidget->setCurrentIndex(1);
     switch( getActiveTable() ){
         case sections::anime :
@@ -290,7 +287,6 @@ void MainWindow::on_lineEdit_Search_textChanged(const QString &strSearch)
     MngrQuerys::selectSection(
                 QueryModel_ListItemsSection, getActiveTable(),
                 QString("Title LIKE '%2'").arg("%"+strSearch+"%"), filter, _sort );
-    ui->listView_ListItemsSection->setModelColumn(1);
 }
 
 QString MainWindow::getActiveTableName() const
@@ -1006,9 +1002,9 @@ void MainWindow::selectDoramaData()
     ui->TreeView_Dir->setColumnHidden(3, true);
 }
 
-void MainWindow::on_listView_ListItemsSection_clicked(const QModelIndex &index)
+void MainWindow::on_TreeView_List_clicked(const QModelIndex &index)
 {
-    on_listView_ListItemsSection_activated(index);
+    on_TreeView_List_activated(index);
 }
 
 void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
@@ -1019,7 +1015,7 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
 
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
-    ui->listView_ListItemsSection->setModelColumn(1);
+    ui->TreeView_List->hideColumn(0);
     if(sec == sections::none){
         ui->stackedWidget->setCurrentIndex(0);
         ui->CB_Filter->setHidden( true );
@@ -1032,7 +1028,6 @@ void MainWindow::on_CB_Filter_currentIndexChanged(int = 0)
 {
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
-    ui->listView_ListItemsSection->setModelColumn(1);
 }
 
 void MainWindow::on_TreeView_Dir_activated(const QModelIndex &index)

@@ -93,22 +93,10 @@
          </widget>
         </item>
         <item>
-         <widget class="QListView" name="listView_ListItemsSection">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="frameShape">
-           <enum>QFrame::Panel</enum>
-          </property>
-          <property name="selectionBehavior">
-           <enum>QAbstractItemView::SelectRows</enum>
-          </property>
-          <property name="uniformItemSizes">
-           <bool>true</bool>
-          </property>
+         <widget class="QTreeView" name="TreeView_List">
+          <attribute name="headerVisible">
+           <bool>false</bool>
+          </attribute>
          </widget>
         </item>
         <item>
@@ -232,7 +220,7 @@
         <enum>QFrame::NoFrame</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="StartPage">
         <layout class="QVBoxLayout" name="verticalLayout_2">

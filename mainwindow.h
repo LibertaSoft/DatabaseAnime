@@ -68,13 +68,13 @@ private slots:
     void on_TButton_Add_clicked();
     void on_TButton_Edit_clicked();
     void on_TButton_Delete_clicked();
-    void on_listView_ListItemsSection_activated(const QModelIndex &index);
+    void on_TreeView_List_activated(const QModelIndex &index);
     void saveLookValueChanges(int, int, QString);
     void saveLookValueChanges(int, int, QString, QString);
     void openFileClicked();
     void openFile(QString&);
     void on_lineEdit_Search_textChanged(const QString &arg1);
-    void on_listView_ListItemsSection_clicked(const QModelIndex &index);
+    void on_TreeView_List_clicked(const QModelIndex &index);
     void on_CB_Section_currentIndexChanged(int index);
     void on_CB_Filter_currentIndexChanged(int index);
     void on_TreeView_Dir_activated(const QModelIndex &index);

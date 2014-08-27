@@ -436,9 +436,6 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="tabPosition">
-        <enum>QTabWidget::North</enum>
-       </property>
        <property name="currentIndex">
         <number>0</number>
        </property>
@@ -566,27 +563,34 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="PBtn_Export">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <property name="topMargin">
+            <number>0</number>
            </property>
-           <property name="text">
-            <string>Export</string>
-           </property>
-           <property name="icon">
-            <iconset resource="resource.qrc">
-             <normaloff>:/images/export.png</normaloff>:/images/export.png</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>16</width>
-             <height>16</height>
-            </size>
-           </property>
-          </widget>
+           <item>
+            <widget class="QPushButton" name="PBtn_Export">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Export</string>
+             </property>
+             <property name="icon">
+              <iconset resource="resource.qrc">
+               <normaloff>:/images/export.png</normaloff>:/images/export.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </widget>
@@ -712,9 +716,6 @@
          </item>
          <item>
           <layout class="QHBoxLayout" name="HLay_AddReplace">
-           <property name="spacing">
-            <number>6</number>
-           </property>
            <item>
             <widget class="QPushButton" name="PBtn_ImAppend">
              <property name="toolTip">
@@ -802,7 +803,6 @@
   <tabstop>CBox_ExAmv</tabstop>
   <tabstop>CBox_ExDorama</tabstop>
   <tabstop>CBox_ExportImages</tabstop>
-  <tabstop>PBtn_Export</tabstop>
   <tabstop>LineEdit_ImFile</tabstop>
   <tabstop>TBtn_ImFile</tabstop>
   <tabstop>CBox_ImAnime</tabstop>

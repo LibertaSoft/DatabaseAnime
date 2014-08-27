@@ -343,7 +343,7 @@
           <string>You can use a mouse wheel for switching on tabs</string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -455,12 +455,6 @@
                <property name="icon">
                 <iconset resource="resource.qrc">
                  <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>24</width>
-                 <height>24</height>
-                </size>
                </property>
               </widget>
              </item>
