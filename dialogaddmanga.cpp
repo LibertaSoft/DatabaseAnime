@@ -248,7 +248,10 @@ bool DialogAddManga::insert_Manga(){
     data["isHaveLooked"]  = !ui->CheckBox_LookLater->isChecked();
     data["isEditingDone"] = !ui->CheckBox_Editing->isChecked();
     data["id"]            = _recordId;
-    data["Title"]         = ui->LineEdit_Title->text();
+
+    QRegExp rx("<.*>"); rx.setMinimal(true);
+    data["Title"]          = ui->LineEdit_Title->text().remove(rx);
+
     data["AltTitle"]      = (LineEdit_AltTitle   ) ?    LineEdit_AltTitle->text() : "";
     data["Author"]        = (LineEdit_Author     ) ?      LineEdit_Author->text() : "";
     data["Translation"]   = (LineEdit_Translation) ? LineEdit_Translation->text() : "";

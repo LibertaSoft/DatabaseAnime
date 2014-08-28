@@ -198,7 +198,10 @@ bool DialogAddDorama::insert_Dorama(){
     data["isEditingDone"]  = !ui->CheckBox_Editing->isChecked();
     data["isAdult"]        = false;
     data["id"]             = _recordId;
-    data["Title"]          = ui->LineEdit_Title->text();
+
+    QRegExp rx("<.*>"); rx.setMinimal(true);
+    data["Title"]          = ui->LineEdit_Title->text().remove(rx);
+
     data["AltTitle"]       = (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():"";
     data["Director"]       = (LineEdit_Director)?this->LineEdit_Director->text():"";
     data["SeriesTV"]       = ui->SpinBox_aTV->value()   ;

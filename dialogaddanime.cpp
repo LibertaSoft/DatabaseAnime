@@ -226,7 +226,10 @@ bool DialogAddAnime::insert_Anime(){
     data["isEditingDone"]  = !ui->CheckBox_Editing->isChecked();
     data["isAdult"]        = false;
     data["id"]             = _recordId;
-    data["Title"]          = ui->LineEdit_Title->text();
+
+    QRegExp rx("<.*>"); rx.setMinimal(true);
+    data["Title"]          = ui->LineEdit_Title->text().remove(rx);
+
     data["OrigTitle"]      = (LineEdit_OrigTitle  )?  this->LineEdit_OrigTitle->text() : "";
     data["Director"]       = (LineEdit_Director   )?   this->LineEdit_Director->text() : "";
     data["PostScoring"]    = (LineEdit_PostScoring)?this->LineEdit_PostScoring->text() : "";

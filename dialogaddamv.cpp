@@ -124,7 +124,10 @@ bool DialogAddAmv::insert_Amv(){
     data["id"]            = _recordId;
     data["isEditingDone"] = !ui->CheckBox_Editing->isChecked();
     data["isAdult"]       =  false;
-    data["Title"]         =  ui->LineEdit_Title->text();
+
+    QRegExp rx("<.*>"); rx.setMinimal(true);
+    data["Title"]          = ui->LineEdit_Title->text().remove(rx);
+
     data["Author"]        =  ui->LineEdit_Author->text();
     data["Сontestant"]    =  ui->LineEdit_Contestant->text();
     data["Score"]         =  0;
