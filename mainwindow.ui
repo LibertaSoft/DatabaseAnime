@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>791</width>
-    <height>520</height>
+    <width>807</width>
+    <height>548</height>
    </rect>
   </property>
   <property name="windowIcon">
@@ -220,11 +220,17 @@
         <enum>QFrame::NoFrame</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="StartPage">
         <layout class="QVBoxLayout" name="verticalLayout_2">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
          <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
           <number>0</number>
          </property>
          <property name="bottomMargin">
@@ -561,7 +567,13 @@
        </widget>
        <widget class="QWidget" name="WatchItem">
         <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
          <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
           <number>0</number>
          </property>
          <property name="bottomMargin">
@@ -641,7 +653,7 @@
                <widget class="QWidget" name="cover">
                 <layout class="QVBoxLayout" name="verticalLayout_3">
                  <property name="leftMargin">
-                  <number>0</number>
+                  <number>6</number>
                  </property>
                  <property name="topMargin">
                   <number>0</number>
@@ -709,7 +721,7 @@
                   <number>0</number>
                  </property>
                  <property name="leftMargin">
-                  <number>0</number>
+                  <number>6</number>
                  </property>
                  <property name="topMargin">
                   <number>0</number>
@@ -739,6 +751,9 @@
              </item>
              <item>
               <layout class="QVBoxLayout" name="VLay_BtnPlay">
+               <property name="spacing">
+                <number>6</number>
+               </property>
                <property name="topMargin">
                 <number>0</number>
                </property>
