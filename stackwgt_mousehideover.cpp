@@ -3,7 +3,7 @@
 #include <QtSql>
 
 StackWgt_MouseHideOver::StackWgt_MouseHideOver(QWidget *parent) :
-    QStackedWidget(parent), opt_switch(true), disabledSwitch(false)
+    QStackedWidget(parent), opt_switch(true), disabledSwitch(false), hover(false)
 {}
 
 void StackWgt_MouseHideOver::setOptSwitch(bool v)
