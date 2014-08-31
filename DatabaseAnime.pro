@@ -5,7 +5,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = DatabaseAnime
 TEMPLATE = app
 
-VERSION = 0.3.2.0
+VERSION = 1.0.0.0
 RC_ICONS = images/DBA_Icon.ico
 QMAKE_TARGET_COMPANY = LibertaSoft
 QMAKE_TARGET_PRODUCT = DatabaseAnime
