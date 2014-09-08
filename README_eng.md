@@ -18,6 +18,8 @@ Idea of a logo of the application: [Pavel Enotin](https://vk.com/everydayiamsuff
 - Download last stable [release](https://github.com/LibertaSoft/DatabaseAnime/releases) for your system
 - Compile from source code.
   - Files with the translations have to lie in an application directory (qtbase_??.qm, DatabaseAnime_??.qm)
+- ArchLinux users can find a package in AUR
+  - https://aur.archlinux.org/packages/databaseanime/
 
 ### Develop
 - In future versions it is planned: [ToDo](./ToDo.md)

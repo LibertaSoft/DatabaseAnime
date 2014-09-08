@@ -20,6 +20,8 @@
 - Скачайте последний стабильный [релиз](https://github.com/LibertaSoft/DatabaseAnime/releases) для вашей системы
 - Или скомпилируйте из исходников.
   - Файлы с переводами должны находиться в директории приложения (qtbase_??.qm, DatabaseAnime_??.qm)
+- Пользователи ArchLinux могут найти пакет в AUR
+  - https://aur.archlinux.org/packages/databaseanime/
 
 ### Разработка
 - В будующих версиях планируется: [ToDo](./ToDo.md)
