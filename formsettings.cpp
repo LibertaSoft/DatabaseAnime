@@ -63,7 +63,14 @@ FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
     QString set_language = settings.value( "Application/l10n", tr("<System>") ).toString();
 
     ui->CB_Language->addItem( tr("<System>"), 0 );
-    QDir dir( QApplication::applicationDirPath() );
+
+    const QString sharePath( QApplication::applicationDirPath() + QDir::separator()
+                             + ".." + QDir::separator()
+                             + "share" + QDir::separator()
+                             + "DatabaseAnime" + QDir::separator()
+                             );
+
+    QDir dir( sharePath + "l10n" );
     QStringList l10n = dir.entryList( QStringList("DatabaseAnime_*.qm") );
     for(int i = 0; i < l10n.count(); ++i){ // #FixMe : Не нравится мне это ...
         ui->CB_Language->addItem( l10n.at(i).right(5).left(2) );

@@ -19,7 +19,7 @@
 ### Установка
 - Скачайте последний стабильный [релиз](https://github.com/LibertaSoft/DatabaseAnime/releases) для вашей системы
 - Или скомпилируйте из исходников.
-  - Файлы с переводами должны находиться в директории приложения (qtbase_??.qm, DatabaseAnime_??.qm)
+  - Файлы с переводами (qtbase_??.qm, DatabaseAnime_??.qm) должны находится относительно исполняемого файла: "../share/DatabaseAnime/l10n/"
 - Пользователи ArchLinux могут найти пакет в AUR
   - https://aur.archlinux.org/packages/databaseanime/
 

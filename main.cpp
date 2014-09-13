@@ -69,19 +69,30 @@ int main(int argc, char *argv[])
     QString set_language       = settings.value( "Application/l10n", "<System>" ).toString();
     int     set_language_index = settings.value( "Application/l10n_index", 0 ).toInt();
     QTranslator qtTr;
+
+    const QString sharePath( QApplication::applicationDirPath() + QDir::separator()
+                             + ".." + QDir::separator()
+                             + "share" + QDir::separator()
+                             + "DatabaseAnime" + QDir::separator()
+                             );
+
     if( set_language_index == 0 ){
         /*, QLibraryInfo::location(QLibraryInfo::TranslationsPath)*/
-        qtTr.load( QApplication::applicationDirPath() + QDir::separator() + "qtbase_" + QLocale::system().name().left(2) + ".qm" );
+        qtTr.load( sharePath + "l10n" + QDir::separator()
+                   + "qtbase_" + QLocale::system().name().left(2) + ".qm" );
     }else{
-        qtTr.load( QApplication::applicationDirPath() + QDir::separator() + "qtbase_" + set_language + ".qm" );
+        qtTr.load( sharePath + "l10n" + QDir::separator()
+                   + "qtbase_" + set_language + ".qm" );
     }
     app.installTranslator(&qtTr);
 
     QTranslator dbaTr;
     if( set_language_index == 0 ){
-        dbaTr.load( QApplication::applicationDirPath() + QDir::separator() + "DatabaseAnime_" + QLocale::system().name().left(2) + ".qm" );
+        dbaTr.load( sharePath + "l10n" + QDir::separator()
+                    + "DatabaseAnime_" + QLocale::system().name().left(2) + ".qm" );
     }else{
-        dbaTr.load( QApplication::applicationDirPath() + QDir::separator() + "DatabaseAnime_" + set_language + ".qm" );
+        dbaTr.load( sharePath + "l10n" + QDir::separator()
+                    + "DatabaseAnime_" + set_language + ".qm" );
     }
     app.installTranslator(&dbaTr);
 
