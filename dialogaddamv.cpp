@@ -48,7 +48,7 @@ void DialogAddAmv::setDataInField()
     }
 }
 
-DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned int record_id) :
+DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned long long record_id) :
     QDialog(parent), ui(new Ui::DialogAddAmv), _isEditRole(true), _recordId(record_id),
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {

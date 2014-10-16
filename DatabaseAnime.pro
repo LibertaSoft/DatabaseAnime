@@ -53,9 +53,6 @@ OTHER_FILES += \
     ToDo.md \
     ChangeLog.md
 
-#win32:RC_FILE += win_icon.rc
-#win64:RC_FILE += win_icon.rc
-
 RESOURCES += \
     resource.qrc
 

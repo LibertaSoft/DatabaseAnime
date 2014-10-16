@@ -57,6 +57,8 @@ int main(int argc, char *argv[])
         qInstallMessageHandler(myMessageOutput);
     #endif
 
+    //QFontDatabase::addApplicationFont("://DejaVuSans.ttf");
+
     QApplication app(argc, argv);
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");
@@ -67,8 +69,25 @@ int main(int argc, char *argv[])
 
     QSettings settings;
     QString set_language       = settings.value( "Application/l10n", "<System>" ).toString();
-    int     set_language_index = settings.value( "Application/l10n_index", 0 ).toInt();
+    short     set_language_index = settings.value( "Application/l10n_index", 0 ).toInt();
     QTranslator qtTr;
+
+    /*
+    qDebug() << "Standard Locations:";
+    qDebug() << QStandardPaths::displayName( QStandardPaths::DataLocation ) << QStandardPaths::writableLocation( QStandardPaths::DataLocation );
+    qDebug() << "Cache:     " << QStandardPaths::writableLocation( QStandardPaths::CacheLocation );
+    qDebug() << "Config:    " << QStandardPaths::writableLocation( QStandardPaths::ConfigLocation );
+    qDebug() << "Desktop:   " << QStandardPaths::writableLocation( QStandardPaths::DesktopLocation );
+    qDebug() << "Documents: " << QStandardPaths::writableLocation( QStandardPaths::DocumentsLocation );
+    qDebug() << "Download:  " << QStandardPaths::writableLocation( QStandardPaths::DownloadLocation );
+    qDebug() << "Font:      " << QStandardPaths::writableLocation( QStandardPaths::FontsLocation );
+    qDebug() << "GenCache:  " << QStandardPaths::writableLocation( QStandardPaths::GenericCacheLocation );
+    qDebug() << "RunTime:   " << QStandardPaths::writableLocation( QStandardPaths::RuntimeLocation );
+    qDebug() << "Temp:      " << QStandardPaths::writableLocation( QStandardPaths::TempLocation );
+    qDebug() << "App:       " << QStandardPaths::writableLocation( QStandardPaths::ApplicationsLocation );
+qDebug()<< QStandardPaths::standardLocations( QStandardPaths::DataLocation );
+
+    */
 
     const QString sharePath( QApplication::applicationDirPath() + QDir::separator()
                              + ".." + QDir::separator()
@@ -79,7 +98,7 @@ int main(int argc, char *argv[])
     if( set_language_index == 0 ){
         /*, QLibraryInfo::location(QLibraryInfo::TranslationsPath)*/
         qtTr.load( sharePath + "l10n" + QDir::separator()
-                   + "qtbase_" + QLocale::system().name().left(2) + ".qm" );
+                   + "qtbase_" + QLocale::system().name().section('_', 0, 0) + ".qm" );
     }else{
         qtTr.load( sharePath + "l10n" + QDir::separator()
                    + "qtbase_" + set_language + ".qm" );
@@ -89,7 +108,7 @@ int main(int argc, char *argv[])
     QTranslator dbaTr;
     if( set_language_index == 0 ){
         dbaTr.load( sharePath + "l10n" + QDir::separator()
-                    + "DatabaseAnime_" + QLocale::system().name().left(2) + ".qm" );
+                    + "DatabaseAnime_" + QLocale::system().name().section('_', 0, 0) + ".qm" );
     }else{
         dbaTr.load( sharePath + "l10n" + QDir::separator()
                     + "DatabaseAnime_" + set_language + ".qm" );

@@ -24,21 +24,31 @@ FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
     ui->LineEdit_ExDir->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
     ui->LineEdit_ImFile->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
 
-    bool b1 = settings.value( "enableSection/Anime",   true ).toBool();
-    bool b2 = settings.value( "enableSection/Manga",  false ).toBool();
-    bool b3 = settings.value( "enableSection/AMV",    false ).toBool();
-    bool b4 = settings.value( "enableSection/Dorama", false ).toBool();
+    settings.beginGroup("enableSection");
+        bool b1 = settings.value( "Anime",   true ).toBool();
+        bool b2 = settings.value( "Manga",  false ).toBool();
+        bool b3 = settings.value( "AMV",    false ).toBool();
+        bool b4 = settings.value( "Dorama", false ).toBool();
+    settings.endGroup();
 
-    bool a1 = settings.value( "optionalField/anime/OrigTitle",   false ).toBool();
-    bool a2 = settings.value( "optionalField/anime/Director",    false ).toBool();
-    bool a3 = settings.value( "optionalField/anime/PostScoring", false ).toBool();
+    settings.beginGroup("optionalField");
+        settings.beginGroup("anime");
+            bool a1 = settings.value( "OrigTitle",   false ).toBool();
+            bool a2 = settings.value( "Director",    false ).toBool();
+            bool a3 = settings.value( "PostScoring", false ).toBool();
+        settings.endGroup();
 
-    bool m1 = settings.value( "optionalField/manga/AltTitle",    false ).toBool();
-    bool m2 = settings.value( "optionalField/manga/Author",      false ).toBool();
-    bool m3 = settings.value( "optionalField/manga/Translation", false ).toBool();
+        settings.beginGroup("manga");
+            bool m1 = settings.value( "AltTitle",    false ).toBool();
+            bool m2 = settings.value( "Author",      false ).toBool();
+            bool m3 = settings.value( "Translation", false ).toBool();
+        settings.endGroup();
 
-    bool d1 = settings.value( "optionalField/dorama/AltTitle",   false ).toBool();
-    bool d2 = settings.value( "optionalField/dorama/Director",   false ).toBool();
+        settings.beginGroup("dorama");
+            bool d1 = settings.value( "AltTitle",   false ).toBool();
+            bool d2 = settings.value( "Director",   false ).toBool();
+        settings.endGroup();
+    settings.endGroup();
 
     bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
 
@@ -72,9 +82,9 @@ FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
 
     QDir dir( sharePath + "l10n" );
     QStringList l10n = dir.entryList( QStringList("DatabaseAnime_*.qm") );
-    for(int i = 0; i < l10n.count(); ++i){ // #FixMe : Не нравится мне это ...
-        ui->CB_Language->addItem( l10n.at(i).right(5).left(2) );
-        if( set_language == l10n.at(i).right(5).left(2) )
+    for(int i = 0; i < l10n.count(); ++i){
+        ui->CB_Language->addItem( l10n.at(i).section('_', 1, 1).section(".", 0, 0) );
+        if( set_language == l10n.at(i).section('_', 1, 1).section(".", 0, 0) )
             ui->CB_Language->setCurrentIndex(i+1);
     }
     Sort::sort sort = static_cast<Sort::sort>( settings.value( "Sorting", Sort::asc ).toInt() );
@@ -112,24 +122,36 @@ void FormSettings::on_BtnBox_accepted()
 {
     QSettings settings;
 
-    settings.setValue( "enableSection/Anime",     ui->CheckBox_EnableAnime->isChecked() );
-    settings.setValue( "enableSection/Manga",     ui->CheckBox_EnableManga->isChecked() );
-    settings.setValue( "enableSection/AMV",       ui->CheckBox_EnableAMV->isChecked() );
-    settings.setValue( "enableSection/Dorama",    ui->CheckBox_EnableDorama->isChecked() );
+    settings.beginGroup("enableSection");
+        settings.setValue( "Anime",  ui->CheckBox_EnableAnime->isChecked() );
+        settings.setValue( "Manga", ui->CheckBox_EnableManga->isChecked() );
+        settings.setValue( "AMV",   ui->CheckBox_EnableAMV->isChecked() );
+        settings.setValue( "Dorama", ui->CheckBox_EnableDorama->isChecked() );
+    settings.endGroup();
 
-    settings.setValue( "optionalField/anime/OrigTitle",   ui->CBox_Anime_AltTitle->isChecked() );
-    settings.setValue( "optionalField/anime/Director",    ui->CBox_Anime_Director->isChecked() );
-    settings.setValue( "optionalField/anime/PostScoring", ui->CBox_Anime_PostScoring->isChecked() );
+    settings.beginGroup("optionalField");
+        settings.beginGroup("anime");
+            settings.setValue( "OrigTitle",   ui->CBox_Anime_AltTitle->isChecked() );
+            settings.setValue( "Director",    ui->CBox_Anime_Director->isChecked() );
+            settings.setValue( "PostScoring", ui->CBox_Anime_PostScoring->isChecked() );
+        settings.endGroup();
 
-    settings.setValue( "optionalField/manga/AltTitle",    ui->CBox_Manga_AltTitle->isChecked() );
-    settings.setValue( "optionalField/manga/Author",      ui->CBox_Manga_Author->isChecked() );
-    settings.setValue( "optionalField/manga/Translation", ui->CBox_Manga_Translation->isChecked() );
+        settings.beginGroup("manga");
+            settings.setValue( "AltTitle",    ui->CBox_Manga_AltTitle->isChecked() );
+            settings.setValue( "Author",      ui->CBox_Manga_Author->isChecked() );
+            settings.setValue( "Translation", ui->CBox_Manga_Translation->isChecked() );
+        settings.endGroup();
 
-    settings.setValue( "optionalField/dorama/AltTitle",   ui->CBox_Dorama_AltTitle->isChecked() );
-    settings.setValue( "optionalField/dorama/Director",   ui->CBox_Dorama_Director->isChecked() );
+        settings.beginGroup("dorama");
+            settings.setValue( "AltTitle",   ui->CBox_Dorama_AltTitle->isChecked() );
+            settings.setValue( "Director",   ui->CBox_Dorama_Director->isChecked() );
+        settings.endGroup();
+    settings.endGroup();
 
-    settings.setValue( "Application/l10n", ui->CB_Language->currentText() );
-    settings.setValue( "Application/l10n_index", ui->CB_Language->currentIndex() );
+    settings.beginGroup("Application");
+        settings.setValue( "l10n", ui->CB_Language->currentText() );
+        settings.setValue( "l10n_index", ui->CB_Language->currentIndex() );
+    settings.endGroup();
     settings.setValue( "Sorting", ui->CBox_Sort->currentIndex() );
 
     settings.setValue( "SwitchToDirOnHoverACover", ui->CBox_SwitchToDirOnHoverCover->isChecked() );
@@ -659,6 +681,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
         return;
     }
 
+    this->setCursor( QCursor(Qt::WaitCursor) );
     QFile file( QDir(ui->LineEdit_ImFile->text()).path() );
     if( !file.open(QIODevice::ReadOnly | QIODevice::Text) ){
         qCritical() << file.errorString()
@@ -666,6 +689,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
                     << "\nFileError: " << file.error();
         this->setEnabled( true );
         QMessageBox::critical(this, tr("Critical"), tr("File is not open"));
+        this->setCursor( QCursor(Qt::ArrowCursor) );
         return;
     }
     QXmlStreamReader xml(&file);
@@ -797,6 +821,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
 //    qDebug() << "Import finished:" << QTime().currentTime().toString();
 //    qDebug() << "Imported Records: " << n;
     this->setEnabled( true );
+    this->setCursor( QCursor(Qt::ArrowCursor) );
     QMessageBox::information(this, tr("Import"),"<b>" + tr("Import is successfully finished") + "</b><br>"
                                                 + tr("Records it is imported:")+ " " + QString::number(n) + "   "
                                                     );
@@ -826,6 +851,8 @@ void FormSettings::on_PBtn_ImReplace_clicked()
     );
     int n = pmbx->exec();
     delete pmbx;
+
+    this->setCursor( QCursor(Qt::WaitCursor) );
 
     bool isOk(true);
     if (n == QMessageBox::Yes) {
@@ -918,6 +945,7 @@ void FormSettings::on_PBtn_ImReplace_clicked()
             MngrConnect.commit();
         }else{
             QMessageBox::critical(this, tr("Critical"), tr("Error when deleting a database"));
+            this->setCursor( QCursor(Qt::ArrowCursor) );
             return;
         }
         if( ui->LineEdit_ImFile->text().isEmpty() == false )
@@ -925,4 +953,5 @@ void FormSettings::on_PBtn_ImReplace_clicked()
         else
             this->setEnabled( true );
     }
+    this->setCursor( QCursor(Qt::ArrowCursor) );
 }

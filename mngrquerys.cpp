@@ -360,7 +360,7 @@ QString MngrQuerys::getDoramaCoversPath()
     return QString( settings.value("WorkDirectory", DBPath).toString() + QDir::separator() + "doramaCovers" + QDir::separator() );
 }
 
-bool MngrQuerys::updateRecord(sections::section table, unsigned int recoord_id, QString field, QString newValue)
+bool MngrQuerys::updateRecord(sections::section table, unsigned long long recoord_id, QString field, QString newValue)
 {
     QSqlQuery query;
     query.prepare( QString("UPDATE %1 SET %2 = :value WHERE id = :id;").arg( getTableName( table ) ).arg(field) );

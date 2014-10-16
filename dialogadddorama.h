@@ -19,7 +19,7 @@ private:
     QSqlQueryModel* model;
 
     bool _isEditRole;
-    unsigned int _recordId;
+    unsigned long long _recordId;
     QString _oldCover;
     QStringListModel _tags;
 
@@ -32,7 +32,7 @@ private:
     void setTabOrders();
 
 public:
-    explicit DialogAddDorama(QWidget *parent, unsigned int id);
+    explicit DialogAddDorama(QWidget *parent, unsigned long long id);
     explicit DialogAddDorama(QWidget *parent);
     ~DialogAddDorama();
 
@@ -40,14 +40,14 @@ private slots:
     void on_BtnBox_clicked(QAbstractButton *button);
     void on_BtnBox_accepted();
     void on_BtnBox_rejected();
-    void on_SpinBox_aTV_valueChanged(int arg1);
-    void on_SpinBox_aSpec_valueChanged(int arg1);
-    void on_SpinBox_aMovie_valueChanged(int arg1);
+    void on_SpinBox_aTV_valueChanged(int value);
+    void on_SpinBox_aSpec_valueChanged(int value);
+    void on_SpinBox_aMovie_valueChanged(int value);
     void on_toolButton_clicked();
     bool insert_Dorama();
     void btnBox_reset();
 
-    void on_LineEdit_Dir_textChanged(const QString &arg1);
+    void on_LineEdit_Dir_textChanged(const QString &value);
     void on_SpinBox_Year_valueChanged(int = 0);
 };
 

@@ -152,7 +152,7 @@ void DialogAddManga::setTabOrders()
     setTabOrder(ui->SpinBox_vCh,    ui->SpinBox_vPages);
 }
 
-DialogAddManga::DialogAddManga(QWidget *parent, unsigned int record_id ) :
+DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     QDialog(parent), ui(new Ui::DialogAddManga), _isEditRole( true ), _recordId( record_id ),
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {

@@ -18,7 +18,7 @@ private:
     Ui::DialogAddManga *ui;
     QSqlQueryModel* model;
     bool _isEditRole;
-    unsigned int _recordId;
+    unsigned long long _recordId;
     QString _oldCover;
 
     QLineEdit* LineEdit_AltTitle;
@@ -35,7 +35,7 @@ private:
     void setTabOrders();
 
 public:
-    explicit DialogAddManga(QWidget *parent, unsigned int record_id);
+    explicit DialogAddManga(QWidget *parent, unsigned long long record_id);
     explicit DialogAddManga(QWidget *parent);
     ~DialogAddManga();
 

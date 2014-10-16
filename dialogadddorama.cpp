@@ -103,7 +103,7 @@ void DialogAddDorama::setTabOrders()
     setTabOrder(ui->SpinBox_aMovie, ui->TabWidget_Series);
 }
 
-DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned int record_id) :
+DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned long long record_id) :
     QDialog(parent), ui(new Ui::DialogAddDorama), _isEditRole(true), _recordId(record_id),
     LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {

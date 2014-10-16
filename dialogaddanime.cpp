@@ -122,7 +122,7 @@ void DialogAddAnime::setTabOrders()
     }
 }
 
-DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned int record_id) :
+DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     QDialog(parent), ui(new Ui::DialogAddAnime), _isEditRole(true), _recordId(record_id),
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {

@@ -231,7 +231,7 @@ void MainWindow::on_TButton_Delete_clicked()
 
 void MainWindow::on_TreeView_List_activated(const QModelIndex&)
 {
-    _currentItemId = ui->TreeView_List->selectionModel()->selectedIndexes().at(0).data().toInt();
+    _currentItemId = ui->TreeView_List->selectionModel()->selectedIndexes().at(0).data().toULongLong();
     ui->stackedWidget->setCurrentIndex(1);
     switch( getActiveTable() ){
         case sections::anime :

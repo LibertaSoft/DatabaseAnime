@@ -35,7 +35,7 @@ private:
     Sort::sort _sort;
 
     QModelIndex currentItem;
-    int _currentItemId;
+    unsigned long long _currentItemId;
     QString _currentItemDir;
 
     QSqlQueryModel* QueryModel_ListItemsSection;

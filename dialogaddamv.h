@@ -19,7 +19,7 @@ private:
     QSqlQueryModel* model;
 
     bool _isEditRole;
-    unsigned int _recordId;
+    unsigned long long _recordId;
     QString _oldCover;
     QStringListModel _tags;
 
@@ -32,7 +32,7 @@ private:
     void setDataInField();
 
 public:
-    explicit DialogAddAmv(QWidget *parent, unsigned int id);
+    explicit DialogAddAmv(QWidget *parent, unsigned long long id);
     explicit DialogAddAmv(QWidget *parent);
     ~DialogAddAmv();
 
@@ -44,8 +44,8 @@ private slots:
     bool insert_Amv();
     void btnBox_reset();
 
-    void on_LineEdit_Dir_textChanged(const QString &arg1);
-    void on_SpinBox_Year_valueChanged(int arg1);
+    void on_LineEdit_Dir_textChanged(const QString &value);
+    void on_SpinBox_Year_valueChanged(int value);
 };
 
 #endif // DIALOGADDAMV_H

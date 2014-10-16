@@ -46,7 +46,7 @@ public:
     static QString getAmvCoversPath();
     static QString getDoramaCoversPath();
 
-    static bool updateRecord(sections::section table, unsigned int recoord_id, QString field, QString newValue);
+    static bool updateRecord(sections::section table, unsigned long long recoord_id, QString field, QString newValue);
     static bool insertAnime(QMap<QString, QVariant> &data);
     static bool insertManga(QMap<QString, QVariant> &data);
     static bool insertAmv(QMap<QString, QVariant> &data);
