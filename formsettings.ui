@@ -201,7 +201,7 @@
         </sizepolicy>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_export">
         <attribute name="icon">
@@ -775,6 +775,30 @@
     </widget>
    </item>
   </layout>
+  <action name="actionImport">
+   <property name="icon">
+    <iconset theme="add" resource="resource.qrc">
+     <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
+   </property>
+   <property name="text">
+    <string>import</string>
+   </property>
+   <property name="toolTip">
+    <string>Append to database</string>
+   </property>
+  </action>
+  <action name="actionDeleteRecords">
+   <property name="icon">
+    <iconset theme="remove" resource="resource.qrc">
+     <normaloff>:/images/list-remove.png</normaloff>:/images/list-remove.png</iconset>
+   </property>
+   <property name="text">
+    <string>DeleteRecords</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete records and images</string>
+   </property>
+  </action>
  </widget>
  <tabstops>
   <tabstop>CB_Language</tabstop>

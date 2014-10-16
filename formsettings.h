@@ -38,6 +38,8 @@ private slots:
     void on_PBtn_ImAppend_clicked();
     void on_TBtn_ImFile_clicked();
     void on_PBtn_ImReplace_clicked();
+    unsigned long long on_actionImport_triggered();
+    bool on_actionDeleteRecords_triggered();
 };
 
 #endif // FORMSETTINGS_H
