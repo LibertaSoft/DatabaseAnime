@@ -452,7 +452,6 @@ void FormSettings::on_PBtn_Export_clicked()
             QCoreApplication::processEvents();
         }
     }
-
     if( ui->CBox_ExAmv->isChecked() ){
         if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::amv)) ) ){
             qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::amv) );
@@ -484,7 +483,6 @@ void FormSettings::on_PBtn_Export_clicked()
             QCoreApplication::processEvents();
         }
     }
-
     if( ui->CBox_ExDorama->isChecked() ){
         if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::dorama)) ) ){
             qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::dorama) );
