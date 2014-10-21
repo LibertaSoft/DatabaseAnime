@@ -6,6 +6,11 @@
 #include <QFileDialog>
 #include <QDesktopServices>
 
+#include <QNetworkReply>
+#include <QJsonArray>
+#include <QJsonDocument>
+
+#include <QCompleter>
 #include <QMessageBox>
 #include <QDebug>
 
@@ -124,7 +129,7 @@ void DialogAddAnime::setTabOrders()
 
 DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     QDialog(parent), ui(new Ui::DialogAddAnime), _isEditRole(true), _recordId(record_id),
-    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
     QSettings settings;
@@ -142,7 +147,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
 
 DialogAddAnime::DialogAddAnime(QWidget *parent):
     QDialog(parent), ui(new Ui::DialogAddAnime), _isEditRole(false),
-    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
     QSettings settings;
@@ -365,4 +370,144 @@ void DialogAddAnime::on_LineEdit_Dir_textChanged(const QString &path)
 void DialogAddAnime::on_SpinBox_Year_valueChanged(int = 0)
 {
     ui->CBox_Year->setChecked( true );
+}
+
+void DialogAddAnime::on_TBtn_Search_clicked()
+{
+    QUrl url("http://shikimori.org/api/animes?limit=1&search="+ui->LineEdit_Title->text() );
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    connect(manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(replyLastSearchFinished(QNetworkReply*)));
+
+    manager->get( QNetworkRequest(url) );
+}
+
+void DialogAddAnime::on_LineEdit_Title_textEdited(const QString &title)
+{
+    QUrl url("http://shikimori.org/api/animes?limit=10&search="+title);
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    connect(manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(replySearchFinished(QNetworkReply*)));
+
+    manager->get( QNetworkRequest(url) );
+}
+
+void DialogAddAnime::replySearchFinished(QNetworkReply *r)
+{
+    QByteArray data = r->readAll();
+
+    QJsonDocument doc = QJsonDocument::fromJson( data );
+    QJsonArray arr = doc.array();
+
+    int k(0);
+    int id(0);
+    QStringList animeList;
+    for( QJsonArray::iterator i = arr.begin(); i != arr.end(); ++i ){
+        QJsonObject obj = arr.at(k).toObject();
+        animeList.append( obj["name"].toString() );
+        ++k;
+        id = obj["id"].toInt();
+    }
+    qDebug() << id;
+
+    _titleCompliterModel.setStringList( animeList );
+    if(!TitleCompliter){
+        TitleCompliter = new QCompleter( this );
+        TitleCompliter->setModel(&_titleCompliterModel);
+        TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
+
+        ui->LineEdit_Title->setCompleter( TitleCompliter );
+    }
+
+    r->deleteLater();
+}
+
+void DialogAddAnime::replyLastSearchFinished(QNetworkReply *r)
+{
+    QByteArray data = r->readAll();
+
+    QJsonDocument doc = QJsonDocument::fromJson( data );
+    QJsonArray arr = doc.array();
+
+    QJsonObject obj = arr.at(0).toObject();
+
+    // Запрос на получение данных
+    QUrl url( "http://shikimori.org/api/animes/" + QString::number(obj["id"].toInt()) );
+
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    connect(manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(replyPullDataFinished(QNetworkReply*)));
+
+    manager->get( QNetworkRequest(url) );
+}
+
+void DialogAddAnime::replyPullDataFinished(QNetworkReply *r)
+{
+    QByteArray data = r->readAll();
+
+    QJsonDocument doc = QJsonDocument::fromJson( data );
+    QJsonObject obj = doc.object();
+
+    ui->LineEdit_Title->setText( obj["name"].toString() );
+
+    // Optional Fields
+    if( this->LineEdit_OrigTitle )
+        this->LineEdit_OrigTitle->setText( obj["russian"].toString() );
+    /*if( this->LineEdit_Director )
+        this->LineEdit_Director->setText( obj["russian"].toString() );*/
+    /*if( this->LineEdit_PostScoring )
+        this->LineEdit_PostScoring->setText( obj["name"].toString() );*/
+
+    if(obj["year"].toInt() != 0 )
+        ui->SpinBox_Year->setValue( obj["name"].toInt() );
+
+    /*ui->SpinBox_Season->setValue( obj["season"].toInt() );
+    ui->ComboBox_Studio->setCurrentText( obj["studios"].toString() );*/
+
+    ui->SpinBox_aTV->setValue( obj["episodes"].toInt() );
+
+    QJsonArray tagArray = obj["genres"].toArray();
+
+    QString tags;
+
+    QSettings settings;
+    QString lang( settings.value("Application/l10n", "en").toString() );
+    bool ruLang = (lang == "ru")? true : false;
+
+    for( int i = 0; i < tagArray.size(); ++i ){
+        QJsonObject tagObj = tagArray.at(i).toObject();
+        if( i > 0)
+            tags += ", ";
+        if( ruLang ){
+            tags += tagObj["russian"].toString();
+        }else{
+            tags += tagObj["name"].toString();
+        }
+    }
+
+    ui->LineEdit_Tags->setText( tags );
+
+    ui->PlainTextEdit_Description->setPlainText( obj["description"].toString() );
+
+    ui->LineEdit_URL->setText( "http://shikimori.org" + obj["url"].toString() );
+
+    QString cover = (obj["image"].toObject())["original"].toString();
+
+    // #ToDo: download cover
+
+    QPixmap pm( MngrQuerys::getAnimeCoversPath() + cover );
+
+    if( !pm.isNull() ){
+        ui->Lbl_ImageCover->setPixmap( pm );
+        ui->Lbl_ImageCover->setImagePath( MngrQuerys::getAnimeCoversPath() + cover );
+    }else{
+        ui->Lbl_ImageCover->noImage();
+    }
+
+    r->deleteLater();
+}
+
+void DialogAddAnime::on_LineEdit_Title_returnPressed()
+{
+    on_TBtn_Search_clicked();
 }

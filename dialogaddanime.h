@@ -6,6 +6,8 @@
 #include <QLineEdit>
 #include <QSqlQueryModel>
 #include <QStringListModel>
+#include <QNetworkAccessManager>
+#include <QCompleter>
 
 namespace Ui {
 class DialogAddAnime;
@@ -22,10 +24,15 @@ private:
     unsigned long long _recordId;
     QString _oldCover;
     QStringListModel _tags;
+    int _animeId;
 
     QLineEdit* LineEdit_OrigTitle;
     QLineEdit* LineEdit_Director;
     QLineEdit* LineEdit_PostScoring;
+
+    QStringListModel _titleCompliterModel;
+    QCompleter *TitleCompliter;
+    QStringListModel _completerModel;
 
     void initTags();
     void initOptionalFields();
@@ -49,9 +56,16 @@ private slots:
     void on_toolButton_clicked();
     bool insert_Anime();
     void btnBox_reset();
-
     void on_LineEdit_Dir_textChanged(const QString &value);
     void on_SpinBox_Year_valueChanged(int value);
+    void on_TBtn_Search_clicked();
+
+    void replySearchFinished(QNetworkReply*);
+    void replyLastSearchFinished(QNetworkReply*);
+    void replyPullDataFinished(QNetworkReply*);
+    void on_LineEdit_Title_textEdited(const QString&title);
+
+    void on_LineEdit_Title_returnPressed();
 };
 
 #endif // DialogAddAnime_H
