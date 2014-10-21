@@ -12,10 +12,10 @@ It is my first project on **Qt**, difficult functions can be developed long enou
 
 ### Thanks
 
-Idea, design and testing of application - [Maxx Volniy](https://vk.com/id233189085)
-Idea of a logo of the application: [Pavel Enotin](https://vk.com/everydayiamsuffering)
-Thanks to the [shikimori.org](http://shikimori.org) portal for the provided API
-Idea of use API [shikimori.org](http://shikimori.org): [Vlados Kurtukov](https://vk.com/vlados776)
+- Idea, design and testing of application - [Maxx Volniy](https://vk.com/id233189085)
+- Idea of a logo of the application: [Pavel Enotin](https://vk.com/everydayiamsuffering)
+- Thanks to the [shikimori.org](http://shikimori.org) portal for the provided API
+- Idea of use API [shikimori.org](http://shikimori.org): [Vlados Kurtukov](https://vk.com/vlados776)
 
 ### Install
 - Download last stable [release](https://github.com/LibertaSoft/DatabaseAnime/releases) for your system

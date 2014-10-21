@@ -13,10 +13,10 @@
 
 ### Благодарности
 
-Подал идею проекта, работал над дизайном, а так же помогал с мозговым штурмом, тестами и многим другим - [Maxx Вольный](https://vk.com/id233189085)
-Идея логотипа приложения: [Павел Енотин](https://vk.com/everydayiamsuffering)
-Огромное спасибо порталу [shikimori.org](http://shikimori.org) за предоставляемый API
-Подсказал о возможности работать с API сайта [shikimori.org](http://shikimori.org): [Vlados Kurtukov](https://vk.com/vlados776)
+- Подал идею проекта, работал над дизайном, а так же помогал с мозговым штурмом, тестами и многим другим - [Maxx Вольный](https://vk.com/id233189085)
+- Идея логотипа приложения: [Павел Енотин](https://vk.com/everydayiamsuffering)
+- Огромное спасибо порталу [shikimori.org](http://shikimori.org) за предоставляемый API
+- Подсказал о возможности работать с API сайта [shikimori.org](http://shikimori.org): [Vlados Kurtukov](https://vk.com/vlados776)
 
 
 ### Установка
