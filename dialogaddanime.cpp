@@ -456,27 +456,41 @@ void DialogAddAnime::replyPullDataFinished(QNetworkReply *r)
 
     ui->LineEdit_Title->setText( obj["name"].toString() );
 
-    // "aired_on":"2008-01-08","released_on":"2008-05-30"
-    // "studios":[{"id":75,"name":"IMAGIN","filtered_name":"IMAGIN","real":true,"image":"/images/studio/original/75.jpg?1311292712"},{"id":102,"name":"FUNimation Entertainment","filtered_name":"FUNimation","real":false,"image":null},{"id":262,"name":"Kadokawa Pictures USA","filtered_name":"Kadokawa Pictures USA","real":false,"image":null},{"id":123,"name":"Victor Entertainment","filtered_name":"Victor","real":false,"image":"/images/studio/original/123.gif?1311292711"},{"id":144,"name":"Pony Canyon","filtered_name":"Pony Canyon","real":false,"image":"/images/studio/original/144.jpg?1311292711"},{"id":166,"name":"MOVIC","filtered_name":"MOVIC","real":false,"image":"/images/studio/original/166.jpg?1311292713"},{"id":352,"name":"Kadokawa Pictures Japan","filtered_name":"Kadokawa Pictures Japan","real":false,"image":null}]
-    // http://shikimori.org/api/doc/1/animes/roles.html
-
     // Optional Fields
     if( this->LineEdit_OrigTitle )
         this->LineEdit_OrigTitle->setText( obj["russian"].toString() );
-    /*if( this->LineEdit_Director )
-        this->LineEdit_Director->setText( obj["russian"].toString() );*/
-    /*if( this->LineEdit_PostScoring )
-        this->LineEdit_PostScoring->setText( obj["name"].toString() );*/
+//    if( this->LineEdit_Director )
+//        this->LineEdit_Director->setText( obj["russian"].toString() );
+//    if( this->LineEdit_PostScoring )
+//        this->LineEdit_PostScoring->setText( obj["name"].toString() );
 
     QDate date = QDate::fromString( obj["aired_on"].toString(), Qt::ISODate );
     if( date.year() != 0 )
         ui->SpinBox_Year->setValue( date.year() );
 
 
-    /*ui->SpinBox_Season->setValue( obj["season"].toInt() );
-    ui->ComboBox_Studio->setCurrentText( obj["studios"].toString() );*/
+    ui->SpinBox_Season->setValue( 1 ); // on any not zero
 
-    ui->SpinBox_aTV->setValue( obj["episodes"].toInt() );
+    QJsonArray studiosArray = obj["studios"].toArray();
+    QJsonObject studioObj = studiosArray.at(0).toObject();
+    ui->ComboBox_Studio->setCurrentText( studioObj["name"].toString() );
+
+    ui->SpinBox_aTV->setValue( 0 );
+    ui->SpinBox_aOVA->setValue( 0 );
+    ui->SpinBox_aONA->setValue( 0 );
+    ui->SpinBox_aSpec->setValue( 0 );
+    ui->SpinBox_aMovie->setValue( 0 );
+
+    if( obj["kind"].toString() == "TV" )
+        ui->SpinBox_aTV->setValue( obj["episodes"].toInt() );
+    else if( obj["kind"].toString() == "OVA" )
+        ui->SpinBox_aOVA->setValue( obj["episodes"].toInt() );
+    else if( obj["kind"].toString() == "ONA" )
+        ui->SpinBox_aONA->setValue( obj["episodes"].toInt() );
+    else if( obj["kind"].toString() == "Special" )
+        ui->SpinBox_aSpec->setValue( obj["episodes"].toInt() );
+    else if( obj["kind"].toString() == "Movie" )
+        ui->SpinBox_aMovie->setValue( obj["episodes"].toInt() );
 
     QJsonArray tagArray = obj["genres"].toArray();
 
