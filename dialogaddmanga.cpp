@@ -425,6 +425,7 @@ void DialogAddManga::replySearchFinished(QNetworkReply *r)
 
 void DialogAddManga::replyLastSearchFinished(QNetworkReply *r)
 {
+    ui->TabWidget_Info->setCurrentIndex(2);
     QByteArray data = r->readAll();
 
     QJsonDocument doc = QJsonDocument::fromJson( data );
@@ -489,7 +490,7 @@ void DialogAddManga::replyPullDataFinished(QNetworkReply *r)
 
     ui->LineEdit_Tags->setText( tags );
 
-    ui->PlainTextEdit_Description->setPlainText( obj["description"].toString() );
+    ui->PlainTextEdit_Description->setPlainText( obj["description_html"].toString() );
 
     ui->LineEdit_URL->setText( "http://shikimori.org" + obj["url"].toString() );
 

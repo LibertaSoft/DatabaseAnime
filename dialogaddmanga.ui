@@ -92,6 +92,9 @@
          </property>
          <item>
           <widget class="QToolButton" name="TBtn_Search">
+           <property name="toolTip">
+            <string>Search on shikimori.org</string>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -309,7 +312,7 @@
           <string>You can use a mouse wheel for switching on tabs</string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">

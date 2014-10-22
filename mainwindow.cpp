@@ -564,6 +564,7 @@ void MainWindow::selectAnimeData()
         QLabel *lblValue = new QLabel(m1.record(0).value("Description").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Description:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
+        lblValue->setOpenExternalLinks( true );
         FLay_propertyes->addRow(lblTitle);
         FLay_propertyes->addRow(lblValue);
     }
@@ -705,6 +706,7 @@ void MainWindow::selectMangaData()
         QLabel *lblValue = new QLabel(m1.record(0).value("Description").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Description:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
+        lblValue->setOpenExternalLinks( true );
         FLay_propertyes->addRow(lblTitle);
         FLay_propertyes->addRow(lblValue);
     }
@@ -810,6 +812,7 @@ void MainWindow::selectAmvData()
         QLabel *lblValue = new QLabel(m1.record(0).value("AuthorComment").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Author comment:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
+        lblValue->setOpenExternalLinks( true );
         FLay_propertyes->addRow(lblTitle);
         FLay_propertyes->addRow(lblValue);
     }
@@ -817,6 +820,7 @@ void MainWindow::selectAmvData()
         QLabel *lblValue = new QLabel(m1.record(0).value("ContainingMusic").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Containing music:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
+        lblValue->setOpenExternalLinks( true );
         FLay_propertyes->addRow(lblTitle);
         FLay_propertyes->addRow(lblValue);
     }
@@ -824,6 +828,7 @@ void MainWindow::selectAmvData()
         QLabel *lblValue = new QLabel(m1.record(0).value("ContainingAnime").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Containing anime:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
+        lblValue->setOpenExternalLinks( true );
         FLay_propertyes->addRow(lblTitle);
         FLay_propertyes->addRow(lblValue);
     }
@@ -975,6 +980,7 @@ void MainWindow::selectDoramaData()
         QLabel *lblValue = new QLabel(m1.record(0).value("Description").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Description:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
+        lblValue->setOpenExternalLinks( true );
         FLay_propertyes->addRow(lblTitle);
         FLay_propertyes->addRow(lblValue);
     }

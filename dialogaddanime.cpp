@@ -431,6 +431,7 @@ void DialogAddAnime::replySearchFinished(QNetworkReply *r)
 
 void DialogAddAnime::replyLastSearchFinished(QNetworkReply *r)
 {
+    ui->TabWidget_Info->setCurrentIndex(2);
     QByteArray data = r->readAll();
 
     QJsonDocument doc = QJsonDocument::fromJson( data );
@@ -472,7 +473,7 @@ void DialogAddAnime::replyPullDataFinished(QNetworkReply *r)
         ui->SpinBox_Year->setValue( date.year() );
 
 
-    ui->SpinBox_Season->setValue( 1 ); // on any not zero
+//    ui->SpinBox_Season->setValue( 1 ); // on any not zero
 
     QJsonArray studiosArray = obj["studios"].toArray();
     QJsonObject studioObj = studiosArray.at(0).toObject();

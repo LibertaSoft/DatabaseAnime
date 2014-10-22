@@ -360,7 +360,7 @@ void FormSettings::on_PBtn_Export_clicked()
     }
 
     if( QDir::isAbsolutePath( ui->LineEdit_ExDir->text() ) == false ){
-        QMessageBox::information( this, tr("Warning"), tr("The path shall be absolute") );
+        QMessageBox::warning( this, tr("Warning"), tr("The path shall be absolute") );
         return;
     }
 
@@ -700,7 +700,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
                                                     + tr("Records it is imported:")+ " " + QString::number(countImportRecords) + "   "
                                                         );
     }else{
-        QMessageBox::information(this, tr("Import"),"<b>" + tr("Import failed") + "</b>");
+        QMessageBox::critical(this, tr("Import"),"<b>" + tr("Import failed") + "</b>");
     }
 
     this->setEnabled(true);
