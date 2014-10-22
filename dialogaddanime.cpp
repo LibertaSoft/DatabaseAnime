@@ -7,7 +7,7 @@
 #include <QDesktopServices>
 
 #include <QImageReader>
-#include <QPicture>
+//#include <QPicture>
 
 #include <QNetworkReply>
 #include <QJsonArray>
@@ -163,6 +163,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     QSettings settings;
     this->restoreGeometry( settings.value("DialogAddAnime/Geometry").toByteArray() );
 
+    // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
@@ -445,10 +446,12 @@ void DialogAddAnime::replyLastSearchFinished(QNetworkReply *r)
             this, SLOT(replyPullDataFinished(QNetworkReply*)));
 
     manager->get( QNetworkRequest(url) );
+    r->deleteLater();
 }
 
 void DialogAddAnime::replyPullDataFinished(QNetworkReply *r)
 {
+    btnBox_reset();
     QByteArray data = r->readAll();
 
     QJsonDocument doc = QJsonDocument::fromJson( data );
@@ -474,12 +477,6 @@ void DialogAddAnime::replyPullDataFinished(QNetworkReply *r)
     QJsonArray studiosArray = obj["studios"].toArray();
     QJsonObject studioObj = studiosArray.at(0).toObject();
     ui->ComboBox_Studio->setCurrentText( studioObj["name"].toString() );
-
-    ui->SpinBox_aTV->setValue( 0 );
-    ui->SpinBox_aOVA->setValue( 0 );
-    ui->SpinBox_aONA->setValue( 0 );
-    ui->SpinBox_aSpec->setValue( 0 );
-    ui->SpinBox_aMovie->setValue( 0 );
 
     if( obj["kind"].toString() == "TV" )
         ui->SpinBox_aTV->setValue( obj["episodes"].toInt() );

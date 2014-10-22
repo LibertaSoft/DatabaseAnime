@@ -103,8 +103,8 @@
          <item>
           <widget class="QToolButton" name="TBtn_Search">
            <property name="icon">
-            <iconset>
-             <normaloff>../../../Downloads/diagram-08_4033.png</normaloff>../../../Downloads/diagram-08_4033.png</iconset>
+            <iconset resource="resource.qrc">
+             <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
            </property>
           </widget>
          </item>

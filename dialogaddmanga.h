@@ -6,6 +6,8 @@
 #include <QLineEdit>
 #include <QSqlQueryModel>
 #include <QStringListModel>
+#include <QNetworkAccessManager>
+#include <QCompleter>
 
 namespace Ui {
 class DialogAddManga;
@@ -24,6 +26,10 @@ private:
     QLineEdit* LineEdit_AltTitle;
     QLineEdit* LineEdit_Author;
     QLineEdit* LineEdit_Translation;
+
+    QStringListModel _titleCompliterModel;
+    QCompleter *TitleCompliter;
+    QStringListModel _completerModel;
 
     QStringListModel _tags;
 
@@ -50,6 +56,14 @@ private slots:
     void btnBox_reset();
     void on_TBtn_ChooseDir_clicked();
     void on_SpinBox_Year_valueChanged(int);
+
+    void replySearchFinished(QNetworkReply*);
+    void replyLastSearchFinished(QNetworkReply*);
+    void replyPullDataFinished(QNetworkReply*);
+    void replyDownloadPictureFinished(QNetworkReply*);
+    void on_LineEdit_Title_textEdited(const QString &title);
+    void on_TBtn_Search_clicked();
+    void on_LineEdit_Title_returnPressed();
 };
 
 #endif // DIALOGADDMANGA_H

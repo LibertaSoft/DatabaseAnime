@@ -91,6 +91,17 @@
           <number>0</number>
          </property>
          <item>
+          <widget class="QToolButton" name="TBtn_Search">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLineEdit" name="LineEdit_Title">
            <property name="maxLength">
             <number>128</number>
