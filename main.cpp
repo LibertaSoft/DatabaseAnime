@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
         qInstallMessageHandler(myMessageOutput);
     #endif
 
-    //QFontDatabase::addApplicationFont("://DejaVuSans.ttf");
+    //QFontDatabase::addApplicationFont("://DejaVuSans.ttf ");
 
     QApplication app(argc, argv);
     app.setOrganizationName("LibertaSoft");
