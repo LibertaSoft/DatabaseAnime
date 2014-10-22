@@ -10,7 +10,7 @@ VERSION = 1.1.0.2
 # 0 - Pre-Alpha
 # 1 - Alpha
 # 2 - Beta
-# 1 - Release Candidate
+# 3 - Release Candidate
 # 4 - Release
 RC_ICONS = images/DBA_Icon.ico
 QMAKE_TARGET_COMPANY = LibertaSoft
