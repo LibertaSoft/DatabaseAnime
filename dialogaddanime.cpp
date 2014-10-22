@@ -6,6 +6,9 @@
 #include <QFileDialog>
 #include <QDesktopServices>
 
+#include <QImageReader>
+#include <QPicture>
+
 #include <QNetworkReply>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -135,9 +138,16 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     QSettings settings;
     this->restoreGeometry( settings.value("DialogAddAnime/Geometry").toByteArray() );
 
+    // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
+
+    // Init QCompliter
+    TitleCompliter = new QCompleter( this );
+    TitleCompliter->setModel(&_titleCompliterModel);
+    TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
+    ui->LineEdit_Title->setCompleter( TitleCompliter );
 
     initTags();
     initOptionalFields();
@@ -156,6 +166,12 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
+
+    // Init QCompliter
+    TitleCompliter = new QCompleter( this );
+    TitleCompliter->setModel(&_titleCompliterModel);
+    TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
+    ui->LineEdit_Title->setCompleter( TitleCompliter );
 
     initTags();
     initOptionalFields();
@@ -400,24 +416,14 @@ void DialogAddAnime::replySearchFinished(QNetworkReply *r)
     QJsonArray arr = doc.array();
 
     int k(0);
-    int id(0);
     QStringList animeList;
     for( QJsonArray::iterator i = arr.begin(); i != arr.end(); ++i ){
         QJsonObject obj = arr.at(k).toObject();
         animeList.append( obj["name"].toString() );
         ++k;
-        id = obj["id"].toInt();
     }
-    qDebug() << id;
 
     _titleCompliterModel.setStringList( animeList );
-    if(!TitleCompliter){
-        TitleCompliter = new QCompleter( this );
-        TitleCompliter->setModel(&_titleCompliterModel);
-        TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
-
-        ui->LineEdit_Title->setCompleter( TitleCompliter );
-    }
 
     r->deleteLater();
 }
@@ -450,6 +456,10 @@ void DialogAddAnime::replyPullDataFinished(QNetworkReply *r)
 
     ui->LineEdit_Title->setText( obj["name"].toString() );
 
+    // "aired_on":"2008-01-08","released_on":"2008-05-30"
+    // "studios":[{"id":75,"name":"IMAGIN","filtered_name":"IMAGIN","real":true,"image":"/images/studio/original/75.jpg?1311292712"},{"id":102,"name":"FUNimation Entertainment","filtered_name":"FUNimation","real":false,"image":null},{"id":262,"name":"Kadokawa Pictures USA","filtered_name":"Kadokawa Pictures USA","real":false,"image":null},{"id":123,"name":"Victor Entertainment","filtered_name":"Victor","real":false,"image":"/images/studio/original/123.gif?1311292711"},{"id":144,"name":"Pony Canyon","filtered_name":"Pony Canyon","real":false,"image":"/images/studio/original/144.jpg?1311292711"},{"id":166,"name":"MOVIC","filtered_name":"MOVIC","real":false,"image":"/images/studio/original/166.jpg?1311292713"},{"id":352,"name":"Kadokawa Pictures Japan","filtered_name":"Kadokawa Pictures Japan","real":false,"image":null}]
+    // http://shikimori.org/api/doc/1/animes/roles.html
+
     // Optional Fields
     if( this->LineEdit_OrigTitle )
         this->LineEdit_OrigTitle->setText( obj["russian"].toString() );
@@ -458,8 +468,10 @@ void DialogAddAnime::replyPullDataFinished(QNetworkReply *r)
     /*if( this->LineEdit_PostScoring )
         this->LineEdit_PostScoring->setText( obj["name"].toString() );*/
 
-    if(obj["year"].toInt() != 0 )
-        ui->SpinBox_Year->setValue( obj["name"].toInt() );
+    QDate date = QDate::fromString( obj["aired_on"].toString(), Qt::ISODate );
+    if( date.year() != 0 )
+        ui->SpinBox_Year->setValue( date.year() );
+
 
     /*ui->SpinBox_Season->setValue( obj["season"].toInt() );
     ui->ComboBox_Studio->setCurrentText( obj["studios"].toString() );*/
@@ -493,15 +505,43 @@ void DialogAddAnime::replyPullDataFinished(QNetworkReply *r)
 
     QString cover = (obj["image"].toObject())["original"].toString();
 
-    // #ToDo: download cover
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    connect(manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(replyDownloadPictureFinished(QNetworkReply*)));
 
-    QPixmap pm( MngrQuerys::getAnimeCoversPath() + cover );
+    QUrl urlCover("http://shikimori.org" + cover);
+    manager->get( QNetworkRequest(urlCover) );
 
+    r->deleteLater();
+}
+
+void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)
+{
+    QImageReader imageReader(r);
+    QImage image;
+    if (r->error() == QNetworkReply::NoError)
+        imageReader.read(&image);
+    else
+        qDebug() << "network error";
+
+    if( image.isNull() )
+        qDebug() << "image is null";
+
+    QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
+    QString tmpImagePath( QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() );
+
+    bool okSave = image.save( tmpImagePath + coverName, "png" );
+    if( !okSave )
+        qCritical() << "Image is not save as: "
+                    << tmpImagePath + coverName;
+
+    QPixmap pm( tmpImagePath + coverName );
     if( !pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
-        ui->Lbl_ImageCover->setImagePath( MngrQuerys::getAnimeCoversPath() + cover );
+        ui->Lbl_ImageCover->setImagePath( tmpImagePath + coverName );
     }else{
         ui->Lbl_ImageCover->noImage();
+        qCritical() << "Pixmap is null";
     }
 
     r->deleteLater();

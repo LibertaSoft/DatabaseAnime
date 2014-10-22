@@ -63,6 +63,7 @@ private slots:
     void replySearchFinished(QNetworkReply*);
     void replyLastSearchFinished(QNetworkReply*);
     void replyPullDataFinished(QNetworkReply*);
+    void replyDownloadPictureFinished(QNetworkReply*);
     void on_LineEdit_Title_textEdited(const QString&title);
 
     void on_LineEdit_Title_returnPressed();
