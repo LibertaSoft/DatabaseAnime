@@ -26,6 +26,10 @@
 - Пользователи ArchLinux могут найти пакет в AUR
   - https://aur.archlinux.org/packages/databaseanime/
 
+### Зависимости
+- Qt >= 5.3.0
+- SQLite >= 3.0
+
 ### Разработка
 - В будующих версиях планируется: [ToDo](./ToDo.md)
 - Уже реализовано: [ChangeLog](./ChangeLog.md)

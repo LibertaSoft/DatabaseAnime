@@ -6,7 +6,7 @@ TARGET = DatabaseAnime
 TEMPLATE = app
 
 VERSION = 1.1.0.2
-#Last Number:
+#Last digit:
 # 0 - Pre-Alpha
 # 1 - Alpha
 # 2 - Beta

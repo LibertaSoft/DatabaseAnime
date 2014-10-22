@@ -24,6 +24,10 @@ It is my first project on **Qt**, difficult functions can be developed long enou
 - ArchLinux users can find a package in AUR
   - https://aur.archlinux.org/packages/databaseanime/
 
+### Depends
+- Qt >= 5.3.0
+- SQLite >= 3.0
+
 ### Develop
 - In future versions it is planned: [ToDo](./ToDo.md)
 - That done: [ChangeLog](./ChangeLog.md)

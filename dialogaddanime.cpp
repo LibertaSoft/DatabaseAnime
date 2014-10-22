@@ -510,7 +510,7 @@ void DialogAddAnime::replyPullDataFinished(QNetworkReply *r)
 
     ui->LineEdit_Tags->setText( tags );
 
-    ui->PlainTextEdit_Description->setPlainText( obj["description"].toString() );
+    ui->PlainTextEdit_Description->setPlainText( obj["description_html"].toString() );
 
     ui->LineEdit_URL->setText( "http://shikimori.org" + obj["url"].toString() );
 
