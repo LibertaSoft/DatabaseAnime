@@ -78,6 +78,8 @@ private slots:
     void on_CB_Section_currentIndexChanged(int index);
     void on_CB_Filter_currentIndexChanged(int index);
     void on_TreeView_Dir_activated(const QModelIndex &index);
+    void on_PBtn_url_vk_clicked();
+    void on_PBtn_url_github_clicked();
 };
 
 #endif // MAINWINDOW_H

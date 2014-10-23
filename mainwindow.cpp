@@ -38,7 +38,6 @@ MainWindow::MainWindow(QWidget *parent) :
 //    ui->VLay_logoSvg->addWidget( logo );
 //    ui->VLay_logoSvg->setAlignment(logo, Qt::AlignCenter);
 
-
     QSettings settings;
 
     this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
@@ -1042,4 +1041,15 @@ void MainWindow::on_TreeView_Dir_activated(const QModelIndex &index)
     QDesktopServices::openUrl( QUrl::fromLocalFile( m->fileInfo(index).absolutePath()
                                                     + QDir::separator() + index.data().toString()
                                                     )  );
+}
+
+
+void MainWindow::on_PBtn_url_vk_clicked()
+{
+    QDesktopServices::openUrl( QUrl("https://vk.com/db_anime") );
+}
+
+void MainWindow::on_PBtn_url_github_clicked()
+{
+    QDesktopServices::openUrl( QUrl("https://github.com/LibertaSoft/DatabaseAnime") );
 }
