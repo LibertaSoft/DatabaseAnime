@@ -777,7 +777,7 @@
   <customwidget>
    <class>StackWgt_MouseHideOver</class>
    <extends>QStackedWidget</extends>
-   <header>stackwgt_mousehideover.h</header>
+   <header>widgets/stackwgt_mousehideover.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -1,5 +1,5 @@
-#include "dialogaddmanga.h"
-#include "ui_dialogaddmanga.h"
+#include "dialogs/addmanga.h"
+#include "ui_addmanga.h"
 #include "mngrquerys.h"
 
 #include <QSettings>

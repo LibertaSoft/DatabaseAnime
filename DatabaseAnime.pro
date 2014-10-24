@@ -21,37 +21,37 @@ QMAKE_TARGET_COPYRIGHT = (CopyLeft) LibertaSoft
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    formsettings.cpp \
-    imagecover.cpp \
-    lookprogressbar.cpp \
-    dialogaddanime.cpp \
-    dialogaddmanga.cpp \
-    dialogaddamv.cpp \
-    dialogadddorama.cpp \
     mngrconnection.cpp \
     mngrquerys.cpp \
-    stackwgt_mousehideover.cpp
+    dialogs/addamv.cpp \
+    dialogs/addanime.cpp \
+    dialogs/adddorama.cpp \
+    dialogs/addmanga.cpp \
+    widgets/imagecover.cpp \
+    widgets/lookprogressbar.cpp \
+    widgets/stackwgt_mousehideover.cpp \
+    dialogs/settings.cpp
 
 FORMS += \
     mainwindow.ui \
-    formsettings.ui \
-    dialogaddanime.ui \
-    dialogaddmanga.ui \
-    dialogaddamv.ui \
-    dialogadddorama.ui
+    addamv.ui \
+    addanime.ui \
+    adddorama.ui \
+    addmanga.ui \
+    settings.ui
 
 HEADERS += \
     mainwindow.h \
-    formsettings.h \
-    imagecover.h \
-    lookprogressbar.h \
-    dialogaddanime.h \
-    dialogaddmanga.h \
-    dialogaddamv.h \
-    dialogadddorama.h \
     mngrconnection.h \
     mngrquerys.h \
-    stackwgt_mousehideover.h
+    dialogs/addamv.h \
+    dialogs/addanime.h \
+    dialogs/adddorama.h \
+    dialogs/addmanga.h \
+    widgets/imagecover.h \
+    widgets/lookprogressbar.h \
+    widgets/stackwgt_mousehideover.h \
+    dialogs/settings.h
 
 OTHER_FILES += \
     README.md \

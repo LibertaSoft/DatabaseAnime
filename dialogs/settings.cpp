@@ -1,5 +1,5 @@
-#include "formsettings.h"
-#include "ui_formsettings.h"
+#include "dialogs/settings.h"
+#include "ui_settings.h"
 #include "mngrconnection.h"
 
 #include <QSettings>

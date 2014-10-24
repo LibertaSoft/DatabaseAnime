@@ -1,5 +1,5 @@
-#include "dialogaddamv.h"
-#include "ui_dialogaddamv.h"
+#include "dialogs/addamv.h"
+#include "ui_addamv.h"
 #include "mngrquerys.h"
 
 #include <QSettings>

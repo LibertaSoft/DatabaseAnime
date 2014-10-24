@@ -1,5 +1,5 @@
-#include "dialogaddanime.h"
-#include "ui_dialogaddanime.h"
+#include "dialogs/addanime.h"
+#include "ui_addanime.h"
 #include "mngrquerys.h"
 
 #include <QSettings>

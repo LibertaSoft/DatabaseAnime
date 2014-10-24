@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DialogAddManga</class>
- <widget class="QDialog" name="DialogAddManga">
+ <class>DialogAddDorama</class>
+ <widget class="QDialog" name="DialogAddDorama">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
+    <width>830</width>
     <height>597</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add manga</string>
+   <string>Add dorama</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resource.qrc">
@@ -39,7 +39,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Manga</string>
+            <string>Dorama</string>
            </property>
           </widget>
          </item>
@@ -59,10 +59,10 @@
          <item>
           <widget class="QCheckBox" name="CheckBox_LookLater">
            <property name="whatsThis">
-            <string>If you want to read this manga later - deliver a checkbox for display it in the special filter</string>
+            <string>If you want to look at this dorama later - deliver a checkbox for display it in the special filter</string>
            </property>
            <property name="text">
-            <string>Want to read</string>
+            <string>Want to look</string>
            </property>
           </widget>
          </item>
@@ -86,37 +86,30 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <widget class="QLineEdit" name="LineEdit_Title">
+         <property name="maxLength">
+          <number>128</number>
+         </property>
+         <property name="dragEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="placeholderText">
+          <string>Title</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="VLay_AltTitle">
          <property name="topMargin">
           <number>0</number>
          </property>
-         <item>
-          <widget class="QToolButton" name="TBtn_Search">
-           <property name="toolTip">
-            <string>Search on shikimori.org</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-           <property name="icon">
-            <iconset resource="resource.qrc">
-             <normaloff>:/images/search.png</normaloff>:/images/search.png</iconset>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="LineEdit_Title">
-           <property name="maxLength">
-            <number>128</number>
-           </property>
-           <property name="dragEnabled">
-            <bool>true</bool>
-           </property>
-           <property name="placeholderText">
-            <string>Title</string>
-           </property>
-          </widget>
-         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="topMargin">
+          <number>0</number>
+         </property>
          <item>
           <widget class="QCheckBox" name="CBox_Year">
            <property name="whatsThis">
@@ -143,20 +136,49 @@
            </property>
           </widget>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QVBoxLayout" name="VLay_AltTitle">
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-        </layout>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="HLay_AuthorAndSound">
-         <property name="topMargin">
-          <number>0</number>
-         </property>
+         <item>
+          <spacer name="HSpacer_1">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Minimum</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="Lbl_Season">
+           <property name="text">
+            <string>Season:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="SpinBox_Season">
+           <property name="whatsThis">
+            <string>You can use a mouse wheel for value change</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="HSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
        </item>
        <item>
@@ -181,11 +203,11 @@
          </property>
          <widget class="QWidget" name="tab_allSeries">
           <attribute name="title">
-           <string>Total books</string>
+           <string>Total series</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout">
            <item row="0" column="0">
-            <widget class="QLabel" name="Lbl_aVol">
+            <widget class="QLabel" name="Lbl_TV1">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -193,12 +215,12 @@
               </size>
              </property>
              <property name="text">
-              <string>Volumes</string>
+              <string>TV</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLabel" name="Lbl_aCh">
+            <widget class="QLabel" name="Lbl_Spec1">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -206,12 +228,12 @@
               </size>
              </property>
              <property name="text">
-              <string>Charapters</string>
+              <string>Special</string>
              </property>
             </widget>
            </item>
            <item row="0" column="2">
-            <widget class="QLabel" name="Lbl_aPages">
+            <widget class="QLabel" name="Lbl_Film1">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
@@ -219,28 +241,37 @@
               </size>
              </property>
              <property name="text">
-              <string>Pages</string>
+              <string>Movie</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QSpinBox" name="SpinBox_aVol">
+            <widget class="QSpinBox" name="SpinBox_aTV">
              <property name="whatsThis">
               <string>You can use a mouse wheel for value change</string>
+             </property>
+             <property name="maximum">
+              <number>9999</number>
              </property>
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="SpinBox_aCh">
+            <widget class="QSpinBox" name="SpinBox_aSpec">
              <property name="whatsThis">
               <string>You can use a mouse wheel for value change</string>
+             </property>
+             <property name="maximum">
+              <number>9999</number>
              </property>
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QSpinBox" name="SpinBox_aPages">
+            <widget class="QSpinBox" name="SpinBox_aMovie">
              <property name="whatsThis">
               <string>You can use a mouse wheel for value change</string>
+             </property>
+             <property name="maximum">
+              <number>9999</number>
              </property>
             </widget>
            </item>
@@ -248,32 +279,32 @@
          </widget>
          <widget class="QWidget" name="tab_lookSeries">
           <attribute name="title">
-           <string>Read</string>
+           <string>Sees</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="0" column="0">
-            <widget class="QLabel" name="Lbl_vVol">
+            <widget class="QLabel" name="Lbl_TV2">
              <property name="text">
-              <string>Volume</string>
+              <string>TV</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QLabel" name="Lbl_vCh">
+            <widget class="QLabel" name="Lbl_Spec2">
              <property name="text">
-              <string>Charapter</string>
+              <string>Special</string>
              </property>
             </widget>
            </item>
            <item row="0" column="2">
-            <widget class="QLabel" name="Lbl_vPage">
+            <widget class="QLabel" name="Lbl_Film2">
              <property name="text">
-              <string>Page</string>
+              <string>Movie</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QSpinBox" name="SpinBox_vVol">
+            <widget class="QSpinBox" name="SpinBox_vTV">
              <property name="whatsThis">
               <string>You can use a mouse wheel for value change</string>
              </property>
@@ -283,7 +314,7 @@
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QSpinBox" name="SpinBox_vCh">
+            <widget class="QSpinBox" name="SpinBox_vSpec">
              <property name="whatsThis">
               <string>You can use a mouse wheel for value change</string>
              </property>
@@ -293,7 +324,7 @@
             </widget>
            </item>
            <item row="1" column="2">
-            <widget class="QSpinBox" name="SpinBox_vPages">
+            <widget class="QSpinBox" name="SpinBox_vMovie">
              <property name="whatsThis">
               <string>You can use a mouse wheel for value change</string>
              </property>
@@ -312,7 +343,7 @@
           <string>You can use a mouse wheel for switching on tabs</string>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
@@ -340,23 +371,8 @@
            </item>
            <item>
             <widget class="QListView" name="ListView_Tags">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="baseSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
              <property name="frameShape">
               <enum>QFrame::Panel</enum>
-             </property>
-             <property name="horizontalScrollBarPolicy">
-              <enum>Qt::ScrollBarAsNeeded</enum>
              </property>
              <property name="sizeAdjustPolicy">
               <enum>QAbstractScrollArea::AdjustToContents</enum>
@@ -391,6 +407,20 @@
            </item>
           </layout>
          </widget>
+         <widget class="QWidget" name="tab_roles">
+          <attribute name="title">
+           <string>In roles</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QPlainTextEdit" name="PlainTextEdit_Actors">
+             <property name="placeholderText">
+              <string>In roles</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
          <widget class="QWidget" name="tab_3">
           <attribute name="title">
            <string>Media</string>
@@ -403,13 +433,19 @@
                <property name="maxLength">
                 <number>256</number>
                </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
                <property name="placeholderText">
-                <string>Directory</string>
+                <string>File</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QToolButton" name="TBtn_ChooseDir">
+              <widget class="QToolButton" name="toolButton">
                <property name="toolTip">
                 <string/>
                </property>
@@ -428,6 +464,9 @@
             <widget class="QLineEdit" name="LineEdit_URL">
              <property name="maxLength">
               <number>256</number>
+             </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
              </property>
              <property name="placeholderText">
               <string>URL</string>
@@ -523,7 +562,7 @@
   <customwidget>
    <class>ImageCover</class>
    <extends>QLabel</extends>
-   <header location="global">imagecover.h</header>
+   <header location="global">widgets/imagecover.h</header>
   </customwidget>
  </customwidgets>
  <resources>

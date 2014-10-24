@@ -389,7 +389,7 @@
   <customwidget>
    <class>ImageCover</class>
    <extends>QLabel</extends>
-   <header location="global">imagecover.h</header>
+   <header location="global">widgets/imagecover.h</header>
   </customwidget>
  </customwidgets>
  <resources>

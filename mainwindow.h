@@ -1,10 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "lookprogressbar.h"
+#include "widgets/lookprogressbar.h"
+#include "dialogs/settings.h"
 #include "mngrconnection.h"
 #include "mngrquerys.h"
-#include "formsettings.h"
 
 #include <QMainWindow>
 #include <QPushButton>
@@ -12,6 +12,7 @@
 #include <QListWidget>
 #include <QTreeWidgetItem>
 #include <QScrollArea>
+#include <QNetworkReply>
 
 namespace Ui {
 class MainWindow;
@@ -80,6 +81,7 @@ private slots:
     void on_TreeView_Dir_activated(const QModelIndex &index);
     void on_PBtn_url_vk_clicked();
     void on_PBtn_url_github_clicked();
+    void replyVersionVerificationFinished(QNetworkReply*);
 };
 
 #endif // MAINWINDOW_H

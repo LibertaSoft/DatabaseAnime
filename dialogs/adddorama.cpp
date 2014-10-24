@@ -1,5 +1,5 @@
-#include "dialogadddorama.h"
-#include "ui_dialogadddorama.h"
+#include "dialogs/adddorama.h"
+#include "ui_adddorama.h"
 #include "mngrquerys.h"
 
 #include <QSettings>

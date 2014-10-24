@@ -1,10 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "dialogaddanime.h"
-#include "lookprogressbar.h"
-#include "dialogaddmanga.h"
-#include "dialogaddamv.h"
-#include "dialogadddorama.h"
+#include "widgets/lookprogressbar.h"
+
+#include "dialogs/addanime.h"
+#include "dialogs/addmanga.h"
+#include "dialogs/addamv.h"
+#include "dialogs/adddorama.h"
 
 #include <QDesktopServices>
 #include <QScrollArea>
@@ -14,6 +15,12 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QFontDatabase>
+
+#include <QNetworkAccessManager>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+
 //#include <QSvgWidget>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -29,6 +36,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->lbl_AppTitle->setText( QApplication::applicationDisplayName() );
     ui->Lbl_VVersion->setText( QApplication::applicationVersion() );
 
+
+
+
+//    [svg logo]
 //    int fAppName_id = QFontDatabase::addApplicationFont("./urw-chancery-l-medium-italic.ttf");
 //    ui->lbl_AppTitle->setFont(QFont(QFontDatabase::applicationFontFamilies(fAppName_id).first(),28));
 
@@ -39,6 +50,15 @@ MainWindow::MainWindow(QWidget *parent) :
 //    ui->VLay_logoSvg->setAlignment(logo, Qt::AlignCenter);
 
     QSettings settings;
+
+    // Verification of the new version
+    if( settings.value("General/VerUpdate", true).toBool() ){
+        QUrl url("https://api.github.com/repos/LibertaSoft/DatabaseAnime/releases");
+        QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+        connect(manager, SIGNAL(finished(QNetworkReply*)),
+                this, SLOT(replyVersionVerificationFinished(QNetworkReply*)));
+        manager->get( QNetworkRequest(url) );
+    }
 
     this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
     this->restoreState( settings.value("MainWindow/State").toByteArray() );
@@ -60,6 +80,27 @@ MainWindow::MainWindow(QWidget *parent) :
 
     reloadSectionsList();
     reloadFiltersList();
+}
+
+void MainWindow::replyVersionVerificationFinished(QNetworkReply* r){
+    QJsonDocument doc = QJsonDocument::fromJson( r->readAll() );
+
+    QJsonArray arr  = doc.array();
+    QJsonObject obj = arr.at(0).toObject();
+
+    QString verFromGit = obj["tag_name"].toString();
+    verFromGit = verFromGit.replace(".", "");// split '.' from "vX.X.X"
+    verFromGit = verFromGit.right( verFromGit.length() - 1 );// split 'v' from "vXXX"
+
+    QString appVer = QApplication::applicationVersion();
+    appVer = appVer.replace(".", "");// split '.' from "X.X.X"
+
+    if( verFromGit.toInt() > appVer.toInt() ){
+        ui->Lbl_VVersion->setStyleSheet("color: #f00");
+        ui->Lbl_VVersion->setToolTip( tr("Older version") );
+    }
+
+    r->deleteLater();
 }
 
 void MainWindow::closeEvent(QCloseEvent *e){
