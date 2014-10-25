@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "definespath.h"
 
 #include <QApplication>
 #include <QTranslator>
@@ -91,27 +92,21 @@ int main(int argc, char *argv[])
 
     // */
 
-    const QString sharePath( QApplication::applicationDirPath() + QDir::separator()
-                             + ".." + QDir::separator()
-                             + "share" + QDir::separator()
-                             + "DatabaseAnime" + QDir::separator()
-                             );
-
     if( set_language_index == 0 ){
-        qtTr.load( sharePath + "l10n" + QDir::separator()
+        qtTr.load( DefinesPath::l10n()
                    + "qtbase_" + QLocale::system().name().section('_', 0, 0) + ".qm" );
     }else{
-        qtTr.load( sharePath + "l10n" + QDir::separator()
+        qtTr.load( DefinesPath::l10n()
                    + "qtbase_" + set_language + ".qm" );
     }
     app.installTranslator(&qtTr);
 
     QTranslator dbaTr;
     if( set_language_index == 0 ){
-        dbaTr.load( sharePath + "l10n" + QDir::separator()
+        dbaTr.load( DefinesPath::l10n()
                     + "DatabaseAnime_" + QLocale::system().name().section('_', 0, 0) + ".qm" );
     }else{
-        dbaTr.load( sharePath + "l10n" + QDir::separator()
+        dbaTr.load( DefinesPath::l10n()
                     + "DatabaseAnime_" + set_language + ".qm" );
     }
     app.installTranslator(&dbaTr);

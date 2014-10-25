@@ -15,6 +15,7 @@ QString DefinesPath::home()
 //[[deprecated("Use share()")]]
 QString DefinesPath::rootShare()
 {
+    #pragma This_Function_is_Deprecated
     return QApplication::applicationDirPath() + QDir::separator()
             + ".." + QDir::separator() + "share" + QDir::separator()
             + QApplication::organizationName() + QDir::separator()
