@@ -1,6 +1,7 @@
 #include "dialogs/addmanga.h"
 #include "ui_addmanga.h"
 #include "mngrquerys.h"
+#include "definespath.h"
 
 #include <QSettings>
 #include <QFileDialog>
@@ -81,10 +82,10 @@ void DialogAddManga::setDataInFields()
     ui->LineEdit_URL->setText( data["URL"].toString() );
 
     _oldCover = data["ImagePath"].toString();
-    QPixmap pm( MngrQuerys::getMangaCoversPath() + _oldCover );
+    QPixmap pm( DefinesPath::mangaCovers() + _oldCover );
     if( !pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
-        ui->Lbl_ImageCover->setImagePath( MngrQuerys::getMangaCoversPath() + _oldCover );
+        ui->Lbl_ImageCover->setImagePath( DefinesPath::mangaCovers() + _oldCover );
     }else{
         ui->Lbl_ImageCover->noImage();
     }
@@ -310,13 +311,13 @@ bool DialogAddManga::insert_Manga(){
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
-    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( MngrQuerys::getMangaCoversPath() ) ){
+    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( DefinesPath::mangaCovers() ) ){
         QFile f;
         f.setFileName( ui->Lbl_ImageCover->getImagePath() );
-        f.copy( MngrQuerys::getMangaCoversPath() + coverName );
+        f.copy( DefinesPath::mangaCovers() + coverName );
     }
     if( _isEditRole && !_oldCover.isEmpty() )
-        dir.remove( MngrQuerys::getMangaCoversPath() + _oldCover );
+        dir.remove( DefinesPath::mangaCovers() + _oldCover );
     data["ImagePath"] = coverName;
 
     if( !_isEditRole ){

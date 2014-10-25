@@ -321,45 +321,6 @@ QStringList MngrQuerys::getDoramaTags()
             << QObject::tr("Fighter")           << QObject::tr("Parody")          << QObject::tr("TV Show");
 }
 
-QString MngrQuerys::getAnimeCoversPath()
-{
-    const QString DBPath(QDir::homePath() + QDir::separator() + "."
-                             + QApplication::organizationName()
-                             + QDir::separator() + QApplication::applicationName() + QDir::separator());
-
-    QSettings settings;
-    return QString( settings.value("WorkDirectory", DBPath).toString()
-                    + QDir::separator()
-                    + "animeCovers" + QDir::separator() );
-}
-QString MngrQuerys::getMangaCoversPath()
-{
-    const QString DBPath(QDir::homePath() + QDir::separator() + "."
-                             + QApplication::organizationName()
-                             + QDir::separator() + QApplication::applicationName() + QDir::separator());
-
-    QSettings settings;
-    return QString( settings.value("WorkDirectory", DBPath).toString() + QDir::separator() + "mangaCovers" + QDir::separator() );
-}
-QString MngrQuerys::getAmvCoversPath()
-{
-    const QString DBPath(QDir::homePath() + QDir::separator() + "."
-                             + QApplication::organizationName()
-                             + QDir::separator() + QApplication::applicationName() + QDir::separator());
-
-    QSettings settings;
-    return QString( settings.value("WorkDirectory", DBPath).toString() + QDir::separator() + "amvCovers" + QDir::separator() );
-}
-QString MngrQuerys::getDoramaCoversPath()
-{
-    const QString DBPath(QDir::homePath() + QDir::separator() + "."
-                             + QApplication::organizationName()
-                             + QDir::separator() + QApplication::applicationName() + QDir::separator());
-
-    QSettings settings;
-    return QString( settings.value("WorkDirectory", DBPath).toString() + QDir::separator() + "doramaCovers" + QDir::separator() );
-}
-
 bool MngrQuerys::updateRecord(sections::section table, unsigned long long recoord_id, QString field, QString newValue)
 {
     QSqlQuery query;

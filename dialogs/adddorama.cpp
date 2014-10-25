@@ -1,6 +1,7 @@
 #include "dialogs/adddorama.h"
 #include "ui_adddorama.h"
 #include "mngrquerys.h"
+#include "definespath.h"
 
 #include <QSettings>
 #include <QFileDialog>
@@ -73,10 +74,10 @@ void DialogAddDorama::setDataInField()
 
     _oldCover = model->record(0).value("ImagePath").toString();
 
-    QPixmap pm( MngrQuerys::getDoramaCoversPath() + _oldCover );
+    QPixmap pm( DefinesPath::doramaCovers() + _oldCover );
     if( !pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
-        ui->Lbl_ImageCover->setImagePath( MngrQuerys::getDoramaCoversPath() + _oldCover );
+        ui->Lbl_ImageCover->setImagePath( DefinesPath::doramaCovers() + _oldCover );
     }else{
         ui->Lbl_ImageCover->noImage();
     }
@@ -240,12 +241,12 @@ bool DialogAddDorama::insert_Dorama(){
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
-    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( MngrQuerys::getDoramaCoversPath() ) ){
+    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( DefinesPath::doramaCovers() ) ){
         QFile f( ui->Lbl_ImageCover->getImagePath() );
-        f.copy( MngrQuerys::getDoramaCoversPath() + coverName );
+        f.copy( DefinesPath::doramaCovers() + coverName );
     }
     if( _isEditRole && !_oldCover.isEmpty() ){
-            dir.remove( MngrQuerys::getDoramaCoversPath() + _oldCover );
+            dir.remove( DefinesPath::doramaCovers() + _oldCover );
     }
     data["ImagePath"] = coverName;
 

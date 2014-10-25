@@ -2,16 +2,13 @@
 
 #include <QApplication>
 #include <QTranslator>
-//#include <QLibraryInfo>
 #include <QSettings>
 #include <QDebug>
 
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    QFile f( QDir::homePath() + QDir::separator()
-             + "." + QApplication::organizationName()
-             + QDir::separator() + QApplication::applicationName()
-             + QDir::separator() + "log.txt" );
+    QFile f( QStandardPaths::writableLocation( QStandardPaths::CacheLocation )
+             + QDir::separator() + QDate::currentDate().toString(Qt::ISODate) + ".log" );
     f.open(QFile::Append);
     switch (type) {
      case QtDebugMsg:
@@ -63,7 +60,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");
     app.setApplicationName("DatabaseAnime");
-    app.setApplicationVersion("1.1.0");
+    app.setApplicationVersion("1.1.1 Pre-Alpha");
     app.setApplicationDisplayName( QObject::tr("Database Anime") );
     app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
 
@@ -73,21 +70,26 @@ int main(int argc, char *argv[])
     QTranslator qtTr;
 
     /*
+    qDebug() << QStandardPaths::standardLocations( QStandardPaths::CacheLocation );
+    qDebug() << QStandardPaths::standardLocations( QStandardPaths::ConfigLocation );
+    qDebug() << QStandardPaths::standardLocations( QStandardPaths::DataLocation );
+    qDebug() << QStandardPaths::standardLocations( QStandardPaths::DocumentsLocation );
+    // */
+    /*
     qDebug() << "Standard Locations:";
     qDebug() << QStandardPaths::displayName( QStandardPaths::DataLocation ) << QStandardPaths::writableLocation( QStandardPaths::DataLocation );
-    qDebug() << "Cache:     " << QStandardPaths::writableLocation( QStandardPaths::CacheLocation );
-    qDebug() << "Config:    " << QStandardPaths::writableLocation( QStandardPaths::ConfigLocation );
-    qDebug() << "Desktop:   " << QStandardPaths::writableLocation( QStandardPaths::DesktopLocation );
-    qDebug() << "Documents: " << QStandardPaths::writableLocation( QStandardPaths::DocumentsLocation );
-    qDebug() << "Download:  " << QStandardPaths::writableLocation( QStandardPaths::DownloadLocation );
-    qDebug() << "Font:      " << QStandardPaths::writableLocation( QStandardPaths::FontsLocation );
-    qDebug() << "GenCache:  " << QStandardPaths::writableLocation( QStandardPaths::GenericCacheLocation );
-    qDebug() << "RunTime:   " << QStandardPaths::writableLocation( QStandardPaths::RuntimeLocation );
-    qDebug() << "Temp:      " << QStandardPaths::writableLocation( QStandardPaths::TempLocation );
-    qDebug() << "App:       " << QStandardPaths::writableLocation( QStandardPaths::ApplicationsLocation );
-qDebug()<< QStandardPaths::standardLocations( QStandardPaths::DataLocation );
+    qDebug() << QStandardPaths::displayName( QStandardPaths::CacheLocation ) << QStandardPaths::writableLocation( QStandardPaths::CacheLocation );
+    qDebug() << QStandardPaths::displayName( QStandardPaths::ConfigLocation ) << QStandardPaths::writableLocation( QStandardPaths::ConfigLocation );
+    qDebug() << QStandardPaths::displayName( QStandardPaths::DesktopLocation ) << QStandardPaths::writableLocation( QStandardPaths::DesktopLocation );
+    qDebug() << QStandardPaths::displayName( QStandardPaths::DocumentsLocation ) << QStandardPaths::writableLocation( QStandardPaths::DocumentsLocation );
+    qDebug() << QStandardPaths::displayName( QStandardPaths::DownloadLocation ) << QStandardPaths::writableLocation( QStandardPaths::DownloadLocation );
+    qDebug() << QStandardPaths::displayName( QStandardPaths::FontsLocation ) << QStandardPaths::writableLocation( QStandardPaths::FontsLocation );
+    qDebug() << QStandardPaths::displayName( QStandardPaths::GenericCacheLocation ) << QStandardPaths::writableLocation( QStandardPaths::GenericCacheLocation );
+    qDebug() << QStandardPaths::displayName( QStandardPaths::RuntimeLocation ) << QStandardPaths::writableLocation( QStandardPaths::RuntimeLocation );
+    qDebug() << QStandardPaths::displayName( QStandardPaths::TempLocation ) << QStandardPaths::writableLocation( QStandardPaths::TempLocation );
+    qDebug() << QStandardPaths::displayName( QStandardPaths::ApplicationsLocation ) << QStandardPaths::writableLocation( QStandardPaths::ApplicationsLocation );
 
-    */
+    // */
 
     const QString sharePath( QApplication::applicationDirPath() + QDir::separator()
                              + ".." + QDir::separator()
@@ -96,7 +98,6 @@ qDebug()<< QStandardPaths::standardLocations( QStandardPaths::DataLocation );
                              );
 
     if( set_language_index == 0 ){
-        /*, QLibraryInfo::location(QLibraryInfo::TranslationsPath)*/
         qtTr.load( sharePath + "l10n" + QDir::separator()
                    + "qtbase_" + QLocale::system().name().section('_', 0, 0) + ".qm" );
     }else{

@@ -5,13 +5,14 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = DatabaseAnime
 TEMPLATE = app
 
-VERSION = 1.1.0.4
+VERSION = 1.1.1.0
 #Last digit:
 # 0 - Pre-Alpha
 # 1 - Alpha
 # 2 - Beta
 # 3 - Release Candidate
 # 4 - Release
+
 RC_ICONS = images/DBA_Icon.ico
 QMAKE_TARGET_COMPANY = LibertaSoft
 QMAKE_TARGET_PRODUCT = DatabaseAnime
@@ -30,7 +31,8 @@ SOURCES += \
     widgets/imagecover.cpp \
     widgets/lookprogressbar.cpp \
     widgets/stackwgt_mousehideover.cpp \
-    dialogs/settings.cpp
+    dialogs/settings.cpp \
+    definespath.cpp
 
 FORMS += \
     mainwindow.ui \
@@ -51,7 +53,8 @@ HEADERS += \
     widgets/imagecover.h \
     widgets/lookprogressbar.h \
     widgets/stackwgt_mousehideover.h \
-    dialogs/settings.h
+    dialogs/settings.h \
+    definespath.h
 
 OTHER_FILES += \
     README.md \

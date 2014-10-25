@@ -2,6 +2,7 @@
 
 #include <QDir>
 #include <QUrl>
+#include "definespath.h"
 #include <QMessageBox>
 
 MngrConnection::MngrConnection()
@@ -17,19 +18,14 @@ MngrConnection::MngrConnection()
     }
 
     db = QSqlDatabase::addDatabase("QSQLITE");
-    const QString DBPath(QDir::homePath() + QDir::separator() +"."
-                         + QApplication::organizationName()
-                         + QDir::separator() + QApplication::applicationName() + QDir::separator());
 
-    QSettings settings;
-    if( !QDir().mkpath( settings.value("WorkDirectory", DBPath).toString() ) ){
+    if( !QDir().mkpath( DefinesPath::dbPath() ) ){
         qCritical() << "Cannot createed work directory"
-                    << "\nPath: "
-                    << settings.value("WorkDirectory", DBPath).toString();
+                    << "\nPath: " << DefinesPath::dbPath();
         QMessageBox::critical(0 , QObject::tr("Critical"),
                               QObject::tr("It was not succeeded to create a directory for a database.") );
     }else{
-        db.setDatabaseName( settings.value("WorkDirectory", DBPath).toString() + QDir::separator() + "DatabaseAnime.sqlite");
+        db.setDatabaseName( DefinesPath::dbPath(true) );
         db.setUserName( dbUser );
         db.setHostName( dbHost );
         db.setPassword( dbPass );

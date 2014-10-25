@@ -1,6 +1,7 @@
 #include "dialogs/addamv.h"
 #include "ui_addamv.h"
 #include "mngrquerys.h"
+#include "definespath.h"
 
 #include <QSettings>
 #include <QFileDialog>
@@ -39,10 +40,10 @@ void DialogAddAmv::setDataInField()
 
     _oldCover = model->record(0).value("ImagePath").toString();
 
-    QPixmap pm( MngrQuerys::getAmvCoversPath() + _oldCover );
+    QPixmap pm( DefinesPath::amvCovers() + _oldCover );
     if( !pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
-        ui->Lbl_ImageCover->setImagePath( MngrQuerys::getAmvCoversPath() + _oldCover );
+        ui->Lbl_ImageCover->setImagePath( DefinesPath::amvCovers() + _oldCover );
     }else{
         ui->Lbl_ImageCover->noImage();
     }
@@ -161,12 +162,12 @@ bool DialogAddAmv::insert_Amv(){
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
-    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( MngrQuerys::getAmvCoversPath() ) ){
+    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( DefinesPath::amvCovers() ) ){
         QFile f( ui->Lbl_ImageCover->getImagePath() );
-        f.copy( MngrQuerys::getAmvCoversPath() + coverName );
+        f.copy( DefinesPath::amvCovers() + coverName );
     }
     if( _isEditRole && !_oldCover.isEmpty() ){
-            dir.remove( MngrQuerys::getAmvCoversPath() + _oldCover );
+            dir.remove( DefinesPath::amvCovers() + _oldCover );
     }
     data["ImagePath"] = coverName;
 

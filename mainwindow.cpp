@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "widgets/lookprogressbar.h"
+#include "definespath.h"
 
 #include "dialogs/addanime.h"
 #include "dialogs/addmanga.h"
@@ -52,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QSettings settings;
 
     // Verification of the new version
-    if( settings.value("General/VerUpdate", true).toBool() ){
+    if( settings.value("General/VerUpdate", false).toBool() ){
         QUrl url("https://api.github.com/repos/LibertaSoft/DatabaseAnime/releases");
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
         connect(manager, SIGNAL(finished(QNetworkReply*)),
@@ -207,6 +208,8 @@ void MainWindow::on_TButton_Edit_clicked()
                 return;
         }
         QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
+    }else{
+        QMessageBox::information(this, tr("Warning"), tr("Section is don't selected"));
     }
 }
 
@@ -229,16 +232,16 @@ void MainWindow::on_TButton_Delete_clicked()
 
         switch( _activeTable ){
         case sections::anime :
-            coverFolder = MngrQuerys::getAnimeCoversPath();
+            coverFolder = DefinesPath::animeCovers();
         break;
         case sections::manga :
-            coverFolder = MngrQuerys::getMangaCoversPath();
+            coverFolder = DefinesPath::mangaCovers();
         break;
         case sections::amv :
-            coverFolder = MngrQuerys::getAmvCoversPath();
+            coverFolder = DefinesPath::amvCovers();
         break;
         case sections::dorama :
-            coverFolder = MngrQuerys::getDoramaCoversPath();
+            coverFolder = DefinesPath::doramaCovers();
         break;
         case sections::none :
         default:
@@ -555,10 +558,12 @@ void MainWindow::selectAnimeData()
     _ScrArea_propertyes->setLayout(FLay_propertyes);
     ui->VLay_AnimeDescrFull->addWidget(_ScrArea_propertyes);
 
+    //pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
+    //pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
-                + m1.record(0).value("URL").toString()
+                + m1.record(0).value("URL").toString().replace("%v", m1.record(0).value("vSeriesTV").toString()).replace("%m", m1.record(0).value("SeriesTV").toString())
                 + "'>"
                 + m1.record(0).value("Title").toString()
                 + "</a>", _ScrArea_propertyes);
@@ -609,7 +614,7 @@ void MainWindow::selectAnimeData()
         FLay_propertyes->addRow(lblValue);
     }
 
-    QPixmap pic( MngrQuerys::getAnimeCoversPath() + m1.record(0).value("ImagePath").toString() );
+    QPixmap pic( DefinesPath::animeCovers() + m1.record(0).value("ImagePath").toString() );
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }
@@ -710,7 +715,7 @@ void MainWindow::selectMangaData()
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
-                + m1.record(0).value("URL").toString()
+                + m1.record(0).value("URL").toString().replace("%v", m1.record(0).value("vVol").toString()).replace("%m", m1.record(0).value("Vol").toString())
                 + "'>"
                 + m1.record(0).value("Title").toString()
                 + "</a>", _ScrArea_propertyes);
@@ -751,8 +756,7 @@ void MainWindow::selectMangaData()
         FLay_propertyes->addRow(lblValue);
     }
 
-    QPixmap pic( MngrQuerys::getMangaCoversPath()
-                + m1.record(0).value("ImagePath").toString() );
+    QPixmap pic( DefinesPath::mangaCovers() + m1.record(0).value("ImagePath").toString() );
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }
@@ -873,8 +877,7 @@ void MainWindow::selectAmvData()
         FLay_propertyes->addRow(lblValue);
     }
 
-    QPixmap pic( MngrQuerys::getAmvCoversPath()
-                 + m1.record(0).value("ImagePath").toString());
+    QPixmap pic( DefinesPath::amvCovers() + m1.record(0).value("ImagePath").toString());
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }
@@ -972,7 +975,7 @@ void MainWindow::selectDoramaData()
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
-                + m1.record(0).value("URL").toString()
+                + m1.record(0).value("URL").toString().replace("%v", m1.record(0).value("vSeriesTV").toString()).replace("%m", m1.record(0).value("SeriesTV").toString())
                 + "'>"
                 + m1.record(0).value("Title").toString()
                 + "</a>", _ScrArea_propertyes);
@@ -1025,7 +1028,7 @@ void MainWindow::selectDoramaData()
         FLay_propertyes->addRow(lblValue);
     }
 
-    QPixmap pic( MngrQuerys::getDoramaCoversPath() + m1.record(0).value("ImagePath").toString() );
+    QPixmap pic( DefinesPath::doramaCovers() + m1.record(0).value("ImagePath").toString() );
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }

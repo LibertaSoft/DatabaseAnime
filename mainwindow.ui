@@ -37,7 +37,7 @@
        <enum>Qt::Horizontal</enum>
       </property>
       <property name="handleWidth">
-       <number>12</number>
+       <number>9</number>
       </property>
       <widget class="QWidget" name="verticalLayoutWidget">
        <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -122,6 +122,9 @@
              <iconset resource="resource.qrc">
               <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
             </property>
+            <property name="shortcut">
+             <string>Ctrl+A</string>
+            </property>
            </widget>
           </item>
           <item>
@@ -158,6 +161,9 @@
              <iconset resource="resource.qrc">
               <normaloff>:/images/edit.png</normaloff>:/images/edit.png</iconset>
             </property>
+            <property name="shortcut">
+             <string>Ctrl+E</string>
+            </property>
            </widget>
           </item>
           <item>
@@ -193,6 +199,9 @@
             <property name="icon">
              <iconset resource="resource.qrc">
               <normaloff>:/images/list-remove.png</normaloff>:/images/list-remove.png</iconset>
+            </property>
+            <property name="shortcut">
+             <string>Ctrl+D</string>
             </property>
            </widget>
           </item>
@@ -383,6 +392,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="PBtn_url_github">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="text">
               <string notr="true">GitHub</string>
              </property>
@@ -394,6 +409,12 @@
            </item>
            <item>
             <widget class="QPushButton" name="PBtn_url_vk">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="text">
               <string notr="true">vk.com</string>
              </property>

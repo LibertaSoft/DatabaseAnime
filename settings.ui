@@ -118,6 +118,13 @@
          <number>0</number>
         </property>
         <item>
+         <widget class="QCheckBox" name="ChBox_Update">
+          <property name="text">
+           <string>Check for update</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QCheckBox" name="CBox_SwitchToDirOnHoverCover">
           <property name="enabled">
            <bool>true</bool>
