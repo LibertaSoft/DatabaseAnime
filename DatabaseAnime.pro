@@ -32,7 +32,9 @@ SOURCES += \
     widgets/lookprogressbar.cpp \
     widgets/stackwgt_mousehideover.cpp \
     dialogs/settings.cpp \
-    definespath.cpp
+    definespath.cpp \
+    xmldbareader.cpp \
+    dialogs/xmldbawriter.cpp
 
 FORMS += \
     mainwindow.ui \
@@ -54,7 +56,10 @@ HEADERS += \
     widgets/lookprogressbar.h \
     widgets/stackwgt_mousehideover.h \
     dialogs/settings.h \
-    definespath.h
+    definespath.h \
+    xmldbareader.h \
+    globalenum.h \
+    dialogs/xmldbawriter.h
 
 OTHER_FILES += \
     README.md \

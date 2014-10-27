@@ -1,7 +1,8 @@
 #include "dialogs/settings.h"
 #include "ui_settings.h"
-#include "mngrconnection.h"
 #include "definespath.h"
+
+#include "xmldbareader.h"
 
 #include <QSettings>
 #include <QVariant>
@@ -89,7 +90,7 @@ FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
     Sort::sort sort = static_cast<Sort::sort>( settings.value( "Sorting", Sort::asc ).toInt() );
     ui->CBox_Sort->setCurrentIndex( sort );
 
-    ui->LineEdit_WorkDirectory->setText( DefinesPath::appData() );
+    ui->LineEdit_WorkDirectory->setText( QDir::toNativeSeparators( DefinesPath::appData() ) );
 }
 
 FormSettings::~FormSettings()
@@ -120,8 +121,8 @@ void FormSettings::on_BtnBox_accepted()
 
     settings.beginGroup("enableSection");
         settings.setValue( "Anime",  ui->CheckBox_EnableAnime->isChecked() );
-        settings.setValue( "Manga", ui->CheckBox_EnableManga->isChecked() );
-        settings.setValue( "AMV",   ui->CheckBox_EnableAMV->isChecked() );
+        settings.setValue( "Manga",  ui->CheckBox_EnableManga->isChecked() );
+        settings.setValue( "AMV",    ui->CheckBox_EnableAMV->isChecked() );
         settings.setValue( "Dorama", ui->CheckBox_EnableDorama->isChecked() );
     settings.endGroup();
 
@@ -150,7 +151,7 @@ void FormSettings::on_BtnBox_accepted()
     settings.endGroup();
     settings.setValue( "Sorting", ui->CBox_Sort->currentIndex() );
 
-    settings.setValue( "General/VerUpdate", ui->ChBox_Update->isChecked() );
+    settings.setValue( "VerUpdate", ui->ChBox_Update->isChecked() );
     settings.setValue( "SwitchToDirOnHoverACover", ui->CBox_SwitchToDirOnHoverCover->isChecked() );
 
     if( QDir::isAbsolutePath(ui->LineEdit_WorkDirectory->text()) )
@@ -180,6 +181,7 @@ void FormSettings::BtnBox_resetDefaults(){
     ui->CB_Language->setCurrentIndex(0);
     ui->CBox_Sort->setCurrentIndex(1);
 
+    ui->ChBox_Update->setChecked(false);
     ui->LineEdit_WorkDirectory->setText( DefinesPath::appData(true) );
 }
 
@@ -595,75 +597,6 @@ void FormSettings::on_TBtn_ChooseDir_clicked()
         ui->LineEdit_ExDir->setText( dir );
 }
 
-bool readXml_AnimeItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
-    xml.readNext();
-    while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
-        if( xml.hasError() ){
-            qCritical() << xml.errorString();
-            return false;
-        }
-        if (xml.tokenType() == QXmlStreamReader::StartElement){
-             QString tagName( xml.name().toString() );
-             xml.readNext();
-             data[tagName]    = xml.text().toString();
-        }
-        xml.readNext();
-        QCoreApplication::processEvents();
-    }
-    return true;
-}
-bool readXml_MangaItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
-    xml.readNext();
-    while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
-        if( xml.hasError() ){
-            qCritical() << xml.errorString();
-            return false;
-        }
-        if (xml.tokenType() == QXmlStreamReader::StartElement){
-             QString tagName( xml.name().toString() );
-             xml.readNext();
-             data[tagName]    = xml.text().toString();
-        }
-        xml.readNext();
-        QCoreApplication::processEvents();
-    }
-    return true;
-}
-bool readXml_AmvItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
-    xml.readNext();
-    while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item") ){
-        if( xml.hasError() ){
-            qCritical() << xml.errorString();
-            return false;
-        }
-        if (xml.tokenType() == QXmlStreamReader::StartElement){
-             QString tagName( xml.name().toString() );
-             xml.readNext();
-             data[tagName]    = xml.text().toString();
-        }
-        xml.readNext();
-        QCoreApplication::processEvents();
-    }
-    return true;
-}
-bool readXml_DoramaItem(QXmlStreamReader& xml, QMap<QString,QVariant> &data){
-    xml.readNext();
-    while ( !(xml.tokenType() == QXmlStreamReader::EndElement && xml.name() == "item" ) ){
-        if( xml.hasError() ){
-            qCritical() << xml.errorString();
-            return false;
-        }
-        if (xml.tokenType() == QXmlStreamReader::StartElement){
-             QString tagName( xml.name().toString() );
-             xml.readNext();
-             data[tagName]    = xml.text().toString();
-        }
-        xml.readNext();
-        QCoreApplication::processEvents();
-    }
-    return true;
-}
-
 void FormSettings::on_TBtn_ImFile_clicked()
 {
     QString file = QFileDialog::getOpenFileName(this,
@@ -735,83 +668,59 @@ unsigned long long FormSettings::on_actionImport_triggered()
     QString filePath = ui->LineEdit_ImFile->text();
 
     QFile file( QDir(filePath).path() );
-    if( !file.open(QIODevice::ReadOnly | QIODevice::Text) ){
+    if( ! file.open(QIODevice::ReadOnly | QIODevice::Text) ){
         qCritical() << file.errorString()
                     << "\nFileName: " << file.fileName()
                     << "\nFileError: " << file.error();
         QMessageBox::critical(this, tr("Critical"), tr("File is not open"));
         return 0;
     }
-    QXmlStreamReader xml(&file);
 
-//    QProgressDialog* process = new QProgressDialog("Progressing the import", "&Cancel", 0, 100, this);
-//    int n_process = 0;
-//    process->setMinimumDuration(0);
-//    process->setAutoReset(false);
-//    process->setWindowTitle("Import");
-
-    sections::section currentReadSection = sections::none;
-//    qDebug() << "Import started: " << QTime().currentTime().toString();
-    MngrConnect.transaction();
     unsigned long long n(0);
-    while (!xml.atEnd() && !xml.hasError())
-    {
-        QXmlStreamReader::TokenType token = xml.readNext();
+    XmlDbaReader reader(&file);
+    QMap<QString, QVariant> data;
 
-        if (token == QXmlStreamReader::StartElement)
-        {
-            if ( xml.name() == "Anime")
-                currentReadSection = sections::anime;
-            else if ( xml.name() == "Manga")
-                currentReadSection = sections::manga;
-            else if ( xml.name() == "Amv")
-                currentReadSection = sections::amv;
-            else if ( xml.name() == "Dorama")
-                currentReadSection = sections::dorama;
+    MngrConnect.transaction();
+    while( ! reader.atEnd() && ! reader.hasError() ){
+        data = reader.readNext();
+        if( data.isEmpty() )
+            continue;
 
-            if( xml.name() == "item" ){
-                if( currentReadSection == sections::anime && imAnime == false )
-                    continue;
-                if( currentReadSection == sections::manga && imManga == false )
-                    continue;
-                if( currentReadSection == sections::amv && imAmv == false )
-                    continue;
-                if( currentReadSection == sections::dorama && imDorama == false )
-                    continue;
+        if( reader.currentSection() == sections::anime
+            && imAnime == false)
+            continue;
+        if( reader.currentSection() == sections::manga
+            && imManga == false)
+            continue;
+        if( reader.currentSection() == sections::amv
+            && imAmv == false)
+            continue;
+        if( reader.currentSection() == sections::dorama
+            && imDorama == false)
+            continue;
 
-                QMap<QString,QVariant> data;
-                switch (currentReadSection) {
-                case sections::anime :
-                    readXml_AnimeItem(xml, data);
-                    MngrQuerys::insertAnime(data);
-                    n++;
-                    break;
-                case sections::manga :
-                    readXml_MangaItem(xml, data);
-                    MngrQuerys::insertManga(data);
-                    n++;
-                    break;
-                case sections::amv :
-                    readXml_AmvItem(xml, data);
-                    MngrQuerys::insertAmv(data);
-                    n++;
-                    break;
-                case sections::dorama :
-                    readXml_DoramaItem(xml, data);
-                    MngrQuerys::insertDorama(data);
-                    n++;
-                    break;
-                case sections::none :
-                    qWarning() << "Import process. None Section";
-                default:
-                    break;
-                }
-            }
+        switch ( reader.currentSection() ) {
+        case sections::anime :
+            MngrQuerys::insertAnime(data);
+            break;
+        case sections::manga :
+            MngrQuerys::insertManga(data);
+            break;
+        case sections::amv :
+            MngrQuerys::insertAmv(data);
+            break;
+        case sections::dorama :
+            MngrQuerys::insertDorama(data);
+            break;
+        default:
+            qCritical() << "[FormSettings::importAppend] uncorrect section: " << reader.currentSection();
         }
-//        process->setValue(++n_process);
-        QCoreApplication::processEvents();
+        n++;
     }
-    MngrConnect.commit();
+    if( reader.hasError() )
+        MngrConnect.rollback();
+    else
+        MngrConnect.commit();
 
     QString importPath( QFileInfo( filePath ).path() );
 
@@ -823,7 +732,6 @@ unsigned long long FormSettings::on_actionImport_triggered()
             if( it.fileName() == "." || it.fileName() == ".." )
                 continue;
             QFile( it.filePath() ).copy( DefinesPath::animeCovers() + it.fileName() );
-//            process->setValue(++n_process);
             QCoreApplication::processEvents();
         }
     }
@@ -835,7 +743,6 @@ unsigned long long FormSettings::on_actionImport_triggered()
             if( it.fileName() == "." || it.fileName() == ".." )
                 continue;
             QFile( it.filePath() ).copy( DefinesPath::mangaCovers() + it.fileName() );
-//            process->setValue(++n_process);
             QCoreApplication::processEvents();
         }
     }
@@ -847,7 +754,6 @@ unsigned long long FormSettings::on_actionImport_triggered()
             if( it.fileName() == "." || it.fileName() == ".." )
                 continue;
             QFile( it.filePath() ).copy( DefinesPath::amvCovers() + it.fileName() );
-//            process->setValue(++n_process);
             QCoreApplication::processEvents();
         }
     }
@@ -859,15 +765,9 @@ unsigned long long FormSettings::on_actionImport_triggered()
             if( it.fileName() == "." || it.fileName() == ".." )
                 continue;
             QFile( it.filePath() ).copy( DefinesPath::doramaCovers() + it.fileName() );
-//            process->setValue(++n_process);
             QCoreApplication::processEvents();
         }
     }
-//    process->setMaximum();
-//    delete process;
-
-//    qDebug() << "Import finished:" << QTime().currentTime().toString();
-//    qDebug() << "Imported Records: " << n;
 
     file.close();
 

@@ -1,24 +1,10 @@
 #ifndef MNGRQUERYS_H
 #define MNGRQUERYS_H
 
+#include "globalenum.h"
 #include <QtSql>
 #include <QSqlQueryModel>
 #include <QString>
-
-namespace sections {
-    enum section{none = 0, anime, manga, amv, dorama};
-}
-namespace Filter {
-    enum filter{all = 0, editing, wanttolook, tv, ova, ona, special, movie, looked};
-}
-
-namespace Tables {
-    enum table{none = 0, vAnime, vManga, vAmv, vDorama};
-}
-
-namespace Sort{
-    enum sort{none = 0, asc, desc, year};
-}
 
 class MngrQuerys
 {
