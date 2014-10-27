@@ -8,7 +8,7 @@ QMap<QString, QVariant> XmlDbaReader::readNext()
 {
 
     _currentData.clear();
-    if( _streamReader.atEnd() || _streamReader.hasError() ){
+    if( _streamReader.atEnd() ){
         qCritical() << "[XmlDbaReader::readNext] " << _streamReader.errorString();
         return _currentData;
     }
@@ -32,6 +32,10 @@ QMap<QString, QVariant> XmlDbaReader::readNext()
             }
         }
     }
+    if( _streamReader.hasError() ){
+        qCritical() << "[XmlDbaReader::readNext] " << _streamReader.errorString();
+        return _currentData;
+    }
     return _currentData;
 }
 
@@ -51,7 +55,6 @@ bool XmlDbaReader::readItem()
              _currentData[tagName] = _streamReader.text().toString();
         }
         _streamReader.readNext();
-//        QCoreApplication::processEvents();
     }
     return true;
 }

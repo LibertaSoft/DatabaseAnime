@@ -3,6 +3,7 @@
 #include "definespath.h"
 
 #include "xmldbareader.h"
+#include "xmldbawriter.h"
 
 #include <QSettings>
 #include <QVariant>
@@ -199,185 +200,56 @@ void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
             this->close();
     }
 }
-/*[Export]*/
-
-QDomElement makeElement(      QDomDocument& domDoc,
-                        const QString&      strName,
-                        const QString&      strAttr = QString::null,
-                        const QString&      strText = QString::null
-                       )
-{
-    QDomElement domElement = domDoc.createElement(strName);
-
-    if (!strAttr.isEmpty()) {
-        QDomAttr domAttr = domDoc.createAttribute("number");
-        domAttr.setValue(strAttr);
-        domElement.setAttributeNode(domAttr);
-    }
-
-    if (!strText.isEmpty()) {
-        QDomText domText = domDoc.createTextNode(strText);
-        domElement.appendChild(domText);
-    }
-    return domElement;
-}
-
-namespace Export{
-    QDomElement anime(  QDomDocument& domDoc,
-                        const QMap<QString, QString> &data
-                        )
-    {
-        QDomElement domElement = makeElement(domDoc,
-                                             "item"
-                                             );
-        domElement.appendChild(makeElement(domDoc, "isHaveLooked",  "", data["isHaveLooked"]));
-        domElement.appendChild(makeElement(domDoc, "isEditingDone", "", data["isEditingDone"]));
-        domElement.appendChild(makeElement(domDoc, "isAdult",       "", data["isAdult"]));
-        domElement.appendChild(makeElement(domDoc, "Title",         "", data["Title"]));
-        domElement.appendChild(makeElement(domDoc, "OrigTitle",     "", data["OrigTitle"]));
-        domElement.appendChild(makeElement(domDoc, "Director",      "", data["Director"]));
-        domElement.appendChild(makeElement(domDoc, "PostScoring",   "", data["PostScoring"]));
-        domElement.appendChild(makeElement(domDoc, "SeriesTV",      "", data["SeriesTV"]));
-        domElement.appendChild(makeElement(domDoc, "SeriesOVA",     "", data["SeriesOVA"]));
-        domElement.appendChild(makeElement(domDoc, "SeriesONA",     "", data["SeriesONA"]));
-        domElement.appendChild(makeElement(domDoc, "SeriesSpecial", "", data["SeriesSpecial"]));
-        domElement.appendChild(makeElement(domDoc, "SeriesMovie",   "", data["SeriesMovie"]));
-        domElement.appendChild(makeElement(domDoc, "vSeriesTV",     "", data["vSeriesTV"]));
-        domElement.appendChild(makeElement(domDoc, "vSeriesOVA",    "", data["vSeriesOVA"]));
-        domElement.appendChild(makeElement(domDoc, "vSeriesONA",    "", data["vSeriesONA"]));
-        domElement.appendChild(makeElement(domDoc, "vSeriesSpecial","", data["vSeriesSpecial"]));
-        domElement.appendChild(makeElement(domDoc, "vSeriesMovie",  "", data["vSeriesMovie"]));
-        domElement.appendChild(makeElement(domDoc, "Score",         "", data["Score"]));
-        domElement.appendChild(makeElement(domDoc, "Year",          "", data["Year"]));
-        domElement.appendChild(makeElement(domDoc, "Season",        "", data["Season"]));
-        domElement.appendChild(makeElement(domDoc, "Studios",       "", data["Studios"]));
-        domElement.appendChild(makeElement(domDoc, "Tags",          "", data["Tags"]));
-        domElement.appendChild(makeElement(domDoc, "Description",   "", data["Description"]));
-        domElement.appendChild(makeElement(domDoc, "URL",           "", data["URL"]));
-        domElement.appendChild(makeElement(domDoc, "Dir",           "", data["Dir"]));
-        domElement.appendChild(makeElement(domDoc, "ImagePath",     "", data["ImagePath"]));
-
-        return domElement;
-    }
-    QDomElement manga(  QDomDocument& domDoc,
-                        const QMap<QString, QString> &data
-                        )
-    {
-        QDomElement domElement = makeElement(domDoc,
-                                             "item"
-                                             );
-        domElement.appendChild(makeElement(domDoc, "isHaveLooked",  "", data["isHaveLooked"]));
-        domElement.appendChild(makeElement(domDoc, "isEditingDone", "", data["isEditingDone"]));
-        domElement.appendChild(makeElement(domDoc, "isAdult",       "", data["isAdult"]));
-        domElement.appendChild(makeElement(domDoc, "Title",         "", data["Title"]));
-        domElement.appendChild(makeElement(domDoc, "AltTitle",      "", data["AltTitle"]));
-        domElement.appendChild(makeElement(domDoc, "Author",        "", data["Author"]));
-        domElement.appendChild(makeElement(domDoc, "Translation",   "", data["Translation"]));
-        domElement.appendChild(makeElement(domDoc, "Vol",           "", data["Vol"]));
-        domElement.appendChild(makeElement(domDoc, "Ch",            "", data["Ch"]));
-        domElement.appendChild(makeElement(domDoc, "Pages",         "", data["Pages"]));
-        domElement.appendChild(makeElement(domDoc, "vVol",          "", data["vVol"]));
-        domElement.appendChild(makeElement(domDoc, "vCh",           "", data["vCh"]));
-        domElement.appendChild(makeElement(domDoc, "vPages",        "", data["vPages"]));
-        domElement.appendChild(makeElement(domDoc, "Score",         "", data["Score"]));
-        domElement.appendChild(makeElement(domDoc, "Year",          "", data["Year"]));
-        domElement.appendChild(makeElement(domDoc, "Tags",          "", data["Tags"]));
-        domElement.appendChild(makeElement(domDoc, "Description",   "", data["Description"]));
-        domElement.appendChild(makeElement(domDoc, "URL",           "", data["URL"]));
-        domElement.appendChild(makeElement(domDoc, "Dir",           "", data["Dir"]));
-        domElement.appendChild(makeElement(domDoc, "ImagePath",     "", data["ImagePath"]));
-
-        return domElement;
-    }
-    QDomElement amv(  QDomDocument& domDoc,
-                        const QMap<QString, QString> &data
-                        )
-    {
-        QDomElement domElement = makeElement(domDoc,
-                                             "item"
-                                             );
-        domElement.appendChild(makeElement(domDoc, "isEditingDone",   "", data["isEditingDone"]));
-        domElement.appendChild(makeElement(domDoc, "isAdult",         "", data["isAdult"]));
-        domElement.appendChild(makeElement(domDoc, "Title",           "", data["Title"]));
-        domElement.appendChild(makeElement(domDoc, "Author",          "", data["Author"]));
-        domElement.appendChild(makeElement(domDoc, "Сontestant",      "", data["Сontestant"]));
-        domElement.appendChild(makeElement(domDoc, "Score",           "", data["Score"]));
-        domElement.appendChild(makeElement(domDoc, "Year",            "", data["Year"]));
-        domElement.appendChild(makeElement(domDoc, "Tags",            "", data["Tags"]));
-        domElement.appendChild(makeElement(domDoc, "ContainingMusic", "", data["ContainingMusic"]));
-        domElement.appendChild(makeElement(domDoc, "ContainingAnime", "", data["ContainingAnime"]));
-        domElement.appendChild(makeElement(domDoc, "AuthorComment",   "", data["AuthorComment"]));
-        domElement.appendChild(makeElement(domDoc, "URL",             "", data["URL"]));
-        domElement.appendChild(makeElement(domDoc, "Dir",             "", data["Dir"]));
-        domElement.appendChild(makeElement(domDoc, "ImagePath",       "", data["ImagePath"]));
-
-        return domElement;
-    }
-
-    QDomElement dorama(  QDomDocument& domDoc,
-                        const QMap<QString, QString> &data
-                        )
-    {
-        QDomElement domElement = makeElement(domDoc,
-                                             "item"
-                                             );
-        domElement.appendChild(makeElement(domDoc, "isHaveLooked",  "", data["isHaveLooked"]));
-        domElement.appendChild(makeElement(domDoc, "isEditingDone", "", data["isEditingDone"]));
-        domElement.appendChild(makeElement(domDoc, "isAdult",       "", data["isAdult"]));
-        domElement.appendChild(makeElement(domDoc, "Title",         "", data["Title"]));
-        domElement.appendChild(makeElement(domDoc, "AltTitle",      "", data["AltTitle"]));
-        domElement.appendChild(makeElement(domDoc, "Director",      "", data["Director"]));
-        domElement.appendChild(makeElement(domDoc, "SeriesTV",      "", data["SeriesTV"]));
-        domElement.appendChild(makeElement(domDoc, "SeriesSpecial", "", data["SeriesSpecial"]));
-        domElement.appendChild(makeElement(domDoc, "SeriesMovie",   "", data["SeriesMovie"]));
-        domElement.appendChild(makeElement(domDoc, "vSeriesTV",     "", data["vSeriesTV"]));
-        domElement.appendChild(makeElement(domDoc, "vSeriesSpecial","", data["vSeriesSpecial"]));
-        domElement.appendChild(makeElement(domDoc, "vSeriesMovie",  "", data["vSeriesMovie"]));
-        domElement.appendChild(makeElement(domDoc, "Score",         "", data["Score"]));
-        domElement.appendChild(makeElement(domDoc, "Year",          "", data["Year"]));
-        domElement.appendChild(makeElement(domDoc, "Season",        "", data["Season"]));
-        domElement.appendChild(makeElement(domDoc, "Tags",          "", data["Tags"]));
-        domElement.appendChild(makeElement(domDoc, "Description",   "", data["Description"]));
-        domElement.appendChild(makeElement(domDoc, "Actors",        "", data["Actors"]));
-        domElement.appendChild(makeElement(domDoc, "URL",           "", data["URL"]));
-        domElement.appendChild(makeElement(domDoc, "Dir",           "", data["Dir"]));
-        domElement.appendChild(makeElement(domDoc, "ImagePath",     "", data["ImagePath"]));
-
-        return domElement;
-    }
-}
 
 void FormSettings::on_PBtn_Export_clicked()
 {
-    if( ui->LineEdit_ExDir->text().isEmpty() ){
+    bool exAnime  = ui->CBox_ExAnime->isChecked();
+    bool exManga  = ui->CBox_ExManga->isChecked();
+    bool exAmv    = ui->CBox_ExAmv->isChecked();
+    bool exDorama = ui->CBox_ExDorama->isChecked();
+    bool exImages = ui->CBox_ExportImages->isChecked();
+
+    QString exportDir = ui->LineEdit_ExDir->text();
+            exportDir = QDir( exportDir ).path() + QDir::separator();
+
+    if( exportDir.isEmpty() ){
         QMessageBox::warning(this, tr("Warning"), tr("The directory for export isn't choose"));
         ui->LineEdit_ExDir->setFocus();
         return;
     }
 
-    if( QDir::isAbsolutePath( ui->LineEdit_ExDir->text() ) == false ){
+    if( QDir::isAbsolutePath( exportDir ) == false ){
         QMessageBox::warning( this, tr("Warning"), tr("The path shall be absolute") );
         return;
     }
 
     this->setDisabled( true );
 
-    QDomDocument doc("DatabaseAnime");
-    QDomElement  dom = doc.createElement("DatabaseAnime");
-    doc.appendChild(dom);
-
+    QDir().mkpath( exportDir );
+    QFile file( exportDir + "DatabaseAnime.xml" );
+    if( ! file.open( QIODevice::WriteOnly | QIODevice::Text ) ){
+        return;
+    }
+    XmlDbaWriter writer(&file);
     QSqlQuery query;
+    if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::anime)) ) ){
+        qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::anime) );
+        QMessageBox::critical(this, tr("Critical"), tr("Cannot export data") );
+        return;
+    }
 
-    if( ui->CBox_ExAnime->isChecked() ){
+    writer.startDocument();
+    writer.startElement("DatabaseAnime");
+
+    if( exAnime ){
         if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::anime)) ) ){
             qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::anime) );
             QMessageBox::critical(this, tr("Critical"), tr("Cannot export data") );
             return;
         }
 
-        QDomElement  domAnime = doc.createElement("Anime");
-        dom.appendChild(domAnime);
-        while (query.next()) {
+        writer.startSection(sections::anime);
+        while( query.next() ){
             QMap<QString, QString> data;
 
             data["isHaveLooked"]    = query.value("isHaveLooked"    ).toString();
@@ -407,19 +279,19 @@ void FormSettings::on_PBtn_Export_clicked()
             data["Dir"]             = query.value("Dir"             ).toString();
             data["ImagePath"]       = query.value("ImagePath"       ).toString();
 
-            domAnime.appendChild( Export::anime(doc, data) );
+            writer.writeNext(data);
             QCoreApplication::processEvents();
         }
+        writer.endSection(/*Anime*/);
     }
-    if( ui->CBox_ExManga->isChecked() ){
+    if( exManga ){
         if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::manga)) ) ){
             qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::manga) );
             QMessageBox::critical(this, tr("Critical"), tr("Cannot export data") );
             return;
         }
 
-        QDomElement  domManga = doc.createElement("Manga");
-        dom.appendChild(domManga);
+        writer.startSection(sections::manga);
         while (query.next()) {
             QMap<QString, QString> data;
 
@@ -444,19 +316,19 @@ void FormSettings::on_PBtn_Export_clicked()
             data["Dir"]             = query.value("Dir"             ).toString();
             data["ImagePath"]       = query.value("ImagePath"       ).toString();
 
-            domManga.appendChild( Export::manga(doc, data) );
+            writer.writeNext(data);
             QCoreApplication::processEvents();
         }
+        writer.endSection(/*Manga*/);
     }
-    if( ui->CBox_ExAmv->isChecked() ){
+    if( exAmv ){
         if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::amv)) ) ){
             qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::amv) );
             QMessageBox::critical(this, tr("Critical"), tr("Cannot export data") );
             return;
         }
 
-        QDomElement  domAmv = doc.createElement("Amv");
-        dom.appendChild(domAmv);
+        writer.startSection(sections::amv);
         while (query.next()) {
             QMap<QString, QString> data;
 
@@ -475,19 +347,19 @@ void FormSettings::on_PBtn_Export_clicked()
             data["Dir"]             = query.value("Dir"             ).toString();
             data["ImagePath"]       = query.value("ImagePath"       ).toString();
 
-            domAmv.appendChild( Export::amv(doc, data) );
+            writer.writeNext(data);
             QCoreApplication::processEvents();
         }
+        writer.endSection(/*Amv*/);
     }
-    if( ui->CBox_ExDorama->isChecked() ){
+    if( exDorama ){
         if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::dorama)) ) ){
             qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::dorama) );
             QMessageBox::critical(this, tr("Critical"), tr("Cannot export data") );
             return;
         }
 
-        QDomElement  domDorama = doc.createElement("Dorama");
-        dom.appendChild(domDorama);
+        writer.startSection(sections::dorama);
         while (query.next()) {
             QMap<QString, QString> data;
 
@@ -513,74 +385,64 @@ void FormSettings::on_PBtn_Export_clicked()
             data["Dir"]             = query.value("Dir"             ).toString();
             data["ImagePath"]       = query.value("ImagePath"       ).toString();
 
-            domDorama.appendChild( Export::dorama(doc, data) );
+            writer.writeNext(data);
+            QCoreApplication::processEvents();
+        }
+        writer.endSection(/*Dorama*/);
+    }
+    writer.endElement(/*DatabaseAnime*/);
+
+    file.close();
+
+    if( exAnime  && exImages ){
+        QDirIterator it( DefinesPath::animeCovers() );
+        QString animeCoversExportPath( DefinesPath::animeCovers( exportDir ) );
+        QDir().mkpath( animeCoversExportPath );
+        while( it.hasNext() ){
+            it.next();
+            if( it.fileName() == "." || it.fileName() == ".." )
+                continue;
+            QFile( it.filePath() ).copy( animeCoversExportPath + it.fileName() );
+            QCoreApplication::processEvents();
+        }
+    }
+    if( exManga  && exImages ){
+        QDirIterator it( DefinesPath::mangaCovers() );
+        QString mangaCoversExportPath( DefinesPath::mangaCovers( exportDir ) );
+        QDir().mkpath( mangaCoversExportPath );
+        while( it.hasNext() ){
+            it.next();
+            if( it.fileName() == "." || it.fileName() == ".." )
+                continue;
+            QFile( it.filePath() ).copy( mangaCoversExportPath + it.fileName() );
+            QCoreApplication::processEvents();
+        }
+    }
+    if( exAmv && exImages ){
+        QDirIterator it( DefinesPath::amvCovers() );
+        QString amvCoversExportPath( DefinesPath::amvCovers( exportDir ) );
+        QDir().mkpath( amvCoversExportPath );
+        while( it.hasNext() ){
+            it.next();
+            if( it.fileName() == "." || it.fileName() == ".." )
+                continue;
+            QFile( it.filePath() ).copy( amvCoversExportPath + it.fileName() );
+            QCoreApplication::processEvents();
+        }
+    }
+    if( exDorama && exImages ){
+        QDirIterator it( DefinesPath::doramaCovers() );
+        QString doramaCoversExportPath( DefinesPath::doramaCovers( exportDir ) );
+        QDir().mkpath( doramaCoversExportPath );
+        while( it.hasNext() ){
+            it.next();
+            if( it.fileName() == "." || it.fileName() == ".." )
+                continue;
+            QFile( it.filePath() ).copy( doramaCoversExportPath + it.fileName() );
             QCoreApplication::processEvents();
         }
     }
 
-    QDir().mkpath( ui->LineEdit_ExDir->text() );
-    QFile file( QDir(ui->LineEdit_ExDir->text()).path() + QDir::separator() + "DatabaseAnime.xml" );
-    if( file.open( QIODevice::WriteOnly | QIODevice::Text ) ) {
-        QTextStream fstream(&file);
-        doc.save( fstream, 4 );
-        file.close();
-
-        if( ui->CBox_ExAnime->isChecked()  && ui->CBox_ExportImages->isChecked() ){
-            QDirIterator it( DefinesPath::animeCovers() );
-            QString animeCoversExportPath( DefinesPath::animeCovers( ui->LineEdit_ExDir->text() ) );
-            QDir().mkpath( animeCoversExportPath );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).copy( animeCoversExportPath + it.fileName() );
-                QCoreApplication::processEvents();
-            }
-        }
-        if( ui->CBox_ExManga->isChecked()  && ui->CBox_ExportImages->isChecked() ){
-            QDirIterator it( DefinesPath::mangaCovers() );
-            QString mangaCoversExportPath( DefinesPath::mangaCovers( ui->LineEdit_ExDir->text() ) );
-            QDir().mkpath( mangaCoversExportPath );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).copy( mangaCoversExportPath + it.fileName() );
-                QCoreApplication::processEvents();
-            }
-        }
-        if( ui->CBox_ExAmv->isChecked()    && ui->CBox_ExportImages->isChecked() ){
-            QDirIterator it( DefinesPath::amvCovers() );
-            QString amvCoversExportPath( DefinesPath::amvCovers( ui->LineEdit_ExDir->text() ) );
-            QDir().mkpath( amvCoversExportPath );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).copy( amvCoversExportPath + it.fileName() );
-                QCoreApplication::processEvents();
-            }
-        }
-        if( ui->CBox_ExDorama->isChecked() && ui->CBox_ExportImages->isChecked() ){
-            QDirIterator it( DefinesPath::doramaCovers() );
-            QString doramaCoversExportPath( DefinesPath::doramaCovers( ui->LineEdit_ExDir->text() ) );
-            QDir().mkpath( doramaCoversExportPath );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).copy( doramaCoversExportPath + it.fileName() );
-                QCoreApplication::processEvents();
-            }
-        }
-
-    }else{
-        qCritical() << file.errorString()
-                    << "\nFileName: " << file.fileName();
-        this->setEnabled( true );
-        QMessageBox::critical(this, tr("Critical"), tr("File is not created"));
-        return;
-    }
     this->setEnabled( true );
     QMessageBox::information( this, tr("Export"), tr("Export is successfully finished") );
 }

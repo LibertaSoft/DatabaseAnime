@@ -34,7 +34,7 @@ SOURCES += \
     dialogs/settings.cpp \
     definespath.cpp \
     xmldbareader.cpp \
-    dialogs/xmldbawriter.cpp
+    xmldbawriter.cpp
 
 FORMS += \
     mainwindow.ui \
@@ -57,9 +57,9 @@ HEADERS += \
     widgets/stackwgt_mousehideover.h \
     dialogs/settings.h \
     definespath.h \
-    xmldbareader.h \
     globalenum.h \
-    dialogs/xmldbawriter.h
+    xmldbareader.h \
+    xmldbawriter.h
 
 OTHER_FILES += \
     README.md \
