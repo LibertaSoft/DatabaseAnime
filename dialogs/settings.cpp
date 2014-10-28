@@ -242,7 +242,7 @@ void FormSettings::on_PBtn_Export_clicked()
     writer.startElement("DatabaseAnime");
 
     if( exAnime ){
-        if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::anime)) ) ){
+        if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::anime) ) ) ){
             qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::anime) );
             QMessageBox::critical(this, tr("Critical"), tr("Cannot export data") );
             return;
@@ -578,6 +578,7 @@ unsigned long long FormSettings::on_actionImport_triggered()
             qCritical() << "[FormSettings::importAppend] uncorrect section: " << reader.currentSection();
         }
         n++;
+        QCoreApplication::processEvents();
     }
     if( reader.hasError() )
         MngrConnect.rollback();
