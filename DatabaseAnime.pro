@@ -5,6 +5,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = DatabaseAnime
 TEMPLATE = app
 
+
 VERSION = 1.1.1.0
 #Last digit:
 # 0 - Pre-Alpha

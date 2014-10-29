@@ -1,4 +1,6 @@
 *.user
 *.qm
 *~
+Unit-Tests/
+tests/
 build/

@@ -16,7 +16,7 @@ QString DefinesPath::home()
 QString DefinesPath::rootShare()
 {
     #pragma /*[[*/Deprecated/*]]*/
-    return QApplication::applicationDirPath() + QDir::separator()
+    return  QApplication::applicationDirPath() + QDir::separator()
             + ".." + QDir::separator() + "share" + QDir::separator()
             + QApplication::organizationName() + QDir::separator()
             + QApplication::applicationName() + QDir::separator();
@@ -39,9 +39,9 @@ QString DefinesPath::appData(bool useDefault)
     if(useDefault)
         return QStandardPaths::writableLocation( QStandardPaths::DataLocation ) + QDir::separator();
     QSettings s;
-    return s.value("WorkDirectory",
+    return QDir(s.value("WorkDirectory",
                    QStandardPaths::writableLocation( QStandardPaths::DataLocation )
-                   ).toString() + QDir::separator();
+                   ).toString()).path() + QDir::separator();
 
     // Use case:
     // - dbPath()
