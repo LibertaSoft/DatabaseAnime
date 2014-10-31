@@ -26,6 +26,7 @@ public:
     Sort::sort getSort();
     bool getSwitchToDir();
     bool getRestoreDefault();
+    QLocale::Language getLanguage();
 
 //    bool ImportAppend();
 

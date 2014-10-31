@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "definespath.h"
+#include "dbalocalization.h"
 
 #include <QApplication>
 #include <QTranslator>
@@ -65,11 +66,6 @@ int main(int argc, char *argv[])
     app.setApplicationDisplayName( QObject::tr("Database Anime") );
     app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
 
-    QSettings settings;
-    QString set_language       = settings.value( "Application/l10n", "<System>" ).toString();
-    short     set_language_index = settings.value( "Application/l10n_index", 0 ).toInt();
-    QTranslator qtTr;
-
     /*
     qDebug() << QStandardPaths::standardLocations( QStandardPaths::CacheLocation );
     qDebug() << QStandardPaths::standardLocations( QStandardPaths::ConfigLocation );
@@ -91,25 +87,6 @@ int main(int argc, char *argv[])
     qDebug() << QStandardPaths::displayName( QStandardPaths::ApplicationsLocation ) << QStandardPaths::writableLocation( QStandardPaths::ApplicationsLocation );
 
     // */
-
-    if( set_language_index == 0 ){
-        qtTr.load( DefinesPath::l10n()
-                   + "qtbase_" + QLocale::system().name().section('_', 0, 0) + ".qm" );
-    }else{
-        qtTr.load( DefinesPath::l10n()
-                   + "qtbase_" + set_language + ".qm" );
-    }
-    app.installTranslator(&qtTr);
-
-    QTranslator dbaTr;
-    if( set_language_index == 0 ){
-        dbaTr.load( DefinesPath::l10n()
-                    + "DatabaseAnime_" + QLocale::system().name().section('_', 0, 0) + ".qm" );
-    }else{
-        dbaTr.load( DefinesPath::l10n()
-                    + "DatabaseAnime_" + set_language + ".qm" );
-    }
-    app.installTranslator(&dbaTr);
 
     MainWindow wnd;
     wnd.show();

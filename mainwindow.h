@@ -22,6 +22,9 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private:
+    QTranslator qtTr;
+    QTranslator dbaTr;
+
     Ui::MainWindow *ui;
     MngrConnection mngrConnection;
 

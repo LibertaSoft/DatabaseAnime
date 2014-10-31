@@ -9,8 +9,6 @@ class DefinesPath
 public:
     static QString home();
     static QStringList share();
-    static QString rootShare();
-        static QString l10n();
 
     static QString appData(bool useDefault = false);
         static QString dbPath(bool appendFileName = false);

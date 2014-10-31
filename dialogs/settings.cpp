@@ -1,6 +1,7 @@
 #include "dialogs/settings.h"
 #include "ui_settings.h"
 #include "definespath.h"
+#include "dbalocalization.h"
 
 #include "xmldbareader.h"
 #include "xmldbawriter.h"
@@ -76,18 +77,20 @@ FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
     ui->ChBox_Update->setChecked( checkUpdates );
     ui->CBox_SwitchToDirOnHoverCover->setChecked( c1 );
 
-    QString set_language = settings.value( "Application/l10n", tr("<System>") ).toString();
+    QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( "Language", QLocale::English ).toInt());
 
     ui->CB_Language->addItem( tr("<System>"), 0 );
 
-
-    QDir dir( DefinesPath::l10n() );
-    QStringList l10n = dir.entryList( QStringList("DatabaseAnime_*.qm") );
-    for(int i = 0; i < l10n.count(); ++i){
-        ui->CB_Language->addItem( l10n.at(i).section('_', 1, 1).section(".", 0, 0) );
-        if( set_language == l10n.at(i).section('_', 1, 1).section(".", 0, 0) )
-            ui->CB_Language->setCurrentIndex(i+1);
+    QMap<QLocale::Language,QString> langList = DbaLocalization::readExistsLocalizations( DefinesPath::share() );
+    int i(0);
+    foreach (QString langName, langList) {
+        ++i;
+        ui->CB_Language->addItem(langName, langList.key(langName));
+        if( set_language == langList.key(langName) )
+            ui->CB_Language->setCurrentIndex(i);
     }
+
+
     Sort::sort sort = static_cast<Sort::sort>( settings.value( "Sorting", Sort::asc ).toInt() );
     ui->CBox_Sort->setCurrentIndex( sort );
 
@@ -114,6 +117,11 @@ bool FormSettings::getSwitchToDir()
 bool FormSettings::getRestoreDefault()
 {
     return restoreDefault;
+}
+
+QLocale::Language FormSettings::getLanguage()
+{
+    return static_cast<QLocale::Language>( ui->CB_Language->currentData().toInt() );
 }
 
 void FormSettings::on_BtnBox_accepted()
@@ -146,10 +154,7 @@ void FormSettings::on_BtnBox_accepted()
         settings.endGroup();
     settings.endGroup();
 
-    settings.beginGroup("Application");
-        settings.setValue( "l10n", ui->CB_Language->currentText() );
-        settings.setValue( "l10n_index", ui->CB_Language->currentIndex() );
-    settings.endGroup();
+    settings.setValue( "Language", ui->CB_Language->currentData() );
     settings.setValue( "Sorting", ui->CBox_Sort->currentIndex() );
 
     settings.setValue( "VerUpdate", ui->ChBox_Update->isChecked() );

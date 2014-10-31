@@ -35,7 +35,8 @@ SOURCES += \
     dialogs/settings.cpp \
     definespath.cpp \
     xmldbareader.cpp \
-    xmldbawriter.cpp
+    xmldbawriter.cpp \
+    dbalocalization.cpp
 
 FORMS += \
     mainwindow.ui \
@@ -60,7 +61,8 @@ HEADERS += \
     definespath.h \
     globalenum.h \
     xmldbareader.h \
-    xmldbawriter.h
+    xmldbawriter.h \
+    dbalocalization.h
 
 OTHER_FILES += \
     README.md \

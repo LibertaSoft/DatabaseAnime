@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "widgets/lookprogressbar.h"
 #include "definespath.h"
+#include "dbalocalization.h"
 
 #include "dialogs/addanime.h"
 #include "dialogs/addmanga.h"
@@ -30,6 +31,15 @@ MainWindow::MainWindow(QWidget *parent) :
     pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbMovie(NULL), ListWidget_Dir(NULL),
     _btnPlay(NULL), _ScrArea_propertyes(NULL), _restoreDefSettings(false)
 {
+    QSettings settings;
+    QLocale::Language language = static_cast<QLocale::Language>(settings.value( "Language", QLocale::English ).toInt());
+    if( language == 0 ){
+        language = QLocale::system().language();
+    }
+    qtTr.load( DbaLocalization::getQtBaseFileOfLocalization( language, DefinesPath::share() ) );
+    dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
+    qApp->installTranslator(&qtTr);
+    qApp->installTranslator(&dbaTr);
     ui->setupUi(this);
 
     ui->stackedWidget->setCurrentIndex(0);
@@ -50,7 +60,6 @@ MainWindow::MainWindow(QWidget *parent) :
 //    ui->VLay_logoSvg->addWidget( logo );
 //    ui->VLay_logoSvg->setAlignment(logo, Qt::AlignCenter);
 
-    QSettings settings;
 
     // Verification of the new version
     if( settings.value("General/VerUpdate", false).toBool() ){
@@ -134,6 +143,13 @@ void MainWindow::on_PButton_Options_clicked()
     FormSettings formSettings(mngrConnection, this);
     formSettings.setModal(true);
     formSettings.exec();
+
+    QLocale::Language language = formSettings.getLanguage();
+    if( language == 0 )
+        language = QLocale::system().language();
+    qtTr.load( DbaLocalization::getQtBaseFileOfLocalization( language, DefinesPath::share() ) );
+    dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
+    ui->retranslateUi(this);
 
     _sort = formSettings.getSort();
     reloadSectionsList();

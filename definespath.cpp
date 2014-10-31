@@ -1,5 +1,4 @@
 #include "definespath.h"
-#include <QApplication> // [[deprecated]]
 #include <QDir>
 #include <QStandardPaths>
 
@@ -10,23 +9,6 @@
 QString DefinesPath::home()
 {
     return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
-}
-
-//[[deprecated("Use share()")]]
-QString DefinesPath::rootShare()
-{
-    #pragma /*[[*/Deprecated/*]]*/
-    return  QApplication::applicationDirPath() + QDir::separator()
-            + ".." + QDir::separator() + "share" + QDir::separator()
-            + QApplication::organizationName() + QDir::separator()
-            + QApplication::applicationName() + QDir::separator();
-    // Use case:
-    // - l10n()
-}
-
-QString DefinesPath::l10n()
-{
-    return rootShare() + "l10n" + QDir::separator();
 }
 
 QStringList DefinesPath::share()

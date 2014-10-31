@@ -69,6 +69,7 @@ bool XmlDbaWriter::writeNext(QMap<QString, QString> data)
     }
 
     _streamWriter.writeEndElement(); // item
+    return true;
 }
 
 bool XmlDbaWriter::hasError() const
