@@ -25,7 +25,7 @@ QString DefinesPath::appData(bool useDefault)
                    QStandardPaths::writableLocation( QStandardPaths::DataLocation )
                    ).toString()).path() + QDir::separator();
 
-    // Use case:
+    // Use it:
     // - dbPath()
     // - animeCovers()
     // - mangaCovers()
