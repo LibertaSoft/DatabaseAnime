@@ -8,6 +8,7 @@
 #include <QStringListModel>
 #include <QNetworkAccessManager>
 #include <QCompleter>
+#include "shikimoriapi.h"
 
 namespace Ui {
 class DialogAddManga;
@@ -19,9 +20,12 @@ class DialogAddManga : public QDialog
 private:
     Ui::DialogAddManga *ui;
     QSqlQueryModel* model;
+    shikimoriApi api;
+
     bool _isEditRole;
     unsigned long long _recordId;
     QString _oldCover;
+
 
     QLineEdit* LineEdit_AltTitle;
     QLineEdit* LineEdit_Author;
@@ -63,7 +67,7 @@ private slots:
     void replyDownloadPictureFinished(QNetworkReply*);
     void on_LineEdit_Title_textEdited(const QString &title);
     void on_TBtn_Search_clicked();
-    void on_LineEdit_Title_returnPressed();
+    void setRecivedData(QMap<QString,QVariant> data);
 };
 
 #endif // DIALOGADDMANGA_H

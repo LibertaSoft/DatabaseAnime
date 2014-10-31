@@ -167,6 +167,7 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     ui->setupUi(this);
     QSettings settings;
     this->restoreGeometry( settings.value("DialogAddManga/Geometry").toByteArray() );
+    api.setLang("ru");
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -192,6 +193,7 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     ui->setupUi(this);
     QSettings settings;
     this->restoreGeometry( settings.value("DialogAddManga/Geometry").toByteArray() );
+    api.setLang("ru");
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -395,6 +397,7 @@ void DialogAddManga::on_SpinBox_Year_valueChanged(int = 0)
 
 void DialogAddManga::on_LineEdit_Title_textEdited(const QString &title)
 {
+    /*
     // /api/mangas?genre=3&limit=1&mylist=1&order=ranked&page=1&publisher=1&rating=NC-17&search=Te&season=2014&type=Manga
     QUrl url("http://shikimori.org/api/mangas?limit=10&search="+title);
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
@@ -402,6 +405,10 @@ void DialogAddManga::on_LineEdit_Title_textEdited(const QString &title)
             this, SLOT(replySearchFinished(QNetworkReply*)));
 
     manager->get( QNetworkRequest(url) );
+    */
+    connect(&api, &shikimoriApi::dataRecived_mangaSearch,
+            &_titleCompliterModel, &QStringListModel::setStringList );
+    api.searchManga( title );
 }
 
 void DialogAddManga::replySearchFinished(QNetworkReply *r)
@@ -541,15 +548,48 @@ void DialogAddManga::replyDownloadPictureFinished(QNetworkReply *r)
 
 void DialogAddManga::on_TBtn_Search_clicked()
 {
-    QUrl url("http://shikimori.org/api/mangas?limit=1&search="+ui->LineEdit_Title->text() );
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyLastSearchFinished(QNetworkReply*)));
+    QString title = ui->LineEdit_Title->text();
 
-    manager->get( QNetworkRequest(url) );
+    connect(&api, &shikimoriApi::dataRecived_mangaId,
+            &api, &shikimoriApi::pullMangaData);
+    connect(&api, &shikimoriApi::dataRecived_mangaData,
+            this, &DialogAddManga::setRecivedData);
+    api.getMangaId( title );
 }
 
-void DialogAddManga::on_LineEdit_Title_returnPressed()
+void DialogAddManga::setRecivedData(QMap<QString, QVariant> data)
 {
-    on_TBtn_Search_clicked();
+    btnBox_reset();
+    ui->TabWidget_Info->setCurrentIndex(2);
+
+    ui->LineEdit_Title->setText( data["Title"].toString() );
+
+    // Optional Fields
+    if( this->LineEdit_AltTitle )
+        this->LineEdit_AltTitle->setText( data["AltTitle"].toString() );
+//    if( this->LineEdit_Director )
+//        this->LineEdit_Director->setText( obj["russian"].toString() );
+//    if( this->LineEdit_PostScoring )
+//        this->LineEdit_PostScoring->setText( obj["name"].toString() );
+
+    if( data["Year"].toInt() != 0 )
+        ui->SpinBox_Year->setValue( data["Year"].toInt() );
+
+    ui->SpinBox_aVol->setValue( data["Vol"].toInt() );
+    ui->SpinBox_aCh->setValue( data["Ch"].toInt() );
+
+    ui->LineEdit_Tags->setText( data["Tags"].toString() );
+
+    ui->PlainTextEdit_Description->setPlainText( data["Description"].toString() );
+
+    ui->LineEdit_URL->setText( data["URL"].toString() );
+
+    QString cover = data["ImagePath"].toString();
+
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    connect(manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(replyDownloadPictureFinished(QNetworkReply*)));
+
+    QUrl urlCover("http://shikimori.org" + cover);
+    manager->get( QNetworkRequest(urlCover) );
 }

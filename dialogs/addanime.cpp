@@ -138,6 +138,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     ui->setupUi(this);
     QSettings settings;
     this->restoreGeometry( settings.value("DialogAddAnime/Geometry").toByteArray() );
+    api.setLang("ru");
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -163,6 +164,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     ui->setupUi(this);
     QSettings settings;
     this->restoreGeometry( settings.value("DialogAddAnime/Geometry").toByteArray() );
+    api.setLang("ru");
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -443,6 +445,7 @@ void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)
 void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 {
     btnBox_reset();
+    ui->TabWidget_Info->setCurrentIndex(2);
 
     ui->LineEdit_Title->setText( data["Title"].toString() );
 

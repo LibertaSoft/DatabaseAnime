@@ -1,4 +1,7 @@
-﻿#include <QNetworkAccessManager>
+﻿#ifndef SHIKIMORI_API_H
+#define SHIKIMORI_API_H
+
+#include <QNetworkAccessManager>
 #include <QNetworkReply>
 
 #include <QJsonDocument>
@@ -18,6 +21,7 @@ private:
 
 public:
     explicit shikimoriApi(QString lang = "en", QObject* parent = 0);
+    void setLang(QString lang);
 
     void searchAnime(QString title, short limit = 10);
     void searchManga(QString title, short limit = 10);
@@ -49,3 +53,5 @@ private slots:
     void replyAnimeData(QNetworkReply*);
     void replyMangaData(QNetworkReply*);
 };
+
+#endif // SHIKIMORI_API_H

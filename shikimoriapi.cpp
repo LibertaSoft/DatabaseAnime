@@ -7,6 +7,11 @@ shikimoriApi::shikimoriApi(QString lang, QObject *parent)
     _lang = lang;
 }
 
+void shikimoriApi::setLang(QString lang)
+{
+    _lang = lang;
+}
+
 QStringList shikimoriApi::jsonParse_search(QByteArray data)
 {
     QJsonDocument doc = QJsonDocument::fromJson( data );
@@ -82,6 +87,7 @@ QMap<QString,QVariant> shikimoriApi::jsonParse_animeData(QByteArray data)
 
 QMap<QString,QVariant> shikimoriApi::jsonParse_mangaData(QByteArray data)
 {
+    qDebug() << "jsonParse_mangaData started";
     QMap<QString,QVariant> map;
 
 	QJsonDocument doc = QJsonDocument::fromJson( data );
@@ -177,7 +183,7 @@ void shikimoriApi::pullMangaData(unsigned long long id)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this,    SLOT(replyGetAnimeId(QNetworkReply*)));
+            this,    SLOT(replyMangaData(QNetworkReply*)));
 
     QUrl url = "http://shikimori.org/api/mangas/" + QString::number(id);
     manager->get( QNetworkRequest( url ) );
@@ -215,6 +221,7 @@ void shikimoriApi::replyAnimeData(QNetworkReply* reply)
 
 void shikimoriApi::replyMangaData(QNetworkReply* reply)
 {
+    qDebug() << "replyMangaData recived";
     emit dataRecived_mangaData( jsonParse_mangaData( reply->readAll() ) );
     reply->deleteLater();
 }
