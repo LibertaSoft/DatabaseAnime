@@ -1,5 +1,4 @@
 ﻿#include "shikimoriapi.h"
-#include <QDebug>
 
 shikimoriApi::shikimoriApi(QString lang, QObject *parent)
     :QObject(parent)
@@ -29,7 +28,6 @@ QStringList shikimoriApi::jsonParse_search(QByteArray data)
 
 unsigned long long shikimoriApi::jsonParse_getId(QByteArray data)
 {
-    qDebug() << "jsonParse_getId started";
     QJsonDocument doc = QJsonDocument::fromJson( data );
     QJsonArray arr = doc.array();
     QJsonObject obj = arr.at(0).toObject();
@@ -39,7 +37,6 @@ unsigned long long shikimoriApi::jsonParse_getId(QByteArray data)
 
 QMap<QString,QVariant> shikimoriApi::jsonParse_animeData(QByteArray data)
 {
-    qDebug() << "jsonParse_animeData started";
     QMap<QString,QVariant> map;
 
 	QJsonDocument doc = QJsonDocument::fromJson( data );
@@ -87,7 +84,6 @@ QMap<QString,QVariant> shikimoriApi::jsonParse_animeData(QByteArray data)
 
 QMap<QString,QVariant> shikimoriApi::jsonParse_mangaData(QByteArray data)
 {
-    qDebug() << "jsonParse_mangaData started";
     QMap<QString,QVariant> map;
 
 	QJsonDocument doc = QJsonDocument::fromJson( data );
@@ -221,7 +217,6 @@ void shikimoriApi::replyAnimeData(QNetworkReply* reply)
 
 void shikimoriApi::replyMangaData(QNetworkReply* reply)
 {
-    qDebug() << "replyMangaData recived";
     emit dataRecived_mangaData( jsonParse_mangaData( reply->readAll() ) );
     reply->deleteLater();
 }
