@@ -140,6 +140,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_PButton_Options_clicked()
 {
+    sections::section currentSection = static_cast<sections::section>(ui->CB_Section->currentData().toInt());
+    QSettings set;
+    set.setValue("btnSwitchSection/selected", currentSection);
+
     FormSettings formSettings(mngrConnection, this);
     formSettings.setModal(true);
     formSettings.exec();
@@ -152,9 +156,10 @@ void MainWindow::on_PButton_Options_clicked()
     ui->retranslateUi(this);
 
     _sort = formSettings.getSort();
-    reloadSectionsList();
     ui->StackWgt_CoverOrDir->setOptSwitch( formSettings.getSwitchToDir() );
     _restoreDefSettings = formSettings.getRestoreDefault();
+
+    reloadSectionsList();
 }
 
 void MainWindow::on_TButton_Add_clicked()
