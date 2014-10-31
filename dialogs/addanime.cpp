@@ -392,140 +392,20 @@ void DialogAddAnime::on_SpinBox_Year_valueChanged(int = 0)
 
 void DialogAddAnime::on_TBtn_Search_clicked()
 {
-    QUrl url("http://shikimori.org/api/animes?limit=1&search="+ui->LineEdit_Title->text() );
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyLastSearchFinished(QNetworkReply*)));
+    QString title = ui->LineEdit_Title->text();
 
-    manager->get( QNetworkRequest(url) );
+    connect(&api, &shikimoriApi::dataRecived_animeId,
+            &api, &shikimoriApi::pullAnimeData);
+    connect(&api, &shikimoriApi::dataRecived_animeData,
+            this, &DialogAddAnime::setRecivedData);
+    api.getAnimeId( title );
 }
 
 void DialogAddAnime::on_LineEdit_Title_textEdited(const QString &title)
 {
-    QUrl url("http://shikimori.org/api/animes?limit=10&search="+title);
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replySearchFinished(QNetworkReply*)));
-
-    manager->get( QNetworkRequest(url) );
-}
-
-void DialogAddAnime::replySearchFinished(QNetworkReply *r)
-{
-    QByteArray data = r->readAll();
-
-    QJsonDocument doc = QJsonDocument::fromJson( data );
-    QJsonArray arr = doc.array();
-
-    int k(0);
-    QStringList animeList;
-    for( QJsonArray::iterator i = arr.begin(); i != arr.end(); ++i ){
-        QJsonObject obj = arr.at(k).toObject();
-        animeList.append( obj["name"].toString() );
-        ++k;
-    }
-
-    _titleCompliterModel.setStringList( animeList );
-
-    r->deleteLater();
-}
-
-void DialogAddAnime::replyLastSearchFinished(QNetworkReply *r)
-{
-    ui->TabWidget_Info->setCurrentIndex(2);
-    QByteArray data = r->readAll();
-
-    QJsonDocument doc = QJsonDocument::fromJson( data );
-    QJsonArray arr = doc.array();
-
-    QJsonObject obj = arr.at(0).toObject();
-
-    // Запрос на получение данных
-    QUrl url( "http://shikimori.org/api/animes/" + QString::number(obj["id"].toInt()) );
-
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyPullDataFinished(QNetworkReply*)));
-
-    manager->get( QNetworkRequest(url) );
-    r->deleteLater();
-}
-
-void DialogAddAnime::replyPullDataFinished(QNetworkReply *r)
-{
-    btnBox_reset();
-    QByteArray data = r->readAll();
-
-    QJsonDocument doc = QJsonDocument::fromJson( data );
-    QJsonObject obj = doc.object();
-
-    ui->LineEdit_Title->setText( obj["name"].toString() );
-
-    // Optional Fields
-    if( this->LineEdit_OrigTitle )
-        this->LineEdit_OrigTitle->setText( obj["russian"].toString() );
-//    if( this->LineEdit_Director )
-//        this->LineEdit_Director->setText( obj["russian"].toString() );
-//    if( this->LineEdit_PostScoring )
-//        this->LineEdit_PostScoring->setText( obj["name"].toString() );
-
-    QDate date = QDate::fromString( obj["aired_on"].toString(), Qt::ISODate );
-    if( date.year() != 0 )
-        ui->SpinBox_Year->setValue( date.year() );
-
-
-//    ui->SpinBox_Season->setValue( 1 ); // on any not zero
-
-    QJsonArray studiosArray = obj["studios"].toArray();
-    QJsonObject studioObj = studiosArray.at(0).toObject();
-    ui->ComboBox_Studio->setCurrentText( studioObj["name"].toString() );
-
-    if( obj["kind"].toString() == "TV" )
-        ui->SpinBox_aTV->setValue( obj["episodes"].toInt() );
-    else if( obj["kind"].toString() == "OVA" )
-        ui->SpinBox_aOVA->setValue( obj["episodes"].toInt() );
-    else if( obj["kind"].toString() == "ONA" )
-        ui->SpinBox_aONA->setValue( obj["episodes"].toInt() );
-    else if( obj["kind"].toString() == "Special" )
-        ui->SpinBox_aSpec->setValue( obj["episodes"].toInt() );
-    else if( obj["kind"].toString() == "Movie" )
-        ui->SpinBox_aMovie->setValue( obj["episodes"].toInt() );
-
-    QJsonArray tagArray = obj["genres"].toArray();
-
-    QString tags;
-
-    QSettings settings;
-    QString lang( settings.value("Application/l10n", "en").toString() );
-    bool ruLang = (lang == "ru")? true : false;
-
-    for( int i = 0; i < tagArray.size(); ++i ){
-        QJsonObject tagObj = tagArray.at(i).toObject();
-        if( i > 0)
-            tags += ", ";
-        if( ruLang ){
-            tags += tagObj["russian"].toString();
-        }else{
-            tags += tagObj["name"].toString();
-        }
-    }
-
-    ui->LineEdit_Tags->setText( tags );
-
-    ui->PlainTextEdit_Description->setPlainText( obj["description_html"].toString() );
-
-    ui->LineEdit_URL->setText( "http://shikimori.org" + obj["url"].toString() );
-
-    QString cover = (obj["image"].toObject())["original"].toString();
-
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyDownloadPictureFinished(QNetworkReply*)));
-
-    QUrl urlCover("http://shikimori.org" + cover);
-    manager->get( QNetworkRequest(urlCover) );
-
-    r->deleteLater();
+    connect(&api, &shikimoriApi::dataRecived_animeSearch,
+            &_titleCompliterModel, &QStringListModel::setStringList );
+    api.searchAnime( title );
 }
 
 void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)
@@ -560,7 +440,50 @@ void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)
     r->deleteLater();
 }
 
-void DialogAddAnime::on_LineEdit_Title_returnPressed()
+void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 {
-    on_TBtn_Search_clicked();
+    btnBox_reset();
+
+    ui->LineEdit_Title->setText( data["Title"].toString() );
+
+    // Optional Fields
+    if( this->LineEdit_OrigTitle )
+        this->LineEdit_OrigTitle->setText( data["AltTitle"].toString() );
+//    if( this->LineEdit_Director )
+//        this->LineEdit_Director->setText( obj["russian"].toString() );
+//    if( this->LineEdit_PostScoring )
+//        this->LineEdit_PostScoring->setText( obj["name"].toString() );
+
+    if( data["Year"].toInt() != 0 )
+        ui->SpinBox_Year->setValue( data["Year"].toInt() );
+
+//    ui->SpinBox_Season->setValue( 1 ); // on any not zero
+
+    ui->ComboBox_Studio->setCurrentText( data["Studio"].toString() );
+
+    if( data["Type"].toString() == "TV" )
+        ui->SpinBox_aTV->setValue( data["Series"].toInt() );
+    else if( data["Type"].toString() == "OVA" )
+        ui->SpinBox_aOVA->setValue( data["Series"].toInt() );
+    else if( data["Type"].toString() == "ONA" )
+        ui->SpinBox_aONA->setValue( data["Series"].toInt() );
+    else if( data["Type"].toString() == "Special" )
+        ui->SpinBox_aSpec->setValue( data["Series"].toInt() );
+    else if( data["Type"].toString() == "Movie" )
+        ui->SpinBox_aMovie->setValue( data["Series"].toInt() );
+
+    ui->LineEdit_Tags->setText( data["Tags"].toString() );
+
+    ui->PlainTextEdit_Description->setPlainText( data["Description"].toString() );
+
+    ui->LineEdit_URL->setText( "http://shikimori.org" + data["URL"].toString() );
+
+    QString cover = data["ImagePath"].toString();
+
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    connect(manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(replyDownloadPictureFinished(QNetworkReply*)));
+
+    QUrl urlCover("http://shikimori.org" + cover);
+    manager->get( QNetworkRequest(urlCover) );
 }

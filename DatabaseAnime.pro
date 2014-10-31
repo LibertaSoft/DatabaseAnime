@@ -20,32 +20,6 @@ QMAKE_TARGET_PRODUCT = DatabaseAnime
 QMAKE_TARGET_DESCRIPTION = Your database of an anime
 QMAKE_TARGET_COPYRIGHT = (CopyLeft) LibertaSoft
 
-SOURCES += \
-    main.cpp \
-    mainwindow.cpp \
-    mngrconnection.cpp \
-    mngrquerys.cpp \
-    dialogs/addamv.cpp \
-    dialogs/addanime.cpp \
-    dialogs/adddorama.cpp \
-    dialogs/addmanga.cpp \
-    widgets/imagecover.cpp \
-    widgets/lookprogressbar.cpp \
-    widgets/stackwgt_mousehideover.cpp \
-    dialogs/settings.cpp \
-    definespath.cpp \
-    xmldbareader.cpp \
-    xmldbawriter.cpp \
-    dbalocalization.cpp
-
-FORMS += \
-    mainwindow.ui \
-    addamv.ui \
-    addanime.ui \
-    adddorama.ui \
-    addmanga.ui \
-    settings.ui
-
 HEADERS += \
     mainwindow.h \
     mngrconnection.h \
@@ -62,7 +36,35 @@ HEADERS += \
     globalenum.h \
     xmldbareader.h \
     xmldbawriter.h \
-    dbalocalization.h
+    dbalocalization.h \
+    shikimoriapi.h
+
+SOURCES += \
+    main.cpp \
+    mainwindow.cpp \
+    mngrconnection.cpp \
+    mngrquerys.cpp \
+    dialogs/addamv.cpp \
+    dialogs/addanime.cpp \
+    dialogs/adddorama.cpp \
+    dialogs/addmanga.cpp \
+    widgets/imagecover.cpp \
+    widgets/lookprogressbar.cpp \
+    widgets/stackwgt_mousehideover.cpp \
+    dialogs/settings.cpp \
+    definespath.cpp \
+    xmldbareader.cpp \
+    xmldbawriter.cpp \
+    dbalocalization.cpp \
+    shikimoriapi.cpp
+
+FORMS += \
+    mainwindow.ui \
+    addamv.ui \
+    addanime.ui \
+    adddorama.ui \
+    addmanga.ui \
+    settings.ui
 
 OTHER_FILES += \
     README.md \

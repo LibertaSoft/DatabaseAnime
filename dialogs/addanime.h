@@ -8,6 +8,7 @@
 #include <QStringListModel>
 #include <QNetworkAccessManager>
 #include <QCompleter>
+#include "shikimoriapi.h"
 
 namespace Ui {
 class DialogAddAnime;
@@ -19,6 +20,7 @@ class DialogAddAnime : public QDialog
 private:
     Ui::DialogAddAnime *ui;
     QSqlQueryModel* model;
+    shikimoriApi api;
 
     bool _isEditRole;
     unsigned long long _recordId;
@@ -60,13 +62,10 @@ private slots:
     void on_SpinBox_Year_valueChanged(int value);
     void on_TBtn_Search_clicked();
 
-    void replySearchFinished(QNetworkReply*);
-    void replyLastSearchFinished(QNetworkReply*);
-    void replyPullDataFinished(QNetworkReply*);
     void replyDownloadPictureFinished(QNetworkReply*);
     void on_LineEdit_Title_textEdited(const QString&title);
 
-    void on_LineEdit_Title_returnPressed();
+    void setRecivedData(QMap<QString,QVariant>);
 };
 
 #endif // DialogAddAnime_H
