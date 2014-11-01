@@ -61,9 +61,6 @@ private slots:
     void on_TBtn_ChooseDir_clicked();
     void on_SpinBox_Year_valueChanged(int);
 
-    void replySearchFinished(QNetworkReply*);
-    void replyLastSearchFinished(QNetworkReply*);
-    void replyPullDataFinished(QNetworkReply*);
     void replyDownloadPictureFinished(QNetworkReply*);
     void on_LineEdit_Title_textEdited(const QString &title);
     void on_TBtn_Search_clicked();

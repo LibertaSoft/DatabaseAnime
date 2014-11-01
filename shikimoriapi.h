@@ -8,6 +8,9 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+#include <QDate>
+#include <QMap>
+
 class shikimoriApi : public QObject {
     Q_OBJECT
 private:
