@@ -1,8 +1,9 @@
 # To Do
 ####[Долгосрочные]
-- [ ] {19.8%} Документация
+- [ ] {52.8%} Русскоязычная документация
+  - [ ] {0.0%} Перевод документации на английский
 - [ ] {0.00%} Пользовательская wiki
-- [ ] {13.32%} Написание юнит-тестов
+- [ ] {14.28%} Написание юнит-тестов
 
 ####[В процессе]
 - [ ] Обновить переводы
@@ -91,27 +92,26 @@
   - [ ] Полное изменение дизайна
 
 ####[Написание документации]
-- [ ] DefinesPath
-- [ ] DbaLocalization
-- [ ] MainWindow
+- [x] DefinesPath
+- [x] DbaLocalization
 - [x] MngrConnection
-- [ ] MngrQuerys
+- [x] MngrQuerys
 - [x] shikimoriApi
 - [ ] XmlDbaReader
 - [ ] XmlDbaWriter
+- [ ] MainWindow
 - [ ] Dialogs/AddAmv
 - [ ] Dialogs/AddAnime
 - [ ] Dialogs/AddDorama
 - [ ] Dialogs/AddManga
-- [ ] Widgets/ImageCover
+- [x] Widgets/ImageCover
 - [x] Widgets/LookProgressBar
-- [ ] Widgets/StackWgt_MouseHideOver
+- [x] Widgets/StackWgt_MouseHideOver
 
 ####[Написание юнит-тестов]
 - [x] DefinesPath
 - [x] DbaLocalization
 - [ ] MainWindow
-- [ ] MngrConnection
 - [ ] MngrQuerys
 - [ ] shikimoriApi
 - [ ] XmlDbaReader

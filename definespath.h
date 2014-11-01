@@ -18,9 +18,6 @@ public:
         static QString mangaCovers(const QString prefix = QString::null);
         static QString amvCovers(const QString prefix = QString::null);
         static QString doramaCovers(const QString prefix = QString::null);
-
-
-
 };
 
 #endif // DEFINESPATH_H

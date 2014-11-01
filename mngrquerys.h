@@ -23,16 +23,14 @@ public:
     static bool createTable_Manga();
     static bool createTable_Amv();
     static bool createTable_Dorama();
+
     static QStringList getAnimeTags();
     static QStringList getMangaTags();
     static QStringList getAmvTags();
     static QStringList getDoramaTags();
-    static QString getAnimeCoversPath();
-    static QString getMangaCoversPath();
-    static QString getAmvCoversPath();
-    static QString getDoramaCoversPath();
 
     static bool updateRecord(sections::section table, unsigned long long recoord_id, QString field, QString newValue);
+
     static bool insertAnime(QMap<QString, QVariant> &data);
     static bool insertManga(QMap<QString, QVariant> &data);
     static bool insertAmv(QMap<QString, QVariant> &data);

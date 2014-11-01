@@ -1,9 +1,14 @@
 #ifndef MNGRCONNECTION_H
 #define MNGRCONNECTION_H
 
+#include "definespath.h"
+
 #include <QtSql>
 #include <QSettings>
 #include <QApplication>
+#include <QDir>
+#include <QUrl>
+#include <QMessageBox>
 
 class MngrConnection
 {

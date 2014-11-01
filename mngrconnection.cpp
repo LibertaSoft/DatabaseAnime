@@ -1,10 +1,5 @@
 #include "mngrconnection.h"
 
-#include <QDir>
-#include <QUrl>
-#include "definespath.h"
-#include <QMessageBox>
-
 MngrConnection::MngrConnection()
 {
     const QString dbUser("");
