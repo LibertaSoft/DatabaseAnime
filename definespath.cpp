@@ -13,6 +13,7 @@ QString DefinesPath::home()
 
 QStringList DefinesPath::share()
 {
+    // #Bug not ended whits '/'
     return QStandardPaths::standardLocations( QStandardPaths::DataLocation );
 }
 

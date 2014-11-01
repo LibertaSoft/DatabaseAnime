@@ -1,8 +1,8 @@
 # To Do
 ####[Долгосрочные]
-- [ ] {2%} Документация
-- [ ] {0%} Пользовательская wiki
-- [ ] {0%} Написание юнит-тестов
+- [ ] {19.8%} Документация
+- [ ] {0.00%} Пользовательская wiki
+- [ ] {13.32%} Написание юнит-тестов
 
 ####[В процессе]
 - [ ] Обновить переводы
@@ -27,6 +27,7 @@
 - [x] Горячие клавиши для удаления, добавления, редактирования
 - [x] Оптимизация экспорта в XML
 - [x] Рефакторинг
+  - [ ] DefinesPath::share() - строки не оканчиваются на '/'
   - [x] Поддиректории для собственных виджетов и диалогов.
   - [x] Работа с api сайта shikimori.org вынесена в отдельный модуль
     - [x] Реализация класса shikimoriApi
@@ -37,7 +38,7 @@
     - [x] Реализация класса импорта
     - [x] Реализация класса экспорта
 - Не было исправлено:
-  - Краш QtSql при экспорте на 748800 записях (RAM: 1,5Gb; HDD: 1 219 669Mb)
+  - Краш QtSql при экспорте на ~748800 записях (RAM: 1,5Gb; HDD: 1 219 669Mb)
 
 ####[На рассмотрении]
 *Необходимость реализации пунктов этого списка соинительна и/или находится в не обдуманном состоянии*
@@ -85,3 +86,37 @@
 *Планы на далёкое, или не очень, будущее*
 - [ ] Переход на QtQuick/QML
   - [ ] Полное изменение дизайна
+
+####[Написание документации]
+- [ ] DefinesPath
+- [ ] DbaLocalization
+- [ ] MainWindow
+- [x] MngrConnection
+- [ ] MngrQuerys
+- [x] shikimoriApi
+- [ ] XmlDbaReader
+- [ ] XmlDbaWriter
+- [ ] Dialogs/AddAmv
+- [ ] Dialogs/AddAnime
+- [ ] Dialogs/AddDorama
+- [ ] Dialogs/AddManga
+- [ ] Widgets/ImageCover
+- [x] Widgets/LookProgressBar
+- [ ] Widgets/StackWgt_MouseHideOver
+
+####[Написание юнит-тестов]
+- [x] DefinesPath
+- [x] DbaLocalization
+- [ ] MainWindow
+- [ ] MngrConnection
+- [ ] MngrQuerys
+- [ ] shikimoriApi
+- [ ] XmlDbaReader
+- [ ] XmlDbaWriter
+- [ ] Dialogs/AddAmv
+- [ ] Dialogs/AddAnime
+- [ ] Dialogs/AddDorama
+- [ ] Dialogs/AddManga
+- [ ] Widgets/ImageCover
+- [ ] Widgets/LookProgressBar
+- [ ] Widgets/StackWgt_MouseHideOver
