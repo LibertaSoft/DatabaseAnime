@@ -30,9 +30,14 @@ void Test_DefinesPath::home()
     QCOMPARE(DefinesPath::home(), QStandardPaths::writableLocation(QStandardPaths::HomeLocation) );
 }
 
-void Test_DefinesPath::share(){
-    // Compare end whith '/'
-    QCOMPARE(DefinesPath::share(), QStandardPaths::standardLocations( QStandardPaths::DataLocation ) );
+void Test_DefinesPath::share()
+{
+    QStringList paths = QStandardPaths::standardLocations( QStandardPaths::DataLocation );
+    QStringList newPaths;
+    foreach (QString path, paths) {
+        newPaths << path + QDir::separator();
+    }
+    QCOMPARE(DefinesPath::share(), newPaths );
 }
 
 void Test_DefinesPath::appData()

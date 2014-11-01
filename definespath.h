@@ -3,6 +3,8 @@
 
 #include <QString>
 #include <QSettings>
+#include <QDir>
+#include <QStandardPaths>
 
 class DefinesPath
 {

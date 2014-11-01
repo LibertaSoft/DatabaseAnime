@@ -16,7 +16,7 @@ QMap<QLocale::Language,QString> DbaLocalization::readExistsLocalizations(QString
     }
 
     foreach (QString path, paths) {
-        QString l10n = path + QDir::separator() + "l10n" + QDir::separator();
+        QString l10n = QDir(path).path() + QDir::separator() + "l10n" + QDir::separator();
         foreach(QString fileName, QDir(l10n).entryList( QStringList("DatabaseAnime*")) ){
             fileName = fileName.replace("DatabaseAnime_", "");
             fileName = fileName.replace(".qm", "");
@@ -36,7 +36,7 @@ QString DbaLocalization::getFileOfLocalization(QLocale::Language lang, QStringLi
     }
 
     foreach (QString path, paths) {
-        QString l10n = path + QDir::separator() + "l10n" + QDir::separator();
+        QString l10n = QDir(path).path() + QDir::separator() + "l10n" + QDir::separator();
         foreach(QString fileName, QDir(l10n).entryList( QStringList("DatabaseAnime*")) ){
             QString fullFileName = fileName;
             fileName.replace("DatabaseAnime_", "").replace(".qm", "");
@@ -61,7 +61,7 @@ QString DbaLocalization::getQtBaseFileOfLocalization(QLocale::Language lang, QSt
         return QString::null;
 
     foreach (QString path, paths) {
-        QString l10n = path + QDir::separator() + "l10n" + QDir::separator();
+        QString l10n = QDir(path).path() + QDir::separator() + "l10n" + QDir::separator();
         foreach(QString fileName, QDir(l10n).entryList( QStringList("qtbase_*")) ){
             QString fullFileName = fileName;
             fileName.replace("qtbase_", "").replace(".qm", "");

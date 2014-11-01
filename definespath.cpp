@@ -1,6 +1,4 @@
 #include "definespath.h"
-#include <QDir>
-#include <QStandardPaths>
 
 #include <QDebug>
 
@@ -13,8 +11,12 @@ QString DefinesPath::home()
 
 QStringList DefinesPath::share()
 {
-    // #Bug not ended whits '/'
-    return QStandardPaths::standardLocations( QStandardPaths::DataLocation );
+    QStringList paths = QStandardPaths::standardLocations( QStandardPaths::DataLocation );
+    QStringList newPaths;
+    foreach (QString path, paths) {
+        newPaths << path + QDir::separator();
+    }
+    return newPaths;
 }
 
 QString DefinesPath::appData(bool useDefault)
