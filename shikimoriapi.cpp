@@ -31,7 +31,8 @@ unsigned long long shikimoriApi::jsonParse_getId(QByteArray data)
     QJsonDocument doc = QJsonDocument::fromJson( data );
     QJsonArray arr = doc.array();
     QJsonObject obj = arr.at(0).toObject();
-    return obj["id"].toString().toULongLong();
+    return obj["id"].toInt();
+    #pragma int2ulonglong;
 }
 
 QMap<QString,QVariant> shikimoriApi::jsonParse_animeData(QByteArray data)
@@ -40,7 +41,6 @@ QMap<QString,QVariant> shikimoriApi::jsonParse_animeData(QByteArray data)
 
 	QJsonDocument doc = QJsonDocument::fromJson( data );
 	QJsonObject obj = doc.object();
-	
 	map["Title"] = obj["name"].toString();
 	map["AltTitle"] = obj["russian"].toString();
 	
