@@ -482,7 +482,7 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 
     ui->PlainTextEdit_Description->setPlainText( data["Description"].toString() );
 
-    ui->LineEdit_URL->setText( "http://shikimori.org" + data["URL"].toString() );
+    ui->LineEdit_URL->setText( data["URL"].toString() );
 
     QString cover = data["ImagePath"].toString();
 
