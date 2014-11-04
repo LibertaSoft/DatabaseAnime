@@ -26,8 +26,8 @@ public:
     explicit shikimoriApi(QString lang = "en", QObject* parent = 0);
     void setLang(QString lang);
 
-    void searchAnime(QString title, short limit = 10);
-    void searchManga(QString title, short limit = 10);
+    void searchAnime(QString title, short limit = 5);
+    void searchManga(QString title, short limit = 5);
 
     void getAnimeId(QString title);
     void getMangaId(QString title);

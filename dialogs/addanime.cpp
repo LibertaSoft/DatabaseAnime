@@ -19,6 +19,22 @@
 #include <QDebug>
 
 
+void DialogAddAnime::initTitleCompleter()
+{
+    // Init QCompliter
+    TitleCompliter = new QCompleter( this );
+    TitleCompliter->setModel(&_titleCompliterModel);
+    TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
+    TitleCompliter->setCompletionMode(QCompleter::UnfilteredPopupCompletion); // PopupCompletion
+    ui->LineEdit_Title->setCompleter( TitleCompliter );
+    connect(&api, &shikimoriApi::dataRecived_animeSearch,
+            &_titleCompliterModel, &QStringListModel::setStringList );
+    connect(&api, &shikimoriApi::dataRecived_animeId,
+            &api, &shikimoriApi::pullAnimeData);
+    connect(&api, &shikimoriApi::dataRecived_animeData,
+            this, &DialogAddAnime::setRecivedData);
+}
+
 void DialogAddAnime::initTags()
 {
     _tags.setStringList( MngrQuerys::getAnimeTags() );
@@ -145,12 +161,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
 
-    // Init QCompliter
-    TitleCompliter = new QCompleter( this );
-    TitleCompliter->setModel(&_titleCompliterModel);
-    TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
-    ui->LineEdit_Title->setCompleter( TitleCompliter );
-
+    initTitleCompleter();
     initTags();
     initOptionalFields();
     setTabOrders();
@@ -171,12 +182,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
 
-    // Init QCompliter
-    TitleCompliter = new QCompleter( this );
-    TitleCompliter->setModel(&_titleCompliterModel);
-    TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
-    ui->LineEdit_Title->setCompleter( TitleCompliter );
-
+    initTitleCompleter();
     initTags();
     initOptionalFields();
     setTabOrders();
@@ -395,18 +401,15 @@ void DialogAddAnime::on_SpinBox_Year_valueChanged(int = 0)
 void DialogAddAnime::on_TBtn_Search_clicked()
 {
     QString title = ui->LineEdit_Title->text();
-
-    connect(&api, &shikimoriApi::dataRecived_animeId,
-            &api, &shikimoriApi::pullAnimeData);
-    connect(&api, &shikimoriApi::dataRecived_animeData,
-            this, &DialogAddAnime::setRecivedData);
     api.getAnimeId( title );
 }
 
 void DialogAddAnime::on_LineEdit_Title_textEdited(const QString &title)
 {
-    connect(&api, &shikimoriApi::dataRecived_animeSearch,
-            &_titleCompliterModel, &QStringListModel::setStringList );
+    foreach ( QString name, _titleCompliterModel.stringList() ) {
+        if( name.toUpper().contains( title.toUpper() ) )
+            return;
+    }
     api.searchAnime( title );
 }
 

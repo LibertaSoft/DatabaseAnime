@@ -402,8 +402,8 @@
               <string notr="true">GitHub</string>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>../../../Pictures/.icon/git.ico</normaloff>../../../Pictures/.icon/git.ico</iconset>
+              <iconset resource="resource.qrc">
+               <normaloff>:/images/git.png</normaloff>:/images/git.png</iconset>
              </property>
             </widget>
            </item>
@@ -419,8 +419,8 @@
               <string notr="true">vk.com</string>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>../../../../../tmp/1.png</normaloff>../../../../../tmp/1.png</iconset>
+              <iconset resource="resource.qrc">
+               <normaloff>:/images/vk.png</normaloff>:/images/vk.png</iconset>
              </property>
             </widget>
            </item>

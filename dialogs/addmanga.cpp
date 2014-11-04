@@ -17,6 +17,22 @@
 #include <QMessageBox>
 #include <QDebug>
 
+void DialogAddManga::initTitleCompleter()
+{
+    // Init QCompliter
+    TitleCompliter = new QCompleter( this );
+    TitleCompliter->setModel(&_titleCompliterModel);
+    TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
+    TitleCompliter->setCompletionMode(QCompleter::UnfilteredPopupCompletion); // PopupCompletion
+    ui->LineEdit_Title->setCompleter( TitleCompliter );
+    connect(&api, &shikimoriApi::dataRecived_mangaSearch,
+            &_titleCompliterModel, &QStringListModel::setStringList );
+    connect(&api, &shikimoriApi::dataRecived_mangaId,
+            &api, &shikimoriApi::pullMangaData);
+    connect(&api, &shikimoriApi::dataRecived_mangaData,
+            this, &DialogAddManga::setRecivedData);
+}
+
 void DialogAddManga::initTags()
 {
     _tags.setStringList( MngrQuerys::getMangaTags() );
@@ -174,12 +190,7 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
 
-    // Init QCompliter
-    TitleCompliter = new QCompleter( this );
-    TitleCompliter->setModel(&_titleCompliterModel);
-    TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
-    ui->LineEdit_Title->setCompleter( TitleCompliter );
-
+    initTitleCompleter();
     createOptionalFields();
     setTabOrders();
     setDataInFields();
@@ -200,12 +211,7 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
 
-    // Init QCompliter
-    TitleCompliter = new QCompleter( this );
-    TitleCompliter->setModel(&_titleCompliterModel);
-    TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
-    ui->LineEdit_Title->setCompleter( TitleCompliter );
-
+    initTitleCompleter();
     createOptionalFields();
     setTabOrders();
     initTags();
@@ -397,8 +403,10 @@ void DialogAddManga::on_SpinBox_Year_valueChanged(int = 0)
 
 void DialogAddManga::on_LineEdit_Title_textEdited(const QString &title)
 {
-    connect(&api, &shikimoriApi::dataRecived_mangaSearch,
-            &_titleCompliterModel, &QStringListModel::setStringList );
+    foreach ( QString name, _titleCompliterModel.stringList() ) {
+        if( name.toUpper().contains( title.toUpper() ) )
+            return;
+    }
     api.searchManga( title );
 }
 
@@ -437,11 +445,6 @@ void DialogAddManga::replyDownloadPictureFinished(QNetworkReply *r)
 void DialogAddManga::on_TBtn_Search_clicked()
 {
     QString title = ui->LineEdit_Title->text();
-
-    connect(&api, &shikimoriApi::dataRecived_mangaId,
-            &api, &shikimoriApi::pullMangaData);
-    connect(&api, &shikimoriApi::dataRecived_mangaData,
-            this, &DialogAddManga::setRecivedData);
     api.getMangaId( title );
 }
 

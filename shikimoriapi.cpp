@@ -21,8 +21,11 @@ QStringList shikimoriApi::jsonParse_search(QByteArray data)
     for( QJsonArray::iterator i = arr.begin(); i != arr.end(); ++i ){
         QJsonObject obj = arr.at(k).toObject();
         animeList.append( obj["name"].toString() );
+        if( obj["russian"].toString().isEmpty() == false )
+            animeList.append( obj["russian"].toString() );
         ++k;
     }
+    qDebug() << animeList;
     return animeList;
 }
 

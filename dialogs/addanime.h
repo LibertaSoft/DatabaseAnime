@@ -36,6 +36,7 @@ private:
     QCompleter *TitleCompliter;
     QStringListModel _completerModel;
 
+    void initTitleCompleter();
     void initTags();
     void initOptionalFields();
     void setDataInField();

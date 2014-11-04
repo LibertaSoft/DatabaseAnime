@@ -31,5 +31,7 @@
         <file>images/export.png</file>
         <file>images/import.png</file>
         <file>images/search.png</file>
+        <file>images/git.png</file>
+        <file>images/vk.png</file>
     </qresource>
 </RCC>

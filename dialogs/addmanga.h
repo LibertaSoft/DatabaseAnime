@@ -37,6 +37,7 @@ private:
 
     QStringListModel _tags;
 
+    void initTitleCompleter();
     void initTags();
     void initOptionalFields();
     void setDataInFields();
