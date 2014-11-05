@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>626</width>
+    <width>678</width>
     <height>522</height>
    </rect>
   </property>
@@ -727,6 +727,17 @@
             </widget>
            </item>
           </layout>
+          <zorder>GBox_FieldsForEdit</zorder>
+          <zorder>GBox_FieldsForEdit_2</zorder>
+          <zorder>GBox_FieldsForEdit_3</zorder>
+          <zorder>CBox_Anime_PostScoring</zorder>
+          <zorder>CBox_Anime_Director</zorder>
+          <zorder>CBox_Anime_AltTitle</zorder>
+          <zorder>CBox_Manga_Author</zorder>
+          <zorder>CBox_Manga_Translation</zorder>
+          <zorder>CBox_Manga_AltTitle</zorder>
+          <zorder>CBox_Dorama_AltTitle</zorder>
+          <zorder>CBox_Dorama_Director</zorder>
          </widget>
         </widget>
        </item>

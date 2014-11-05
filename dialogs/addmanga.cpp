@@ -403,6 +403,8 @@ void DialogAddManga::on_SpinBox_Year_valueChanged(int = 0)
 
 void DialogAddManga::on_LineEdit_Title_textEdited(const QString &title)
 {
+    if( title.count() < 3 )
+        return;
     foreach ( QString name, _titleCompliterModel.stringList() ) {
         if( name.toUpper().contains( title.toUpper() ) )
             return;

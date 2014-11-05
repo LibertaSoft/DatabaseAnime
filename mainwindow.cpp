@@ -45,6 +45,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->setCurrentIndex(0);
     ui->StackWgt_CoverOrDir->setCurrentIndex(0);
     ui->lbl_AppTitle->setText( QApplication::applicationDisplayName() );
+
+    int font_id = QFontDatabase::addApplicationFont("://fonts/URWChanceryL-MediItal");
+    ui->lbl_AppTitle->setFont( QFont( QFontDatabase::applicationFontFamilies(font_id).at(0), 26 ) );
+
     ui->Lbl_VVersion->setText( QApplication::applicationVersion() );
 
 

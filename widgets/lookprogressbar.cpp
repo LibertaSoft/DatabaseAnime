@@ -168,8 +168,9 @@ void LookProgressBar::paintEvent(QPaintEvent*)
         pSub.load("://images/list-remove.png");
     }
 
-    QRect xrbtnPls(4,4,height()-8,height()-8);
-    QRect xrbtnSub(height()+4,4,height()-8,height()-8);
+    QRect xrbtnSub(4,4,height()-8,height()-8);
+    QRect xrbtnPls(height()+4,4,height()-8,height()-8);
+
 
     p.drawPixmap(xrbtnPls, pUp);
     p.drawPixmap(xrbtnSub, pSub);
@@ -199,17 +200,25 @@ void LookProgressBar::leaveEvent(QEvent*)
 
 void LookProgressBar::mouseMoveEvent(QMouseEvent *pe)
 {
+    /// such approach:
+    /// "if (setActiveBtnAdd(false) || setActiveBtnSub(true))"
+    /// It is applied to optimization since it isn't required to redraw the button if it it isn't required
+
     const int height2 = height()*2;
     if( pe->pos().x() < height2 ){
+        // Mouse is to the on buttons
         if( pe->pos().x() < height2>>1 ){
-            if( setActiveBtnAdd( true ) || setActiveBtnSub( false ) )
+            // Mouse on left button
+            if( setActiveBtnAdd( false ) || setActiveBtnSub( true ) )
                 repaint();
         }else{
-            if( setActiveBtnAdd( false ) || setActiveBtnSub( true ) )
+            // Mouse on right button
+            if( setActiveBtnAdd( true ) || setActiveBtnSub( false ) )
                 repaint();
         }
     }else{
-        if( setActiveBtnSub( false ) )
+        // Mouse is to the right of buttons
+        if( setActiveBtnAdd( false ) )
             repaint();
     }
 }

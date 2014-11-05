@@ -406,6 +406,8 @@ void DialogAddAnime::on_TBtn_Search_clicked()
 
 void DialogAddAnime::on_LineEdit_Title_textEdited(const QString &title)
 {
+    if( title.count() < 3 )
+        return;
     foreach ( QString name, _titleCompliterModel.stringList() ) {
         if( name.toUpper().contains( title.toUpper() ) )
             return;

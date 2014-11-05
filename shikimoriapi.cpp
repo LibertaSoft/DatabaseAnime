@@ -16,16 +16,15 @@ QStringList shikimoriApi::jsonParse_search(QByteArray data)
     QJsonDocument doc = QJsonDocument::fromJson( data );
     QJsonArray arr = doc.array();
 
-    int k(0);
     QStringList animeList;
-    for( QJsonArray::iterator i = arr.begin(); i != arr.end(); ++i ){
-        QJsonObject obj = arr.at(k).toObject();
+    foreach(QJsonValue val, arr){
+        QJsonObject obj = val.toObject();
         animeList.append( obj["name"].toString() );
         if( obj["russian"].toString().isEmpty() == false )
             animeList.append( obj["russian"].toString() );
-        ++k;
     }
-    qDebug() << animeList;
+
+//    qDebug() << animeList;
     return animeList;
 }
 
