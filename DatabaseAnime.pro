@@ -28,10 +28,10 @@ HEADERS += \
     dialogs/addanime.h \
     dialogs/adddorama.h \
     dialogs/addmanga.h \
+    dialogs/settings.h \
     widgets/imagecover.h \
     widgets/lookprogressbar.h \
     widgets/stackwgt_mousehideover.h \
-    dialogs/settings.h \
     definespath.h \
     globalenum.h \
     xmldbareader.h \
@@ -48,10 +48,10 @@ SOURCES += \
     dialogs/addanime.cpp \
     dialogs/adddorama.cpp \
     dialogs/addmanga.cpp \
+    dialogs/settings.cpp \
     widgets/imagecover.cpp \
     widgets/lookprogressbar.cpp \
     widgets/stackwgt_mousehideover.cpp \
-    dialogs/settings.cpp \
     definespath.cpp \
     xmldbareader.cpp \
     xmldbawriter.cpp \
@@ -64,7 +64,7 @@ FORMS += \
     addanime.ui \
     adddorama.ui \
     addmanga.ui \
-    settings.ui
+    settings.ui \
 
 OTHER_FILES += \
     README.md \

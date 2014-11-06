@@ -1,802 +1,755 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>FormSettings</class>
- <widget class="QWidget" name="FormSettings">
-  <property name="windowModality">
-   <enum>Qt::NonModal</enum>
-  </property>
+ <class>Settings</class>
+ <widget class="QDialog" name="Settings">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>678</width>
-    <height>522</height>
+    <width>742</width>
+    <height>565</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Options</string>
+   <string>Settings</string>
   </property>
-  <property name="locale">
-   <locale language="English" country="UnitedKingdom"/>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../../../images/config.png</normaloff>../../../../images/config.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QGroupBox" name="GBox_General">
-     <property name="title">
-      <string>General:</string>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_4">
+     <widget class="QListWidget" name="listWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>200</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="viewMode">
+       <enum>QListView::ListMode</enum>
+      </property>
       <item>
-       <layout class="QHBoxLayout" name="HLay_LangSort">
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="Lbl_Lanuage">
-          <property name="text">
-           <string>Language:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="CB_Language">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>140</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="whatsThis">
-           <string>You can use a mouse wheel for value change</string>
-          </property>
-          <property name="currentText">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="HSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Expanding</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="Lbl_Sort">
-          <property name="text">
-           <string>Sorting:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="CBox_Sort">
-          <property name="whatsThis">
-           <string>You can use a mouse wheel for value change</string>
-          </property>
-          <item>
-           <property name="text">
-            <string>None</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>ASC</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>DESC</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Year</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-       </layout>
+       <property name="text">
+        <string>General</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../../images/DBA_Icon.png</normaloff>../../../../images/DBA_Icon.png</iconset>
+       </property>
+       <property name="flags">
+        <set>ItemIsSelectable|ItemIsEnabled</set>
+       </property>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="HLay_SwitchToDirOnHoverACover">
+       <property name="text">
+        <string>Optional fields</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../../images/config.png</normaloff>../../../../images/config.png</iconset>
+       </property>
+       <property name="flags">
+        <set>ItemIsSelectable|ItemIsEnabled</set>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Import</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../../images/import.png</normaloff>../../../../images/import.png</iconset>
+       </property>
+       <property name="flags">
+        <set>ItemIsSelectable|ItemIsEnabled</set>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Export</string>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../../../../images/export.png</normaloff>../../../../images/export.png</iconset>
+       </property>
+       <property name="flags">
+        <set>ItemIsSelectable|ItemIsEnabled</set>
+       </property>
+      </item>
+     </widget>
+     <widget class="QStackedWidget" name="StackedWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Box</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="Page_General">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <property name="leftMargin">
+         <number>2</number>
+        </property>
         <property name="topMargin">
-         <number>0</number>
+         <number>2</number>
+        </property>
+        <property name="rightMargin">
+         <number>2</number>
+        </property>
+        <property name="bottomMargin">
+         <number>2</number>
         </property>
         <item>
-         <widget class="QCheckBox" name="ChBox_Update">
-          <property name="text">
-           <string>Check for update</string>
+         <widget class="QScrollArea" name="ScrollArea_General">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QCheckBox" name="CBox_SwitchToDirOnHoverCover">
-          <property name="enabled">
+          <property name="widgetResizable">
            <bool>true</bool>
           </property>
-          <property name="text">
-           <string>To switch to a directory in case of induction on a cover</string>
-          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>499</width>
+             <height>547</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QGroupBox" name="GroupBox_Global">
+              <property name="autoFillBackground">
+               <bool>true</bool>
+              </property>
+              <property name="title">
+               <string>Global:</string>
+              </property>
+              <layout class="QFormLayout" name="formLayout_3">
+               <property name="fieldGrowthPolicy">
+                <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+               </property>
+               <item row="0" column="0">
+                <widget class="QLabel" name="Label_Language">
+                 <property name="text">
+                  <string>Language:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QComboBox" name="ComboBox_Language"/>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="Label_Style">
+                 <property name="text">
+                  <string>Style:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QComboBox" name="ComboBox_Style">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>/home/diman/Downloads/dba.css</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>/home/diman/Downloads/dba2.css</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="GroupBox_Network">
+              <property name="title">
+               <string>Network</string>
+              </property>
+              <layout class="QGridLayout" name="gridLayout">
+               <item row="0" column="0">
+                <widget class="QCheckBox" name="ChBox_CheckForUpdate">
+                 <property name="text">
+                  <string>Check for update:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="ChBox_SearchOnShikimori">
+                 <property name="text">
+                  <string>Search on shikimori:</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="GroupBox_ActiveSections">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="title">
+               <string>Active sections:</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QCheckBox" name="ChBox_AS_Anime">
+                 <property name="text">
+                  <string>Anime</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_AS_Manga">
+                 <property name="text">
+                  <string>Manga</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_AS_Amv">
+                 <property name="text">
+                  <string>Amv</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_AS_Dorama">
+                 <property name="text">
+                  <string>Dorama</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="GroupBox_ItemList">
+              <property name="title">
+               <string>Item list:</string>
+              </property>
+              <layout class="QFormLayout" name="formLayout">
+               <item row="2" column="0">
+                <widget class="QLabel" name="Label_Sorting">
+                 <property name="text">
+                  <string>Sorting:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="1">
+                <widget class="QComboBox" name="ComboBox_ItemList_Sorting"/>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="Label_DisplayedField">
+                 <property name="text">
+                  <string>Displayed field:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QComboBox" name="ComboBox_ItemList_DisplayedField">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="GroupBox_ActiveItem">
+              <property name="title">
+               <string>Active item:</string>
+              </property>
+              <layout class="QFormLayout" name="formLayout_2">
+               <item row="0" column="0" colspan="2">
+                <widget class="QCheckBox" name="ChBox_SwitchCoverOrDir">
+                 <property name="text">
+                  <string>Switch cover/directory:</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox">
+              <property name="title">
+               <string>Data</string>
+              </property>
+              <layout class="QFormLayout" name="formLayout_5">
+               <item row="0" column="0">
+                <widget class="QLabel" name="Label_WorkDir">
+                 <property name="text">
+                  <string>Work directory:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QLineEdit" name="LineEdit_WorkDir"/>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <spacer name="VSpacer_General">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
          </widget>
         </item>
        </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="title">
-      <string>Active menu items:</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
-      <item>
-       <widget class="QCheckBox" name="CheckBox_EnableAnime">
-        <property name="text">
-         <string>Anime</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="CheckBox_EnableManga">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>Manga</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="CheckBox_EnableAMV">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>AMV</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="CheckBox_EnableDorama">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="text">
-         <string>Dorama</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="HLay_2">
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QTabWidget" name="tabWidget_ImpExp">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="currentIndex">
-        <number>1</number>
-       </property>
-       <widget class="QWidget" name="tab_export">
-        <attribute name="icon">
-         <iconset resource="resource.qrc">
-          <normaloff>:/images/export.png</normaloff>:/images/export.png</iconset>
-        </attribute>
-        <attribute name="title">
-         <string>Export</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <layout class="QHBoxLayout" name="HLay_ExDir">
-           <property name="spacing">
-            <number>3</number>
-           </property>
-           <item>
-            <widget class="QLineEdit" name="LineEdit_ExDir">
-             <property name="maxLength">
-              <number>255</number>
-             </property>
-             <property name="dragEnabled">
-              <bool>true</bool>
-             </property>
-             <property name="placeholderText">
-              <string>Choose a directory</string>
-             </property>
-             <property name="cursorMoveStyle">
-              <enum>Qt::LogicalMoveStyle</enum>
-             </property>
-             <property name="clearButtonEnabled">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="TBtn_ChooseDir">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="resource.qrc">
-               <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="GBox_ExSection">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="title">
-            <string>Sections:</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout">
-            <property name="leftMargin">
-             <number>6</number>
-            </property>
-            <property name="topMargin">
-             <number>3</number>
-            </property>
-            <property name="rightMargin">
-             <number>6</number>
-            </property>
-            <property name="bottomMargin">
-             <number>3</number>
-            </property>
-            <item row="0" column="0">
-             <widget class="QCheckBox" name="CBox_ExAnime">
-              <property name="text">
-               <string>Anime</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="CBox_ExManga">
-              <property name="text">
-               <string>Manga</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QCheckBox" name="CBox_ExAmv">
-              <property name="text">
-               <string>Amv</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="CBox_ExDorama">
-              <property name="text">
-               <string>Dorama</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="CBox_ExportImages">
-           <property name="text">
-            <string>Export images</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
-           <property name="topMargin">
-            <number>0</number>
-           </property>
-           <item>
-            <widget class="QPushButton" name="PBtn_Export">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Export</string>
-             </property>
-             <property name="icon">
-              <iconset resource="resource.qrc">
-               <normaloff>:/images/export.png</normaloff>:/images/export.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_import">
-        <attribute name="icon">
-         <iconset resource="resource.qrc">
-          <normaloff>:/images/import.png</normaloff>:/images/import.png</iconset>
-        </attribute>
-        <attribute name="title">
-         <string>Import</string>
-        </attribute>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <layout class="QHBoxLayout" name="HLay_ImDir">
-           <property name="spacing">
-            <number>3</number>
-           </property>
-           <item>
-            <widget class="QLineEdit" name="LineEdit_ImFile">
-             <property name="maxLength">
-              <number>255</number>
-             </property>
-             <property name="dragEnabled">
-              <bool>true</bool>
-             </property>
-             <property name="placeholderText">
-              <string>Choose xml file</string>
-             </property>
-             <property name="clearButtonEnabled">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="TBtn_ImFile">
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="resource.qrc">
-               <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="GBox_ImSections">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="title">
-            <string>Sections:</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_5">
-            <property name="leftMargin">
-             <number>6</number>
-            </property>
-            <property name="topMargin">
-             <number>3</number>
-            </property>
-            <property name="rightMargin">
-             <number>6</number>
-            </property>
-            <property name="bottomMargin">
-             <number>3</number>
-            </property>
-            <item row="0" column="0">
-             <widget class="QCheckBox" name="CBox_ImAnime">
-              <property name="text">
-               <string>Anime</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QCheckBox" name="CBox_ImManga">
-              <property name="text">
-               <string>Manga</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QCheckBox" name="CBox_ImAmv">
-              <property name="text">
-               <string>Amv</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="CBox_ImDorama">
-              <property name="text">
-               <string>Dorama</string>
-              </property>
-              <property name="checked">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QCheckBox" name="CBox_ImportImages">
-           <property name="text">
-            <string>Import images</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="HLay_AddReplace">
-           <item>
-            <widget class="QPushButton" name="PBtn_ImAppend">
-             <property name="toolTip">
-              <string>Append to existing database</string>
-             </property>
-             <property name="text">
-              <string>Append</string>
-             </property>
-             <property name="icon">
-              <iconset resource="resource.qrc">
-               <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="PBtn_ImReplace">
-             <property name="toolTip">
-              <string>Replace existing database</string>
-             </property>
-             <property name="text">
-              <string>Replace</string>
-             </property>
-             <property name="icon">
-              <iconset resource="resource.qrc">
-               <normaloff>:/images/refresh.png</normaloff>:/images/refresh.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </widget>
       </widget>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="VLay_5">
-       <property name="leftMargin">
-        <number>0</number>
-       </property>
-       <item>
-        <widget class="QTabWidget" name="tabWidget_General">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="tabPosition">
-          <enum>QTabWidget::North</enum>
-         </property>
-         <property name="currentIndex">
-          <number>0</number>
-         </property>
-         <widget class="QWidget" name="tab_OptionalFields">
-          <attribute name="title">
-           <string>Optional fields</string>
-          </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <property name="leftMargin">
-            <number>6</number>
+      <widget class="QWidget" name="Page_OptionalFields">
+       <layout class="QVBoxLayout" name="VLay_3">
+        <property name="leftMargin">
+         <number>2</number>
+        </property>
+        <property name="topMargin">
+         <number>2</number>
+        </property>
+        <property name="rightMargin">
+         <number>2</number>
+        </property>
+        <property name="bottomMargin">
+         <number>2</number>
+        </property>
+        <item>
+         <widget class="QScrollArea" name="ScrollArea_OptionalFields">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>512</width>
+             <height>504</height>
+            </rect>
            </property>
-           <property name="topMargin">
-            <number>6</number>
-           </property>
-           <property name="rightMargin">
-            <number>6</number>
-           </property>
-           <property name="bottomMargin">
-            <number>6</number>
-           </property>
-           <item>
-            <widget class="QGroupBox" name="GBox_FieldsForEdit">
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="title">
-              <string>Anime:</string>
-             </property>
-             <property name="checkable">
-              <bool>false</bool>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <property name="leftMargin">
-               <number>6</number>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QGroupBox" name="GroupBox_Anime">
+              <property name="title">
+               <string>Anime:</string>
               </property>
-              <property name="topMargin">
-               <number>3</number>
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <item>
+                <widget class="QCheckBox" name="ChBox_OptField_Anime_AltTitle">
+                 <property name="text">
+                  <string>Alt title</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_OptField_Anime_Director">
+                 <property name="text">
+                  <string>Director</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_OptField_Anime_Postscoring">
+                 <property name="text">
+                  <string>Postscoring</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="GroupBox_Manga">
+              <property name="title">
+               <string>Manga:</string>
               </property>
-              <property name="rightMargin">
-               <number>6</number>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <item>
+                <widget class="QCheckBox" name="ChBox_OptField_Manga_AltTitle">
+                 <property name="text">
+                  <string>Alt title</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_OptField_Manga_Author">
+                 <property name="text">
+                  <string>Author</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_OptField_Manga_Translation">
+                 <property name="text">
+                  <string>Translation</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="GroupBox_Dorama">
+              <property name="title">
+               <string>Dorama:</string>
               </property>
-              <property name="bottomMargin">
-               <number>3</number>
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <widget class="QCheckBox" name="ChBox_OptField_Dorama_AltTitle">
+                 <property name="text">
+                  <string>Alt title</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_OptField_Dorama_Director">
+                 <property name="text">
+                  <string>Director</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <spacer name="HSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Ignored</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <spacer name="VSpacer_OptionalFields">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
               </property>
-              <item>
-               <widget class="QCheckBox" name="CBox_Anime_Director">
-                <property name="text">
-                 <string>Director</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="CBox_Anime_AltTitle">
-                <property name="text">
-                 <string>Original title</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="CBox_Anime_PostScoring">
-                <property name="text">
-                 <string>Postscoring</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="GBox_FieldsForEdit_2">
-             <property name="title">
-              <string>Manga:</string>
-             </property>
-             <property name="checkable">
-              <bool>false</bool>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_2">
-              <property name="leftMargin">
-               <number>6</number>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>215</height>
+               </size>
               </property>
-              <property name="topMargin">
-               <number>3</number>
-              </property>
-              <property name="rightMargin">
-               <number>6</number>
-              </property>
-              <property name="bottomMargin">
-               <number>3</number>
-              </property>
-              <item>
-               <widget class="QCheckBox" name="CBox_Manga_Author">
-                <property name="text">
-                 <string>Author</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="CBox_Manga_AltTitle">
-                <property name="text">
-                 <string>Alternative title</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="CBox_Manga_Translation">
-                <property name="text">
-                 <string>Translation</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QGroupBox" name="GBox_FieldsForEdit_3">
-             <property name="title">
-              <string>Dorama:</string>
-             </property>
-             <property name="checkable">
-              <bool>false</bool>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <property name="leftMargin">
-               <number>6</number>
-              </property>
-              <property name="topMargin">
-               <number>3</number>
-              </property>
-              <property name="rightMargin">
-               <number>6</number>
-              </property>
-              <property name="bottomMargin">
-               <number>3</number>
-              </property>
-              <item>
-               <spacer name="horizontalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="CBox_Dorama_Director">
-                <property name="text">
-                 <string>Director</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="CBox_Dorama_AltTitle">
-                <property name="text">
-                 <string>Alternative title</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-             </layout>
-            </widget>
-           </item>
-          </layout>
-          <zorder>GBox_FieldsForEdit</zorder>
-          <zorder>GBox_FieldsForEdit_2</zorder>
-          <zorder>GBox_FieldsForEdit_3</zorder>
-          <zorder>CBox_Anime_PostScoring</zorder>
-          <zorder>CBox_Anime_Director</zorder>
-          <zorder>CBox_Anime_AltTitle</zorder>
-          <zorder>CBox_Manga_Author</zorder>
-          <zorder>CBox_Manga_Translation</zorder>
-          <zorder>CBox_Manga_AltTitle</zorder>
-          <zorder>CBox_Dorama_AltTitle</zorder>
-          <zorder>CBox_Dorama_Director</zorder>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
          </widget>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="GBox_WorkDir">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="whatsThis">
-          <string>This field becomes not the active, for the purpose of safety</string>
-         </property>
-         <property name="title">
-          <string>Work directory:</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
-          <property name="topMargin">
-           <number>13</number>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="Page_Import">
+       <layout class="QVBoxLayout" name="VLay_Import">
+        <property name="leftMargin">
+         <number>2</number>
+        </property>
+        <property name="topMargin">
+         <number>2</number>
+        </property>
+        <property name="rightMargin">
+         <number>2</number>
+        </property>
+        <property name="bottomMargin">
+         <number>2</number>
+        </property>
+        <item>
+         <widget class="QScrollArea" name="ScrollArea_Import">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
           </property>
-          <property name="bottomMargin">
-           <number>6</number>
+          <property name="widgetResizable">
+           <bool>true</bool>
           </property>
-          <item>
-           <widget class="QLineEdit" name="LineEdit_WorkDirectory">
-            <property name="dragEnabled">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+          <widget class="QWidget" name="scrollAreaWidgetContents_3">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>512</width>
+             <height>504</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <layout class="QHBoxLayout" name="HLay_Import_Path">
+              <item>
+               <widget class="QLineEdit" name="LineEdit_Import_FilePath"/>
+              </item>
+              <item>
+               <widget class="QToolButton" name="TBtn_Import_Path_Choose">
+                <property name="icon">
+                 <iconset resource="resource.qrc">
+                  <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="GroupBox_ImportSections">
+              <property name="title">
+               <string>Import sections:</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <item>
+                <widget class="QCheckBox" name="ChBox_Import_Anime">
+                 <property name="text">
+                  <string>Anime</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_Import_Manga">
+                 <property name="text">
+                  <string>Manga</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_Import_Amv">
+                 <property name="text">
+                  <string>Amv</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_Import_Dorama">
+                 <property name="text">
+                  <string>Dorama</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="ChBox_Import_Images">
+              <property name="text">
+               <string>Import images</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="HLay_Import_Actions">
+              <item>
+               <widget class="QPushButton" name="PBtn_Import_Append">
+                <property name="text">
+                 <string>Append</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="PBtn_Import_Replace">
+                <property name="text">
+                 <string>Replace</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="VSpacer_Import">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>239</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="Page_Export">
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <property name="leftMargin">
+         <number>2</number>
+        </property>
+        <property name="topMargin">
+         <number>2</number>
+        </property>
+        <property name="rightMargin">
+         <number>2</number>
+        </property>
+        <property name="bottomMargin">
+         <number>2</number>
+        </property>
+        <item>
+         <widget class="QScrollArea" name="ScrollArea_Export">
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_4">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>512</width>
+             <height>504</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <item>
+               <widget class="QLineEdit" name="LineEdit_Export_FilePath"/>
+              </item>
+              <item>
+               <widget class="QToolButton" name="TBtn_Export_Path_Choose">
+                <property name="icon">
+                 <iconset resource="resource.qrc">
+                  <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QGroupBox" name="GroupBox_Export_Sections">
+              <property name="title">
+               <string>Export sections:</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
+               <item>
+                <widget class="QCheckBox" name="ChBox_Export_Anime">
+                 <property name="text">
+                  <string>Anime</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_Export_Manga">
+                 <property name="text">
+                  <string>Manga</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_Export_Amv">
+                 <property name="text">
+                  <string>Amv</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QCheckBox" name="ChBox_Export_Dorama">
+                 <property name="text">
+                  <string>Dorama</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="ChBox_Export_Images">
+              <property name="text">
+               <string>Export images</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="PBtn_Action_Export">
+              <property name="text">
+               <string>Export</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="VSpacer_Export">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>241</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </widget>
    </item>
    <item>
     <widget class="QDialogButtonBox" name="BtnBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::RestoreDefaults</set>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
-     <property name="centerButtons">
-      <bool>false</bool>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
      </property>
     </widget>
    </item>
   </layout>
   <action name="actionImport">
    <property name="icon">
-    <iconset theme="add" resource="resource.qrc">
-     <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
+    <iconset theme="add"/>
    </property>
    <property name="text">
     <string>import</string>
@@ -807,70 +760,49 @@
   </action>
   <action name="actionDeleteRecords">
    <property name="icon">
-    <iconset theme="remove" resource="resource.qrc">
-     <normaloff>:/images/list-remove.png</normaloff>:/images/list-remove.png</iconset>
+    <iconset theme="remove"/>
    </property>
    <property name="text">
-    <string>DeleteRecords</string>
+    <string>deleteRecords</string>
    </property>
    <property name="toolTip">
     <string>Delete records and images</string>
    </property>
   </action>
  </widget>
- <tabstops>
-  <tabstop>CB_Language</tabstop>
-  <tabstop>CBox_Sort</tabstop>
-  <tabstop>CBox_SwitchToDirOnHoverCover</tabstop>
-  <tabstop>CheckBox_EnableAnime</tabstop>
-  <tabstop>CheckBox_EnableManga</tabstop>
-  <tabstop>CheckBox_EnableAMV</tabstop>
-  <tabstop>CheckBox_EnableDorama</tabstop>
-  <tabstop>tabWidget_General</tabstop>
-  <tabstop>CBox_Anime_Director</tabstop>
-  <tabstop>CBox_Anime_AltTitle</tabstop>
-  <tabstop>CBox_Anime_PostScoring</tabstop>
-  <tabstop>CBox_Manga_Author</tabstop>
-  <tabstop>CBox_Manga_AltTitle</tabstop>
-  <tabstop>CBox_Manga_Translation</tabstop>
-  <tabstop>CBox_Dorama_Director</tabstop>
-  <tabstop>CBox_Dorama_AltTitle</tabstop>
-  <tabstop>GBox_WorkDir</tabstop>
-  <tabstop>LineEdit_WorkDirectory</tabstop>
-  <tabstop>LineEdit_ExDir</tabstop>
-  <tabstop>TBtn_ChooseDir</tabstop>
-  <tabstop>CBox_ExAnime</tabstop>
-  <tabstop>CBox_ExManga</tabstop>
-  <tabstop>CBox_ExAmv</tabstop>
-  <tabstop>CBox_ExDorama</tabstop>
-  <tabstop>CBox_ExportImages</tabstop>
-  <tabstop>LineEdit_ImFile</tabstop>
-  <tabstop>TBtn_ImFile</tabstop>
-  <tabstop>CBox_ImAnime</tabstop>
-  <tabstop>CBox_ImManga</tabstop>
-  <tabstop>CBox_ImAmv</tabstop>
-  <tabstop>CBox_ImDorama</tabstop>
-  <tabstop>CBox_ImportImages</tabstop>
-  <tabstop>PBtn_ImAppend</tabstop>
-  <tabstop>PBtn_ImReplace</tabstop>
- </tabstops>
  <resources>
   <include location="resource.qrc"/>
  </resources>
  <connections>
   <connection>
    <sender>BtnBox</sender>
-   <signal>rejected()</signal>
-   <receiver>FormSettings</receiver>
-   <slot>close()</slot>
+   <signal>accepted()</signal>
+   <receiver>Settings</receiver>
+   <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>336</x>
-     <y>444</y>
+     <x>248</x>
+     <y>254</y>
     </hint>
     <hint type="destinationlabel">
-     <x>327</x>
-     <y>250</y>
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BtnBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Settings</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
     </hint>
    </hints>
   </connection>

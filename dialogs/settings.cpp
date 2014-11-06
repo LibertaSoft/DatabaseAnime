@@ -1,32 +1,15 @@
-#include "dialogs/settings.h"
+#include "settings.h"
 #include "ui_settings.h"
-#include "definespath.h"
-#include "dbalocalization.h"
 
-#include "xmldbareader.h"
-#include "xmldbawriter.h"
-
-#include <QSettings>
-#include <QVariant>
-
-#include <QMessageBox>
-#include <QDebug>
-#include <QFileDialog>
-#include <QProgressDialog>
-
-#include <QtXml>
-
-FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
+Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::FormSettings), restoreDefault(false), MngrConnect(MngrCon)
+    ui(new Ui::Settings), MngrConnect(MngrCon)
 {
     ui->setupUi(this);
     QSettings settings;
     this->restoreGeometry( settings.value("WindowSettings/Geometry").toByteArray() );
-    ui->tabWidget_General->setCurrentIndex(0);
-    ui->tabWidget_ImpExp->setCurrentIndex(0);
-    ui->LineEdit_ExDir->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
-    ui->LineEdit_ImFile->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
+    ui->LineEdit_Export_FilePath->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
+    ui->LineEdit_Import_FilePath->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
 
     settings.beginGroup("enableSection");
         bool b1 = settings.value( "Anime",   true ).toBool();
@@ -56,142 +39,81 @@ FormSettings::FormSettings(MngrConnection &MngrCon, QWidget *parent) :
 
     bool checkUpdates = settings.value("General/VerUpdate", false).toBool();
 
-    bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
+    bool c1 = settings.value( "SwitchCoverOrDir", true ).toBool();
 
-    ui->CheckBox_EnableAnime->setChecked( b1 );
-    ui->CheckBox_EnableManga->setChecked( b2 );
-    ui->CheckBox_EnableAMV->setChecked( b3 );
-    ui->CheckBox_EnableDorama->setChecked( b4 );
+    ui->ChBox_AS_Anime->setChecked( b1 );
+    ui->ChBox_AS_Manga->setChecked( b2 );
+    ui->ChBox_AS_Amv->setChecked( b3 );
+    ui->ChBox_AS_Dorama->setChecked( b4 );
 
-    ui->CBox_Anime_AltTitle->setChecked( a1 );
-    ui->CBox_Anime_Director->setChecked( a2 );
-    ui->CBox_Anime_PostScoring->setChecked( a3 );
+    ui->ChBox_OptField_Anime_AltTitle->setChecked( a1 );
+    ui->ChBox_OptField_Anime_Director->setChecked( a2 );
+    ui->ChBox_OptField_Anime_Postscoring->setChecked( a3 );
 
-    ui->CBox_Manga_AltTitle->setChecked( m1 );
-    ui->CBox_Manga_Author->setChecked( m2 );
-    ui->CBox_Manga_Translation->setChecked( m3 );
+    ui->ChBox_OptField_Manga_AltTitle->setChecked( m1 );
+    ui->ChBox_OptField_Manga_Author->setChecked( m2 );
+    ui->ChBox_OptField_Manga_Translation->setChecked( m3 );
 
-    ui->CBox_Dorama_AltTitle->setChecked( d1 );
-    ui->CBox_Dorama_Director->setChecked( d2 );
+    ui->ChBox_OptField_Dorama_AltTitle->setChecked( d1 );
+    ui->ChBox_OptField_Dorama_Director->setChecked( d2 );
 
-    ui->ChBox_Update->setChecked( checkUpdates );
-    ui->CBox_SwitchToDirOnHoverCover->setChecked( c1 );
+    ui->ChBox_CheckForUpdate->setChecked( checkUpdates );
+    ui->ChBox_SwitchCoverOrDir->setChecked( c1 );
+    ui->ChBox_SearchOnShikimori->setChecked( c1 ); // #ToDo: to settings
 
     QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( "Language", QLocale::English ).toInt());
 
-    ui->CB_Language->addItem( tr("<System>"), 0 );
+    ui->ComboBox_Language->addItem( tr("<System>"), 0 );
 
     QMap<QLocale::Language,QString> langList = DbaLocalization::readExistsLocalizations( DefinesPath::share() );
     int i(0);
     foreach (QString langName, langList) {
         ++i;
-        ui->CB_Language->addItem(langName, langList.key(langName));
+        ui->ComboBox_Language->addItem(langName, langList.key(langName));
         if( set_language == langList.key(langName) )
-            ui->CB_Language->setCurrentIndex(i);
+            ui->ComboBox_Language->setCurrentIndex(i);
     }
 
 
     Sort::sort sort = static_cast<Sort::sort>( settings.value( "Sorting", Sort::asc ).toInt() );
-    ui->CBox_Sort->setCurrentIndex( sort );
+    ui->ComboBox_ItemList_Sorting->setCurrentIndex( sort );
 
-    ui->LineEdit_WorkDirectory->setText( QDir::toNativeSeparators( DefinesPath::appData() ) );
+    ui->LineEdit_WorkDir->setText( QDir::toNativeSeparators( DefinesPath::appData() ) );
 }
 
-FormSettings::~FormSettings()
+Settings::~Settings()
 {
     QSettings settings;
     settings.setValue("WindowSettings/Geometry", this->saveGeometry() );
     delete ui;
 }
 
-Sort::sort FormSettings::getSort()
+Sort::sort Settings::getSort()
 {
-    return static_cast<Sort::sort>( ui->CBox_Sort->currentIndex() );
+    return static_cast<Sort::sort>( ui->ComboBox_ItemList_Sorting->currentIndex() );
 }
 
-bool FormSettings::getSwitchToDir()
+bool Settings::getSwitchToDir()
 {
-    return ui->CBox_SwitchToDirOnHoverCover->isChecked();
+    return ui->ChBox_SwitchCoverOrDir->isChecked();
 }
 
-bool FormSettings::getRestoreDefault()
+bool Settings::getRestoreDefault()
 {
     return restoreDefault;
 }
 
-QLocale::Language FormSettings::getLanguage()
+QLocale::Language Settings::getLanguage()
 {
-    return static_cast<QLocale::Language>( ui->CB_Language->currentData().toInt() );
+    return static_cast<QLocale::Language>( ui->ComboBox_Language->currentData().toInt() );
 }
 
-void FormSettings::on_BtnBox_accepted()
+void Settings::on_listWidget_currentRowChanged(int currentRow)
 {
-    QSettings settings;
-
-    settings.beginGroup("enableSection");
-        settings.setValue( "Anime",  ui->CheckBox_EnableAnime->isChecked() );
-        settings.setValue( "Manga",  ui->CheckBox_EnableManga->isChecked() );
-        settings.setValue( "AMV",    ui->CheckBox_EnableAMV->isChecked() );
-        settings.setValue( "Dorama", ui->CheckBox_EnableDorama->isChecked() );
-    settings.endGroup();
-
-    settings.beginGroup("optionalField");
-        settings.beginGroup("anime");
-            settings.setValue( "OrigTitle",   ui->CBox_Anime_AltTitle->isChecked() );
-            settings.setValue( "Director",    ui->CBox_Anime_Director->isChecked() );
-            settings.setValue( "PostScoring", ui->CBox_Anime_PostScoring->isChecked() );
-        settings.endGroup();
-
-        settings.beginGroup("manga");
-            settings.setValue( "AltTitle",    ui->CBox_Manga_AltTitle->isChecked() );
-            settings.setValue( "Author",      ui->CBox_Manga_Author->isChecked() );
-            settings.setValue( "Translation", ui->CBox_Manga_Translation->isChecked() );
-        settings.endGroup();
-
-        settings.beginGroup("dorama");
-            settings.setValue( "AltTitle",   ui->CBox_Dorama_AltTitle->isChecked() );
-            settings.setValue( "Director",   ui->CBox_Dorama_Director->isChecked() );
-        settings.endGroup();
-    settings.endGroup();
-
-    settings.setValue( "Language", ui->CB_Language->currentData() );
-    settings.setValue( "Sorting", ui->CBox_Sort->currentIndex() );
-
-    settings.setValue( "VerUpdate", ui->ChBox_Update->isChecked() );
-    settings.setValue( "SwitchToDirOnHoverACover", ui->CBox_SwitchToDirOnHoverCover->isChecked() );
-
-    if( QDir::isAbsolutePath(ui->LineEdit_WorkDirectory->text()) )
-        settings.setValue( "WorkDirectory", QDir(ui->LineEdit_WorkDirectory->text()).path() );
-    else
-        settings.remove("WorkDirectory");
+    ui->StackedWidget->setCurrentIndex(currentRow);
 }
 
-void FormSettings::BtnBox_resetDefaults(){
-    restoreDefault = true;
-    ui->CheckBox_EnableAnime->setChecked( true );
-    ui->CheckBox_EnableManga->setChecked( false );
-    ui->CheckBox_EnableAMV->setChecked( false );
-    ui->CheckBox_EnableDorama->setChecked( false );
-
-    ui->CBox_Anime_AltTitle->setChecked( false );
-    ui->CBox_Anime_Director->setChecked( false );
-    ui->CBox_Anime_PostScoring->setChecked( false );
-
-    ui->CBox_Manga_AltTitle->setChecked( false );
-    ui->CBox_Manga_Author->setChecked( false );
-    ui->CBox_Manga_Translation->setChecked( false );
-
-    ui->CBox_Dorama_AltTitle->setChecked( false );
-    ui->CBox_Dorama_Director->setChecked( false );
-
-    ui->CB_Language->setCurrentIndex(0);
-    ui->CBox_Sort->setCurrentIndex(1);
-
-    ui->ChBox_Update->setChecked(false);
-    ui->LineEdit_WorkDirectory->setText( DefinesPath::appData(true) );
-}
-
-void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
+void Settings::on_BtnBox_clicked(QAbstractButton *button)
 {
     switch( ui->BtnBox->buttonRole( button ) ){
         case  QDialogButtonBox::ApplyRole:
@@ -206,20 +128,90 @@ void FormSettings::on_BtnBox_clicked(QAbstractButton *button)
     }
 }
 
-void FormSettings::on_PBtn_Export_clicked()
+void Settings::on_BtnBox_accepted()
 {
-    bool exAnime  = ui->CBox_ExAnime->isChecked();
-    bool exManga  = ui->CBox_ExManga->isChecked();
-    bool exAmv    = ui->CBox_ExAmv->isChecked();
-    bool exDorama = ui->CBox_ExDorama->isChecked();
-    bool exImages = ui->CBox_ExportImages->isChecked();
+    QSettings settings;
 
-    QString exportDir = ui->LineEdit_ExDir->text();
+    settings.beginGroup("enableSection");
+        settings.setValue( "Anime",  ui->ChBox_AS_Anime->isChecked() );
+        settings.setValue( "Manga",  ui->ChBox_AS_Manga->isChecked() );
+        settings.setValue( "AMV",    ui->ChBox_AS_Amv->isChecked() );
+        settings.setValue( "Dorama", ui->ChBox_AS_Dorama->isChecked() );
+    settings.endGroup();
+
+    settings.beginGroup("optionalField");
+        settings.beginGroup("anime");
+            settings.setValue( "OrigTitle",   ui->ChBox_OptField_Anime_AltTitle->isChecked() );
+            settings.setValue( "Director",    ui->ChBox_OptField_Anime_Director->isChecked() );
+            settings.setValue( "PostScoring", ui->ChBox_OptField_Anime_Postscoring->isChecked() );
+        settings.endGroup();
+
+        settings.beginGroup("manga");
+            settings.setValue( "AltTitle",    ui->ChBox_OptField_Manga_AltTitle->isChecked() );
+            settings.setValue( "Author",      ui->ChBox_OptField_Manga_Author->isChecked() );
+            settings.setValue( "Translation", ui->ChBox_OptField_Manga_Translation->isChecked() );
+        settings.endGroup();
+
+        settings.beginGroup("dorama");
+            settings.setValue( "AltTitle",   ui->ChBox_OptField_Dorama_AltTitle->isChecked() );
+            settings.setValue( "Director",   ui->ChBox_OptField_Dorama_Director->isChecked() );
+        settings.endGroup();
+    settings.endGroup();
+
+    settings.setValue( "Language", ui->ComboBox_Language->currentData() );
+    settings.setValue( "Sorting", ui->ComboBox_ItemList_Sorting->currentIndex() );
+
+    settings.setValue( "VerUpdate", ui->ChBox_CheckForUpdate->isChecked() );
+    settings.setValue( "SwitchCoverOrDir", ui->ChBox_SwitchCoverOrDir->isChecked() );
+
+    if( QDir::isAbsolutePath( ui->LineEdit_WorkDir->text() ) )
+        settings.setValue( "WorkDirectory", QDir(ui->LineEdit_WorkDir->text()).path() );
+    else
+        settings.remove("WorkDirectory");
+}
+
+void Settings::BtnBox_resetDefaults()
+{
+    restoreDefault = true;
+    ui->ChBox_AS_Anime->setChecked( true );
+    ui->ChBox_AS_Manga->setChecked( false );
+    ui->ChBox_AS_Amv->setChecked( false );
+    ui->ChBox_AS_Dorama->setChecked( false );
+
+    ui->ChBox_OptField_Anime_AltTitle->setChecked( false );
+    ui->ChBox_OptField_Anime_Director->setChecked( false );
+    ui->ChBox_OptField_Anime_Postscoring->setChecked( false );
+
+    ui->ChBox_OptField_Manga_AltTitle->setChecked( false );
+    ui->ChBox_OptField_Manga_Author->setChecked( false );
+    ui->ChBox_OptField_Manga_Translation->setChecked( false );
+
+    ui->ChBox_OptField_Dorama_AltTitle->setChecked( false );
+    ui->ChBox_OptField_Dorama_Director->setChecked( false );
+
+    ui->ComboBox_Language->setCurrentIndex(0);
+    ui->ComboBox_ItemList_Sorting->setCurrentIndex(1);
+
+    ui->ChBox_CheckForUpdate->setChecked(false);
+    ui->ChBox_SwitchCoverOrDir->setChecked( true ); ;
+
+    ui->LineEdit_WorkDir->setText( DefinesPath::appData(true) );
+}
+
+void Settings::on_PBtn_Action_Export_clicked()
+{
+    bool exAnime  = ui->ChBox_Export_Anime->isChecked();
+    bool exManga  = ui->ChBox_Export_Manga->isChecked();
+    bool exAmv    = ui->ChBox_Export_Amv->isChecked();
+    bool exDorama = ui->ChBox_Export_Dorama->isChecked();
+    bool exImages = ui->ChBox_Export_Images->isChecked();
+
+    QString exportDir = ui->LineEdit_Export_FilePath->text();
             exportDir = QDir( exportDir ).path() + QDir::separator();
 
     if( exportDir.isEmpty() ){
         QMessageBox::warning(this, tr("Warning"), tr("The directory for export isn't choose"));
-        ui->LineEdit_ExDir->setFocus();
+        ui->LineEdit_Export_FilePath->setFocus();
         return;
     }
 
@@ -452,35 +444,36 @@ void FormSettings::on_PBtn_Export_clicked()
     QMessageBox::information( this, tr("Export"), tr("Export is successfully finished") );
 }
 
-void FormSettings::on_TBtn_ChooseDir_clicked()
+
+void Settings::on_TBtn_Export_Path_Choose_clicked()
 {
     QString dir = QFileDialog::getExistingDirectory(this,
                                                     tr("Choose a directory for export file"),
-                                                    ui->LineEdit_ExDir->text()
+                                                    ui->LineEdit_Export_FilePath->text()
                                                     );
     if( dir.isEmpty() )
-        ui->LineEdit_ExDir->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
+        ui->LineEdit_Export_FilePath->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
     else
-        ui->LineEdit_ExDir->setText( dir );
+        ui->LineEdit_Export_FilePath->setText( dir );
 }
 
-void FormSettings::on_TBtn_ImFile_clicked()
+void Settings::on_TBtn_Import_Path_Choose_clicked()
 {
     QString file = QFileDialog::getOpenFileName(this,
                                                 tr("Choose a xml file for import"),
-                                                ui->LineEdit_ImFile->text()
+                                                ui->LineEdit_Import_FilePath->text()
                                                 );
     if( file.isEmpty() )
-        ui->LineEdit_ImFile->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
+        ui->LineEdit_Import_FilePath->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
     else
-        ui->LineEdit_ImFile->setText( file );
+        ui->LineEdit_Import_FilePath->setText( file );
 }
 
-void FormSettings::on_PBtn_ImAppend_clicked()
+void Settings::on_PBtn_Import_Append_clicked()
 {
-    if( ui->LineEdit_ImFile->text().isEmpty() ){
+    if( ui->LineEdit_Import_FilePath->text().isEmpty() ){
         QMessageBox::warning(this, tr("Warning"), tr("The imported file isn't selected"));
-        ui->LineEdit_ImFile->setFocus();
+        ui->LineEdit_Import_FilePath->setFocus();
         this->setEnabled( true );
         return;
     }
@@ -501,7 +494,7 @@ void FormSettings::on_PBtn_ImAppend_clicked()
     this->setCursor( QCursor(Qt::ArrowCursor) );
 }
 
-void FormSettings::on_PBtn_ImReplace_clicked()
+void Settings::on_PBtn_Import_Replace_clicked()
 {
     QMessageBox* pmbx =
     new QMessageBox(QMessageBox::Question,
@@ -518,21 +511,21 @@ void FormSettings::on_PBtn_ImReplace_clicked()
 
     if (n == QMessageBox::Yes) {
         on_actionDeleteRecords_triggered();
-        on_PBtn_ImAppend_clicked();
+        on_PBtn_Import_Append_clicked();
     }
 
     this->setCursor( QCursor(Qt::ArrowCursor) );
     this->setEnabled(true);
 }
 
-unsigned long long FormSettings::on_actionImport_triggered()
+unsigned long long Settings::on_actionImport_triggered()
 {
-    bool imAnime  = ui->CBox_ImAnime->isChecked();
-    bool imManga  = ui->CBox_ImManga->isChecked();
-    bool imAmv    = ui->CBox_ImAmv->isChecked();
-    bool imDorama = ui->CBox_ImDorama->isChecked();
-    bool imImages = ui->CBox_ImportImages->isChecked();
-    QString filePath = ui->LineEdit_ImFile->text();
+    bool imAnime  = ui->ChBox_Import_Anime->isChecked();
+    bool imManga  = ui->ChBox_Import_Manga->isChecked();
+    bool imAmv    = ui->ChBox_Import_Amv->isChecked();
+    bool imDorama = ui->ChBox_Import_Dorama->isChecked();
+    bool imImages = ui->ChBox_Import_Images->isChecked();
+    QString filePath = ui->LineEdit_Import_FilePath->text();
 
     QFile file( QDir(filePath).path() );
     if( ! file.open(QIODevice::ReadOnly | QIODevice::Text) ){
@@ -642,14 +635,13 @@ unsigned long long FormSettings::on_actionImport_triggered()
     return n;
 }
 
-bool FormSettings::on_actionDeleteRecords_triggered()
+bool Settings::on_actionDeleteRecords_triggered()
 {
-    bool imAnime  = ui->CBox_ImAnime->isChecked();
-    bool imManga  = ui->CBox_ImManga->isChecked();
-    bool imAmv    = ui->CBox_ImAmv->isChecked();
-    bool imDorama = ui->CBox_ImDorama->isChecked();
-    bool imImages = ui->CBox_ImportImages->isChecked();
-    QString filePath = ui->LineEdit_ImFile->text();
+    bool imAnime  = ui->ChBox_Import_Anime->isChecked();
+    bool imManga  = ui->ChBox_Import_Manga->isChecked();
+    bool imAmv    = ui->ChBox_Import_Amv->isChecked();
+    bool imDorama = ui->ChBox_Import_Dorama->isChecked();
+    bool imImages = ui->ChBox_Import_Images->isChecked();
 
     MngrConnect.transaction();
     QSqlQuery query;

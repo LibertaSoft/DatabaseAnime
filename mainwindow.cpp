@@ -148,7 +148,7 @@ void MainWindow::on_PButton_Options_clicked()
     QSettings set;
     set.setValue("btnSwitchSection/selected", currentSection);
 
-    FormSettings formSettings(mngrConnection, this);
+    Settings formSettings(mngrConnection, this);
     formSettings.setModal(true);
     formSettings.exec();
 
