@@ -22,14 +22,14 @@ void DialogAddDorama::initTags()
 void DialogAddDorama::initOptionalFields()
 {
     QSettings settings;
-    if( settings.value( "optionalField/dorama/AltTitle", false ).toBool() ){
+    if( settings.value( "OptionalFields/Dorama/AltTitle", false ).toBool() ){
         this->LineEdit_AltTitle = new QLineEdit(this);
         this->LineEdit_AltTitle->setMaxLength(128);
         this->LineEdit_AltTitle->setDragEnabled(true);
         this->LineEdit_AltTitle->setPlaceholderText( tr("Alternative title") );
         ui->VLay_AltTitle->addWidget( this->LineEdit_AltTitle );
     }
-    if( settings.value( "optionalField/dorama/Director", false ).toBool() ){
+    if( settings.value( "OptionalFields/Dorama/Director", false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
         this->LineEdit_Director->setDragEnabled(true);

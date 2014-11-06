@@ -47,21 +47,21 @@ void DialogAddAnime::initTags()
 void DialogAddAnime::initOptionalFields()
 {
     QSettings settings;
-    if( settings.value( "optionalField/anime/OrigTitle", false ).toBool() ){
+    if( settings.value( "OptionalFields/Anime/AltTitle", false ).toBool() ){
         this->LineEdit_OrigTitle = new QLineEdit(this);
         this->LineEdit_OrigTitle->setMaxLength(128);
         this->LineEdit_OrigTitle->setDragEnabled(true);
         this->LineEdit_OrigTitle->setPlaceholderText( tr("Alternative title") );
         ui->VLay_OrigTitle->addWidget( this->LineEdit_OrigTitle );
     }
-    if( settings.value( "optionalField/anime/Director", false ).toBool() ){
+    if( settings.value( "OptionalFields/Anime/Director", false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
         this->LineEdit_Director->setDragEnabled(true);
         this->LineEdit_Director->setPlaceholderText( tr("Director") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_Director );
     }
-    if( settings.value( "optionalField/anime/PostScoring", false ).toBool() ){
+    if( settings.value( "OptionalFields/Anime/Postscoring", false ).toBool() ){
         this->LineEdit_PostScoring = new QLineEdit(this);
         this->LineEdit_PostScoring->setMaxLength(128);
         this->LineEdit_PostScoring->setDragEnabled(true);
@@ -155,6 +155,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     QSettings settings;
     this->restoreGeometry( settings.value("DialogAddAnime/Geometry").toByteArray() );
     api.setLang("ru");
+    _autoSearchOnShikimori = settings.value( "Network/SearchOnShikimori", true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -176,6 +177,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     QSettings settings;
     this->restoreGeometry( settings.value("DialogAddAnime/Geometry").toByteArray() );
     api.setLang("ru");
+    _autoSearchOnShikimori = settings.value( "Network/SearchOnShikimori", true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -406,6 +408,8 @@ void DialogAddAnime::on_TBtn_Search_clicked()
 
 void DialogAddAnime::on_LineEdit_Title_textEdited(const QString &title)
 {
+    if( _autoSearchOnShikimori == false )
+        return;
     if( title.count() < 3 )
         return;
     foreach ( QString name, _titleCompliterModel.stringList() ) {

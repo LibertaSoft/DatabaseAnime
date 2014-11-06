@@ -35,6 +35,8 @@ private:
     QCompleter *TitleCompliter;
     QStringListModel _completerModel;
 
+    bool _autoSearchOnShikimori;
+
     QStringListModel _tags;
 
     void initTitleCompleter();

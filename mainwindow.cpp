@@ -44,12 +44,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->stackedWidget->setCurrentIndex(0);
     ui->StackWgt_CoverOrDir->setCurrentIndex(0);
-    ui->lbl_AppTitle->setText( QApplication::applicationDisplayName() );
+    ui->lbl_AppTitle->setText( qApp->applicationDisplayName() );
 
     int font_id = QFontDatabase::addApplicationFont("://fonts/URWChanceryL-MediItal");
     ui->lbl_AppTitle->setFont( QFont( QFontDatabase::applicationFontFamilies(font_id).at(0), 26 ) );
 
-    ui->Lbl_VVersion->setText( QApplication::applicationVersion() );
+    ui->Lbl_VVersion->setText( qApp->applicationVersion() );
 
 
 
@@ -66,7 +66,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     // Verification of the new version
-    if( settings.value("General/VerUpdate", false).toBool() ){
+    if( settings.value("Network/CheckUpdates", true).toBool() ){
         QUrl url("https://api.github.com/repos/LibertaSoft/DatabaseAnime/releases");
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
         connect(manager, SIGNAL(finished(QNetworkReply*)),
@@ -79,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->splitter->restoreGeometry( settings.value("MainWindow/SplitterGeometry").toByteArray() );
     ui->splitter->restoreState( settings.value("MainWindow/SplitterState").toByteArray() );
     _sort = static_cast<Sort::sort>( settings.value("Sorting", Sort::asc).toInt() );
-    bool c1 = settings.value( "SwitchToDirOnHoverACover", true ).toBool();
+    bool c1 = settings.value( "SwitchCoverOrDir", true ).toBool();
     ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 
     mngrConnection.open();
@@ -106,8 +106,9 @@ void MainWindow::replyVersionVerificationFinished(QNetworkReply* r){
     verFromGit = verFromGit.replace(".", "");// split '.' from "vX.X.X"
     verFromGit = verFromGit.right( verFromGit.length() - 1 );// split 'v' from "vXXX"
 
-    QString appVer = QApplication::applicationVersion();
+    QString appVer = qApp->applicationVersion();
     appVer = appVer.replace(".", "");// split '.' from "X.X.X"
+    appVer = appVer.left(3);// split Pre-Alpha/Alpha/Beta/etc
 
     if( verFromGit.toInt() > appVer.toInt() ){
         ui->Lbl_VVersion->setStyleSheet("color: #f00");
@@ -131,7 +132,6 @@ void MainWindow::closeEvent(QCloseEvent *e){
         settings.remove("btnSwitchSection/selected");
     }
 
-//    ui->dockMenu->close();
     settings.setValue("MainWindow/SplitterGeometry", ui->splitter->saveGeometry() );
     settings.setValue("MainWindow/SplitterState", ui->splitter->saveState() );
     e->accept();
@@ -375,10 +375,10 @@ sections::section MainWindow::getActiveTable()
 void MainWindow::reloadSectionsList()
 {
     QSettings settings;
-    bool set_enableBtnAnime  = settings.value("enableSection/Anime",   true).toBool();
-    bool set_enableBtnManga  = settings.value("enableSection/Manga",  false).toBool();
-    bool set_enableBtnAMV    = settings.value("enableSection/AMV",    false).toBool();
-    bool set_enableBtnDorama = settings.value("enableSection/Dorama", false).toBool();
+    bool set_enableBtnAnime  = settings.value("ActiveSections/Anime",   true).toBool();
+    bool set_enableBtnManga  = settings.value("ActiveSections/Manga",  false).toBool();
+    bool set_enableBtnAMV    = settings.value("ActiveSections/AMV",    false).toBool();
+    bool set_enableBtnDorama = settings.value("ActiveSections/Dorama", false).toBool();
 
     sections::section set_select
             = static_cast<sections::section>(

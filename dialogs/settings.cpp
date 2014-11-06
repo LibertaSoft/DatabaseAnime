@@ -7,39 +7,48 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
 {
     ui->setupUi(this);
     QSettings settings;
-    this->restoreGeometry( settings.value("WindowSettings/Geometry").toByteArray() );
-    ui->LineEdit_Export_FilePath->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
-    ui->LineEdit_Import_FilePath->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
+    settings.beginGroup("DialogSettings");
+        this->restoreGeometry( settings.value("Geometry").toByteArray() );
+        settings.beginGroup("Spletter");
+            ui->splitter->restoreGeometry( settings.value("Geometry").toByteArray() );
+            ui->splitter->restoreState( settings.value("State").toByteArray() );
+        settings.endGroup(/*Spletter*/);
+    settings.endGroup(/*DialogSettings*/);
+    ui->LineEdit_Export_FilePath->setText( DefinesPath::home() );
+    ui->LineEdit_Import_FilePath->setText( DefinesPath::home() );
 
-    settings.beginGroup("enableSection");
+    settings.beginGroup("ActiveSections");
         bool b1 = settings.value( "Anime",   true ).toBool();
         bool b2 = settings.value( "Manga",  false ).toBool();
         bool b3 = settings.value( "AMV",    false ).toBool();
         bool b4 = settings.value( "Dorama", false ).toBool();
     settings.endGroup();
 
-    settings.beginGroup("optionalField");
-        settings.beginGroup("anime");
-            bool a1 = settings.value( "OrigTitle",   false ).toBool();
+    settings.beginGroup("OptionalFields");
+        settings.beginGroup("Anime");
+            bool a1 = settings.value( "AltTitle",    false ).toBool();
             bool a2 = settings.value( "Director",    false ).toBool();
-            bool a3 = settings.value( "PostScoring", false ).toBool();
+            bool a3 = settings.value( "Postscoring", false ).toBool();
         settings.endGroup();
 
-        settings.beginGroup("manga");
+        settings.beginGroup("Manga");
             bool m1 = settings.value( "AltTitle",    false ).toBool();
             bool m2 = settings.value( "Author",      false ).toBool();
             bool m3 = settings.value( "Translation", false ).toBool();
         settings.endGroup();
 
-        settings.beginGroup("dorama");
-            bool d1 = settings.value( "AltTitle",   false ).toBool();
-            bool d2 = settings.value( "Director",   false ).toBool();
+        settings.beginGroup("Dorama");
+            bool d1 = settings.value( "AltTitle", false ).toBool();
+            bool d2 = settings.value( "Director", false ).toBool();
         settings.endGroup();
     settings.endGroup();
 
-    bool checkUpdates = settings.value("General/VerUpdate", false).toBool();
+    settings.beginGroup("Network");
+        bool checkUpdates = settings.value("CheckUpdates", true).toBool();
+        bool searchOnShikimori = settings.value("SearchOnShikimori", true).toBool();
+    settings.endGroup(/*Network*/);
 
-    bool c1 = settings.value( "SwitchCoverOrDir", true ).toBool();
+    bool SwitchCoverOrDir = settings.value( "SwitchCoverOrDir", true ).toBool();
 
     ui->ChBox_AS_Anime->setChecked( b1 );
     ui->ChBox_AS_Manga->setChecked( b2 );
@@ -58,8 +67,8 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     ui->ChBox_OptField_Dorama_Director->setChecked( d2 );
 
     ui->ChBox_CheckForUpdate->setChecked( checkUpdates );
-    ui->ChBox_SwitchCoverOrDir->setChecked( c1 );
-    ui->ChBox_SearchOnShikimori->setChecked( c1 ); // #ToDo: to settings
+    ui->ChBox_SwitchCoverOrDir->setChecked( SwitchCoverOrDir );
+    ui->ChBox_SearchOnShikimori->setChecked( searchOnShikimori );
 
     QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( "Language", QLocale::English ).toInt());
 
@@ -84,7 +93,14 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
 Settings::~Settings()
 {
     QSettings settings;
-    settings.setValue("WindowSettings/Geometry", this->saveGeometry() );
+    settings.beginGroup("DialogSettings");
+        settings.setValue("Geometry", this->saveGeometry() );
+
+        settings.beginGroup("Spletter");
+            settings.setValue("Geometry", ui->splitter->saveGeometry() );
+            settings.setValue("State", ui->splitter->saveState() );
+        settings.endGroup(/*Spletter*/);
+    settings.endGroup(/*Dialog*/);
     delete ui;
 }
 
@@ -132,27 +148,27 @@ void Settings::on_BtnBox_accepted()
 {
     QSettings settings;
 
-    settings.beginGroup("enableSection");
+    settings.beginGroup("ActiveSections");
         settings.setValue( "Anime",  ui->ChBox_AS_Anime->isChecked() );
         settings.setValue( "Manga",  ui->ChBox_AS_Manga->isChecked() );
         settings.setValue( "AMV",    ui->ChBox_AS_Amv->isChecked() );
         settings.setValue( "Dorama", ui->ChBox_AS_Dorama->isChecked() );
     settings.endGroup();
 
-    settings.beginGroup("optionalField");
-        settings.beginGroup("anime");
-            settings.setValue( "OrigTitle",   ui->ChBox_OptField_Anime_AltTitle->isChecked() );
+    settings.beginGroup("OptionalFields");
+        settings.beginGroup("Anime");
+            settings.setValue( "AltTitle",   ui->ChBox_OptField_Anime_AltTitle->isChecked() );
             settings.setValue( "Director",    ui->ChBox_OptField_Anime_Director->isChecked() );
-            settings.setValue( "PostScoring", ui->ChBox_OptField_Anime_Postscoring->isChecked() );
+            settings.setValue( "Postscoring", ui->ChBox_OptField_Anime_Postscoring->isChecked() );
         settings.endGroup();
 
-        settings.beginGroup("manga");
+        settings.beginGroup("Manga");
             settings.setValue( "AltTitle",    ui->ChBox_OptField_Manga_AltTitle->isChecked() );
             settings.setValue( "Author",      ui->ChBox_OptField_Manga_Author->isChecked() );
             settings.setValue( "Translation", ui->ChBox_OptField_Manga_Translation->isChecked() );
         settings.endGroup();
 
-        settings.beginGroup("dorama");
+        settings.beginGroup("Dorama");
             settings.setValue( "AltTitle",   ui->ChBox_OptField_Dorama_AltTitle->isChecked() );
             settings.setValue( "Director",   ui->ChBox_OptField_Dorama_Director->isChecked() );
         settings.endGroup();
@@ -161,7 +177,11 @@ void Settings::on_BtnBox_accepted()
     settings.setValue( "Language", ui->ComboBox_Language->currentData() );
     settings.setValue( "Sorting", ui->ComboBox_ItemList_Sorting->currentIndex() );
 
-    settings.setValue( "VerUpdate", ui->ChBox_CheckForUpdate->isChecked() );
+    settings.beginGroup("Network");
+        settings.setValue( "CheckUpdates", ui->ChBox_CheckForUpdate->isChecked() );
+        settings.setValue( "SearchOnShikimori", ui->ChBox_SearchOnShikimori->isChecked() );
+    settings.endGroup(/*Network*/);
+
     settings.setValue( "SwitchCoverOrDir", ui->ChBox_SwitchCoverOrDir->isChecked() );
 
     if( QDir::isAbsolutePath( ui->LineEdit_WorkDir->text() ) )
@@ -192,8 +212,9 @@ void Settings::BtnBox_resetDefaults()
     ui->ComboBox_Language->setCurrentIndex(0);
     ui->ComboBox_ItemList_Sorting->setCurrentIndex(1);
 
-    ui->ChBox_CheckForUpdate->setChecked(false);
-    ui->ChBox_SwitchCoverOrDir->setChecked( true ); ;
+    ui->ChBox_CheckForUpdate->setChecked( true );
+    ui->ChBox_SwitchCoverOrDir->setChecked( true );
+    ui->ChBox_SearchOnShikimori->setChecked( true );
 
     ui->LineEdit_WorkDir->setText( DefinesPath::appData(true) );
 }
@@ -452,7 +473,7 @@ void Settings::on_TBtn_Export_Path_Choose_clicked()
                                                     ui->LineEdit_Export_FilePath->text()
                                                     );
     if( dir.isEmpty() )
-        ui->LineEdit_Export_FilePath->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
+        ui->LineEdit_Export_FilePath->setText( DefinesPath::home() );
     else
         ui->LineEdit_Export_FilePath->setText( dir );
 }
@@ -464,7 +485,7 @@ void Settings::on_TBtn_Import_Path_Choose_clicked()
                                                 ui->LineEdit_Import_FilePath->text()
                                                 );
     if( file.isEmpty() )
-        ui->LineEdit_Import_FilePath->setText( QStandardPaths::writableLocation( QStandardPaths::HomeLocation ) );
+        ui->LineEdit_Import_FilePath->setText( DefinesPath::home() );
     else
         ui->LineEdit_Import_FilePath->setText( file );
 }
@@ -728,4 +749,16 @@ bool Settings::on_actionDeleteRecords_triggered()
     MngrQuerys::createTable_Dorama();
     MngrConnect.commit();
     return true;
+}
+
+void Settings::on_TBtn_WorkDir_Choose_clicked()
+{
+    QString dir = QFileDialog::getExistingDirectory(this,
+                                                    tr("Choose a directory for application data"),
+                                                    ui->LineEdit_WorkDir->text()
+                                                    );
+    if( dir.isEmpty() )
+        ui->LineEdit_WorkDir->setText( DefinesPath::appData() );
+    else
+        ui->LineEdit_WorkDir->setText( dir );
 }

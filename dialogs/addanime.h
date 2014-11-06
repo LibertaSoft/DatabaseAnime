@@ -22,6 +22,7 @@ private:
     QSqlQueryModel* model;
     shikimoriApi api;
 
+
     bool _isEditRole;
     unsigned long long _recordId;
     QString _oldCover;
@@ -35,6 +36,8 @@ private:
     QStringListModel _titleCompliterModel;
     QCompleter *TitleCompliter;
     QStringListModel _completerModel;
+
+    bool _autoSearchOnShikimori;
 
     void initTitleCompleter();
     void initTags();

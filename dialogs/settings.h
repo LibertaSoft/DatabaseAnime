@@ -55,6 +55,7 @@ private slots:
     void on_PBtn_Import_Replace_clicked();
     unsigned long long on_actionImport_triggered();
     bool on_actionDeleteRecords_triggered();
+    void on_TBtn_WorkDir_Choose_clicked();
 };
 
 #endif // SETTINGS_H

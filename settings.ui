@@ -132,7 +132,7 @@
              <x>0</x>
              <y>0</y>
              <width>499</width>
-             <height>547</height>
+             <height>549</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -194,14 +194,14 @@
                <item row="0" column="0">
                 <widget class="QCheckBox" name="ChBox_CheckForUpdate">
                  <property name="text">
-                  <string>Check for update:</string>
+                  <string>Check for update</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="0">
                 <widget class="QCheckBox" name="ChBox_SearchOnShikimori">
                  <property name="text">
-                  <string>Search on shikimori:</string>
+                  <string>Auto search on shikimori</string>
                  </property>
                 </widget>
                </item>
@@ -293,7 +293,7 @@
                <item row="0" column="0" colspan="2">
                 <widget class="QCheckBox" name="ChBox_SwitchCoverOrDir">
                  <property name="text">
-                  <string>Switch cover/directory:</string>
+                  <string>Switch cover/directory</string>
                  </property>
                 </widget>
                </item>
@@ -303,18 +303,32 @@
             <item>
              <widget class="QGroupBox" name="groupBox">
               <property name="title">
-               <string>Data</string>
+               <string>Work directory:</string>
+              </property>
+              <property name="checkable">
+               <bool>true</bool>
+              </property>
+              <property name="checked">
+               <bool>false</bool>
               </property>
               <layout class="QFormLayout" name="formLayout_5">
-               <item row="0" column="0">
-                <widget class="QLabel" name="Label_WorkDir">
-                 <property name="text">
-                  <string>Work directory:</string>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="1">
-                <widget class="QLineEdit" name="LineEdit_WorkDir"/>
+                <layout class="QHBoxLayout" name="horizontalLayout_8">
+                 <item>
+                  <widget class="QLineEdit" name="LineEdit_WorkDir"/>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="TBtn_WorkDir_Choose">
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="resource.qrc">
+                     <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -515,8 +529,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>512</width>
-             <height>504</height>
+             <width>345</width>
+             <height>201</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -586,12 +600,20 @@
                 <property name="text">
                  <string>Append</string>
                 </property>
+                <property name="icon">
+                 <iconset resource="resource.qrc">
+                  <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
+                </property>
                </widget>
               </item>
               <item>
                <widget class="QPushButton" name="PBtn_Import_Replace">
                 <property name="text">
                  <string>Replace</string>
+                </property>
+                <property name="icon">
+                 <iconset resource="resource.qrc">
+                  <normaloff>:/images/refresh.png</normaloff>:/images/refresh.png</iconset>
                 </property>
                </widget>
               </item>
@@ -643,8 +665,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>512</width>
-             <height>504</height>
+             <width>345</width>
+             <height>199</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -712,6 +734,10 @@
               <property name="text">
                <string>Export</string>
               </property>
+              <property name="icon">
+               <iconset resource="resource.qrc">
+                <normaloff>:/images/export.png</normaloff>:/images/export.png</iconset>
+              </property>
              </widget>
             </item>
             <item>
@@ -749,7 +775,9 @@
   </layout>
   <action name="actionImport">
    <property name="icon">
-    <iconset theme="add"/>
+    <iconset theme="add">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>import</string>
@@ -760,7 +788,9 @@
   </action>
   <action name="actionDeleteRecords">
    <property name="icon">
-    <iconset theme="remove"/>
+    <iconset theme="remove">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>deleteRecords</string>

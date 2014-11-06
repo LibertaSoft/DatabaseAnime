@@ -212,7 +212,8 @@ void DialogAddAmv::on_toolButton_clicked()
                 QFileDialog::getOpenFileName(this,
                                              tr("Choose a video file"),
                                              QStandardPaths::writableLocation( QStandardPaths::MoviesLocation )
-                                             ) );
+                                             )
+                             );
 }
 
 
