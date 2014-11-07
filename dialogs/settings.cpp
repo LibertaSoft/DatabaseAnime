@@ -83,11 +83,21 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
             ui->ComboBox_Language->setCurrentIndex(i);
     }
 
+    // Sorting
+    ui->ComboBox_ItemList_Sorting->addItem(tr("None"), Sort::none);
+    ui->ComboBox_ItemList_Sorting->addItem(tr("ASC"),  Sort::asc);
+    ui->ComboBox_ItemList_Sorting->addItem(tr("DESC"), Sort::desc);
+    ui->ComboBox_ItemList_Sorting->addItem(tr("Year"), Sort::year);
 
     Sort::sort sort = static_cast<Sort::sort>( settings.value( "Sorting", Sort::asc ).toInt() );
     ui->ComboBox_ItemList_Sorting->setCurrentIndex( sort );
 
+    // Work dir
     ui->LineEdit_WorkDir->setText( QDir::toNativeSeparators( DefinesPath::appData() ) );
+
+    // Displayed field
+    ui->ComboBox_ItemList_DisplayedField->addItem(tr("Title"), 0);
+    ui->ComboBox_ItemList_DisplayedField->addItem(tr("Alternative title"), 1);
 }
 
 Settings::~Settings()
@@ -249,6 +259,7 @@ void Settings::on_PBtn_Action_Export_clicked()
         return;
     }
     XmlDbaWriter writer(&file);
+    /*
     QSqlQuery query;
     if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::anime)) ) ){
         qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::anime) );
@@ -256,46 +267,49 @@ void Settings::on_PBtn_Action_Export_clicked()
         return;
     }
 
+    */
     writer.startDocument();
     writer.startElement("DatabaseAnime");
+    QSqlQuery query;
 
     if( exAnime ){
-        if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::anime) ) ) ){
-            qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::anime) );
+        query = MngrQuerys::selectAll(sections::anime);
+        if( query.lastError().isValid() ){
             QMessageBox::critical(this, tr("Critical"), tr("Cannot export data") );
             return;
         }
 
         writer.startSection(sections::anime);
         while( query.next() ){
+            using namespace Tables::AnimeField;
             QMap<QString, QString> data;
 
-            data["isHaveLooked"]    = query.value("isHaveLooked"    ).toString();
-            data["isEditingDone"]   = query.value("isEditingDone"   ).toString();
-            data["isAdult"]         = query.value("isAdult"         ).toString();
-            data["Title"]           = query.value("Title"           ).toString();
-            data["OrigTitle"]       = query.value("OrigTitle"       ).toString();
-            data["Director"]        = query.value("Director"        ).toString();
-            data["PostScoring"]     = query.value("PostScoring"     ).toString();
-            data["SeriesTV"]        = query.value("SeriesTV"        ).toString();
-            data["SeriesOVA"]       = query.value("SeriesOVA"       ).toString();
-            data["SeriesONA"]       = query.value("SeriesONA"       ).toString();
-            data["SeriesSpecial"]   = query.value("SeriesSpecial"   ).toString();
-            data["SeriesMovie"]     = query.value("SeriesMovie"     ).toString();
-            data["vSeriesTV"]       = query.value("vSeriesTV"       ).toString();
-            data["vSeriesOVA"]      = query.value("vSeriesOVA"      ).toString();
-            data["vSeriesONA"]      = query.value("vSeriesONA"      ).toString();
-            data["vSeriesSpecial"]  = query.value("vSeriesSpecial"  ).toString();
-            data["vSeriesMovie"]    = query.value("vSeriesMovie"    ).toString();
-            data["Score"]           = query.value("Score"           ).toString();
-            data["Year"]            = query.value("Year"            ).toString();
-            data["Season"]          = query.value("Season"          ).toString();
-            data["Studios"]         = query.value("Studios"         ).toString();
-            data["Tags"]            = query.value("Tags"            ).toString();
-            data["Description"]     = query.value("Description"     ).toString();
-            data["URL"]             = query.value("URL"             ).toString();
-            data["Dir"]             = query.value("Dir"             ).toString();
-            data["ImagePath"]       = query.value("ImagePath"       ).toString();
+            data[MngrQuerys::fieldToString(isHaveLooked)]   = query.value(MngrQuerys::fieldToString(isHaveLooked)   ).toString();
+            data[MngrQuerys::fieldToString(isEditingDone)]  = query.value(MngrQuerys::fieldToString(isEditingDone)  ).toString();
+            data[MngrQuerys::fieldToString(isAdult)]        = query.value(MngrQuerys::fieldToString(isAdult)        ).toString();
+            data[MngrQuerys::fieldToString(Title)]          = query.value(MngrQuerys::fieldToString(Title)          ).toString();
+            data[MngrQuerys::fieldToString(AltTitle)]       = query.value(MngrQuerys::fieldToString(AltTitle)       ).toString();
+            data[MngrQuerys::fieldToString(Director)]       = query.value(MngrQuerys::fieldToString(Director)       ).toString();
+            data[MngrQuerys::fieldToString(PostScoring)]    = query.value(MngrQuerys::fieldToString(PostScoring)    ).toString();
+            data[MngrQuerys::fieldToString(SeriesTV)]       = query.value(MngrQuerys::fieldToString(SeriesTV)       ).toString();
+            data[MngrQuerys::fieldToString(SeriesOVA)]      = query.value(MngrQuerys::fieldToString(SeriesOVA)      ).toString();
+            data[MngrQuerys::fieldToString(SeriesONA)]      = query.value(MngrQuerys::fieldToString(SeriesONA)      ).toString();
+            data[MngrQuerys::fieldToString(SeriesSpecial)]  = query.value(MngrQuerys::fieldToString(SeriesSpecial)  ).toString();
+            data[MngrQuerys::fieldToString(SeriesMovie)]    = query.value(MngrQuerys::fieldToString(SeriesMovie)    ).toString();
+            data[MngrQuerys::fieldToString(vSeriesTV)]      = query.value(MngrQuerys::fieldToString(vSeriesTV)      ).toString();
+            data[MngrQuerys::fieldToString(vSeriesOVA)]     = query.value(MngrQuerys::fieldToString(vSeriesOVA)     ).toString();
+            data[MngrQuerys::fieldToString(vSeriesONA)]     = query.value(MngrQuerys::fieldToString(vSeriesONA)     ).toString();
+            data[MngrQuerys::fieldToString(vSeriesSpecial)] = query.value(MngrQuerys::fieldToString(vSeriesSpecial) ).toString();
+            data[MngrQuerys::fieldToString(vSeriesMovie)]   = query.value(MngrQuerys::fieldToString(vSeriesMovie)   ).toString();
+            data[MngrQuerys::fieldToString(Score)]          = query.value(MngrQuerys::fieldToString(Score)          ).toString();
+            data[MngrQuerys::fieldToString(Year)]           = query.value(MngrQuerys::fieldToString(Year)           ).toString();
+            data[MngrQuerys::fieldToString(Season)]         = query.value(MngrQuerys::fieldToString(Season)         ).toString();
+            data[MngrQuerys::fieldToString(Studios)]        = query.value(MngrQuerys::fieldToString(Studios)        ).toString();
+            data[MngrQuerys::fieldToString(Tags)]           = query.value(MngrQuerys::fieldToString(Tags)           ).toString();
+            data[MngrQuerys::fieldToString(Description)]    = query.value(MngrQuerys::fieldToString(Description)    ).toString();
+            data[MngrQuerys::fieldToString(Url)]            = query.value(MngrQuerys::fieldToString(Url)            ).toString();
+            data[MngrQuerys::fieldToString(Dir)]            = query.value(MngrQuerys::fieldToString(Dir)            ).toString();
+            data[MngrQuerys::fieldToString(ImagePath)]      = query.value(MngrQuerys::fieldToString(ImagePath)      ).toString();
 
             writer.writeNext(data);
             QCoreApplication::processEvents();
@@ -303,36 +317,37 @@ void Settings::on_PBtn_Action_Export_clicked()
         writer.endSection(/*Anime*/);
     }
     if( exManga ){
-        if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::manga)) ) ){
-            qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::manga) );
+        query = MngrQuerys::selectAll(sections::manga);
+        if( query.lastError().isValid() ){
             QMessageBox::critical(this, tr("Critical"), tr("Cannot export data") );
             return;
         }
 
         writer.startSection(sections::manga);
         while (query.next()) {
+            using namespace Tables::MangaField;
             QMap<QString, QString> data;
 
-            data["isHaveLooked"]    = query.value("isHaveLooked"    ).toString();
-            data["isEditingDone"]   = query.value("isEditingDone"   ).toString();
-            data["isAdult"]         = query.value("isAdult"         ).toString();
-            data["Title"]           = query.value("Title"           ).toString();
-            data["AltTitle"]        = query.value("AltTitle"        ).toString();
-            data["Author"]          = query.value("Author"          ).toString();
-            data["Translation"]     = query.value("Translation"     ).toString();
-            data["Vol"]             = query.value("Vol"             ).toString();
-            data["Ch"]              = query.value("Ch"              ).toString();
-            data["Pages"]           = query.value("Pages"           ).toString();
-            data["vVol"]            = query.value("vVol"            ).toString();
-            data["vCh"]             = query.value("vCh"             ).toString();
-            data["vPages"]          = query.value("vPages"          ).toString();
-            data["Score"]           = query.value("Score"           ).toString();
-            data["Year"]            = query.value("Year"            ).toString();
-            data["Tags"]            = query.value("Tags"            ).toString();
-            data["Description"]     = query.value("Description"     ).toString();
-            data["URL"]             = query.value("URL"             ).toString();
-            data["Dir"]             = query.value("Dir"             ).toString();
-            data["ImagePath"]       = query.value("ImagePath"       ).toString();
+            data[MngrQuerys::fieldToString(isHaveLooked)]    = query.value(MngrQuerys::fieldToString(isHaveLooked)    ).toString();
+            data[MngrQuerys::fieldToString(isEditingDone)]   = query.value(MngrQuerys::fieldToString(isEditingDone)   ).toString();
+            data[MngrQuerys::fieldToString(isAdult)]         = query.value(MngrQuerys::fieldToString(isAdult)         ).toString();
+            data[MngrQuerys::fieldToString(Title)]           = query.value(MngrQuerys::fieldToString(Title)           ).toString();
+            data[MngrQuerys::fieldToString(AltTitle)]        = query.value(MngrQuerys::fieldToString(AltTitle)        ).toString();
+            data[MngrQuerys::fieldToString(Author)]          = query.value(MngrQuerys::fieldToString(Author)          ).toString();
+            data[MngrQuerys::fieldToString(Translation)]     = query.value(MngrQuerys::fieldToString(Translation)     ).toString();
+            data[MngrQuerys::fieldToString(Vol)]             = query.value(MngrQuerys::fieldToString(Vol)             ).toString();
+            data[MngrQuerys::fieldToString(Ch)]              = query.value(MngrQuerys::fieldToString(Ch)              ).toString();
+            data[MngrQuerys::fieldToString(Pages)]           = query.value(MngrQuerys::fieldToString(Pages)           ).toString();
+            data[MngrQuerys::fieldToString(vVol)]            = query.value(MngrQuerys::fieldToString(vVol)            ).toString();
+            data[MngrQuerys::fieldToString(vCh)]             = query.value(MngrQuerys::fieldToString(vCh)             ).toString();
+            data[MngrQuerys::fieldToString(vPages)]          = query.value(MngrQuerys::fieldToString(vPages)          ).toString();
+            data[MngrQuerys::fieldToString(Score)]           = query.value(MngrQuerys::fieldToString(Score)           ).toString();
+            data[MngrQuerys::fieldToString(Year)]            = query.value(MngrQuerys::fieldToString(Year)            ).toString();
+            data[MngrQuerys::fieldToString(Tags)]            = query.value(MngrQuerys::fieldToString(Tags)            ).toString();
+            data[MngrQuerys::fieldToString(Description)]     = query.value(MngrQuerys::fieldToString(Description)     ).toString();
+            data[MngrQuerys::fieldToString(Url)]             = query.value(MngrQuerys::fieldToString(Url)             ).toString();
+            data[MngrQuerys::fieldToString(Dir)]             = query.value(MngrQuerys::fieldToString(Dir)             ).toString();
+            data[MngrQuerys::fieldToString(ImagePath)]       = query.value(MngrQuerys::fieldToString(ImagePath)       ).toString();
 
             writer.writeNext(data);
             QCoreApplication::processEvents();
@@ -340,30 +355,31 @@ void Settings::on_PBtn_Action_Export_clicked()
         writer.endSection(/*Manga*/);
     }
     if( exAmv ){
-        if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::amv)) ) ){
-            qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::amv) );
+        query = MngrQuerys::selectAll(sections::amv);
+        if( query.lastError().isValid() ){
             QMessageBox::critical(this, tr("Critical"), tr("Cannot export data") );
             return;
         }
 
         writer.startSection(sections::amv);
         while (query.next()) {
+            using namespace Tables::AmvField;
             QMap<QString, QString> data;
 
-            data["isEditingDone"]   = query.value("isEditingDone"   ).toString();
-            data["isAdult"]         = query.value("isAdult"         ).toString();
-            data["Title"]           = query.value("Title"           ).toString();
-            data["Author"]          = query.value("Author"          ).toString();
-            data["Сontestant"]      = query.value("Сontestant"      ).toString();
-            data["Score"]           = query.value("Score"           ).toString();
-            data["Year"]            = query.value("Year"            ).toString();
-            data["Tags"]            = query.value("Tags"            ).toString();
-            data["ContainingMusic"] = query.value("ContainingMusic" ).toString();
-            data["ContainingAnime"] = query.value("ContainingAnime" ).toString();
-            data["AuthorComment"]   = query.value("AuthorComment"   ).toString();
-            data["URL"]             = query.value("URL"             ).toString();
-            data["Dir"]             = query.value("Dir"             ).toString();
-            data["ImagePath"]       = query.value("ImagePath"       ).toString();
+            data[MngrQuerys::fieldToString(isEditingDone)]   = query.value(MngrQuerys::fieldToString(isEditingDone)   ).toString();
+            data[MngrQuerys::fieldToString(isAdult)]         = query.value(MngrQuerys::fieldToString(isAdult)         ).toString();
+            data[MngrQuerys::fieldToString(Title)]           = query.value(MngrQuerys::fieldToString(Title)           ).toString();
+            data[MngrQuerys::fieldToString(Author)]          = query.value(MngrQuerys::fieldToString(Author)          ).toString();
+            data[MngrQuerys::fieldToString(Contestant)]      = query.value(MngrQuerys::fieldToString(Contestant)      ).toString();
+            data[MngrQuerys::fieldToString(Score)]           = query.value(MngrQuerys::fieldToString(Score)           ).toString();
+            data[MngrQuerys::fieldToString(Year)]            = query.value(MngrQuerys::fieldToString(Year)            ).toString();
+            data[MngrQuerys::fieldToString(Tags)]            = query.value(MngrQuerys::fieldToString(Tags)            ).toString();
+            data[MngrQuerys::fieldToString(ContainingMusic)] = query.value(MngrQuerys::fieldToString(ContainingMusic) ).toString();
+            data[MngrQuerys::fieldToString(ContainingAnime)] = query.value(MngrQuerys::fieldToString(ContainingAnime) ).toString();
+            data[MngrQuerys::fieldToString(AuthorComment)]   = query.value(MngrQuerys::fieldToString(AuthorComment)   ).toString();
+            data[MngrQuerys::fieldToString(Url)]             = query.value(MngrQuerys::fieldToString(Url)             ).toString();
+            data[MngrQuerys::fieldToString(Dir)]             = query.value(MngrQuerys::fieldToString(Dir)             ).toString();
+            data[MngrQuerys::fieldToString(ImagePath)]       = query.value(MngrQuerys::fieldToString(ImagePath)       ).toString();
 
             writer.writeNext(data);
             QCoreApplication::processEvents();
@@ -371,37 +387,38 @@ void Settings::on_PBtn_Action_Export_clicked()
         writer.endSection(/*Amv*/);
     }
     if( exDorama ){
-        if ( !query.exec( QString("SELECT * FROM %1").arg( MngrQuerys::getTableName(sections::dorama)) ) ){
-            qCritical() << QString("Cannot select data from table %1").arg( MngrQuerys::getTableName(sections::dorama) );
+        query = MngrQuerys::selectAll(sections::dorama);
+        if( query.lastError().isValid() ){
             QMessageBox::critical(this, tr("Critical"), tr("Cannot export data") );
             return;
         }
 
         writer.startSection(sections::dorama);
         while (query.next()) {
+            using namespace Tables::DoramaField;
             QMap<QString, QString> data;
 
-            data["isHaveLooked"]    = query.value("isHaveLooked"    ).toString();
-            data["isEditingDone"]   = query.value("isEditingDone"   ).toString();
-            data["isAdult"]         = query.value("isAdult"         ).toString();
-            data["Title"]           = query.value("Title"           ).toString();
-            data["AltTitle"]        = query.value("AltTitle"        ).toString();
-            data["Director"]        = query.value("Director"        ).toString();
-            data["SeriesTV"]        = query.value("SeriesTV"        ).toString();
-            data["SeriesSpecial"]   = query.value("SeriesSpecial"   ).toString();
-            data["SeriesMovie"]     = query.value("SeriesMovie"     ).toString();
-            data["vSeriesTV"]       = query.value("vSeriesTV"       ).toString();
-            data["vSeriesSpecial"]  = query.value("vSeriesSpecial"  ).toString();
-            data["vSeriesMovie"]    = query.value("vSeriesMovie"    ).toString();
-            data["Score"]           = query.value("Score"           ).toString();
-            data["Year"]            = query.value("Year"            ).toString();
-            data["Season"]          = query.value("Season"          ).toString();
-            data["Tags"]            = query.value("Tags"            ).toString();
-            data["Description"]     = query.value("Description"     ).toString();
-            data["Actors"]          = query.value("Actors"          ).toString();
-            data["URL"]             = query.value("URL"             ).toString();
-            data["Dir"]             = query.value("Dir"             ).toString();
-            data["ImagePath"]       = query.value("ImagePath"       ).toString();
+            data[MngrQuerys::fieldToString(isHaveLooked)]    = query.value(MngrQuerys::fieldToString(isHaveLooked)    ).toString();
+            data[MngrQuerys::fieldToString(isEditingDone)]   = query.value(MngrQuerys::fieldToString(isEditingDone)   ).toString();
+            data[MngrQuerys::fieldToString(isAdult)]         = query.value(MngrQuerys::fieldToString(isAdult)         ).toString();
+            data[MngrQuerys::fieldToString(Title)]           = query.value(MngrQuerys::fieldToString(Title)           ).toString();
+            data[MngrQuerys::fieldToString(AltTitle)]        = query.value(MngrQuerys::fieldToString(AltTitle)        ).toString();
+            data[MngrQuerys::fieldToString(Director)]        = query.value(MngrQuerys::fieldToString(Director)        ).toString();
+            data[MngrQuerys::fieldToString(SeriesTV)]        = query.value(MngrQuerys::fieldToString(SeriesTV)        ).toString();
+            data[MngrQuerys::fieldToString(SeriesSpecial)]   = query.value(MngrQuerys::fieldToString(SeriesSpecial)   ).toString();
+            data[MngrQuerys::fieldToString(SeriesMovie)]     = query.value(MngrQuerys::fieldToString(SeriesMovie)     ).toString();
+            data[MngrQuerys::fieldToString(vSeriesTV)]       = query.value(MngrQuerys::fieldToString(vSeriesTV)       ).toString();
+            data[MngrQuerys::fieldToString(vSeriesSpecial)]  = query.value(MngrQuerys::fieldToString(vSeriesSpecial)  ).toString();
+            data[MngrQuerys::fieldToString(vSeriesMovie)]    = query.value(MngrQuerys::fieldToString(vSeriesMovie)    ).toString();
+            data[MngrQuerys::fieldToString(Score)]           = query.value(MngrQuerys::fieldToString(Score)           ).toString();
+            data[MngrQuerys::fieldToString(Year)]            = query.value(MngrQuerys::fieldToString(Year)            ).toString();
+            data[MngrQuerys::fieldToString(Season)]          = query.value(MngrQuerys::fieldToString(Season)          ).toString();
+            data[MngrQuerys::fieldToString(Tags)]            = query.value(MngrQuerys::fieldToString(Tags)            ).toString();
+            data[MngrQuerys::fieldToString(Description)]     = query.value(MngrQuerys::fieldToString(Description)     ).toString();
+            data[MngrQuerys::fieldToString(Actors)]          = query.value(MngrQuerys::fieldToString(Actors)          ).toString();
+            data[MngrQuerys::fieldToString(Url)]             = query.value(MngrQuerys::fieldToString(Url)             ).toString();
+            data[MngrQuerys::fieldToString(Dir)]             = query.value(MngrQuerys::fieldToString(Dir)             ).toString();
+            data[MngrQuerys::fieldToString(ImagePath)]       = query.value(MngrQuerys::fieldToString(ImagePath)       ).toString();
 
             writer.writeNext(data);
             QCoreApplication::processEvents();
@@ -582,16 +599,16 @@ unsigned long long Settings::on_actionImport_triggered()
 
         switch ( reader.currentSection() ) {
         case sections::anime :
-            MngrQuerys::insertAnime(data);
+            MngrQuerys::insertAnime( MngrQuerys::convertAnimeData(data) );
             break;
         case sections::manga :
-            MngrQuerys::insertManga(data);
+            MngrQuerys::insertManga( MngrQuerys::convertMangaData(data) );
             break;
         case sections::amv :
-            MngrQuerys::insertAmv(data);
+            MngrQuerys::insertAmv( MngrQuerys::convertAmvData(data) );
             break;
         case sections::dorama :
-            MngrQuerys::insertDorama(data);
+            MngrQuerys::insertDorama( MngrQuerys::convertDoramaData(data) );
             break;
         default:
             qCritical() << "[FormSettings::importAppend] uncorrect section: " << reader.currentSection();
@@ -665,16 +682,33 @@ bool Settings::on_actionDeleteRecords_triggered()
     bool imImages = ui->ChBox_Import_Images->isChecked();
 
     MngrConnect.transaction();
-    QSqlQuery query;
     if( imAnime ){
-        if( false == query.exec( QString("DROP TABLE IF EXISTS %1").arg( MngrQuerys::getTableName( sections::anime ) ) ) ){
-            qCritical() << QString("Error when deleting a table %1").arg( MngrQuerys::getTableName( sections::anime ) )
-                        << query.lastError();
+        if( MngrQuerys::dropTable( sections::anime ) == false ){
             MngrConnect.rollback();
             return false;
         }
+    }
+    if( imManga ){
+        if( MngrQuerys::dropTable( sections::manga ) == false ){
+            MngrConnect.rollback();
+            return false;
+        }
+    }
+    if( imAmv ){
+        if( MngrQuerys::dropTable( sections::amv ) == false ){
+            MngrConnect.rollback();
+            return false;
+        }
+    }
+    if( imDorama ){
+        if( MngrQuerys::dropTable( sections::dorama ) == false ){
+            MngrConnect.rollback();
+            return false;
+        }
+    }
 
-        if( imImages ){
+    if( imImages ){
+        if( imAnime ){
             QDirIterator it( DefinesPath::animeCovers() );
             while( it.hasNext() ){
                 it.next();
@@ -684,16 +718,8 @@ bool Settings::on_actionDeleteRecords_triggered()
                 QCoreApplication::processEvents();
             }
         }
-    }
-    if( imManga ){
-        if( false == query.exec( QString("DROP TABLE IF EXISTS %1").arg( MngrQuerys::getTableName( sections::manga ) ) ) ){
-            qCritical() << QString("Error when deleting a table %1").arg( MngrQuerys::getTableName( sections::manga ) )
-                        << query.lastError();
-            MngrConnect.rollback();
-            return false;
-        }
 
-        if( imImages ){
+        if( imManga ){
             QDirIterator it( DefinesPath::mangaCovers() );
             while( it.hasNext() ){
                 it.next();
@@ -703,16 +729,8 @@ bool Settings::on_actionDeleteRecords_triggered()
                 QCoreApplication::processEvents();
             }
         }
-    }
-    if( imAmv ){
-        if( false == query.exec( QString("DROP TABLE IF EXISTS %1").arg( MngrQuerys::getTableName( sections::amv ) ) ) ){
-            qCritical() << QString("Error when deleting a table %1").arg( MngrQuerys::getTableName( sections::amv ) )
-                        << query.lastError();
-            MngrConnect.rollback();
-            return false;
-        }
 
-        if( imImages ){
+        if( imAmv ){
             QDirIterator it( DefinesPath::amvCovers() );
             while( it.hasNext() ){
                 it.next();
@@ -722,16 +740,8 @@ bool Settings::on_actionDeleteRecords_triggered()
                 QCoreApplication::processEvents();
             }
         }
-    }
-    if( imDorama ){
-        if( false == query.exec( QString("DROP TABLE IF EXISTS %1").arg( MngrQuerys::getTableName( sections::dorama ) ) ) ){
-            qCritical() << QString("Error when deleting a table %1").arg( MngrQuerys::getTableName( sections::dorama ) )
-                        << query.lastError();
-            MngrConnect.rollback();
-            return false;
-        }
 
-        if( imImages ){
+        if( imDorama ){
             QDirIterator it( DefinesPath::doramaCovers() );
             while( it.hasNext() ){
                 it.next();

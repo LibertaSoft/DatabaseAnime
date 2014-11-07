@@ -119,20 +119,20 @@ void DialogAddAmv::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddAmv::insert_Amv(){
+    using namespace Tables::AmvField;
+    QMap<field, QVariant> data;
 
-    QMap<QString, QVariant> data;
-
-    data["id"]            = _recordId;
-    data["isEditingDone"] = !ui->CheckBox_Editing->isChecked();
-    data["isAdult"]       =  false;
+    data[id]            = _recordId;
+    data[isEditingDone] = !ui->CheckBox_Editing->isChecked();
+    data[isAdult]       =  false;
 
     QRegExp rx("<.*>"); rx.setMinimal(true);
-    data["Title"]          = ui->LineEdit_Title->text().remove(rx);
+    data[Title]          = ui->LineEdit_Title->text().remove(rx);
 
-    data["Author"]        =  ui->LineEdit_Author->text();
-    data["Сontestant"]    =  ui->LineEdit_Contestant->text();
-    data["Score"]         =  0;
-    data["Year"]          = (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0;
+    data[Author]        =  ui->LineEdit_Author->text();
+    data[Contestant]    =  ui->LineEdit_Contestant->text();
+    data[Score]         =  0;
+    data[Year]          = (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0;
 
     QString tagsList;
     QStringList list;
@@ -152,13 +152,13 @@ bool DialogAddAmv::insert_Amv(){
     }
     tagsList += ui->LineEdit_Tags->text();
 
-    data["Tags"]            = tagsList;
-    data["ContainingMusic"] = ui->plainTextEdit_ContMusic->toPlainText();
-    data["ContainingAnime"] = ui->plainTextEdit_ContAnime->toPlainText();
-    data["AuthorComment"]   = ui->PlainTextEdit_AuthorComment->toPlainText();
+    data[Tags]            = tagsList;
+    data[ContainingMusic] = ui->plainTextEdit_ContMusic->toPlainText();
+    data[ContainingAnime] = ui->plainTextEdit_ContAnime->toPlainText();
+    data[AuthorComment]   = ui->PlainTextEdit_AuthorComment->toPlainText();
 
-    data["URL"] = ui->LineEdit_URL->text();
-    data["Dir"] = ui->LineEdit_Dir->text();
+    data[Url] = ui->LineEdit_URL->text();
+    data[Dir] = ui->LineEdit_Dir->text();
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
@@ -169,7 +169,7 @@ bool DialogAddAmv::insert_Amv(){
     if( _isEditRole && !_oldCover.isEmpty() ){
             dir.remove( DefinesPath::amvCovers() + _oldCover );
     }
-    data["ImagePath"] = coverName;
+    data[ImagePath] = coverName;
 
     if( !_isEditRole ){
         if( MngrQuerys::insertAmv(data) == false ){

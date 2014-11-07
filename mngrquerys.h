@@ -11,8 +11,25 @@ class MngrQuerys
 private:
     static QString filterToString(Filter::filter);
     static QString sortToString(Sort::sort);
+
 public:
-    MngrQuerys();
+//    static uniformFields();
+
+    static QString fieldToString(Tables::AnimeField::field field);
+    static QString fieldToString(Tables::MangaField::field field);
+    static QString fieldToString(Tables::AmvField::field field);
+    static QString fieldToString(Tables::DoramaField::field field);
+
+    static Tables::AnimeField::field  animeFieldFromString(QString fieldName);
+    static Tables::MangaField::field  mangaFieldFromString(QString fieldName);
+    static Tables::AmvField::field    amvFieldFromString(QString fieldName);
+    static Tables::DoramaField::field doramaFieldFromString(QString fieldName);
+
+    static QMap<Tables::AnimeField::field, QVariant>  convertAnimeData(QMap<QString,QVariant> data);
+    static QMap<Tables::MangaField::field, QVariant>  convertMangaData(QMap<QString,QVariant> data);
+    static QMap<Tables::AmvField::field,   QVariant>    convertAmvData(QMap<QString,QVariant> data);
+    static QMap<Tables::DoramaField::field,QVariant> convertDoramaData(QMap<QString,QVariant> data);
+
     static QString getTableName( Tables::table );
     static QString getTableName( sections::section );
     static int  selectSection( QSqlQueryModel* model, sections::section = sections::none );
@@ -24,6 +41,11 @@ public:
     static bool createTable_Amv();
     static bool createTable_Dorama();
 
+    static bool dropTable(sections::section section);
+    static QSqlQuery selectAll(sections::section section);
+    static QString getImagePath(sections::section section, quint64 id);
+    static bool deleteRecord(sections::section section, quint64 id);
+
     static QStringList getAnimeTags();
     static QStringList getMangaTags();
     static QStringList getAmvTags();
@@ -31,15 +53,15 @@ public:
 
     static bool updateRecord(sections::section table, unsigned long long recoord_id, QString field, QString newValue);
 
-    static bool insertAnime(QMap<QString, QVariant> &data);
-    static bool insertManga(QMap<QString, QVariant> &data);
-    static bool insertAmv(QMap<QString, QVariant> &data);
-    static bool insertDorama(QMap<QString, QVariant> &data);
+    static bool insertAnime(QMap<Tables::AnimeField::field, QVariant> data);
+    static bool insertManga(QMap<Tables::MangaField::field, QVariant> data);
+    static bool insertAmv(QMap<Tables::AmvField::field, QVariant> data);
+    static bool insertDorama(QMap<Tables::DoramaField::field, QVariant> data);
 
-    static bool updateAnime(QMap<QString, QVariant> &data);
-    static bool updateManga(QMap<QString, QVariant> &data);
-    static bool updateAmv(QMap<QString, QVariant> &data);
-    static bool updateDorama(QMap<QString, QVariant> &data);
+    static bool updateAnime(QMap<Tables::AnimeField::field, QVariant> &data);
+    static bool updateManga(QMap<Tables::MangaField::field, QVariant> &data);
+    static bool updateAmv(QMap<Tables::AmvField::field, QVariant> &data);
+    static bool updateDorama(QMap<Tables::DoramaField::field, QVariant> &data);
 
 };
 

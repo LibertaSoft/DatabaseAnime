@@ -193,27 +193,28 @@ void DialogAddDorama::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddDorama::insert_Dorama(){
-    QMap<QString, QVariant> data;
+    using namespace Tables::DoramaField;
+    QMap<field, QVariant> data;
 
-    data["isHaveLooked"]   = !ui->CheckBox_LookLater->isChecked();
-    data["isEditingDone"]  = !ui->CheckBox_Editing->isChecked();
-    data["isAdult"]        = false;
-    data["id"]             = _recordId;
+    data[isHaveLooked]   = !ui->CheckBox_LookLater->isChecked();
+    data[isEditingDone]  = !ui->CheckBox_Editing->isChecked();
+    data[isAdult]        = false;
+    data[id]             = _recordId;
 
     QRegExp rx("<.*>"); rx.setMinimal(true);
-    data["Title"]          = ui->LineEdit_Title->text().remove(rx);
+    data[Title]          = ui->LineEdit_Title->text().remove(rx);
 
-    data["AltTitle"]       = (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():"";
-    data["Director"]       = (LineEdit_Director)?this->LineEdit_Director->text():"";
-    data["SeriesTV"]       = ui->SpinBox_aTV->value()   ;
-    data["SeriesSpecial"]  = ui->SpinBox_aSpec->value() ;
-    data["SeriesMovie"]    = ui->SpinBox_aMovie->value();
-    data["vSeriesTV"]      = ui->SpinBox_vTV->value()   ;
-    data["vSeriesSpecial"] = ui->SpinBox_vSpec->value() ;
-    data["vSeriesMovie"]   = ui->SpinBox_vMovie->value();
-    data["Score"]          = 0;
-    data["Year"]           = (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0;
-    data["Season"]         = ui->SpinBox_Season->value();
+    data[AltTitle]       = (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():"";
+    data[Director]       = (LineEdit_Director)?this->LineEdit_Director->text():"";
+    data[SeriesTV]       = ui->SpinBox_aTV->value()   ;
+    data[SeriesSpecial]  = ui->SpinBox_aSpec->value() ;
+    data[SeriesMovie]    = ui->SpinBox_aMovie->value();
+    data[vSeriesTV]      = ui->SpinBox_vTV->value()   ;
+    data[vSeriesSpecial] = ui->SpinBox_vSpec->value() ;
+    data[vSeriesMovie]   = ui->SpinBox_vMovie->value();
+    data[Score]          = 0;
+    data[Year]           = (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0;
+    data[Season]         = ui->SpinBox_Season->value();
 
     QString tagsList;
     QStringList list;
@@ -233,11 +234,11 @@ bool DialogAddDorama::insert_Dorama(){
     }
     tagsList += ui->LineEdit_Tags->text();
 
-    data["Tags"]         = tagsList;
-    data["Description"]  = ui->PlainTextEdit_Description->toPlainText();
-    data["Actors"]       = ui->PlainTextEdit_Actors->toPlainText();
-    data["URL"]          = ui->LineEdit_URL->text();
-    data["Dir"]          = ui->LineEdit_Dir->text();
+    data[Tags]         = tagsList;
+    data[Description]  = ui->PlainTextEdit_Description->toPlainText();
+    data[Actors]       = ui->PlainTextEdit_Actors->toPlainText();
+    data[Url]          = ui->LineEdit_URL->text();
+    data[Dir]          = ui->LineEdit_Dir->text();
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
@@ -248,7 +249,7 @@ bool DialogAddDorama::insert_Dorama(){
     if( _isEditRole && !_oldCover.isEmpty() ){
             dir.remove( DefinesPath::doramaCovers() + _oldCover );
     }
-    data["ImagePath"] = coverName;
+    data[ImagePath] = coverName;
 
     if( !_isEditRole ){
         if( MngrQuerys::insertDorama(data) == false ){

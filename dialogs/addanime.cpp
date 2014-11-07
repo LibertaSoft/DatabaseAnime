@@ -254,32 +254,34 @@ void DialogAddAnime::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddAnime::insert_Anime(){
-    QMap<QString, QVariant> data;
-    data["isHaveLooked"]   = !ui->CheckBox_LookLater->isChecked();
-    data["isEditingDone"]  = !ui->CheckBox_Editing->isChecked();
-    data["isAdult"]        = false;
-    data["id"]             = _recordId;
+    using namespace Tables::AnimeField;
+    QMap<field, QVariant> data;
+
+    data[isHaveLooked]   = !ui->CheckBox_LookLater->isChecked();
+    data[isEditingDone]  = !ui->CheckBox_Editing->isChecked();
+    data[isAdult]        = false;
+    data[id]             = _recordId;
 
     QRegExp rx("<.*>"); rx.setMinimal(true);
-    data["Title"]          = ui->LineEdit_Title->text().remove(rx);
+    data[Title]          = ui->LineEdit_Title->text().remove(rx);
 
-    data["OrigTitle"]      = (LineEdit_OrigTitle  )?  this->LineEdit_OrigTitle->text() : "";
-    data["Director"]       = (LineEdit_Director   )?   this->LineEdit_Director->text() : "";
-    data["PostScoring"]    = (LineEdit_PostScoring)?this->LineEdit_PostScoring->text() : "";
-    data["SeriesTV"]       = ui->SpinBox_aTV->value();
-    data["SeriesOVA"]      = ui->SpinBox_aOVA->value();
-    data["SeriesONA"]      = ui->SpinBox_aONA->value();
-    data["SeriesSpecial"]  = ui->SpinBox_aSpec->value();
-    data["SeriesMovie"]    = ui->SpinBox_aMovie->value();
-    data["vSeriesTV"]      = ui->SpinBox_vTV->value();
-    data["vSeriesOVA"]     = ui->SpinBox_vOVA->value();
-    data["vSeriesONA"]     = ui->SpinBox_vONA->value();
-    data["vSeriesSpecial"] = ui->SpinBox_vSpec->value();
-    data["vSeriesMovie"]   = ui->SpinBox_vMovie->value();
-    data["Score"]          = 0;
-    data["Year"]           = (ui->CBox_Year->isChecked()  )? ui->SpinBox_Year->value() :0;
-    data["Season"]         = ui->SpinBox_Season->value();
-    data["Studios"]        = ui->ComboBox_Studio->currentText();
+    data[AltTitle]      = (LineEdit_OrigTitle  )?  this->LineEdit_OrigTitle->text() : "";
+    data[Director]       = (LineEdit_Director   )?   this->LineEdit_Director->text() : "";
+    data[PostScoring]    = (LineEdit_PostScoring)?this->LineEdit_PostScoring->text() : "";
+    data[SeriesTV]       = ui->SpinBox_aTV->value();
+    data[SeriesOVA]      = ui->SpinBox_aOVA->value();
+    data[SeriesONA]      = ui->SpinBox_aONA->value();
+    data[SeriesSpecial]  = ui->SpinBox_aSpec->value();
+    data[SeriesMovie]    = ui->SpinBox_aMovie->value();
+    data[vSeriesTV]      = ui->SpinBox_vTV->value();
+    data[vSeriesOVA]     = ui->SpinBox_vOVA->value();
+    data[vSeriesONA]     = ui->SpinBox_vONA->value();
+    data[vSeriesSpecial] = ui->SpinBox_vSpec->value();
+    data[vSeriesMovie]   = ui->SpinBox_vMovie->value();
+    data[Score]          = 0;
+    data[Year]           = (ui->CBox_Year->isChecked()  )? ui->SpinBox_Year->value() :0;
+    data[Season]         = ui->SpinBox_Season->value();
+    data[Studios]        = ui->ComboBox_Studio->currentText();
 
     QString tagsList;
     QStringList list;
@@ -299,10 +301,10 @@ bool DialogAddAnime::insert_Anime(){
     }
     tagsList += ui->LineEdit_Tags->text();
 
-    data["Tags"]        = tagsList;
-    data["Description"] = ui->PlainTextEdit_Description->toPlainText();
-    data["URL"]         = ui->LineEdit_URL->text();
-    data["Dir"]         = ui->LineEdit_Dir->text();
+    data[Tags]        = tagsList;
+    data[Description] = ui->PlainTextEdit_Description->toPlainText();
+    data[Url]         = ui->LineEdit_URL->text();
+    data[Dir]         = ui->LineEdit_Dir->text();
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
@@ -314,7 +316,7 @@ bool DialogAddAnime::insert_Anime(){
             dir.remove( DefinesPath::animeCovers() + _oldCover );
     }
 
-    data["ImagePath"] = coverName;
+    data[ImagePath] = coverName;
 
     if( !_isEditRole ){
         if( MngrQuerys::insertAnime(data) == false ){

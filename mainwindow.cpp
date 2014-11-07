@@ -273,19 +273,12 @@ void MainWindow::on_TButton_Delete_clicked()
             return;
         }
 
-        QSqlQueryModel model;
-        model.setQuery( QString( "SELECT ImagePath FROM %1 WHERE id = %2").arg( getActiveTableName() ).arg( _currentItemId ) );
-        QString coverPath( coverFolder + model.record(0).value("ImagePath").toString() );
+        QString coverPath( coverFolder + MngrQuerys::getImagePath(_activeTable, _currentItemId) );
 
-        QSqlQuery query;
-        query.prepare( QString("DELETE FROM '%1' WHERE id = :id;").arg( getActiveTableName() ) );
-        query.bindValue(":id",
-                        ui->TreeView_List->selectionModel()->selectedIndexes().at(0).data().toInt());
-        if( !query.exec() ){
-            qCritical() << QString("It was not succeeded to remove record from table %1"
-                                   ).arg( getActiveTableName() )
-                        << "\nSqlError: "
-                        << query.lastError();
+        quint64 tmpId = ui->TreeView_List->selectionModel()->selectedIndexes().at(0).data().toULongLong();
+
+
+        if( ! MngrQuerys::deleteRecord(_activeTable, tmpId) ){
             QMessageBox::critical(this, tr("Critical"), tr("It was not succeeded to remove record") );
         }else{
             if( coverPath.isNull() == false ){

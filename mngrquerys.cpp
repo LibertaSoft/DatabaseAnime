@@ -1,6 +1,220 @@
 #include "mngrquerys.h"
 #include <QApplication>
 
+QString MngrQuerys::fieldToString(Tables::AnimeField::field field)
+{
+    using namespace Tables::AnimeField;
+    switch( field ){
+      case all :
+          return "*";
+      case id :
+          return "id";
+      case Description :
+          return "Description";
+      case Dir :
+          return "Dir";
+      case Director :
+          return "Director";
+      case ImagePath :
+          return "ImagePath";
+      case isAdult :
+          return "isAdult";
+      case isEditingDone :
+          return "isEditingDone";
+      case isHaveLooked :
+          return "isHaveLooked";
+      case AltTitle :
+          return "OrigTitle";
+      case PostScoring :
+          return "PostScoring";
+      case Score :
+          return "Score";
+      case Season :
+          return "Season";
+      case SeriesMovie :
+          return "SeriesMovie";
+      case SeriesONA :
+          return "SeriesONA";
+      case SeriesOVA :
+          return "SeriesOVA";
+      case SeriesSpecial :
+          return "SeriesSpecial";
+      case SeriesTV :
+          return "SeriesTV";
+      case Studios :
+          return "Studios";
+      case Tags :
+          return "Tags";
+      case Title :
+          return "Title";
+      case Url :
+          return "URL";
+      case vSeriesMovie :
+          return "vSeriesMovie";
+      case vSeriesONA :
+          return "vSeriesONA";
+      case vSeriesOVA :
+          return "vSeriesOVA";
+      case vSeriesSpecial :
+          return "vSeriesSpecial";
+      case vSeriesTV :
+          return "vSeriesTV";
+      case Year :
+          return "Year";
+        default:
+          return "*";
+    }
+}
+
+QString MngrQuerys::fieldToString(Tables::MangaField::field field)
+{
+    using namespace Tables::MangaField;
+    switch( field ){
+      case all :
+          return "*";
+      case id :
+          return "id";
+      case Description :
+          return "Description";
+      case Dir :
+          return "Dir";
+      case Author :
+          return "Author";
+      case ImagePath :
+          return "ImagePath";
+      case isAdult :
+          return "isAdult";
+      case isEditingDone :
+          return "isEditingDone";
+      case isHaveLooked :
+          return "isHaveLooked";
+      case AltTitle :
+          return "AltTitle";
+      case Translation :
+          return "Translation";
+      case Score :
+          return "Score";
+      case Ch :
+          return "Ch";
+      case Vol :
+          return "Vol";
+      case Pages :
+          return "Pages";
+      case vCh :
+          return "vCh";
+      case vVol :
+          return "vVol";
+      case vPages :
+          return "vPages";
+      case Tags :
+          return "Tags";
+      case Title :
+          return "Title";
+      case Url :
+          return "URL";
+      case Year :
+          return "Year";
+        default:
+          return "*";
+    }
+}
+
+QString MngrQuerys::fieldToString(Tables::AmvField::field field)
+{
+    using namespace Tables::AmvField;
+    switch( field ){
+      case all :
+          return "*";
+      case id :
+          return "id";
+      case AuthorComment :
+          return "AuthorComment";
+      case Dir :
+          return "Dir";
+      case Author :
+          return "Author";
+      case ImagePath :
+          return "ImagePath";
+      case isAdult :
+          return "isAdult";
+      case isEditingDone :
+          return "isEditingDone";
+      case ContainingMusic :
+          return "ContainingMusic";
+      case ContainingAnime :
+          return "ContainingAnime";
+      case Score :
+          return "Score";
+      case Contestant :
+          return "Contestant";
+      case Tags :
+          return "Tags";
+      case Title :
+          return "Title";
+      case Url :
+          return "URL";
+      case Year :
+          return "Year";
+        default:
+          return "*";
+    }
+}
+
+QString MngrQuerys::fieldToString(Tables::DoramaField::field field)
+{
+    using namespace Tables::DoramaField;
+    switch( field ){
+      case all :
+          return "*";
+      case id :
+          return "id";
+      case Description :
+          return "Description";
+      case Dir :
+          return "Dir";
+      case Director :
+          return "Director";
+      case ImagePath :
+          return "ImagePath";
+      case isAdult :
+          return "isAdult";
+      case isEditingDone :
+          return "isEditingDone";
+      case isHaveLooked :
+          return "isHaveLooked";
+      case AltTitle :
+          return "AltTitle";
+      case Actors :
+          return "Actors";
+      case Score :
+          return "Score";
+      case Season :
+          return "Season";
+      case SeriesMovie :
+          return "SeriesMovie";
+      case SeriesSpecial :
+          return "SeriesSpecial";
+      case SeriesTV :
+          return "SeriesTV";
+      case Tags :
+          return "Tags";
+      case Title :
+          return "Title";
+      case Url :
+          return "URL";
+      case vSeriesMovie :
+          return "vSeriesMovie";
+      case vSeriesSpecial :
+          return "vSeriesSpecial";
+      case vSeriesTV :
+          return "vSeriesTV";
+      case Year :
+          return "Year";
+        default:
+          return "*";
+    }
+}
+
 QString MngrQuerys::filterToString(Filter::filter filter)
 {
     switch( filter ){
@@ -41,8 +255,323 @@ QString MngrQuerys::sortToString(Sort::sort sort)
     }
 }
 
-MngrQuerys::MngrQuerys()
+Tables::AnimeField::field MngrQuerys::animeFieldFromString(QString fieldName)
 {
+    using namespace Tables::AnimeField;
+    if ( fieldName == "id" )
+        return id;
+    if ( fieldName == "Description" )
+      return Description;
+    if ( fieldName == "Dir" )
+      return Dir;
+    if ( fieldName == "Director" )
+      return Director;
+    if ( fieldName == "ImagePath" )
+      return ImagePath;
+    if ( fieldName == "isAdult" )
+      return isAdult;
+    if ( fieldName == "isEditingDone" )
+      return isEditingDone;
+    if ( fieldName == "isHaveLooked" )
+      return isHaveLooked;
+    if ( fieldName == "OrigTitle" )
+      return AltTitle;
+    if ( fieldName == "AltTitle" )
+      return AltTitle;
+    if ( fieldName == "PostScoring" )
+      return PostScoring;
+    if ( fieldName == "Score" )
+      return Score;
+    if ( fieldName == "Season" )
+      return Season;
+    if ( fieldName == "SeriesMovie" )
+      return SeriesMovie;
+    if ( fieldName == "SeriesONA" )
+      return SeriesONA;
+    if ( fieldName == "SeriesOVA" )
+      return SeriesOVA;
+    if ( fieldName == "SeriesSpecial" )
+      return SeriesSpecial;
+    if ( fieldName == "SeriesTV" )
+      return SeriesTV;
+    if ( fieldName == "Studios" )
+      return Studios;
+    if ( fieldName == "Tags" )
+      return Tags;
+    if ( fieldName == "Title" )
+      return Title;
+    if ( fieldName == "URL" )
+      return Url;
+    if ( fieldName == "vSeriesMovie" )
+      return vSeriesMovie;
+    if ( fieldName == "vSeriesONA" )
+      return vSeriesONA;
+    if ( fieldName == "vSeriesOVA" )
+      return vSeriesOVA;
+    if ( fieldName == "vSeriesSpecial" )
+      return vSeriesSpecial;
+    if ( fieldName == "vSeriesTV" )
+      return vSeriesTV;
+    if ( fieldName == "Year" )
+      return Year;
+    if ( fieldName == "*")
+        return all;
+    return all;
+}
+
+Tables::MangaField::field MngrQuerys::mangaFieldFromString(QString fieldName)
+{
+    using namespace Tables::MangaField;
+    if ( fieldName == "id" )
+        return id;
+    if ( fieldName == "Description" )
+      return Description;
+    if ( fieldName == "Dir" )
+      return Dir;
+    if ( fieldName == "Author" )
+      return Author;
+    if ( fieldName == "ImagePath" )
+      return ImagePath;
+    if ( fieldName == "isAdult" )
+      return isAdult;
+    if ( fieldName == "isEditingDone" )
+      return isEditingDone;
+    if ( fieldName == "isHaveLooked" )
+      return isHaveLooked;
+    if ( fieldName == "AltTitle" )
+      return AltTitle;
+    if ( fieldName == "Translation" )
+      return Translation;
+    if ( fieldName == "Score" )
+      return Score;
+    if ( fieldName == "Ch" )
+      return Ch;
+    if ( fieldName == "Vol" )
+      return Vol;
+    if ( fieldName == "Pages" )
+      return Pages;
+    if ( fieldName == "vCh" )
+      return vCh;
+    if ( fieldName == "vVol" )
+      return vVol;
+    if ( fieldName == "vPages" )
+      return vPages;
+    if ( fieldName == "Tags" )
+      return Tags;
+    if ( fieldName == "Title" )
+      return Title;
+    if ( fieldName == "URL" )
+      return Url;
+    if ( fieldName == "Year" )
+      return Year;
+    return all;
+}
+
+Tables::AmvField::field MngrQuerys::amvFieldFromString(QString fieldName)
+{
+    using namespace Tables::AmvField;
+    if ( fieldName == "id" )
+        return id;
+    if ( fieldName == "AuthorComment" )
+      return AuthorComment;
+    if ( fieldName == "Dir" )
+      return Dir;
+    if ( fieldName == "Author" )
+      return Author;
+    if ( fieldName == "ImagePath" )
+      return ImagePath;
+    if ( fieldName == "isAdult" )
+      return isAdult;
+    if ( fieldName == "isEditingDone" )
+      return isEditingDone;
+    if ( fieldName == "ContainingMusic" )
+      return ContainingMusic;
+    if ( fieldName == "ContainingAnime" )
+      return ContainingAnime;
+    if ( fieldName == "Score" )
+      return Score;
+    if ( fieldName == "Contestant" )
+      return Contestant;
+    if ( fieldName == "Tags" )
+      return Tags;
+    if ( fieldName == "Title" )
+      return Title;
+    if ( fieldName == "URL" )
+      return Url;
+    if ( fieldName == "Year" )
+      return Year;
+    return all;
+}
+
+Tables::DoramaField::field MngrQuerys::doramaFieldFromString(QString fieldName)
+{
+    using namespace Tables::DoramaField;
+    if ( fieldName == "id" )
+        return id;
+    if ( fieldName == "Description" )
+      return Description;
+    if ( fieldName == "Dir" )
+      return Dir;
+    if ( fieldName == "Director" )
+      return Director;
+    if ( fieldName == "ImagePath" )
+      return ImagePath;
+    if ( fieldName == "isAdult" )
+      return isAdult;
+    if ( fieldName == "isEditingDone" )
+      return isEditingDone;
+    if ( fieldName == "isHaveLooked" )
+      return isHaveLooked;
+    if ( fieldName == "AltTitle" )
+      return AltTitle;
+    if ( fieldName == "Actors" )
+      return Actors;
+    if ( fieldName == "Score" )
+      return Score;
+    if ( fieldName == "Season" )
+      return Season;
+    if ( fieldName == "SeriesMovie" )
+      return SeriesMovie;
+    if ( fieldName == "SeriesSpecial" )
+      return SeriesSpecial;
+    if ( fieldName == "SeriesTV" )
+      return SeriesTV;
+    if ( fieldName == "Tags" )
+      return Tags;
+    if ( fieldName == "Title" )
+      return Title;
+    if ( fieldName == "URL" )
+      return Url;
+    if ( fieldName == "vSeriesMovie" )
+      return vSeriesMovie;
+    if ( fieldName == "vSeriesSpecial" )
+      return vSeriesSpecial;
+    if ( fieldName == "vSeriesTV" )
+      return vSeriesTV;
+    if ( fieldName == "Year" )
+      return Year;
+    return all;
+}
+
+QMap<Tables::AnimeField::field, QVariant> MngrQuerys::convertAnimeData(QMap<QString, QVariant> data)
+{
+    using namespace Tables::AnimeField;
+    QMap<field,QVariant> newData;
+
+    newData[id]             = data[fieldToString(id)];
+    newData[isHaveLooked]   = data[fieldToString(isHaveLooked)];
+    newData[isEditingDone]  = data[fieldToString(isEditingDone)];
+    newData[isAdult]        = data[fieldToString(isAdult)];
+    newData[Title]          = data[fieldToString(Title)];
+    newData[AltTitle]       = data[fieldToString(AltTitle)];
+    newData[Director]       = data[fieldToString(Director)];
+    newData[PostScoring]    = data[fieldToString(PostScoring)];
+    newData[SeriesTV]       = data[fieldToString(SeriesTV)];
+    newData[SeriesOVA]      = data[fieldToString(SeriesOVA)];
+    newData[SeriesONA]      = data[fieldToString(SeriesONA)];
+    newData[SeriesSpecial]  = data[fieldToString(SeriesSpecial)];
+    newData[SeriesMovie]    = data[fieldToString(SeriesMovie)];
+    newData[vSeriesTV]      = data[fieldToString(vSeriesTV)];
+    newData[vSeriesOVA]     = data[fieldToString(vSeriesOVA)];
+    newData[vSeriesONA]     = data[fieldToString(vSeriesONA)];
+    newData[vSeriesSpecial] = data[fieldToString(vSeriesSpecial)];
+    newData[vSeriesMovie]   = data[fieldToString(vSeriesMovie)];
+    newData[Score]          = data[fieldToString(Score)];
+    newData[Year]           = data[fieldToString(Year)];
+    newData[Season]         = data[fieldToString(Season)];
+    newData[Studios]        = data[fieldToString(Studios)];
+    newData[Tags]           = data[fieldToString(Tags)];
+    newData[Description]    = data[fieldToString(Description)];
+    newData[Url]            = data[fieldToString(Url)];
+    newData[Dir]            = data[fieldToString(Dir)];
+    newData[ImagePath]      = data[fieldToString(ImagePath)];
+
+    return newData;
+}
+
+QMap<Tables::MangaField::field, QVariant> MngrQuerys::convertMangaData(QMap<QString, QVariant> data)
+{
+    using namespace Tables::MangaField;
+    QMap<field,QVariant> newData;
+
+    newData[id]            = data[fieldToString(id)];
+    newData[isHaveLooked]  = data[fieldToString(isHaveLooked)];
+    newData[isEditingDone] = data[fieldToString(isEditingDone)];
+    newData[isAdult]       = data[fieldToString(isAdult)];
+    newData[Title]         = data[fieldToString(Title)];
+    newData[AltTitle]      = data[fieldToString(AltTitle)];
+    newData[Author]        = data[fieldToString(Author)];
+    newData[Translation]   = data[fieldToString(Translation)];
+    newData[Vol]           = data[fieldToString(Vol)];
+    newData[Ch]            = data[fieldToString(Ch)];
+    newData[Pages]         = data[fieldToString(Pages)];
+    newData[vVol]          = data[fieldToString(vVol)];
+    newData[vCh]           = data[fieldToString(vCh)];
+    newData[vPages]        = data[fieldToString(vPages)];
+    newData[Score]         = data[fieldToString(Score)];
+    newData[Year]          = data[fieldToString(Year)];
+    newData[Tags]          = data[fieldToString(Tags)];
+    newData[Description]   = data[fieldToString(Description)];
+    newData[Url]           = data[fieldToString(Url)];
+    newData[Dir]           = data[fieldToString(Dir)];
+    newData[ImagePath]     = data[fieldToString(ImagePath)];
+
+    return newData;
+}
+
+QMap<Tables::AmvField::field, QVariant> MngrQuerys::convertAmvData(QMap<QString, QVariant> data)
+{
+    using namespace Tables::AmvField;
+    QMap<field,QVariant> newData;
+
+    newData[id]              = data[fieldToString(id)];
+    newData[isEditingDone]   = data[fieldToString(isEditingDone)];
+    newData[isAdult]         = data[fieldToString(isAdult)];
+    newData[Title]           = data[fieldToString(Title)];
+    newData[Author]          = data[fieldToString(Author)];
+    newData[Contestant]      = data[fieldToString(Contestant)];
+    newData[Score]           = data[fieldToString(Score)];
+    newData[Year]            = data[fieldToString(Year)];
+    newData[Tags]            = data[fieldToString(Tags)];
+    newData[ContainingMusic] = data[fieldToString(ContainingMusic)];
+    newData[ContainingAnime] = data[fieldToString(ContainingAnime)];
+    newData[AuthorComment]   = data[fieldToString(AuthorComment)];
+    newData[Url]             = data[fieldToString(Url)];
+    newData[Dir]             = data[fieldToString(Dir)];
+    newData[ImagePath]       = data[fieldToString(ImagePath)];
+
+    return newData;
+}
+
+QMap<Tables::DoramaField::field, QVariant> MngrQuerys::convertDoramaData(QMap<QString, QVariant> data)
+{
+    using namespace Tables::DoramaField;
+    QMap<field,QVariant> newData;
+
+    newData[id]             = data[fieldToString(id)];
+    newData[isHaveLooked]   = data[fieldToString(isHaveLooked)];
+    newData[isEditingDone]  = data[fieldToString(isEditingDone)];
+    newData[isAdult]        = data[fieldToString(isAdult)];
+    newData[Title]          = data[fieldToString(Title)];
+    newData[AltTitle]       = data[fieldToString(AltTitle)];
+    newData[Director]       = data[fieldToString(Director)];
+    newData[SeriesTV]       = data[fieldToString(SeriesTV)];
+    newData[SeriesSpecial]  = data[fieldToString(SeriesSpecial)];
+    newData[SeriesMovie]    = data[fieldToString(SeriesMovie)];
+    newData[vSeriesTV]      = data[fieldToString(vSeriesTV)];
+    newData[vSeriesSpecial] = data[fieldToString(vSeriesSpecial)];
+    newData[vSeriesMovie]   = data[fieldToString(vSeriesMovie)];
+    newData[Score]          = data[fieldToString(Score)];
+    newData[Year]           = data[fieldToString(Year)];
+    newData[Season]         = data[fieldToString(Season)];
+    newData[Tags]           = data[fieldToString(Tags)];
+    newData[Description]    = data[fieldToString(Description)];
+    newData[Actors]         = data[fieldToString(Actors)];
+    newData[Url]            = data[fieldToString(Url)];
+    newData[Dir]            = data[fieldToString(Dir)];
+    newData[ImagePath]      = data[fieldToString(ImagePath)];
+
+    return newData;
 }
 
 QString MngrQuerys::getTableName(Tables::table table)
@@ -96,7 +625,7 @@ int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section)
 int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, QString filter, Filter::filter filter2, Sort::sort sort )
 {
     model->setQuery( QString("SELECT id,Title FROM %1 %2 %3").arg(
-                   getTableName(section), "WHERE " + filterToString( filter2 )+ " AND " +filter, sortToString( sort ) ) );
+                         getTableName(section), "WHERE " + filterToString( filter2 )+ " AND " +filter, sortToString( sort ) ) );
     return 0;
 }
 
@@ -141,6 +670,7 @@ bool MngrQuerys::createTable_Anime()
                   "Dir            VARCHAR(256), "
                   "ImagePath      VARCHAR(256) "
                   ");").arg( getTableName( sections::anime ) );
+
     QSqlQuery query;
     if( !query.exec(sql) ){
         qCritical() << QString("Table %1 is not created!").arg( getTableName(sections::anime) )
@@ -251,6 +781,47 @@ bool MngrQuerys::createTable_Dorama()
     return true;
 }
 
+bool MngrQuerys::dropTable(sections::section section)
+{
+    QSqlQuery query;
+    QString sql( "DROP TABLE IF EXISTS %1" );
+    if( false == query.exec( sql.arg( MngrQuerys::getTableName(section) ) ) ){
+        qCritical() << "Error when deleting a table " + MngrQuerys::getTableName( section )
+                    << query.lastError();
+        return false;
+    }
+    return true;
+}
+
+QSqlQuery MngrQuerys::selectAll(sections::section section)
+{
+    QSqlQuery query( "SELECT * FROM " + getTableName(section) );
+    if( ! query.exec() )
+        qCritical() << QString("Cannot select data from table " + getTableName(section) );
+    return query;
+}
+
+QString MngrQuerys::getImagePath(sections::section section, quint64 id)
+{
+    QSqlQueryModel model;
+    model.setQuery( QString( "SELECT ImagePath FROM %1 WHERE id = %2").arg( getTableName(section) ).arg( id ) );
+    return model.record(0).value("ImagePath").toString();
+}
+
+bool MngrQuerys::deleteRecord(sections::section section, quint64 id)
+{
+    QSqlQuery query;
+    query.prepare( QString("DELETE FROM '%1' WHERE id = :id;").arg( getTableName(section) ) );
+    query.bindValue(":id", id);
+    int result = query.exec();
+    if( ! result ){
+        qCritical() << "It was not succeeded to remove record from table " + getTableName(section)
+                    << "\nSqlError: "
+                    << query.lastError();
+    }
+    return result;
+}
+
 QStringList MngrQuerys::getAnimeTags()
 {
     return QStringList()
@@ -336,7 +907,7 @@ bool MngrQuerys::updateRecord(sections::section table, unsigned long long recoor
     return true;
 }
 
-bool MngrQuerys::insertAnime(QMap<QString, QVariant> &data)
+bool MngrQuerys::insertAnime(QMap<Tables::AnimeField::field, QVariant> data)
 {
     QSqlQuery query;
 
@@ -360,32 +931,33 @@ bool MngrQuerys::insertAnime(QMap<QString, QVariant> &data)
                   ).arg( MngrQuerys::getTableName( sections::anime ) ) );
 
 
-    query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
-    query.bindValue( ":isEditingDone", data["isEditingDone"] );
-    query.bindValue( ":isAdult",       data["isAdult"] );
-    query.bindValue( ":Title",         data["Title"] );
-    query.bindValue( ":OrigTitle",     data["OrigTitle"] );
-    query.bindValue( ":Director",      data["Director"] );
-    query.bindValue( ":PostScoring",   data["PostScoring"] );
-    query.bindValue( ":SeriesTV",      data["SeriesTV"] );
-    query.bindValue( ":SeriesOVA",     data["SeriesOVA"] );
-    query.bindValue( ":SeriesONA",     data["SeriesONA"] );
-    query.bindValue( ":SeriesSpecial", data["SeriesSpecial"] );
-    query.bindValue( ":SeriesMovie",   data["SeriesMovie"] );
-    query.bindValue( ":vSeriesTV",     data["vSeriesTV"] );
-    query.bindValue( ":vSeriesOVA",    data["vSeriesOVA"] );
-    query.bindValue( ":vSeriesONA",    data["vSeriesONA"] );
-    query.bindValue( ":vSeriesSpecial",data["vSeriesSpecial"] );
-    query.bindValue( ":vSeriesMovie",  data["vSeriesMovie"] );
-    query.bindValue( ":Score",         data["Score"] );
-    query.bindValue( ":Year",          data["Year"] );
-    query.bindValue( ":Season",        data["Season"] );
-    query.bindValue( ":Studios",       data["Studios"] );
-    query.bindValue( ":Tags",          data["Tags"] );
-    query.bindValue( ":Description",   data["Description"] );
-    query.bindValue( ":URL",           data["URL"] );
-    query.bindValue( ":Dir",           data["Dir"] );
-    query.bindValue( ":ImagePath",     data["ImagePath"] );
+    using namespace Tables::AnimeField;
+    query.bindValue( ":isHaveLooked",  data[isHaveLooked] );
+    query.bindValue( ":isEditingDone", data[isEditingDone] );
+    query.bindValue( ":isAdult",       data[isAdult] );
+    query.bindValue( ":Title",         data[Title] );
+    query.bindValue( ":OrigTitle",     data[AltTitle] );
+    query.bindValue( ":Director",      data[Director] );
+    query.bindValue( ":PostScoring",   data[PostScoring] );
+    query.bindValue( ":SeriesTV",      data[SeriesTV] );
+    query.bindValue( ":SeriesOVA",     data[SeriesOVA] );
+    query.bindValue( ":SeriesONA",     data[SeriesONA] );
+    query.bindValue( ":SeriesSpecial", data[SeriesSpecial] );
+    query.bindValue( ":SeriesMovie",   data[SeriesMovie] );
+    query.bindValue( ":vSeriesTV",     data[vSeriesTV] );
+    query.bindValue( ":vSeriesOVA",    data[vSeriesOVA] );
+    query.bindValue( ":vSeriesONA",    data[vSeriesONA] );
+    query.bindValue( ":vSeriesSpecial",data[vSeriesSpecial] );
+    query.bindValue( ":vSeriesMovie",  data[vSeriesMovie] );
+    query.bindValue( ":Score",         data[Score] );
+    query.bindValue( ":Year",          data[Year] );
+    query.bindValue( ":Season",        data[Season] );
+    query.bindValue( ":Studios",       data[Studios] );
+    query.bindValue( ":Tags",          data[Tags] );
+    query.bindValue( ":Description",   data[Description] );
+    query.bindValue( ":URL",           data[Url] );
+    query.bindValue( ":Dir",           data[Dir] );
+    query.bindValue( ":ImagePath",     data[ImagePath] );
     if( !query.exec() ){
         qCritical() << QString("Cannot insert data in table %1").arg(
                         MngrQuerys::getTableName( sections::anime ) )
@@ -395,7 +967,7 @@ bool MngrQuerys::insertAnime(QMap<QString, QVariant> &data)
     }
     return true;
 }
-bool MngrQuerys::insertManga(QMap<QString, QVariant> &data)
+bool MngrQuerys::insertManga(QMap<Tables::MangaField::field, QVariant> data)
 {
     QSqlQuery query;
 
@@ -417,26 +989,27 @@ bool MngrQuerys::insertManga(QMap<QString, QVariant> &data)
                   ":URL, :Dir, :ImagePath)"
                   ).arg( MngrQuerys::getTableName( sections::manga ) ) );
 
-    query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
-    query.bindValue( ":isEditingDone", data["isEditingDone"] );
-    query.bindValue( ":isAdult",       data["isAdult"] );
-    query.bindValue( ":Title",         data["Title"] );
-    query.bindValue( ":AltTitle",      data["AltTitle"] );
-    query.bindValue( ":Author",        data["Author"] );
-    query.bindValue( ":Translation",   data["Translation"] );
-    query.bindValue( ":Vol",           data["Vol"] );
-    query.bindValue( ":Ch",            data["Ch"] );
-    query.bindValue( ":Pages",         data["Pages"] );
-    query.bindValue( ":vVol",          data["vVol"] );
-    query.bindValue( ":vCh",           data["vCh"] );
-    query.bindValue( ":vPages",        data["vPages"] );
-    query.bindValue( ":Score",         data["Score"] );
-    query.bindValue( ":Year",          data["Year"] );
-    query.bindValue( ":Tags",          data["Tags"] );
-    query.bindValue( ":Description",   data["Description"] );
-    query.bindValue( ":URL",           data["URL"] );
-    query.bindValue( ":Dir",           data["Dir"] );
-    query.bindValue( ":ImagePath",     data["ImagePath"] );
+    using namespace Tables::MangaField;
+    query.bindValue( ":isHaveLooked",  data[isHaveLooked] );
+    query.bindValue( ":isEditingDone", data[isEditingDone] );
+    query.bindValue( ":isAdult",       data[isAdult] );
+    query.bindValue( ":Title",         data[Title] );
+    query.bindValue( ":AltTitle",      data[AltTitle] );
+    query.bindValue( ":Author",        data[Author] );
+    query.bindValue( ":Translation",   data[Translation] );
+    query.bindValue( ":Vol",           data[Vol] );
+    query.bindValue( ":Ch",            data[Ch] );
+    query.bindValue( ":Pages",         data[Pages] );
+    query.bindValue( ":vVol",          data[vVol] );
+    query.bindValue( ":vCh",           data[vCh] );
+    query.bindValue( ":vPages",        data[vPages] );
+    query.bindValue( ":Score",         data[Score] );
+    query.bindValue( ":Year",          data[Year] );
+    query.bindValue( ":Tags",          data[Tags] );
+    query.bindValue( ":Description",   data[Description] );
+    query.bindValue( ":URL",           data[Url] );
+    query.bindValue( ":Dir",           data[Dir] );
+    query.bindValue( ":ImagePath",     data[ImagePath] );
     if( !query.exec() ){
         qCritical() << QString("Cannot insert data in table %1").arg(
                         MngrQuerys::getTableName( sections::manga ) )
@@ -446,7 +1019,7 @@ bool MngrQuerys::insertManga(QMap<QString, QVariant> &data)
     }
     return true;
 }
-bool MngrQuerys::insertAmv(QMap<QString, QVariant> &data)
+bool MngrQuerys::insertAmv(QMap<Tables::AmvField::field, QVariant> data)
 {
     QSqlQuery query;
 
@@ -464,23 +1037,23 @@ bool MngrQuerys::insertAmv(QMap<QString, QVariant> &data)
                   ":URL, :Dir, :ImagePath)"
                   ).arg( MngrQuerys::getTableName( sections::amv ) ) );
 
-    query.bindValue( ":isEditingDone",   data["isEditingDone"] );
-    query.bindValue( ":isAdult",         data["isAdult"] );
-    query.bindValue( ":Title",           data["Title"] );
-    query.bindValue( ":Author",          data["Author"] );
-    query.bindValue( ":Concursant",      data["Сontestant"] );
-    query.bindValue( ":Score",           data["Score"] );
-    query.bindValue( ":Year",            data["Year"] );
-    query.bindValue( ":Tags",            data["Tags"] );
-    query.bindValue( ":ContainingMusic", data["ContainingMusic"] );
-    query.bindValue( ":ContainingAnime", data["ContainingAnime"] );
-    query.bindValue( ":AuthorComment",   data["AuthorComment"] );
-    query.bindValue( ":URL",             data["URL"] );
-    query.bindValue( ":Dir",             data["Dir"] );
-    query.bindValue( ":ImagePath",       data["ImagePath"] );
+    using namespace Tables::AmvField;
+    query.bindValue( ":isEditingDone",   data[isEditingDone] );
+    query.bindValue( ":isAdult",         data[isAdult] );
+    query.bindValue( ":Title",           data[Title] );
+    query.bindValue( ":Author",          data[Author] );
+    query.bindValue( ":Concursant",      data[Contestant] );
+    query.bindValue( ":Score",           data[Score] );
+    query.bindValue( ":Year",            data[Year] );
+    query.bindValue( ":Tags",            data[Tags] );
+    query.bindValue( ":ContainingMusic", data[ContainingMusic] );
+    query.bindValue( ":ContainingAnime", data[ContainingAnime] );
+    query.bindValue( ":AuthorComment",   data[AuthorComment] );
+    query.bindValue( ":URL",             data[Url] );
+    query.bindValue( ":Dir",             data[Dir] );
+    query.bindValue( ":ImagePath",       data[ImagePath] );
     if( !query.exec() ){
-        qCritical() << QString("Cannot insert data in table %1").arg(
-                        MngrQuerys::getTableName( sections::amv ) )
+        qCritical() << "Cannot insert data in table" + getTableName( sections::amv )
                     << "\nSqlError: "
                     << query.lastError();
         return false;
@@ -488,7 +1061,7 @@ bool MngrQuerys::insertAmv(QMap<QString, QVariant> &data)
     return true;
 }
 
-bool MngrQuerys::insertDorama(QMap<QString, QVariant> &data)
+bool MngrQuerys::insertDorama(QMap<Tables::DoramaField::field, QVariant> data)
 {
     QSqlQuery query;
 
@@ -510,33 +1083,31 @@ bool MngrQuerys::insertDorama(QMap<QString, QVariant> &data)
                   ":URL, :Dir, :ImagePath)"
                   ).arg( MngrQuerys::getTableName( sections::dorama ) ) );
 
-
-    query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
-    query.bindValue( ":isEditingDone", data["isEditingDone"] );
-    query.bindValue( ":isAdult",       data["isAdult"] );
-    query.bindValue( ":Title",         data["Title"] );
-    query.bindValue( ":AltTitle",      data["AltTitle"] );
-    query.bindValue( ":Director",      data["Director"] );
-    query.bindValue( ":PostScoring",   data["PostScoring"] );
-    query.bindValue( ":SeriesTV",      data["SeriesTV"] );
-    query.bindValue( ":SeriesSpecial", data["SeriesSpecial"] );
-    query.bindValue( ":SeriesMovie",   data["SeriesMovie"] );
-    query.bindValue( ":vSeriesTV",     data["vSeriesTV"] );
-    query.bindValue( ":vSeriesSpecial",data["vSeriesSpecial"] );
-    query.bindValue( ":vSeriesMovie",  data["vSeriesMovie"] );
-    query.bindValue( ":Score",         data["Score"] );
-    query.bindValue( ":Year",          data["Year"] );
-    query.bindValue( ":Season",        data["Season"] );
-    query.bindValue( ":Tags",          data["Tags"] );
-    query.bindValue( ":Description",   data["Description"] );
-    query.bindValue( ":Actors",        data["Actors"] );
-    query.bindValue( ":URL",           data["URL"] );
-    query.bindValue( ":Dir",           data["Dir"] );
-    query.bindValue( ":ImagePath",     data["ImagePath"] );
+    using namespace Tables::DoramaField;
+    query.bindValue( ":isHaveLooked",  data[isHaveLooked] );
+    query.bindValue( ":isEditingDone", data[isEditingDone] );
+    query.bindValue( ":isAdult",       data[isAdult] );
+    query.bindValue( ":Title",         data[Title] );
+    query.bindValue( ":AltTitle",      data[AltTitle] );
+    query.bindValue( ":Director",      data[Director] );
+    query.bindValue( ":SeriesTV",      data[SeriesTV] );
+    query.bindValue( ":SeriesSpecial", data[SeriesSpecial] );
+    query.bindValue( ":SeriesMovie",   data[SeriesMovie] );
+    query.bindValue( ":vSeriesTV",     data[vSeriesTV] );
+    query.bindValue( ":vSeriesSpecial",data[vSeriesSpecial] );
+    query.bindValue( ":vSeriesMovie",  data[vSeriesMovie] );
+    query.bindValue( ":Score",         data[Score] );
+    query.bindValue( ":Year",          data[Year] );
+    query.bindValue( ":Season",        data[Season] );
+    query.bindValue( ":Tags",          data[Tags] );
+    query.bindValue( ":Description",   data[Description] );
+    query.bindValue( ":Actors",        data[Actors] );
+    query.bindValue( ":URL",           data[Url] );
+    query.bindValue( ":Dir",           data[Dir] );
+    query.bindValue( ":ImagePath",     data[ImagePath] );
 
     if( !query.exec() ){
-        qCritical() << QString("Cannot insert data in table %1").arg(
-                        MngrQuerys::getTableName( sections::dorama ) )
+        qCritical() << "Cannot insert data in table " + getTableName( sections::dorama )
                     << "\nSqlError: "
                     << query.lastError();
         return false;
@@ -544,7 +1115,7 @@ bool MngrQuerys::insertDorama(QMap<QString, QVariant> &data)
     return true;
 }
 
-bool MngrQuerys::updateAnime(QMap<QString, QVariant> &data)
+bool MngrQuerys::updateAnime(QMap<Tables::AnimeField::field, QVariant> &data)
 {
     QSqlQuery query;
 
@@ -558,33 +1129,34 @@ bool MngrQuerys::updateAnime(QMap<QString, QVariant> &data)
                   "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;").arg( MngrQuerys::getTableName( sections::anime ) )
                   );
 
-    query.bindValue( ":id",            data["id"] );
-    query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
-    query.bindValue( ":isEditingDone", data["isEditingDone"] );
-    query.bindValue( ":isAdult",       data["isAdult"] );
-    query.bindValue( ":Title",         data["Title"] );
-    query.bindValue( ":OrigTitle",     data["OrigTitle"] );
-    query.bindValue( ":Director",      data["Director"] );
-    query.bindValue( ":PostScoring",   data["PostScoring"] );
-    query.bindValue( ":SeriesTV",      data["SeriesTV"] );
-    query.bindValue( ":SeriesOVA",     data["SeriesOVA"] );
-    query.bindValue( ":SeriesONA",     data["SeriesONA"] );
-    query.bindValue( ":SeriesSpecial", data["SeriesSpecial"] );
-    query.bindValue( ":SeriesMovie",   data["SeriesMovie"] );
-    query.bindValue( ":vSeriesTV",     data["vSeriesTV"] );
-    query.bindValue( ":vSeriesOVA",    data["vSeriesOVA"] );
-    query.bindValue( ":vSeriesONA",    data["vSeriesONA"] );
-    query.bindValue( ":vSeriesSpecial",data["vSeriesSpecial"] );
-    query.bindValue( ":vSeriesMovie",  data["vSeriesMovie"] );
-    query.bindValue( ":Score",         data["Score"] );
-    query.bindValue( ":Year",          data["Year"] );
-    query.bindValue( ":Season",        data["Season"] );
-    query.bindValue( ":Studios",       data["Studios"] );
-    query.bindValue( ":Tags",          data["Tags"] );
-    query.bindValue( ":Description",   data["Description"] );
-    query.bindValue( ":URL",           data["URL"] );
-    query.bindValue( ":Dir",           data["Dir"] );
-    query.bindValue( ":ImagePath",     data["ImagePath"] );
+    using namespace Tables::AnimeField;
+    query.bindValue( ":id",            data[id] );
+    query.bindValue( ":isHaveLooked",  data[isHaveLooked] );
+    query.bindValue( ":isEditingDone", data[isEditingDone] );
+    query.bindValue( ":isAdult",       data[isAdult] );
+    query.bindValue( ":Title",         data[Title] );
+    query.bindValue( ":OrigTitle",     data[AltTitle] );
+    query.bindValue( ":Director",      data[Director] );
+    query.bindValue( ":PostScoring",   data[PostScoring] );
+    query.bindValue( ":SeriesTV",      data[SeriesTV] );
+    query.bindValue( ":SeriesOVA",     data[SeriesOVA] );
+    query.bindValue( ":SeriesONA",     data[SeriesONA] );
+    query.bindValue( ":SeriesSpecial", data[SeriesSpecial] );
+    query.bindValue( ":SeriesMovie",   data[SeriesMovie] );
+    query.bindValue( ":vSeriesTV",     data[vSeriesTV] );
+    query.bindValue( ":vSeriesOVA",    data[vSeriesOVA] );
+    query.bindValue( ":vSeriesONA",    data[vSeriesONA] );
+    query.bindValue( ":vSeriesSpecial",data[vSeriesSpecial] );
+    query.bindValue( ":vSeriesMovie",  data[vSeriesMovie] );
+    query.bindValue( ":Score",         data[Score] );
+    query.bindValue( ":Year",          data[Year] );
+    query.bindValue( ":Season",        data[Season] );
+    query.bindValue( ":Studios",       data[Studios] );
+    query.bindValue( ":Tags",          data[Tags] );
+    query.bindValue( ":Description",   data[Description] );
+    query.bindValue( ":URL",           data[Url] );
+    query.bindValue( ":Dir",           data[Dir] );
+    query.bindValue( ":ImagePath",     data[ImagePath] );
     if( !query.exec() ){
         qCritical() << QString("Cannot update data in table %1").arg(
                         MngrQuerys::getTableName( sections::anime ) )
@@ -593,7 +1165,7 @@ bool MngrQuerys::updateAnime(QMap<QString, QVariant> &data)
     }
     return true;
 }
-bool MngrQuerys::updateManga(QMap<QString, QVariant> &data)
+bool MngrQuerys::updateManga(QMap<Tables::MangaField::field, QVariant> &data)
 {
     QSqlQuery query;
 
@@ -608,27 +1180,28 @@ bool MngrQuerys::updateManga(QMap<QString, QVariant> &data)
     MngrQuerys::getTableName( sections::manga ) )
     );
 
-    query.bindValue( ":id",            data["id"] );
-    query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
-    query.bindValue( ":isEditingDone", data["isEditingDone"] );
-    query.bindValue( ":isAdult",       data["isAdult"] );
-    query.bindValue( ":Title",         data["Title"] );
-    query.bindValue( ":AltTitle",      data["AltTitle"] );
-    query.bindValue( ":Author",        data["Author"] );
-    query.bindValue( ":Translation",   data["Translation"] );
-    query.bindValue( ":Vol",           data["Vol"] );
-    query.bindValue( ":Ch",            data["Ch"] );
-    query.bindValue( ":Pages",         data["Pages"] );
-    query.bindValue( ":vVol",          data["vVol"] );
-    query.bindValue( ":vCh",           data["vCh"] );
-    query.bindValue( ":vPages",        data["vPages"] );
-    query.bindValue( ":Score",         data["Score"] );
-    query.bindValue( ":Year",          data["Year"] );
-    query.bindValue( ":Tags",          data["Tags"] );
-    query.bindValue( ":Description",   data["Description"] );
-    query.bindValue( ":URL",           data["URL"] );
-    query.bindValue( ":Dir",           data["Dir"] );
-    query.bindValue( ":ImagePath",     data["ImagePath"] );
+    using namespace Tables::MangaField;
+    query.bindValue( ":id",            data[id] );
+    query.bindValue( ":isHaveLooked",  data[isHaveLooked] );
+    query.bindValue( ":isEditingDone", data[isEditingDone] );
+    query.bindValue( ":isAdult",       data[isAdult] );
+    query.bindValue( ":Title",         data[Title] );
+    query.bindValue( ":AltTitle",      data[AltTitle] );
+    query.bindValue( ":Author",        data[Author] );
+    query.bindValue( ":Translation",   data[Translation] );
+    query.bindValue( ":Vol",           data[Vol] );
+    query.bindValue( ":Ch",            data[Ch] );
+    query.bindValue( ":Pages",         data[Pages] );
+    query.bindValue( ":vVol",          data[vVol] );
+    query.bindValue( ":vCh",           data[vCh] );
+    query.bindValue( ":vPages",        data[vPages] );
+    query.bindValue( ":Score",         data[Score] );
+    query.bindValue( ":Year",          data[Year] );
+    query.bindValue( ":Tags",          data[Tags] );
+    query.bindValue( ":Description",   data[Description] );
+    query.bindValue( ":URL",           data[Url] );
+    query.bindValue( ":Dir",           data[Dir] );
+    query.bindValue( ":ImagePath",     data[ImagePath] );
     if( !query.exec() ){
         qCritical() << QString("Cannot update data in table %1").arg(
                         MngrQuerys::getTableName( sections::manga ) )
@@ -638,36 +1211,37 @@ bool MngrQuerys::updateManga(QMap<QString, QVariant> &data)
     }
     return true;
 }
-bool MngrQuerys::updateAmv(QMap<QString, QVariant> &data)
+bool MngrQuerys::updateAmv(QMap<Tables::AmvField::field, QVariant> &data)
 {
     QSqlQuery query;
 
     query.prepare( QString("UPDATE %1 SET "
     "isEditingDone = :isEditingDone, isAdult = :isAdult, Title = :Title,"
-    "Author = :Author, Сontestant = :Concursant,"
+    "Author = :Author, Contestant = :Concursant,"
     "Score = :Score, Year = :Year, Tags = :Tags,"
     "ContainingMusic = :ContainingMusic, ContainingAnime = :ContainingAnime, AuthorComment = :AuthorComment,"
     "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;"
     ).arg( MngrQuerys::getTableName( sections::amv ) ) );
 
-    query.bindValue( ":id",              data["id"] );
-    query.bindValue( ":isEditingDone",   data["isEditingDone"] );
-    query.bindValue( ":isAdult",         data["isAdult"] );
-    query.bindValue( ":Title",           data["Title"] );
-    query.bindValue( ":Author",          data["Author"] );
-    query.bindValue( ":Concursant",      data["Сontestant"] );
-    query.bindValue( ":Score",           data["Score"] );
-    query.bindValue( ":Year",            data["Year"] );
-    query.bindValue( ":Tags",            data["Tags"] );
-    query.bindValue( ":ContainingMusic", data["ContainingMusic"] );
-    query.bindValue( ":ContainingAnime", data["ContainingAnime"] );
-    query.bindValue( ":AuthorComment",   data["AuthorComment"] );
-    query.bindValue( ":URL",             data["URL"] );
-    query.bindValue( ":Dir",             data["Dir"] );
-    query.bindValue( ":ImagePath",       data["ImagePath"] );
+    using namespace Tables::AmvField;
+
+    query.bindValue( ":id",              data[id] );
+    query.bindValue( ":isEditingDone",   data[isEditingDone] );
+    query.bindValue( ":isAdult",         data[isAdult] );
+    query.bindValue( ":Title",           data[Title] );
+    query.bindValue( ":Author",          data[Author] );
+    query.bindValue( ":Concursant",      data[Contestant] );
+    query.bindValue( ":Score",           data[Score] );
+    query.bindValue( ":Year",            data[Year] );
+    query.bindValue( ":Tags",            data[Tags] );
+    query.bindValue( ":ContainingMusic", data[ContainingMusic] );
+    query.bindValue( ":ContainingAnime", data[ContainingAnime] );
+    query.bindValue( ":AuthorComment",   data[AuthorComment] );
+    query.bindValue( ":URL",             data[Url] );
+    query.bindValue( ":Dir",             data[Dir] );
+    query.bindValue( ":ImagePath",       data[ImagePath] );
     if( !query.exec() ){
-        qCritical() << QString("Cannot update data in table %1").arg(
-                        MngrQuerys::getTableName( sections::amv ) )
+        qCritical() << "Cannot update data in table " + getTableName( sections::amv )
                     << "\nSqlError: "
                     << query.lastError();
         return false;
@@ -675,7 +1249,7 @@ bool MngrQuerys::updateAmv(QMap<QString, QVariant> &data)
     return true;
 }
 
-bool MngrQuerys::updateDorama(QMap<QString, QVariant> &data)
+bool MngrQuerys::updateDorama(QMap<Tables::DoramaField::field, QVariant> &data)
 {
     QSqlQuery query;
 
@@ -689,33 +1263,32 @@ bool MngrQuerys::updateDorama(QMap<QString, QVariant> &data)
     "URL = :URL, Dir = :Dir, ImagePath = :ImagePath WHERE id = :id;").arg( MngrQuerys::getTableName( sections::dorama ) )
     );
 
-    query.bindValue( ":id",            data["id"] );
-    query.bindValue( ":isHaveLooked",  data["isHaveLooked"] );
-    query.bindValue( ":isEditingDone", data["isEditingDone"] );
-    query.bindValue( ":isAdult",       data["isAdult"] );
-    query.bindValue( ":Title",         data["Title"] );
-    query.bindValue( ":AltTitle",      data["AltTitle"] );
-    query.bindValue( ":Director",      data["Director"] );
-    query.bindValue( ":PostScoring",   data["PostScoring"] );
-    query.bindValue( ":SeriesTV",      data["SeriesTV"] );
-    query.bindValue( ":SeriesSpecial", data["SeriesSpecial"] );
-    query.bindValue( ":SeriesMovie",   data["SeriesMovie"] );
-    query.bindValue( ":vSeriesTV",     data["vSeriesTV"] );
-    query.bindValue( ":vSeriesSpecial",data["vSeriesSpecial"] );
-    query.bindValue( ":vSeriesMovie",  data["vSeriesMovie"] );
-    query.bindValue( ":Score",         data["Score"] );
-    query.bindValue( ":Year",          data["Year"] );
-    query.bindValue( ":Season",        data["Season"] );
-    query.bindValue( ":Tags",          data["Tags"] );
-    query.bindValue( ":Description",   data["Description"] );
-    query.bindValue( ":Actors",        data["Actors"] );
-    query.bindValue( ":URL",           data["URL"] );
-    query.bindValue( ":Dir",           data["Dir"] );
-    query.bindValue( ":ImagePath",     data["ImagePath"] );
+    using namespace Tables::DoramaField;
+    query.bindValue( ":id",            data[id] );
+    query.bindValue( ":isHaveLooked",  data[isHaveLooked] );
+    query.bindValue( ":isEditingDone", data[isEditingDone] );
+    query.bindValue( ":isAdult",       data[isAdult] );
+    query.bindValue( ":Title",         data[Title] );
+    query.bindValue( ":AltTitle",      data[AltTitle] );
+    query.bindValue( ":Director",      data[Director] );
+    query.bindValue( ":SeriesTV",      data[SeriesTV] );
+    query.bindValue( ":SeriesSpecial", data[SeriesSpecial] );
+    query.bindValue( ":SeriesMovie",   data[SeriesMovie] );
+    query.bindValue( ":vSeriesTV",     data[vSeriesTV] );
+    query.bindValue( ":vSeriesSpecial",data[vSeriesSpecial] );
+    query.bindValue( ":vSeriesMovie",  data[vSeriesMovie] );
+    query.bindValue( ":Score",         data[Score] );
+    query.bindValue( ":Year",          data[Year] );
+    query.bindValue( ":Season",        data[Season] );
+    query.bindValue( ":Tags",          data[Tags] );
+    query.bindValue( ":Description",   data[Description] );
+    query.bindValue( ":Actors",        data[Actors] );
+    query.bindValue( ":URL",           data[Url] );
+    query.bindValue( ":Dir",           data[Dir] );
+    query.bindValue( ":ImagePath",     data[ImagePath] );
 
     if( !query.exec() ){
-        qCritical() << QString("Cannot insert data in table %1").arg(
-                        MngrQuerys::getTableName( sections::dorama ) )
+        qCritical() << "Cannot insert data in table " + getTableName( sections::dorama )
                     << "\nSqlError: "
                     << query.lastError();
         return false;

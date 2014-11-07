@@ -275,26 +275,27 @@ void DialogAddManga::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddManga::insert_Manga(){
-    QMap<QString, QVariant> data;
+    using namespace Tables::MangaField;
+    QMap<field, QVariant> data;
 
-    data["isHaveLooked"]  = !ui->CheckBox_LookLater->isChecked();
-    data["isEditingDone"] = !ui->CheckBox_Editing->isChecked();
-    data["id"]            = _recordId;
+    data[isHaveLooked]  = !ui->CheckBox_LookLater->isChecked();
+    data[isEditingDone] = !ui->CheckBox_Editing->isChecked();
+    data[id]            = _recordId;
 
     QRegExp rx("<.*>"); rx.setMinimal(true);
-    data["Title"]          = ui->LineEdit_Title->text().remove(rx);
+    data[Title]          = ui->LineEdit_Title->text().remove(rx);
 
-    data["AltTitle"]      = (LineEdit_AltTitle   ) ?    LineEdit_AltTitle->text() : "";
-    data["Author"]        = (LineEdit_Author     ) ?      LineEdit_Author->text() : "";
-    data["Translation"]   = (LineEdit_Translation) ? LineEdit_Translation->text() : "";
+    data[AltTitle]      = (LineEdit_AltTitle   ) ?    LineEdit_AltTitle->text() : "";
+    data[Author]        = (LineEdit_Author     ) ?      LineEdit_Author->text() : "";
+    data[Translation]   = (LineEdit_Translation) ? LineEdit_Translation->text() : "";
 
-    data["Vol"]    = ui->SpinBox_aVol->value();
-    data["Ch"]     = ui->SpinBox_aCh->value();
-    data["Pages"]  = ui->SpinBox_aPages->value();
-    data["vVol"]   = ui->SpinBox_vVol->value();
-    data["vCh"]    = ui->SpinBox_vCh->value();
-    data["vPages"] = ui->SpinBox_vPages->value();
-    data["Year"]   = (ui->CBox_Year->isChecked()) ? ui->SpinBox_Year->value() : 0 ;
+    data[Vol]    = ui->SpinBox_aVol->value();
+    data[Ch]     = ui->SpinBox_aCh->value();
+    data[Pages]  = ui->SpinBox_aPages->value();
+    data[vVol]   = ui->SpinBox_vVol->value();
+    data[vCh]    = ui->SpinBox_vCh->value();
+    data[vPages] = ui->SpinBox_vPages->value();
+    data[Year]   = (ui->CBox_Year->isChecked()) ? ui->SpinBox_Year->value() : 0 ;
 
     QString tagsList;
     QStringList list;
@@ -314,10 +315,10 @@ bool DialogAddManga::insert_Manga(){
     }
     tagsList += ui->LineEdit_Tags->text();
 
-    data["Tags"]         = tagsList;
-    data["Description"]  = ui->PlainTextEdit_Description->toPlainText();
-    data["URL"]          = ui->LineEdit_URL->text();
-    data["Dir"]          = ui->LineEdit_Dir->text();
+    data[Tags]         = tagsList;
+    data[Description]  = ui->PlainTextEdit_Description->toPlainText();
+    data[Url]          = ui->LineEdit_URL->text();
+    data[Dir]          = ui->LineEdit_Dir->text();
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
@@ -328,7 +329,7 @@ bool DialogAddManga::insert_Manga(){
     }
     if( _isEditRole && !_oldCover.isEmpty() )
         dir.remove( DefinesPath::mangaCovers() + _oldCover );
-    data["ImagePath"] = coverName;
+    data[ImagePath] = coverName;
 
     if( !_isEditRole ){
         if( MngrQuerys::insertManga(data) == false ){
