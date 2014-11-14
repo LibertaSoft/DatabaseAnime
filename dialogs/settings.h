@@ -6,11 +6,11 @@
 #include "dbalocalization.h"
 #include "mngrconnection.h"
 #include "mngrquerys.h"
+#include "dbasettings.h"
 
 #include "xmldbareader.h"
 #include "xmldbawriter.h"
 
-#include <QSettings>
 #include <QLocale>
 #include <QDir>
 #include <QFileDialog>

@@ -2,8 +2,8 @@
 #include "ui_addamv.h"
 #include "mngrquerys.h"
 #include "definespath.h"
+#include "dbasettings.h"
 
-#include <QSettings>
 #include <QFileDialog>
 #include <QDesktopServices>
 
@@ -54,8 +54,8 @@ DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned long long record_id) :
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value("DialogAddAmv/Geometry").toByteArray() );
+    DbaSettings settings;
+    this->restoreGeometry( settings.value(Configs::DialogsSettings::AmvGeometry).toByteArray() );
 
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
@@ -69,8 +69,8 @@ DialogAddAmv::DialogAddAmv(QWidget *parent):
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value("DialogAddAmv/Geometry").toByteArray() );
+    DbaSettings settings;
+    this->restoreGeometry( settings.value(Configs::DialogsSettings::AmvGeometry).toByteArray() );
 
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
@@ -80,8 +80,8 @@ DialogAddAmv::DialogAddAmv(QWidget *parent):
 
 DialogAddAmv::~DialogAddAmv()
 {
-    QSettings settings;
-    settings.setValue("DialogAddAmv/Geometry", this->saveGeometry() );
+    DbaSettings settings;
+    settings.setValue(Configs::DialogsSettings::AmvGeometry, this->saveGeometry() );
     delete ui;
 }
 

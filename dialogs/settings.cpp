@@ -6,49 +6,34 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     ui(new Ui::Settings), MngrConnect(MngrCon)
 {
     ui->setupUi(this);
-    QSettings settings;
-    settings.beginGroup("DialogSettings");
-        this->restoreGeometry( settings.value("Geometry").toByteArray() );
-        settings.beginGroup("Spletter");
-            ui->splitter->restoreGeometry( settings.value("Geometry").toByteArray() );
-            ui->splitter->restoreState( settings.value("State").toByteArray() );
-        settings.endGroup(/*Spletter*/);
-    settings.endGroup(/*DialogSettings*/);
+    DbaSettings settings;
+    this->restoreGeometry( settings.value(Configs::DialogsSettings::ConfigGeometry).toByteArray() );
+    ui->splitter->restoreGeometry( settings.value(Configs::DialogsSettings::ConfigSplitterGeometry).toByteArray() );
+    ui->splitter->restoreState( settings.value(Configs::DialogsSettings::ConfigSplitterState).toByteArray() );
     ui->LineEdit_Export_FilePath->setText( DefinesPath::home() );
     ui->LineEdit_Import_FilePath->setText( DefinesPath::home() );
 
-    settings.beginGroup("ActiveSections");
-        bool b1 = settings.value( "Anime",   true ).toBool();
-        bool b2 = settings.value( "Manga",  false ).toBool();
-        bool b3 = settings.value( "AMV",    false ).toBool();
-        bool b4 = settings.value( "Dorama", false ).toBool();
-    settings.endGroup();
+    bool b1 = settings.value( Configs::ActiveSections::Anime,   true ).toBool();
+    bool b2 = settings.value( Configs::ActiveSections::Manga,  false ).toBool();
+    bool b3 = settings.value( Configs::ActiveSections::Amv,    false ).toBool();
+    bool b4 = settings.value( Configs::ActiveSections::Dorama, false ).toBool();
 
-    settings.beginGroup("OptionalFields");
-        settings.beginGroup("Anime");
-            bool a1 = settings.value( "AltTitle",    false ).toBool();
-            bool a2 = settings.value( "Director",    false ).toBool();
-            bool a3 = settings.value( "Postscoring", false ).toBool();
-        settings.endGroup();
 
-        settings.beginGroup("Manga");
-            bool m1 = settings.value( "AltTitle",    false ).toBool();
-            bool m2 = settings.value( "Author",      false ).toBool();
-            bool m3 = settings.value( "Translation", false ).toBool();
-        settings.endGroup();
+    bool a1 = settings.value( Configs::OptionalFields::Anime::AltTitle,    false ).toBool();
+    bool a2 = settings.value( Configs::OptionalFields::Anime::Director,    false ).toBool();
+    bool a3 = settings.value( Configs::OptionalFields::Anime::Postscoring, false ).toBool();
 
-        settings.beginGroup("Dorama");
-            bool d1 = settings.value( "AltTitle", false ).toBool();
-            bool d2 = settings.value( "Director", false ).toBool();
-        settings.endGroup();
-    settings.endGroup();
+    bool m1 = settings.value( Configs::OptionalFields::Manga::AltTitle,    false ).toBool();
+    bool m2 = settings.value( Configs::OptionalFields::Manga::Author,      false ).toBool();
+    bool m3 = settings.value( Configs::OptionalFields::Manga::Translation, false ).toBool();
 
-    settings.beginGroup("Network");
-        bool checkUpdates = settings.value("CheckUpdates", true).toBool();
-        bool searchOnShikimori = settings.value("SearchOnShikimori", true).toBool();
-    settings.endGroup(/*Network*/);
+    bool d1 = settings.value( Configs::OptionalFields::Dorama::AltTitle, false ).toBool();
+    bool d2 = settings.value( Configs::OptionalFields::Dorama::Director, false ).toBool();
 
-    bool SwitchCoverOrDir = settings.value( "SwitchCoverOrDir", true ).toBool();
+    bool checkUpdates      = settings.value(Configs::Network::CheckUpdates,          true).toBool();
+    bool searchOnShikimori = settings.value(Configs::Network::AutoSearchOnShikimori, true).toBool();
+
+    bool SwitchCoverOrDir = settings.value( Configs::General::SwitchCoverOrDir, true ).toBool();
 
     ui->ChBox_AS_Anime->setChecked( b1 );
     ui->ChBox_AS_Manga->setChecked( b2 );
@@ -70,7 +55,7 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     ui->ChBox_SwitchCoverOrDir->setChecked( SwitchCoverOrDir );
     ui->ChBox_SearchOnShikimori->setChecked( searchOnShikimori );
 
-    QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( "Language", QLocale::English ).toInt());
+    QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( Configs::General::Language, QLocale::English ).toInt());
 
     ui->ComboBox_Language->addItem( tr("<System>"), 0 );
 
@@ -89,15 +74,17 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
         ui->ComboBox_ItemList_Sorting->addItem(tr("DESC"), Sort::desc);
         ui->ComboBox_ItemList_Sorting->addItem(tr("Year"), Sort::year);
 
-        Sort::sort sort = static_cast<Sort::sort>( settings.value( "Sorting", Sort::asc ).toInt() );
+        Sort::sort sort = static_cast<Sort::sort>( settings.value( Configs::General::Sorting, Sort::asc ).toInt() );
         ui->ComboBox_ItemList_Sorting->setCurrentIndex( sort );
     }
     // Work dir
     ui->LineEdit_WorkDir->setText( QDir::toNativeSeparators( DefinesPath::appData() ) );
 
-    // Displayed field //DisplayedField
-    {   // Displayed field //DisplayedField
-        Tables::UniformField::field displayedField = static_cast<Tables::UniformField::field>( settings.value( "DisplayedField", Tables::UniformField::Title ).toInt() );
+    // Displayed field
+    {   // Displayed field
+        Tables::UniformField::field displayedField =
+                static_cast<Tables::UniformField::field>(
+                    settings.value( Configs::General::DisplayedField, Tables::UniformField::Title ).toInt() );
         ui->ComboBox_ItemList_DisplayedField->addItem(tr("Title"), Tables::UniformField::Title);
         ui->ComboBox_ItemList_DisplayedField->addItem(tr("Alternative title"), Tables::UniformField::AltTitle);
         if( displayedField == Tables::UniformField::Title )
@@ -109,15 +96,11 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
 
 Settings::~Settings()
 {
-    QSettings settings;
-    settings.beginGroup("DialogSettings");
-        settings.setValue("Geometry", this->saveGeometry() );
+    DbaSettings settings;
+    settings.setValue(Configs::DialogsSettings::ConfigGeometry, this->saveGeometry() );
 
-        settings.beginGroup("Spletter");
-            settings.setValue("Geometry", ui->splitter->saveGeometry() );
-            settings.setValue("State", ui->splitter->saveState() );
-        settings.endGroup(/*Spletter*/);
-    settings.endGroup(/*Dialog*/);
+    settings.setValue(Configs::DialogsSettings::ConfigSplitterGeometry, ui->splitter->saveGeometry() );
+    settings.setValue(Configs::DialogsSettings::ConfigSplitterState,    ui->splitter->saveState() );
     delete ui;
 }
 
@@ -168,52 +151,52 @@ void Settings::on_BtnBox_clicked(QAbstractButton *button)
 
 void Settings::on_BtnBox_accepted()
 {
-    QSettings settings;
+    DbaSettings settings;
+    {
+        using namespace Configs::ActiveSections;
+        settings.setValue( Anime,  ui->ChBox_AS_Anime->isChecked() );
+        settings.setValue( Manga,  ui->ChBox_AS_Manga->isChecked() );
+        settings.setValue( Amv,    ui->ChBox_AS_Amv->isChecked() );
+        settings.setValue( Dorama, ui->ChBox_AS_Dorama->isChecked() );
+    }
+    {
+        using namespace Configs::OptionalFields::Anime;
+        settings.setValue( AltTitle,   ui->ChBox_OptField_Anime_AltTitle->isChecked() );
+        settings.setValue( Director,    ui->ChBox_OptField_Anime_Director->isChecked() );
+        settings.setValue( Postscoring, ui->ChBox_OptField_Anime_Postscoring->isChecked() );
+    }
+    {
+        using namespace Configs::OptionalFields::Manga;
+        settings.setValue( AltTitle,    ui->ChBox_OptField_Manga_AltTitle->isChecked() );
+        settings.setValue( Author,      ui->ChBox_OptField_Manga_Author->isChecked() );
+        settings.setValue( Translation, ui->ChBox_OptField_Manga_Translation->isChecked() );
+    }
+    {
+        using namespace Configs::OptionalFields::Dorama;
+        settings.setValue( AltTitle,   ui->ChBox_OptField_Dorama_AltTitle->isChecked() );
+        settings.setValue( Director,   ui->ChBox_OptField_Dorama_Director->isChecked() );
+    }
+    {
+        using namespace Configs::General;
+        settings.setValue( Language, ui->ComboBox_Language->currentData() );
+        settings.setValue( Sorting, ui->ComboBox_ItemList_Sorting->currentIndex() );
+    }
+    {
+        using namespace Configs::Network;
+        settings.setValue( CheckUpdates, ui->ChBox_CheckForUpdate->isChecked() );
+        settings.setValue( AutoSearchOnShikimori, ui->ChBox_SearchOnShikimori->isChecked() );
+    }
 
-    settings.beginGroup("ActiveSections");
-        settings.setValue( "Anime",  ui->ChBox_AS_Anime->isChecked() );
-        settings.setValue( "Manga",  ui->ChBox_AS_Manga->isChecked() );
-        settings.setValue( "AMV",    ui->ChBox_AS_Amv->isChecked() );
-        settings.setValue( "Dorama", ui->ChBox_AS_Dorama->isChecked() );
-    settings.endGroup();
-
-    settings.beginGroup("OptionalFields");
-        settings.beginGroup("Anime");
-            settings.setValue( "AltTitle",   ui->ChBox_OptField_Anime_AltTitle->isChecked() );
-            settings.setValue( "Director",    ui->ChBox_OptField_Anime_Director->isChecked() );
-            settings.setValue( "Postscoring", ui->ChBox_OptField_Anime_Postscoring->isChecked() );
-        settings.endGroup();
-
-        settings.beginGroup("Manga");
-            settings.setValue( "AltTitle",    ui->ChBox_OptField_Manga_AltTitle->isChecked() );
-            settings.setValue( "Author",      ui->ChBox_OptField_Manga_Author->isChecked() );
-            settings.setValue( "Translation", ui->ChBox_OptField_Manga_Translation->isChecked() );
-        settings.endGroup();
-
-        settings.beginGroup("Dorama");
-            settings.setValue( "AltTitle",   ui->ChBox_OptField_Dorama_AltTitle->isChecked() );
-            settings.setValue( "Director",   ui->ChBox_OptField_Dorama_Director->isChecked() );
-        settings.endGroup();
-    settings.endGroup();
-
-    settings.setValue( "Language", ui->ComboBox_Language->currentData() );
-    settings.setValue( "Sorting", ui->ComboBox_ItemList_Sorting->currentIndex() );
-
-    settings.beginGroup("Network");
-        settings.setValue( "CheckUpdates", ui->ChBox_CheckForUpdate->isChecked() );
-        settings.setValue( "SearchOnShikimori", ui->ChBox_SearchOnShikimori->isChecked() );
-    settings.endGroup(/*Network*/);
-
-    settings.setValue( "SwitchCoverOrDir", ui->ChBox_SwitchCoverOrDir->isChecked() );
+    settings.setValue( Configs::General::SwitchCoverOrDir, ui->ChBox_SwitchCoverOrDir->isChecked() );
 
     if( QDir::isAbsolutePath( ui->LineEdit_WorkDir->text() ) )
-        settings.setValue( "WorkDirectory", QDir(ui->LineEdit_WorkDir->text()).path() );
+        settings.setValue( Configs::General::WorkDirectory, QDir(ui->LineEdit_WorkDir->text()).path() );
     else
-        settings.remove("WorkDirectory");
+        settings.remove(Configs::General::WorkDirectory);
 
     // Displayed field
     Tables::UniformField::field displayedField = static_cast<Tables::UniformField::field>( ui->ComboBox_ItemList_DisplayedField->currentData().toInt() );
-    settings.setValue( "DisplayedField", displayedField );
+    settings.setValue( Configs::General::DisplayedField, displayedField );
 }
 
 void Settings::BtnBox_resetDefaults()

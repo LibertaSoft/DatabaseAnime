@@ -4,7 +4,6 @@
 #include "definespath.h"
 
 #include <QtSql>
-#include <QSettings>
 #include <QApplication>
 #include <QDir>
 #include <QUrl>

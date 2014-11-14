@@ -5,10 +5,10 @@
 #include "dialogs/settings.h"
 #include "mngrconnection.h"
 #include "mngrquerys.h"
+#include "dbasettings.h"
 
 #include <QMainWindow>
 #include <QPushButton>
-#include <QSettings>
 #include <QListWidget>
 #include <QTreeWidgetItem>
 #include <QScrollArea>

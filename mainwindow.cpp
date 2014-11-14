@@ -31,8 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbMovie(NULL), ListWidget_Dir(NULL),
     _btnPlay(NULL), _ScrArea_propertyes(NULL), _restoreDefSettings(false)
 {
-    QSettings settings;
-    QLocale::Language language = static_cast<QLocale::Language>(settings.value( "Language", QLocale::English ).toInt());
+    DbaSettings settings;
+    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Configs::General::Language, QLocale::English ).toInt());
     if( language == 0 ){
         language = QLocale::system().language();
     }
@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->Lbl_VVersion->setText( qApp->applicationVersion() );
 
-    _displayedField = static_cast<Tables::UniformField::field>( settings.value( "DisplayedField", Tables::UniformField::Title ).toInt() );
+    _displayedField = static_cast<Tables::UniformField::field>( settings.value( Configs::General::DisplayedField, Tables::UniformField::Title ).toInt() );
 
 //    [svg logo]
 //    int fAppName_id = QFontDatabase::addApplicationFont("./urw-chancery-l-medium-italic.ttf");
@@ -65,7 +65,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     // Verification of the new version
-    if( settings.value("Network/CheckUpdates", true).toBool() ){
+    if( settings.value(Configs::Network::CheckUpdates, true).toBool() ){
         QUrl url("https://api.github.com/repos/LibertaSoft/DatabaseAnime/releases");
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
         connect(manager, SIGNAL(finished(QNetworkReply*)),
@@ -73,12 +73,12 @@ MainWindow::MainWindow(QWidget *parent) :
         manager->get( QNetworkRequest(url) );
     }
 
-    this->restoreGeometry( settings.value("MainWindow/Geometry").toByteArray() );
-    this->restoreState( settings.value("MainWindow/State").toByteArray() );
-    ui->splitter->restoreGeometry( settings.value("MainWindow/SplitterGeometry").toByteArray() );
-    ui->splitter->restoreState( settings.value("MainWindow/SplitterState").toByteArray() );
-    _sort = static_cast<Sort::sort>( settings.value("Sorting", Sort::asc).toInt() );
-    bool c1 = settings.value( "SwitchCoverOrDir", true ).toBool();
+    this->restoreGeometry( settings.value(Configs::DialogsSettings::MainGeometry).toByteArray() );
+    this->restoreState( settings.value(Configs::DialogsSettings::MainState).toByteArray() );
+    ui->splitter->restoreGeometry( settings.value(Configs::DialogsSettings::MainSplitterGeometry).toByteArray() );
+    ui->splitter->restoreState( settings.value(Configs::DialogsSettings::MainSplitterState).toByteArray() );
+    _sort = static_cast<Sort::sort>( settings.value(Configs::General::Sorting, Sort::asc).toInt() );
+    bool c1 = settings.value( Configs::General::SwitchCoverOrDir, true ).toBool();
     ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 
     mngrConnection.open();
@@ -120,19 +120,19 @@ void MainWindow::replyVersionVerificationFinished(QNetworkReply* r){
 void MainWindow::closeEvent(QCloseEvent *e){
     mngrConnection.close();
 
-    QSettings settings;
+    DbaSettings settings;
     if( !_restoreDefSettings ){
-        settings.setValue("MainWindow/Geometry", this->saveGeometry() );
-        settings.setValue("MainWindow/State",    this->saveState() );
-        settings.setValue("btnSwitchSection/selected", _activeTable);
+        settings.setValue(Configs::DialogsSettings::MainGeometry, this->saveGeometry() );
+        settings.setValue(Configs::DialogsSettings::MainState,    this->saveState() );
+        settings.setValue(Configs::General::ActiveSection, _activeTable);
     }else{
-        settings.remove("MainWindow/Geometry");
-        settings.remove("MainWindow/State");
-        settings.remove("btnSwitchSection/selected");
+        settings.remove(Configs::DialogsSettings::MainGeometry);
+        settings.remove(Configs::DialogsSettings::MainState);
+        settings.remove(Configs::General::ActiveSection);
     }
 
-    settings.setValue("MainWindow/SplitterGeometry", ui->splitter->saveGeometry() );
-    settings.setValue("MainWindow/SplitterState", ui->splitter->saveState() );
+    settings.setValue(Configs::DialogsSettings::MainSplitterGeometry, ui->splitter->saveGeometry() );
+    settings.setValue(Configs::DialogsSettings::MainSplitterState, ui->splitter->saveState() );
     e->accept();
 }
 
@@ -144,8 +144,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_PButton_Options_clicked()
 {
     sections::section currentSection = static_cast<sections::section>(ui->CB_Section->currentData().toInt());
-    QSettings set;
-    set.setValue("btnSwitchSection/selected", currentSection);
+    DbaSettings set;
+    set.setValue(Configs::General::ActiveSection, currentSection);
 
     Settings formSettings(mngrConnection, this);
     formSettings.setModal(true);
@@ -366,15 +366,15 @@ sections::section MainWindow::getActiveTable()
 
 void MainWindow::reloadSectionsList()
 {
-    QSettings settings;
-    bool set_enableBtnAnime  = settings.value("ActiveSections/Anime",   true).toBool();
-    bool set_enableBtnManga  = settings.value("ActiveSections/Manga",  false).toBool();
-    bool set_enableBtnAMV    = settings.value("ActiveSections/AMV",    false).toBool();
-    bool set_enableBtnDorama = settings.value("ActiveSections/Dorama", false).toBool();
+    DbaSettings settings;
+    bool set_enableBtnAnime  = settings.value(Configs::ActiveSections::Anime,   true).toBool();
+    bool set_enableBtnManga  = settings.value(Configs::ActiveSections::Manga,  false).toBool();
+    bool set_enableBtnAMV    = settings.value(Configs::ActiveSections::Amv,    false).toBool();
+    bool set_enableBtnDorama = settings.value(Configs::ActiveSections::Dorama, false).toBool();
 
     sections::section set_select
             = static_cast<sections::section>(
-                settings.value("btnSwitchSection/selected", sections::none).toInt() );
+                settings.value(Configs::General::ActiveSection, sections::none).toInt() );
     ui->CB_Section->clear();
     ui->CB_Section->addItem( QIcon("://images/icon-section/Main.png"),
                              tr("Main"), sections::none );

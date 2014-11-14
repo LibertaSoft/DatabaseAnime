@@ -23,8 +23,8 @@ QString DefinesPath::appData(bool useDefault)
 {
     if(useDefault)
         return QStandardPaths::writableLocation( QStandardPaths::DataLocation ) + QDir::separator();
-    QSettings s;
-    return QDir(s.value("WorkDirectory",
+    DbaSettings s;
+    return QDir(s.value(Configs::General::WorkDirectory,
                    QStandardPaths::writableLocation( QStandardPaths::DataLocation )
                    ).toString()).path() + QDir::separator();
 

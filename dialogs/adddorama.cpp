@@ -2,8 +2,8 @@
 #include "ui_adddorama.h"
 #include "mngrquerys.h"
 #include "definespath.h"
+#include "dbasettings.h"
 
-#include <QSettings>
 #include <QFileDialog>
 #include <QDesktopServices>
 
@@ -21,15 +21,15 @@ void DialogAddDorama::initTags()
 
 void DialogAddDorama::initOptionalFields()
 {
-    QSettings settings;
-    if( settings.value( "OptionalFields/Dorama/AltTitle", false ).toBool() ){
+    DbaSettings settings;
+    if( settings.value( Configs::OptionalFields::Dorama::AltTitle, false ).toBool() ){
         this->LineEdit_AltTitle = new QLineEdit(this);
         this->LineEdit_AltTitle->setMaxLength(128);
         this->LineEdit_AltTitle->setDragEnabled(true);
         this->LineEdit_AltTitle->setPlaceholderText( tr("Alternative title") );
         ui->VLay_AltTitle->addWidget( this->LineEdit_AltTitle );
     }
-    if( settings.value( "OptionalFields/Dorama/Director", false ).toBool() ){
+    if( settings.value( Configs::OptionalFields::Dorama::Director, false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
         this->LineEdit_Director->setDragEnabled(true);
@@ -41,6 +41,7 @@ void DialogAddDorama::initOptionalFields()
 void DialogAddDorama::setDataInField()
 {
     model = new QSqlQueryModel(this);
+    // #Bug : MngrQuerys::selectById(sections::section, quint64 id)
     model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
                          MngrQuerys::getTableName( sections::dorama ) ).arg( _recordId ) );
 
@@ -109,8 +110,8 @@ DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned long long record_id) 
     LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value("DialogAddDorama/Geometry").toByteArray() );
+    DbaSettings settings;
+    this->restoreGeometry( settings.value(Configs::DialogsSettings::DoramaGeomety).toByteArray() );
 
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
@@ -126,8 +127,8 @@ DialogAddDorama::DialogAddDorama(QWidget *parent):
     LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value("DialogAddDorama/Geometry").toByteArray() );
+    DbaSettings settings;
+    this->restoreGeometry( settings.value(Configs::DialogsSettings::DoramaGeomety).toByteArray() );
 
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
@@ -139,8 +140,8 @@ DialogAddDorama::DialogAddDorama(QWidget *parent):
 
 DialogAddDorama::~DialogAddDorama()
 {
-    QSettings settings;
-    settings.setValue("DialogAddDorama/Geometry", this->saveGeometry() );
+    DbaSettings settings;
+    settings.setValue(Configs::DialogsSettings::DoramaGeomety, this->saveGeometry() );
     delete ui;
 }
 

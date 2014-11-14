@@ -1,8 +1,8 @@
 #ifndef DEFINESPATH_H
 #define DEFINESPATH_H
 
+#include "dbasettings.h"
 #include <QString>
-#include <QSettings>
 #include <QDir>
 #include <QStandardPaths>
 

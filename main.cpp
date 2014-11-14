@@ -1,10 +1,6 @@
 #include "mainwindow.h"
-#include "definespath.h"
-#include "dbalocalization.h"
-
 #include <QApplication>
-#include <QTranslator>
-#include <QSettings>
+
 #include <QDebug>
 
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
