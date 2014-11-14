@@ -28,6 +28,7 @@ private:
     QString _oldCover;
     QStringListModel _tags;
     int _animeId;
+    QString _altTitle;
 
     QLineEdit* LineEdit_OrigTitle;
     QLineEdit* LineEdit_Director;

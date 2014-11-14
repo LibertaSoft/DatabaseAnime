@@ -285,7 +285,9 @@ bool DialogAddManga::insert_Manga(){
     QRegExp rx("<.*>"); rx.setMinimal(true);
     data[Title]          = ui->LineEdit_Title->text().remove(rx);
 
-    data[AltTitle]      = (LineEdit_AltTitle   ) ?    LineEdit_AltTitle->text() : "";
+    data[AltTitle]      = (LineEdit_AltTitle   ) ?    LineEdit_AltTitle->text() : _altTitle;
+    if( data[AltTitle].toString().isEmpty() )
+        data[AltTitle]  = ui->LineEdit_Title->text();
     data[Author]        = (LineEdit_Author     ) ?      LineEdit_Author->text() : "";
     data[Translation]   = (LineEdit_Translation) ? LineEdit_Translation->text() : "";
 
@@ -465,6 +467,8 @@ void DialogAddManga::setRecivedData(QMap<QString, QVariant> data)
     // Optional Fields
     if( this->LineEdit_AltTitle )
         this->LineEdit_AltTitle->setText( data["AltTitle"].toString() );
+    else
+        _altTitle = data["AltTitle"].toString();
 //    if( this->LineEdit_Director )
 //        this->LineEdit_Director->setText( obj["russian"].toString() );
 //    if( this->LineEdit_PostScoring )

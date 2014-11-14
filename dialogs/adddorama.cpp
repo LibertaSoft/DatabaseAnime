@@ -204,7 +204,7 @@ bool DialogAddDorama::insert_Dorama(){
     QRegExp rx("<.*>"); rx.setMinimal(true);
     data[Title]          = ui->LineEdit_Title->text().remove(rx);
 
-    data[AltTitle]       = (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():"";
+    data[AltTitle]       = (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():ui->LineEdit_Title->text();
     data[Director]       = (LineEdit_Director)?this->LineEdit_Director->text():"";
     data[SeriesTV]       = ui->SpinBox_aTV->value()   ;
     data[SeriesSpecial]  = ui->SpinBox_aSpec->value() ;

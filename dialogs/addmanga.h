@@ -25,7 +25,7 @@ private:
     bool _isEditRole;
     unsigned long long _recordId;
     QString _oldCover;
-
+    QString _altTitle;
 
     QLineEdit* LineEdit_AltTitle;
     QLineEdit* LineEdit_Author;

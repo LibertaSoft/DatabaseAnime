@@ -265,8 +265,10 @@ bool DialogAddAnime::insert_Anime(){
     QRegExp rx("<.*>"); rx.setMinimal(true);
     data[Title]          = ui->LineEdit_Title->text().remove(rx);
 
-    data[AltTitle]      = (LineEdit_OrigTitle  )?  this->LineEdit_OrigTitle->text() : "";
-    data[Director]       = (LineEdit_Director   )?   this->LineEdit_Director->text() : "";
+    data[AltTitle]      = (LineEdit_OrigTitle  )?   this->LineEdit_OrigTitle->text() : _altTitle;
+    if( data[AltTitle].toString().isEmpty() )
+        data[AltTitle]  = ui->LineEdit_Title->text();
+    data[Director]       = (LineEdit_Director  )?    this->LineEdit_Director->text() : "";
     data[PostScoring]    = (LineEdit_PostScoring)?this->LineEdit_PostScoring->text() : "";
     data[SeriesTV]       = ui->SpinBox_aTV->value();
     data[SeriesOVA]      = ui->SpinBox_aOVA->value();
@@ -463,6 +465,8 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
     // Optional Fields
     if( this->LineEdit_OrigTitle )
         this->LineEdit_OrigTitle->setText( data["AltTitle"].toString() );
+    else
+        _altTitle = data["AltTitle"].toString();
 //    if( this->LineEdit_Director )
 //        this->LineEdit_Director->setText( obj["russian"].toString() );
 //    if( this->LineEdit_PostScoring )
