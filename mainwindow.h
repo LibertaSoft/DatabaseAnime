@@ -36,6 +36,7 @@ private:
     bool _restoreDefSettings;
 
     sections::section _activeTable;
+    Tables::UniformField::field _displayedField;
     Sort::sort _sort;
 
     QModelIndex currentItem;

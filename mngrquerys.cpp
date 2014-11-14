@@ -215,6 +215,105 @@ QString MngrQuerys::fieldToString(Tables::DoramaField::field field)
     }
 }
 
+QString MngrQuerys::fieldToString(Tables::UniformField::field field, sections::section section)
+{
+    using namespace Tables::UniformField;
+    switch (field) {
+        case all :
+            switch(section){
+                case sections::anime :
+                    return fieldToString(Tables::AnimeField::all);
+                case sections::manga :
+                    return fieldToString(Tables::MangaField::all);
+                case sections::amv :
+                    return fieldToString(Tables::AmvField::all);
+                case sections::dorama :
+                    return fieldToString(Tables::DoramaField::all);
+                case sections::none :
+                    return QString::null;
+            }
+        case id :
+            switch(section){
+                case sections::anime :
+                    return fieldToString(Tables::AnimeField::id);
+                case sections::manga :
+                    return fieldToString(Tables::MangaField::id);
+                case sections::amv :
+                    return fieldToString(Tables::AmvField::id);
+                case sections::dorama :
+                    return fieldToString(Tables::DoramaField::id);
+                case sections::none :
+                    return QString::null;
+            }
+        case Title :
+            switch(section){
+                case sections::anime :
+                    return fieldToString(Tables::AnimeField::Title);
+                case sections::manga :
+                    return fieldToString(Tables::MangaField::Title);
+                case sections::amv :
+                    return fieldToString(Tables::AmvField::Title);
+                case sections::dorama :
+                    return fieldToString(Tables::DoramaField::Title);
+                case sections::none :
+                    return QString::null;
+            }
+        case AltTitle :
+            switch(section){
+                case sections::anime :
+                    return fieldToString(Tables::AnimeField::AltTitle);
+                case sections::manga :
+                    return fieldToString(Tables::MangaField::AltTitle);
+                case sections::amv :
+                    return fieldToString(Tables::AmvField::Title);
+                case sections::dorama :
+                    return fieldToString(Tables::DoramaField::AltTitle);
+                case sections::none :
+                    return QString::null;
+            }
+        case Url :
+            switch(section){
+                case sections::anime :
+                    return fieldToString(Tables::AnimeField::Url);
+                case sections::manga :
+                    return fieldToString(Tables::MangaField::Url);
+                case sections::amv :
+                    return fieldToString(Tables::AmvField::Url);
+                case sections::dorama :
+                    return fieldToString(Tables::DoramaField::Url);
+                case sections::none :
+                    return QString::null;
+            }
+        case Dir :
+            switch(section){
+                case sections::anime :
+                    return fieldToString(Tables::AnimeField::Dir);
+                case sections::manga :
+                    return fieldToString(Tables::MangaField::Dir);
+                case sections::amv :
+                    return fieldToString(Tables::AmvField::Dir);
+                case sections::dorama :
+                    return fieldToString(Tables::DoramaField::Dir);
+                case sections::none :
+                    return QString::null;
+            }
+        case ImagePath :
+            switch(section){
+                case sections::anime :
+                    return fieldToString(Tables::AnimeField::ImagePath);
+                case sections::manga :
+                    return fieldToString(Tables::MangaField::ImagePath);
+                case sections::amv :
+                    return fieldToString(Tables::AmvField::ImagePath);
+                case sections::dorama :
+                    return fieldToString(Tables::DoramaField::ImagePath);
+                case sections::none :
+                    return QString::null;
+            }
+    }
+    return QString::null;
+}
+
 QString MngrQuerys::filterToString(Filter::filter filter)
 {
     switch( filter ){
@@ -616,27 +715,30 @@ QString MngrQuerys::getTableName(sections::section table)
     }
 }
 
-int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section)
+bool MngrQuerys::selectSection(QSqlQueryModel *model, sections::section section,
+                               Tables::UniformField::field field, Filter::filter filter,
+                               Sort::sort sort, QString search)
 {
-    model->setQuery( QString("SELECT id,Title FROM %1").arg( getTableName(section) ) );
-    return 0;
-}
+    if(section == sections::none){
+        model->clear();
+        return false;
+    }
+    //"SELECT {id}, {Title} FROM {animeSerials} WHERE {0 = 0} [AND Title LIKE '{search}'] [ORDER {ASC}] "
+    // {} - Dynamic; [] - Optional
+    QString sql = "SELECT "
+                + fieldToString(Tables::UniformField::id, section)
+                + ", "
+                + fieldToString(field, section)
+                + " FROM "
+                + getTableName(section)
+                + " WHERE " + filterToString( filter );
+    if( ! search.isNull() )
+        sql += " AND " + fieldToString(field, section) + " LIKE '%" + search + "%'";
+    sql += " " + sortToString( sort );
 
-int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, QString filter, Filter::filter filter2, Sort::sort sort )
-{
-    model->setQuery( QString("SELECT id,Title FROM %1 %2 %3").arg(
-                         getTableName(section), "WHERE " + filterToString( filter2 )+ " AND " +filter, sortToString( sort ) ) );
-    return 0;
-}
-
-int MngrQuerys::selectSection(QSqlQueryModel* model, sections::section section, Filter::filter filter, Sort::sort sort )
-{
-    QString strFilter( "WHERE " + filterToString( filter ) );
-    QString strSort( sortToString( sort ) );
-
-    model->setQuery( QString("SELECT id,Title FROM %1 %2 %3").arg(
-                  getTableName(section), strFilter, strSort ) );
-    return 0;
+    qDebug() << sql;
+    model->setQuery( sql );
+    return true;
 }
 
 bool MngrQuerys::createTable_Anime()
@@ -797,7 +899,8 @@ QSqlQuery MngrQuerys::selectAll(sections::section section)
 {
     QSqlQuery query( "SELECT * FROM " + getTableName(section) );
     if( ! query.exec() )
-        qCritical() << QString("Cannot select data from table " + getTableName(section) );
+        qCritical() << QString("Cannot select data from table " + getTableName(section) )
+                    << query.lastError();
     return query;
 }
 

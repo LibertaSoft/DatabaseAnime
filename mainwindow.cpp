@@ -51,8 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->Lbl_VVersion->setText( qApp->applicationVersion() );
 
-
-
+    _displayedField = static_cast<Tables::UniformField::field>( settings.value( "DisplayedField", Tables::UniformField::Title ).toInt() );
 
 //    [svg logo]
 //    int fAppName_id = QFontDatabase::addApplicationFont("./urw-chancery-l-medium-italic.ttf");
@@ -160,6 +159,7 @@ void MainWindow::on_PButton_Options_clicked()
     ui->retranslateUi(this);
 
     _sort = formSettings.getSort();
+    _displayedField = formSettings.getDisplaydField();
     ui->StackWgt_CoverOrDir->setOptSwitch( formSettings.getSwitchToDir() );
     _restoreDefSettings = formSettings.getRestoreDefault();
 
@@ -345,9 +345,8 @@ void MainWindow::openFile(QString &file)
 void MainWindow::on_lineEdit_Search_textChanged(const QString &strSearch)
 {
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
-    MngrQuerys::selectSection(
-                QueryModel_ListItemsSection, getActiveTable(),
-                QString("Title LIKE '%2'").arg("%"+strSearch+"%"), filter, _sort );
+    MngrQuerys::selectSection(QueryModel_ListItemsSection, getActiveTable(),
+                                   _displayedField, filter, _sort, strSearch);
 }
 
 QString MainWindow::getActiveTableName() const
@@ -1081,7 +1080,7 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     reloadFiltersList();
 
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
-    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
+    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
     ui->TreeView_List->hideColumn(0);
     if(sec == sections::none){
         ui->stackedWidget->setCurrentIndex(0);
@@ -1094,7 +1093,7 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
 void MainWindow::on_CB_Filter_currentIndexChanged(int = 0)
 {
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
-    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), filter, _sort );
+    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
 }
 
 void MainWindow::on_TreeView_Dir_activated(const QModelIndex &index)

@@ -10,6 +10,9 @@ namespace Filter {
 
 namespace Tables {
     enum table{none = 0, vAnime, vManga, vAmv, vDorama};
+    namespace UniformField{
+        enum field{all, id, Title, AltTitle, Url, Dir, ImagePath};
+    }
     namespace AnimeField{
         enum field{all, id, isHaveLooked, isEditingDone, isAdult, Title, AltTitle, Director,
                    PostScoring, SeriesTV, SeriesOVA, SeriesONA, SeriesSpecial, SeriesMovie,

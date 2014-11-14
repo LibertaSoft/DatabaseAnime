@@ -119,7 +119,7 @@
              <string notr="true" comment="Text on button add [unused]">+</string>
             </property>
             <property name="icon">
-             <iconset theme="list-add" resource="resource.qrc">
+             <iconset resource="resource.qrc">
               <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
             </property>
             <property name="shortcut">
@@ -158,7 +158,7 @@
              <string notr="true" comment="Text on button edit [unused]">/</string>
             </property>
             <property name="icon">
-             <iconset theme="text" resource="resource.qrc">
+             <iconset resource="resource.qrc">
               <normaloff>:/images/edit.png</normaloff>:/images/edit.png</iconset>
             </property>
             <property name="shortcut">
@@ -197,7 +197,7 @@
              <string notr="true" comment="Text on button delete [unused]">-</string>
             </property>
             <property name="icon">
-             <iconset theme="list-remove" resource="resource.qrc">
+             <iconset resource="resource.qrc">
               <normaloff>:/images/list-remove.png</normaloff>:/images/list-remove.png</iconset>
             </property>
             <property name="shortcut">
@@ -275,7 +275,7 @@
               <string>&amp;Options</string>
              </property>
              <property name="icon">
-              <iconset theme="emblem-system" resource="resource.qrc">
+              <iconset resource="resource.qrc">
                <normaloff>:/images/config.png</normaloff>:/images/config.png</iconset>
              </property>
              <property name="shortcut">

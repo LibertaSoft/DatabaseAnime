@@ -82,22 +82,29 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
         if( set_language == langList.key(langName) )
             ui->ComboBox_Language->setCurrentIndex(i);
     }
-
     // Sorting
-    ui->ComboBox_ItemList_Sorting->addItem(tr("None"), Sort::none);
-    ui->ComboBox_ItemList_Sorting->addItem(tr("ASC"),  Sort::asc);
-    ui->ComboBox_ItemList_Sorting->addItem(tr("DESC"), Sort::desc);
-    ui->ComboBox_ItemList_Sorting->addItem(tr("Year"), Sort::year);
+    {  // Sorting
+        ui->ComboBox_ItemList_Sorting->addItem(tr("None"), Sort::none);
+        ui->ComboBox_ItemList_Sorting->addItem(tr("ASC"),  Sort::asc);
+        ui->ComboBox_ItemList_Sorting->addItem(tr("DESC"), Sort::desc);
+        ui->ComboBox_ItemList_Sorting->addItem(tr("Year"), Sort::year);
 
-    Sort::sort sort = static_cast<Sort::sort>( settings.value( "Sorting", Sort::asc ).toInt() );
-    ui->ComboBox_ItemList_Sorting->setCurrentIndex( sort );
-
+        Sort::sort sort = static_cast<Sort::sort>( settings.value( "Sorting", Sort::asc ).toInt() );
+        ui->ComboBox_ItemList_Sorting->setCurrentIndex( sort );
+    }
     // Work dir
     ui->LineEdit_WorkDir->setText( QDir::toNativeSeparators( DefinesPath::appData() ) );
 
-    // Displayed field
-    ui->ComboBox_ItemList_DisplayedField->addItem(tr("Title"), 0);
-    ui->ComboBox_ItemList_DisplayedField->addItem(tr("Alternative title"), 1);
+    // Displayed field //DisplayedField
+    {   // Displayed field //DisplayedField
+        Tables::UniformField::field displayedField = static_cast<Tables::UniformField::field>( settings.value( "DisplayedField", Tables::UniformField::Title ).toInt() );
+        ui->ComboBox_ItemList_DisplayedField->addItem(tr("Title"), Tables::UniformField::Title);
+        ui->ComboBox_ItemList_DisplayedField->addItem(tr("Alternative title"), Tables::UniformField::AltTitle);
+        if( displayedField == Tables::UniformField::Title )
+            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( 0 );
+        else
+            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( 1 );
+    }
 }
 
 Settings::~Settings()
@@ -117,6 +124,11 @@ Settings::~Settings()
 Sort::sort Settings::getSort()
 {
     return static_cast<Sort::sort>( ui->ComboBox_ItemList_Sorting->currentIndex() );
+}
+
+Tables::UniformField::field Settings::getDisplaydField()
+{
+    return static_cast<Tables::UniformField::field>(ui->ComboBox_ItemList_DisplayedField->currentData().toInt());
 }
 
 bool Settings::getSwitchToDir()
@@ -198,6 +210,10 @@ void Settings::on_BtnBox_accepted()
         settings.setValue( "WorkDirectory", QDir(ui->LineEdit_WorkDir->text()).path() );
     else
         settings.remove("WorkDirectory");
+
+    // Displayed field
+    Tables::UniformField::field displayedField = static_cast<Tables::UniformField::field>( ui->ComboBox_ItemList_DisplayedField->currentData().toInt() );
+    settings.setValue( "DisplayedField", displayedField );
 }
 
 void Settings::BtnBox_resetDefaults()

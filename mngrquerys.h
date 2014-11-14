@@ -19,10 +19,11 @@ public:
     static QString fieldToString(Tables::MangaField::field field);
     static QString fieldToString(Tables::AmvField::field field);
     static QString fieldToString(Tables::DoramaField::field field);
+    static QString fieldToString(Tables::UniformField::field field, sections::section section);
 
-    static Tables::AnimeField::field  animeFieldFromString(QString fieldName);
-    static Tables::MangaField::field  mangaFieldFromString(QString fieldName);
-    static Tables::AmvField::field    amvFieldFromString(QString fieldName);
+    static Tables::AnimeField::field   animeFieldFromString(QString fieldName);
+    static Tables::MangaField::field   mangaFieldFromString(QString fieldName);
+    static Tables::AmvField::field       amvFieldFromString(QString fieldName);
     static Tables::DoramaField::field doramaFieldFromString(QString fieldName);
 
     static QMap<Tables::AnimeField::field, QVariant>  convertAnimeData(QMap<QString,QVariant> data);
@@ -32,9 +33,10 @@ public:
 
     static QString getTableName( Tables::table );
     static QString getTableName( sections::section );
-    static int  selectSection( QSqlQueryModel* model, sections::section = sections::none );
-    static int  selectSection( QSqlQueryModel* model, sections::section, QString filter, Filter::filter filter2, Sort::sort sort );
-    static int  selectSection( QSqlQueryModel* model, sections::section, Filter::filter filter, Sort::sort sort );
+    static bool selectSection(QSqlQueryModel *model, sections::section section,
+                              Tables::UniformField::field field = Tables::UniformField::Title,
+                              Filter::filter filter = Filter::all,
+                              Sort::sort sort = Sort::none, QString search = QString::null);
 
     static bool createTable_Anime();
     static bool createTable_Manga();

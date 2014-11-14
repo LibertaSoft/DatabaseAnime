@@ -39,6 +39,7 @@ public:
     ~Settings();
 
     Sort::sort getSort();
+    Tables::UniformField::field getDisplaydField();
     bool getSwitchToDir();
     bool getRestoreDefault();
     QLocale::Language getLanguage();

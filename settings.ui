@@ -277,7 +277,7 @@
                <item row="0" column="1">
                 <widget class="QComboBox" name="ComboBox_ItemList_DisplayedField">
                  <property name="enabled">
-                  <bool>false</bool>
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
