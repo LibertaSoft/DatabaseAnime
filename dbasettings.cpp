@@ -64,20 +64,19 @@ QString DbaSettings::keyToString(Configs::DialogsSettings::key _key)
 QString DbaSettings::keyToString(Configs::General::key _key)
 {
     using namespace Configs::General;
-    const QString prefix("General/");
     switch( _key ){
     case ActiveSection :
-        return prefix + "ActiveSection";
+        return "ActiveSection";
     case DisplayedField :
-        return prefix + "DisplayedField";
+        return "DisplayedField";
     case Language :
-        return prefix + "Language";
+        return "Language";
     case Sorting :
-        return prefix + "Sorting";
+        return "Sorting";
     case SwitchCoverOrDir :
-        return prefix + "SwitchCoverOrDir";
+        return "SwitchCoverOrDir";
     case WorkDirectory :
-        return prefix + "WorkDirectory";
+        return "WorkDirectory";
     }
     return QString::null;
 }
