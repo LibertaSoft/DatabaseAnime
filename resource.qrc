@@ -34,5 +34,6 @@
         <file>images/git.png</file>
         <file>images/vk.png</file>
         <file>fonts/URWChanceryL-MediItal</file>
+        <file>fonts/URWChanceryL-MediItal.ttf</file>
     </qresource>
 </RCC>
