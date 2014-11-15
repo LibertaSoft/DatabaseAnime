@@ -57,6 +57,8 @@ private slots:
     unsigned long long on_actionImport_triggered();
     bool on_actionDeleteRecords_triggered();
     void on_TBtn_WorkDir_Choose_clicked();
+    void on_actionShowImportProgressBar_triggered(bool checked);
+    void on_actionShowExportProgressBar_triggered(bool checked);
 };
 
 #endif // SETTINGS_H

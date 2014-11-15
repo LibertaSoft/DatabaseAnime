@@ -43,6 +43,9 @@ public:
     static bool createTable_Amv();
     static bool createTable_Dorama();
 
+    static quint64  count(sections::section section);
+    static void     count(quint64 &anime, quint64 &manga, quint64 &amv, quint64 &dorama);
+
     static bool dropTable(sections::section section);
     static QSqlQuery selectAll(sections::section section);
     static QString getImagePath(sections::section section, quint64 id);

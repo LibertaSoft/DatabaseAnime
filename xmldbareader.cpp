@@ -4,6 +4,51 @@ XmlDbaReader::XmlDbaReader(QIODevice* stream)
     :_streamReader(stream)
 {}
 
+bool XmlDbaReader::isDbaFormat()
+{
+    #pragma DTD_Needed
+    _token = _streamReader.readNext();
+     if (_token == QXmlStreamReader::StartElement){
+         // Need DTD Doctype ...
+         if( _streamReader.name() == "DatabaseAnime" )
+             return true;
+     }
+     return false;
+}
+
+bool XmlDbaReader::readHeader()
+{
+    #pragma DTD_Needed
+    _token = _streamReader.readNext();
+     if (_token == QXmlStreamReader::StartElement){
+         // Need DTD Doctype ...
+         if( _streamReader.name() == "DatabaseAnime" )
+             return true;
+     }
+     return false;
+}
+
+bool XmlDbaReader::readHeader(quint64 &countAnime, quint64 &countManga, quint64 &countAmv, quint64 &countDorama)
+{
+    #pragma DTD_Needed
+    _token = _streamReader.readNext(); // <?xml ... ?>
+    _token = _streamReader.readNext();
+    if (_token == QXmlStreamReader::StartElement){
+        // Need DTD Doctype ...
+            if( _streamReader.name() == "DatabaseAnime" ){
+            QXmlStreamAttributes attr = _streamReader.attributes();
+            countAnime  = attr.value("CountAnime" ).toULongLong();
+            countManga  = attr.value("CountManga" ).toULongLong();
+            countAmv    = attr.value("CountAmv"   ).toULongLong();
+            countDorama = attr.value("CountDorama").toULongLong();
+            return true;
+        }
+    }
+    qDebug() << "is not dba format";
+    qDebug() << _streamReader.name();
+    return false;
+}
+
 QMap<QString, QVariant> XmlDbaReader::readNext()
 {
 

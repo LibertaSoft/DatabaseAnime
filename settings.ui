@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>742</width>
+    <width>643</width>
     <height>565</height>
    </rect>
   </property>
@@ -14,8 +14,8 @@
    <string>Settings</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../../../../images/config.png</normaloff>../../../../images/config.png</iconset>
+   <iconset resource="resource.qrc">
+    <normaloff>:/images/config.png</normaloff>:/images/config.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -95,6 +95,12 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="minimumSize">
+       <size>
+        <width>420</width>
+        <height>0</height>
+       </size>
+      </property>
       <property name="frameShape">
        <enum>QFrame::Box</enum>
       </property>
@@ -102,7 +108,7 @@
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="Page_General">
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -130,8 +136,8 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>0</y>
-             <width>499</width>
+             <y>-45</y>
+             <width>401</width>
              <height>549</height>
             </rect>
            </property>
@@ -379,8 +385,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>325</width>
-             <height>222</height>
+             <width>414</width>
+             <height>504</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -465,20 +471,7 @@
                 </widget>
                </item>
                <item>
-                <spacer name="HSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::Ignored</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
+                <widget class="QLabel" name="label"/>
                </item>
               </layout>
              </widget>
@@ -529,8 +522,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>345</width>
-             <height>201</height>
+             <width>414</width>
+             <height>504</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -560,12 +553,18 @@
                  <property name="text">
                   <string>Anime</string>
                  </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
                <item>
                 <widget class="QCheckBox" name="ChBox_Import_Manga">
                  <property name="text">
                   <string>Manga</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -574,12 +573,18 @@
                  <property name="text">
                   <string>Amv</string>
                  </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
                <item>
                 <widget class="QCheckBox" name="ChBox_Import_Dorama">
                  <property name="text">
                   <string>Dorama</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -590,6 +595,9 @@
              <widget class="QCheckBox" name="ChBox_Import_Images">
               <property name="text">
                <string>Import images</string>
+              </property>
+              <property name="checked">
+               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -618,6 +626,16 @@
                </widget>
               </item>
              </layout>
+            </item>
+            <item>
+             <widget class="QProgressBar" name="ProgressBar_Import">
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
             </item>
             <item>
              <spacer name="VSpacer_Import">
@@ -665,8 +683,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>345</width>
-             <height>199</height>
+             <width>414</width>
+             <height>504</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -696,12 +714,18 @@
                  <property name="text">
                   <string>Anime</string>
                  </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
                <item>
                 <widget class="QCheckBox" name="ChBox_Export_Manga">
                  <property name="text">
                   <string>Manga</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -710,12 +734,18 @@
                  <property name="text">
                   <string>Amv</string>
                  </property>
+                 <property name="checked">
+                  <bool>true</bool>
+                 </property>
                 </widget>
                </item>
                <item>
                 <widget class="QCheckBox" name="ChBox_Export_Dorama">
                  <property name="text">
                   <string>Dorama</string>
+                 </property>
+                 <property name="checked">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>
@@ -727,6 +757,9 @@
               <property name="text">
                <string>Export images</string>
               </property>
+              <property name="checked">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -737,6 +770,16 @@
               <property name="icon">
                <iconset resource="resource.qrc">
                 <normaloff>:/images/export.png</normaloff>:/images/export.png</iconset>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QProgressBar" name="ProgressBar_Export">
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
               </property>
              </widget>
             </item>
@@ -797,6 +840,22 @@
    </property>
    <property name="toolTip">
     <string>Delete records and images</string>
+   </property>
+  </action>
+  <action name="actionShowProgressBar">
+   <property name="text">
+    <string>ShowImportProgressBar</string>
+   </property>
+   <property name="toolTip">
+    <string>Switch progress bar or action buttons</string>
+   </property>
+  </action>
+  <action name="actionShowExportProgressBar">
+   <property name="text">
+    <string>ShowExportProgressBar</string>
+   </property>
+   <property name="toolTip">
+    <string>Switch export button or progress bar</string>
    </property>
   </action>
  </widget>

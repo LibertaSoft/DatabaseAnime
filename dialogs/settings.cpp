@@ -6,6 +6,9 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     ui(new Ui::Settings), MngrConnect(MngrCon)
 {
     ui->setupUi(this);
+    ui->ProgressBar_Export->setVisible(false);
+    ui->ProgressBar_Import->setVisible(false);
+
     DbaSettings settings;
     this->restoreGeometry( settings.value(Configs::DialogsSettings::ConfigGeometry).toByteArray() );
     ui->splitter->restoreGeometry( settings.value(Configs::DialogsSettings::ConfigSplitterGeometry).toByteArray() );
@@ -250,6 +253,7 @@ void Settings::on_PBtn_Action_Export_clicked()
         return;
     }
 
+    on_actionShowExportProgressBar_triggered(true);
     this->setDisabled( true );
 
     QDir().mkpath( exportDir );
@@ -269,8 +273,25 @@ void Settings::on_PBtn_Action_Export_clicked()
     */
     writer.startDocument();
     writer.startElement("DatabaseAnime");
+
+    quint64 countAnime, countManga, countAmv, countDorama, allCount;
+    countAnime  = ( exAnime  )? MngrQuerys::count(sections::anime)  : 0;
+    countManga  = ( exManga  )? MngrQuerys::count(sections::manga)  : 0;
+    countAmv    = ( exAmv    )? MngrQuerys::count(sections::amv)    : 0;
+    countDorama = ( exDorama )? MngrQuerys::count(sections::dorama) : 0;
+    allCount = countAnime + countManga + countAmv + countDorama;
+
+    writer.writeAttribute("CountAnime"  , QString::number( countAnime  ) );
+    writer.writeAttribute("CountManga"  , QString::number( countManga  ) );
+    writer.writeAttribute("CountAmv"    , QString::number( countAmv    ) );
+    writer.writeAttribute("CountDorama" , QString::number( countDorama ) );
     QSqlQuery query;
 
+    ui->ProgressBar_Export->setMinimum(0);
+    ui->ProgressBar_Export->setValue(0);
+    ui->ProgressBar_Export->setMaximum(allCount);
+
+    quint64 progress(0);
     if( exAnime ){
         query = MngrQuerys::selectAll(sections::anime);
         if( query.lastError().isValid() ){
@@ -311,6 +332,7 @@ void Settings::on_PBtn_Action_Export_clicked()
             data[MngrQuerys::fieldToString(ImagePath)]      = query.value(MngrQuerys::fieldToString(ImagePath)      ).toString();
 
             writer.writeNext(data);
+            ui->ProgressBar_Export->setValue( progress++ );
             QCoreApplication::processEvents();
         }
         writer.endSection(/*Anime*/);
@@ -349,6 +371,7 @@ void Settings::on_PBtn_Action_Export_clicked()
             data[MngrQuerys::fieldToString(ImagePath)]       = query.value(MngrQuerys::fieldToString(ImagePath)       ).toString();
 
             writer.writeNext(data);
+            ui->ProgressBar_Export->setValue( progress++ );
             QCoreApplication::processEvents();
         }
         writer.endSection(/*Manga*/);
@@ -381,6 +404,7 @@ void Settings::on_PBtn_Action_Export_clicked()
             data[MngrQuerys::fieldToString(ImagePath)]       = query.value(MngrQuerys::fieldToString(ImagePath)       ).toString();
 
             writer.writeNext(data);
+            ui->ProgressBar_Export->setValue( progress++ );
             QCoreApplication::processEvents();
         }
         writer.endSection(/*Amv*/);
@@ -420,6 +444,7 @@ void Settings::on_PBtn_Action_Export_clicked()
             data[MngrQuerys::fieldToString(ImagePath)]       = query.value(MngrQuerys::fieldToString(ImagePath)       ).toString();
 
             writer.writeNext(data);
+            ui->ProgressBar_Export->setValue( progress++ );
             QCoreApplication::processEvents();
         }
         writer.endSection(/*Dorama*/);
@@ -478,6 +503,7 @@ void Settings::on_PBtn_Action_Export_clicked()
     }
 
     this->setEnabled( true );
+    on_actionShowExportProgressBar_triggered(false);
     QMessageBox::information( this, tr("Export"), tr("Export is successfully finished") );
 }
 
@@ -516,6 +542,7 @@ void Settings::on_PBtn_Import_Append_clicked()
     }
 
     this->setCursor( QCursor(Qt::WaitCursor) );
+    on_actionShowImportProgressBar_triggered(true);
     this->setDisabled(true);
 
     int countImportRecords = on_actionImport_triggered();
@@ -528,6 +555,7 @@ void Settings::on_PBtn_Import_Append_clicked()
     }
 
     this->setEnabled(true);
+    on_actionShowImportProgressBar_triggered(false);
     this->setCursor( QCursor(Qt::ArrowCursor) );
 }
 
@@ -544,6 +572,7 @@ void Settings::on_PBtn_Import_Replace_clicked()
     delete pmbx;
 
     this->setCursor( QCursor(Qt::WaitCursor) );
+    on_actionShowImportProgressBar_triggered(true);
     this->setDisabled(true);
 
     if (n == QMessageBox::Yes) {
@@ -552,6 +581,7 @@ void Settings::on_PBtn_Import_Replace_clicked()
     }
 
     this->setCursor( QCursor(Qt::ArrowCursor) );
+    on_actionShowImportProgressBar_triggered(false);
     this->setEnabled(true);
 }
 
@@ -573,11 +603,22 @@ unsigned long long Settings::on_actionImport_triggered()
         return 0;
     }
 
-    unsigned long long n(0);
     XmlDbaReader reader(&file);
+    quint64 countAnime, countManga, countAmv, countDorama, allCount;
+    reader.readHeader(countAnime, countManga, countAmv, countDorama);
+    countAnime  = ( imAnime  )? countAnime  : 0;
+    countManga  = ( imManga  )? countManga  : 0;
+    countAmv    = ( imAmv    )? countAmv    : 0;
+    countDorama = ( imDorama )? countDorama : 0;
+    allCount = countAnime + countManga + countAmv + countDorama;
+
     QMap<QString, QVariant> data;
 
     MngrConnect.transaction();
+    quint64 progress(0);
+    ui->ProgressBar_Import->setMinimum(0);
+    ui->ProgressBar_Import->setValue(0);
+    ui->ProgressBar_Import->setMaximum(allCount);
     while( ! reader.atEnd() && ! reader.hasError() ){
         data = reader.readNext();
         if( data.isEmpty() )
@@ -599,20 +640,24 @@ unsigned long long Settings::on_actionImport_triggered()
         switch ( reader.currentSection() ) {
         case sections::anime :
             MngrQuerys::insertAnime( MngrQuerys::convertAnimeData(data) );
+            progress++;
             break;
         case sections::manga :
             MngrQuerys::insertManga( MngrQuerys::convertMangaData(data) );
+            progress++;
             break;
         case sections::amv :
             MngrQuerys::insertAmv( MngrQuerys::convertAmvData(data) );
+            progress++;
             break;
         case sections::dorama :
             MngrQuerys::insertDorama( MngrQuerys::convertDoramaData(data) );
+            progress++;
             break;
         default:
             qCritical() << "[FormSettings::importAppend] uncorrect section: " << reader.currentSection();
         }
-        n++;
+        ui->ProgressBar_Import->setValue(progress);
         QCoreApplication::processEvents();
     }
     if( reader.hasError() )
@@ -669,7 +714,7 @@ unsigned long long Settings::on_actionImport_triggered()
 
     file.close();
 
-    return n;
+    return progress;
 }
 
 bool Settings::on_actionDeleteRecords_triggered()
@@ -770,4 +815,17 @@ void Settings::on_TBtn_WorkDir_Choose_clicked()
         ui->LineEdit_WorkDir->setText( DefinesPath::appData() );
     else
         ui->LineEdit_WorkDir->setText( dir );
+}
+
+void Settings::on_actionShowImportProgressBar_triggered(bool checked)
+{
+    ui->PBtn_Import_Append->setVisible(!checked);
+    ui->PBtn_Import_Replace->setVisible(!checked);
+    ui->ProgressBar_Import->setVisible(checked);
+}
+
+void Settings::on_actionShowExportProgressBar_triggered(bool checked)
+{
+    ui->PBtn_Action_Export->setVisible(!checked);
+    ui->ProgressBar_Export->setVisible(checked);
 }

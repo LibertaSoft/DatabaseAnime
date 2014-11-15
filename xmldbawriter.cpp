@@ -58,6 +58,11 @@ void XmlDbaWriter::endDocument()
     _streamWriter.writeEndDocument();
 }
 
+void XmlDbaWriter::writeAttribute(const QString &qualifiedName, const QString &value)
+{
+    _streamWriter.writeAttribute(qualifiedName, value);
+}
+
 bool XmlDbaWriter::writeNext(QMap<QString, QString> data)
 {
     _streamWriter.writeStartElement("item");

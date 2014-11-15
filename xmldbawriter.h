@@ -30,6 +30,8 @@ public:
 
     void startDocument();
     void endDocument();
+
+    void writeAttribute(const QString & qualifiedName, const QString & value);
 };
 
 #endif // XMLDBAWRITER_H

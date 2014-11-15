@@ -883,6 +883,27 @@ bool MngrQuerys::createTable_Dorama()
     return true;
 }
 
+quint64 MngrQuerys::count(sections::section section)
+{
+    QSqlQuery query;
+    QString sql( "SELECT count(*) FROM %1" );
+    if( false == query.exec( sql.arg( MngrQuerys::getTableName(section) ) ) ){
+        qCritical() << "Error when deleting a table " + MngrQuerys::getTableName( section )
+                    << query.lastError();
+        return 0;
+    }
+    query.next();
+    return query.value(0).toULongLong();
+}
+
+void MngrQuerys::count(quint64 &anime, quint64 &manga, quint64 &amv, quint64 &dorama)
+{
+    anime  = count(sections::anime );
+    manga  = count(sections::manga );
+    amv    = count(sections::amv   );
+    dorama = count(sections::dorama);
+}
+
 bool MngrQuerys::dropTable(sections::section section)
 {
     QSqlQuery query;

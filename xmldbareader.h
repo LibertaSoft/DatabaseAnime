@@ -17,8 +17,10 @@ class XmlDbaReader
 
     bool readItem();
 public:
-//    XmlDbaReader(QIODevice* stream);
     XmlDbaReader(QIODevice* stream);
+    bool isDbaFormat();
+    bool readHeader();
+    bool readHeader(quint64 &countAnime, quint64 &countManga, quint64 &countAmv, quint64 &countDorama);
     QMap<QString, QVariant> readNext();
 
     bool atEnd()const;
