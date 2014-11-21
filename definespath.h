@@ -10,6 +10,7 @@ class DefinesPath
 {
 public:
     static QString home();
+    static QString log();
     static QStringList share();
 
     static QString appData(bool useDefault = false);

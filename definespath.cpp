@@ -9,6 +9,11 @@ QString DefinesPath::home()
     return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 }
 
+QString DefinesPath::log()
+{
+    return QStandardPaths::writableLocation( QStandardPaths::CacheLocation ) + QDir::separator() + "log" + QDir::separator();
+}
+
 QStringList DefinesPath::share()
 {
     QStringList paths = QStandardPaths::standardLocations( QStandardPaths::DataLocation );
