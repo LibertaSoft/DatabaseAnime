@@ -108,7 +108,7 @@
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Page_General">
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -136,9 +136,9 @@
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-45</y>
+             <y>0</y>
              <width>401</width>
-             <height>549</height>
+             <height>514</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -164,37 +164,13 @@
                <item row="0" column="1">
                 <widget class="QComboBox" name="ComboBox_Language"/>
                </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="Label_Style">
-                 <property name="text">
-                  <string>Style:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QComboBox" name="ComboBox_Style">
-                 <property name="enabled">
-                  <bool>false</bool>
-                 </property>
-                 <item>
-                  <property name="text">
-                   <string>/home/diman/Downloads/dba.css</string>
-                  </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>/home/diman/Downloads/dba2.css</string>
-                  </property>
-                 </item>
-                </widget>
-               </item>
               </layout>
              </widget>
             </item>
             <item>
              <widget class="QGroupBox" name="GroupBox_Network">
               <property name="title">
-               <string>Network</string>
+               <string>Network:</string>
               </property>
               <layout class="QGridLayout" name="gridLayout">
                <item row="0" column="0">

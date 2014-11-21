@@ -10,12 +10,12 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
     f.open(QFile::Append);
     switch (type) {
      case QtDebugMsg:
-        f.write( "[Debug]\n"
-                 "Message: " + msg.toUtf8() + "\n"
-                 + "File: " + context.file + "\n"
-                 + "Line: " + QString::number(context.line).toUtf8() + "\n"
-                 + "Function: " + context.function
-                 + "\n-----\n" );
+//        f.write( "[Debug]\n"
+//                 "Message: " + msg.toUtf8() + "\n"
+//                 + "File: " + context.file + "\n"
+//                 + "Line: " + QString::number(context.line).toUtf8() + "\n"
+//                 + "Function: " + context.function
+//                 + "\n-----\n" );
         break;
      case QtWarningMsg:
         f.write( "[Warning]\n"
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");
     app.setApplicationName("DatabaseAnime");
-    app.setApplicationVersion("1.1.1 Pre-Alpha");
+    app.setApplicationVersion("1.2.0 Beta");
     app.setApplicationDisplayName( QObject::tr("Database Anime") );
     app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
 
