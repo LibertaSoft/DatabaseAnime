@@ -1330,7 +1330,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="main.cpp" line="61"/>
+        <location filename="main.cpp" line="44"/>
         <source>Database Anime</source>
         <translation>Database Anime</translation>
     </message>
@@ -1970,8 +1970,9 @@
     </message>
     <message>
         <location filename="settings.ui" line="173"/>
-        <source>Network</source>
-        <translation>Network</translation>
+        <source>Network:</source>
+        <oldsource>Network</oldsource>
+        <translation>Network:</translation>
     </message>
     <message>
         <location filename="settings.ui" line="179"/>
