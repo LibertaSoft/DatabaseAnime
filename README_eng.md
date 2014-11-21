@@ -20,7 +20,6 @@ It is my first project on **Qt**, difficult functions can be developed long enou
 ### Install
 - Download last stable [release](https://github.com/LibertaSoft/DatabaseAnime/releases) for your system
 - Compile from source code.
-  - Path of file translations (qtbase_??.qm, DatabaseAnime_??.qm) - "../share/DatabaseAnime/l10n/"
 - ArchLinux users can find a package in AUR
   - https://aur.archlinux.org/packages/databaseanime/
 
