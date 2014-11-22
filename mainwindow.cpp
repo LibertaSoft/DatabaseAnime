@@ -235,7 +235,7 @@ void MainWindow::on_TButton_Edit_clicked()
         }
         QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
     }else{
-        QMessageBox::information(this, tr("Warning"), tr("Section is don't selected"));
+        QMessageBox::information(this, tr("Warning"), tr("Item isn't selected"));
     }
 }
 
@@ -288,6 +288,8 @@ void MainWindow::on_TButton_Delete_clicked()
             QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
             ui->stackedWidget->setCurrentIndex(0);
         }
+    }else{
+        QMessageBox::information(this, tr("Warning"), tr("Item isn't selected"));
     }
 }
 
