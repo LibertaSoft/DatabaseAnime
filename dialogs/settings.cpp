@@ -61,15 +61,13 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( Configs::General::Language, QLocale::English ).toInt());
 
     ui->ComboBox_Language->addItem( tr("<System>"), 0 );
+    ui->ComboBox_Language->addItem( "Russian", QLocale::Russian );
+    ui->ComboBox_Language->addItem( "English", QLocale::English );
+    if( set_language == QLocale::Russian )
+        ui->ComboBox_Language->setCurrentIndex(1);
+    else if( set_language == QLocale::English )
+        ui->ComboBox_Language->setCurrentIndex(2);
 
-    QMap<QLocale::Language,QString> langList = DbaLocalization::readExistsLocalizations( DefinesPath::share() );
-    int i(0);
-    foreach (QString langName, langList) {
-        ++i;
-        ui->ComboBox_Language->addItem(langName, langList.key(langName));
-        if( set_language == langList.key(langName) )
-            ui->ComboBox_Language->setCurrentIndex(i);
-    }
     // Sorting
     {  // Sorting
         ui->ComboBox_ItemList_Sorting->addItem(tr("None"), Sort::none);

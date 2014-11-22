@@ -34,5 +34,8 @@
         <file>images/git.png</file>
         <file>images/vk.png</file>
         <file>fonts/URWChanceryL-MediItal.ttf</file>
+        <file>l10n/DatabaseAnime_ru.qm</file>
+        <file>l10n/DatabaseAnime_en.qm</file>
+        <file>l10n/qtbase_ru.qm</file>
     </qresource>
 </RCC>

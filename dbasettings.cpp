@@ -1,4 +1,6 @@
 #include "dbasettings.h"
+#include <QApplication>
+#include <QDebug>
 
 /// Методы keyToString преобразуют перечисления описанные в пространствах имён к строке
 /// Отвечающей за указанную опцию
@@ -156,7 +158,7 @@ DbaSettings::DbaSettings(const QString &fileName, QSettings::Format format, QObj
 {}
 
 DbaSettings::DbaSettings(QObject *parent) :
-    QSettings(parent)
+    QSettings(QApplication::applicationDirPath() + "/DBA.ini" ,QSettings::IniFormat , parent)
 {}
 
 /// Функции value представляют интерфейс для функции QSettings::value, но принимающий как параметр

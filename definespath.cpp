@@ -1,5 +1,5 @@
 #include "definespath.h"
-
+#include <QApplication>
 #include <QDebug>
 
 /// Any string(path) ended of QDir::separator()
@@ -27,10 +27,10 @@ QStringList DefinesPath::share()
 QString DefinesPath::appData(bool useDefault)
 {
     if(useDefault)
-        return QStandardPaths::writableLocation( QStandardPaths::DataLocation ) + QDir::separator();
+        return QApplication::applicationDirPath() + QDir::separator();
     DbaSettings s;
     return QDir(s.value(Configs::General::WorkDirectory,
-                   QStandardPaths::writableLocation( QStandardPaths::DataLocation )
+                   QApplication::applicationDirPath()
                    ).toString()).path() + QDir::separator();
 
     // Use it:

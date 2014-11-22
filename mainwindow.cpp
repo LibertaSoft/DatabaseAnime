@@ -36,8 +36,12 @@ MainWindow::MainWindow(QWidget *parent) :
     if( language == 0 ){
         language = QLocale::system().language();
     }
-    qtTr.load( DbaLocalization::getQtBaseFileOfLocalization( language, DefinesPath::share() ) );
-    dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
+    if( language == QLocale::Russian ){
+        qtTr.load( "://l10n/qtbase_ru.qm" );
+        dbaTr.load( "://l10n/DatabaseAnime_ru.qm" );
+    }else{
+        dbaTr.load( "://l10n/DatabaseAnime_en.qm" );
+    }
     qApp->installTranslator(&qtTr);
     qApp->installTranslator(&dbaTr);
     ui->setupUi(this);
