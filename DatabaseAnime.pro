@@ -6,7 +6,7 @@ TEMPLATE = app
 CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
 
-VERSION = 1.2.1.4
+VERSION = 1.2.1.0
 #Last digit:
 # 0 - Pre-Alpha
 # 1 - Alpha
