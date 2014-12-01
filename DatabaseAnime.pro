@@ -1,10 +1,10 @@
-QT       += core gui sql xml network
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui widgets sql xml network
 
 TARGET = DatabaseAnime
 TEMPLATE = app
 
+CONFIG += c++11
+QMAKE_CXXFLAGS += -std=c++11
 
 VERSION = 1.2.0.4
 #Last digit:
