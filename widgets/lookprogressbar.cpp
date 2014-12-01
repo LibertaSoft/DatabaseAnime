@@ -222,3 +222,143 @@ void LookProgressBar::wheelEvent(QWheelEvent *pe)
         progressDec();
     }
 }
+
+
+void LookProgressBar2::initCreate()
+{
+    _btnAdd = new QToolButton(this);
+    _btnSub = new QToolButton(this);
+    _lookProgressBar = new QProgressBar(this);
+    _hLay = new QHBoxLayout(this);
+
+    this->setLayout(_hLay);
+    _hLay->addWidget(_btnSub);
+    _hLay->addWidget(_btnAdd);
+    _hLay->addWidget(_lookProgressBar);
+
+    _btnSub->setIcon( QIcon("://images/list-remove.png") );
+    _btnAdd->setIcon( QIcon("://images/list-add.png") );
+    _lookProgressBar->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
+}
+
+void LookProgressBar2::initConnect()
+{
+    if( !_btnAdd || !_btnSub || !_lookProgressBar || !_hLay ){
+        qCritical() << "initConnect: widgets is not created!";
+        return;
+    }
+    connect(this, SIGNAL(progressChanged(int)), _lookProgressBar, SLOT(setValue(int)) );
+    connect(_btnAdd, &QToolButton::clicked, [=](){
+        if( getValue() == getMaximum() ){
+            emit progressOverflow();
+            if( revertWhenOverflow )
+                emit progressChanged( getMinimum() );
+        }else{
+            emit progressChanged( getValue() + 1 );
+            emit progressChanged( getValue(), getTargetField() );
+        }
+    });
+    connect(_btnSub, &QToolButton::clicked, [=](){
+        emit progressChanged( getValue() - 1 );
+        emit progressChanged( getValue(), getTargetField() );
+    });
+}
+
+LookProgressBar2::LookProgressBar2(QWidget *parent)
+    :QWidget(parent)
+{
+    initCreate();
+    initConnect();
+
+    _lookProgressBar->setMinimum( 0 );
+    _lookProgressBar->setValue( 0 );
+    _lookProgressBar->setMaximum( 100 );
+    _lookProgressBar->setFormat( "[%v/%m]" );
+    _targetFieldDB = QString::null;
+}
+
+LookProgressBar2::LookProgressBar2(int minimum, int value, int maximum, QWidget *parent)
+    :QWidget(parent)
+{
+    initCreate();
+    initConnect();
+
+    _lookProgressBar->setMinimum( minimum );
+    _lookProgressBar->setValue( value );
+    _lookProgressBar->setMaximum( maximum );
+    _lookProgressBar->setFormat( "[%v/%m]" );
+    _targetFieldDB = QString::null;
+}
+
+LookProgressBar2::LookProgressBar2(int minimum, int value, int maximum, QString format, QString targetField, QWidget *parent)
+    :QWidget(parent)
+{
+    initCreate();
+    initConnect();
+
+    _lookProgressBar->setMinimum( minimum );
+    _lookProgressBar->setValue( value );
+    _lookProgressBar->setMaximum( maximum );
+    _lookProgressBar->setFormat( format );
+    _targetFieldDB = targetField;
+}
+
+void LookProgressBar2::setValue(int value)
+{
+    _lookProgressBar->setValue( value );
+}
+
+void LookProgressBar2::setMaximum(int value)
+{
+    _lookProgressBar->setMaximum( value );
+}
+
+void LookProgressBar2::setMinimum(int value)
+{
+    _lookProgressBar->setMinimum( value );
+}
+
+void LookProgressBar2::setFormat(QString format)
+{
+    _lookProgressBar->setFormat( format );
+}
+
+void LookProgressBar2::setTargetFieldDB(QString fieldName)
+{
+    _targetFieldDB = fieldName;
+}
+
+void LookProgressBar2::setTargetOverflowFieldDB(QString fieldName)
+{
+    _targetOverflowFieldDB = fieldName;
+}
+
+int LookProgressBar2::getValue() const
+{
+    return _lookProgressBar->value();
+}
+
+int LookProgressBar2::getMaximum() const
+{
+    return _lookProgressBar->maximum();
+}
+
+int LookProgressBar2::getMinimum() const
+{
+    return _lookProgressBar->minimum();
+}
+
+QString LookProgressBar2::getFormat() const
+{
+    return _lookProgressBar->format();
+}
+
+QString LookProgressBar2::getTargetField() const
+{
+    return _targetFieldDB;
+}
+
+QString LookProgressBar2::getTargetOverflowFieldDB() const
+{
+    return _targetOverflowFieldDB;
+}

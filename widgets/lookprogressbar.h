@@ -10,39 +10,48 @@
 #include <QCommonStyle>
 #include <QStyleOption>
 
-class LpbStyleOption : public QStyleOption {
-public:
-    enum {Type = SO_ProgressBar};
-    enum {Version = 1};
-    int nMaximum;
-    int nMinimum;
-    int nProgress;
-    QString str;
-    Qt::Alignment textAlignment;
-};
+#include <QToolButton>
+#include <QProgressBar>
+#include <QHBoxLayout>
 
-class LpbStyle : public QCommonStyle{
+class LookProgressBar2 : public QWidget{
+    Q_OBJECT
+private:
+    QToolButton  *_btnSub;
+    QToolButton  *_btnAdd;
+    QProgressBar *_lookProgressBar;
+    QHBoxLayout  *_hLay;
+
+    bool revertWhenOverflow;
+    QString _targetFieldDB;
+    QString _targetOverflowFieldDB;
+
+    void initCreate();  // One
+    void initConnect(); // Two!
 public:
-    virtual void polish (QWidget* pwgt);
-    virtual void unpolish(QWidget* pwgt);
-    /*virtual void drawPrimitive(
-        PrimitiveElement elem,
-        const QStyleOption* popt,
-        QPainter*           ppainter,
-        const QWidget*      pwgt = 0
-    ) const;
-    virtual void drawControl(
-        ControlElement		elem,
-        const QStyleOption*	popt,
-        QPainter*			ppainter,
-        const QWidget		*pwgt = 0
-    ) const;
-    /*virtual void drawComplexControl(
-        ComplexControl 				control,
-        const QStyleOptionComplex*	popt,
-        QPainter*					ppainter,
-        const QWidget*				pwgt = 0
-    ) const;*/
+    explicit LookProgressBar2(QWidget *parent = 0);
+    explicit LookProgressBar2(int minimum, int value, int maximum, QWidget *parent = 0);
+    explicit LookProgressBar2(int minimum, int value, int maximum, QString format, QString targetField, QWidget *parent = 0);
+
+    void setValue(int);
+    void setMaximum(int);
+    void setMinimum(int);
+    void setFormat(QString);
+    void setTargetFieldDB(QString);
+    void setTargetOverflowFieldDB(QString);
+
+    int getValue()const;
+    int getMaximum()const;
+    int getMinimum()const;
+    QString getFormat()const;
+    QString getTargetField()const;
+    QString getTargetOverflowFieldDB()const;
+
+signals:
+    void progressChanged(int, QString);
+    void progressChanged(int); // Technical
+    void progressOverflow();
+
 };
 
 class LookProgressBar : public QFrame
