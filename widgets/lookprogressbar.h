@@ -7,6 +7,44 @@
 #include <QPaintEvent>
 #include <QMouseEvent>
 
+#include <QCommonStyle>
+#include <QStyleOption>
+
+class LpbStyleOption : public QStyleOption {
+public:
+    enum {Type = SO_ProgressBar};
+    enum {Version = 1};
+    int nMaximum;
+    int nMinimum;
+    int nProgress;
+    QString str;
+    Qt::Alignment textAlignment;
+};
+
+class LpbStyle : public QCommonStyle{
+public:
+    virtual void polish (QWidget* pwgt);
+    virtual void unpolish(QWidget* pwgt);
+    /*virtual void drawPrimitive(
+        PrimitiveElement elem,
+        const QStyleOption* popt,
+        QPainter*           ppainter,
+        const QWidget*      pwgt = 0
+    ) const;
+    virtual void drawControl(
+        ControlElement		elem,
+        const QStyleOption*	popt,
+        QPainter*			ppainter,
+        const QWidget		*pwgt = 0
+    ) const;
+    /*virtual void drawComplexControl(
+        ComplexControl 				control,
+        const QStyleOptionComplex*	popt,
+        QPainter*					ppainter,
+        const QWidget*				pwgt = 0
+    ) const;*/
+};
+
 class LookProgressBar : public QFrame
 {
     Q_OBJECT

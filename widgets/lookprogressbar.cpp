@@ -4,6 +4,9 @@
 #include <QLinearGradient>
 #include <QPen>
 #include <QtSql>
+#include <QStylePainter>
+
+#include <QPushButton>
 
 LookProgressBar::LookProgressBar(QWidget *parent) :
     QFrame(parent), _value(0), _maxValue(0), _minValue(0), _btnAddActive(false), _btnSubActive(false)
@@ -15,7 +18,7 @@ LookProgressBar::LookProgressBar(QWidget *parent) :
 
 QSize LookProgressBar::sizeHint() const
 {
-    return QSize(200, 30);
+    return QSize(200, 32);
 }
 
 void LookProgressBar::setValue(int n)
@@ -135,52 +138,40 @@ void LookProgressBar::progressDec()
 
 void LookProgressBar::paintEvent(QPaintEvent*)
 {
-    QPainter p(this);
-    QLinearGradient gradient(0, 0, width(), height());
-    gradient.setStart( width(), height()/2 );
+    QStylePainter sp(this);
 
-    float f = static_cast<float>( getValue() ) / getMaximum() ;
+    QStyleOptionButton subBtnOpt;
+    subBtnOpt.icon = QIcon("://images/list-remove.png");
+    subBtnOpt.iconSize = QSize(24,24);
+    subBtnOpt.rect = QRect(0,0,32,32);
+    subBtnOpt.state = QStyle::State_Enabled;
+    if( _btnSubActive )
+        subBtnOpt.state |= QStyle::State_MouseOver;
 
-    gradient.setColorAt(0.0f, QColor(30,170,235,255) );
-    gradient.setColorAt(0.4f, QColor(10,130,255,255) );
-    gradient.setColorAt(1.0f, QColor(30,170,235,255) );
+    sp.drawControl( QStyle::CE_PushButton, subBtnOpt);
 
-    p.fillRect(rect(), QColor(184,184,184,255) );
-    p.fillRect(height()*2, 0, (width() - height()*2 )*f, height(), gradient);
+    QStyleOptionButton addBtnOpt;
+    addBtnOpt.icon = QIcon("://images/list-add.png");
+    addBtnOpt.iconSize = QSize(24,24);
+    addBtnOpt.rect = QRect(32,0,32,32);
+    addBtnOpt.state = QStyle::State_Enabled;
+    if( _btnAddActive )
+        addBtnOpt.state |= QStyle::State_MouseOver;
 
-    // Кнопки
-    QRect rbtnPls(1,1,height()-1,height()-2);
-    QRect rbtnSub(height()+2,1,height()-1,height()-2);
+    sp.drawControl( QStyle::CE_PushButton, addBtnOpt);
 
-    p.fillRect( rbtnPls, QColor(200,200,200,255) );
-    p.fillRect( rbtnSub, QColor(200,200,200,255) );
+    QStyleOptionProgressBar opt;
+    opt.maximum = getMaximum();
+    opt.minimum = getMinimum();
+    opt.progress = getValue();
+    opt.text = getFormat().arg( getValue() ).arg( getMaximum() );
+    opt.textVisible = true;
+    opt.textAlignment = Qt::AlignCenter | Qt::AlignVCenter;
+    QRect r = rect();
+    r.setX(64);
+    opt.rect = r;
 
-    QPixmap pUp;
-    if( isActiveBtnAdd() ){
-        pUp.load("://images/list-add-active.png");
-    }else{
-        pUp.load("://images/list-add.png");
-    }
-    QPixmap pSub;
-    if( isActiveBtnSub() ){
-        pSub.load("://images/list-remove-active.png");
-    }else{
-        pSub.load("://images/list-remove.png");
-    }
-
-    QRect xrbtnSub(4,4,height()-8,height()-8);
-    QRect xrbtnPls(height()+4,4,height()-8,height()-8);
-
-
-    p.drawPixmap(xrbtnPls, pUp);
-    p.drawPixmap(xrbtnSub, pSub);
-
-    // Текст
-    p.setPen(QPen(Qt::black));
-    QString str = getFormat().arg( getValue() ).arg( getMaximum() );
-    p.drawText(rect(), Qt::AlignCenter, str);
-
-    drawFrame(&p);
+    sp.drawControl( QStyle::CE_ProgressBar, opt);
 }
 
 void LookProgressBar::mousePressEvent(QMouseEvent*)
