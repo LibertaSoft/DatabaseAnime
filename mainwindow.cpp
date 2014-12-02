@@ -64,6 +64,16 @@ MainWindow::MainWindow(QWidget *parent) :
 //    ui->VLay_logoSvg->addWidget( logo );
 //    ui->VLay_logoSvg->setAlignment(logo, Qt::AlignCenter);
 
+    // #Test begin. Delete this.
+    /*
+    #pragma delete_test
+    LookProgressBar2 *lpb = new LookProgressBar2(0, 2, 8, "TV[%v/%m]", "hisokka");
+    ui->VLay_logoSvg->addWidget( lpb );
+    connect(lpb, &LookProgressBar2::progressOverflow, [=]() {
+           QMessageBox::information(this, "Owerflow", "Field is owerflow");
+     });
+    */
+    // End test.
 
     // Verification of the new version
     if( settings.value(Configs::Network::CheckUpdates, true).toBool() ){
@@ -316,20 +326,18 @@ void MainWindow::on_TreeView_List_activated(const QModelIndex&)
     }
 }
 
-void MainWindow::saveLookValueChanges(int value, int max, QString type)
+void MainWindow::saveLookValueChanges(int value, QString field)
 {
-    MngrQuerys::updateRecord(getActiveTable(), _currentItemId, type, QString::number(value) );
-    if( value == max && type == "vSeriesTV" )
-        MngrQuerys::updateRecord(getActiveTable(), _currentItemId, QString("isHaveLooked"), QString::number(true) );
+    MngrQuerys::updateRecord(getActiveTable(), _currentItemId, field, QString::number(value) );
 }
 
-void MainWindow::saveLookValueChanges(int value, int max, QString type, QString nextField)
+void MainWindow::saveLookValueChanges(int value, int max, QString field, QString nextField)
 {
-    MngrQuerys::updateRecord(getActiveTable(), _currentItemId, type, QString::number(value) );
+    MngrQuerys::updateRecord(getActiveTable(), _currentItemId, field, QString::number(value) );
     if( value == max && (nextField.isEmpty() == false) ){
         mngrConnection.transaction();
         MngrQuerys::updateRecord(getActiveTable(), _currentItemId, nextField, nextField+"+1" );
-        MngrQuerys::updateRecord(getActiveTable(), _currentItemId, type, "0" );
+        MngrQuerys::updateRecord(getActiveTable(), _currentItemId, field, "0" );
         mngrConnection.commit();
     }
     return;
@@ -492,80 +500,52 @@ void MainWindow::selectAnimeData()
     m1.setQuery(
                 QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
                 );
-    if( pbTV ){
-        delete pbTV;
-        pbTV = NULL;
-    }
-    if( pbOVA ){
-        delete pbOVA;
-        pbOVA = NULL;
-    }
-    if( pbONA ){
-        delete pbONA;
-        pbONA = NULL;
-    }
-    if( pbSpecial ){
-        delete pbSpecial;
-        pbSpecial = NULL;
-    }
-    if( pbMovie ){
-        delete pbMovie;
-        pbMovie = NULL;
-    }
+    deleteLookProgressBars();
 
     if( m1.record(0).value("SeriesTV").toInt() > 0 ){
-        pbTV = new LookProgressBar(this);
-        pbTV->setTargetFieldDB("vSeriesTV");
-        pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
-        pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
-        pbTV->setFormat("TV [%v/%m]");
+        pbTV = new LookProgressBar(0,
+                                   m1.record(0).value("vSeriesTV").toInt(),
+                                   m1.record(0).value("SeriesTV").toInt(),
+                                   "TV [%v/%m]", "vSeriesTV",
+                                   this);
         ui->HLay_WBRow0->addWidget( pbTV );
-        QObject::connect(pbTV, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbTV, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesOVA").toInt() > 0 ){
-        pbOVA = new LookProgressBar(this);
-        pbOVA->setTargetFieldDB("vSeriesOVA");
-        pbOVA->setValue( m1.record(0).value("vSeriesOVA").toInt() );
-        pbOVA->setMaximum( m1.record(0).value("SeriesOVA").toInt() );
-        pbOVA->setFormat("OVA [%v/%m]");
+        pbOVA = new LookProgressBar(0,
+                                    m1.record(0).value("vSeriesOVA").toInt(),
+                                    m1.record(0).value("SeriesOVA").toInt(),
+                                    "OVA [%v/%m]", "vSeriesOVA",
+                                    this);
         ui->HLay_WBRow1->addWidget(pbOVA);
-        QObject::connect(pbOVA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbOVA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesONA").toInt() > 0 ){
-        pbONA = new LookProgressBar(this);
-        pbONA->setTargetFieldDB("vSeriesONA");
-        pbONA->setValue( m1.record(0).value("vSeriesONA").toInt() );
-        pbONA->setMaximum( m1.record(0).value("SeriesONA").toInt() );
-        pbONA->setFormat("ONA [%v/%m]");
+        pbONA = new LookProgressBar(0,
+                                    m1.record(0).value("vSeriesONA").toInt(),
+                                    m1.record(0).value("SeriesONA").toInt(),
+                                    "ONA [%v/%m]", "vSeriesONA",
+                                    this);
         ui->HLay_WBRow1->addWidget( pbONA );
-        QObject::connect(pbONA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbONA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesSpecial").toInt() > 0 ){
-        pbSpecial = new LookProgressBar(this);
-        pbSpecial->setTargetFieldDB("vSeriesSpecial");
-        pbSpecial->setValue( m1.record(0).value("vSeriesSpecial").toInt() );
-        pbSpecial->setMaximum( m1.record(0).value("SeriesSpecial").toInt() );
-        pbSpecial->setFormat("Special [%v/%m]");
+        pbSpecial = new LookProgressBar(0,
+                                        m1.record(0).value("vSeriesSpecial").toInt(),
+                                        m1.record(0).value("SeriesSpecial").toInt(),
+                                        "Special [%v/%m]", "vSeriesSpecial",
+                                        this);
         ui->HLay_WBRow2->addWidget( pbSpecial );
-        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesMovie").toInt() > 0 ){
-        pbMovie = new LookProgressBar(this);
-        pbMovie->setTargetFieldDB("vSeriesMovie");
-        pbMovie->setValue( m1.record(0).value("vSeriesMovie").toInt() );
-        pbMovie->setMaximum( m1.record(0).value("SeriesMovie").toInt() );
-        pbMovie->setFormat("Movie [%v/%m]");
+        pbMovie = new LookProgressBar(0,
+                                      m1.record(0).value("vSeriesMovie").toInt(),
+                                      m1.record(0).value("SeriesMovie").toInt(),
+                                      "Movie [%v/%m]", "vSeriesMovie",
+                                      this);
         ui->HLay_WBRow2->addWidget( pbMovie );
-        QObject::connect(pbMovie, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
-    }
-
-    if( _ScrArea_propertyes ){
-        _ScrArea_propertyes->deleteLater();
-        _ScrArea_propertyes = NULL;
-    }
-    if( _btnPlay ){
-        _btnPlay->deleteLater();
-        _btnPlay = NULL;
+        QObject::connect(pbMovie, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
 
     _ScrArea_propertyes = new QScrollArea;
@@ -578,8 +558,6 @@ void MainWindow::selectAnimeData()
     _ScrArea_propertyes->setLayout(FLay_propertyes);
     ui->VLay_AnimeDescrFull->addWidget(_ScrArea_propertyes);
 
-    //pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
-    //pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
@@ -664,65 +642,36 @@ void MainWindow::selectMangaData()
     m1.setQuery(
                 QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
                 );
-    if( pbTV ){
-        pbTV->deleteLater();
-        pbTV=NULL;
-    }
-    if( pbOVA ){
-        pbOVA->deleteLater();
-        pbOVA=NULL;
-    }
-    if( pbONA ){
-        pbONA->deleteLater();
-        pbONA=NULL;
-    }
-    if( pbSpecial ){
-        pbSpecial->deleteLater();
-        pbSpecial=NULL;
-    }
-    if( pbMovie ){
-        pbMovie->deleteLater();
-        pbMovie=NULL;
-    }
-    if( _btnPlay ){
-        _btnPlay->deleteLater();
-        _btnPlay=NULL;
-    }
+    deleteLookProgressBars();
 
-    if( m1.record(0).value("Vol").toInt() > 0 ){
-        pbTV = new LookProgressBar(this);
-        pbTV->setTargetFieldDB("vVol");
-        pbTV->setValue( m1.record(0).value("vVol").toInt() );
-        pbTV->setMaximum( m1.record(0).value("Vol").toInt() );
-        pbTV->setFormat("Volume [%v/%m]");
+    if( m1.record(0).value( MngrQuerys::fieldToString(Tables::MangaField::Vol) ).toInt() > 0 ){
+        pbTV = new LookProgressBar(0,
+                                   m1.record(0).value( MngrQuerys::fieldToString(Tables::MangaField::vVol) ).toInt(),
+                                   m1.record(0).value( MngrQuerys::fieldToString(Tables::MangaField::Vol) ).toInt(),
+                                   "Volume [%v/%m]", MngrQuerys::fieldToString(Tables::MangaField::vVol),
+                                   this);
         ui->HLay_WBRow0->addWidget( pbTV );
-        QObject::connect(pbTV, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbTV, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
-    if( m1.record(0).value("Ch").toInt() > 0 ){
-        pbOVA = new LookProgressBar(this);
-        pbOVA->setTargetFieldDB("vCh");
-        pbOVA->setTargetOverflowFieldDB("vVol");
-        pbOVA->setValue( m1.record(0).value("vCh").toInt() );
-        pbOVA->setMaximum( m1.record(0).value("Ch").toInt() );
-        pbOVA->setFormat("Charapter [%v/%m]");
+    if( m1.record(0).value( MngrQuerys::fieldToString(Tables::MangaField::Ch) ).toInt() > 0 ){
+        pbOVA = new LookProgressBar(0,
+                                    m1.record(0).value( MngrQuerys::fieldToString(Tables::MangaField::vCh) ).toInt(),
+                                    m1.record(0).value( MngrQuerys::fieldToString(Tables::MangaField::Ch) ).toInt(),
+                                    "Charapter [%v/%m]",  MngrQuerys::fieldToString(Tables::MangaField::vCh) ,
+                                    this);
         ui->HLay_WBRow1->addWidget(pbOVA);
-        QObject::connect(pbOVA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbOVA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
-    if( m1.record(0).value("Pages").toInt() > 0 ){
-        pbONA = new LookProgressBar(this);
-        pbONA->setTargetFieldDB("vPages");
-        pbONA->setTargetOverflowFieldDB("vCh");
-        pbONA->setValue( m1.record(0).value("vPages").toInt() );
-        pbONA->setMaximum( m1.record(0).value("Pages").toInt() );
-        pbONA->setFormat("Pages [%v/%m]");
+    if( m1.record(0).value( MngrQuerys::fieldToString(Tables::MangaField::Pages) ).toInt() > 0 ){
+        pbONA = new LookProgressBar(0,
+                                    m1.record(0).value( MngrQuerys::fieldToString(Tables::MangaField::vPages) ).toInt(),
+                                    m1.record(0).value( MngrQuerys::fieldToString(Tables::MangaField::Pages) ).toInt(),
+                                    "Pages [%v/%m]", MngrQuerys::fieldToString(Tables::MangaField::vPages),
+                                    this);
         ui->HLay_WBRow1->addWidget( pbONA );
-        QObject::connect(pbONA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbONA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
 
-    if( _ScrArea_propertyes ){
-        _ScrArea_propertyes->deleteLater();
-        _ScrArea_propertyes = NULL;
-    }
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ScrArea_propertyes->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
@@ -807,31 +756,7 @@ void MainWindow::selectAmvData()
                 QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
                 );
 
-    if( pbTV ){
-        delete pbTV;
-        pbTV = NULL;
-    }
-    if( pbOVA ){
-        delete pbOVA;
-        pbOVA = NULL;
-    }
-    if( pbONA ){
-        delete pbONA;
-        pbONA = NULL;
-    }
-    if( pbSpecial ){
-        delete pbSpecial;
-        pbSpecial = NULL;
-    }
-    if( pbMovie ){
-        delete pbMovie;
-        pbMovie = NULL;
-    }
-
-    if( _ScrArea_propertyes ){
-        _ScrArea_propertyes->deleteLater();
-        _ScrArea_propertyes = NULL;
-    }
+    deleteLookProgressBars();
     _ScrArea_propertyes = new QScrollArea;
     #ifdef QT_DEBUG
         _ScrArea_propertyes->setStyleSheet("border:1px solid black"); // #Bug : Убрать
@@ -906,10 +831,6 @@ void MainWindow::selectAmvData()
     _currentItemDir = m1.record(0).value("Dir").toString();
     ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
 
-    if( _btnPlay ){
-        _btnPlay->deleteLater();
-        _btnPlay = NULL;
-    }
     if( !_currentItemDir.isEmpty() ){
         _btnPlay = new QPushButton( QIcon("://images/play.png"), tr("Play") );
         ui->VLay_BtnPlay->addWidget( _btnPlay );
@@ -925,63 +846,36 @@ void MainWindow::selectDoramaData()
     m1.setQuery(
                 QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
                 );
-    if( pbTV ){
-        delete pbTV;
-        pbTV = NULL;
-    }
-    if( pbOVA ){
-        delete pbOVA;
-        pbOVA = NULL;
-    }
-    if( pbONA ){
-        delete pbONA;
-        pbONA = NULL;
-    }
-    if( pbSpecial ){
-        delete pbSpecial;
-        pbSpecial = NULL;
-    }
-    if( pbMovie ){
-        delete pbMovie;
-        pbMovie = NULL;
-    }
-    if( _btnPlay ){
-        _btnPlay->deleteLater();
-        _btnPlay = NULL;
-    }
+    deleteLookProgressBars();
 
     if( m1.record(0).value("SeriesTV").toInt() > 0 ){
-        pbTV = new LookProgressBar(this);
-        pbTV->setTargetFieldDB("vSeriesTV");
-        pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
-        pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
-        pbTV->setFormat("TV [%v/%m]");
+        pbTV = new LookProgressBar(0,
+                                   m1.record(0).value("vSeriesTV").toInt(),
+                                   m1.record(0).value("SeriesTV").toInt(),
+                                   "TV [%v/%m]", "vSeriesTV",
+                                   this);
         ui->HLay_WBRow0->addWidget( pbTV );
-        QObject::connect(pbTV, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbTV, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesSpecial").toInt() > 0 ){
-        pbSpecial = new LookProgressBar(this);
-        pbSpecial->setTargetFieldDB("vSeriesSpecial");
-        pbSpecial->setValue( m1.record(0).value("vSeriesSpecial").toInt() );
-        pbSpecial->setMaximum( m1.record(0).value("SeriesSpecial").toInt() );
-        pbSpecial->setFormat("Special [%v/%m]");
+        pbSpecial = new LookProgressBar(0,
+                                        m1.record(0).value("vSeriesSpecial").toInt(),
+                                        m1.record(0).value("SeriesSpecial").toInt(),
+                                        "Special [%v/%m]", "vSeriesSpecial",
+                                        this);
         ui->HLay_WBRow2->addWidget( pbSpecial );
-        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
     if( m1.record(0).value("SeriesMovie").toInt() > 0 ){
-        pbMovie = new LookProgressBar(this);
-        pbMovie->setTargetFieldDB("vSeriesMovie");
-        pbMovie->setValue( m1.record(0).value("vSeriesMovie").toInt() );
-        pbMovie->setMaximum( m1.record(0).value("SeriesMovie").toInt() );
-        pbMovie->setFormat("Movie [%v/%m]");
+        pbMovie = new LookProgressBar(0,
+                                      m1.record(0).value("vSeriesMovie").toInt(),
+                                      m1.record(0).value("SeriesMovie").toInt(),
+                                      "Movie [%v/%m]", "vSeriesMovie",
+                                      this);
         ui->HLay_WBRow2->addWidget( pbMovie );
-        QObject::connect(pbMovie, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbMovie, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
     }
 
-    if( _ScrArea_propertyes ){
-        _ScrArea_propertyes->deleteLater();
-        _ScrArea_propertyes = NULL;
-    }
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -1071,6 +965,38 @@ void MainWindow::selectDoramaData()
     ui->TreeView_Dir->setColumnHidden(3, true);
 }
 
+void MainWindow::deleteLookProgressBars()
+{
+    if( pbTV ){
+        delete pbTV;
+        pbTV = NULL;
+    }
+    if( pbOVA ){
+        delete pbOVA;
+        pbOVA = NULL;
+    }
+    if( pbONA ){
+        delete pbONA;
+        pbONA = NULL;
+    }
+    if( pbSpecial ){
+        delete pbSpecial;
+        pbSpecial = NULL;
+    }
+    if( pbMovie ){
+        delete pbMovie;
+        pbMovie = NULL;
+    }
+    if( _btnPlay ){
+        _btnPlay->deleteLater();
+        _btnPlay = NULL; // #ToDo : nullptr
+    }
+    if( _ScrArea_propertyes ){
+        _ScrArea_propertyes->deleteLater();
+        _ScrArea_propertyes = NULL;
+    }
+}
+
 void MainWindow::on_TreeView_List_clicked(const QModelIndex &index)
 {
     on_TreeView_List_activated(index);
@@ -1106,7 +1032,6 @@ void MainWindow::on_TreeView_Dir_activated(const QModelIndex &index)
                                                     + QDir::separator() + index.data().toString()
                                                     )  );
 }
-
 
 void MainWindow::on_PBtn_url_vk_clicked()
 {

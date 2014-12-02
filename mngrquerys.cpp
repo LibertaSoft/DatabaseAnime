@@ -1016,7 +1016,9 @@ QStringList MngrQuerys::getDoramaTags()
             << QObject::tr("Fighter")           << QObject::tr("Parody")          << QObject::tr("TV Show");
 }
 
-bool MngrQuerys::updateRecord(sections::section table, unsigned long long recoord_id, QString field, QString newValue)
+
+
+bool MngrQuerys::updateRecord(sections::section table, quint64 recoord_id, QString field, QString newValue)
 {
     QSqlQuery query;
     query.prepare( QString("UPDATE %1 SET %2 = :value WHERE id = :id;").arg( getTableName( table ) ).arg(field) );
@@ -1024,6 +1026,7 @@ bool MngrQuerys::updateRecord(sections::section table, unsigned long long recoor
     query.bindValue(":id", recoord_id );
     if( !query.exec() ){
         qCritical() << QString("Cannot update data in table %1").arg( getTableName( table ) )
+                    << "\nSQL("+query.lastQuery()+")"
                     << "\nSqlError: "
                     << query.lastError();
         return false;

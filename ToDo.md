@@ -6,6 +6,9 @@
 - [ ] {14.28%} Написание юнит-тестов
 
 ####[В процессе]
+- [x] Больше не выключается флажок "Хочу Посмотреть" при достижении TV максимального значения
+- [x] Нативный LookProgressBar
+  - [ ] Поддержка LookProgressBar'ом колёсика мыши
 - Не было исправлено:
   - Краш QtSql при экспорте на ~748800 записях (RAM: 1,5Gb; HDD: 1 219 669Mb)
 
@@ -77,7 +80,7 @@
 - [ ] Dialogs/AddDorama
 - [ ] Dialogs/AddManga
 - [x] Widgets/ImageCover
-- [x] Widgets/LookProgressBar
+- [x] Widgets/LookProgressBar?
 - [x] Widgets/StackWgt_MouseHideOver
 
 ####[Написание юнит-тестов]
