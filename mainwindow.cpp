@@ -129,6 +129,7 @@ void MainWindow::replyVersionVerificationFinished(QNetworkReply* r){
 }
 
 void MainWindow::closeEvent(QCloseEvent *e){
+    mngrConnection.commit();
     mngrConnection.close();
 
     DbaSettings settings;
@@ -497,6 +498,8 @@ void MainWindow::setActiveTable(sections::section table)
 
 void MainWindow::selectAnimeData()
 {
+    mngrConnection.commit();
+    mngrConnection.transaction();
     QSqlQueryModel m1;
 
     m1.setQuery(
@@ -639,6 +642,8 @@ void MainWindow::selectAnimeData()
 
 void MainWindow::selectMangaData()
 {
+    mngrConnection.commit();
+    mngrConnection.transaction();
     QSqlQueryModel m1;
 
     m1.setQuery(
@@ -752,6 +757,8 @@ void MainWindow::selectMangaData()
 
 void MainWindow::selectAmvData()
 {
+    mngrConnection.commit();
+    mngrConnection.transaction();
     QSqlQueryModel m1;
 
     m1.setQuery(
@@ -843,6 +850,8 @@ void MainWindow::selectAmvData()
 
 void MainWindow::selectDoramaData()
 {
+    mngrConnection.commit();
+    mngrConnection.transaction();
     QSqlQueryModel m1;
 
     m1.setQuery(
