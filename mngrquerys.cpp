@@ -736,7 +736,6 @@ bool MngrQuerys::selectSection(QSqlQueryModel *model, sections::section section,
         sql += " AND " + fieldToString(field, section) + " LIKE '%" + search + "%'";
     sql += " " + sortToString( sort );
 
-    qDebug() << sql;
     model->setQuery( sql );
     return true;
 }

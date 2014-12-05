@@ -468,6 +468,7 @@ void MainWindow::loadDoramaFilters(){
 
 void MainWindow::reloadFiltersList()
 {
+    ui->CB_Filter->blockSignals( true );
     ui->CB_Filter->clear();
     switch ( getActiveTable() ) {
     case sections::anime :
@@ -486,6 +487,7 @@ void MainWindow::reloadFiltersList()
     default:
         break;
     }
+    ui->CB_Filter->blockSignals( false );
 }
 
 void MainWindow::setActiveTable(sections::section table)

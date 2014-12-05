@@ -8,14 +8,17 @@
 
 #include <QPushButton>
 
-//void LookProgressBar::wheelEvent(QWheelEvent *pe)
-//{
-//    if( pe->delta() > 0 ){
-//        progressInc();
-//    }else{
-//        progressDec();
-//    }
-//}
+void LookProgressBar::wheelEvent(QWheelEvent *e)
+{
+    int value = getValue();
+    if( e->delta() > 0 ){
+        setValue( value + 1 );
+        emit progressChanged( value + 1, getTargetField() );
+    }else{
+        setValue( value - 1 );
+        emit progressChanged( value - 1, getTargetField() );
+    }
+}
 
 void LookProgressBar::initCreate()
 {
@@ -42,7 +45,6 @@ void LookProgressBar::initConnect()
         qCritical() << "initConnect: widgets is not created!";
         return;
     }
-    connect(this, SIGNAL(progressChanged(int)), _lookProgressBar, SLOT(setValue(int)) );
     connect(_btnAdd, &QToolButton::clicked, [=](){
         int value = getValue() + 1;
 
@@ -52,11 +54,11 @@ void LookProgressBar::initConnect()
                 value = getMinimum();
         }
 
-        emit progressChanged( value );
+        setValue( value );
         emit progressChanged( value, getTargetField() );
     });
     connect(_btnSub, &QToolButton::clicked, [=](){
-        emit progressChanged( getValue() - 1 ); // decrement
+        setValue( getValue() - 1 );
         emit progressChanged( getValue(), getTargetField() );
     });
 }

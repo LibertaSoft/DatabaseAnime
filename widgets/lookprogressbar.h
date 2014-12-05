@@ -25,6 +25,7 @@ private:
     bool revertWhenOverflow;
     QString _targetFieldDB;
 
+    void wheelEvent(QWheelEvent *e);
     void initCreate();  // First!
     void initConnect(); // Second!
 public:
@@ -48,7 +49,6 @@ public:
 signals:
     void progressChanged(int, QString);
     void progressOverflow();
-    void progressChanged(int); // Technical
 };
 
 #endif // LOOKPROGRESSBAR_H
