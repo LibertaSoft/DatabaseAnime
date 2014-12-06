@@ -236,7 +236,7 @@
             <item>
              <widget class="QGroupBox" name="GroupBox_ItemList">
               <property name="title">
-               <string>Item list:</string>
+               <string comment="Current active element">Item list:</string>
               </property>
               <layout class="QFormLayout" name="formLayout">
                <item row="2" column="0">
@@ -361,8 +361,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>414</width>
-             <height>504</height>
+             <width>325</width>
+             <height>222</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -498,8 +498,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>414</width>
-             <height>504</height>
+             <width>345</width>
+             <height>236</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -659,8 +659,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>414</width>
-             <height>504</height>
+             <width>345</width>
+             <height>234</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -792,33 +792,7 @@
     </widget>
    </item>
   </layout>
-  <action name="actionImport">
-   <property name="icon">
-    <iconset theme="add">
-     <normaloff/>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>import</string>
-   </property>
-   <property name="toolTip">
-    <string>Append to database</string>
-   </property>
-  </action>
-  <action name="actionDeleteRecords">
-   <property name="icon">
-    <iconset theme="remove">
-     <normaloff/>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>deleteRecords</string>
-   </property>
-   <property name="toolTip">
-    <string>Delete records and images</string>
-   </property>
-  </action>
-  <action name="actionShowProgressBar">
+  <action name="actionShowImportProgressBar">
    <property name="text">
     <string>ShowImportProgressBar</string>
    </property>

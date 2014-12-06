@@ -34,6 +34,9 @@ private:
     Ui::Settings *ui;
     bool restoreDefault;
     MngrConnection MngrConnect;
+
+    bool deleteRecords();
+    quint64 import();
 public:
     explicit Settings(MngrConnection &MngrCon, QWidget *parent = 0);
     ~Settings();
@@ -54,8 +57,6 @@ private slots:
     void on_TBtn_Import_Path_Choose_clicked();
     void on_PBtn_Import_Append_clicked();
     void on_PBtn_Import_Replace_clicked();
-    unsigned long long on_actionImport_triggered();
-    bool on_actionDeleteRecords_triggered();
     void on_TBtn_WorkDir_Choose_clicked();
     void on_actionShowImportProgressBar_triggered(bool checked);
     void on_actionShowExportProgressBar_triggered(bool checked);

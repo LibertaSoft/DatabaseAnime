@@ -545,7 +545,7 @@ void Settings::on_PBtn_Import_Append_clicked()
     on_actionShowImportProgressBar_triggered(true);
     this->setDisabled(true);
 
-    int countImportRecords = on_actionImport_triggered();
+    int countImportRecords = import();
     if( countImportRecords > 0 ){
         QMessageBox::information(this, tr("Import"),"<b>" + tr("Import is successfully finished") + "</b><br>"
                                                     + tr("Records it is imported:")+ " " + QString::number(countImportRecords) + "   "
@@ -576,7 +576,7 @@ void Settings::on_PBtn_Import_Replace_clicked()
     this->setDisabled(true);
 
     if (n == QMessageBox::Yes) {
-        on_actionDeleteRecords_triggered();
+        deleteRecords();
         on_PBtn_Import_Append_clicked();
     }
 
@@ -585,7 +585,7 @@ void Settings::on_PBtn_Import_Replace_clicked()
     this->setEnabled(true);
 }
 
-unsigned long long Settings::on_actionImport_triggered()
+quint64 Settings::import()
 {
     bool imAnime  = ui->ChBox_Import_Anime->isChecked();
     bool imManga  = ui->ChBox_Import_Manga->isChecked();
@@ -717,7 +717,7 @@ unsigned long long Settings::on_actionImport_triggered()
     return progress;
 }
 
-bool Settings::on_actionDeleteRecords_triggered()
+bool Settings::deleteRecords()
 {
     bool imAnime  = ui->ChBox_Import_Anime->isChecked();
     bool imManga  = ui->ChBox_Import_Manga->isChecked();
