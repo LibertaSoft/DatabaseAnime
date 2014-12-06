@@ -1015,7 +1015,15 @@ QStringList MngrQuerys::getDoramaTags()
             << QObject::tr("Fighter")           << QObject::tr("Parody")          << QObject::tr("TV Show");
 }
 
-
+QSqlRecord MngrQuerys::selectData(sections::section table, quint64 id)
+{
+    QSqlQuery query;
+    QString sql("SELECT * FROM '%1' WHERE id='%2'");
+    sql = sql.arg( getTableName(table) ).arg( id );
+    query.exec( sql );
+    query.next();
+    return query.record();
+}
 
 bool MngrQuerys::updateRecord(sections::section table, quint64 recoord_id, QString field, QString newValue)
 {

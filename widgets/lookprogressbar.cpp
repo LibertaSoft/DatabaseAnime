@@ -12,9 +12,13 @@ void LookProgressBar::wheelEvent(QWheelEvent *e)
 {
     int value = getValue();
     if( e->delta() > 0 ){
+        if( value >= getMaximum() )
+            return;
         setValue( value + 1 );
         emit progressChanged( value + 1, getTargetField() );
     }else{
+        if( value <= getMinimum() )
+            return;
         setValue( value - 1 );
         emit progressChanged( value - 1, getTargetField() );
     }
@@ -71,8 +75,8 @@ LookProgressBar::LookProgressBar(QWidget *parent)
 
     revertWhenOverflow = false;
     _lookProgressBar->setMinimum( 0 );
-    _lookProgressBar->setValue( 0 );
     _lookProgressBar->setMaximum( 100 );
+    _lookProgressBar->setValue( 0 );
     _lookProgressBar->setFormat( "[%v/%m]" );
     _targetFieldDB = QString::null;
 }
@@ -85,8 +89,8 @@ LookProgressBar::LookProgressBar(int minimum, int value, int maximum, QWidget *p
 
     revertWhenOverflow = false;
     _lookProgressBar->setMinimum( minimum );
-    _lookProgressBar->setValue( value );
     _lookProgressBar->setMaximum( maximum );
+    _lookProgressBar->setValue( value );
     _lookProgressBar->setFormat( "[%v/%m]" );
     _targetFieldDB = QString::null;
 }
@@ -99,8 +103,8 @@ LookProgressBar::LookProgressBar(int minimum, int value, int maximum, QString fo
 
     revertWhenOverflow = false;
     _lookProgressBar->setMinimum( minimum );
-    _lookProgressBar->setValue( value );
     _lookProgressBar->setMaximum( maximum );
+    _lookProgressBar->setValue( value );
     _lookProgressBar->setFormat( format );
     _targetFieldDB = targetField;
 }

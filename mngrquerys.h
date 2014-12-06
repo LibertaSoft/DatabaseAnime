@@ -56,7 +56,9 @@ public:
     static QStringList getAmvTags();
     static QStringList getDoramaTags();
 
-    static bool updateRecord(sections::section table, unsigned long long recoord_id, QString field, QString newValue);
+    static QSqlRecord selectData(sections::section table, quint64 id);
+
+    static bool updateRecord(sections::section table, quint64 recoord_id, QString field, QString newValue);
 
     static bool insertAnime(QMap<Tables::AnimeField::field, QVariant> data);
     static bool insertManga(QMap<Tables::MangaField::field, QVariant> data);
