@@ -37,6 +37,8 @@ private:
 
     bool deleteRecords();
     quint64 import();
+    quint64 removeFilesFromFolder(QString folder);
+    quint64 copyFolder(QString folder1, QString folder2);
 public:
     explicit Settings(MngrConnection &MngrCon, QWidget *parent = 0);
     ~Settings();

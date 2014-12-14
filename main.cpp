@@ -35,7 +35,6 @@ int main(int argc, char *argv[])
         qInstallMessageHandler(myMessageOutput);
     #endif
 
-
     QApplication app(argc, argv);
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");

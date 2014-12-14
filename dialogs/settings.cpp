@@ -619,6 +619,8 @@ quint64 Settings::import()
     ui->ProgressBar_Import->setMinimum(0);
     ui->ProgressBar_Import->setValue(0);
     ui->ProgressBar_Import->setMaximum(allCount);
+    ui->ProgressBar_Import->setFormat( tr("Import of records") + " %p%" );
+
     while( ! reader.atEnd() && ! reader.hasError() ){
         data = reader.readNext();
         if( data.isEmpty() )
@@ -665,56 +667,52 @@ quint64 Settings::import()
     else
         MngrConnect.commit();
 
-    QString importPath( QFileInfo( filePath ).path() );
-
-    if( imAnime  && imImages ){
-        QDirIterator it( DefinesPath::animeCovers( importPath ) );
-        QDir().mkpath( DefinesPath::animeCovers() );
-        while( it.hasNext() ){
-            it.next();
-            if( it.fileName() == "." || it.fileName() == ".." )
-                continue;
-            QFile( it.filePath() ).copy( DefinesPath::animeCovers() + it.fileName() );
-            QCoreApplication::processEvents();
-        }
-    }
-    if( imManga  && imImages ){
-        QDirIterator it( DefinesPath::mangaCovers( importPath ) );
-        QDir().mkpath( DefinesPath::mangaCovers() );
-        while( it.hasNext() ){
-            it.next();
-            if( it.fileName() == "." || it.fileName() == ".." )
-                continue;
-            QFile( it.filePath() ).copy( DefinesPath::mangaCovers() + it.fileName() );
-            QCoreApplication::processEvents();
-        }
-    }
-    if( imAmv  && imImages ){
-        QDirIterator it( DefinesPath::amvCovers( importPath ) );
-        QDir().mkpath( DefinesPath::amvCovers() );
-        while( it.hasNext() ){
-            it.next();
-            if( it.fileName() == "." || it.fileName() == ".." )
-                continue;
-            QFile( it.filePath() ).copy( DefinesPath::amvCovers() + it.fileName() );
-            QCoreApplication::processEvents();
-        }
-    }
-    if( imDorama && imImages ){
-        QDirIterator it( DefinesPath::doramaCovers( importPath ) );
-        QDir().mkpath( DefinesPath::doramaCovers() );
-        while( it.hasNext() ){
-            it.next();
-            if( it.fileName() == "." || it.fileName() == ".." )
-                continue;
-            QFile( it.filePath() ).copy( DefinesPath::doramaCovers() + it.fileName() );
-            QCoreApplication::processEvents();
-        }
-    }
-
     file.close();
 
+    ui->ProgressBar_Import->setFormat( tr("Copying of covers")/* + " %p%" */);
+    QString importPath( QFileInfo( filePath ).path() );
+
+    if( imAnime  && imImages )
+        copyFolder( DefinesPath::animeCovers( importPath ), DefinesPath::animeCovers() );
+    if( imManga  && imImages )
+        copyFolder( DefinesPath::mangaCovers( importPath ), DefinesPath::mangaCovers() );
+    if( imAmv  && imImages )
+        copyFolder( DefinesPath::amvCovers( importPath ), DefinesPath::amvCovers() );
+    if( imDorama && imImages )
+        copyFolder( DefinesPath::doramaCovers( importPath ), DefinesPath::doramaCovers() );
+
     return progress;
+}
+
+quint64 Settings::removeFilesFromFolder(QString folder)
+{
+    QDirIterator it( folder );
+    quint64 n(0);
+    while( it.hasNext() ){
+        it.next();
+        if( it.fileName() == "." || it.fileName() == ".." )
+            continue;
+        QFile( it.filePath() ).remove();
+        ++n;
+        QCoreApplication::processEvents();
+    }
+    return n;
+}
+
+quint64 Settings::copyFolder(QString folder1, QString folder2)
+{
+    QDirIterator it( folder1 );
+    QDir().mkpath( folder2 );
+    quint64 n(0);
+    while( it.hasNext() ){
+        it.next();
+        if( it.fileName() == "." || it.fileName() == ".." )
+            continue;
+        QFile( it.filePath() ).copy( DefinesPath::animeCovers() + it.fileName() );
+        ++n;
+        QCoreApplication::processEvents();
+    }
+    return n;
 }
 
 bool Settings::deleteRecords()
@@ -752,49 +750,14 @@ bool Settings::deleteRecords()
     }
 
     if( imImages ){
-        if( imAnime ){
-            QDirIterator it( DefinesPath::animeCovers() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
-            }
-        }
-
-        if( imManga ){
-            QDirIterator it( DefinesPath::mangaCovers() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
-            }
-        }
-
-        if( imAmv ){
-            QDirIterator it( DefinesPath::amvCovers() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
-            }
-        }
-
-        if( imDorama ){
-            QDirIterator it( DefinesPath::doramaCovers() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
-            }
-        }
+        if( imAnime )
+            removeFilesFromFolder( DefinesPath::animeCovers() );
+        if( imManga )
+            removeFilesFromFolder( DefinesPath::mangaCovers() );
+        if( imAmv )
+            removeFilesFromFolder( DefinesPath::amvCovers() );
+        if( imDorama )
+            removeFilesFromFolder( DefinesPath::doramaCovers() );
     }
 
     MngrQuerys::createTable_Anime();

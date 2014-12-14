@@ -79,8 +79,8 @@ MainWindow::MainWindow(QWidget *parent) :
     if( settings.value(Configs::Network::CheckUpdates, true).toBool() ){
         QUrl url("https://api.github.com/repos/LibertaSoft/DatabaseAnime/releases");
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-        connect(manager, SIGNAL(finished(QNetworkReply*)),
-                this, SLOT(replyVersionVerificationFinished(QNetworkReply*)));
+        connect(manager, &QNetworkAccessManager::finished,
+                this, &MainWindow::replyVersionVerificationFinished);
         manager->get( QNetworkRequest(url) );
     }
 
@@ -331,7 +331,7 @@ void MainWindow::saveLookValueChanges(int value, QString field)
 {
     MngrQuerys::updateRecord(getActiveTable(), _currentItemId, field, QString::number(value) );
 }
-
+/*
 void MainWindow::saveLookValueChanges(int value, int max, QString field, QString nextField)
 {
     MngrQuerys::updateRecord(getActiveTable(), _currentItemId, field, QString::number(value) );
@@ -343,7 +343,7 @@ void MainWindow::saveLookValueChanges(int value, int max, QString field, QString
     }
     return;
 }
-
+*/
 void MainWindow::openFileClicked()
 {
     openFile( _currentItemDir );
@@ -515,7 +515,8 @@ void MainWindow::selectAnimeData()
                                    this);
 
         ui->HLay_WBRow0->addWidget( pbTV );
-        QObject::connect(pbTV, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbTV, &LookProgressBar::progressChanged,
+                         this, &MainWindow::saveLookValueChanges );
     }
     if( record.value("SeriesOVA").toInt() > 0 ){
         pbOVA = new LookProgressBar(0,
@@ -524,7 +525,8 @@ void MainWindow::selectAnimeData()
                                     "OVA [%v/%m]", "vSeriesOVA",
                                     this);
         ui->HLay_WBRow1->addWidget(pbOVA);
-        QObject::connect(pbOVA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbOVA, &LookProgressBar::progressChanged,
+                         this,  &MainWindow::saveLookValueChanges );
     }
     if( record.value("SeriesONA").toInt() > 0 ){
         pbONA = new LookProgressBar(0,
@@ -533,7 +535,8 @@ void MainWindow::selectAnimeData()
                                     "ONA [%v/%m]", "vSeriesONA",
                                     this);
         ui->HLay_WBRow1->addWidget( pbONA );
-        QObject::connect(pbONA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbONA, &LookProgressBar::progressChanged,
+                         this,  &MainWindow::saveLookValueChanges );
     }
     if( record.value("SeriesSpecial").toInt() > 0 ){
         pbSpecial = new LookProgressBar(0,
@@ -542,7 +545,8 @@ void MainWindow::selectAnimeData()
                                         "Special [%v/%m]", "vSeriesSpecial",
                                         this);
         ui->HLay_WBRow2->addWidget( pbSpecial );
-        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbSpecial, &LookProgressBar::progressChanged,
+                         this,      &MainWindow::saveLookValueChanges );
     }
     if( record.value("SeriesMovie").toInt() > 0 ){
         pbMovie = new LookProgressBar(0,
@@ -551,7 +555,8 @@ void MainWindow::selectAnimeData()
                                       "Movie [%v/%m]", "vSeriesMovie",
                                       this);
         ui->HLay_WBRow2->addWidget( pbMovie );
-        QObject::connect(pbMovie, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbMovie, &LookProgressBar::progressChanged,
+                         this,    &MainWindow::saveLookValueChanges );
     }
 
     _ScrArea_propertyes = new QScrollArea;
@@ -630,7 +635,7 @@ void MainWindow::selectAnimeData()
         ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
     else
         ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
-    QDirModel *dirModel = new QDirModel;
+    QDirModel *dirModel = new QDirModel( _ScrArea_propertyes );
 //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
@@ -657,7 +662,8 @@ void MainWindow::selectMangaData()
                                    "Volume [%v/%m]", MngrQuerys::fieldToString(Tables::MangaField::vVol),
                                    this);
         ui->HLay_WBRow0->addWidget( pbTV );
-        QObject::connect(pbTV, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbTV, &LookProgressBar::progressChanged,
+                         this, &MainWindow::saveLookValueChanges );
     }
     if( record.value( MngrQuerys::fieldToString(Tables::MangaField::Ch) ).toInt() > 0 ){
         pbOVA = new LookProgressBar(0,
@@ -666,7 +672,8 @@ void MainWindow::selectMangaData()
                                     "Charapter [%v/%m]",  MngrQuerys::fieldToString(Tables::MangaField::vCh) ,
                                     this);
         ui->HLay_WBRow1->addWidget(pbOVA);
-        QObject::connect(pbOVA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbOVA, &LookProgressBar::progressChanged,
+                         this,  &MainWindow::saveLookValueChanges );
     }
     if( record.value( MngrQuerys::fieldToString(Tables::MangaField::Pages) ).toInt() > 0 ){
         pbONA = new LookProgressBar(0,
@@ -675,7 +682,8 @@ void MainWindow::selectMangaData()
                                     "Pages [%v/%m]", MngrQuerys::fieldToString(Tables::MangaField::vPages),
                                     this);
         ui->HLay_WBRow1->addWidget( pbONA );
-        QObject::connect(pbONA, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbONA, &LookProgressBar::progressChanged,
+                         this,  &MainWindow::saveLookValueChanges );
     }
 
     _ScrArea_propertyes = new QScrollArea;
@@ -836,8 +844,8 @@ void MainWindow::selectAmvData()
     if( ! _currentItemDir.isEmpty() ){
         _btnPlay = new QPushButton( QIcon("://images/play.png"), tr("Play") );
         ui->VLay_BtnPlay->addWidget( _btnPlay );
-        QObject::connect(_btnPlay, SIGNAL(clicked()),
-                         this,SLOT(openFileClicked()) );
+        QObject::connect(_btnPlay, &QAbstractButton::clicked,
+                         this,     &MainWindow::openFileClicked );
     }
 }
 
@@ -857,7 +865,8 @@ void MainWindow::selectDoramaData()
                                    "TV [%v/%m]", "vSeriesTV",
                                    this);
         ui->HLay_WBRow0->addWidget( pbTV );
-        QObject::connect(pbTV, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbTV, &LookProgressBar::progressChanged,
+                         this, &MainWindow::saveLookValueChanges );
     }
     if( record.value("SeriesSpecial").toInt() > 0 ){
         pbSpecial = new LookProgressBar(0,
@@ -866,7 +875,8 @@ void MainWindow::selectDoramaData()
                                         "Special [%v/%m]", "vSeriesSpecial",
                                         this);
         ui->HLay_WBRow2->addWidget( pbSpecial );
-        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbSpecial, &LookProgressBar::progressChanged,
+                         this,      &MainWindow::saveLookValueChanges );
     }
     if( record.value("SeriesMovie").toInt() > 0 ){
         pbMovie = new LookProgressBar(0,
@@ -875,7 +885,8 @@ void MainWindow::selectDoramaData()
                                       "Movie [%v/%m]", "vSeriesMovie",
                                       this);
         ui->HLay_WBRow2->addWidget( pbMovie );
-        QObject::connect(pbMovie, SIGNAL(progressChanged(int,QString)), this, SLOT(saveLookValueChanges(int,QString)) );
+        QObject::connect(pbMovie, &LookProgressBar::progressChanged,
+                         this,    &MainWindow::saveLookValueChanges );
     }
 
     _ScrArea_propertyes = new QScrollArea;

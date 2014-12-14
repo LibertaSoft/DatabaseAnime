@@ -297,7 +297,14 @@
                <item row="0" column="1">
                 <layout class="QHBoxLayout" name="horizontalLayout_8">
                  <item>
-                  <widget class="QLineEdit" name="LineEdit_WorkDir"/>
+                  <widget class="QLineEdit" name="LineEdit_WorkDir">
+                   <property name="dragEnabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="clearButtonEnabled">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <widget class="QToolButton" name="TBtn_WorkDir_Choose">
@@ -361,8 +368,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>325</width>
-             <height>222</height>
+             <width>414</width>
+             <height>504</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -498,15 +505,22 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>345</width>
-             <height>236</height>
+             <width>414</width>
+             <height>504</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
              <layout class="QHBoxLayout" name="HLay_Import_Path">
               <item>
-               <widget class="QLineEdit" name="LineEdit_Import_FilePath"/>
+               <widget class="QLineEdit" name="LineEdit_Import_FilePath">
+                <property name="dragEnabled">
+                 <bool>true</bool>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QToolButton" name="TBtn_Import_Path_Choose">
@@ -659,15 +673,22 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>345</width>
-             <height>234</height>
+             <width>414</width>
+             <height>504</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_5">
               <item>
-               <widget class="QLineEdit" name="LineEdit_Export_FilePath"/>
+               <widget class="QLineEdit" name="LineEdit_Export_FilePath">
+                <property name="dragEnabled">
+                 <bool>true</bool>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QToolButton" name="TBtn_Export_Path_Choose">
@@ -787,7 +808,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Close|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
      </property>
     </widget>
    </item>

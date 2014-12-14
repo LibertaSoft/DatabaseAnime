@@ -115,6 +115,9 @@
            <property name="placeholderText">
             <string>Title</string>
            </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -403,8 +406,14 @@
                <property name="maxLength">
                 <number>256</number>
                </property>
+               <property name="dragEnabled">
+                <bool>true</bool>
+               </property>
                <property name="placeholderText">
                 <string>Directory</string>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -428,6 +437,9 @@
             <widget class="QLineEdit" name="LineEdit_URL">
              <property name="maxLength">
               <number>256</number>
+             </property>
+             <property name="dragEnabled">
+              <bool>true</bool>
              </property>
              <property name="placeholderText">
               <string>URL</string>
