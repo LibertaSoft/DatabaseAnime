@@ -272,6 +272,7 @@ void Settings::on_PBtn_Action_Export_clicked()
 
     */
     writer.startDocument();
+    writer.writeDTD();
     writer.startElement("DatabaseAnime");
 
     quint64 countAnime, countManga, countAmv, countDorama, allCount;
@@ -285,6 +286,7 @@ void Settings::on_PBtn_Action_Export_clicked()
     writer.writeAttribute("CountManga"  , QString::number( countManga  ) );
     writer.writeAttribute("CountAmv"    , QString::number( countAmv    ) );
     writer.writeAttribute("CountDorama" , QString::number( countDorama ) );
+
     QSqlQuery query;
 
     ui->ProgressBar_Export->setMinimum(0);

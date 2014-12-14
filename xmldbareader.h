@@ -14,6 +14,7 @@ class XmlDbaReader
     QXmlStreamReader::TokenType _token;
     QMap<QString,QVariant>      _currentData;
     sections::section           _currentSection;
+    bool                        _dbaFormat;
 
     bool readItem();
 public:

@@ -4,7 +4,6 @@ XmlDbaWriter::XmlDbaWriter(QIODevice* stream)
     :_streamWriter(stream)
 {
     _streamWriter.setAutoFormatting(true);
-//    _streamWriter.writeDTD("<!DOCTYPE DatabaseAnime>");
 }
 
 QString XmlDbaWriter::getSectionName(sections::section section)
@@ -61,6 +60,11 @@ void XmlDbaWriter::endDocument()
 void XmlDbaWriter::writeAttribute(const QString &qualifiedName, const QString &value)
 {
     _streamWriter.writeAttribute(qualifiedName, value);
+}
+
+void XmlDbaWriter::writeDTD()
+{
+    _streamWriter.writeDTD("<!DOCTYPE DatabaseAnime>");
 }
 
 bool XmlDbaWriter::writeNext(QMap<QString, QString> data)

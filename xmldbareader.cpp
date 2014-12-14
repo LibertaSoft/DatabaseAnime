@@ -1,52 +1,72 @@
 #include "xmldbareader.h"
 
 XmlDbaReader::XmlDbaReader(QIODevice* stream)
-    :_streamReader(stream)
+    :_streamReader(stream), _dbaFormat(false)
 {}
 
 bool XmlDbaReader::isDbaFormat()
 {
-    #pragma DTD_Needed
-    _token = _streamReader.readNext();
-     if (_token == QXmlStreamReader::StartElement){
-         // Need DTD Doctype ...
-         if( _streamReader.name() == "DatabaseAnime" )
-             return true;
-     }
-     return false;
+     return _dbaFormat;
 }
 
 bool XmlDbaReader::readHeader()
 {
-    #pragma DTD_Needed
+    _token = _streamReader.readNext(); // <?xml ... ?>
+    _token = _streamReader.readNext(); // <!DOCTYPE DatabaseAnime>"
+    if( _streamReader.isDTD() ){
+        if( _streamReader.dtdName() != "DatabaseAnime" ){
+            qCritical() << "[XmlDbaReader::readHeader] DOCTYPE is not a 'DatabaseAnime'.";
+            return false;
+        }
+        _dbaFormat = true;
+    }else{
+        qCritical() << "[XmlDbaReader::readHeader] DOCTYPE is expected.";
+        return false;
+    }
+    // <DatabaseAnime>
     _token = _streamReader.readNext();
-     if (_token == QXmlStreamReader::StartElement){
-         // Need DTD Doctype ...
-         if( _streamReader.name() == "DatabaseAnime" )
-             return true;
-     }
-     return false;
+    if (_token == QXmlStreamReader::StartElement){
+        if( _streamReader.name() == "DatabaseAnime" ){
+            return true;
+        }else{
+            qCritical() << "[XmlDbaReader::readHeader] The tag a 'DatabaseAnime' is expected.";
+            _dbaFormat = false;
+            return false;
+        }
+    }
+    return true;
 }
 
 bool XmlDbaReader::readHeader(quint64 &countAnime, quint64 &countManga, quint64 &countAmv, quint64 &countDorama)
 {
-    #pragma DTD_Needed
     _token = _streamReader.readNext(); // <?xml ... ?>
+    _token = _streamReader.readNext(); // <!DOCTYPE DatabaseAnime>"
+    if( _streamReader.isDTD() ){
+        if( _streamReader.dtdName() != "DatabaseAnime" ){
+            qCritical() << "[XmlDbaReader::readHeader] DOCTYPE is not a 'DatabaseAnime'.";
+            return false;
+        }
+        _dbaFormat = true;
+    }else{
+        qCritical() << "[XmlDbaReader::readHeader] DOCTYPE is expected.";
+        return false;
+    }
+    // <DatabaseAnime CountAnime="0" CountManga="0" CountAmv="0" CountDorama="0">
     _token = _streamReader.readNext();
     if (_token == QXmlStreamReader::StartElement){
-        // Need DTD Doctype ...
-            if( _streamReader.name() == "DatabaseAnime" ){
+        if( _streamReader.name() == "DatabaseAnime" ){
             QXmlStreamAttributes attr = _streamReader.attributes();
             countAnime  = attr.value("CountAnime" ).toULongLong();
             countManga  = attr.value("CountManga" ).toULongLong();
             countAmv    = attr.value("CountAmv"   ).toULongLong();
             countDorama = attr.value("CountDorama").toULongLong();
             return true;
+        }else{
+            qCritical() << "[XmlDbaReader::readHeader] The tag a 'DatabaseAnime' is expected.";
+            return false;
         }
     }
-    qDebug() << "is not dba format";
-    qDebug() << _streamReader.name();
-    return false;
+    return true;
 }
 
 QMap<QString, QVariant> XmlDbaReader::readNext()
