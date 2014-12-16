@@ -72,45 +72,43 @@ void DialogAddAnime::initOptionalFields()
 
 void DialogAddAnime::setDataInField()
 {
-    model = new QSqlQueryModel(this);
-    model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
-                         MngrQuerys::getTableName( sections::anime ) ).arg( _recordId ) );
+    QSqlRecord record = MngrQuerys::selectData( sections::anime, _recordId );
 
-    ui->CheckBox_LookLater->setChecked( !model->record(0).value("isHaveLooked").toBool() );
-    ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
+    ui->CheckBox_LookLater->setChecked( record.value( MngrQuerys::fieldToString(Tables::AnimeField::isHaveLooked) ).toBool() == false );
+    ui->CheckBox_Editing->setChecked( record.value( MngrQuerys::fieldToString(Tables::AnimeField::isEditingDone) ).toBool() == false );
 
-    ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
+    ui->LineEdit_Title->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Title) ).toString() );
 
     // Optional Fields
     if( this->LineEdit_OrigTitle )
-        this->LineEdit_OrigTitle->setText( model->record(0).value("OrigTitle").toString() );
+        this->LineEdit_OrigTitle->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::AltTitle) ).toString() );
     if( this->LineEdit_Director )
-        this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
+        this->LineEdit_Director->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Director) ).toString() );
     if( this->LineEdit_PostScoring )
-        this->LineEdit_PostScoring->setText( model->record(0).value("PostScoring").toString() );
-    if( model->record(0).value("Year").toInt() != 0 )
-        ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
-    ui->SpinBox_Season->setValue( model->record(0).value("Season").toInt() );
-    ui->ComboBox_Studio->setCurrentText( model->record(0).value("Studios").toString() );
+        this->LineEdit_PostScoring->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::PostScoring) ).toString() );
+    if( record.value("Year").toInt() != 0 )
+        ui->SpinBox_Year->setValue( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Year) ).toInt() );
+    ui->SpinBox_Season->setValue( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Season) ).toInt() );
+    ui->ComboBox_Studio->setCurrentText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Studios) ).toString() );
 
-    ui->SpinBox_aTV->setValue(    model->record(0).value("SeriesTV"     ).toInt() );
-    ui->SpinBox_aOVA->setValue(   model->record(0).value("SeriesOVA"    ).toInt() );
-    ui->SpinBox_aONA->setValue(   model->record(0).value("SeriesONA"    ).toInt() );
-    ui->SpinBox_aSpec->setValue(  model->record(0).value("SeriesSpecial").toInt() );
-    ui->SpinBox_aMovie->setValue( model->record(0).value("SeriesMovie"  ).toInt() );
+    ui->SpinBox_aTV->setValue(    record.value( MngrQuerys::fieldToString(Tables::AnimeField::SeriesTV)      ).toInt() );
+    ui->SpinBox_aOVA->setValue(   record.value( MngrQuerys::fieldToString(Tables::AnimeField::SeriesOVA)     ).toInt() );
+    ui->SpinBox_aONA->setValue(   record.value( MngrQuerys::fieldToString(Tables::AnimeField::SeriesONA)     ).toInt() );
+    ui->SpinBox_aSpec->setValue(  record.value( MngrQuerys::fieldToString(Tables::AnimeField::SeriesSpecial) ).toInt() );
+    ui->SpinBox_aMovie->setValue( record.value( MngrQuerys::fieldToString(Tables::AnimeField::SeriesMovie)   ).toInt() );
 
-    ui->SpinBox_vTV->setValue(    model->record(0).value("vSeriesTV"     ).toInt() );
-    ui->SpinBox_vOVA->setValue(   model->record(0).value("vSeriesOVA"    ).toInt() );
-    ui->SpinBox_vONA->setValue(   model->record(0).value("vSeriesONA"    ).toInt() );
-    ui->SpinBox_vSpec->setValue(  model->record(0).value("vSeriesSpecial").toInt() );
-    ui->SpinBox_vMovie->setValue( model->record(0).value("vSeriesMovie"  ).toInt() );
+    ui->SpinBox_vTV->setValue(    record.value( MngrQuerys::fieldToString(Tables::AnimeField::vSeriesTV)      ).toInt() );
+    ui->SpinBox_vOVA->setValue(   record.value( MngrQuerys::fieldToString(Tables::AnimeField::vSeriesOVA)     ).toInt() );
+    ui->SpinBox_vONA->setValue(   record.value( MngrQuerys::fieldToString(Tables::AnimeField::vSeriesONA)     ).toInt() );
+    ui->SpinBox_vSpec->setValue(  record.value( MngrQuerys::fieldToString(Tables::AnimeField::vSeriesSpecial) ).toInt() );
+    ui->SpinBox_vMovie->setValue( record.value( MngrQuerys::fieldToString(Tables::AnimeField::vSeriesMovie)   ).toInt() );
 
-    ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
-    ui->PlainTextEdit_Description->setPlainText( model->record(0).value("Description").toString() );
-    ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
-    ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
+    ui->LineEdit_Tags->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Tags) ).toString() );
+    ui->PlainTextEdit_Description->setPlainText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Description) ).toString() );
+    ui->LineEdit_Dir->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Dir) ).toString() );
+    ui->LineEdit_URL->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Url) ).toString() );
 
-    _oldCover = model->record(0).value("ImagePath").toString();
+    _oldCover = record.value( MngrQuerys::fieldToString(Tables::AnimeField::ImagePath) ).toString();
 
     QPixmap pm( DefinesPath::animeCovers() + _oldCover );
 
@@ -320,7 +318,7 @@ bool DialogAddAnime::insert_Anime(){
 
     data[ImagePath] = coverName;
 
-    if( !_isEditRole ){
+    if( ! _isEditRole ){
         if( MngrQuerys::insertAnime(data) == false ){
             QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data."));
             return false;

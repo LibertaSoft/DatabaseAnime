@@ -44,60 +44,38 @@ void DialogAddManga::initTags()
 
 void DialogAddManga::setDataInFields()
 {
-    model = new QSqlQueryModel;
-    model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
-                         MngrQuerys::getTableName( sections::manga ) ).arg( _recordId ) );
-    QMap<QString, QVariant> data;
-    data["isHaveLooked"]  = model->record(0).value("isHaveLooked");
-    data["isEditingDone"] = model->record(0).value("isEditingDone");
-    data["Title"]         = model->record(0).value("Title");
-    data["AltTitle"]      = model->record(0).value("AltTitle");
-    data["Author"]        = model->record(0).value("Author");
-    data["Translation"]   = model->record(0).value("Translation");
-    data["Year"]          = model->record(0).value("Year");
-    data["Vol"]           = model->record(0).value("Vol");
-    data["Ch"]            = model->record(0).value("Ch");
-    data["Pages"]         = model->record(0).value("Pages");
-    data["vVol"]          = model->record(0).value("vVol");
-    data["vCh"]           = model->record(0).value("vCh");
-    data["vPages"]        = model->record(0).value("vPages");
-    data["Tags"]          = model->record(0).value("Tags");
-    data["Description"]   = model->record(0).value("Description");
-    data["Dir"]           = model->record(0).value("Dir");
-    data["URL"]           = model->record(0).value("URL");
-    data["ImagePath"]     = model->record(0).value("ImagePath");
-    delete model;
+    QSqlRecord record = MngrQuerys::selectData( sections::manga, _recordId );
 
-    ui->CheckBox_LookLater->setChecked(!data["isHaveLooked" ].toBool() );
-    ui->CheckBox_Editing->setChecked(  !data["isEditingDone"].toBool() );
+    ui->CheckBox_LookLater->setChecked( record.value( MngrQuerys::fieldToString(Tables::MangaField::isHaveLooked) ).toBool()  == false );
+    ui->CheckBox_Editing->setChecked(   record.value( MngrQuerys::fieldToString(Tables::MangaField::isEditingDone) ).toBool() == false );
 
-    ui->LineEdit_Title->setText( data["Title"].toString() );
+    ui->LineEdit_Title->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Title) ).toString() );
 
     // Optional Fields
     if( this->LineEdit_AltTitle )
-        this->LineEdit_AltTitle->setText( data["AltTitle"].toString() );
+        this->LineEdit_AltTitle->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::AltTitle) ).toString() );
     if( this->LineEdit_Author )
-        this->LineEdit_Author->setText( data["Author"].toString() );
+        this->LineEdit_Author->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Author) ).toString() );
     if( this->LineEdit_Translation )
-        this->LineEdit_Translation->setText( data["Translation"].toString() );
+        this->LineEdit_Translation->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Translation) ).toString() );
 
-    if( data["Year"].toInt() != 0 )
-        ui->SpinBox_Year->setValue( data["Year"].toInt() );
+    if( record.value( MngrQuerys::fieldToString(Tables::MangaField::Year) ).toInt() != 0 )
+        ui->SpinBox_Year->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::Year) ).toInt() );
 
-    ui->SpinBox_aVol->setValue( data["Vol"].toInt() );
-    ui->SpinBox_aCh->setValue( data["Ch"].toInt() );
-    ui->SpinBox_aPages->setValue( data["Pages"].toInt() );
+    ui->SpinBox_aVol->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::Vol) ).toInt() );
+    ui->SpinBox_aCh->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::Ch) ).toInt() );
+    ui->SpinBox_aPages->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::Pages) ).toInt() );
 
-    ui->SpinBox_vVol->setValue( data["vVol"].toInt() );
-    ui->SpinBox_vCh->setValue( data["vCh"].toInt() );
-    ui->SpinBox_vPages->setValue( data["vPages"].toInt() );
+    ui->SpinBox_vVol->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::vVol) ).toInt() );
+    ui->SpinBox_vCh->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::vCh) ).toInt() );
+    ui->SpinBox_vPages->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::vPages) ).toInt() );
 
-    ui->LineEdit_Tags->setText( data["Tags"].toString() );
-    ui->PlainTextEdit_Description->setPlainText( data["Description"].toString() );
-    ui->LineEdit_Dir->setText( data["Dir"].toString() );
-    ui->LineEdit_URL->setText( data["URL"].toString() );
+    ui->LineEdit_Tags->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Tags) ).toString() );
+    ui->PlainTextEdit_Description->setPlainText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Description) ).toString() );
+    ui->LineEdit_Dir->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Dir) ).toString() );
+    ui->LineEdit_URL->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Url) ).toString() );
 
-    _oldCover = data["ImagePath"].toString();
+    _oldCover = record.value( MngrQuerys::fieldToString(Tables::MangaField::ImagePath) ).toString();
     QPixmap pm( DefinesPath::mangaCovers() + _oldCover );
     if( !pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );

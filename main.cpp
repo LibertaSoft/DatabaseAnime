@@ -5,7 +5,7 @@
 
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    if( type == QtDebugMsg){
+   if( type == QtDebugMsg){
 //        qDebug() << msg; // out to console
         return;
     }

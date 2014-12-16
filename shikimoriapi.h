@@ -17,7 +17,7 @@ private:
     QString _lang;
 
     QStringList jsonParse_search(QByteArray data);
-    unsigned long long jsonParse_getId(QByteArray data);
+    quint64 jsonParse_getId(QByteArray data);
 	
     QMap<QString,QVariant> jsonParse_animeData(QByteArray data);
 	QMap<QString,QVariant> jsonParse_mangaData(QByteArray data);
@@ -32,15 +32,15 @@ public:
     void getAnimeId(QString title);
     void getMangaId(QString title);
 
-    void pullAnimeData(unsigned long long id);
-    void pullMangaData(unsigned long long id);
+    void pullAnimeData(quint64 id);
+    void pullMangaData(quint64 id);
 
 signals:
     void dataRecived_animeSearch(QStringList animeList);
     void dataRecived_mangaSearch(QStringList mangaList);
 
-    void dataRecived_animeId(unsigned long long id);
-    void dataRecived_mangaId(unsigned long long id);
+    void dataRecived_animeId(quint64 id);
+    void dataRecived_mangaId(quint64 id);
     
     void dataRecived_animeData(QMap<QString,QVariant> data);
     void dataRecived_mangaData(QMap<QString,QVariant> data);

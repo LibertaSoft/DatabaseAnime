@@ -825,7 +825,7 @@ bool MngrQuerys::createTable_Amv()
                   "isAdult         INTEGER, "
                   "Title           VARCHAR(128), "
                   "Author          VARCHAR(32), "
-                  "Сontestant      VARCHAR(128), "
+                  "Contestant      VARCHAR(128), "
                   "Score           INTEGER, "
                   "Year            INTEGER, "
                   "Tags            VARCHAR(256), "
@@ -1159,7 +1159,7 @@ bool MngrQuerys::insertAmv(QMap<Tables::AmvField::field, QVariant> data)
 
     query.prepare( QString("INSERT INTO %1("
                   "isEditingDone, isAdult, Title,"
-                  "Author, Сontestant,"
+                  "Author, Contestant,"
                   "Score, Year, Tags,"
                   "ContainingMusic, ContainingAnime, AuthorComment,"
                   "URL, Dir, ImagePath"

@@ -21,24 +21,22 @@ void DialogAddAmv::initTags()
 
 void DialogAddAmv::setDataInField()
 {
-    model = new QSqlQueryModel(this);
-    model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
-                         MngrQuerys::getTableName( sections::amv ) ).arg( _recordId ) );
+    QSqlRecord record = MngrQuerys::selectData( sections::amv, _recordId );
 
-    ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
-    ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
-    ui->LineEdit_Author->setText( model->record(0).value("Author").toString() );
-    ui->LineEdit_Contestant->setText( model->record(0).value("Сontestant").toString() );
-    if( model->record(0).value("Year").toInt() != 0 )
-        ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
-    ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
-    ui->PlainTextEdit_AuthorComment->setPlainText( model->record(0).value("AuthorComment").toString() );
-    ui->plainTextEdit_ContAnime->setPlainText( model->record(0).value("ContainingAnime").toString() );
-    ui->plainTextEdit_ContMusic->setPlainText( model->record(0).value("ContainingMusic").toString() );
-    ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
-    ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
+    ui->CheckBox_Editing->setChecked( record.value( MngrQuerys::fieldToString(Tables::AmvField::isEditingDone) ).toBool() == false );
+    ui->LineEdit_Title->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Title) ).toString() );
+    ui->LineEdit_Author->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Author) ).toString() );
+    ui->LineEdit_Contestant->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Contestant) ).toString() );
+    if( record.value( MngrQuerys::fieldToString(Tables::AmvField::Year) ).toInt() != 0 )
+        ui->SpinBox_Year->setValue( record.value( MngrQuerys::fieldToString(Tables::AmvField::Year) ).toInt() );
+    ui->LineEdit_Tags->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Tags) ).toString() );
+    ui->PlainTextEdit_AuthorComment->setPlainText( record.value( MngrQuerys::fieldToString(Tables::AmvField::AuthorComment) ).toString() );
+    ui->plainTextEdit_ContAnime->setPlainText( record.value( MngrQuerys::fieldToString(Tables::AmvField::ContainingAnime) ).toString() );
+    ui->plainTextEdit_ContMusic->setPlainText( record.value( MngrQuerys::fieldToString(Tables::AmvField::ContainingMusic) ).toString() );
+    ui->LineEdit_Dir->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Dir) ).toString() );
+    ui->LineEdit_URL->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Url) ).toString() );
 
-    _oldCover = model->record(0).value("ImagePath").toString();
+    _oldCover = record.value( MngrQuerys::fieldToString(Tables::AmvField::ImagePath) ).toString();
 
     QPixmap pm( DefinesPath::amvCovers() + _oldCover );
     if( !pm.isNull() ){

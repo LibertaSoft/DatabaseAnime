@@ -28,7 +28,7 @@ QStringList shikimoriApi::jsonParse_search(QByteArray data)
     return animeList;
 }
 
-unsigned long long shikimoriApi::jsonParse_getId(QByteArray data)
+quint64 shikimoriApi::jsonParse_getId(QByteArray data)
 {
     QJsonDocument doc = QJsonDocument::fromJson( data );
     QJsonArray arr = doc.array();
@@ -78,7 +78,7 @@ QMap<QString,QVariant> shikimoriApi::jsonParse_animeData(QByteArray data)
 	map["Tags"] = tags;
 	map["Description"] = obj["description_html"].toString();
 	map["URL"] = "http://shikimori.org" + obj["url"].toString();
-    map["ImagePath"] = (obj["image"].toObject())["original"].toString();
+    map["ImagePath"] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
 }
@@ -121,7 +121,7 @@ QMap<QString,QVariant> shikimoriApi::jsonParse_mangaData(QByteArray data)
 	map["Tags"] = tags;
 	map["Description"] = obj["description_html"].toString();
 	map["URL"] = "http://shikimori.org" + obj["url"].toString();
-    map["ImagePath"] = (obj["image"].toObject())["original"].toString();
+    map["ImagePath"] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
 }
@@ -166,7 +166,7 @@ void shikimoriApi::getMangaId(QString title)
     manager->get( QNetworkRequest( url ) );
 }
 
-void shikimoriApi::pullAnimeData(unsigned long long id)
+void shikimoriApi::pullAnimeData(quint64 id)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished,
@@ -176,7 +176,7 @@ void shikimoriApi::pullAnimeData(unsigned long long id)
     manager->get( QNetworkRequest( url ) );
 }
 
-void shikimoriApi::pullMangaData(unsigned long long id)
+void shikimoriApi::pullMangaData(quint64 id)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished,
