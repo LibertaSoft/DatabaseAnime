@@ -116,6 +116,8 @@ bool XmlDbaReader::readItem()
         }
         if (_streamReader.tokenType() == QXmlStreamReader::StartElement){
              QString tagName( _streamReader.name().toString() );
+             if( tagName == "Сontestant" ) // #FixMe : backward compatibility
+                 tagName = "Contestant";
              _streamReader.readNext();
              _currentData[tagName] = _streamReader.text().toString();
         }
