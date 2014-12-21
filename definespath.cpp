@@ -4,16 +4,22 @@
 
 /// Any string(path) ended of QDir::separator()
 
+/// QString DefinesPath::home()
+/// Returned a path to writable location a user home directory
 QString DefinesPath::home()
 {
     return QStandardPaths::writableLocation(QStandardPaths::HomeLocation);
 }
 
+/// QString DefinesPath::log()
+/// Returned a path to writable location a log-files of program
 QString DefinesPath::log()
 {
     return QStandardPaths::writableLocation( QStandardPaths::CacheLocation ) + QDir::separator() + "log" + QDir::separator();
 }
 
+/// QStringList DefinesPath::share()
+/// Returned a list-paths to standard location a data-files
 QStringList DefinesPath::share()
 {
     QStringList paths = QStandardPaths::standardLocations( QStandardPaths::DataLocation );
@@ -24,6 +30,10 @@ QStringList DefinesPath::share()
     return newPaths;
 }
 
+/// QString DefinesPath::appData(bool useDefault)
+/// Returned a path to writable location an application data
+/// if useDefault is true - returned a default, system location
+/// else returned a user settings location
 QString DefinesPath::appData(bool useDefault)
 {
     if(useDefault)
@@ -33,7 +43,7 @@ QString DefinesPath::appData(bool useDefault)
                    QStandardPaths::writableLocation( QStandardPaths::DataLocation )
                    ).toString()).path() + QDir::separator();
 
-    // Use it:
+    // Use in:
     // - dbPath()
     // - animeCovers()
     // - mangaCovers()
@@ -41,6 +51,9 @@ QString DefinesPath::appData(bool useDefault)
     // - doramaCovers()
 }
 
+/// QString DefinesPath::dbPath(bool appendFileName)
+/// Returned a path to database file
+/// if appendFileName is true - appended a file name
 QString DefinesPath::dbPath(bool appendFileName)
 {
     if(appendFileName)
@@ -49,6 +62,10 @@ QString DefinesPath::dbPath(bool appendFileName)
         return appData();
 }
 
+/// QString DefinesPath::animeCovers(const QString prefix)
+/// Returned a path to anime covers
+/// if prefix is not QString::null - used a prefix
+/// else used a application data as prefix
 QString DefinesPath::animeCovers(const QString prefix)
 {
     if(prefix != QString::null)
@@ -56,6 +73,10 @@ QString DefinesPath::animeCovers(const QString prefix)
     return appData() + "animeCovers" + QDir::separator();
 }
 
+/// QString DefinesPath::mangaCovers(const QString prefix)
+/// Returned a path to manga covers
+/// if prefix is not QString::null - used a prefix
+/// else used a application data as prefix
 QString DefinesPath::mangaCovers(const QString prefix)
 {
     if(prefix != QString::null)
@@ -63,6 +84,10 @@ QString DefinesPath::mangaCovers(const QString prefix)
     return appData() + "mangaCovers" + QDir::separator();
 }
 
+/// QString DefinesPath::amvCovers(const QString prefix)
+/// Returned a path to amv covers
+/// if prefix is not QString::null - used a prefix
+/// else used a application data as prefix
 QString DefinesPath::amvCovers(const QString prefix)
 {
     if(prefix != QString::null)
@@ -70,6 +95,10 @@ QString DefinesPath::amvCovers(const QString prefix)
     return appData() + "amvCovers" + QDir::separator();
 }
 
+/// QString DefinesPath::doramaCovers(const QString prefix)
+/// Returned a path to dorama covers
+/// if prefix is not QString::null - used a prefix
+/// else used a application data as prefix
 QString DefinesPath::doramaCovers(const QString prefix)
 {
     if(prefix != QString::null)

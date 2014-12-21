@@ -3,6 +3,7 @@
 
 #include <QDebug>
 
+/// Output to log-file
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
    if( type == QtDebugMsg){
