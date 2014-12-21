@@ -843,7 +843,9 @@ void MainWindow::selectAmvData()
 
     if( ! _currentItemDir.isEmpty() ){
         _btnPlay = new QPushButton( QIcon("://images/play.png"), tr("Play") );
+
         ui->VLay_BtnPlay->addWidget( _btnPlay );
+        ui->VLay_BtnPlay->setContentsMargins(6, 0, 0, 0);
         QObject::connect(_btnPlay, &QAbstractButton::clicked,
                          this,     &MainWindow::openFileClicked );
     }
