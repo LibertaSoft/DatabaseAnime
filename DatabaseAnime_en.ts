@@ -1320,7 +1320,7 @@
     <message>
         <location filename="mainwindow.cpp" line="893"/>
         <source>Containing anime:</source>
-        <translation>Containing music:</translation>
+        <translation>Containing anime:</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="914"/>
