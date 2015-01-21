@@ -751,7 +751,7 @@ void MainWindow::selectMangaData()
         ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
     else
         ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
-    QDirModel *dirModel = new QDirModel;
+    QDirModel *dirModel = new QDirModel(_ScrArea_propertyes);
 //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
@@ -969,7 +969,7 @@ void MainWindow::selectDoramaData()
         ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
     else
         ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
-    QDirModel *dirModel = new QDirModel;
+    QDirModel *dirModel = new QDirModel(_ScrArea_propertyes);
 //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
