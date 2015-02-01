@@ -1027,10 +1027,21 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
     ui->TreeView_List->hideColumn(0);
     if(sec == sections::none){
+        const bool enabled(true);
         ui->stackedWidget->setCurrentIndex(0);
-        ui->CB_Filter->setHidden( true );
+        ui->CB_Filter->setHidden( enabled );
+        ui->TButton_Add->setDisabled( enabled );
+        ui->TButton_Edit->setDisabled( enabled );
+        ui->TButton_Delete->setDisabled( enabled );
+        ui->lineEdit_Search->setDisabled( enabled );
+        ui->lineEdit_Search->setText( "" );
     }else{
-        ui->CB_Filter->setVisible( true );
+        const bool disabled(true);
+        ui->CB_Filter->setVisible( disabled );
+        ui->TButton_Add->setEnabled( disabled );
+        ui->TButton_Edit->setEnabled( disabled );
+        ui->TButton_Delete->setEnabled( disabled );
+        ui->lineEdit_Search->setEnabled( disabled );
     }
 }
 
