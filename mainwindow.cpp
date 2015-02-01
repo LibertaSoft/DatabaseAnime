@@ -1026,23 +1026,18 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
     ui->TreeView_List->hideColumn(0);
+    bool enableButtons(true);
     if(sec == sections::none){
-        const bool enabled(true);
-        ui->stackedWidget->setCurrentIndex(0);
-        ui->CB_Filter->setHidden( enabled );
-        ui->TButton_Add->setDisabled( enabled );
-        ui->TButton_Edit->setDisabled( enabled );
-        ui->TButton_Delete->setDisabled( enabled );
-        ui->lineEdit_Search->setDisabled( enabled );
+        enableButtons = false;
         ui->lineEdit_Search->setText( "" );
-    }else{
-        const bool disabled(true);
-        ui->CB_Filter->setVisible( disabled );
-        ui->TButton_Add->setEnabled( disabled );
-        ui->TButton_Edit->setEnabled( disabled );
-        ui->TButton_Delete->setEnabled( disabled );
-        ui->lineEdit_Search->setEnabled( disabled );
+        ui->stackedWidget->setCurrentIndex(0);
     }
+    ui->CB_Filter->setVisible( enableButtons );
+    ui->TButton_Add->setEnabled( enableButtons );
+    ui->TButton_Edit->setEnabled( enableButtons );
+    ui->TButton_Delete->setEnabled( enableButtons );
+    ui->lineEdit_Search->setEnabled( enableButtons );
+    ui->TreeView_List->setEnabled( enableButtons );
 }
 
 void MainWindow::on_CB_Filter_currentIndexChanged(int = 0)
