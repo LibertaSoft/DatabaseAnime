@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>643</width>
-    <height>565</height>
+    <width>695</width>
+    <height>577</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -137,8 +137,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>401</width>
-             <height>514</height>
+             <width>465</width>
+             <height>516</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -176,14 +176,14 @@
                <item row="0" column="0">
                 <widget class="QCheckBox" name="ChBox_CheckForUpdate">
                  <property name="text">
-                  <string>Check for update</string>
+                  <string>Checking updates</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="0">
                 <widget class="QCheckBox" name="ChBox_SearchOnShikimori">
                  <property name="text">
-                  <string>Auto search on shikimori</string>
+                  <string>Live search on shikimori</string>
                  </property>
                 </widget>
                </item>
@@ -368,8 +368,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>414</width>
-             <height>504</height>
+             <width>328</width>
+             <height>222</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -505,8 +505,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>414</width>
-             <height>504</height>
+             <width>347</width>
+             <height>236</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -673,8 +673,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>414</width>
-             <height>504</height>
+             <width>347</width>
+             <height>234</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -808,7 +808,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Close|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
+      <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::RestoreDefaults</set>
      </property>
     </widget>
    </item>
