@@ -196,7 +196,10 @@
               </size>
              </property>
              <property name="text">
-              <string>Volumes</string>
+              <string>&amp;Volumes</string>
+             </property>
+             <property name="buddy">
+              <cstring>SpinBox_aVol</cstring>
              </property>
             </widget>
            </item>
@@ -209,7 +212,10 @@
               </size>
              </property>
              <property name="text">
-              <string>Charapters</string>
+              <string>&amp;Charapters</string>
+             </property>
+             <property name="buddy">
+              <cstring>SpinBox_aCh</cstring>
              </property>
             </widget>
            </item>
@@ -222,7 +228,10 @@
               </size>
              </property>
              <property name="text">
-              <string>Pages</string>
+              <string>&amp;Pages</string>
+             </property>
+             <property name="buddy">
+              <cstring>SpinBox_aPages</cstring>
              </property>
             </widget>
            </item>
@@ -257,21 +266,30 @@
            <item row="0" column="0">
             <widget class="QLabel" name="Lbl_vVol">
              <property name="text">
-              <string>Volume</string>
+              <string>&amp;Volume</string>
+             </property>
+             <property name="buddy">
+              <cstring>SpinBox_vVol</cstring>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
             <widget class="QLabel" name="Lbl_vCh">
              <property name="text">
-              <string>Charapter</string>
+              <string>&amp;Charapter</string>
+             </property>
+             <property name="buddy">
+              <cstring>SpinBox_vCh</cstring>
              </property>
             </widget>
            </item>
            <item row="0" column="2">
             <widget class="QLabel" name="Lbl_vPage">
              <property name="text">
-              <string>Page</string>
+              <string>&amp;Page</string>
+             </property>
+             <property name="buddy">
+              <cstring>SpinBox_vPages</cstring>
              </property>
             </widget>
            </item>
