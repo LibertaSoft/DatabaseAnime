@@ -572,7 +572,7 @@ void MainWindow::selectAnimeData()
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
-                + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%m", record.value("SeriesTV").toString())
+                + record.value("URL").toString().replace("%v", QString::number(record.value("vSeriesTV").toInt()+1)).replace("%m", record.value("SeriesTV").toString())
                 + "'>"
                 + record.value("Title").toString()
                 + "</a>", _ScrArea_propertyes);
@@ -1026,10 +1026,16 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
     ui->TreeView_List->hideColumn(0);
+//    if( _sort != Sort::year ){
+//        ui->TreeView_List->hideColumn(2);
+//    }else{
+//        ui->TreeView_List->setColumnWidth(2, 50);
+//        ui->TreeView_List->showColumn(2);
+//    }
     bool enableButtons(true);
     if(sec == sections::none){
         enableButtons = false;
-        ui->lineEdit_Search->setText( "" );
+        ui->lineEdit_Search->clear();
         ui->stackedWidget->setCurrentIndex(0);
     }
     ui->CB_Filter->setVisible( enableButtons );
