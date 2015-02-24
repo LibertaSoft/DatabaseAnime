@@ -42,36 +42,36 @@ void DialogAddDorama::setDataInField()
 {
     QSqlRecord record = MngrQuerys::selectData( sections::dorama, _recordId );
 
-    ui->CheckBox_LookLater->setChecked( record.value( MngrQuerys::fieldToString(Tables::DoramaField::isHaveLooked) ).toBool() == false );
-    ui->CheckBox_Editing->setChecked(  record.value( MngrQuerys::fieldToString(Tables::DoramaField::isEditingDone) ).toBool() == false );
+    ui->CheckBox_LookLater->setChecked( record.value( Tables::Dorama::Fields::isHaveLooked ).toBool() == false );
+    ui->CheckBox_Editing->setChecked(  record.value( Tables::Dorama::Fields::isEditingDone ).toBool() == false );
 
     ui->LineEdit_Title->setText( record.value("Title").toString() );
 
     // Optional Fields
     if( this->LineEdit_AltTitle )
-        this->LineEdit_AltTitle->setText( record.value( MngrQuerys::fieldToString(Tables::DoramaField::AltTitle) ).toString() );
+        this->LineEdit_AltTitle->setText( record.value( Tables::Dorama::Fields::AltTitle ).toString() );
     if( this->LineEdit_Director )
-        this->LineEdit_Director->setText( record.value( MngrQuerys::fieldToString(Tables::DoramaField::Director) ).toString() );
+        this->LineEdit_Director->setText( record.value( Tables::Dorama::Fields::Director ).toString() );
 
-    if( record.value( MngrQuerys::fieldToString(Tables::DoramaField::Year) ).toInt() != 0 )
-        ui->SpinBox_Year->setValue(record.value( MngrQuerys::fieldToString(Tables::DoramaField::Year) ).toInt() );
-    ui->SpinBox_Season->setValue( record.value( MngrQuerys::fieldToString(Tables::DoramaField::Season) ).toInt() );
+    if( record.value( Tables::Dorama::Fields::Year ).toInt() != 0 )
+        ui->SpinBox_Year->setValue(record.value( Tables::Dorama::Fields::Year ).toInt() );
+    ui->SpinBox_Season->setValue( record.value( Tables::Dorama::Fields::Season ).toInt() );
 
-    ui->SpinBox_aTV->setValue( record.value( MngrQuerys::fieldToString(Tables::DoramaField::SeriesTV) ).toInt() );
-    ui->SpinBox_aSpec->setValue( record.value( MngrQuerys::fieldToString(Tables::DoramaField::SeriesSpecial) ).toInt() );
-    ui->SpinBox_aMovie->setValue( record.value( MngrQuerys::fieldToString(Tables::DoramaField::SeriesMovie) ).toInt() );
+    ui->SpinBox_aTV->setValue( record.value( Tables::Dorama::Fields::SeriesTV ).toInt() );
+    ui->SpinBox_aSpec->setValue( record.value( Tables::Dorama::Fields::SeriesSpecial ).toInt() );
+    ui->SpinBox_aMovie->setValue( record.value( Tables::Dorama::Fields::SeriesMovie ).toInt() );
 
-    ui->SpinBox_vTV->setValue( record.value( MngrQuerys::fieldToString(Tables::DoramaField::vSeriesTV) ).toInt() );
-    ui->SpinBox_vSpec->setValue( record.value( MngrQuerys::fieldToString(Tables::DoramaField::vSeriesSpecial) ).toInt() );
-    ui->SpinBox_vMovie->setValue( record.value( MngrQuerys::fieldToString(Tables::DoramaField::vSeriesMovie) ).toInt() );
+    ui->SpinBox_vTV->setValue( record.value( Tables::Dorama::Fields::vSeriesTV ).toInt() );
+    ui->SpinBox_vSpec->setValue( record.value( Tables::Dorama::Fields::vSeriesSpecial ).toInt() );
+    ui->SpinBox_vMovie->setValue( record.value( Tables::Dorama::Fields::vSeriesMovie ).toInt() );
 
-    ui->LineEdit_Tags->setText( record.value( MngrQuerys::fieldToString(Tables::DoramaField::Tags) ).toString() );
-    ui->PlainTextEdit_Description->setPlainText( record.value( MngrQuerys::fieldToString(Tables::DoramaField::Description) ).toString() );
-    ui->PlainTextEdit_Actors->setPlainText( record.value( MngrQuerys::fieldToString(Tables::DoramaField::Actors) ).toString() );
-    ui->LineEdit_Dir->setText( record.value( MngrQuerys::fieldToString(Tables::DoramaField::Dir) ).toString() );
-    ui->LineEdit_URL->setText( record.value( MngrQuerys::fieldToString(Tables::DoramaField::Url) ).toString() );
+    ui->LineEdit_Tags->setText( record.value( Tables::Dorama::Fields::Tags ).toString() );
+    ui->PlainTextEdit_Description->setPlainText( record.value( Tables::Dorama::Fields::Description ).toString() );
+    ui->PlainTextEdit_Actors->setPlainText( record.value( Tables::Dorama::Fields::Actors ).toString() );
+    ui->LineEdit_Dir->setText( record.value( Tables::Dorama::Fields::Dir ).toString() );
+    ui->LineEdit_URL->setText( record.value( Tables::Dorama::Fields::Url ).toString() );
 
-    _oldCover = record.value( MngrQuerys::fieldToString(Tables::DoramaField::ImagePath) ).toString();
+    _oldCover = record.value( Tables::Dorama::Fields::ImagePath ).toString();
 
     QPixmap pm( DefinesPath::doramaCovers() + _oldCover );
     if( !pm.isNull() ){
@@ -192,8 +192,8 @@ void DialogAddDorama::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddDorama::insert_Dorama(){
-    using namespace Tables::DoramaField;
-    QMap<field, QVariant> data;
+    using namespace Tables::Dorama::Fields;
+    QMap<QString, QVariant> data;
 
     data[isHaveLooked]   = !ui->CheckBox_LookLater->isChecked();
     data[isEditingDone]  = !ui->CheckBox_Editing->isChecked();

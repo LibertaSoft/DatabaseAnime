@@ -74,41 +74,41 @@ void DialogAddAnime::setDataInField()
 {
     QSqlRecord record = MngrQuerys::selectData( sections::anime, _recordId );
 
-    ui->CheckBox_LookLater->setChecked( record.value( MngrQuerys::fieldToString(Tables::AnimeField::isHaveLooked) ).toBool() == false );
-    ui->CheckBox_Editing->setChecked( record.value( MngrQuerys::fieldToString(Tables::AnimeField::isEditingDone) ).toBool() == false );
+    ui->CheckBox_LookLater->setChecked( record.value( Tables::Anime::Fields::isHaveLooked ).toBool() == false );
+    ui->CheckBox_Editing->setChecked( record.value( Tables::Anime::Fields::isEditingDone ).toBool() == false );
 
-    ui->LineEdit_Title->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Title) ).toString() );
+    ui->LineEdit_Title->setText( record.value( Tables::Anime::Fields::Title ).toString() );
 
     // Optional Fields
     if( this->LineEdit_OrigTitle )
-        this->LineEdit_OrigTitle->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::AltTitle) ).toString() );
+        this->LineEdit_OrigTitle->setText( record.value( Tables::Anime::Fields::AltTitle ).toString() );
     if( this->LineEdit_Director )
-        this->LineEdit_Director->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Director) ).toString() );
+        this->LineEdit_Director->setText( record.value( Tables::Anime::Fields::Director ).toString() );
     if( this->LineEdit_PostScoring )
-        this->LineEdit_PostScoring->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::PostScoring) ).toString() );
+        this->LineEdit_PostScoring->setText( record.value( Tables::Anime::Fields::PostScoring ).toString() );
     if( record.value("Year").toInt() != 0 )
-        ui->SpinBox_Year->setValue( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Year) ).toInt() );
-    ui->SpinBox_Season->setValue( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Season) ).toInt() );
-    ui->ComboBox_Studio->setCurrentText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Studios) ).toString() );
+        ui->SpinBox_Year->setValue( record.value( Tables::Anime::Fields::Year ).toInt() );
+    ui->SpinBox_Season->setValue( record.value( Tables::Anime::Fields::Season ).toInt() );
+    ui->ComboBox_Studio->setCurrentText( record.value( Tables::Anime::Fields::Studios ).toString() );
 
-    ui->SpinBox_aTV->setValue(    record.value( MngrQuerys::fieldToString(Tables::AnimeField::SeriesTV)      ).toInt() );
-    ui->SpinBox_aOVA->setValue(   record.value( MngrQuerys::fieldToString(Tables::AnimeField::SeriesOVA)     ).toInt() );
-    ui->SpinBox_aONA->setValue(   record.value( MngrQuerys::fieldToString(Tables::AnimeField::SeriesONA)     ).toInt() );
-    ui->SpinBox_aSpec->setValue(  record.value( MngrQuerys::fieldToString(Tables::AnimeField::SeriesSpecial) ).toInt() );
-    ui->SpinBox_aMovie->setValue( record.value( MngrQuerys::fieldToString(Tables::AnimeField::SeriesMovie)   ).toInt() );
+    ui->SpinBox_aTV->setValue(    record.value( Tables::Anime::Fields::SeriesTV      ).toInt() );
+    ui->SpinBox_aOVA->setValue(   record.value( Tables::Anime::Fields::SeriesOVA     ).toInt() );
+    ui->SpinBox_aONA->setValue(   record.value( Tables::Anime::Fields::SeriesONA     ).toInt() );
+    ui->SpinBox_aSpec->setValue(  record.value( Tables::Anime::Fields::SeriesSpecial ).toInt() );
+    ui->SpinBox_aMovie->setValue( record.value( Tables::Anime::Fields::SeriesMovie   ).toInt() );
 
-    ui->SpinBox_vTV->setValue(    record.value( MngrQuerys::fieldToString(Tables::AnimeField::vSeriesTV)      ).toInt() );
-    ui->SpinBox_vOVA->setValue(   record.value( MngrQuerys::fieldToString(Tables::AnimeField::vSeriesOVA)     ).toInt() );
-    ui->SpinBox_vONA->setValue(   record.value( MngrQuerys::fieldToString(Tables::AnimeField::vSeriesONA)     ).toInt() );
-    ui->SpinBox_vSpec->setValue(  record.value( MngrQuerys::fieldToString(Tables::AnimeField::vSeriesSpecial) ).toInt() );
-    ui->SpinBox_vMovie->setValue( record.value( MngrQuerys::fieldToString(Tables::AnimeField::vSeriesMovie)   ).toInt() );
+    ui->SpinBox_vTV->setValue(    record.value( Tables::Anime::Fields::vSeriesTV      ).toInt() );
+    ui->SpinBox_vOVA->setValue(   record.value( Tables::Anime::Fields::vSeriesOVA     ).toInt() );
+    ui->SpinBox_vONA->setValue(   record.value( Tables::Anime::Fields::vSeriesONA     ).toInt() );
+    ui->SpinBox_vSpec->setValue(  record.value( Tables::Anime::Fields::vSeriesSpecial ).toInt() );
+    ui->SpinBox_vMovie->setValue( record.value( Tables::Anime::Fields::vSeriesMovie   ).toInt() );
 
-    ui->LineEdit_Tags->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Tags) ).toString() );
-    ui->PlainTextEdit_Description->setPlainText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Description) ).toString() );
-    ui->LineEdit_Dir->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Dir) ).toString() );
-    ui->LineEdit_URL->setText( record.value( MngrQuerys::fieldToString(Tables::AnimeField::Url) ).toString() );
+    ui->LineEdit_Tags->setText( record.value( Tables::Anime::Fields::Tags ).toString() );
+    ui->PlainTextEdit_Description->setPlainText( record.value( Tables::Anime::Fields::Description ).toString() );
+    ui->LineEdit_Dir->setText( record.value( Tables::Anime::Fields::Dir ).toString() );
+    ui->LineEdit_URL->setText( record.value( Tables::Anime::Fields::Url ).toString() );
 
-    _oldCover = record.value( MngrQuerys::fieldToString(Tables::AnimeField::ImagePath) ).toString();
+    _oldCover = record.value( Tables::Anime::Fields::ImagePath ).toString();
 
     QPixmap pm( DefinesPath::animeCovers() + _oldCover );
 
@@ -252,8 +252,8 @@ void DialogAddAnime::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddAnime::insert_Anime(){
-    using namespace Tables::AnimeField;
-    QMap<field, QVariant> data;
+    using namespace Tables::Anime::Fields;
+    QMap<QString, QVariant> data;
 
     data[isHaveLooked]   = !ui->CheckBox_LookLater->isChecked();
     data[isEditingDone]  = !ui->CheckBox_Editing->isChecked();

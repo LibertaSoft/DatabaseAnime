@@ -46,36 +46,36 @@ void DialogAddManga::setDataInFields()
 {
     QSqlRecord record = MngrQuerys::selectData( sections::manga, _recordId );
 
-    ui->CheckBox_LookLater->setChecked( record.value( MngrQuerys::fieldToString(Tables::MangaField::isHaveLooked) ).toBool()  == false );
-    ui->CheckBox_Editing->setChecked(   record.value( MngrQuerys::fieldToString(Tables::MangaField::isEditingDone) ).toBool() == false );
+    ui->CheckBox_LookLater->setChecked( record.value( Tables::Manga::Fields::isHaveLooked ).toBool()  == false );
+    ui->CheckBox_Editing->setChecked(   record.value( Tables::Manga::Fields::isEditingDone ).toBool() == false );
 
-    ui->LineEdit_Title->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Title) ).toString() );
+    ui->LineEdit_Title->setText( record.value( Tables::Manga::Fields::Title ).toString() );
 
     // Optional Fields
     if( this->LineEdit_AltTitle )
-        this->LineEdit_AltTitle->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::AltTitle) ).toString() );
+        this->LineEdit_AltTitle->setText( record.value( Tables::Manga::Fields::AltTitle ).toString() );
     if( this->LineEdit_Author )
-        this->LineEdit_Author->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Author) ).toString() );
+        this->LineEdit_Author->setText( record.value( Tables::Manga::Fields::Author ).toString() );
     if( this->LineEdit_Translation )
-        this->LineEdit_Translation->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Translation) ).toString() );
+        this->LineEdit_Translation->setText( record.value( Tables::Manga::Fields::Translation ).toString() );
 
-    if( record.value( MngrQuerys::fieldToString(Tables::MangaField::Year) ).toInt() != 0 )
-        ui->SpinBox_Year->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::Year) ).toInt() );
+    if( record.value( Tables::Manga::Fields::Year ).toInt() != 0 )
+        ui->SpinBox_Year->setValue( record.value( Tables::Manga::Fields::Year ).toInt() );
 
-    ui->SpinBox_aVol->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::Vol) ).toInt() );
-    ui->SpinBox_aCh->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::Ch) ).toInt() );
-    ui->SpinBox_aPages->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::Pages) ).toInt() );
+    ui->SpinBox_aVol->setValue( record.value( Tables::Manga::Fields::Vol ).toInt() );
+    ui->SpinBox_aCh->setValue( record.value( Tables::Manga::Fields::Ch ).toInt() );
+    ui->SpinBox_aPages->setValue( record.value( Tables::Manga::Fields::Pages ).toInt() );
 
-    ui->SpinBox_vVol->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::vVol) ).toInt() );
-    ui->SpinBox_vCh->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::vCh) ).toInt() );
-    ui->SpinBox_vPages->setValue( record.value( MngrQuerys::fieldToString(Tables::MangaField::vPages) ).toInt() );
+    ui->SpinBox_vVol->setValue( record.value( Tables::Manga::Fields::vVol ).toInt() );
+    ui->SpinBox_vCh->setValue( record.value( Tables::Manga::Fields::vCh ).toInt() );
+    ui->SpinBox_vPages->setValue( record.value( Tables::Manga::Fields::vPages ).toInt() );
 
-    ui->LineEdit_Tags->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Tags) ).toString() );
-    ui->PlainTextEdit_Description->setPlainText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Description) ).toString() );
-    ui->LineEdit_Dir->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Dir) ).toString() );
-    ui->LineEdit_URL->setText( record.value( MngrQuerys::fieldToString(Tables::MangaField::Url) ).toString() );
+    ui->LineEdit_Tags->setText( record.value( Tables::Manga::Fields::Tags ).toString() );
+    ui->PlainTextEdit_Description->setPlainText( record.value( Tables::Manga::Fields::Description ).toString() );
+    ui->LineEdit_Dir->setText( record.value( Tables::Manga::Fields::Dir ).toString() );
+    ui->LineEdit_URL->setText( record.value( Tables::Manga::Fields::Url ).toString() );
 
-    _oldCover = record.value( MngrQuerys::fieldToString(Tables::MangaField::ImagePath) ).toString();
+    _oldCover = record.value( Tables::Manga::Fields::ImagePath ).toString();
     QPixmap pm( DefinesPath::mangaCovers() + _oldCover );
     if( !pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
@@ -253,8 +253,8 @@ void DialogAddManga::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddManga::insert_Manga(){
-    using namespace Tables::MangaField;
-    QMap<field, QVariant> data;
+    using namespace Tables::Manga::Fields;
+    QMap<QString, QVariant> data;
 
     data[isHaveLooked]  = !ui->CheckBox_LookLater->isChecked();
     data[isEditingDone] = !ui->CheckBox_Editing->isChecked();

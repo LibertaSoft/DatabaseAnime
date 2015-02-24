@@ -506,8 +506,8 @@ void MainWindow::selectAnimeData()
     deleteLookProgressBars();
 
     if( record.value("SeriesTV").toInt() > 0 ){
-        const QString fieldName_ValueTv = MngrQuerys::fieldToString( Tables::AnimeField::vSeriesTV );
-        const QString fieldName_AllTv = MngrQuerys::fieldToString( Tables::AnimeField::SeriesTV );
+        const QString fieldName_ValueTv = Tables::Anime::Fields::vSeriesTV;
+        const QString fieldName_AllTv = Tables::Anime::Fields::SeriesTV;
         pbTV = new LookProgressBar(0,
                                    record.value(fieldName_ValueTv).toInt(),
                                    record.value(fieldName_AllTv).toInt(),
@@ -655,31 +655,31 @@ void MainWindow::selectMangaData()
 
     deleteLookProgressBars();
 
-    if( record.value( MngrQuerys::fieldToString(Tables::MangaField::Vol) ).toInt() > 0 ){
+    if( record.value( Tables::Manga::Fields::Vol ).toInt() > 0 ){
         pbTV = new LookProgressBar(0,
-                                   record.value( MngrQuerys::fieldToString(Tables::MangaField::vVol) ).toInt(),
-                                   record.value( MngrQuerys::fieldToString(Tables::MangaField::Vol) ).toInt(),
-                                   "Volume [%v/%m]", MngrQuerys::fieldToString(Tables::MangaField::vVol),
+                                   record.value( Tables::Manga::Fields::vVol ).toInt(),
+                                   record.value( Tables::Manga::Fields::Vol ).toInt(),
+                                   "Volume [%v/%m]", Tables::Manga::Fields::vVol,
                                    this);
         ui->HLay_WBRow0->addWidget( pbTV );
         QObject::connect(pbTV, &LookProgressBar::progressChanged,
                          this, &MainWindow::saveLookValueChanges );
     }
-    if( record.value( MngrQuerys::fieldToString(Tables::MangaField::Ch) ).toInt() > 0 ){
+    if( record.value( Tables::Manga::Fields::Ch ).toInt() > 0 ){
         pbOVA = new LookProgressBar(0,
-                                    record.value( MngrQuerys::fieldToString(Tables::MangaField::vCh) ).toInt(),
-                                    record.value( MngrQuerys::fieldToString(Tables::MangaField::Ch) ).toInt(),
-                                    "Charapter [%v/%m]",  MngrQuerys::fieldToString(Tables::MangaField::vCh) ,
+                                    record.value( Tables::Manga::Fields::vCh ).toInt(),
+                                    record.value( Tables::Manga::Fields::Ch ).toInt(),
+                                    "Charapter [%v/%m]",  Tables::Manga::Fields::vCh ,
                                     this);
         ui->HLay_WBRow1->addWidget(pbOVA);
         QObject::connect(pbOVA, &LookProgressBar::progressChanged,
                          this,  &MainWindow::saveLookValueChanges );
     }
-    if( record.value( MngrQuerys::fieldToString(Tables::MangaField::Pages) ).toInt() > 0 ){
+    if( record.value( Tables::Manga::Fields::Pages ).toInt() > 0 ){
         pbONA = new LookProgressBar(0,
-                                    record.value( MngrQuerys::fieldToString(Tables::MangaField::vPages) ).toInt(),
-                                    record.value( MngrQuerys::fieldToString(Tables::MangaField::Pages) ).toInt(),
-                                    "Pages [%v/%m]", MngrQuerys::fieldToString(Tables::MangaField::vPages),
+                                    record.value( Tables::Manga::Fields::vPages ).toInt(),
+                                    record.value( Tables::Manga::Fields::Pages ).toInt(),
+                                    "Pages [%v/%m]", Tables::Manga::Fields::vPages,
                                     this);
         ui->HLay_WBRow1->addWidget( pbONA );
         QObject::connect(pbONA, &LookProgressBar::progressChanged,

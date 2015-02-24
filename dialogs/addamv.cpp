@@ -23,20 +23,20 @@ void DialogAddAmv::setDataInField()
 {
     QSqlRecord record = MngrQuerys::selectData( sections::amv, _recordId );
 
-    ui->CheckBox_Editing->setChecked( record.value( MngrQuerys::fieldToString(Tables::AmvField::isEditingDone) ).toBool() == false );
-    ui->LineEdit_Title->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Title) ).toString() );
-    ui->LineEdit_Author->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Author) ).toString() );
-    ui->LineEdit_Contestant->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Contestant) ).toString() );
-    if( record.value( MngrQuerys::fieldToString(Tables::AmvField::Year) ).toInt() != 0 )
-        ui->SpinBox_Year->setValue( record.value( MngrQuerys::fieldToString(Tables::AmvField::Year) ).toInt() );
-    ui->LineEdit_Tags->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Tags) ).toString() );
-    ui->PlainTextEdit_AuthorComment->setPlainText( record.value( MngrQuerys::fieldToString(Tables::AmvField::AuthorComment) ).toString() );
-    ui->plainTextEdit_ContAnime->setPlainText( record.value( MngrQuerys::fieldToString(Tables::AmvField::ContainingAnime) ).toString() );
-    ui->plainTextEdit_ContMusic->setPlainText( record.value( MngrQuerys::fieldToString(Tables::AmvField::ContainingMusic) ).toString() );
-    ui->LineEdit_Dir->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Dir) ).toString() );
-    ui->LineEdit_URL->setText( record.value( MngrQuerys::fieldToString(Tables::AmvField::Url) ).toString() );
+    ui->CheckBox_Editing->setChecked( record.value( Tables::Amv::Fields::isEditingDone ).toBool() == false );
+    ui->LineEdit_Title->setText( record.value( Tables::Amv::Fields::Title ).toString() );
+    ui->LineEdit_Author->setText( record.value( Tables::Amv::Fields::Author ).toString() );
+    ui->LineEdit_Contestant->setText( record.value( Tables::Amv::Fields::Contestant ).toString() );
+    if( record.value( Tables::Amv::Fields::Year ).toInt() != 0 )
+        ui->SpinBox_Year->setValue( record.value( Tables::Amv::Fields::Year ).toInt() );
+    ui->LineEdit_Tags->setText( record.value( Tables::Amv::Fields::Tags ).toString() );
+    ui->PlainTextEdit_AuthorComment->setPlainText( record.value( Tables::Amv::Fields::AuthorComment ).toString() );
+    ui->plainTextEdit_ContAnime->setPlainText( record.value( Tables::Amv::Fields::ContainingAnime ).toString() );
+    ui->plainTextEdit_ContMusic->setPlainText( record.value( Tables::Amv::Fields::ContainingMusic ).toString() );
+    ui->LineEdit_Dir->setText( record.value( Tables::Amv::Fields::Dir ).toString() );
+    ui->LineEdit_URL->setText( record.value( Tables::Amv::Fields::Url ).toString() );
 
-    _oldCover = record.value( MngrQuerys::fieldToString(Tables::AmvField::ImagePath) ).toString();
+    _oldCover = record.value( Tables::Amv::Fields::ImagePath ).toString();
 
     QPixmap pm( DefinesPath::amvCovers() + _oldCover );
     if( !pm.isNull() ){
@@ -117,8 +117,8 @@ void DialogAddAmv::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddAmv::insert_Amv(){
-    using namespace Tables::AmvField;
-    QMap<field, QVariant> data;
+    using namespace Tables::Amv::Fields;
+    QMap<QString, QVariant> data;
 
     data[id]            = _recordId;
     data[isEditingDone] = !ui->CheckBox_Editing->isChecked();
