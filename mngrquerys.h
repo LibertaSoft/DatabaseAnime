@@ -129,27 +129,8 @@ private:
     static QString sortToString(Sort::sort);
 
 public:
-//    static uniformFields();
-/*
-    static QString fieldToString(Tables::AnimeField::field field);
-    static QString fieldToString(Tables::MangaField::field field);
-    static QString fieldToString(Tables::AmvField::field field);
-    static QString fieldToString(Tables::DoramaField::field field);
-*/
     static QString fieldToString(Tables::UniformField::field field, sections::section section);
-/*
-    static Tables::AnimeField::field   animeFieldFromString(QString fieldName);
-    static Tables::MangaField::field   mangaFieldFromString(QString fieldName);
-    static Tables::AmvField::field       amvFieldFromString(QString fieldName);
-    static Tables::DoramaField::field doramaFieldFromString(QString fieldName);
-*/
-/*
-    static QMap<Tables::AnimeField::field, QVariant>  convertAnimeData(QMap<QString,QVariant> data);
-    static QMap<Tables::MangaField::field, QVariant>  convertMangaData(QMap<QString,QVariant> data);
-    static QMap<Tables::AmvField::field,   QVariant>    convertAmvData(QMap<QString,QVariant> data);
-    static QMap<Tables::DoramaField::field,QVariant> convertDoramaData(QMap<QString,QVariant> data);
-*/
-//    static QString getTableName( Tables::table );
+
     static QString getTableName( sections::section );
     static bool selectSection(QSqlQueryModel *model, sections::section section,
                               Tables::UniformField::field field,

@@ -313,7 +313,8 @@ quint64 MngrQuerys::count(sections::section section)
     QSqlQuery query;
     QString sql( "SELECT count(*) FROM %1" );
     if( false == query.exec( sql.arg( getTableName(section) ) ) ){
-        qCritical() << "Error when deleting a table " + getTableName( section )
+        qCritical() << "Error. Can't counted records in table '" + getTableName( section ) + "'"
+                    << "\nSqlError: "
                     << query.lastError();
         return 0;
     }
