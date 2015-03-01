@@ -46,12 +46,6 @@ private:
     static QString keyToString(Configs::OptionalFields::Manga::key _key);
     static QString keyToString(Configs::OptionalFields::Dorama::key _key);
 public:
-    explicit DbaSettings(const QString & organization, const QString & application = QString(), QObject * parent = 0);
-    explicit DbaSettings(Scope scope, const QString & organization, const QString & application = QString(), QObject * parent = 0);
-    explicit DbaSettings(Format format, Scope scope, const QString & organization, const QString & application = QString(), QObject * parent = 0);
-    explicit DbaSettings(const QString & fileName, Format format, QObject * parent = 0);
-    explicit DbaSettings(QObject *parent = 0);
-
     QVariant value(const Configs::ActiveSections::key &key,         const QVariant &defaultValue = QVariant() ) const;
     QVariant value(const Configs::DialogsSettings::key &key,        const QVariant &defaultValue = QVariant() ) const;
     QVariant value(const Configs::General::key &key,                const QVariant &defaultValue = QVariant() ) const;

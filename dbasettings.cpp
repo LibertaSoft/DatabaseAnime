@@ -137,28 +137,6 @@ QString DbaSettings::keyToString(Configs::OptionalFields::Dorama::key _key)
     return QString::null;
 }
 
-/// Конструкторы представляют интерфейс для инициализации базового класса QSettings
-
-DbaSettings::DbaSettings(const QString &organization, const QString &application, QObject *parent)
-    :QSettings(organization, application, parent)
-{}
-
-DbaSettings::DbaSettings(QSettings::Scope scope, const QString &organization, const QString &application, QObject *parent)
-    :QSettings(scope, organization, application, parent)
-{}
-
-DbaSettings::DbaSettings(QSettings::Format format, QSettings::Scope scope, const QString &organization, const QString &application, QObject *parent)
-    :QSettings(format, scope, organization, application, parent)
-{}
-
-DbaSettings::DbaSettings(const QString &fileName, QSettings::Format format, QObject *parent)
-    :QSettings(fileName, format, parent)
-{}
-
-DbaSettings::DbaSettings(QObject *parent) :
-    QSettings(parent)
-{}
-
 /// Функции value представляют интерфейс для функции QSettings::value, но принимающий как параметр
 /// Значения перечислений, заместо строки отвечающей за указанное свойство
 /// Затем этот параметр преобразуется в строку при помощи приватных функций keyToString
