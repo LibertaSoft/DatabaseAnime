@@ -562,7 +562,7 @@ void MainWindow::selectAnimeData()
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
-                + record.value("URL").toString().replace("%v", QString::number(record.value("vSeriesTV").toInt()+1)).replace("%m", record.value("SeriesTV").toString())
+                + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", QString::number(record.value("vSeriesTV").toInt()+1)).replace("%m", record.value("SeriesTV").toString())
                 + "'>"
                 + record.value("Title").toString()
                 + "</a>", _ScrArea_propertyes);
@@ -688,7 +688,7 @@ void MainWindow::selectMangaData()
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
-                + record.value("URL").toString().replace("%v", record.value("vVol").toString()).replace("%m", record.value("Vol").toString())
+                + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", record.value("vVol").toString()).replace("%m", record.value("Vol").toString())
                 + "'>"
                 + record.value("Title").toString()
                 + "</a>", _ScrArea_propertyes);
@@ -894,7 +894,7 @@ void MainWindow::selectDoramaData()
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
-                + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%m", record.value("SeriesTV").toString())
+                + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", record.value("vSeriesTV").toString()).replace("%m", record.value("SeriesTV").toString())
                 + "'>"
                 + record.value("Title").toString()
                 + "</a>", _ScrArea_propertyes);
