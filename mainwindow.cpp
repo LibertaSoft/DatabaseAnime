@@ -55,25 +55,11 @@ MainWindow::MainWindow(QWidget *parent) :
     _displayedField = static_cast<Tables::UniformField::field>( settings.value( Configs::General::DisplayedField, Tables::UniformField::Title ).toInt() );
 
 //    [svg logo]
-//    int fAppName_id = QFontDatabase::addApplicationFont("./urw-chancery-l-medium-italic.ttf");
-//    ui->lbl_AppTitle->setFont(QFont(QFontDatabase::applicationFontFamilies(fAppName_id).first(),28));
-
 //    ui->Lbl_logo->setVisible( false );
 //    QSvgWidget *logo = new QSvgWidget("/tmp/DBA_logo.svg");
 //    logo->setFixedSize(600,500);
 //    ui->VLay_logoSvg->addWidget( logo );
 //    ui->VLay_logoSvg->setAlignment(logo, Qt::AlignCenter);
-
-    // #Test begin. Delete this.
-    /*
-    #pragma delete_test
-    LookProgressBar2 *lpb = new LookProgressBar2(0, 2, 8, "TV[%v/%m]", "hisokka");
-    ui->VLay_logoSvg->addWidget( lpb );
-    connect(lpb, &LookProgressBar2::progressOverflow, [=]() {
-           QMessageBox::information(this, "Owerflow", "Field is owerflow");
-     });
-    */
-    // End test.
 
     // Verification of the new version
     if( settings.value(Configs::Network::CheckUpdates, true).toBool() ){
@@ -113,12 +99,16 @@ void MainWindow::replyVersionVerificationFinished(QNetworkReply* r){
     QJsonObject obj = arr.at(0).toObject();
 
     QString verFromGit = obj["tag_name"].toString();
-    verFromGit = verFromGit.replace(".", "");// split '.' from "vX.X.X"
-    verFromGit = verFromGit.right( verFromGit.length() - 1 );// split 'v' from "vXXX"
+    // split '.' from "vX.X.X"
+    verFromGit = verFromGit.replace(".", "");
+    // split 'v' from "vXXX"
+    verFromGit = verFromGit.right( verFromGit.length() - 1 );
 
     QString appVer = qApp->applicationVersion();
-    appVer = appVer.replace(".", "");// split '.' from "X.X.X"
-    appVer = appVer.left(3);// split Pre-Alpha/Alpha/Beta/etc
+    // split '.' from "X.X.X"
+    appVer = appVer.replace(".", "");
+    // split Pre-Alpha/Alpha/Beta/etc
+    appVer = appVer.left(3);
 
     if( verFromGit.toInt() > appVer.toInt() ){
         ui->Lbl_VVersion->setStyleSheet("color: #f00");
