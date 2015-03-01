@@ -48,7 +48,9 @@ int main(int argc, char *argv[])
     app.setApplicationDisplayName( QObject::tr("Database Anime") );
     app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
 
-    {
+    QSettings settings;
+    int currentStyle = settings.value(Options::Style::CurrentStyle, 0).toInt();
+    if(currentStyle > 0){
 
         qApp->setStyle(QStyleFactory::create("Fusion"));
 

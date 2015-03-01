@@ -61,6 +61,24 @@ private slots:
     void on_TBtn_WorkDir_Choose_clicked();
     void on_actionShowImportProgressBar_triggered(bool checked);
     void on_actionShowExportProgressBar_triggered(bool checked);
+
+    void setPaletteColor(QWidget *wgt, QPalette::ColorRole role);
+    void setFrameColorFromPalette(QWidget *wgt, QPalette::ColorRole role);
+
+    void on_PButton_Style_Window_clicked();
+    void on_PButton_Style_WindowText_clicked();
+    void on_PButton_Style_Base_clicked();
+    void on_PButton_Style_AlternateBase_clicked();
+    void on_PButton_Style_ToolTipBase_clicked();
+    void on_PButton_Style_ToolTipText_clicked();
+    void on_PButton_Style_Text_clicked();
+    void on_PButton_Style_Button_clicked();
+    void on_PButton_Style_ButtonText_clicked();
+    void on_PButton_Style_BrightText_clicked();
+    void on_PButton_Style_Link_clicked();
+    void on_PButton_Style_Highlight_clicked();
+    void on_PButton_Style_HighlightedText_clicked();
+    void on_ComboBox_CurrentStyle_currentIndexChanged(int index);
 };
 
 #endif // SETTINGS_H

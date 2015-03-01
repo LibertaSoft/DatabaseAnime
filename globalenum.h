@@ -40,6 +40,10 @@ namespace Options{
         const QString CheckUpdates(SectionPrefix+"CheckUpdates");
         const QString AutoSearchOnShikimori(SectionPrefix+"AutoSearchOnShikimori");
     }
+    namespace Style{
+        const QString SectionPrefix("Style/");
+        const QString CurrentStyle(SectionPrefix+"Current");
+    }
     namespace OptionalFields{
         const QString SectionPrefix("OptionalFields/");
         namespace Anime{

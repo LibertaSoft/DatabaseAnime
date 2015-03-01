@@ -1,6 +1,8 @@
 #include "settings.h"
 #include "ui_settings.h"
 
+#include <QColorDialog>
+
 Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Settings), MngrConnect(MngrCon)
@@ -58,6 +60,8 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     ui->ChBox_SwitchCoverOrDir->setChecked( SwitchCoverOrDir );
     ui->ChBox_SearchOnShikimori->setChecked( searchOnShikimori );
 
+    ui->ComboBox_CurrentStyle->setCurrentIndex( settings.value(Options::Style::CurrentStyle, 0).toInt() );
+
     QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( Options::General::Language, QLocale::English ).toInt());
 
     ui->ComboBox_Language->addItem( tr("<System>"), 0 );
@@ -94,6 +98,10 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
             ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( 0 );
         else
             ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( 1 );
+    }
+
+    {
+        on_ComboBox_CurrentStyle_currentIndexChanged( ui->ComboBox_CurrentStyle->currentIndex() );
     }
 }
 
@@ -188,6 +196,10 @@ void Settings::on_BtnBox_accepted()
         using namespace Options::Network;
         settings.setValue( CheckUpdates, ui->ChBox_CheckForUpdate->isChecked() );
         settings.setValue( AutoSearchOnShikimori, ui->ChBox_SearchOnShikimori->isChecked() );
+    }
+    {
+        using namespace Options::Style;
+        settings.setValue( CurrentStyle, ui->ComboBox_CurrentStyle->currentIndex() );
     }
 
     settings.setValue( Options::General::SwitchCoverOrDir, ui->ChBox_SwitchCoverOrDir->isChecked() );
@@ -793,4 +805,99 @@ void Settings::on_actionShowExportProgressBar_triggered(bool checked)
 {
     ui->PBtn_Action_Export->setVisible(!checked);
     ui->ProgressBar_Export->setVisible(checked);
+}
+
+void Settings::setPaletteColor(QWidget *wgt, QPalette::ColorRole role)
+{
+    QPalette palette = this->palette();
+
+    QColorDialog dlg;
+    dlg.setCurrentColor( palette.color(role) );
+    dlg.exec();
+
+    palette.setColor(role, dlg.selectedColor());
+    qApp->setPalette(palette);
+
+
+    wgt->setStyleSheet( "background-color:" + dlg.selectedColor().name(QColor::HexRgb) );
+}
+
+void Settings::setFrameColorFromPalette(QWidget *wgt, QPalette::ColorRole role)
+{
+    QPalette palette = this->palette();
+    wgt->setStyleSheet( "background-color:" + palette.color(role).name(QColor::HexRgb) );
+}
+
+void Settings::on_PButton_Style_Window_clicked()
+{
+    setPaletteColor( ui->Frame_Style_Window, QPalette::Window );
+}
+void Settings::on_PButton_Style_WindowText_clicked()
+{
+    setPaletteColor( ui->Frame_Style_WindowText, QPalette::WindowText );
+}
+void Settings::on_PButton_Style_Base_clicked()
+{
+    setPaletteColor( ui->Frame_Style_Base, QPalette::Base );
+}
+void Settings::on_PButton_Style_AlternateBase_clicked()
+{
+    setPaletteColor( ui->Frame_Style_AlternateBase, QPalette::AlternateBase );
+}
+void Settings::on_PButton_Style_ToolTipBase_clicked()
+{
+    setPaletteColor( ui->Frame_Style_ToolTipBase, QPalette::ToolTipBase );
+}
+void Settings::on_PButton_Style_ToolTipText_clicked()
+{
+    setPaletteColor( ui->Frame_Style_ToolTipText, QPalette::ToolTipText );
+}
+void Settings::on_PButton_Style_Text_clicked()
+{
+    setPaletteColor( ui->Frame_Style_Text, QPalette::Text );
+}
+void Settings::on_PButton_Style_Button_clicked()
+{
+    setPaletteColor( ui->Frame_Style_Button, QPalette::Button );
+}
+void Settings::on_PButton_Style_ButtonText_clicked()
+{
+    setPaletteColor( ui->Frame_Style_ButtonText, QPalette::ButtonText );
+}
+void Settings::on_PButton_Style_BrightText_clicked()
+{
+    setPaletteColor( ui->Frame_Style_BrightText, QPalette::BrightText );
+}
+void Settings::on_PButton_Style_Link_clicked()
+{
+    setPaletteColor( ui->Frame_Style_Link, QPalette::Link );
+}
+void Settings::on_PButton_Style_Highlight_clicked()
+{
+    setPaletteColor( ui->Frame_Style_Highlight, QPalette::Highlight );
+}
+void Settings::on_PButton_Style_HighlightedText_clicked()
+{
+    setPaletteColor( ui->Frame_Style_HighlightedText, QPalette::HighlightedText );
+}
+
+void Settings::on_ComboBox_CurrentStyle_currentIndexChanged(int index)
+{
+    ui->GroupBox_Style_Colors->setEnabled( index );
+    if( index ){
+        setFrameColorFromPalette( ui->Frame_Style_Window, QPalette::Window );
+        setFrameColorFromPalette( ui->Frame_Style_WindowText, QPalette::WindowText );
+        setFrameColorFromPalette( ui->Frame_Style_Base, QPalette::Base );
+        setFrameColorFromPalette( ui->Frame_Style_AlternateBase, QPalette::AlternateBase );
+        setFrameColorFromPalette( ui->Frame_Style_ToolTipBase, QPalette::ToolTipBase );
+        setFrameColorFromPalette( ui->Frame_Style_ToolTipText, QPalette::ToolTipText );
+        setFrameColorFromPalette( ui->Frame_Style_Text, QPalette::Text );
+        setFrameColorFromPalette( ui->Frame_Style_Button, QPalette::Button );
+        setFrameColorFromPalette( ui->Frame_Style_ButtonText, QPalette::ButtonText );
+        setFrameColorFromPalette( ui->Frame_Style_BrightText, QPalette::BrightText );
+        setFrameColorFromPalette( ui->Frame_Style_Link, QPalette::Link );
+        setFrameColorFromPalette( ui->Frame_Style_Highlight, QPalette::Highlight );
+        setFrameColorFromPalette( ui->Frame_Style_HighlightedText, QPalette::HighlightedText );
+        ui->GroupBox_Style_Colors->setEnabled( ui->ComboBox_CurrentStyle->currentIndex() );
+    }
 }
