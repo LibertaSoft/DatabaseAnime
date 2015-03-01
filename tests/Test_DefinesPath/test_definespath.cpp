@@ -1,5 +1,4 @@
 #include <QString>
-#include "dbasettings.h"
 #include "definespath.h"
 #include <QtTest>
 

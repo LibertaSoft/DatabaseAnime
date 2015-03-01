@@ -18,9 +18,7 @@ INCLUDEPATH += ../../
 
 SOURCES += \
           test_definespath.cpp \
-    ../../dbasettings.cpp \
     ../../definespath.cpp
 HEADERS += \
-    ../../definespath.h \
-    ../../dbasettings.h
+    ../../definespath.h
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
