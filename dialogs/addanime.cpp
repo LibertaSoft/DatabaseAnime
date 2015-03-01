@@ -2,7 +2,6 @@
 #include "ui_addanime.h"
 #include "mngrquerys.h"
 #include "definespath.h"
-#include "dbasettings.h"
 
 #include <QFileDialog>
 #include <QDesktopServices>
@@ -46,22 +45,22 @@ void DialogAddAnime::initTags()
 
 void DialogAddAnime::initOptionalFields()
 {
-    DbaSettings settings;
-    if( settings.value( Configs::OptionalFields::Anime::AltTitle, false ).toBool() ){
+    QSettings settings;
+    if( settings.value( Options::OptionalFields::Anime::AltTitle, false ).toBool() ){
         this->LineEdit_OrigTitle = new QLineEdit(this);
         this->LineEdit_OrigTitle->setMaxLength(128);
         this->LineEdit_OrigTitle->setDragEnabled(true);
         this->LineEdit_OrigTitle->setPlaceholderText( tr("Alternative title") );
         ui->VLay_OrigTitle->addWidget( this->LineEdit_OrigTitle );
     }
-    if( settings.value( Configs::OptionalFields::Anime::Director, false ).toBool() ){
+    if( settings.value( Options::OptionalFields::Anime::Director, false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
         this->LineEdit_Director->setDragEnabled(true);
         this->LineEdit_Director->setPlaceholderText( tr("Director") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_Director );
     }
-    if( settings.value( Configs::OptionalFields::Anime::Postscoring, false ).toBool() ){
+    if( settings.value( Options::OptionalFields::Anime::Postscoring, false ).toBool() ){
         this->LineEdit_PostScoring = new QLineEdit(this);
         this->LineEdit_PostScoring->setMaxLength(128);
         this->LineEdit_PostScoring->setDragEnabled(true);
@@ -72,45 +71,43 @@ void DialogAddAnime::initOptionalFields()
 
 void DialogAddAnime::setDataInField()
 {
-    model = new QSqlQueryModel(this);
-    model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
-                         MngrQuerys::getTableName( sections::anime ) ).arg( _recordId ) );
+    QSqlRecord record = MngrQuerys::selectData( sections::anime, _recordId );
 
-    ui->CheckBox_LookLater->setChecked( !model->record(0).value("isHaveLooked").toBool() );
-    ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
+    ui->CheckBox_LookLater->setChecked( record.value( Tables::Anime::Fields::isHaveLooked ).toBool() == false );
+    ui->CheckBox_Editing->setChecked( record.value( Tables::Anime::Fields::isEditingDone ).toBool() == false );
 
-    ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
+    ui->LineEdit_Title->setText( record.value( Tables::Anime::Fields::Title ).toString() );
 
     // Optional Fields
     if( this->LineEdit_OrigTitle )
-        this->LineEdit_OrigTitle->setText( model->record(0).value("OrigTitle").toString() );
+        this->LineEdit_OrigTitle->setText( record.value( Tables::Anime::Fields::AltTitle ).toString() );
     if( this->LineEdit_Director )
-        this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
+        this->LineEdit_Director->setText( record.value( Tables::Anime::Fields::Director ).toString() );
     if( this->LineEdit_PostScoring )
-        this->LineEdit_PostScoring->setText( model->record(0).value("PostScoring").toString() );
-    if( model->record(0).value("Year").toInt() != 0 )
-        ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
-    ui->SpinBox_Season->setValue( model->record(0).value("Season").toInt() );
-    ui->ComboBox_Studio->setCurrentText( model->record(0).value("Studios").toString() );
+        this->LineEdit_PostScoring->setText( record.value( Tables::Anime::Fields::PostScoring ).toString() );
+    if( record.value("Year").toInt() != 0 )
+        ui->SpinBox_Year->setValue( record.value( Tables::Anime::Fields::Year ).toInt() );
+    ui->SpinBox_Season->setValue( record.value( Tables::Anime::Fields::Season ).toInt() );
+    ui->ComboBox_Studio->setCurrentText( record.value( Tables::Anime::Fields::Studios ).toString() );
 
-    ui->SpinBox_aTV->setValue(    model->record(0).value("SeriesTV"     ).toInt() );
-    ui->SpinBox_aOVA->setValue(   model->record(0).value("SeriesOVA"    ).toInt() );
-    ui->SpinBox_aONA->setValue(   model->record(0).value("SeriesONA"    ).toInt() );
-    ui->SpinBox_aSpec->setValue(  model->record(0).value("SeriesSpecial").toInt() );
-    ui->SpinBox_aMovie->setValue( model->record(0).value("SeriesMovie"  ).toInt() );
+    ui->SpinBox_aTV->setValue(    record.value( Tables::Anime::Fields::SeriesTV      ).toInt() );
+    ui->SpinBox_aOVA->setValue(   record.value( Tables::Anime::Fields::SeriesOVA     ).toInt() );
+    ui->SpinBox_aONA->setValue(   record.value( Tables::Anime::Fields::SeriesONA     ).toInt() );
+    ui->SpinBox_aSpec->setValue(  record.value( Tables::Anime::Fields::SeriesSpecial ).toInt() );
+    ui->SpinBox_aMovie->setValue( record.value( Tables::Anime::Fields::SeriesMovie   ).toInt() );
 
-    ui->SpinBox_vTV->setValue(    model->record(0).value("vSeriesTV"     ).toInt() );
-    ui->SpinBox_vOVA->setValue(   model->record(0).value("vSeriesOVA"    ).toInt() );
-    ui->SpinBox_vONA->setValue(   model->record(0).value("vSeriesONA"    ).toInt() );
-    ui->SpinBox_vSpec->setValue(  model->record(0).value("vSeriesSpecial").toInt() );
-    ui->SpinBox_vMovie->setValue( model->record(0).value("vSeriesMovie"  ).toInt() );
+    ui->SpinBox_vTV->setValue(    record.value( Tables::Anime::Fields::vSeriesTV      ).toInt() );
+    ui->SpinBox_vOVA->setValue(   record.value( Tables::Anime::Fields::vSeriesOVA     ).toInt() );
+    ui->SpinBox_vONA->setValue(   record.value( Tables::Anime::Fields::vSeriesONA     ).toInt() );
+    ui->SpinBox_vSpec->setValue(  record.value( Tables::Anime::Fields::vSeriesSpecial ).toInt() );
+    ui->SpinBox_vMovie->setValue( record.value( Tables::Anime::Fields::vSeriesMovie   ).toInt() );
 
-    ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
-    ui->PlainTextEdit_Description->setPlainText( model->record(0).value("Description").toString() );
-    ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
-    ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
+    ui->LineEdit_Tags->setText( record.value( Tables::Anime::Fields::Tags ).toString() );
+    ui->PlainTextEdit_Description->setPlainText( record.value( Tables::Anime::Fields::Description ).toString() );
+    ui->LineEdit_Dir->setText( record.value( Tables::Anime::Fields::Dir ).toString() );
+    ui->LineEdit_URL->setText( record.value( Tables::Anime::Fields::Url ).toString() );
 
-    _oldCover = model->record(0).value("ImagePath").toString();
+    _oldCover = record.value( Tables::Anime::Fields::ImagePath ).toString();
 
     QPixmap pm( DefinesPath::animeCovers() + _oldCover );
 
@@ -152,10 +149,10 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::AnimeGeometry).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Configs::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -174,10 +171,10 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::AnimeGeometry).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Configs::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -192,8 +189,8 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
 
 DialogAddAnime::~DialogAddAnime()
 {
-    DbaSettings settings;
-    settings.setValue(Configs::DialogsSettings::AnimeGeometry, this->saveGeometry() );
+    QSettings settings;
+    settings.setValue(Options::Dialogs::Anime::Geometry, this->saveGeometry() );
     delete ui;
 }
 
@@ -254,8 +251,8 @@ void DialogAddAnime::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddAnime::insert_Anime(){
-    using namespace Tables::AnimeField;
-    QMap<field, QVariant> data;
+    using namespace Tables::Anime::Fields;
+    QMap<QString, QVariant> data;
 
     data[isHaveLooked]   = !ui->CheckBox_LookLater->isChecked();
     data[isEditingDone]  = !ui->CheckBox_Editing->isChecked();
@@ -320,7 +317,7 @@ bool DialogAddAnime::insert_Anime(){
 
     data[ImagePath] = coverName;
 
-    if( !_isEditRole ){
+    if( ! _isEditRole ){
         if( MngrQuerys::insertAnime(data) == false ){
             QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data."));
             return false;

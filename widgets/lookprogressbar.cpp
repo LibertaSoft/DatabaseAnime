@@ -8,217 +8,158 @@
 
 #include <QPushButton>
 
-LookProgressBar::LookProgressBar(QWidget *parent) :
-    QFrame(parent), _value(0), _maxValue(0), _minValue(0), _btnAddActive(false), _btnSubActive(false)
+void LookProgressBar::wheelEvent(QWheelEvent *e)
 {
-    _format = "[%1/%2]";
-    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-    this->setMouseTracking( true );
+    int value = getValue();
+    if( e->delta() > 0 ){
+        if( value >= getMaximum() )
+            return;
+        setValue( value + 1 );
+        emit progressChanged( value + 1, getTargetField() );
+    }else{
+        if( value <= getMinimum() )
+            return;
+        setValue( value - 1 );
+        emit progressChanged( value - 1, getTargetField() );
+    }
 }
 
-QSize LookProgressBar::sizeHint() const
+void LookProgressBar::initCreate()
 {
-    return QSize(200, 32);
+    _btnAdd = new QToolButton(this);
+    _btnSub = new QToolButton(this);
+    _lookProgressBar = new QProgressBar(this);
+    _hLay = new QHBoxLayout(this);
+
+    this->setLayout(_hLay);
+    _hLay->addWidget(_btnSub);
+    _hLay->addWidget(_btnAdd);
+    _hLay->addWidget(_lookProgressBar);
+    _hLay->setMargin(0);
+    _hLay->setSpacing(3);
+
+    _btnSub->setIcon( QIcon("://images/list-remove.png") );
+    _btnAdd->setIcon( QIcon("://images/list-add.png") );
+    _lookProgressBar->setAlignment(Qt::AlignCenter | Qt::AlignVCenter);
 }
 
-void LookProgressBar::setValue(int n)
+void LookProgressBar::initConnect()
 {
-    _value = n;
-    emit progressChanged( getValue(), getMaximum(), getTargetField() );
+    if( !_btnAdd || !_btnSub || !_lookProgressBar || !_hLay ){
+        qCritical() << "initConnect: widgets is not created!";
+        return;
+    }
+    connect(_btnAdd, &QToolButton::clicked, [=](){
+        int value = getValue() + 1;
+
+        if( value == getMaximum() ){
+            emit progressOverflow();
+            if( revertWhenOverflow )
+                value = getMinimum();
+        }
+
+        setValue( value );
+        emit progressChanged( value, getTargetField() );
+    });
+    connect(_btnSub, &QToolButton::clicked, [=](){
+        setValue( getValue() - 1 );
+        emit progressChanged( getValue(), getTargetField() );
+    });
 }
 
-void LookProgressBar::setMaximum(int n)
+LookProgressBar::LookProgressBar(QWidget *parent)
+    :QWidget(parent)
 {
-    _maxValue = n;
+    initCreate();
+    initConnect();
+
+    revertWhenOverflow = false;
+    _lookProgressBar->setMinimum( 0 );
+    _lookProgressBar->setMaximum( 100 );
+    _lookProgressBar->setValue( 0 );
+    _lookProgressBar->setFormat( "[%v/%m]" );
+    _targetFieldDB = QString::null;
 }
 
-void LookProgressBar::setMinimum(int n)
+LookProgressBar::LookProgressBar(int minimum, int value, int maximum, QWidget *parent)
+    :QWidget(parent)
 {
-    _minValue = n;
+    initCreate();
+    initConnect();
+
+    revertWhenOverflow = false;
+    _lookProgressBar->setMinimum( minimum );
+    _lookProgressBar->setMaximum( maximum );
+    _lookProgressBar->setValue( value );
+    _lookProgressBar->setFormat( "[%v/%m]" );
+    _targetFieldDB = QString::null;
 }
 
-void LookProgressBar::setFormat(QString f)
+LookProgressBar::LookProgressBar(int minimum, int value, int maximum, QString format, QString targetField, QWidget *parent)
+    :QWidget(parent)
 {
-    _format = f.replace("%v", "%1").replace("%m", "%2");
+    initCreate();
+    initConnect();
+
+    revertWhenOverflow = false;
+    _lookProgressBar->setMinimum( minimum );
+    _lookProgressBar->setMaximum( maximum );
+    _lookProgressBar->setValue( value );
+    _lookProgressBar->setFormat( format );
+    _targetFieldDB = targetField;
 }
 
-void LookProgressBar::setTargetFieldDB(QString str)
+void LookProgressBar::setValue(int value)
 {
-    _targetFieldDB = str;
+    _lookProgressBar->setValue( value );
 }
 
-void LookProgressBar::setTargetOverflowFieldDB(QString str)
+void LookProgressBar::setMaximum(int value)
 {
-    _targetOverflowFieldDB = str;
+    _lookProgressBar->setMaximum( value );
+}
+
+void LookProgressBar::setMinimum(int value)
+{
+    _lookProgressBar->setMinimum( value );
+}
+
+void LookProgressBar::setFormat(QString format)
+{
+    _lookProgressBar->setFormat( format );
+}
+
+void LookProgressBar::setRevertWhenOverflow(bool flag)
+{
+    revertWhenOverflow = flag;
+}
+
+void LookProgressBar::setTargetFieldDB(QString fieldName)
+{
+    _targetFieldDB = fieldName;
 }
 
 int LookProgressBar::getValue() const
 {
-    return _value;
+    return _lookProgressBar->value();
 }
 
 int LookProgressBar::getMaximum() const
 {
-    return _maxValue;
+    return _lookProgressBar->maximum();
 }
 
 int LookProgressBar::getMinimum() const
 {
-    return _minValue;
-}
-
-bool LookProgressBar::isActiveBtnAdd() const
-{
-    return _btnAddActive;
-}
-
-bool LookProgressBar::isActiveBtnSub() const
-{
-    return _btnSubActive;
-}
-
-bool LookProgressBar::setActiveBtnAdd(bool f)
-{
-    if( _btnAddActive != f ){
-        _btnAddActive = f;
-        return true;
-    }else
-        return false;
-}
-
-bool LookProgressBar::setActiveBtnSub(bool f)
-{
-    if( _btnSubActive != f ){
-        _btnSubActive = f;
-        return true;
-    }else
-        return false;
+    return _lookProgressBar->minimum();
 }
 
 QString LookProgressBar::getFormat() const
 {
-    return _format;
+    return _lookProgressBar->format();
 }
 
 QString LookProgressBar::getTargetField() const
 {
     return _targetFieldDB;
-}
-
-QString LookProgressBar::getTargetOverflowFieldDB() const
-{
-    return _targetOverflowFieldDB;
-}
-
-void LookProgressBar::setProgress(int n)
-{
-    if( n >= getMinimum() && n <= getMaximum() ){
-        setValue( n );
-        repaint();
-    }
-}
-
-void LookProgressBar::progressInc()
-{
-    if( getValue() < getMaximum() ){
-        _value++;
-        repaint();
-        emit progressChanged( getValue(), getMaximum(), getTargetField() );
-    }
-}
-
-void LookProgressBar::progressDec()
-{
-    if( getValue() > getMinimum() ){
-        _value--;
-        repaint();
-        emit progressChanged( getValue(), getMaximum(), getTargetField() );
-    }
-}
-
-void LookProgressBar::paintEvent(QPaintEvent*)
-{
-    QStylePainter sp(this);
-
-    QStyleOptionButton subBtnOpt;
-    subBtnOpt.icon = QIcon("://images/list-remove.png");
-    subBtnOpt.iconSize = QSize(24,24);
-    subBtnOpt.rect = QRect(0,0,32,32);
-    subBtnOpt.state = QStyle::State_Enabled;
-    if( _btnSubActive )
-        subBtnOpt.state |= QStyle::State_MouseOver;
-
-    sp.drawControl( QStyle::CE_PushButton, subBtnOpt);
-
-    QStyleOptionButton addBtnOpt;
-    addBtnOpt.icon = QIcon("://images/list-add.png");
-    addBtnOpt.iconSize = QSize(24,24);
-    addBtnOpt.rect = QRect(32,0,32,32);
-    addBtnOpt.state = QStyle::State_Enabled;
-    if( _btnAddActive )
-        addBtnOpt.state |= QStyle::State_MouseOver;
-
-    sp.drawControl( QStyle::CE_PushButton, addBtnOpt);
-
-    QStyleOptionProgressBar opt;
-    opt.maximum = getMaximum();
-    opt.minimum = getMinimum();
-    opt.progress = getValue();
-    opt.text = getFormat().arg( getValue() ).arg( getMaximum() );
-    opt.textVisible = true;
-    opt.textAlignment = Qt::AlignCenter | Qt::AlignVCenter;
-    QRect r = rect();
-    r.setX(64);
-    opt.rect = r;
-
-    sp.drawControl( QStyle::CE_ProgressBar, opt);
-}
-
-void LookProgressBar::mousePressEvent(QMouseEvent*)
-{
-    if( isActiveBtnAdd() ){
-        progressInc();
-    }else if( isActiveBtnSub() ){
-        progressDec();
-    }
-}
-
-void LookProgressBar::leaveEvent(QEvent*)
-{
-    if( setActiveBtnAdd( false ) || setActiveBtnSub( false ) )
-        repaint();
-}
-
-void LookProgressBar::mouseMoveEvent(QMouseEvent *pe)
-{
-    /// such approach:
-    /// "if (setActiveBtnAdd(false) || setActiveBtnSub(true))"
-    /// It is applied to optimization since it isn't required to redraw the button if it it isn't required
-
-    const int height2 = height()*2;
-    if( pe->pos().x() < height2 ){
-        // Mouse is to the on buttons
-        if( pe->pos().x() < height2>>1 ){
-            // Mouse on left button
-            if( setActiveBtnAdd( false ) || setActiveBtnSub( true ) )
-                repaint();
-        }else{
-            // Mouse on right button
-            if( setActiveBtnAdd( true ) || setActiveBtnSub( false ) )
-                repaint();
-        }
-    }else{
-        // Mouse is to the right of buttons
-        if( setActiveBtnAdd( false ) )
-            repaint();
-    }
-}
-
-void LookProgressBar::wheelEvent(QWheelEvent *pe)
-{
-    if( pe->delta() > 0 ){
-        progressInc();
-    }else{
-        progressDec();
-    }
 }

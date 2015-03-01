@@ -14,9 +14,11 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
+INCLUDEPATH += ../../
+
 SOURCES += \
-           test_definespath.cpp \
-           ../../definespath.cpp
+          test_definespath.cpp \
+    ../../definespath.cpp
 HEADERS += \
-           ../../definespath.h
+    ../../definespath.h
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/list-remove-active.png</file>
-        <file>images/list-add-active.png</file>
         <file>images/NoImage.png</file>
         <file>images/DropHere.png</file>
         <file>images/DBA_logo_m.png</file>

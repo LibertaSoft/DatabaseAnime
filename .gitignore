@@ -1,4 +1,5 @@
 *.user
+DatabaseAnime.pro*
 *.qm
 *~
 tests/build-*

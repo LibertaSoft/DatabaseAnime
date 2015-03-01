@@ -1,5 +1,5 @@
 #include <QString>
-#include "../../definespath.h"
+#include "definespath.h"
 #include <QtTest>
 
 class Test_DefinesPath : public QObject

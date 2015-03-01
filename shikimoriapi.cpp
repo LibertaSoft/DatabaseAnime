@@ -28,7 +28,7 @@ QStringList shikimoriApi::jsonParse_search(QByteArray data)
     return animeList;
 }
 
-unsigned long long shikimoriApi::jsonParse_getId(QByteArray data)
+quint64 shikimoriApi::jsonParse_getId(QByteArray data)
 {
     QJsonDocument doc = QJsonDocument::fromJson( data );
     QJsonArray arr = doc.array();
@@ -78,7 +78,7 @@ QMap<QString,QVariant> shikimoriApi::jsonParse_animeData(QByteArray data)
 	map["Tags"] = tags;
 	map["Description"] = obj["description_html"].toString();
 	map["URL"] = "http://shikimori.org" + obj["url"].toString();
-    map["ImagePath"] = (obj["image"].toObject())["original"].toString();
+    map["ImagePath"] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
 }
@@ -121,7 +121,7 @@ QMap<QString,QVariant> shikimoriApi::jsonParse_mangaData(QByteArray data)
 	map["Tags"] = tags;
 	map["Description"] = obj["description_html"].toString();
 	map["URL"] = "http://shikimori.org" + obj["url"].toString();
-    map["ImagePath"] = (obj["image"].toObject())["original"].toString();
+    map["ImagePath"] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
 }
@@ -129,8 +129,8 @@ QMap<QString,QVariant> shikimoriApi::jsonParse_mangaData(QByteArray data)
 void shikimoriApi::searchAnime(QString title, short limit)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this,    SLOT(replyAnimeSearch(QNetworkReply*)));
+    connect(manager, &QNetworkAccessManager::finished,
+            this,    &shikimoriApi::replyAnimeSearch);
 
     QUrl url = "http://shikimori.org/api/animes?search=" + title + "&limit=" + QString::number(limit);
     manager->get( QNetworkRequest( url ) );
@@ -139,8 +139,8 @@ void shikimoriApi::searchAnime(QString title, short limit)
 void shikimoriApi::searchManga(QString title, short limit)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this,    SLOT(replyMangaSearch(QNetworkReply*)));
+    connect(manager, &QNetworkAccessManager::finished,
+            this,    &shikimoriApi::replyMangaSearch);
 
     QUrl url = "http://shikimori.org/api/mangas?search=" + title + "&limit=" + QString::number(limit);
     manager->get( QNetworkRequest( url ) );
@@ -149,8 +149,8 @@ void shikimoriApi::searchManga(QString title, short limit)
 void shikimoriApi::getAnimeId(QString title)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this,    SLOT(replyGetAnimeId(QNetworkReply*)));
+    connect(manager, &QNetworkAccessManager::finished,
+            this,    &shikimoriApi::replyGetAnimeId);
 
     QUrl url = "http://shikimori.org/api/animes?search=" + title + "&limit=1";
     manager->get( QNetworkRequest( url ) );
@@ -159,28 +159,28 @@ void shikimoriApi::getAnimeId(QString title)
 void shikimoriApi::getMangaId(QString title)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this,    SLOT(replyGetMangaId(QNetworkReply*)));
+    connect(manager, &QNetworkAccessManager::finished,
+            this,    &shikimoriApi::replyGetMangaId);
 
     QUrl url = "http://shikimori.org/api/mangas?search=" + title + "&limit=1";
     manager->get( QNetworkRequest( url ) );
 }
 
-void shikimoriApi::pullAnimeData(unsigned long long id)
+void shikimoriApi::pullAnimeData(quint64 id)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this,    SLOT(replyAnimeData(QNetworkReply*)));
+    connect(manager, &QNetworkAccessManager::finished,
+            this,    &shikimoriApi::replyAnimeData);
 
     QUrl url = "http://shikimori.org/api/animes/" + QString::number(id);
     manager->get( QNetworkRequest( url ) );
 }
 
-void shikimoriApi::pullMangaData(unsigned long long id)
+void shikimoriApi::pullMangaData(quint64 id)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this,    SLOT(replyMangaData(QNetworkReply*)));
+    connect(manager, &QNetworkAccessManager::finished,
+            this,    &shikimoriApi::replyMangaData);
 
     QUrl url = "http://shikimori.org/api/mangas/" + QString::number(id);
     manager->get( QNetworkRequest( url ) );

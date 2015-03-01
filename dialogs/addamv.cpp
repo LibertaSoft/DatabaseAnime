@@ -2,7 +2,6 @@
 #include "ui_addamv.h"
 #include "mngrquerys.h"
 #include "definespath.h"
-#include "dbasettings.h"
 
 #include <QFileDialog>
 #include <QDesktopServices>
@@ -21,24 +20,22 @@ void DialogAddAmv::initTags()
 
 void DialogAddAmv::setDataInField()
 {
-    model = new QSqlQueryModel(this);
-    model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
-                         MngrQuerys::getTableName( sections::amv ) ).arg( _recordId ) );
+    QSqlRecord record = MngrQuerys::selectData( sections::amv, _recordId );
 
-    ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
-    ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
-    ui->LineEdit_Author->setText( model->record(0).value("Author").toString() );
-    ui->LineEdit_Contestant->setText( model->record(0).value("Сontestant").toString() );
-    if( model->record(0).value("Year").toInt() != 0 )
-        ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
-    ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
-    ui->PlainTextEdit_AuthorComment->setPlainText( model->record(0).value("AuthorComment").toString() );
-    ui->plainTextEdit_ContAnime->setPlainText( model->record(0).value("ContainingAnime").toString() );
-    ui->plainTextEdit_ContMusic->setPlainText( model->record(0).value("ContainingMusic").toString() );
-    ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
-    ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
+    ui->CheckBox_Editing->setChecked( record.value( Tables::Amv::Fields::isEditingDone ).toBool() == false );
+    ui->LineEdit_Title->setText( record.value( Tables::Amv::Fields::Title ).toString() );
+    ui->LineEdit_Author->setText( record.value( Tables::Amv::Fields::Author ).toString() );
+    ui->LineEdit_Contestant->setText( record.value( Tables::Amv::Fields::Contestant ).toString() );
+    if( record.value( Tables::Amv::Fields::Year ).toInt() != 0 )
+        ui->SpinBox_Year->setValue( record.value( Tables::Amv::Fields::Year ).toInt() );
+    ui->LineEdit_Tags->setText( record.value( Tables::Amv::Fields::Tags ).toString() );
+    ui->PlainTextEdit_AuthorComment->setPlainText( record.value( Tables::Amv::Fields::AuthorComment ).toString() );
+    ui->plainTextEdit_ContAnime->setPlainText( record.value( Tables::Amv::Fields::ContainingAnime ).toString() );
+    ui->plainTextEdit_ContMusic->setPlainText( record.value( Tables::Amv::Fields::ContainingMusic ).toString() );
+    ui->LineEdit_Dir->setText( record.value( Tables::Amv::Fields::Dir ).toString() );
+    ui->LineEdit_URL->setText( record.value( Tables::Amv::Fields::Url ).toString() );
 
-    _oldCover = model->record(0).value("ImagePath").toString();
+    _oldCover = record.value( Tables::Amv::Fields::ImagePath ).toString();
 
     QPixmap pm( DefinesPath::amvCovers() + _oldCover );
     if( !pm.isNull() ){
@@ -54,8 +51,8 @@ DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned long long record_id) :
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::AmvGeometry).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Amv::Geometry).toByteArray() );
 
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
@@ -69,8 +66,8 @@ DialogAddAmv::DialogAddAmv(QWidget *parent):
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::AmvGeometry).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Amv::Geometry).toByteArray() );
 
     ui->TabWidget_Info->setCurrentIndex(0);
     ui->LineEdit_Title->setFocus();
@@ -80,8 +77,8 @@ DialogAddAmv::DialogAddAmv(QWidget *parent):
 
 DialogAddAmv::~DialogAddAmv()
 {
-    DbaSettings settings;
-    settings.setValue(Configs::DialogsSettings::AmvGeometry, this->saveGeometry() );
+    QSettings settings;
+    settings.setValue(Options::Dialogs::Amv::Geometry, this->saveGeometry() );
     delete ui;
 }
 
@@ -119,8 +116,8 @@ void DialogAddAmv::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddAmv::insert_Amv(){
-    using namespace Tables::AmvField;
-    QMap<field, QVariant> data;
+    using namespace Tables::Amv::Fields;
+    QMap<QString, QVariant> data;
 
     data[id]            = _recordId;
     data[isEditingDone] = !ui->CheckBox_Editing->isChecked();

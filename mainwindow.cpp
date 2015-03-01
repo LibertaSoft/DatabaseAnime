@@ -28,11 +28,11 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    pbTV(NULL), pbOVA(NULL), pbONA(NULL), pbSpecial(NULL), pbMovie(NULL), ListWidget_Dir(NULL),
-    _btnPlay(NULL), _ScrArea_propertyes(NULL), _restoreDefSettings(false)
+    pbTV(nullptr), pbOVA(nullptr), pbONA(nullptr), pbSpecial(nullptr), pbMovie(nullptr),
+    ListWidget_Dir(nullptr), _btnPlay(nullptr), _ScrArea_propertyes(nullptr), _restoreDefSettings(false)
 {
-    DbaSettings settings;
-    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Configs::General::Language, QLocale::English ).toInt());
+    QSettings settings;
+    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Options::General::Language, QLocale::English ).toInt());
     if( language == 0 ){
         language = QLocale::system().language();
     }
@@ -52,34 +52,30 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->Lbl_VVersion->setText( qApp->applicationVersion() );
 
-    _displayedField = static_cast<Tables::UniformField::field>( settings.value( Configs::General::DisplayedField, Tables::UniformField::Title ).toInt() );
+    _displayedField = static_cast<Tables::UniformField::field>( settings.value( Options::General::DisplayedField, Tables::UniformField::Title ).toInt() );
 
 //    [svg logo]
-//    int fAppName_id = QFontDatabase::addApplicationFont("./urw-chancery-l-medium-italic.ttf");
-//    ui->lbl_AppTitle->setFont(QFont(QFontDatabase::applicationFontFamilies(fAppName_id).first(),28));
-
 //    ui->Lbl_logo->setVisible( false );
 //    QSvgWidget *logo = new QSvgWidget("/tmp/DBA_logo.svg");
 //    logo->setFixedSize(600,500);
 //    ui->VLay_logoSvg->addWidget( logo );
 //    ui->VLay_logoSvg->setAlignment(logo, Qt::AlignCenter);
 
-
     // Verification of the new version
-    if( settings.value(Configs::Network::CheckUpdates, true).toBool() ){
+    if( settings.value(Options::Network::CheckUpdates, true).toBool() ){
         QUrl url("https://api.github.com/repos/LibertaSoft/DatabaseAnime/releases");
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-        connect(manager, SIGNAL(finished(QNetworkReply*)),
-                this, SLOT(replyVersionVerificationFinished(QNetworkReply*)));
+        connect(manager, &QNetworkAccessManager::finished,
+                this, &MainWindow::replyVersionVerificationFinished);
         manager->get( QNetworkRequest(url) );
     }
 
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::MainGeometry).toByteArray() );
-    this->restoreState( settings.value(Configs::DialogsSettings::MainState).toByteArray() );
-    ui->splitter->restoreGeometry( settings.value(Configs::DialogsSettings::MainSplitterGeometry).toByteArray() );
-    ui->splitter->restoreState( settings.value(Configs::DialogsSettings::MainSplitterState).toByteArray() );
-    _sort = static_cast<Sort::sort>( settings.value(Configs::General::Sorting, Sort::asc).toInt() );
-    bool c1 = settings.value( Configs::General::SwitchCoverOrDir, true ).toBool();
+    this->restoreGeometry( settings.value(Options::Dialogs::MainWindow::Geometry).toByteArray() );
+    this->restoreState( settings.value(Options::Dialogs::MainWindow::State).toByteArray() );
+    ui->splitter->restoreGeometry( settings.value(Options::Dialogs::MainWindow::Splitter::Geometry).toByteArray() );
+    ui->splitter->restoreState( settings.value(Options::Dialogs::MainWindow::Splitter::State).toByteArray() );
+    _sort = static_cast<Sort::sort>( settings.value(Options::General::Sorting, Sort::asc).toInt() );
+    bool c1 = settings.value( Options::General::SwitchCoverOrDir, true ).toBool();
     ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 
     mngrConnection.open();
@@ -103,12 +99,16 @@ void MainWindow::replyVersionVerificationFinished(QNetworkReply* r){
     QJsonObject obj = arr.at(0).toObject();
 
     QString verFromGit = obj["tag_name"].toString();
-    verFromGit = verFromGit.replace(".", "");// split '.' from "vX.X.X"
-    verFromGit = verFromGit.right( verFromGit.length() - 1 );// split 'v' from "vXXX"
+    // split '.' from "vX.X.X"
+    verFromGit = verFromGit.replace(".", "");
+    // split 'v' from "vXXX"
+    verFromGit = verFromGit.right( verFromGit.length() - 1 );
 
     QString appVer = qApp->applicationVersion();
-    appVer = appVer.replace(".", "");// split '.' from "X.X.X"
-    appVer = appVer.left(3);// split Pre-Alpha/Alpha/Beta/etc
+    // split '.' from "X.X.X"
+    appVer = appVer.replace(".", "");
+    // split Pre-Alpha/Alpha/Beta/etc
+    appVer = appVer.left(3);
 
     if( verFromGit.toInt() > appVer.toInt() ){
         ui->Lbl_VVersion->setStyleSheet("color: #f00");
@@ -119,21 +119,22 @@ void MainWindow::replyVersionVerificationFinished(QNetworkReply* r){
 }
 
 void MainWindow::closeEvent(QCloseEvent *e){
+    mngrConnection.commit();
     mngrConnection.close();
 
-    DbaSettings settings;
+    QSettings settings;
     if( !_restoreDefSettings ){
-        settings.setValue(Configs::DialogsSettings::MainGeometry, this->saveGeometry() );
-        settings.setValue(Configs::DialogsSettings::MainState,    this->saveState() );
-        settings.setValue(Configs::General::ActiveSection, _activeTable);
+        settings.setValue(Options::Dialogs::MainWindow::Geometry, this->saveGeometry() );
+        settings.setValue(Options::Dialogs::MainWindow::State,    this->saveState() );
+        settings.setValue(Options::General::ActiveSection, _activeTable);
     }else{
-        settings.remove(Configs::DialogsSettings::MainGeometry);
-        settings.remove(Configs::DialogsSettings::MainState);
-        settings.remove(Configs::General::ActiveSection);
+        settings.remove(Options::Dialogs::MainWindow::Geometry);
+        settings.remove(Options::Dialogs::MainWindow::State);
+        settings.remove(Options::General::ActiveSection);
     }
 
-    settings.setValue(Configs::DialogsSettings::MainSplitterGeometry, ui->splitter->saveGeometry() );
-    settings.setValue(Configs::DialogsSettings::MainSplitterState, ui->splitter->saveState() );
+    settings.setValue(Options::Dialogs::MainWindow::Splitter::Geometry, ui->splitter->saveGeometry() );
+    settings.setValue(Options::Dialogs::MainWindow::Splitter::State, ui->splitter->saveState() );
     e->accept();
 }
 
@@ -145,8 +146,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_PButton_Options_clicked()
 {
     sections::section currentSection = static_cast<sections::section>(ui->CB_Section->currentData().toInt());
-    DbaSettings set;
-    set.setValue(Configs::General::ActiveSection, currentSection);
+    QSettings settings;
+    settings.setValue(Options::General::ActiveSection, currentSection);
 
     Settings formSettings(mngrConnection, this);
     formSettings.setModal(true);
@@ -316,25 +317,23 @@ void MainWindow::on_TreeView_List_activated(const QModelIndex&)
     }
 }
 
-void MainWindow::saveLookValueChanges(int value, int max, QString type)
+void MainWindow::saveLookValueChanges(int value, QString field)
 {
-    MngrQuerys::updateRecord(getActiveTable(), _currentItemId, type, QString::number(value) );
-    if( value == max && type == "vSeriesTV" )
-        MngrQuerys::updateRecord(getActiveTable(), _currentItemId, QString("isHaveLooked"), QString::number(true) );
+    MngrQuerys::updateRecord(getActiveTable(), _currentItemId, field, QString::number(value) );
 }
-
-void MainWindow::saveLookValueChanges(int value, int max, QString type, QString nextField)
+/*
+void MainWindow::saveLookValueChanges(int value, int max, QString field, QString nextField)
 {
-    MngrQuerys::updateRecord(getActiveTable(), _currentItemId, type, QString::number(value) );
+    MngrQuerys::updateRecord(getActiveTable(), _currentItemId, field, QString::number(value) );
     if( value == max && (nextField.isEmpty() == false) ){
         mngrConnection.transaction();
         MngrQuerys::updateRecord(getActiveTable(), _currentItemId, nextField, nextField+"+1" );
-        MngrQuerys::updateRecord(getActiveTable(), _currentItemId, type, "0" );
+        MngrQuerys::updateRecord(getActiveTable(), _currentItemId, field, "0" );
         mngrConnection.commit();
     }
     return;
 }
-
+*/
 void MainWindow::openFileClicked()
 {
     openFile( _currentItemDir );
@@ -369,15 +368,15 @@ sections::section MainWindow::getActiveTable()
 
 void MainWindow::reloadSectionsList()
 {
-    DbaSettings settings;
-    bool set_enableBtnAnime  = settings.value(Configs::ActiveSections::Anime,   true).toBool();
-    bool set_enableBtnManga  = settings.value(Configs::ActiveSections::Manga,  false).toBool();
-    bool set_enableBtnAMV    = settings.value(Configs::ActiveSections::Amv,    false).toBool();
-    bool set_enableBtnDorama = settings.value(Configs::ActiveSections::Dorama, false).toBool();
+    QSettings settings;
+    bool set_enableBtnAnime  = settings.value(Options::ActiveSections::Anime,   true).toBool();
+    bool set_enableBtnManga  = settings.value(Options::ActiveSections::Manga,  false).toBool();
+    bool set_enableBtnAMV    = settings.value(Options::ActiveSections::Amv,    false).toBool();
+    bool set_enableBtnDorama = settings.value(Options::ActiveSections::Dorama, false).toBool();
 
     sections::section set_select
             = static_cast<sections::section>(
-                settings.value(Configs::General::ActiveSection, sections::none).toInt() );
+                settings.value(Options::General::ActiveSection, sections::none).toInt() );
     ui->CB_Section->clear();
     ui->CB_Section->addItem( QIcon("://images/icon-section/Main.png"),
                              tr("Main"), sections::none );
@@ -460,6 +459,7 @@ void MainWindow::loadDoramaFilters(){
 
 void MainWindow::reloadFiltersList()
 {
+    ui->CB_Filter->blockSignals( true );
     ui->CB_Filter->clear();
     switch ( getActiveTable() ) {
     case sections::anime :
@@ -478,6 +478,7 @@ void MainWindow::reloadFiltersList()
     default:
         break;
     }
+    ui->CB_Filter->blockSignals( false );
 }
 
 void MainWindow::setActiveTable(sections::section table)
@@ -487,85 +488,65 @@ void MainWindow::setActiveTable(sections::section table)
 
 void MainWindow::selectAnimeData()
 {
-    QSqlQueryModel m1;
+    mngrConnection.commit();
+    mngrConnection.transaction();
 
-    m1.setQuery(
-                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
-                );
-    if( pbTV ){
-        delete pbTV;
-        pbTV = NULL;
-    }
-    if( pbOVA ){
-        delete pbOVA;
-        pbOVA = NULL;
-    }
-    if( pbONA ){
-        delete pbONA;
-        pbONA = NULL;
-    }
-    if( pbSpecial ){
-        delete pbSpecial;
-        pbSpecial = NULL;
-    }
-    if( pbMovie ){
-        delete pbMovie;
-        pbMovie = NULL;
-    }
+    QSqlRecord record = MngrQuerys::selectData(_activeTable, _currentItemId);
 
-    if( m1.record(0).value("SeriesTV").toInt() > 0 ){
-        pbTV = new LookProgressBar(this);
-        pbTV->setTargetFieldDB("vSeriesTV");
-        pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
-        pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
-        pbTV->setFormat("TV [%v/%m]");
+    deleteLookProgressBars();
+
+    if( record.value("SeriesTV").toInt() > 0 ){
+        const QString fieldName_ValueTv = Tables::Anime::Fields::vSeriesTV;
+        const QString fieldName_AllTv = Tables::Anime::Fields::SeriesTV;
+        pbTV = new LookProgressBar(0,
+                                   record.value(fieldName_ValueTv).toInt(),
+                                   record.value(fieldName_AllTv).toInt(),
+                                   "TV [%v/%m]", fieldName_ValueTv,
+                                   this);
+
         ui->HLay_WBRow0->addWidget( pbTV );
-        QObject::connect(pbTV, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbTV, &LookProgressBar::progressChanged,
+                         this, &MainWindow::saveLookValueChanges );
     }
-    if( m1.record(0).value("SeriesOVA").toInt() > 0 ){
-        pbOVA = new LookProgressBar(this);
-        pbOVA->setTargetFieldDB("vSeriesOVA");
-        pbOVA->setValue( m1.record(0).value("vSeriesOVA").toInt() );
-        pbOVA->setMaximum( m1.record(0).value("SeriesOVA").toInt() );
-        pbOVA->setFormat("OVA [%v/%m]");
+    if( record.value("SeriesOVA").toInt() > 0 ){
+        pbOVA = new LookProgressBar(0,
+                                    record.value("vSeriesOVA").toInt(),
+                                    record.value("SeriesOVA").toInt(),
+                                    "OVA [%v/%m]", "vSeriesOVA",
+                                    this);
         ui->HLay_WBRow1->addWidget(pbOVA);
-        QObject::connect(pbOVA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbOVA, &LookProgressBar::progressChanged,
+                         this,  &MainWindow::saveLookValueChanges );
     }
-    if( m1.record(0).value("SeriesONA").toInt() > 0 ){
-        pbONA = new LookProgressBar(this);
-        pbONA->setTargetFieldDB("vSeriesONA");
-        pbONA->setValue( m1.record(0).value("vSeriesONA").toInt() );
-        pbONA->setMaximum( m1.record(0).value("SeriesONA").toInt() );
-        pbONA->setFormat("ONA [%v/%m]");
+    if( record.value("SeriesONA").toInt() > 0 ){
+        pbONA = new LookProgressBar(0,
+                                    record.value("vSeriesONA").toInt(),
+                                    record.value("SeriesONA").toInt(),
+                                    "ONA [%v/%m]", "vSeriesONA",
+                                    this);
         ui->HLay_WBRow1->addWidget( pbONA );
-        QObject::connect(pbONA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbONA, &LookProgressBar::progressChanged,
+                         this,  &MainWindow::saveLookValueChanges );
     }
-    if( m1.record(0).value("SeriesSpecial").toInt() > 0 ){
-        pbSpecial = new LookProgressBar(this);
-        pbSpecial->setTargetFieldDB("vSeriesSpecial");
-        pbSpecial->setValue( m1.record(0).value("vSeriesSpecial").toInt() );
-        pbSpecial->setMaximum( m1.record(0).value("SeriesSpecial").toInt() );
-        pbSpecial->setFormat("Special [%v/%m]");
+    if( record.value("SeriesSpecial").toInt() > 0 ){
+        pbSpecial = new LookProgressBar(0,
+                                        record.value("vSeriesSpecial").toInt(),
+                                        record.value("SeriesSpecial").toInt(),
+                                        "Special [%v/%m]", "vSeriesSpecial",
+                                        this);
         ui->HLay_WBRow2->addWidget( pbSpecial );
-        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbSpecial, &LookProgressBar::progressChanged,
+                         this,      &MainWindow::saveLookValueChanges );
     }
-    if( m1.record(0).value("SeriesMovie").toInt() > 0 ){
-        pbMovie = new LookProgressBar(this);
-        pbMovie->setTargetFieldDB("vSeriesMovie");
-        pbMovie->setValue( m1.record(0).value("vSeriesMovie").toInt() );
-        pbMovie->setMaximum( m1.record(0).value("SeriesMovie").toInt() );
-        pbMovie->setFormat("Movie [%v/%m]");
+    if( record.value("SeriesMovie").toInt() > 0 ){
+        pbMovie = new LookProgressBar(0,
+                                      record.value("vSeriesMovie").toInt(),
+                                      record.value("SeriesMovie").toInt(),
+                                      "Movie [%v/%m]", "vSeriesMovie",
+                                      this);
         ui->HLay_WBRow2->addWidget( pbMovie );
-        QObject::connect(pbMovie, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
-    }
-
-    if( _ScrArea_propertyes ){
-        _ScrArea_propertyes->deleteLater();
-        _ScrArea_propertyes = NULL;
-    }
-    if( _btnPlay ){
-        _btnPlay->deleteLater();
-        _btnPlay = NULL;
+        QObject::connect(pbMovie, &LookProgressBar::progressChanged,
+                         this,    &MainWindow::saveLookValueChanges );
     }
 
     _ScrArea_propertyes = new QScrollArea;
@@ -578,55 +559,53 @@ void MainWindow::selectAnimeData()
     _ScrArea_propertyes->setLayout(FLay_propertyes);
     ui->VLay_AnimeDescrFull->addWidget(_ScrArea_propertyes);
 
-    //pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
-    //pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
-                + m1.record(0).value("URL").toString().replace("%v", m1.record(0).value("vSeriesTV").toString()).replace("%m", m1.record(0).value("SeriesTV").toString())
+                + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", QString::number(record.value("vSeriesTV").toInt()+1)).replace("%m", record.value("SeriesTV").toString())
                 + "'>"
-                + m1.record(0).value("Title").toString()
+                + record.value("Title").toString()
                 + "</a>", _ScrArea_propertyes);
     lblTitle->setWordWrap( true );
     lblTitle->setOpenExternalLinks( true );
     FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
-    if( !m1.record(0).value("OrigTitle").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("OrigTitle").toString(), _ScrArea_propertyes);
+    if( record.value("OrigTitle").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("OrigTitle").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Alt title:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Director").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Director").toString(), _ScrArea_propertyes);
+    if( record.value("Director").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Director").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Director:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Year").toInt() != 0 ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
+    if( record.value("Year").toInt() != 0 ){
+        QLabel *lblValue = new QLabel(record.value("Year").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Season").toInt() > 0 ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Season").toString(), _ScrArea_propertyes);
+    if( record.value("Season").toInt() > 0 ){
+        QLabel *lblValue = new QLabel(record.value("Season").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Season:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("PostScoring").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("PostScoring").toString(), _ScrArea_propertyes);
+    if( record.value("PostScoring").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("PostScoring").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Postscoring:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Studios").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Studios").toString(), _ScrArea_propertyes);
+    if( record.value("Studios").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Studios").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Studio:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Tags").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Tags").toString(), _ScrArea_propertyes);
+    if( record.value("Tags").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Tags").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Ganres:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Description").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Description").toString(), _ScrArea_propertyes);
+    if( record.value("Description").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Description").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Description:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
         lblValue->setOpenExternalLinks( true );
@@ -634,19 +613,19 @@ void MainWindow::selectAnimeData()
         FLay_propertyes->addRow(lblValue);
     }
 
-    QPixmap pic( DefinesPath::animeCovers() + m1.record(0).value("ImagePath").toString() );
+    QPixmap pic( DefinesPath::animeCovers() + record.value("ImagePath").toString() );
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }
     ui->Lbl_ImageCover->setPixmap( pic );
 
-    _currentItemDir = m1.record(0).value("Dir").toString();
+    _currentItemDir = record.value("Dir").toString();
 
     if( _currentItemDir.isEmpty() )
         ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
     else
         ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
-    QDirModel *dirModel = new QDirModel;
+    QDirModel *dirModel = new QDirModel( _ScrArea_propertyes );
 //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
@@ -659,70 +638,44 @@ void MainWindow::selectAnimeData()
 
 void MainWindow::selectMangaData()
 {
-    QSqlQueryModel m1;
+    mngrConnection.commit();
+    mngrConnection.transaction();
 
-    m1.setQuery(
-                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
-                );
-    if( pbTV ){
-        pbTV->deleteLater();
-        pbTV=NULL;
-    }
-    if( pbOVA ){
-        pbOVA->deleteLater();
-        pbOVA=NULL;
-    }
-    if( pbONA ){
-        pbONA->deleteLater();
-        pbONA=NULL;
-    }
-    if( pbSpecial ){
-        pbSpecial->deleteLater();
-        pbSpecial=NULL;
-    }
-    if( pbMovie ){
-        pbMovie->deleteLater();
-        pbMovie=NULL;
-    }
-    if( _btnPlay ){
-        _btnPlay->deleteLater();
-        _btnPlay=NULL;
-    }
+    QSqlRecord record = MngrQuerys::selectData(_activeTable, _currentItemId);
 
-    if( m1.record(0).value("Vol").toInt() > 0 ){
-        pbTV = new LookProgressBar(this);
-        pbTV->setTargetFieldDB("vVol");
-        pbTV->setValue( m1.record(0).value("vVol").toInt() );
-        pbTV->setMaximum( m1.record(0).value("Vol").toInt() );
-        pbTV->setFormat("Volume [%v/%m]");
+    deleteLookProgressBars();
+
+    if( record.value( Tables::Manga::Fields::Vol ).toInt() > 0 ){
+        pbTV = new LookProgressBar(0,
+                                   record.value( Tables::Manga::Fields::vVol ).toInt(),
+                                   record.value( Tables::Manga::Fields::Vol ).toInt(),
+                                   "Volume [%v/%m]", Tables::Manga::Fields::vVol,
+                                   this);
         ui->HLay_WBRow0->addWidget( pbTV );
-        QObject::connect(pbTV, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbTV, &LookProgressBar::progressChanged,
+                         this, &MainWindow::saveLookValueChanges );
     }
-    if( m1.record(0).value("Ch").toInt() > 0 ){
-        pbOVA = new LookProgressBar(this);
-        pbOVA->setTargetFieldDB("vCh");
-        pbOVA->setTargetOverflowFieldDB("vVol");
-        pbOVA->setValue( m1.record(0).value("vCh").toInt() );
-        pbOVA->setMaximum( m1.record(0).value("Ch").toInt() );
-        pbOVA->setFormat("Charapter [%v/%m]");
+    if( record.value( Tables::Manga::Fields::Ch ).toInt() > 0 ){
+        pbOVA = new LookProgressBar(0,
+                                    record.value( Tables::Manga::Fields::vCh ).toInt(),
+                                    record.value( Tables::Manga::Fields::Ch ).toInt(),
+                                    "Charapter [%v/%m]",  Tables::Manga::Fields::vCh ,
+                                    this);
         ui->HLay_WBRow1->addWidget(pbOVA);
-        QObject::connect(pbOVA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbOVA, &LookProgressBar::progressChanged,
+                         this,  &MainWindow::saveLookValueChanges );
     }
-    if( m1.record(0).value("Pages").toInt() > 0 ){
-        pbONA = new LookProgressBar(this);
-        pbONA->setTargetFieldDB("vPages");
-        pbONA->setTargetOverflowFieldDB("vCh");
-        pbONA->setValue( m1.record(0).value("vPages").toInt() );
-        pbONA->setMaximum( m1.record(0).value("Pages").toInt() );
-        pbONA->setFormat("Pages [%v/%m]");
+    if( record.value( Tables::Manga::Fields::Pages ).toInt() > 0 ){
+        pbONA = new LookProgressBar(0,
+                                    record.value( Tables::Manga::Fields::vPages ).toInt(),
+                                    record.value( Tables::Manga::Fields::Pages ).toInt(),
+                                    "Pages [%v/%m]", Tables::Manga::Fields::vPages,
+                                    this);
         ui->HLay_WBRow1->addWidget( pbONA );
-        QObject::connect(pbONA, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbONA, &LookProgressBar::progressChanged,
+                         this,  &MainWindow::saveLookValueChanges );
     }
 
-    if( _ScrArea_propertyes ){
-        _ScrArea_propertyes->deleteLater();
-        _ScrArea_propertyes = NULL;
-    }
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ScrArea_propertyes->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
@@ -735,40 +688,40 @@ void MainWindow::selectMangaData()
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
-                + m1.record(0).value("URL").toString().replace("%v", m1.record(0).value("vVol").toString()).replace("%m", m1.record(0).value("Vol").toString())
+                + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", record.value("vVol").toString()).replace("%m", record.value("Vol").toString())
                 + "'>"
-                + m1.record(0).value("Title").toString()
+                + record.value("Title").toString()
                 + "</a>", _ScrArea_propertyes);
     lblTitle->setWordWrap( true );
     lblTitle->setOpenExternalLinks( true );
     FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
-    if( !m1.record(0).value("AltTitle").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("AltTitle").toString(), _ScrArea_propertyes);
+    if( record.value("AltTitle").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("AltTitle").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Alt title:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Director").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Director").toString(), _ScrArea_propertyes);
+    if( record.value("Director").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Director").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Director:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Translation").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Translation").toString(), _ScrArea_propertyes);
+    if( record.value("Translation").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Translation").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Translator:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Year").toInt() != 0 ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
+    if( record.value("Year").toInt() != 0 ){
+        QLabel *lblValue = new QLabel(record.value("Year").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Tags").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Tags").toString(), _ScrArea_propertyes);
+    if( record.value("Tags").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Tags").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Ganres:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Description").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Description").toString(), _ScrArea_propertyes);
+    if( record.value("Description").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Description").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Description:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
         lblValue->setOpenExternalLinks( true );
@@ -776,19 +729,19 @@ void MainWindow::selectMangaData()
         FLay_propertyes->addRow(lblValue);
     }
 
-    QPixmap pic( DefinesPath::mangaCovers() + m1.record(0).value("ImagePath").toString() );
+    QPixmap pic( DefinesPath::mangaCovers() + record.value("ImagePath").toString() );
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }
     ui->Lbl_ImageCover->setPixmap( pic );
 
-    _currentItemDir = m1.record(0).value("Dir").toString();
+    _currentItemDir = record.value("Dir").toString();
 
     if( _currentItemDir.isEmpty() )
         ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
     else
         ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
-    QDirModel *dirModel = new QDirModel;
+    QDirModel *dirModel = new QDirModel(_ScrArea_propertyes);
 //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
@@ -801,42 +754,14 @@ void MainWindow::selectMangaData()
 
 void MainWindow::selectAmvData()
 {
-    QSqlQueryModel m1;
+    mngrConnection.commit();
+    mngrConnection.transaction();
 
-    m1.setQuery(
-                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
-                );
+    QSqlRecord record = MngrQuerys::selectData(_activeTable, _currentItemId);
 
-    if( pbTV ){
-        delete pbTV;
-        pbTV = NULL;
-    }
-    if( pbOVA ){
-        delete pbOVA;
-        pbOVA = NULL;
-    }
-    if( pbONA ){
-        delete pbONA;
-        pbONA = NULL;
-    }
-    if( pbSpecial ){
-        delete pbSpecial;
-        pbSpecial = NULL;
-    }
-    if( pbMovie ){
-        delete pbMovie;
-        pbMovie = NULL;
-    }
+    deleteLookProgressBars();
 
-    if( _ScrArea_propertyes ){
-        _ScrArea_propertyes->deleteLater();
-        _ScrArea_propertyes = NULL;
-    }
     _ScrArea_propertyes = new QScrollArea;
-    #ifdef QT_DEBUG
-        _ScrArea_propertyes->setStyleSheet("border:1px solid black"); // #Bug : Убрать
-    #endif
-
     QFormLayout *FLay_propertyes = new QFormLayout(_ScrArea_propertyes);
     _ScrArea_propertyes->setLayout(FLay_propertyes);
     _ScrArea_propertyes->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
@@ -845,51 +770,51 @@ void MainWindow::selectAmvData()
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
-                + m1.record(0).value("URL").toString()
+                + record.value("URL").toString()
                 + "'>"
-                + m1.record(0).value("Title").toString()
+                + record.value("Title").toString()
                 + "</a>", _ScrArea_propertyes);
     lblTitle->setWordWrap( true );
     lblTitle->setOpenExternalLinks( true );
     FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
-    if( !m1.record(0).value("Author").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Author").toString(), _ScrArea_propertyes);
+    if( record.value("Author").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Author").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Author:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Сontestant").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Сontestant").toString(), _ScrArea_propertyes);
+    if( record.value("Сontestant").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Сontestant").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Сontestant:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Year").toInt() != 0 ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
+    if( record.value("Year").toInt() != 0 ){
+        QLabel *lblValue = new QLabel(record.value("Year").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Tags").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Tags").toString(), _ScrArea_propertyes);
+    if( record.value("Tags").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Tags").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Ganres:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("AuthorComment").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("AuthorComment").toString(), _ScrArea_propertyes);
+    if( record.value("AuthorComment").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("AuthorComment").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Author comment:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
         lblValue->setOpenExternalLinks( true );
         FLay_propertyes->addRow(lblTitle);
         FLay_propertyes->addRow(lblValue);
     }
-    if( !m1.record(0).value("ContainingMusic").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("ContainingMusic").toString(), _ScrArea_propertyes);
+    if( record.value("ContainingMusic").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("ContainingMusic").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Containing music:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
         lblValue->setOpenExternalLinks( true );
         FLay_propertyes->addRow(lblTitle);
         FLay_propertyes->addRow(lblValue);
     }
-    if( !m1.record(0).value("ContainingAnime").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("ContainingAnime").toString(), _ScrArea_propertyes);
+    if( record.value("ContainingAnime").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("ContainingAnime").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Containing anime:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
         lblValue->setOpenExternalLinks( true );
@@ -897,91 +822,65 @@ void MainWindow::selectAmvData()
         FLay_propertyes->addRow(lblValue);
     }
 
-    QPixmap pic( DefinesPath::amvCovers() + m1.record(0).value("ImagePath").toString());
+    QPixmap pic( DefinesPath::amvCovers() + record.value("ImagePath").toString());
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }
     ui->Lbl_ImageCover->setPixmap( pic );
 
-    _currentItemDir = m1.record(0).value("Dir").toString();
+    _currentItemDir = record.value("Dir").toString();
     ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
 
-    if( _btnPlay ){
-        _btnPlay->deleteLater();
-        _btnPlay = NULL;
-    }
-    if( !_currentItemDir.isEmpty() ){
+    if( ! _currentItemDir.isEmpty() ){
         _btnPlay = new QPushButton( QIcon("://images/play.png"), tr("Play") );
+
         ui->VLay_BtnPlay->addWidget( _btnPlay );
-        QObject::connect(_btnPlay, SIGNAL(clicked()),
-                         this,SLOT(openFileClicked()) );
+        ui->VLay_BtnPlay->setContentsMargins(6, 0, 0, 0);
+        QObject::connect(_btnPlay, &QAbstractButton::clicked,
+                         this,     &MainWindow::openFileClicked );
     }
 }
 
 void MainWindow::selectDoramaData()
 {
-    QSqlQueryModel m1;
+    mngrConnection.commit();
+    mngrConnection.transaction();
 
-    m1.setQuery(
-                QString("SELECT * FROM '%1' WHERE id='%2'").arg( getActiveTableName() ).arg( _currentItemId )
-                );
-    if( pbTV ){
-        delete pbTV;
-        pbTV = NULL;
-    }
-    if( pbOVA ){
-        delete pbOVA;
-        pbOVA = NULL;
-    }
-    if( pbONA ){
-        delete pbONA;
-        pbONA = NULL;
-    }
-    if( pbSpecial ){
-        delete pbSpecial;
-        pbSpecial = NULL;
-    }
-    if( pbMovie ){
-        delete pbMovie;
-        pbMovie = NULL;
-    }
-    if( _btnPlay ){
-        _btnPlay->deleteLater();
-        _btnPlay = NULL;
-    }
+    QSqlRecord record = MngrQuerys::selectData(_activeTable, _currentItemId);
 
-    if( m1.record(0).value("SeriesTV").toInt() > 0 ){
-        pbTV = new LookProgressBar(this);
-        pbTV->setTargetFieldDB("vSeriesTV");
-        pbTV->setValue( m1.record(0).value("vSeriesTV").toInt() );
-        pbTV->setMaximum( m1.record(0).value("SeriesTV").toInt() );
-        pbTV->setFormat("TV [%v/%m]");
+    deleteLookProgressBars();
+
+    if( record.value("SeriesTV").toInt() > 0 ){
+        pbTV = new LookProgressBar(0,
+                                   record.value("vSeriesTV").toInt(),
+                                   record.value("SeriesTV").toInt(),
+                                   "TV [%v/%m]", "vSeriesTV",
+                                   this);
         ui->HLay_WBRow0->addWidget( pbTV );
-        QObject::connect(pbTV, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbTV, &LookProgressBar::progressChanged,
+                         this, &MainWindow::saveLookValueChanges );
     }
-    if( m1.record(0).value("SeriesSpecial").toInt() > 0 ){
-        pbSpecial = new LookProgressBar(this);
-        pbSpecial->setTargetFieldDB("vSeriesSpecial");
-        pbSpecial->setValue( m1.record(0).value("vSeriesSpecial").toInt() );
-        pbSpecial->setMaximum( m1.record(0).value("SeriesSpecial").toInt() );
-        pbSpecial->setFormat("Special [%v/%m]");
+    if( record.value("SeriesSpecial").toInt() > 0 ){
+        pbSpecial = new LookProgressBar(0,
+                                        record.value("vSeriesSpecial").toInt(),
+                                        record.value("SeriesSpecial").toInt(),
+                                        "Special [%v/%m]", "vSeriesSpecial",
+                                        this);
         ui->HLay_WBRow2->addWidget( pbSpecial );
-        QObject::connect(pbSpecial, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbSpecial, &LookProgressBar::progressChanged,
+                         this,      &MainWindow::saveLookValueChanges );
     }
-    if( m1.record(0).value("SeriesMovie").toInt() > 0 ){
-        pbMovie = new LookProgressBar(this);
-        pbMovie->setTargetFieldDB("vSeriesMovie");
-        pbMovie->setValue( m1.record(0).value("vSeriesMovie").toInt() );
-        pbMovie->setMaximum( m1.record(0).value("SeriesMovie").toInt() );
-        pbMovie->setFormat("Movie [%v/%m]");
+    if( record.value("SeriesMovie").toInt() > 0 ){
+        pbMovie = new LookProgressBar(0,
+                                      record.value("vSeriesMovie").toInt(),
+                                      record.value("SeriesMovie").toInt(),
+                                      "Movie [%v/%m]", "vSeriesMovie",
+                                      this);
         ui->HLay_WBRow2->addWidget( pbMovie );
-        QObject::connect(pbMovie, SIGNAL(progressChanged(int,int,QString)), this, SLOT(saveLookValueChanges(int,int,QString)) );
+        QObject::connect(pbMovie, &LookProgressBar::progressChanged,
+                         this,    &MainWindow::saveLookValueChanges );
     }
 
-    if( _ScrArea_propertyes ){
-        _ScrArea_propertyes->deleteLater();
-        _ScrArea_propertyes = NULL;
-    }
     _ScrArea_propertyes = new QScrollArea;
     _ScrArea_propertyes->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _ScrArea_propertyes->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
@@ -995,52 +894,52 @@ void MainWindow::selectDoramaData()
     // Title
     QLabel *lblTitle = new QLabel(
                 "<a href='"
-                + m1.record(0).value("URL").toString().replace("%v", m1.record(0).value("vSeriesTV").toString()).replace("%m", m1.record(0).value("SeriesTV").toString())
+                + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", record.value("vSeriesTV").toString()).replace("%m", record.value("SeriesTV").toString())
                 + "'>"
-                + m1.record(0).value("Title").toString()
+                + record.value("Title").toString()
                 + "</a>", _ScrArea_propertyes);
     lblTitle->setWordWrap( true );
     lblTitle->setOpenExternalLinks( true );
     FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
-    if( !m1.record(0).value("OrigTitle").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("OrigTitle").toString(), _ScrArea_propertyes);
+    if( record.value("OrigTitle").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("OrigTitle").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Alt title:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Director").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Director").toString(), _ScrArea_propertyes);
+    if( record.value("Director").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Director").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Director:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Year").toInt() != 0 ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Year").toString(), _ScrArea_propertyes);
+    if( record.value("Year").toInt() != 0 ){
+        QLabel *lblValue = new QLabel(record.value("Year").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Year:") + "</b>", lblValue );
     }
-    if( m1.record(0).value("Season").toInt() > 0 ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Season").toString(), _ScrArea_propertyes);
+    if( record.value("Season").toInt() > 0 ){
+        QLabel *lblValue = new QLabel(record.value("Season").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Season:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("PostScoring").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("PostScoring").toString(), _ScrArea_propertyes);
+    if( record.value("PostScoring").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("PostScoring").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Postscoring:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Tags").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Tags").toString(), _ScrArea_propertyes);
+    if( record.value("Tags").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Tags").toString(), _ScrArea_propertyes);
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow( "<b>" + tr("Ganres:") + "</b>", lblValue );
     }
-    if( !m1.record(0).value("Actors").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Actors").toString(), _ScrArea_propertyes);
+    if( record.value("Actors").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Actors").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("In roles:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
         FLay_propertyes->addRow(lblTitle);
         FLay_propertyes->addRow(lblValue);
     }
-    if( !m1.record(0).value("Description").toString().isEmpty() ){
-        QLabel *lblValue = new QLabel(m1.record(0).value("Description").toString(), _ScrArea_propertyes);
+    if( record.value("Description").toString().isEmpty() == false ){
+        QLabel *lblValue = new QLabel(record.value("Description").toString(), _ScrArea_propertyes);
         QLabel *lblTitle = new QLabel( "<b>" + tr("Description:") + "</b>", _ScrArea_propertyes );
         lblValue->setWordWrap( true );
         lblValue->setOpenExternalLinks( true );
@@ -1048,19 +947,19 @@ void MainWindow::selectDoramaData()
         FLay_propertyes->addRow(lblValue);
     }
 
-    QPixmap pic( DefinesPath::doramaCovers() + m1.record(0).value("ImagePath").toString() );
+    QPixmap pic( DefinesPath::doramaCovers() + record.value("ImagePath").toString() );
     if( pic.isNull() ){
         pic.load( "://images/NoImage.png" );
     }
     ui->Lbl_ImageCover->setPixmap( pic );
 
-    _currentItemDir = m1.record(0).value("Dir").toString();
+    _currentItemDir = record.value("Dir").toString();
 
     if( _currentItemDir.isEmpty() )
         ui->StackWgt_CoverOrDir->setDisabledSwitch( false );
     else
         ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
-    QDirModel *dirModel = new QDirModel;
+    QDirModel *dirModel = new QDirModel(_ScrArea_propertyes);
 //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
@@ -1069,6 +968,38 @@ void MainWindow::selectDoramaData()
     ui->TreeView_Dir->setColumnHidden(1, true);
     ui->TreeView_Dir->setColumnHidden(2, true);
     ui->TreeView_Dir->setColumnHidden(3, true);
+}
+
+void MainWindow::deleteLookProgressBars()
+{
+    if( pbTV ){
+        delete pbTV;
+        pbTV = nullptr;
+    }
+    if( pbOVA ){
+        delete pbOVA;
+        pbOVA = nullptr;
+    }
+    if( pbONA ){
+        delete pbONA;
+        pbONA = nullptr;
+    }
+    if( pbSpecial ){
+        delete pbSpecial;
+        pbSpecial = nullptr;
+    }
+    if( pbMovie ){
+        delete pbMovie;
+        pbMovie = nullptr;
+    }
+    if( _btnPlay ){
+        _btnPlay->deleteLater();
+        _btnPlay = nullptr;
+    }
+    if( _ScrArea_propertyes ){
+        _ScrArea_propertyes->deleteLater();
+        _ScrArea_propertyes = nullptr;
+    }
 }
 
 void MainWindow::on_TreeView_List_clicked(const QModelIndex &index)
@@ -1085,12 +1016,25 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
     ui->TreeView_List->hideColumn(0);
+//    Show column 'Year'
+//    if( _sort != Sort::year ){
+//        ui->TreeView_List->hideColumn(2);
+//    }else{
+//        ui->TreeView_List->setColumnWidth(2, 50);
+//        ui->TreeView_List->showColumn(2);
+//    }
+    bool enableButtons(true);
     if(sec == sections::none){
+        enableButtons = false;
+        ui->lineEdit_Search->clear();
         ui->stackedWidget->setCurrentIndex(0);
-        ui->CB_Filter->setHidden( true );
-    }else{
-        ui->CB_Filter->setVisible( true );
     }
+    ui->CB_Filter->setVisible( enableButtons );
+    ui->TButton_Add->setEnabled( enableButtons );
+    ui->TButton_Edit->setEnabled( enableButtons );
+    ui->TButton_Delete->setEnabled( enableButtons );
+    ui->lineEdit_Search->setEnabled( enableButtons );
+    ui->TreeView_List->setEnabled( enableButtons );
 }
 
 void MainWindow::on_CB_Filter_currentIndexChanged(int = 0)
@@ -1106,7 +1050,6 @@ void MainWindow::on_TreeView_Dir_activated(const QModelIndex &index)
                                                     + QDir::separator() + index.data().toString()
                                                     )  );
 }
-
 
 void MainWindow::on_PBtn_url_vk_clicked()
 {

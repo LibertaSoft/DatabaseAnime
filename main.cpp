@@ -5,9 +5,10 @@
 
 #include <QDebug>
 
+/// Output to log-file
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    if( type == QtDebugMsg){
+   if( type == QtDebugMsg){
 //        qDebug() << msg; // out to console
         return;
     }
@@ -37,6 +38,18 @@ int main(int argc, char *argv[])
         qInstallMessageHandler(myMessageOutput);
     #endif
 
+//    QSettings settings;
+
+    QApplication app(argc, argv);
+    app.setOrganizationName("LibertaSoft");
+    app.setOrganizationDomain("https://github.com/LibertaSoft");
+    app.setApplicationName("DatabaseAnime");
+    app.setApplicationVersion("1.2.1 Pre-Alpha");
+    app.setApplicationDisplayName( QObject::tr("Database Anime") );
+    app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
+
+    {
+
         qApp->setStyle(QStyleFactory::create("Fusion"));
 
         QPalette darkPalette;
@@ -59,14 +72,7 @@ int main(int argc, char *argv[])
 
         qApp->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
 
-
-    QApplication app(argc, argv);
-    app.setOrganizationName("LibertaSoft");
-    app.setOrganizationDomain("https://github.com/LibertaSoft");
-    app.setApplicationName("DatabaseAnime");
-    app.setApplicationVersion("1.2.1 Pre-Alpha");
-    app.setApplicationDisplayName( QObject::tr("Database Anime") );
-    app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
+    }
 
     MainWindow wnd;
     wnd.show();

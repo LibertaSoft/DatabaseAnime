@@ -24,10 +24,10 @@ ImageCover::ImageCover(QWidget *parent) :
     cMenu.addAction(actionChooseImage);
     cMenu.addAction(actionSetNoImage);
 
-    QObject::connect(actionChooseImage, SIGNAL(triggered()),
-                    this, SLOT(chooseImage())  );
-    QObject::connect(actionSetNoImage, SIGNAL(triggered()),
-                    this, SLOT(noImage())  );
+    QObject::connect(actionChooseImage, &QAction::triggered,
+                    this, &ImageCover::chooseImage  );
+    QObject::connect(actionSetNoImage, &QAction::triggered,
+                    this, &ImageCover::noImage  );
 
     noImage();
 }

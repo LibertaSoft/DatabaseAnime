@@ -9,34 +9,34 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     ui->ProgressBar_Export->setVisible(false);
     ui->ProgressBar_Import->setVisible(false);
 
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::ConfigGeometry).toByteArray() );
-    ui->splitter->restoreGeometry( settings.value(Configs::DialogsSettings::ConfigSplitterGeometry).toByteArray() );
-    ui->splitter->restoreState( settings.value(Configs::DialogsSettings::ConfigSplitterState).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Config::Geometry).toByteArray() );
+    ui->splitter->restoreGeometry( settings.value(Options::Dialogs::Config::Splitter::Geometry).toByteArray() );
+    ui->splitter->restoreState( settings.value(Options::Dialogs::Config::Splitter::State).toByteArray() );
     ui->LineEdit_Export_FilePath->setText( DefinesPath::home() );
     ui->LineEdit_Import_FilePath->setText( DefinesPath::home() );
 
-    bool b1 = settings.value( Configs::ActiveSections::Anime,   true ).toBool();
-    bool b2 = settings.value( Configs::ActiveSections::Manga,  false ).toBool();
-    bool b3 = settings.value( Configs::ActiveSections::Amv,    false ).toBool();
-    bool b4 = settings.value( Configs::ActiveSections::Dorama, false ).toBool();
+    bool b1 = settings.value( Options::ActiveSections::Anime,   true ).toBool();
+    bool b2 = settings.value( Options::ActiveSections::Manga,  false ).toBool();
+    bool b3 = settings.value( Options::ActiveSections::Amv,    false ).toBool();
+    bool b4 = settings.value( Options::ActiveSections::Dorama, false ).toBool();
 
 
-    bool a1 = settings.value( Configs::OptionalFields::Anime::AltTitle,    false ).toBool();
-    bool a2 = settings.value( Configs::OptionalFields::Anime::Director,    false ).toBool();
-    bool a3 = settings.value( Configs::OptionalFields::Anime::Postscoring, false ).toBool();
+    bool a1 = settings.value( Options::OptionalFields::Anime::AltTitle,    false ).toBool();
+    bool a2 = settings.value( Options::OptionalFields::Anime::Director,    false ).toBool();
+    bool a3 = settings.value( Options::OptionalFields::Anime::Postscoring, false ).toBool();
 
-    bool m1 = settings.value( Configs::OptionalFields::Manga::AltTitle,    false ).toBool();
-    bool m2 = settings.value( Configs::OptionalFields::Manga::Author,      false ).toBool();
-    bool m3 = settings.value( Configs::OptionalFields::Manga::Translation, false ).toBool();
+    bool m1 = settings.value( Options::OptionalFields::Manga::AltTitle,    false ).toBool();
+    bool m2 = settings.value( Options::OptionalFields::Manga::Author,      false ).toBool();
+    bool m3 = settings.value( Options::OptionalFields::Manga::Translator, false ).toBool();
 
-    bool d1 = settings.value( Configs::OptionalFields::Dorama::AltTitle, false ).toBool();
-    bool d2 = settings.value( Configs::OptionalFields::Dorama::Director, false ).toBool();
+    bool d1 = settings.value( Options::OptionalFields::Dorama::AltTitle, false ).toBool();
+    bool d2 = settings.value( Options::OptionalFields::Dorama::Director, false ).toBool();
 
-    bool checkUpdates      = settings.value(Configs::Network::CheckUpdates,          true).toBool();
-    bool searchOnShikimori = settings.value(Configs::Network::AutoSearchOnShikimori, true).toBool();
+    bool checkUpdates      = settings.value(Options::Network::CheckUpdates,          true).toBool();
+    bool searchOnShikimori = settings.value(Options::Network::AutoSearchOnShikimori, true).toBool();
 
-    bool SwitchCoverOrDir = settings.value( Configs::General::SwitchCoverOrDir, true ).toBool();
+    bool SwitchCoverOrDir = settings.value( Options::General::SwitchCoverOrDir, true ).toBool();
 
     ui->ChBox_AS_Anime->setChecked( b1 );
     ui->ChBox_AS_Manga->setChecked( b2 );
@@ -58,7 +58,7 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     ui->ChBox_SwitchCoverOrDir->setChecked( SwitchCoverOrDir );
     ui->ChBox_SearchOnShikimori->setChecked( searchOnShikimori );
 
-    QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( Configs::General::Language, QLocale::English ).toInt());
+    QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( Options::General::Language, QLocale::English ).toInt());
 
     ui->ComboBox_Language->addItem( tr("<System>"), 0 );
 
@@ -77,7 +77,7 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
         ui->ComboBox_ItemList_Sorting->addItem(tr("DESC"), Sort::desc);
         ui->ComboBox_ItemList_Sorting->addItem(tr("Year"), Sort::year);
 
-        Sort::sort sort = static_cast<Sort::sort>( settings.value( Configs::General::Sorting, Sort::asc ).toInt() );
+        Sort::sort sort = static_cast<Sort::sort>( settings.value( Options::General::Sorting, Sort::asc ).toInt() );
         ui->ComboBox_ItemList_Sorting->setCurrentIndex( sort );
     }
     // Work dir
@@ -87,7 +87,7 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     {   // Displayed field
         Tables::UniformField::field displayedField =
                 static_cast<Tables::UniformField::field>(
-                    settings.value( Configs::General::DisplayedField, Tables::UniformField::Title ).toInt() );
+                    settings.value( Options::General::DisplayedField, Tables::UniformField::Title ).toInt() );
         ui->ComboBox_ItemList_DisplayedField->addItem(tr("Title"), Tables::UniformField::Title);
         ui->ComboBox_ItemList_DisplayedField->addItem(tr("Alternative title"), Tables::UniformField::AltTitle);
         if( displayedField == Tables::UniformField::Title )
@@ -99,11 +99,11 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
 
 Settings::~Settings()
 {
-    DbaSettings settings;
-    settings.setValue(Configs::DialogsSettings::ConfigGeometry, this->saveGeometry() );
+    QSettings settings;
+    settings.setValue(Options::Dialogs::Config::Geometry, this->saveGeometry() );
 
-    settings.setValue(Configs::DialogsSettings::ConfigSplitterGeometry, ui->splitter->saveGeometry() );
-    settings.setValue(Configs::DialogsSettings::ConfigSplitterState,    ui->splitter->saveState() );
+    settings.setValue(Options::Dialogs::Config::Splitter::Geometry, ui->splitter->saveGeometry() );
+    settings.setValue(Options::Dialogs::Config::Splitter::State,    ui->splitter->saveState() );
     delete ui;
 }
 
@@ -154,52 +154,52 @@ void Settings::on_BtnBox_clicked(QAbstractButton *button)
 
 void Settings::on_BtnBox_accepted()
 {
-    DbaSettings settings;
+    QSettings settings;
     {
-        using namespace Configs::ActiveSections;
+        using namespace Options::ActiveSections;
         settings.setValue( Anime,  ui->ChBox_AS_Anime->isChecked() );
         settings.setValue( Manga,  ui->ChBox_AS_Manga->isChecked() );
         settings.setValue( Amv,    ui->ChBox_AS_Amv->isChecked() );
         settings.setValue( Dorama, ui->ChBox_AS_Dorama->isChecked() );
     }
     {
-        using namespace Configs::OptionalFields::Anime;
+        using namespace Options::OptionalFields::Anime;
         settings.setValue( AltTitle,   ui->ChBox_OptField_Anime_AltTitle->isChecked() );
         settings.setValue( Director,    ui->ChBox_OptField_Anime_Director->isChecked() );
         settings.setValue( Postscoring, ui->ChBox_OptField_Anime_Postscoring->isChecked() );
     }
     {
-        using namespace Configs::OptionalFields::Manga;
+        using namespace Options::OptionalFields::Manga;
         settings.setValue( AltTitle,    ui->ChBox_OptField_Manga_AltTitle->isChecked() );
         settings.setValue( Author,      ui->ChBox_OptField_Manga_Author->isChecked() );
-        settings.setValue( Translation, ui->ChBox_OptField_Manga_Translation->isChecked() );
+        settings.setValue( Translator, ui->ChBox_OptField_Manga_Translation->isChecked() );
     }
     {
-        using namespace Configs::OptionalFields::Dorama;
+        using namespace Options::OptionalFields::Dorama;
         settings.setValue( AltTitle,   ui->ChBox_OptField_Dorama_AltTitle->isChecked() );
         settings.setValue( Director,   ui->ChBox_OptField_Dorama_Director->isChecked() );
     }
     {
-        using namespace Configs::General;
+        using namespace Options::General;
         settings.setValue( Language, ui->ComboBox_Language->currentData() );
         settings.setValue( Sorting, ui->ComboBox_ItemList_Sorting->currentIndex() );
     }
     {
-        using namespace Configs::Network;
+        using namespace Options::Network;
         settings.setValue( CheckUpdates, ui->ChBox_CheckForUpdate->isChecked() );
         settings.setValue( AutoSearchOnShikimori, ui->ChBox_SearchOnShikimori->isChecked() );
     }
 
-    settings.setValue( Configs::General::SwitchCoverOrDir, ui->ChBox_SwitchCoverOrDir->isChecked() );
+    settings.setValue( Options::General::SwitchCoverOrDir, ui->ChBox_SwitchCoverOrDir->isChecked() );
 
     if( QDir::isAbsolutePath( ui->LineEdit_WorkDir->text() ) )
-        settings.setValue( Configs::General::WorkDirectory, QDir(ui->LineEdit_WorkDir->text()).path() );
+        settings.setValue( Options::General::WorkDirectory, QDir(ui->LineEdit_WorkDir->text()).path() );
     else
-        settings.remove(Configs::General::WorkDirectory);
+        settings.remove(Options::General::WorkDirectory);
 
     // Displayed field
     Tables::UniformField::field displayedField = static_cast<Tables::UniformField::field>( ui->ComboBox_ItemList_DisplayedField->currentData().toInt() );
-    settings.setValue( Configs::General::DisplayedField, displayedField );
+    settings.setValue( Options::General::DisplayedField, displayedField );
 }
 
 void Settings::BtnBox_resetDefaults()
@@ -272,6 +272,7 @@ void Settings::on_PBtn_Action_Export_clicked()
 
     */
     writer.startDocument();
+    writer.writeDTD();
     writer.startElement("DatabaseAnime");
 
     quint64 countAnime, countManga, countAmv, countDorama, allCount;
@@ -285,6 +286,7 @@ void Settings::on_PBtn_Action_Export_clicked()
     writer.writeAttribute("CountManga"  , QString::number( countManga  ) );
     writer.writeAttribute("CountAmv"    , QString::number( countAmv    ) );
     writer.writeAttribute("CountDorama" , QString::number( countDorama ) );
+
     QSqlQuery query;
 
     ui->ProgressBar_Export->setMinimum(0);
@@ -301,35 +303,35 @@ void Settings::on_PBtn_Action_Export_clicked()
 
         writer.startSection(sections::anime);
         while( query.next() ){
-            using namespace Tables::AnimeField;
+            using namespace Tables::Anime::Fields;
             QMap<QString, QString> data;
 
-            data[MngrQuerys::fieldToString(isHaveLooked)]   = query.value(MngrQuerys::fieldToString(isHaveLooked)   ).toString();
-            data[MngrQuerys::fieldToString(isEditingDone)]  = query.value(MngrQuerys::fieldToString(isEditingDone)  ).toString();
-            data[MngrQuerys::fieldToString(isAdult)]        = query.value(MngrQuerys::fieldToString(isAdult)        ).toString();
-            data[MngrQuerys::fieldToString(Title)]          = query.value(MngrQuerys::fieldToString(Title)          ).toString();
-            data[MngrQuerys::fieldToString(AltTitle)]       = query.value(MngrQuerys::fieldToString(AltTitle)       ).toString();
-            data[MngrQuerys::fieldToString(Director)]       = query.value(MngrQuerys::fieldToString(Director)       ).toString();
-            data[MngrQuerys::fieldToString(PostScoring)]    = query.value(MngrQuerys::fieldToString(PostScoring)    ).toString();
-            data[MngrQuerys::fieldToString(SeriesTV)]       = query.value(MngrQuerys::fieldToString(SeriesTV)       ).toString();
-            data[MngrQuerys::fieldToString(SeriesOVA)]      = query.value(MngrQuerys::fieldToString(SeriesOVA)      ).toString();
-            data[MngrQuerys::fieldToString(SeriesONA)]      = query.value(MngrQuerys::fieldToString(SeriesONA)      ).toString();
-            data[MngrQuerys::fieldToString(SeriesSpecial)]  = query.value(MngrQuerys::fieldToString(SeriesSpecial)  ).toString();
-            data[MngrQuerys::fieldToString(SeriesMovie)]    = query.value(MngrQuerys::fieldToString(SeriesMovie)    ).toString();
-            data[MngrQuerys::fieldToString(vSeriesTV)]      = query.value(MngrQuerys::fieldToString(vSeriesTV)      ).toString();
-            data[MngrQuerys::fieldToString(vSeriesOVA)]     = query.value(MngrQuerys::fieldToString(vSeriesOVA)     ).toString();
-            data[MngrQuerys::fieldToString(vSeriesONA)]     = query.value(MngrQuerys::fieldToString(vSeriesONA)     ).toString();
-            data[MngrQuerys::fieldToString(vSeriesSpecial)] = query.value(MngrQuerys::fieldToString(vSeriesSpecial) ).toString();
-            data[MngrQuerys::fieldToString(vSeriesMovie)]   = query.value(MngrQuerys::fieldToString(vSeriesMovie)   ).toString();
-            data[MngrQuerys::fieldToString(Score)]          = query.value(MngrQuerys::fieldToString(Score)          ).toString();
-            data[MngrQuerys::fieldToString(Year)]           = query.value(MngrQuerys::fieldToString(Year)           ).toString();
-            data[MngrQuerys::fieldToString(Season)]         = query.value(MngrQuerys::fieldToString(Season)         ).toString();
-            data[MngrQuerys::fieldToString(Studios)]        = query.value(MngrQuerys::fieldToString(Studios)        ).toString();
-            data[MngrQuerys::fieldToString(Tags)]           = query.value(MngrQuerys::fieldToString(Tags)           ).toString();
-            data[MngrQuerys::fieldToString(Description)]    = query.value(MngrQuerys::fieldToString(Description)    ).toString();
-            data[MngrQuerys::fieldToString(Url)]            = query.value(MngrQuerys::fieldToString(Url)            ).toString();
-            data[MngrQuerys::fieldToString(Dir)]            = query.value(MngrQuerys::fieldToString(Dir)            ).toString();
-            data[MngrQuerys::fieldToString(ImagePath)]      = query.value(MngrQuerys::fieldToString(ImagePath)      ).toString();
+            data[isHaveLooked]   = query.value(isHaveLooked   ).toString();
+            data[isEditingDone]  = query.value(isEditingDone  ).toString();
+            data[isAdult]        = query.value(isAdult        ).toString();
+            data[Title]          = query.value(Title          ).toString();
+            data[AltTitle]       = query.value(AltTitle       ).toString();
+            data[Director]       = query.value(Director       ).toString();
+            data[PostScoring]    = query.value(PostScoring    ).toString();
+            data[SeriesTV]       = query.value(SeriesTV       ).toString();
+            data[SeriesOVA]      = query.value(SeriesOVA      ).toString();
+            data[SeriesONA]      = query.value(SeriesONA      ).toString();
+            data[SeriesSpecial]  = query.value(SeriesSpecial  ).toString();
+            data[SeriesMovie]    = query.value(SeriesMovie    ).toString();
+            data[vSeriesTV]      = query.value(vSeriesTV      ).toString();
+            data[vSeriesOVA]     = query.value(vSeriesOVA     ).toString();
+            data[vSeriesONA]     = query.value(vSeriesONA     ).toString();
+            data[vSeriesSpecial] = query.value(vSeriesSpecial ).toString();
+            data[vSeriesMovie]   = query.value(vSeriesMovie   ).toString();
+            data[Score]          = query.value(Score          ).toString();
+            data[Year]           = query.value(Year           ).toString();
+            data[Season]         = query.value(Season         ).toString();
+            data[Studios]        = query.value(Studios        ).toString();
+            data[Tags]           = query.value(Tags           ).toString();
+            data[Description]    = query.value(Description    ).toString();
+            data[Url]            = query.value(Url            ).toString();
+            data[Dir]            = query.value(Dir            ).toString();
+            data[ImagePath]      = query.value(ImagePath      ).toString();
 
             writer.writeNext(data);
             ui->ProgressBar_Export->setValue( progress++ );
@@ -346,29 +348,29 @@ void Settings::on_PBtn_Action_Export_clicked()
 
         writer.startSection(sections::manga);
         while (query.next()) {
-            using namespace Tables::MangaField;
+            using namespace Tables::Manga::Fields;
             QMap<QString, QString> data;
 
-            data[MngrQuerys::fieldToString(isHaveLooked)]    = query.value(MngrQuerys::fieldToString(isHaveLooked)    ).toString();
-            data[MngrQuerys::fieldToString(isEditingDone)]   = query.value(MngrQuerys::fieldToString(isEditingDone)   ).toString();
-            data[MngrQuerys::fieldToString(isAdult)]         = query.value(MngrQuerys::fieldToString(isAdult)         ).toString();
-            data[MngrQuerys::fieldToString(Title)]           = query.value(MngrQuerys::fieldToString(Title)           ).toString();
-            data[MngrQuerys::fieldToString(AltTitle)]        = query.value(MngrQuerys::fieldToString(AltTitle)        ).toString();
-            data[MngrQuerys::fieldToString(Author)]          = query.value(MngrQuerys::fieldToString(Author)          ).toString();
-            data[MngrQuerys::fieldToString(Translation)]     = query.value(MngrQuerys::fieldToString(Translation)     ).toString();
-            data[MngrQuerys::fieldToString(Vol)]             = query.value(MngrQuerys::fieldToString(Vol)             ).toString();
-            data[MngrQuerys::fieldToString(Ch)]              = query.value(MngrQuerys::fieldToString(Ch)              ).toString();
-            data[MngrQuerys::fieldToString(Pages)]           = query.value(MngrQuerys::fieldToString(Pages)           ).toString();
-            data[MngrQuerys::fieldToString(vVol)]            = query.value(MngrQuerys::fieldToString(vVol)            ).toString();
-            data[MngrQuerys::fieldToString(vCh)]             = query.value(MngrQuerys::fieldToString(vCh)             ).toString();
-            data[MngrQuerys::fieldToString(vPages)]          = query.value(MngrQuerys::fieldToString(vPages)          ).toString();
-            data[MngrQuerys::fieldToString(Score)]           = query.value(MngrQuerys::fieldToString(Score)           ).toString();
-            data[MngrQuerys::fieldToString(Year)]            = query.value(MngrQuerys::fieldToString(Year)            ).toString();
-            data[MngrQuerys::fieldToString(Tags)]            = query.value(MngrQuerys::fieldToString(Tags)            ).toString();
-            data[MngrQuerys::fieldToString(Description)]     = query.value(MngrQuerys::fieldToString(Description)     ).toString();
-            data[MngrQuerys::fieldToString(Url)]             = query.value(MngrQuerys::fieldToString(Url)             ).toString();
-            data[MngrQuerys::fieldToString(Dir)]             = query.value(MngrQuerys::fieldToString(Dir)             ).toString();
-            data[MngrQuerys::fieldToString(ImagePath)]       = query.value(MngrQuerys::fieldToString(ImagePath)       ).toString();
+            data[isHaveLooked]    = query.value(isHaveLooked    ).toString();
+            data[isEditingDone]   = query.value(isEditingDone   ).toString();
+            data[isAdult]         = query.value(isAdult         ).toString();
+            data[Title]           = query.value(Title           ).toString();
+            data[AltTitle]        = query.value(AltTitle        ).toString();
+            data[Author]          = query.value(Author          ).toString();
+            data[Translation]     = query.value(Translation     ).toString();
+            data[Vol]             = query.value(Vol             ).toString();
+            data[Ch]              = query.value(Ch              ).toString();
+            data[Pages]           = query.value(Pages           ).toString();
+            data[vVol]            = query.value(vVol            ).toString();
+            data[vCh]             = query.value(vCh             ).toString();
+            data[vPages]          = query.value(vPages          ).toString();
+            data[Score]           = query.value(Score           ).toString();
+            data[Year]            = query.value(Year            ).toString();
+            data[Tags]            = query.value(Tags            ).toString();
+            data[Description]     = query.value(Description     ).toString();
+            data[Url]             = query.value(Url             ).toString();
+            data[Dir]             = query.value(Dir             ).toString();
+            data[ImagePath]       = query.value(ImagePath       ).toString();
 
             writer.writeNext(data);
             ui->ProgressBar_Export->setValue( progress++ );
@@ -385,23 +387,23 @@ void Settings::on_PBtn_Action_Export_clicked()
 
         writer.startSection(sections::amv);
         while (query.next()) {
-            using namespace Tables::AmvField;
+            using namespace Tables::Amv::Fields;
             QMap<QString, QString> data;
 
-            data[MngrQuerys::fieldToString(isEditingDone)]   = query.value(MngrQuerys::fieldToString(isEditingDone)   ).toString();
-            data[MngrQuerys::fieldToString(isAdult)]         = query.value(MngrQuerys::fieldToString(isAdult)         ).toString();
-            data[MngrQuerys::fieldToString(Title)]           = query.value(MngrQuerys::fieldToString(Title)           ).toString();
-            data[MngrQuerys::fieldToString(Author)]          = query.value(MngrQuerys::fieldToString(Author)          ).toString();
-            data[MngrQuerys::fieldToString(Contestant)]      = query.value(MngrQuerys::fieldToString(Contestant)      ).toString();
-            data[MngrQuerys::fieldToString(Score)]           = query.value(MngrQuerys::fieldToString(Score)           ).toString();
-            data[MngrQuerys::fieldToString(Year)]            = query.value(MngrQuerys::fieldToString(Year)            ).toString();
-            data[MngrQuerys::fieldToString(Tags)]            = query.value(MngrQuerys::fieldToString(Tags)            ).toString();
-            data[MngrQuerys::fieldToString(ContainingMusic)] = query.value(MngrQuerys::fieldToString(ContainingMusic) ).toString();
-            data[MngrQuerys::fieldToString(ContainingAnime)] = query.value(MngrQuerys::fieldToString(ContainingAnime) ).toString();
-            data[MngrQuerys::fieldToString(AuthorComment)]   = query.value(MngrQuerys::fieldToString(AuthorComment)   ).toString();
-            data[MngrQuerys::fieldToString(Url)]             = query.value(MngrQuerys::fieldToString(Url)             ).toString();
-            data[MngrQuerys::fieldToString(Dir)]             = query.value(MngrQuerys::fieldToString(Dir)             ).toString();
-            data[MngrQuerys::fieldToString(ImagePath)]       = query.value(MngrQuerys::fieldToString(ImagePath)       ).toString();
+            data[isEditingDone]   = query.value(isEditingDone  ).toString();
+            data[isAdult]         = query.value(isAdult        ).toString();
+            data[Title]           = query.value(Title          ).toString();
+            data[Author]          = query.value(Author         ).toString();
+            data[Contestant]      = query.value(Contestant     ).toString();
+            data[Score]           = query.value(Score          ).toString();
+            data[Year]            = query.value(Year           ).toString();
+            data[Tags]            = query.value(Tags           ).toString();
+            data[ContainingMusic] = query.value(ContainingMusic).toString();
+            data[ContainingAnime] = query.value(ContainingAnime).toString();
+            data[AuthorComment]   = query.value(AuthorComment  ).toString();
+            data[Url]             = query.value(Url            ).toString();
+            data[Dir]             = query.value(Dir            ).toString();
+            data[ImagePath]       = query.value(ImagePath      ).toString();
 
             writer.writeNext(data);
             ui->ProgressBar_Export->setValue( progress++ );
@@ -418,30 +420,30 @@ void Settings::on_PBtn_Action_Export_clicked()
 
         writer.startSection(sections::dorama);
         while (query.next()) {
-            using namespace Tables::DoramaField;
+            using namespace Tables::Dorama::Fields;
             QMap<QString, QString> data;
 
-            data[MngrQuerys::fieldToString(isHaveLooked)]    = query.value(MngrQuerys::fieldToString(isHaveLooked)    ).toString();
-            data[MngrQuerys::fieldToString(isEditingDone)]   = query.value(MngrQuerys::fieldToString(isEditingDone)   ).toString();
-            data[MngrQuerys::fieldToString(isAdult)]         = query.value(MngrQuerys::fieldToString(isAdult)         ).toString();
-            data[MngrQuerys::fieldToString(Title)]           = query.value(MngrQuerys::fieldToString(Title)           ).toString();
-            data[MngrQuerys::fieldToString(AltTitle)]        = query.value(MngrQuerys::fieldToString(AltTitle)        ).toString();
-            data[MngrQuerys::fieldToString(Director)]        = query.value(MngrQuerys::fieldToString(Director)        ).toString();
-            data[MngrQuerys::fieldToString(SeriesTV)]        = query.value(MngrQuerys::fieldToString(SeriesTV)        ).toString();
-            data[MngrQuerys::fieldToString(SeriesSpecial)]   = query.value(MngrQuerys::fieldToString(SeriesSpecial)   ).toString();
-            data[MngrQuerys::fieldToString(SeriesMovie)]     = query.value(MngrQuerys::fieldToString(SeriesMovie)     ).toString();
-            data[MngrQuerys::fieldToString(vSeriesTV)]       = query.value(MngrQuerys::fieldToString(vSeriesTV)       ).toString();
-            data[MngrQuerys::fieldToString(vSeriesSpecial)]  = query.value(MngrQuerys::fieldToString(vSeriesSpecial)  ).toString();
-            data[MngrQuerys::fieldToString(vSeriesMovie)]    = query.value(MngrQuerys::fieldToString(vSeriesMovie)    ).toString();
-            data[MngrQuerys::fieldToString(Score)]           = query.value(MngrQuerys::fieldToString(Score)           ).toString();
-            data[MngrQuerys::fieldToString(Year)]            = query.value(MngrQuerys::fieldToString(Year)            ).toString();
-            data[MngrQuerys::fieldToString(Season)]          = query.value(MngrQuerys::fieldToString(Season)          ).toString();
-            data[MngrQuerys::fieldToString(Tags)]            = query.value(MngrQuerys::fieldToString(Tags)            ).toString();
-            data[MngrQuerys::fieldToString(Description)]     = query.value(MngrQuerys::fieldToString(Description)     ).toString();
-            data[MngrQuerys::fieldToString(Actors)]          = query.value(MngrQuerys::fieldToString(Actors)          ).toString();
-            data[MngrQuerys::fieldToString(Url)]             = query.value(MngrQuerys::fieldToString(Url)             ).toString();
-            data[MngrQuerys::fieldToString(Dir)]             = query.value(MngrQuerys::fieldToString(Dir)             ).toString();
-            data[MngrQuerys::fieldToString(ImagePath)]       = query.value(MngrQuerys::fieldToString(ImagePath)       ).toString();
+            data[isHaveLooked]    = query.value(isHaveLooked   ).toString();
+            data[isEditingDone]   = query.value(isEditingDone  ).toString();
+            data[isAdult]         = query.value(isAdult        ).toString();
+            data[Title]           = query.value(Title          ).toString();
+            data[AltTitle]        = query.value(AltTitle       ).toString();
+            data[Director]        = query.value(Director       ).toString();
+            data[SeriesTV]        = query.value(SeriesTV       ).toString();
+            data[SeriesSpecial]   = query.value(SeriesSpecial  ).toString();
+            data[SeriesMovie]     = query.value(SeriesMovie    ).toString();
+            data[vSeriesTV]       = query.value(vSeriesTV      ).toString();
+            data[vSeriesSpecial]  = query.value(vSeriesSpecial ).toString();
+            data[vSeriesMovie]    = query.value(vSeriesMovie   ).toString();
+            data[Score]           = query.value(Score          ).toString();
+            data[Year]            = query.value(Year           ).toString();
+            data[Season]          = query.value(Season         ).toString();
+            data[Tags]            = query.value(Tags           ).toString();
+            data[Description]     = query.value(Description    ).toString();
+            data[Actors]          = query.value(Actors         ).toString();
+            data[Url]             = query.value(Url            ).toString();
+            data[Dir]             = query.value(Dir            ).toString();
+            data[ImagePath]       = query.value(ImagePath      ).toString();
 
             writer.writeNext(data);
             ui->ProgressBar_Export->setValue( progress++ );
@@ -545,7 +547,7 @@ void Settings::on_PBtn_Import_Append_clicked()
     on_actionShowImportProgressBar_triggered(true);
     this->setDisabled(true);
 
-    int countImportRecords = on_actionImport_triggered();
+    int countImportRecords = import();
     if( countImportRecords > 0 ){
         QMessageBox::information(this, tr("Import"),"<b>" + tr("Import is successfully finished") + "</b><br>"
                                                     + tr("Records it is imported:")+ " " + QString::number(countImportRecords) + "   "
@@ -576,7 +578,7 @@ void Settings::on_PBtn_Import_Replace_clicked()
     this->setDisabled(true);
 
     if (n == QMessageBox::Yes) {
-        on_actionDeleteRecords_triggered();
+        deleteRecords();
         on_PBtn_Import_Append_clicked();
     }
 
@@ -585,7 +587,7 @@ void Settings::on_PBtn_Import_Replace_clicked()
     this->setEnabled(true);
 }
 
-unsigned long long Settings::on_actionImport_triggered()
+quint64 Settings::import()
 {
     bool imAnime  = ui->ChBox_Import_Anime->isChecked();
     bool imManga  = ui->ChBox_Import_Manga->isChecked();
@@ -619,6 +621,8 @@ unsigned long long Settings::on_actionImport_triggered()
     ui->ProgressBar_Import->setMinimum(0);
     ui->ProgressBar_Import->setValue(0);
     ui->ProgressBar_Import->setMaximum(allCount);
+    ui->ProgressBar_Import->setFormat( tr("Import of records") + " %p%" );
+
     while( ! reader.atEnd() && ! reader.hasError() ){
         data = reader.readNext();
         if( data.isEmpty() )
@@ -639,19 +643,19 @@ unsigned long long Settings::on_actionImport_triggered()
 
         switch ( reader.currentSection() ) {
         case sections::anime :
-            MngrQuerys::insertAnime( MngrQuerys::convertAnimeData(data) );
+            MngrQuerys::insertAnime( data );
             progress++;
             break;
         case sections::manga :
-            MngrQuerys::insertManga( MngrQuerys::convertMangaData(data) );
+            MngrQuerys::insertManga( data );
             progress++;
             break;
         case sections::amv :
-            MngrQuerys::insertAmv( MngrQuerys::convertAmvData(data) );
+            MngrQuerys::insertAmv( data );
             progress++;
             break;
         case sections::dorama :
-            MngrQuerys::insertDorama( MngrQuerys::convertDoramaData(data) );
+            MngrQuerys::insertDorama( data );
             progress++;
             break;
         default:
@@ -665,59 +669,55 @@ unsigned long long Settings::on_actionImport_triggered()
     else
         MngrConnect.commit();
 
+    file.close();
+
+    ui->ProgressBar_Import->setFormat( tr("Copying of covers")/* + " %p%" */);
     QString importPath( QFileInfo( filePath ).path() );
 
-    if( imAnime  && imImages ){
-        QDirIterator it( DefinesPath::animeCovers( importPath ) );
-        QDir().mkpath( DefinesPath::animeCovers() );
-        while( it.hasNext() ){
-            it.next();
-            if( it.fileName() == "." || it.fileName() == ".." )
-                continue;
-            QFile( it.filePath() ).copy( DefinesPath::animeCovers() + it.fileName() );
-            QCoreApplication::processEvents();
-        }
-    }
-    if( imManga  && imImages ){
-        QDirIterator it( DefinesPath::mangaCovers( importPath ) );
-        QDir().mkpath( DefinesPath::mangaCovers() );
-        while( it.hasNext() ){
-            it.next();
-            if( it.fileName() == "." || it.fileName() == ".." )
-                continue;
-            QFile( it.filePath() ).copy( DefinesPath::mangaCovers() + it.fileName() );
-            QCoreApplication::processEvents();
-        }
-    }
-    if( imAmv  && imImages ){
-        QDirIterator it( DefinesPath::amvCovers( importPath ) );
-        QDir().mkpath( DefinesPath::amvCovers() );
-        while( it.hasNext() ){
-            it.next();
-            if( it.fileName() == "." || it.fileName() == ".." )
-                continue;
-            QFile( it.filePath() ).copy( DefinesPath::amvCovers() + it.fileName() );
-            QCoreApplication::processEvents();
-        }
-    }
-    if( imDorama && imImages ){
-        QDirIterator it( DefinesPath::doramaCovers( importPath ) );
-        QDir().mkpath( DefinesPath::doramaCovers() );
-        while( it.hasNext() ){
-            it.next();
-            if( it.fileName() == "." || it.fileName() == ".." )
-                continue;
-            QFile( it.filePath() ).copy( DefinesPath::doramaCovers() + it.fileName() );
-            QCoreApplication::processEvents();
-        }
-    }
-
-    file.close();
+    if( imAnime  && imImages )
+        copyFolder( DefinesPath::animeCovers( importPath ), DefinesPath::animeCovers() );
+    if( imManga  && imImages )
+        copyFolder( DefinesPath::mangaCovers( importPath ), DefinesPath::mangaCovers() );
+    if( imAmv  && imImages )
+        copyFolder( DefinesPath::amvCovers( importPath ), DefinesPath::amvCovers() );
+    if( imDorama && imImages )
+        copyFolder( DefinesPath::doramaCovers( importPath ), DefinesPath::doramaCovers() );
 
     return progress;
 }
 
-bool Settings::on_actionDeleteRecords_triggered()
+quint64 Settings::removeFilesFromFolder(QString folder)
+{
+    QDirIterator it( folder );
+    quint64 n(0);
+    while( it.hasNext() ){
+        it.next();
+        if( it.fileName() == "." || it.fileName() == ".." )
+            continue;
+        QFile( it.filePath() ).remove();
+        ++n;
+        QCoreApplication::processEvents();
+    }
+    return n;
+}
+
+quint64 Settings::copyFolder(QString folder1, QString folder2)
+{
+    QDirIterator it( folder1 );
+    QDir().mkpath( folder2 );
+    quint64 n(0);
+    while( it.hasNext() ){
+        it.next();
+        if( it.fileName() == "." || it.fileName() == ".." )
+            continue;
+        QFile( it.filePath() ).copy( DefinesPath::animeCovers() + it.fileName() );
+        ++n;
+        QCoreApplication::processEvents();
+    }
+    return n;
+}
+
+bool Settings::deleteRecords()
 {
     bool imAnime  = ui->ChBox_Import_Anime->isChecked();
     bool imManga  = ui->ChBox_Import_Manga->isChecked();
@@ -752,49 +752,14 @@ bool Settings::on_actionDeleteRecords_triggered()
     }
 
     if( imImages ){
-        if( imAnime ){
-            QDirIterator it( DefinesPath::animeCovers() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
-            }
-        }
-
-        if( imManga ){
-            QDirIterator it( DefinesPath::mangaCovers() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
-            }
-        }
-
-        if( imAmv ){
-            QDirIterator it( DefinesPath::amvCovers() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
-            }
-        }
-
-        if( imDorama ){
-            QDirIterator it( DefinesPath::doramaCovers() );
-            while( it.hasNext() ){
-                it.next();
-                if( it.fileName() == "." || it.fileName() == ".." )
-                    continue;
-                QFile( it.filePath() ).remove();
-                QCoreApplication::processEvents();
-            }
-        }
+        if( imAnime )
+            removeFilesFromFolder( DefinesPath::animeCovers() );
+        if( imManga )
+            removeFilesFromFolder( DefinesPath::mangaCovers() );
+        if( imAmv )
+            removeFilesFromFolder( DefinesPath::amvCovers() );
+        if( imDorama )
+            removeFilesFromFolder( DefinesPath::doramaCovers() );
     }
 
     MngrQuerys::createTable_Anime();

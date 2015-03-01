@@ -10,93 +10,45 @@
 #include <QCommonStyle>
 #include <QStyleOption>
 
-class LpbStyleOption : public QStyleOption {
-public:
-    enum {Type = SO_ProgressBar};
-    enum {Version = 1};
-    int nMaximum;
-    int nMinimum;
-    int nProgress;
-    QString str;
-    Qt::Alignment textAlignment;
-};
+#include <QToolButton>
+#include <QProgressBar>
+#include <QHBoxLayout>
 
-class LpbStyle : public QCommonStyle{
-public:
-    virtual void polish (QWidget* pwgt);
-    virtual void unpolish(QWidget* pwgt);
-    /*virtual void drawPrimitive(
-        PrimitiveElement elem,
-        const QStyleOption* popt,
-        QPainter*           ppainter,
-        const QWidget*      pwgt = 0
-    ) const;
-    virtual void drawControl(
-        ControlElement		elem,
-        const QStyleOption*	popt,
-        QPainter*			ppainter,
-        const QWidget		*pwgt = 0
-    ) const;
-    /*virtual void drawComplexControl(
-        ComplexControl 				control,
-        const QStyleOptionComplex*	popt,
-        QPainter*					ppainter,
-        const QWidget*				pwgt = 0
-    ) const;*/
-};
-
-class LookProgressBar : public QFrame
-{
+class LookProgressBar : public QWidget{
     Q_OBJECT
 private:
-    int _value;
-    int _maxValue;
-    int _minValue;
-    bool _btnAddActive;
-    bool _btnSubActive;
-    QString _format;
+    QToolButton  *_btnSub;
+    QToolButton  *_btnAdd;
+    QProgressBar *_lookProgressBar;
+    QHBoxLayout  *_hLay;
+
+    bool revertWhenOverflow;
     QString _targetFieldDB;
-    QString _targetOverflowFieldDB;
+
+    void wheelEvent(QWheelEvent *e);
+    void initCreate();  // First!
+    void initConnect(); // Second!
 public:
     explicit LookProgressBar(QWidget *parent = 0);
-    virtual QSize sizeHint() const;
+    explicit LookProgressBar(int minimum, int value, int maximum, QWidget *parent = 0);
+    explicit LookProgressBar(int minimum, int value, int maximum, QString format, QString targetField, QWidget *parent = 0);
 
     void setValue(int);
     void setMaximum(int);
     void setMinimum(int);
     void setFormat(QString);
+    void setRevertWhenOverflow(bool);
     void setTargetFieldDB(QString);
-    void setTargetOverflowFieldDB(QString);
-    bool setActiveBtnAdd(bool);
-    bool setActiveBtnSub(bool);
 
     int getValue()const;
     int getMaximum()const;
     int getMinimum()const;
     QString getFormat()const;
     QString getTargetField()const;
-    QString getTargetOverflowFieldDB()const;
-
-    bool isActiveBtnAdd()const;
-    bool isActiveBtnSub()const;    
 
 signals:
-    void progressChanged(int);
-    void progressChanged(int, int, QString);
-    void progressChanged(int, int, QString, QString);
-public slots:
-    void setProgress(int);
-    void progressInc();
-    void progressDec();
-
-protected:
-    virtual void paintEvent(QPaintEvent *pe);
-    virtual void mousePressEvent(QMouseEvent *pe);
-    virtual void mouseMoveEvent(QMouseEvent *pe);
-    virtual void wheelEvent(QWheelEvent *pe);
-    virtual void leaveEvent(QEvent*);
-
-
+    void progressChanged(int, QString);
+    void progressOverflow();
 };
 
 #endif // LOOKPROGRESSBAR_H

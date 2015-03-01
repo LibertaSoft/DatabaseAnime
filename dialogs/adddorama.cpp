@@ -2,7 +2,6 @@
 #include "ui_adddorama.h"
 #include "mngrquerys.h"
 #include "definespath.h"
-#include "dbasettings.h"
 
 #include <QFileDialog>
 #include <QDesktopServices>
@@ -21,15 +20,15 @@ void DialogAddDorama::initTags()
 
 void DialogAddDorama::initOptionalFields()
 {
-    DbaSettings settings;
-    if( settings.value( Configs::OptionalFields::Dorama::AltTitle, false ).toBool() ){
+    QSettings settings;
+    if( settings.value( Options::OptionalFields::Dorama::AltTitle, false ).toBool() ){
         this->LineEdit_AltTitle = new QLineEdit(this);
         this->LineEdit_AltTitle->setMaxLength(128);
         this->LineEdit_AltTitle->setDragEnabled(true);
         this->LineEdit_AltTitle->setPlaceholderText( tr("Alternative title") );
         ui->VLay_AltTitle->addWidget( this->LineEdit_AltTitle );
     }
-    if( settings.value( Configs::OptionalFields::Dorama::Director, false ).toBool() ){
+    if( settings.value( Options::OptionalFields::Dorama::Director, false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
         this->LineEdit_Director->setDragEnabled(true);
@@ -40,40 +39,38 @@ void DialogAddDorama::initOptionalFields()
 
 void DialogAddDorama::setDataInField()
 {
-    model = new QSqlQueryModel(this);
-    // #Bug : MngrQuerys::selectById(sections::section, quint64 id)
-    model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
-                         MngrQuerys::getTableName( sections::dorama ) ).arg( _recordId ) );
+    QSqlRecord record = MngrQuerys::selectData( sections::dorama, _recordId );
 
-    ui->CheckBox_LookLater->setChecked( !model->record(0).value("isHaveLooked").toBool() );
-    ui->CheckBox_Editing->setChecked( !model->record(0).value("isEditingDone").toBool() );
+    ui->CheckBox_LookLater->setChecked( record.value( Tables::Dorama::Fields::isHaveLooked ).toBool() == false );
+    ui->CheckBox_Editing->setChecked(  record.value( Tables::Dorama::Fields::isEditingDone ).toBool() == false );
 
-    ui->LineEdit_Title->setText( model->record(0).value("Title").toString() );
+    ui->LineEdit_Title->setText( record.value("Title").toString() );
 
     // Optional Fields
     if( this->LineEdit_AltTitle )
-        this->LineEdit_AltTitle->setText( model->record(0).value("AltTitle").toString() );
+        this->LineEdit_AltTitle->setText( record.value( Tables::Dorama::Fields::AltTitle ).toString() );
     if( this->LineEdit_Director )
-        this->LineEdit_Director->setText( model->record(0).value("Director").toString() );
+        this->LineEdit_Director->setText( record.value( Tables::Dorama::Fields::Director ).toString() );
 
-    if( model->record(0).value("Year").toInt() != 0 )
-        ui->SpinBox_Year->setValue( model->record(0).value("Year").toInt() );
-    ui->SpinBox_Season->setValue( model->record(0).value("Season").toInt() );
+    if( record.value( Tables::Dorama::Fields::Year ).toInt() != 0 )
+        ui->SpinBox_Year->setValue(record.value( Tables::Dorama::Fields::Year ).toInt() );
+    ui->SpinBox_Season->setValue( record.value( Tables::Dorama::Fields::Season ).toInt() );
 
-    ui->SpinBox_aTV->setValue( model->record(0).value("SeriesTV").toInt() );
-    ui->SpinBox_aSpec->setValue( model->record(0).value("SeriesSpecial").toInt() );
-    ui->SpinBox_aMovie->setValue( model->record(0).value("SeriesMovie").toInt() );
+    ui->SpinBox_aTV->setValue( record.value( Tables::Dorama::Fields::SeriesTV ).toInt() );
+    ui->SpinBox_aSpec->setValue( record.value( Tables::Dorama::Fields::SeriesSpecial ).toInt() );
+    ui->SpinBox_aMovie->setValue( record.value( Tables::Dorama::Fields::SeriesMovie ).toInt() );
 
-    ui->SpinBox_vTV->setValue( model->record(0).value("vSeriesTV").toInt() );
-    ui->SpinBox_vSpec->setValue( model->record(0).value("vSeriesSpecial").toInt() );
-    ui->SpinBox_vMovie->setValue( model->record(0).value("vSeriesMovie").toInt() );
+    ui->SpinBox_vTV->setValue( record.value( Tables::Dorama::Fields::vSeriesTV ).toInt() );
+    ui->SpinBox_vSpec->setValue( record.value( Tables::Dorama::Fields::vSeriesSpecial ).toInt() );
+    ui->SpinBox_vMovie->setValue( record.value( Tables::Dorama::Fields::vSeriesMovie ).toInt() );
 
-    ui->LineEdit_Tags->setText( model->record(0).value("Tags").toString() );
-    ui->PlainTextEdit_Description->setPlainText( model->record(0).value("Description").toString() );
-    ui->LineEdit_Dir->setText( model->record(0).value("Dir").toString() );
-    ui->LineEdit_URL->setText( model->record(0).value("URL").toString() );
+    ui->LineEdit_Tags->setText( record.value( Tables::Dorama::Fields::Tags ).toString() );
+    ui->PlainTextEdit_Description->setPlainText( record.value( Tables::Dorama::Fields::Description ).toString() );
+    ui->PlainTextEdit_Actors->setPlainText( record.value( Tables::Dorama::Fields::Actors ).toString() );
+    ui->LineEdit_Dir->setText( record.value( Tables::Dorama::Fields::Dir ).toString() );
+    ui->LineEdit_URL->setText( record.value( Tables::Dorama::Fields::Url ).toString() );
 
-    _oldCover = model->record(0).value("ImagePath").toString();
+    _oldCover = record.value( Tables::Dorama::Fields::ImagePath ).toString();
 
     QPixmap pm( DefinesPath::doramaCovers() + _oldCover );
     if( !pm.isNull() ){
@@ -110,8 +107,8 @@ DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned long long record_id) 
     LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::DoramaGeomety).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Dorama::Geometry).toByteArray() );
 
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
@@ -127,8 +124,8 @@ DialogAddDorama::DialogAddDorama(QWidget *parent):
     LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::DoramaGeomety).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Dorama::Geometry).toByteArray() );
 
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
@@ -140,8 +137,8 @@ DialogAddDorama::DialogAddDorama(QWidget *parent):
 
 DialogAddDorama::~DialogAddDorama()
 {
-    DbaSettings settings;
-    settings.setValue(Configs::DialogsSettings::DoramaGeomety, this->saveGeometry() );
+    QSettings settings;
+    settings.setValue(Options::Dialogs::Dorama::Geometry, this->saveGeometry() );
     delete ui;
 }
 
@@ -194,8 +191,8 @@ void DialogAddDorama::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddDorama::insert_Dorama(){
-    using namespace Tables::DoramaField;
-    QMap<field, QVariant> data;
+    using namespace Tables::Dorama::Fields;
+    QMap<QString, QVariant> data;
 
     data[isHaveLooked]   = !ui->CheckBox_LookLater->isChecked();
     data[isEditingDone]  = !ui->CheckBox_Editing->isChecked();

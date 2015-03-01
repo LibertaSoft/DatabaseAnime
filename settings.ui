@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>643</width>
-    <height>565</height>
+    <width>695</width>
+    <height>577</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -137,8 +137,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>401</width>
-             <height>514</height>
+             <width>465</width>
+             <height>516</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -176,14 +176,14 @@
                <item row="0" column="0">
                 <widget class="QCheckBox" name="ChBox_CheckForUpdate">
                  <property name="text">
-                  <string>Check for update</string>
+                  <string>Checking updates</string>
                  </property>
                 </widget>
                </item>
                <item row="1" column="0">
                 <widget class="QCheckBox" name="ChBox_SearchOnShikimori">
                  <property name="text">
-                  <string>Auto search on shikimori</string>
+                  <string>Live search on shikimori</string>
                  </property>
                 </widget>
                </item>
@@ -236,7 +236,7 @@
             <item>
              <widget class="QGroupBox" name="GroupBox_ItemList">
               <property name="title">
-               <string>Item list:</string>
+               <string comment="Current active element">Item list:</string>
               </property>
               <layout class="QFormLayout" name="formLayout">
                <item row="2" column="0">
@@ -297,7 +297,14 @@
                <item row="0" column="1">
                 <layout class="QHBoxLayout" name="horizontalLayout_8">
                  <item>
-                  <widget class="QLineEdit" name="LineEdit_WorkDir"/>
+                  <widget class="QLineEdit" name="LineEdit_WorkDir">
+                   <property name="dragEnabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="clearButtonEnabled">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <widget class="QToolButton" name="TBtn_WorkDir_Choose">
@@ -361,8 +368,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>414</width>
-             <height>504</height>
+             <width>328</width>
+             <height>222</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -498,15 +505,22 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>414</width>
-             <height>504</height>
+             <width>347</width>
+             <height>236</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
              <layout class="QHBoxLayout" name="HLay_Import_Path">
               <item>
-               <widget class="QLineEdit" name="LineEdit_Import_FilePath"/>
+               <widget class="QLineEdit" name="LineEdit_Import_FilePath">
+                <property name="dragEnabled">
+                 <bool>true</bool>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QToolButton" name="TBtn_Import_Path_Choose">
@@ -659,15 +673,22 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>414</width>
-             <height>504</height>
+             <width>347</width>
+             <height>234</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
             <item>
              <layout class="QHBoxLayout" name="horizontalLayout_5">
               <item>
-               <widget class="QLineEdit" name="LineEdit_Export_FilePath"/>
+               <widget class="QLineEdit" name="LineEdit_Export_FilePath">
+                <property name="dragEnabled">
+                 <bool>true</bool>
+                </property>
+                <property name="clearButtonEnabled">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QToolButton" name="TBtn_Export_Path_Choose">
@@ -787,38 +808,12 @@
       <enum>Qt::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok|QDialogButtonBox::RestoreDefaults</set>
+      <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::RestoreDefaults</set>
      </property>
     </widget>
    </item>
   </layout>
-  <action name="actionImport">
-   <property name="icon">
-    <iconset theme="add">
-     <normaloff/>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>import</string>
-   </property>
-   <property name="toolTip">
-    <string>Append to database</string>
-   </property>
-  </action>
-  <action name="actionDeleteRecords">
-   <property name="icon">
-    <iconset theme="remove">
-     <normaloff/>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>deleteRecords</string>
-   </property>
-   <property name="toolTip">
-    <string>Delete records and images</string>
-   </property>
-  </action>
-  <action name="actionShowProgressBar">
+  <action name="actionShowImportProgressBar">
    <property name="text">
     <string>ShowImportProgressBar</string>
    </property>

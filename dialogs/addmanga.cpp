@@ -2,7 +2,6 @@
 #include "ui_addmanga.h"
 #include "mngrquerys.h"
 #include "definespath.h"
-#include "dbasettings.h"
 
 #include <QFileDialog>
 #include <QDesktopServices>
@@ -44,60 +43,38 @@ void DialogAddManga::initTags()
 
 void DialogAddManga::setDataInFields()
 {
-    model = new QSqlQueryModel;
-    model->setQuery( QString("SELECT * FROM %1 WHERE id = '%2'").arg(
-                         MngrQuerys::getTableName( sections::manga ) ).arg( _recordId ) );
-    QMap<QString, QVariant> data;
-    data["isHaveLooked"]  = model->record(0).value("isHaveLooked");
-    data["isEditingDone"] = model->record(0).value("isEditingDone");
-    data["Title"]         = model->record(0).value("Title");
-    data["AltTitle"]      = model->record(0).value("AltTitle");
-    data["Author"]        = model->record(0).value("Author");
-    data["Translation"]   = model->record(0).value("Translation");
-    data["Year"]          = model->record(0).value("Year");
-    data["Vol"]           = model->record(0).value("Vol");
-    data["Ch"]            = model->record(0).value("Ch");
-    data["Pages"]         = model->record(0).value("Pages");
-    data["vVol"]          = model->record(0).value("vVol");
-    data["vCh"]           = model->record(0).value("vCh");
-    data["vPages"]        = model->record(0).value("vPages");
-    data["Tags"]          = model->record(0).value("Tags");
-    data["Description"]   = model->record(0).value("Description");
-    data["Dir"]           = model->record(0).value("Dir");
-    data["URL"]           = model->record(0).value("URL");
-    data["ImagePath"]     = model->record(0).value("ImagePath");
-    delete model;
+    QSqlRecord record = MngrQuerys::selectData( sections::manga, _recordId );
 
-    ui->CheckBox_LookLater->setChecked(!data["isHaveLooked" ].toBool() );
-    ui->CheckBox_Editing->setChecked(  !data["isEditingDone"].toBool() );
+    ui->CheckBox_LookLater->setChecked( record.value( Tables::Manga::Fields::isHaveLooked ).toBool()  == false );
+    ui->CheckBox_Editing->setChecked(   record.value( Tables::Manga::Fields::isEditingDone ).toBool() == false );
 
-    ui->LineEdit_Title->setText( data["Title"].toString() );
+    ui->LineEdit_Title->setText( record.value( Tables::Manga::Fields::Title ).toString() );
 
     // Optional Fields
     if( this->LineEdit_AltTitle )
-        this->LineEdit_AltTitle->setText( data["AltTitle"].toString() );
+        this->LineEdit_AltTitle->setText( record.value( Tables::Manga::Fields::AltTitle ).toString() );
     if( this->LineEdit_Author )
-        this->LineEdit_Author->setText( data["Author"].toString() );
+        this->LineEdit_Author->setText( record.value( Tables::Manga::Fields::Author ).toString() );
     if( this->LineEdit_Translation )
-        this->LineEdit_Translation->setText( data["Translation"].toString() );
+        this->LineEdit_Translation->setText( record.value( Tables::Manga::Fields::Translation ).toString() );
 
-    if( data["Year"].toInt() != 0 )
-        ui->SpinBox_Year->setValue( data["Year"].toInt() );
+    if( record.value( Tables::Manga::Fields::Year ).toInt() != 0 )
+        ui->SpinBox_Year->setValue( record.value( Tables::Manga::Fields::Year ).toInt() );
 
-    ui->SpinBox_aVol->setValue( data["Vol"].toInt() );
-    ui->SpinBox_aCh->setValue( data["Ch"].toInt() );
-    ui->SpinBox_aPages->setValue( data["Pages"].toInt() );
+    ui->SpinBox_aVol->setValue( record.value( Tables::Manga::Fields::Vol ).toInt() );
+    ui->SpinBox_aCh->setValue( record.value( Tables::Manga::Fields::Ch ).toInt() );
+    ui->SpinBox_aPages->setValue( record.value( Tables::Manga::Fields::Pages ).toInt() );
 
-    ui->SpinBox_vVol->setValue( data["vVol"].toInt() );
-    ui->SpinBox_vCh->setValue( data["vCh"].toInt() );
-    ui->SpinBox_vPages->setValue( data["vPages"].toInt() );
+    ui->SpinBox_vVol->setValue( record.value( Tables::Manga::Fields::vVol ).toInt() );
+    ui->SpinBox_vCh->setValue( record.value( Tables::Manga::Fields::vCh ).toInt() );
+    ui->SpinBox_vPages->setValue( record.value( Tables::Manga::Fields::vPages ).toInt() );
 
-    ui->LineEdit_Tags->setText( data["Tags"].toString() );
-    ui->PlainTextEdit_Description->setPlainText( data["Description"].toString() );
-    ui->LineEdit_Dir->setText( data["Dir"].toString() );
-    ui->LineEdit_URL->setText( data["URL"].toString() );
+    ui->LineEdit_Tags->setText( record.value( Tables::Manga::Fields::Tags ).toString() );
+    ui->PlainTextEdit_Description->setPlainText( record.value( Tables::Manga::Fields::Description ).toString() );
+    ui->LineEdit_Dir->setText( record.value( Tables::Manga::Fields::Dir ).toString() );
+    ui->LineEdit_URL->setText( record.value( Tables::Manga::Fields::Url ).toString() );
 
-    _oldCover = data["ImagePath"].toString();
+    _oldCover = record.value( Tables::Manga::Fields::ImagePath ).toString();
     QPixmap pm( DefinesPath::mangaCovers() + _oldCover );
     if( !pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
@@ -109,22 +86,22 @@ void DialogAddManga::setDataInFields()
 
 void DialogAddManga::createOptionalFields()
 {
-    DbaSettings settings;
-    if( settings.value( Configs::OptionalFields::Manga::AltTitle, false ).toBool() ){
+    QSettings settings;
+    if( settings.value( Options::OptionalFields::Manga::AltTitle, false ).toBool() ){
         this->LineEdit_AltTitle = new QLineEdit(this);
         this->LineEdit_AltTitle->setMaxLength(128);
         this->LineEdit_AltTitle->setDragEnabled(true);
         this->LineEdit_AltTitle->setPlaceholderText( tr("Alternative title") );
         ui->VLay_AltTitle->addWidget( this->LineEdit_AltTitle );
     }
-    if( settings.value( Configs::OptionalFields::Manga::Author, false ).toBool() ){
+    if( settings.value( Options::OptionalFields::Manga::Author, false ).toBool() ){
         this->LineEdit_Author = new QLineEdit(this);
         this->LineEdit_Author->setMaxLength(32);
         this->LineEdit_Author->setDragEnabled(true);
         this->LineEdit_Author->setPlaceholderText( tr("Author") );
         ui->HLay_AuthorAndSound->addWidget( this->LineEdit_Author );
     }
-    if( settings.value( Configs::OptionalFields::Manga::Translation, false ).toBool() ){
+    if( settings.value( Options::OptionalFields::Manga::Translator, false ).toBool() ){
         this->LineEdit_Translation = new QLineEdit(this);
         this->LineEdit_Translation->setMaxLength(128);
         this->LineEdit_Translation->setDragEnabled(true);
@@ -181,10 +158,10 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::MangaGeometry).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Configs::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -203,10 +180,10 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::MangaGeometry).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Configs::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -221,8 +198,8 @@ DialogAddManga::DialogAddManga(QWidget *parent):
 
 DialogAddManga::~DialogAddManga()
 {
-    DbaSettings settings;
-    settings.setValue(Configs::DialogsSettings::MangaGeometry, this->saveGeometry() );
+    QSettings settings;
+    settings.setValue(Options::Dialogs::Manga::Geometry, this->saveGeometry() );
     delete ui;
 }
 
@@ -275,8 +252,8 @@ void DialogAddManga::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddManga::insert_Manga(){
-    using namespace Tables::MangaField;
-    QMap<field, QVariant> data;
+    using namespace Tables::Manga::Fields;
+    QMap<QString, QVariant> data;
 
     data[isHaveLooked]  = !ui->CheckBox_LookLater->isChecked();
     data[isEditingDone] = !ui->CheckBox_Editing->isChecked();
