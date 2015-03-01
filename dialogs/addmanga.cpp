@@ -2,7 +2,6 @@
 #include "ui_addmanga.h"
 #include "mngrquerys.h"
 #include "definespath.h"
-#include "dbasettings.h"
 
 #include <QFileDialog>
 #include <QDesktopServices>
@@ -87,22 +86,22 @@ void DialogAddManga::setDataInFields()
 
 void DialogAddManga::createOptionalFields()
 {
-    DbaSettings settings;
-    if( settings.value( Configs::OptionalFields::Manga::AltTitle, false ).toBool() ){
+    QSettings settings;
+    if( settings.value( Options::OptionalFields::Manga::AltTitle, false ).toBool() ){
         this->LineEdit_AltTitle = new QLineEdit(this);
         this->LineEdit_AltTitle->setMaxLength(128);
         this->LineEdit_AltTitle->setDragEnabled(true);
         this->LineEdit_AltTitle->setPlaceholderText( tr("Alternative title") );
         ui->VLay_AltTitle->addWidget( this->LineEdit_AltTitle );
     }
-    if( settings.value( Configs::OptionalFields::Manga::Author, false ).toBool() ){
+    if( settings.value( Options::OptionalFields::Manga::Author, false ).toBool() ){
         this->LineEdit_Author = new QLineEdit(this);
         this->LineEdit_Author->setMaxLength(32);
         this->LineEdit_Author->setDragEnabled(true);
         this->LineEdit_Author->setPlaceholderText( tr("Author") );
         ui->HLay_AuthorAndSound->addWidget( this->LineEdit_Author );
     }
-    if( settings.value( Configs::OptionalFields::Manga::Translation, false ).toBool() ){
+    if( settings.value( Options::OptionalFields::Manga::Translator, false ).toBool() ){
         this->LineEdit_Translation = new QLineEdit(this);
         this->LineEdit_Translation->setMaxLength(128);
         this->LineEdit_Translation->setDragEnabled(true);
@@ -159,10 +158,10 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::MangaGeometry).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Configs::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -181,10 +180,10 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::MangaGeometry).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Configs::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -199,8 +198,8 @@ DialogAddManga::DialogAddManga(QWidget *parent):
 
 DialogAddManga::~DialogAddManga()
 {
-    DbaSettings settings;
-    settings.setValue(Configs::DialogsSettings::MangaGeometry, this->saveGeometry() );
+    QSettings settings;
+    settings.setValue(Options::Dialogs::Manga::Geometry, this->saveGeometry() );
     delete ui;
 }
 

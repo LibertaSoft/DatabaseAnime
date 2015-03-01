@@ -5,7 +5,6 @@
 #include "dialogs/settings.h"
 #include "mngrconnection.h"
 #include "mngrquerys.h"
-#include "dbasettings.h"
 
 #include <QMainWindow>
 #include <QPushButton>

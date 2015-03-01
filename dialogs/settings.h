@@ -6,7 +6,6 @@
 #include "dbalocalization.h"
 #include "mngrconnection.h"
 #include "mngrquerys.h"
-#include "dbasettings.h"
 
 #include "xmldbareader.h"
 #include "xmldbawriter.h"

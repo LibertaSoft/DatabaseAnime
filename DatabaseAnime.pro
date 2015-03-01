@@ -37,8 +37,7 @@ HEADERS += \
     xmldbareader.h \
     xmldbawriter.h \
     dbalocalization.h \
-    shikimoriapi.h \
-    dbasettings.h
+    shikimoriapi.h
 
 SOURCES += \
     main.cpp \
@@ -57,8 +56,7 @@ SOURCES += \
     xmldbareader.cpp \
     xmldbawriter.cpp \
     dbalocalization.cpp \
-    shikimoriapi.cpp \
-    dbasettings.cpp
+    shikimoriapi.cpp
 
 FORMS += \
     mainwindow.ui \

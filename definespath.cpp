@@ -1,5 +1,7 @@
 #include "definespath.h"
+#include "globalenum.h"
 
+#include <QSettings>
 #include <QDebug>
 
 /// Any string(path) ended of QDir::separator()
@@ -38,8 +40,8 @@ QString DefinesPath::appData(bool useDefault)
 {
     if(useDefault)
         return QStandardPaths::writableLocation( QStandardPaths::DataLocation ) + QDir::separator();
-    DbaSettings s;
-    return QDir(s.value(Configs::General::WorkDirectory,
+    QSettings settings;
+    return QDir(settings.value(Options::General::WorkDirectory,
                    QStandardPaths::writableLocation( QStandardPaths::DataLocation )
                    ).toString()).path() + QDir::separator();
 

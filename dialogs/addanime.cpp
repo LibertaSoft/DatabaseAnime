@@ -2,7 +2,6 @@
 #include "ui_addanime.h"
 #include "mngrquerys.h"
 #include "definespath.h"
-#include "dbasettings.h"
 
 #include <QFileDialog>
 #include <QDesktopServices>
@@ -46,22 +45,22 @@ void DialogAddAnime::initTags()
 
 void DialogAddAnime::initOptionalFields()
 {
-    DbaSettings settings;
-    if( settings.value( Configs::OptionalFields::Anime::AltTitle, false ).toBool() ){
+    QSettings settings;
+    if( settings.value( Options::OptionalFields::Anime::AltTitle, false ).toBool() ){
         this->LineEdit_OrigTitle = new QLineEdit(this);
         this->LineEdit_OrigTitle->setMaxLength(128);
         this->LineEdit_OrigTitle->setDragEnabled(true);
         this->LineEdit_OrigTitle->setPlaceholderText( tr("Alternative title") );
         ui->VLay_OrigTitle->addWidget( this->LineEdit_OrigTitle );
     }
-    if( settings.value( Configs::OptionalFields::Anime::Director, false ).toBool() ){
+    if( settings.value( Options::OptionalFields::Anime::Director, false ).toBool() ){
         this->LineEdit_Director = new QLineEdit(this);
         this->LineEdit_Director->setMaxLength(32);
         this->LineEdit_Director->setDragEnabled(true);
         this->LineEdit_Director->setPlaceholderText( tr("Director") );
         ui->HLay_DirectorAndSound->addWidget( this->LineEdit_Director );
     }
-    if( settings.value( Configs::OptionalFields::Anime::Postscoring, false ).toBool() ){
+    if( settings.value( Options::OptionalFields::Anime::Postscoring, false ).toBool() ){
         this->LineEdit_PostScoring = new QLineEdit(this);
         this->LineEdit_PostScoring->setMaxLength(128);
         this->LineEdit_PostScoring->setDragEnabled(true);
@@ -150,10 +149,10 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::AnimeGeometry).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Configs::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -172,10 +171,10 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
-    DbaSettings settings;
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::AnimeGeometry).toByteArray() );
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Configs::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -190,8 +189,8 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
 
 DialogAddAnime::~DialogAddAnime()
 {
-    DbaSettings settings;
-    settings.setValue(Configs::DialogsSettings::AnimeGeometry, this->saveGeometry() );
+    QSettings settings;
+    settings.setValue(Options::Dialogs::Anime::Geometry, this->saveGeometry() );
     delete ui;
 }
 

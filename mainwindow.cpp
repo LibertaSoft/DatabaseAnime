@@ -31,8 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
     pbTV(nullptr), pbOVA(nullptr), pbONA(nullptr), pbSpecial(nullptr), pbMovie(nullptr),
     ListWidget_Dir(nullptr), _btnPlay(nullptr), _ScrArea_propertyes(nullptr), _restoreDefSettings(false)
 {
-    DbaSettings settings;
-    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Configs::General::Language, QLocale::English ).toInt());
+    QSettings settings;
+    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Options::General::Language, QLocale::English ).toInt());
     if( language == 0 ){
         language = QLocale::system().language();
     }
@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->Lbl_VVersion->setText( qApp->applicationVersion() );
 
-    _displayedField = static_cast<Tables::UniformField::field>( settings.value( Configs::General::DisplayedField, Tables::UniformField::Title ).toInt() );
+    _displayedField = static_cast<Tables::UniformField::field>( settings.value( Options::General::DisplayedField, Tables::UniformField::Title ).toInt() );
 
 //    [svg logo]
 //    ui->Lbl_logo->setVisible( false );
@@ -62,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    ui->VLay_logoSvg->setAlignment(logo, Qt::AlignCenter);
 
     // Verification of the new version
-    if( settings.value(Configs::Network::CheckUpdates, true).toBool() ){
+    if( settings.value(Options::Network::CheckUpdates, true).toBool() ){
         QUrl url("https://api.github.com/repos/LibertaSoft/DatabaseAnime/releases");
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
         connect(manager, &QNetworkAccessManager::finished,
@@ -70,12 +70,12 @@ MainWindow::MainWindow(QWidget *parent) :
         manager->get( QNetworkRequest(url) );
     }
 
-    this->restoreGeometry( settings.value(Configs::DialogsSettings::MainGeometry).toByteArray() );
-    this->restoreState( settings.value(Configs::DialogsSettings::MainState).toByteArray() );
-    ui->splitter->restoreGeometry( settings.value(Configs::DialogsSettings::MainSplitterGeometry).toByteArray() );
-    ui->splitter->restoreState( settings.value(Configs::DialogsSettings::MainSplitterState).toByteArray() );
-    _sort = static_cast<Sort::sort>( settings.value(Configs::General::Sorting, Sort::asc).toInt() );
-    bool c1 = settings.value( Configs::General::SwitchCoverOrDir, true ).toBool();
+    this->restoreGeometry( settings.value(Options::Dialogs::MainWindow::Geometry).toByteArray() );
+    this->restoreState( settings.value(Options::Dialogs::MainWindow::State).toByteArray() );
+    ui->splitter->restoreGeometry( settings.value(Options::Dialogs::MainWindow::Splitter::Geometry).toByteArray() );
+    ui->splitter->restoreState( settings.value(Options::Dialogs::MainWindow::Splitter::State).toByteArray() );
+    _sort = static_cast<Sort::sort>( settings.value(Options::General::Sorting, Sort::asc).toInt() );
+    bool c1 = settings.value( Options::General::SwitchCoverOrDir, true ).toBool();
     ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 
     mngrConnection.open();
@@ -122,19 +122,19 @@ void MainWindow::closeEvent(QCloseEvent *e){
     mngrConnection.commit();
     mngrConnection.close();
 
-    DbaSettings settings;
+    QSettings settings;
     if( !_restoreDefSettings ){
-        settings.setValue(Configs::DialogsSettings::MainGeometry, this->saveGeometry() );
-        settings.setValue(Configs::DialogsSettings::MainState,    this->saveState() );
-        settings.setValue(Configs::General::ActiveSection, _activeTable);
+        settings.setValue(Options::Dialogs::MainWindow::Geometry, this->saveGeometry() );
+        settings.setValue(Options::Dialogs::MainWindow::State,    this->saveState() );
+        settings.setValue(Options::General::ActiveSection, _activeTable);
     }else{
-        settings.remove(Configs::DialogsSettings::MainGeometry);
-        settings.remove(Configs::DialogsSettings::MainState);
-        settings.remove(Configs::General::ActiveSection);
+        settings.remove(Options::Dialogs::MainWindow::Geometry);
+        settings.remove(Options::Dialogs::MainWindow::State);
+        settings.remove(Options::General::ActiveSection);
     }
 
-    settings.setValue(Configs::DialogsSettings::MainSplitterGeometry, ui->splitter->saveGeometry() );
-    settings.setValue(Configs::DialogsSettings::MainSplitterState, ui->splitter->saveState() );
+    settings.setValue(Options::Dialogs::MainWindow::Splitter::Geometry, ui->splitter->saveGeometry() );
+    settings.setValue(Options::Dialogs::MainWindow::Splitter::State, ui->splitter->saveState() );
     e->accept();
 }
 
@@ -146,8 +146,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_PButton_Options_clicked()
 {
     sections::section currentSection = static_cast<sections::section>(ui->CB_Section->currentData().toInt());
-    DbaSettings set;
-    set.setValue(Configs::General::ActiveSection, currentSection);
+    QSettings settings;
+    settings.setValue(Options::General::ActiveSection, currentSection);
 
     Settings formSettings(mngrConnection, this);
     formSettings.setModal(true);
@@ -368,15 +368,15 @@ sections::section MainWindow::getActiveTable()
 
 void MainWindow::reloadSectionsList()
 {
-    DbaSettings settings;
-    bool set_enableBtnAnime  = settings.value(Configs::ActiveSections::Anime,   true).toBool();
-    bool set_enableBtnManga  = settings.value(Configs::ActiveSections::Manga,  false).toBool();
-    bool set_enableBtnAMV    = settings.value(Configs::ActiveSections::Amv,    false).toBool();
-    bool set_enableBtnDorama = settings.value(Configs::ActiveSections::Dorama, false).toBool();
+    QSettings settings;
+    bool set_enableBtnAnime  = settings.value(Options::ActiveSections::Anime,   true).toBool();
+    bool set_enableBtnManga  = settings.value(Options::ActiveSections::Manga,  false).toBool();
+    bool set_enableBtnAMV    = settings.value(Options::ActiveSections::Amv,    false).toBool();
+    bool set_enableBtnDorama = settings.value(Options::ActiveSections::Dorama, false).toBool();
 
     sections::section set_select
             = static_cast<sections::section>(
-                settings.value(Configs::General::ActiveSection, sections::none).toInt() );
+                settings.value(Options::General::ActiveSection, sections::none).toInt() );
     ui->CB_Section->clear();
     ui->CB_Section->addItem( QIcon("://images/icon-section/Main.png"),
                              tr("Main"), sections::none );
@@ -1016,6 +1016,7 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
     ui->TreeView_List->hideColumn(0);
+//    Show column 'Year'
 //    if( _sort != Sort::year ){
 //        ui->TreeView_List->hideColumn(2);
 //    }else{
