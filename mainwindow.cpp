@@ -170,70 +170,56 @@ void MainWindow::on_PButton_Options_clicked()
 
 void MainWindow::on_TButton_Add_clicked()
 {
+    QDialog *dialog;
     switch( getActiveTable() ){
         case sections::anime :{
-            DialogAddAnime dialogAddAnime(this);
-            dialogAddAnime.setModal(true);
-            dialogAddAnime.exec();
+            dialog = new DialogAddAnime(this);
             break;
         }
         case sections::manga :{
-            DialogAddManga dialogAddManga(this);
-            dialogAddManga.setModal(true);
-            dialogAddManga.exec();
+            dialog = new DialogAddManga(this);
             break;
         }
         case sections::amv :{
-            DialogAddAmv dialogAddAmv(this);
-            dialogAddAmv.setModal(true);
-            dialogAddAmv.exec();
+            dialog = new DialogAddAmv(this);
             break;
         }
         case sections::dorama :{
-            DialogAddDorama dialogAddDorama(this);
-            dialogAddDorama.setModal(true);
-            dialogAddDorama.exec();
+            dialog = new DialogAddDorama(this);
             break;
         }
         case sections::none :
         default:
             return;
     }
+    dialog->setModal(true);
+    dialog->exec();
     QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
 }
 
 void MainWindow::on_TButton_Edit_clicked()
 {
     if( ui->TreeView_List->selectionModel()->selectedIndexes().isEmpty() == false ){
+        QDialog *dialog;
         switch( getActiveTable() ){
-            case sections::anime :{
-                DialogAddAnime dialogAddAnime(this, _currentItemId);
-                dialogAddAnime.setModal(true);
-                dialogAddAnime.exec();
+            case sections::anime :
+                dialog = new DialogAddAnime(this, _currentItemId);
                 break;
-            }
-            case sections::manga :{
-                DialogAddManga dialogAddManga(this, _currentItemId);
-                dialogAddManga.setModal(true);
-                dialogAddManga.exec();
+            case sections::manga :
+                dialog = new DialogAddManga(this, _currentItemId);
                 break;
-            }
-            case sections::amv :{
-                DialogAddAmv dialogAddAmv(this, _currentItemId);
-                dialogAddAmv.setModal(true);
-                dialogAddAmv.exec();
+            case sections::amv :
+                dialog = new DialogAddAmv(this, _currentItemId);
                 break;
-            }
-            case sections::dorama :{
-                DialogAddDorama dialogAddDorama(this, _currentItemId);
-                dialogAddDorama.setModal(true);
-                dialogAddDorama.exec();
+            case sections::dorama :
+                dialog = new DialogAddDorama(this, _currentItemId);
                 break;
-            }
             case sections::none :
             default:
                 return;
         }
+        dialog->setModal(true);
+        dialog->exec();
         QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
     }else{
         QMessageBox::information(this, tr("Warning"), tr("Item isn't selected"));
@@ -258,21 +244,21 @@ void MainWindow::on_TButton_Delete_clicked()
         QString coverFolder;
 
         switch( _activeTable ){
-        case sections::anime :
-            coverFolder = DefinesPath::animeCovers();
-        break;
-        case sections::manga :
-            coverFolder = DefinesPath::mangaCovers();
-        break;
-        case sections::amv :
-            coverFolder = DefinesPath::amvCovers();
-        break;
-        case sections::dorama :
-            coverFolder = DefinesPath::doramaCovers();
-        break;
-        case sections::none :
-        default:
-            return;
+            case sections::anime :
+                coverFolder = DefinesPath::animeCovers();
+            break;
+            case sections::manga :
+                coverFolder = DefinesPath::mangaCovers();
+            break;
+            case sections::amv :
+                coverFolder = DefinesPath::amvCovers();
+            break;
+            case sections::dorama :
+                coverFolder = DefinesPath::doramaCovers();
+            break;
+            case sections::none :
+            default:
+                return;
         }
 
         QString coverPath( coverFolder + MngrQuerys::getImagePath(_activeTable, _currentItemId) );
