@@ -64,6 +64,23 @@ QString DefinesPath::dbPath(bool appendFileName)
         return appData();
 }
 
+QString DefinesPath::getCoversFolder(const sections::section section, const QString prefix)
+{
+    switch (section) {
+        case sections::anime:
+            return animeCovers(prefix);
+        case sections::manga:
+            return mangaCovers(prefix);
+        case sections::amv:
+            return amvCovers(prefix);
+        case sections::dorama:
+            return doramaCovers(prefix);
+        case sections::none :
+        default:
+            return QString::null;
+    }
+}
+
 /// QString DefinesPath::animeCovers(const QString prefix)
 /// Returned a path to anime covers
 /// if prefix is not QString::null - used a prefix

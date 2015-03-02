@@ -241,25 +241,9 @@ void MainWindow::on_TButton_Delete_clicked()
             return;
         }
 
-        QString coverFolder;
-
-        switch( _activeTable ){
-            case sections::anime :
-                coverFolder = DefinesPath::animeCovers();
-            break;
-            case sections::manga :
-                coverFolder = DefinesPath::mangaCovers();
-            break;
-            case sections::amv :
-                coverFolder = DefinesPath::amvCovers();
-            break;
-            case sections::dorama :
-                coverFolder = DefinesPath::doramaCovers();
-            break;
-            case sections::none :
-            default:
-                return;
-        }
+        QString coverFolder = DefinesPath::getCoversFolder(_activeTable);
+        if( coverFolder == QString::null )
+            return;
 
         QString coverPath( coverFolder + MngrQuerys::getImagePath(_activeTable, _currentItemId) );
 
