@@ -517,7 +517,7 @@
               <item row="1" column="1">
                <widget class="QLabel" name="Lbl_VDesignAuthor">
                 <property name="text">
-                 <string notr="true" extracomment="Label Value Design Author">Макс Вольный</string>
+                 <string extracomment="Label Value Design Author">Maxx Volniy</string>
                 </property>
                </widget>
               </item>
