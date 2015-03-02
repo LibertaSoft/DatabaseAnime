@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>774</width>
-    <height>650</height>
+    <height>653</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -110,10 +110,10 @@
        <enum>QFrame::Box</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
+       <enum>QFrame::Sunken</enum>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Page_General">
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -142,8 +142,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>465</width>
-             <height>516</height>
+             <width>544</width>
+             <height>592</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -373,8 +373,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>465</width>
-             <height>516</height>
+             <width>328</width>
+             <height>222</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -510,8 +510,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>465</width>
-             <height>516</height>
+             <width>347</width>
+             <height>236</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -678,8 +678,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>465</width>
-             <height>516</height>
+             <width>347</width>
+             <height>234</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
