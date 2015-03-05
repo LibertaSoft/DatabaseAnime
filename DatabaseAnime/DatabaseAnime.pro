@@ -6,7 +6,7 @@ TEMPLATE = app
 CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
 
-VERSION = 1.2.1.0
+VERSION = 1.3.0.0
 #Last digit:
 # 0 - Pre-Alpha
 # 1 - Alpha
@@ -67,8 +67,6 @@ FORMS += \
     settings.ui \
 
 OTHER_FILES += \
-    README.md \
-    README_eng.md \
     ToDo.md \
     ChangeLog.md
 
