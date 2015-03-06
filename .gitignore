@@ -4,4 +4,5 @@ DatabaseAnime.pro.*
 *~
 DatabaseAnime/Unit-Tests/build-*
 !DatabaseAnime/Unit-Tests/FakeData/DbaLocalization/folder[1-3]/l10n/*.qm
-build/
+.build/
+Docs/
