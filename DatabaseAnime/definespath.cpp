@@ -66,7 +66,7 @@ QString DefinesPath::dbPath(bool appendFileName)
 
 QString DefinesPath::styleLocation()
 {
-    return appData() + "Style" + QDir::separator();
+    return QStandardPaths::writableLocation( QStandardPaths::DataLocation ) + QDir::separator() + "Style" + QDir::separator();
 }
 
 QString DefinesPath::getCoversFolder(const sections::section section, const QString prefix)

@@ -36,6 +36,9 @@
         <height>16777215</height>
        </size>
       </property>
+      <property name="frameShadow">
+       <enum>QFrame::Sunken</enum>
+      </property>
       <property name="viewMode">
        <enum>QListView::ListMode</enum>
       </property>
@@ -107,7 +110,7 @@
        </size>
       </property>
       <property name="frameShape">
-       <enum>QFrame::Box</enum>
+       <enum>QFrame::Panel</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Sunken</enum>
@@ -826,11 +829,6 @@
             <item>
              <property name="text">
               <string>System</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Dark</string>
              </property>
             </item>
            </widget>

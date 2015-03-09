@@ -1,8 +1,40 @@
 #include "settings.h"
+#include "stylemanager.h"
 #include "ui_settings.h"
 
 #include <QColorDialog>
 #include <QInputDialog>
+#include <QStyleFactory>
+
+void Settings::connectColorPicker()
+{
+    connect( ui->Frame_Style_Window, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_WindowText, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_Base, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_AlternateBase, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_ToolTipBase, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_ToolTipText, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_Text, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_Button, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_ButtonText, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_BrightText, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_Link, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_Highlight, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+    connect( ui->Frame_Style_HighlightedText, &ColorPicker::colorChanged,
+             this, &Settings::colorPicked );
+}
 
 Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     QDialog(parent),
@@ -101,10 +133,16 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
             ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( 1 );
     }
 
-    {
-        on_ComboBox_CurrentStyle_currentIndexChanged( ui->ComboBox_CurrentStyle->currentIndex() );
+    { // Style
+        ui->ComboBox_CurrentStyle->addItems( StyleManager::getExistsStyles().toList() );
+        QString currentStyleName = settings.value( Options::Style::CurrentStyleName, "System" ).toString();
+        ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText( currentStyleName ) );
+        stylePalette = StyleManager::getPaletteOfStyle( ui->ComboBox_CurrentStyle->currentText() );
+        initColorPickers( stylePalette );
+
+        connectColorPicker();
+
     }
-    initColorPickers( qApp->palette() );
 }
 
 Settings::~Settings()
@@ -147,6 +185,12 @@ bool Settings::getRestoreDefault()
 QLocale::Language Settings::getLanguage()
 {
     return static_cast<QLocale::Language>( ui->ComboBox_Language->currentData().toInt() );
+}
+
+void Settings::colorPicked(QColor)
+{
+    stylePalette = paletteFromColorPicker();
+    setApplicationStyle( stylePalette );
 }
 
 void Settings::on_listWidget_currentRowChanged(int currentRow)
@@ -221,6 +265,13 @@ void Settings::on_BtnBox_accepted()
     // Displayed field
     Tables::UniformField::field displayedField = static_cast<Tables::UniformField::field>( ui->ComboBox_ItemList_DisplayedField->currentData().toInt() );
     settings.setValue( Options::General::DisplayedField, displayedField );
+
+    { // Style
+        settings.setValue( Options::Style::CurrentStyle, ui->ComboBox_CurrentStyle->currentIndex() );
+        settings.setValue( Options::Style::CurrentStyleName, ui->ComboBox_CurrentStyle->currentText() );
+
+        StyleManager::saveStyle( ui->ComboBox_CurrentStyle->currentText(), paletteFromColorPicker() );
+    }
 }
 
 void Settings::BtnBox_resetDefaults()
@@ -760,6 +811,31 @@ void Settings::initColorPickers(QPalette palette)
 }
 
 /*! \~russian
+ * \brief Метод для получения палитры на основе ColorPicker'а
+ * \return палитра с набором цветов из ColorPicker
+ */
+QPalette Settings::paletteFromColorPicker()
+{
+    QPalette palette;
+
+    palette.setColor(QPalette::Window, ui->Frame_Style_Window->color() );
+    palette.setColor(QPalette::WindowText, ui->Frame_Style_WindowText->color() );
+    palette.setColor(QPalette::Base, ui->Frame_Style_Base->color());
+    palette.setColor(QPalette::AlternateBase, ui->Frame_Style_AlternateBase->color());
+    palette.setColor(QPalette::ToolTipBase, ui->Frame_Style_ToolTipBase->color());
+    palette.setColor(QPalette::ToolTipText, ui->Frame_Style_ToolTipText->color());
+    palette.setColor(QPalette::Text, ui->Frame_Style_Text->color());
+    palette.setColor(QPalette::Button, ui->Frame_Style_Button->color());
+    palette.setColor(QPalette::ButtonText, ui->Frame_Style_ButtonText->color());
+    palette.setColor(QPalette::BrightText, ui->Frame_Style_BrightText->color());
+    palette.setColor(QPalette::Link, ui->Frame_Style_Link->color());
+    palette.setColor(QPalette::Highlight, ui->Frame_Style_Highlight->color());
+    palette.setColor(QPalette::HighlightedText, ui->Frame_Style_HighlightedText->color());
+
+    return palette;
+}
+
+/*! \~russian
  * \brief Метод проверки дублирования имени стиля
  * \param name - имя для проверки
  * \return true в случае если параметр совпадает с одним из пунктов в выпадающем списке стилей.
@@ -774,6 +850,13 @@ bool Settings::duplicateStyleName(QString name)
         return false;
     }
     return true;
+}
+
+void Settings::setApplicationStyle(QPalette palette)
+{
+    qApp->setStyle( QStyleFactory::create("Fusion") );
+    qApp->setPalette( palette );
+    qApp->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
 }
 
 bool Settings::deleteRecords()
@@ -904,8 +987,9 @@ void Settings::on_ComboBox_CurrentStyle_currentIndexChanged(int index)
 {
     ui->GroupBox_Style_Colors->setEnabled( index );
     if( index > INDEX_OF_SYSTEM_STYLE ){
-        // #FixMe : ??? Load style palette from file of style.
-        ui->GroupBox_Style_Colors->setEnabled( ui->ComboBox_CurrentStyle->currentIndex() );
+        stylePalette = StyleManager::getPaletteOfStyle( ui->ComboBox_CurrentStyle->currentText() );
+        initColorPickers( stylePalette );
+        setApplicationStyle( stylePalette );
     }
 }
 
@@ -917,8 +1001,7 @@ void Settings::on_ComboBox_CurrentStyle_currentIndexChanged(int index)
  * завершает выполнение функции.
  *
  * Иначе - удаляет выбранный пункт из выпадаюзего списка.
- * \todo Удаляет файл с таким именем, содержащий
- * этот стиль.
+ * Удаляет файл с таким именем, содержащий этот стиль.
  * \todo Запрашивает подтверждение у пользователя.
  */
 void Settings::on_TButton_RemoveStyle_clicked()
@@ -928,8 +1011,10 @@ void Settings::on_TButton_RemoveStyle_clicked()
         return;
     }
 
+    StyleManager::removeStyle( ui->ComboBox_CurrentStyle->currentText() );
     ui->ComboBox_CurrentStyle->removeItem( ui->ComboBox_CurrentStyle->currentIndex() );
 }
+
 /*! \~russian
  * \brief Метод - клик на кнопку копирования выбранного стиля
  *
@@ -941,29 +1026,30 @@ void Settings::on_TButton_RemoveStyle_clicked()
  * и выходит из функции.
  *
  * Если валидно - добавляет новый пункт в выпадающий список стилей и делает его текущим.
- * \todo Cоздаёт новый файл со стилем.
+ * Cоздаёт новый файл со стилем.
  */
 void Settings::on_TButton_CopyStyle_clicked()
 {
     bool ok;
-    QString text = QInputDialog::getText(this, tr("Style copying"),
+    QString styleName = QInputDialog::getText(this, tr("Style copying"),
                                          tr("Enter name for new style:"), QLineEdit::Normal,
                                          ui->ComboBox_CurrentStyle->currentText(), &ok);
 
-    text = text.trimmed();
+    styleName = styleName.trimmed();
 
     if( ! ok ){
         return;
     }
-    if( text.isEmpty() ){
+    if( styleName.isEmpty() ){
         QMessageBox::information(this, tr("Warning"), tr("The entered name is empty") );
         return;
     }
-    if ( duplicateStyleName( text ) ){
+    if ( duplicateStyleName( styleName ) ){
         QMessageBox::information(this, tr("Warning"), tr("Style with such name already exists") );
         return;
     }
 
-    ui->ComboBox_CurrentStyle->addItem(text);
-    ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText(text) );
+    StyleManager::saveStyle(styleName, paletteFromColorPicker() );
+    ui->ComboBox_CurrentStyle->addItem(styleName);
+    ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText(styleName) );
 }

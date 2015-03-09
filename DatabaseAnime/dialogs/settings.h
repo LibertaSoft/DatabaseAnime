@@ -24,6 +24,7 @@ class Settings : public QDialog
 private:
     Ui::Settings *ui;
     bool restoreDefault;
+    QPalette stylePalette;
     MngrConnection MngrConnect;
 
     static const int INDEX_OF_SYSTEM_STYLE = 0;
@@ -33,7 +34,9 @@ private:
     quint64 removeFilesFromFolder(QString folder);
     quint64 copyFolder(QString folder1, QString folder2);
     void initColorPickers(QPalette pallete);
+    QPalette paletteFromColorPicker();
     bool duplicateStyleName(QString name);
+    void setApplicationStyle(QPalette palette);
 public:
     explicit Settings(MngrConnection &MngrCon, QWidget *parent = 0);
     ~Settings();
@@ -44,7 +47,9 @@ public:
     bool getRestoreDefault();
     QLocale::Language getLanguage();
 
+    void connectColorPicker();
 private slots:
+    void colorPicked(QColor);
     void on_listWidget_currentRowChanged(int currentRow);
     void on_BtnBox_clicked(QAbstractButton *button);
     void on_BtnBox_accepted();

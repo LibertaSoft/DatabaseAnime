@@ -10,6 +10,7 @@ private:
     QColor _color;
 public:
     explicit ColorPicker(QWidget* parent = 0);
+    QColor color();
     QSize sizeHint() const;
 protected:
     virtual void paintEvent(QPaintEvent* e);

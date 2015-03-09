@@ -38,7 +38,8 @@ HEADERS += \
     share/xml/xmldbawriter.h \
     dbalocalization.h \
     shikimoriapi.h \
-    widgets/colorpicker.h
+    widgets/colorpicker.h \
+    stylemanager.h
 
 SOURCES += \
     main.cpp \
@@ -58,7 +59,8 @@ SOURCES += \
     share/xml/xmldbawriter.cpp \
     dbalocalization.cpp \
     shikimoriapi.cpp \
-    widgets/colorpicker.cpp
+    widgets/colorpicker.cpp \
+    stylemanager.cpp
 
 FORMS += \
     mainwindow.ui \
