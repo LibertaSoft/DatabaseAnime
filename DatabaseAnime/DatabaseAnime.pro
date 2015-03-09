@@ -34,8 +34,8 @@ HEADERS += \
     widgets/stackwgt_mousehideover.h \
     definespath.h \
     globalenum.h \
-    xmldbareader.h \
-    xmldbawriter.h \
+    share/xml/xmldbareader.h \
+    share/xml/xmldbawriter.h \
     dbalocalization.h \
     shikimoriapi.h \
     widgets/colorpicker.h
@@ -54,8 +54,8 @@ SOURCES += \
     widgets/lookprogressbar.cpp \
     widgets/stackwgt_mousehideover.cpp \
     definespath.cpp \
-    xmldbareader.cpp \
-    xmldbawriter.cpp \
+    share/xml/xmldbareader.cpp \
+    share/xml/xmldbawriter.cpp \
     dbalocalization.cpp \
     shikimoriapi.cpp \
     widgets/colorpicker.cpp

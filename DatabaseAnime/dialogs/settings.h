@@ -7,20 +7,12 @@
 #include "mngrconnection.h"
 #include "mngrquerys.h"
 
-#include "xmldbareader.h"
-#include "xmldbawriter.h"
+#include "share/xml/xmldbareader.h"
+#include "share/xml/xmldbawriter.h"
 
 #include <QLocale>
 #include <QDir>
 #include <QFileDialog>
-//#include <QVariant>
-
-//#include <QMessageBox>
-//#include <QDebug>
-
-//#include <QProgressDialog>
-//#include <QAbstractButton>
-
 
 namespace Ui {
 class Settings;
