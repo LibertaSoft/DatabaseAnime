@@ -2,6 +2,7 @@
 #include "ui_settings.h"
 
 #include <QColorDialog>
+#include <QInputDialog>
 
 Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     QDialog(parent),
@@ -103,6 +104,7 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     {
         on_ComboBox_CurrentStyle_currentIndexChanged( ui->ComboBox_CurrentStyle->currentIndex() );
     }
+    initColorPickers( qApp->palette() );
 }
 
 Settings::~Settings()
@@ -115,6 +117,13 @@ Settings::~Settings()
     delete ui;
 }
 
+/*! \~russian
+ * \brief Метод - возвращает выбранный пользователем способ сортировки
+ * \return перечисление Sort описанное в файле globalenum.h
+ *
+ * Метод предназначен для получения выбранного пользователем способа
+ * сортировки содержимого разделов.
+ */
 Sort::sort Settings::getSort()
 {
     return static_cast<Sort::sort>( ui->ComboBox_ItemList_Sorting->currentIndex() );
@@ -729,6 +738,44 @@ quint64 Settings::copyFolder(QString folder1, QString folder2)
     return n;
 }
 
+/*! \~russian
+ * \brief Метод инициализирует элементы настройки цвета в соответствии с переданной палитрой.
+ * \param palette - палитра для инициализации
+ */
+void Settings::initColorPickers(QPalette palette)
+{
+    ui->Frame_Style_Window->setColor( palette.window().color() );
+    ui->Frame_Style_WindowText->setColor( palette.windowText().color() );
+    ui->Frame_Style_Base->setColor( palette.base().color() );
+    ui->Frame_Style_AlternateBase->setColor( palette.alternateBase().color() );
+    ui->Frame_Style_ToolTipBase->setColor( palette.toolTipBase().color() );
+    ui->Frame_Style_ToolTipText->setColor( palette.toolTipText().color() );
+    ui->Frame_Style_Text->setColor( palette.text().color() );
+    ui->Frame_Style_Button->setColor( palette.button().color() );
+    ui->Frame_Style_ButtonText->setColor( palette.buttonText().color() );
+    ui->Frame_Style_BrightText->setColor( palette.brightText().color() );
+    ui->Frame_Style_Link->setColor( palette.link().color() );
+    ui->Frame_Style_Highlight->setColor( palette.highlight().color() );
+    ui->Frame_Style_HighlightedText->setColor( palette.highlightedText().color() );
+}
+
+/*! \~russian
+ * \brief Метод проверки дублирования имени стиля
+ * \param name - имя для проверки
+ * \return true в случае если параметр совпадает с одним из пунктов в выпадающем списке стилей.
+ *
+ * Метод проверяет имеется ли переданное имя в списке стилей и возвращает истину в случае если
+ * указанное имя уже имеется.
+ */
+bool Settings::duplicateStyleName(QString name)
+{
+    const int dontFind = -1;
+    if( ui->ComboBox_CurrentStyle->findText(name) == dontFind ){
+        return false;
+    }
+    return true;
+}
+
 bool Settings::deleteRecords()
 {
     bool imAnime  = ui->ChBox_Import_Anime->isChecked();
@@ -782,6 +829,19 @@ bool Settings::deleteRecords()
     return true;
 }
 
+/*! \~russian
+ * \brief Метод - нажатия на кнопку выбора рабочей директории.
+ *
+ * Метод отображает стандартный диалог выбора директории,
+ * позволяя пользователю выбрать место в файловой системе,
+ * где будут храниться файлы приложения.
+ *
+ * При отображении диалогового окна, инстанция задаётся в соответствии
+ * с текущим значением поля ввода рабочей директории.
+ *
+ * При нажатии кнопки отмены, не изменяет текущее значение поля ввода
+ * рабочей директории.
+ */
 void Settings::on_TBtn_WorkDir_Choose_clicked()
 {
     QString dir = QFileDialog::getExistingDirectory(this,
@@ -794,110 +854,116 @@ void Settings::on_TBtn_WorkDir_Choose_clicked()
         ui->LineEdit_WorkDir->setText( dir );
 }
 
+/*! \~russian
+ * \brief Метод - отображения/скрытия прогресс бара импорта
+ * \param checked - отобразить или скрыть прогресс бар
+ *
+ * Метод при аттрибуте cheched равном true - скрывает кнопки действий
+ * и отображает прогресс бар процесса импорта
+ */
+
+
+/*!
+ * \brief Settings::on_actionShowImportProgressBar_triggered
+ * \param checked
+ *
+ * test
+ */
 void Settings::on_actionShowImportProgressBar_triggered(bool checked)
 {
     ui->PBtn_Import_Append->setVisible(!checked);
     ui->PBtn_Import_Replace->setVisible(!checked);
     ui->ProgressBar_Import->setVisible(checked);
 }
-
+/*! \~russian
+ * \brief Метод - отображения/скрытия прогресс бара экспорта
+ * \param checked - отобразить или скрыть прогресс бар
+ *
+ * Метод при аттрибуте cheched равном true - скрывает кнопки действий
+ * и отображает прогресс бар процесса экспорта
+ */
 void Settings::on_actionShowExportProgressBar_triggered(bool checked)
 {
     ui->PBtn_Action_Export->setVisible(!checked);
     ui->ProgressBar_Export->setVisible(checked);
 }
 
-void Settings::setPaletteColor(QWidget *wgt, QPalette::ColorRole role)
-{
-    QPalette palette = this->palette();
-
-    QColorDialog dlg;
-    dlg.setCurrentColor( palette.color(role) );
-    dlg.exec();
-
-    palette.setColor(role, dlg.selectedColor());
-    qApp->setPalette(palette);
-
-
-    wgt->setStyleSheet( "background-color:" + dlg.selectedColor().name(QColor::HexRgb) );
-}
-
-void Settings::setFrameColorFromPalette(QWidget *wgt, QPalette::ColorRole role)
-{
-    QPalette palette = this->palette();
-    wgt->setStyleSheet( "background-color:" + palette.color(role).name(QColor::HexRgb) );
-}
-
-void Settings::on_PButton_Style_Window_clicked()
-{
-    setPaletteColor( ui->Frame_Style_Window, QPalette::Window );
-}
-void Settings::on_PButton_Style_WindowText_clicked()
-{
-    setPaletteColor( ui->Frame_Style_WindowText, QPalette::WindowText );
-}
-void Settings::on_PButton_Style_Base_clicked()
-{
-    setPaletteColor( ui->Frame_Style_Base, QPalette::Base );
-}
-void Settings::on_PButton_Style_AlternateBase_clicked()
-{
-    setPaletteColor( ui->Frame_Style_AlternateBase, QPalette::AlternateBase );
-}
-void Settings::on_PButton_Style_ToolTipBase_clicked()
-{
-    setPaletteColor( ui->Frame_Style_ToolTipBase, QPalette::ToolTipBase );
-}
-void Settings::on_PButton_Style_ToolTipText_clicked()
-{
-    setPaletteColor( ui->Frame_Style_ToolTipText, QPalette::ToolTipText );
-}
-void Settings::on_PButton_Style_Text_clicked()
-{
-    setPaletteColor( ui->Frame_Style_Text, QPalette::Text );
-}
-void Settings::on_PButton_Style_Button_clicked()
-{
-    setPaletteColor( ui->Frame_Style_Button, QPalette::Button );
-}
-void Settings::on_PButton_Style_ButtonText_clicked()
-{
-    setPaletteColor( ui->Frame_Style_ButtonText, QPalette::ButtonText );
-}
-void Settings::on_PButton_Style_BrightText_clicked()
-{
-    setPaletteColor( ui->Frame_Style_BrightText, QPalette::BrightText );
-}
-void Settings::on_PButton_Style_Link_clicked()
-{
-    setPaletteColor( ui->Frame_Style_Link, QPalette::Link );
-}
-void Settings::on_PButton_Style_Highlight_clicked()
-{
-    setPaletteColor( ui->Frame_Style_Highlight, QPalette::Highlight );
-}
-void Settings::on_PButton_Style_HighlightedText_clicked()
-{
-    setPaletteColor( ui->Frame_Style_HighlightedText, QPalette::HighlightedText );
-}
-
+/*! \~russian
+ * \brief Метод - изменение текущего активного стиля в выпадающем списке.
+ * \param index - текущий выбранный индекс
+ *
+ * Если выбранный стиль является системным(INDEX_OF_SYSTEM_STYLE)
+ * блокирует возможность изменения цветовой палитры.
+ *
+ * Иначе - разблокирует возможность изменения цветовой палитры.
+ *
+ * \todo Загружает файл в соответствии с выбранным стилем и
+ * инициализирует цветовую палитру соответствующими цветами.
+ */
 void Settings::on_ComboBox_CurrentStyle_currentIndexChanged(int index)
 {
     ui->GroupBox_Style_Colors->setEnabled( index );
-    if( index ){
-        setFrameColorFromPalette( ui->Frame_Style_Window, QPalette::Window );
-        setFrameColorFromPalette( ui->Frame_Style_WindowText, QPalette::WindowText );
-        setFrameColorFromPalette( ui->Frame_Style_Base, QPalette::Base );
-        setFrameColorFromPalette( ui->Frame_Style_AlternateBase, QPalette::AlternateBase );
-        setFrameColorFromPalette( ui->Frame_Style_ToolTipBase, QPalette::ToolTipBase );
-        setFrameColorFromPalette( ui->Frame_Style_ToolTipText, QPalette::ToolTipText );
-        setFrameColorFromPalette( ui->Frame_Style_Text, QPalette::Text );
-        setFrameColorFromPalette( ui->Frame_Style_Button, QPalette::Button );
-        setFrameColorFromPalette( ui->Frame_Style_ButtonText, QPalette::ButtonText );
-        setFrameColorFromPalette( ui->Frame_Style_BrightText, QPalette::BrightText );
-        setFrameColorFromPalette( ui->Frame_Style_Link, QPalette::Link );
-        setFrameColorFromPalette( ui->Frame_Style_Highlight, QPalette::Highlight );
-        setFrameColorFromPalette( ui->Frame_Style_HighlightedText, QPalette::HighlightedText );
+    if( index > INDEX_OF_SYSTEM_STYLE ){
+        // #FixMe : ??? Load style palette from file of style.
         ui->GroupBox_Style_Colors->setEnabled( ui->ComboBox_CurrentStyle->currentIndex() );
     }
+}
+
+/*! \~russian
+ * \brief Метод - клик на кнопку удаления выбранного стиля.
+ *
+ * Если выбранный стиль - системный (INDEX_OF_SYSTEM_STYLE)
+ * Отображает сообщение пользователю о невозможности его удаления и
+ * завершает выполнение функции.
+ *
+ * Иначе - удаляет выбранный пункт из выпадаюзего списка.
+ * \todo Удаляет файл с таким именем, содержащий
+ * этот стиль.
+ * \todo Запрашивает подтверждение у пользователя.
+ */
+void Settings::on_TButton_RemoveStyle_clicked()
+{
+    if( ui->ComboBox_CurrentStyle->currentIndex() == INDEX_OF_SYSTEM_STYLE ){
+        QMessageBox::information(this, tr("Warning"), tr("It is impossible to delete system style"));
+        return;
+    }
+
+    ui->ComboBox_CurrentStyle->removeItem( ui->ComboBox_CurrentStyle->currentIndex() );
+}
+/*! \~russian
+ * \brief Метод - клик на кнопку копирования выбранного стиля
+ *
+ * Отображает диалог ввода имени для нового стиля,
+ * проверяет валидность нового имени - не может быть пустым,
+ * не может дублировать уже имеющееся имя, не может состоять из пробелов.
+ *
+ * Если не валидно, обображает соответствующее сообщение пользователю
+ * и выходит из функции.
+ *
+ * Если валидно - добавляет новый пункт в выпадающий список стилей и делает его текущим.
+ * \todo Cоздаёт новый файл со стилем.
+ */
+void Settings::on_TButton_CopyStyle_clicked()
+{
+    bool ok;
+    QString text = QInputDialog::getText(this, tr("Style copying"),
+                                         tr("Enter name for new style:"), QLineEdit::Normal,
+                                         ui->ComboBox_CurrentStyle->currentText(), &ok);
+
+    text = text.trimmed();
+
+    if( ! ok ){
+        return;
+    }
+    if( text.isEmpty() ){
+        QMessageBox::information(this, tr("Warning"), tr("The entered name is empty") );
+        return;
+    }
+    if ( duplicateStyleName( text ) ){
+        QMessageBox::information(this, tr("Warning"), tr("Style with such name already exists") );
+        return;
+    }
+
+    ui->ComboBox_CurrentStyle->addItem(text);
+    ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText(text) );
 }

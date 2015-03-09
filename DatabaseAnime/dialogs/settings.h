@@ -34,10 +34,14 @@ private:
     bool restoreDefault;
     MngrConnection MngrConnect;
 
+    static const int INDEX_OF_SYSTEM_STYLE = 0;
+
     bool deleteRecords();
     quint64 import();
     quint64 removeFilesFromFolder(QString folder);
     quint64 copyFolder(QString folder1, QString folder2);
+    void initColorPickers(QPalette pallete);
+    bool duplicateStyleName(QString name);
 public:
     explicit Settings(MngrConnection &MngrCon, QWidget *parent = 0);
     ~Settings();
@@ -62,23 +66,9 @@ private slots:
     void on_actionShowImportProgressBar_triggered(bool checked);
     void on_actionShowExportProgressBar_triggered(bool checked);
 
-    void setPaletteColor(QWidget *wgt, QPalette::ColorRole role);
-    void setFrameColorFromPalette(QWidget *wgt, QPalette::ColorRole role);
-
-    void on_PButton_Style_Window_clicked();
-    void on_PButton_Style_WindowText_clicked();
-    void on_PButton_Style_Base_clicked();
-    void on_PButton_Style_AlternateBase_clicked();
-    void on_PButton_Style_ToolTipBase_clicked();
-    void on_PButton_Style_ToolTipText_clicked();
-    void on_PButton_Style_Text_clicked();
-    void on_PButton_Style_Button_clicked();
-    void on_PButton_Style_ButtonText_clicked();
-    void on_PButton_Style_BrightText_clicked();
-    void on_PButton_Style_Link_clicked();
-    void on_PButton_Style_Highlight_clicked();
-    void on_PButton_Style_HighlightedText_clicked();
     void on_ComboBox_CurrentStyle_currentIndexChanged(int index);
+    void on_TButton_RemoveStyle_clicked();
+    void on_TButton_CopyStyle_clicked();
 };
 
 #endif // SETTINGS_H
