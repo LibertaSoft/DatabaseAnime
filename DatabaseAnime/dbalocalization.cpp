@@ -21,13 +21,12 @@ QString DbaLocalization::getPathToLocalizationFile(QString filePrefix, QLocale::
         }
     }
 
-    qWarning() << "Localization " + QLocale::languageToString(lang) + "["+filePrefix+"]" + " not found";
+    qWarning() << filePrefix + " localization " + QLocale::languageToString(lang) + " not found";
     return QString::null;
 }
 
 QMap<QLocale::Language,QString> DbaLocalization::readExistsLocalizations(QStringList paths)
 {
-//    QSet<QString> localizationList;
     QMap<QLocale::Language,QString> localizationList;
     if( paths.isEmpty() ){
         qCritical() << "Empty paths to localization";
