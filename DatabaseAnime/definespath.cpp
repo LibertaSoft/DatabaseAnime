@@ -64,6 +64,11 @@ QString DefinesPath::dbPath(bool appendFileName)
         return appData();
 }
 
+QString DefinesPath::styleLocation()
+{
+    return appData() + "Style" + QDir::separator();
+}
+
 QString DefinesPath::getCoversFolder(const sections::section section, const QString prefix)
 {
     switch (section) {

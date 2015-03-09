@@ -15,6 +15,7 @@ public:
 
     static QString appData(bool useDefault = false);
         static QString dbPath(bool appendFileName = false);
+        static QString styleLocation();
         static QString getCoversFolder(const sections::section section, const QString prefix = QString::null);
         static QString animeCovers(const QString prefix = QString::null);
         static QString mangaCovers(const QString prefix = QString::null);
