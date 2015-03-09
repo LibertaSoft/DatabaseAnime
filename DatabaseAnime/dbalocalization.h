@@ -7,8 +7,9 @@
 
 class DbaLocalization
 {
+private:
+    static QString getPathToLocalizationFile(QString filePrefix, QLocale::Language, QStringList paths);
 public:
-    DbaLocalization();
     static QMap<QLocale::Language,QString> readExistsLocalizations(QStringList paths);
     static QString getFileOfLocalization(QLocale::Language, QStringList paths);
     static QString getQtBaseFileOfLocalization(QLocale::Language, QStringList paths);

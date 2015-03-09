@@ -2,8 +2,27 @@
 
 #include <QDebug>
 
-DbaLocalization::DbaLocalization()
+QString DbaLocalization::getPathToLocalizationFile(QString filePrefix, QLocale::Language lang, QStringList paths)
 {
+    if( paths.isEmpty() ){
+        qCritical() << "Empty paths to localization";
+        return QString::null;
+    }
+
+    foreach (QString path, paths) {
+        QString l10n = QDir(path).path() + QDir::separator() + "l10n" + QDir::separator();
+        foreach(QString fileName, QDir(l10n).entryList( QStringList(filePrefix+"*")) ){
+            QString fullFileName = fileName;
+            fileName.replace(filePrefix+"_", "").replace(".qm", "");
+            QLocale::Language language = QLocale(fileName).language();
+            if( language == lang ){
+                return l10n + fullFileName;
+            }
+        }
+    }
+
+    qWarning() << "Localization " + QLocale::languageToString(lang) + "["+filePrefix+"]" + " not found";
+    return QString::null;
 }
 
 QMap<QLocale::Language,QString> DbaLocalization::readExistsLocalizations(QStringList paths)
@@ -18,8 +37,7 @@ QMap<QLocale::Language,QString> DbaLocalization::readExistsLocalizations(QString
     foreach (QString path, paths) {
         QString l10n = QDir(path).path() + QDir::separator() + "l10n" + QDir::separator();
         foreach(QString fileName, QDir(l10n).entryList( QStringList("DatabaseAnime*")) ){
-            fileName = fileName.replace("DatabaseAnime_", "");
-            fileName = fileName.replace(".qm", "");
+            fileName.replace("DatabaseAnime_", "").replace(".qm", "");
             QLocale::Language language = QLocale(fileName).language();
             localizationList.insert(language, QLocale::languageToString( language ) );
         }
@@ -30,48 +48,13 @@ QMap<QLocale::Language,QString> DbaLocalization::readExistsLocalizations(QString
 
 QString DbaLocalization::getFileOfLocalization(QLocale::Language lang, QStringList paths)
 {
-    if( paths.isEmpty() ){
-        qCritical() << "Empty paths to localization";
-        return QString::null;
-    }
-
-    foreach (QString path, paths) {
-        QString l10n = QDir(path).path() + QDir::separator() + "l10n" + QDir::separator();
-        foreach(QString fileName, QDir(l10n).entryList( QStringList("DatabaseAnime*")) ){
-            QString fullFileName = fileName;
-            fileName.replace("DatabaseAnime_", "").replace(".qm", "");
-            QLocale::Language language = QLocale(fileName).language();
-            if( language == lang ){
-                return l10n + fullFileName;
-            }
-        }
-    }
-
-    qCritical() << "Localization " + QLocale::languageToString(lang) + " not found";
-    return QString::null;
+    return getPathToLocalizationFile("DatabaseAnime", lang, paths);
 }
 
 QString DbaLocalization::getQtBaseFileOfLocalization(QLocale::Language lang, QStringList paths)
 {
-    if( paths.isEmpty() ){
-        qCritical() << "Empty paths to localization";
-        return QString::null;
-    }
     if( lang == QLocale::English )
         return QString::null;
 
-    foreach (QString path, paths) {
-        QString l10n = QDir(path).path() + QDir::separator() + "l10n" + QDir::separator();
-        foreach(QString fileName, QDir(l10n).entryList( QStringList("qtbase_*")) ){
-            QString fullFileName = fileName;
-            fileName.replace("qtbase_", "").replace(".qm", "");
-            QLocale::Language language = QLocale(fileName).language();
-            if( language == lang ){
-                return l10n + fullFileName;
-            }
-        }
-    }
-
-    qCritical() << "QtBase Localization " + QLocale::languageToString(lang) + " not found";
-    return QString::null;
+    return getPathToLocalizationFile("qtbase", lang, paths);
 }
