@@ -6,8 +6,6 @@
 
 /// Any string(path) ended of QDir::separator()
 
-/// QString DefinesPath::home()
-///
 /*! \~russian
  * \brief Метод для получения пути к домашней директории
  * \return QString - путь к домашней директории пользователя
