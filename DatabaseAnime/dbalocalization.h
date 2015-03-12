@@ -8,7 +8,7 @@
 /*! \~russian
  * \brief Статический класс для поиска файлов локализации приложения
  */
-/*! \~englist
+/*! \~english
  * \brief The static class for search of files of localization of application
  */
 class DbaLocalization

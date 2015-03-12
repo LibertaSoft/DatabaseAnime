@@ -6,6 +6,14 @@
 #include <QStandardPaths>
 #include "globalenum.h"
 
+/*! \~russian
+ * \brief Статический класс для доступа к файловой иерархии приложения
+ * \warning Все возвращаемые классом пути(строки) обязаны заканчиваться на QDir::separator()
+ */
+/*! \~english
+ * \brief The static class for access to file hierarchy of application
+ * \warning Any string(path) ended of QDir::separator()
+ */
 class DefinesPath
 {
 public:
