@@ -5,6 +5,12 @@
 #include <QLocale>
 #include <QDir>
 
+/*! \~russian
+ * \brief Статический класс для поиска файлов локализации приложения
+ */
+/*! \~englist
+ * \brief The static class for search of files of localization of application
+ */
 class DbaLocalization
 {
 private:
