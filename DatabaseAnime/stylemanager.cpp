@@ -96,6 +96,6 @@ bool StyleManager::removeStyle(QString styleName)
     if( styleName.isEmpty() )
         return false;
 
-    QString fileName = DefinesPath::styleLocation() + QDir::separator() + styleName + ".ini";
+    QString fileName = DefinesPath::styleLocation() + styleName + ".ini";
     return QFile().remove(fileName);
 }

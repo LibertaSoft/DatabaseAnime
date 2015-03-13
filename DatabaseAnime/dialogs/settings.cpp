@@ -141,7 +141,7 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
         initColorPickers( stylePalette );
 
         connectColorPicker();
-
+        ui->PButton_Style_SaveChanges->setVisible( false );
     }
 }
 
@@ -191,6 +191,7 @@ void Settings::colorPicked(QColor)
 {
     stylePalette = paletteFromColorPicker();
     setApplicationStyle( stylePalette );
+    ui->PButton_Style_SaveChanges->setVisible( true );
 }
 
 void Settings::on_listWidget_currentRowChanged(int currentRow)
@@ -262,15 +263,17 @@ void Settings::on_BtnBox_accepted()
     else
         settings.remove(Options::General::WorkDirectory);
 
-    // Displayed field
-    Tables::UniformField::field displayedField = static_cast<Tables::UniformField::field>( ui->ComboBox_ItemList_DisplayedField->currentData().toInt() );
-    settings.setValue( Options::General::DisplayedField, displayedField );
+    { // Displayed field
+        Tables::UniformField::field displayedField = static_cast<Tables::UniformField::field>( ui->ComboBox_ItemList_DisplayedField->currentData().toInt() );
+        settings.setValue( Options::General::DisplayedField, displayedField );
+    }
 
     { // Style
         settings.setValue( Options::Style::CurrentStyle, ui->ComboBox_CurrentStyle->currentIndex() );
         settings.setValue( Options::Style::CurrentStyleName, ui->ComboBox_CurrentStyle->currentText() );
 
-        StyleManager::saveStyle( ui->ComboBox_CurrentStyle->currentText(), paletteFromColorPicker() );
+        if( ui->ComboBox_CurrentStyle->currentIndex () != INDEX_OF_SYSTEM_STYLE )
+            StyleManager::saveStyle( ui->ComboBox_CurrentStyle->currentText(), paletteFromColorPicker() );
     }
 }
 
@@ -986,7 +989,8 @@ void Settings::on_actionShowExportProgressBar_triggered(bool checked)
 void Settings::on_ComboBox_CurrentStyle_currentIndexChanged(int index)
 {
     ui->GroupBox_Style_Colors->setEnabled( index );
-    if( index > INDEX_OF_SYSTEM_STYLE ){
+    ui->PButton_Style_SaveChanges->setVisible( false );
+    if( index != INDEX_OF_SYSTEM_STYLE ){
         stylePalette = StyleManager::getPaletteOfStyle( ui->ComboBox_CurrentStyle->currentText() );
         initColorPickers( stylePalette );
         setApplicationStyle( stylePalette );
@@ -1052,4 +1056,11 @@ void Settings::on_TButton_CopyStyle_clicked()
     StyleManager::saveStyle(styleName, paletteFromColorPicker() );
     ui->ComboBox_CurrentStyle->addItem(styleName);
     ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText(styleName) );
+    ui->PButton_Style_SaveChanges->setVisible( false );
+}
+
+void Settings::on_PButton_Style_SaveChanges_clicked()
+{
+    if( ui->ComboBox_CurrentStyle->currentIndex() != INDEX_OF_SYSTEM_STYLE )
+        StyleManager::saveStyle(ui->ComboBox_CurrentStyle->currentText(), paletteFromColorPicker() );
 }

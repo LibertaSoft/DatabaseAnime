@@ -66,6 +66,7 @@ private slots:
     void on_ComboBox_CurrentStyle_currentIndexChanged(int index);
     void on_TButton_RemoveStyle_clicked();
     void on_TButton_CopyStyle_clicked();
+    void on_PButton_Style_SaveChanges_clicked();
 };
 
 #endif // SETTINGS_H

@@ -1178,6 +1178,13 @@
           </layout>
          </widget>
         </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QPushButton" name="PButton_Style_SaveChanges">
+          <property name="text">
+           <string>Save changes</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
