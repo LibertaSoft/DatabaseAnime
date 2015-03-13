@@ -1,4 +1,4 @@
-![Logo](./images/DBA_logo_m.png)
+![Logo](./DatabaseAnime/images/DBA_logo_m.png)
 
 # Database Anime [ Rus | [Eng](./README_eng.md) ]
 
@@ -30,8 +30,8 @@
 - SQLite >= 3.7
 
 ### Разработка
-- В будующих версиях планируется: [ToDo](./ToDo.md)
-- Уже реализовано: [ChangeLog](./ChangeLog.md)
+- В будующих версиях планируется: [ToDo](./DatabaseAnime/ToDo.md)
+- Уже реализовано: [ChangeLog](./DatabaseAnime/ChangeLog.md)
 - Если нашли ошибку [создайте новое issue](https://github.com/LibertaSoft/DatabaseAnime/issues/new) и помогите сделать проект лучше
 - Хотите помочь? знаете Qt & C++ ? - [форкните](https://github.com/LibertaSoft/DatabaseAnime/fork) проект, внесите изменения и отправьте [Pull Request](https://github.com/LibertaSoft/DatabaseAnime/pulls)
 - Вы можете присоедениться к нам но перед этим, чтобы мы могли оценить ваши умения - внесите несколько коммитов.

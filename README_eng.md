@@ -1,4 +1,4 @@
-![Logo](./images/DBA_logo_m.png)
+![Logo](./DatabaseAnime/images/DBA_logo_m.png)
 
 # Database Anime [ [Rus](./README.md) | Eng ]
 
@@ -28,8 +28,8 @@ It is my first project on **Qt**, difficult functions can be developed long enou
 - SQLite >= 3.0
 
 ### Develop
-- In future versions it is planned: [ToDo](./ToDo.md)
-- That done: [ChangeLog](./ChangeLog.md)
+- In future versions it is planned: [ToDo](./DatabaseAnime/ToDo.md)
+- That done: [ChangeLog](./DatabaseAnime/ChangeLog.md)
 - If found a error [create new issue](https://github.com/LibertaSoft/DatabaseAnime/issues/new)
 
 ### Contacts
