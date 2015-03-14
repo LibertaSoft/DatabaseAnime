@@ -114,7 +114,7 @@ void DialogAddManga::setTabOrders()
 {
     if( this->LineEdit_AltTitle  ){
         setTabOrder(ui->SpinBox_Year, this->LineEdit_AltTitle);
-        if( !this->LineEdit_Translation && !this->LineEdit_Translation ){
+        if( !this->LineEdit_Translation && !this->LineEdit_Author ){
             setTabOrder(this->LineEdit_AltTitle, ui->SpinBox_aVol);
         }
     }
@@ -141,7 +141,7 @@ void DialogAddManga::setTabOrders()
         setTabOrder(this->LineEdit_Translation, ui->SpinBox_aVol);
     }
 
-    if( !this->LineEdit_Translation && !this->LineEdit_Translation && !this->LineEdit_AltTitle ){
+    if( !this->LineEdit_Translation && !this->LineEdit_Author && !this->LineEdit_AltTitle ){
         setTabOrder(ui->SpinBox_Year, ui->SpinBox_aVol);
     }
 

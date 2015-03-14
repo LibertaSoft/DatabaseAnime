@@ -4,7 +4,7 @@ XmlDbaReader::XmlDbaReader(QIODevice* stream)
     :_streamReader(stream), _dbaFormat(false)
 {}
 
-bool XmlDbaReader::isDbaFormat()
+bool XmlDbaReader::isDbaFormat() const
 {
      return _dbaFormat;
 }

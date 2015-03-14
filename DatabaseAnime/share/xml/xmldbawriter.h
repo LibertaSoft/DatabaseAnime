@@ -11,7 +11,7 @@ class XmlDbaWriter
     QXmlStreamWriter    _streamWriter;
     sections::section   _currentSection;
 
-    QString getSectionName(sections::section section);
+    static QString getSectionName(sections::section section);
 
 public:
     XmlDbaWriter(QIODevice* stream);
