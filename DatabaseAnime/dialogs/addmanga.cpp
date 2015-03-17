@@ -24,11 +24,11 @@ void DialogAddManga::initTitleCompleter()
     TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
     TitleCompliter->setCompletionMode(QCompleter::UnfilteredPopupCompletion); // PopupCompletion
     ui->LineEdit_Title->setCompleter( TitleCompliter );
-    connect(&api, &shikimoriApi::dataRecived_mangaSearch,
+    connect(&api, &ShikimoriApi::dataRecived_mangaSearch,
             &_titleCompliterModel, &QStringListModel::setStringList );
-    connect(&api, &shikimoriApi::dataRecived_mangaId,
-            &api, &shikimoriApi::pullMangaData);
-    connect(&api, &shikimoriApi::dataRecived_mangaData,
+    connect(&api, &ShikimoriApi::dataRecived_mangaId,
+            &api, &ShikimoriApi::pullMangaData);
+    connect(&api, &ShikimoriApi::dataRecived_mangaData,
             this, &DialogAddManga::setRecivedData);
 }
 

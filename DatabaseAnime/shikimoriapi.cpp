@@ -1,17 +1,41 @@
 ﻿#include "shikimoriapi.h"
+#include "mngrquerys.h"
 
-shikimoriApi::shikimoriApi(QString lang, QObject *parent)
+ShikimoriApi::ShikimoriApi(QString lang, QObject *parent)
     :QObject(parent)
 {
     _lang = lang;
 }
 
-void shikimoriApi::setLang(QString lang)
+/*! \~russian
+ * \brief Устанавливает язык для поиска на сайте
+ * \param lang - язык для поиска на сайте \warning используется только для тегов
+ * \todo использовать для остальных полей,
+ *  я не знаю о наличии информации на английском языке на самом сайте
+ */
+/*! \~english
+ * \brief Setting language for search on the website
+ * \param lang - language for search on website \warning Used only for tags
+ * \todo use for other field, i don't know of an exists english info on website
+ */
+void ShikimoriApi::setLang(QString lang)
 {
     _lang = lang;
 }
 
-QStringList shikimoriApi::jsonParse_search(QByteArray data)
+/*! \~russian
+ * \brief Разбот JSON ответа от сайта, на поиск имеющихся названий
+ * \param data - данные пришедшие в ответе от сайта (JSON)
+ * \return QStringList - список названий аниме/манги
+ * \todo Исправить хардкод obj["russian"]
+ */
+/*! \~english
+ * \brief Parsing answer JSON from website
+ * \param data - is a data recieved from the website (JSON)
+ * \return QStringList - List of names of an anime/manga
+ * \todo Fix a hardcode obj["russian"]
+ */
+QStringList ShikimoriApi::jsonParse_search(QByteArray data)
 {
     QJsonDocument doc = QJsonDocument::fromJson( data );
     QJsonArray arr = doc.array();
@@ -24,11 +48,20 @@ QStringList shikimoriApi::jsonParse_search(QByteArray data)
             animeList.append( obj["russian"].toString() );
     }
 
-//    qDebug() << animeList;
     return animeList;
 }
 
-quint64 shikimoriApi::jsonParse_getId(QByteArray data)
+/*! \~russian
+ * \brief Разбор JSON ответа от сайта, на поиск по названию
+ * \param data - данные пришедшие в ответе от сайта (JSON)
+ * \return  quint64 - id записи на сайте
+ */
+/*! \~english
+ * \brief Parsing answer JSON from website, on search of an title
+ * \param data - is a data recieved from website (JSON)
+ * \return - quing64 - id of record on the website
+ */
+quint64 ShikimoriApi::jsonParse_getId(QByteArray data)
 {
     QJsonDocument doc = QJsonDocument::fromJson( data );
     QJsonArray arr = doc.array();
@@ -37,27 +70,42 @@ quint64 shikimoriApi::jsonParse_getId(QByteArray data)
     #pragma int2ulonglong;
 }
 
-QMap<QString,QVariant> shikimoriApi::jsonParse_animeData(QByteArray data)
+/*! \~russian
+ * \brief Разбот JSON ответа от сайта, на поиск конкретного аниме
+ * \param data - JSON данные принятые с сайта
+ * \return QMap<QString,QVariant> - разобраные данные <Ключ-Значение> принятые с сайта
+ * \todo Исправить хардкод obj["russian"]
+ */
+/*! \~english
+ * \brief Parsing answer JSON from the site, on search of a specific anime
+ * \param data - JSON data recieved from the website
+ * \return QMap<QString,QVariant> - parsed data <key-value> recieved from the website
+ * \todo Fix a hardcode obj["russian"]
+ */
+QMap<QString,QVariant> ShikimoriApi::jsonParse_animeData(QByteArray data)
 {
     QMap<QString,QVariant> map;
 
 	QJsonDocument doc = QJsonDocument::fromJson( data );
 	QJsonObject obj = doc.object();
-	map["Title"] = obj["name"].toString();
-	map["AltTitle"] = obj["russian"].toString();
+
+    using namespace Tables::Anime::Fields;
+    map[Title] = obj["name"].toString();
+    map[AltTitle] = obj["russian"].toString();
 	
 	//map["director"] = obj["director"].toString();
 	//map["PostScoring"] = obj["PostScoring"].toString();
 	
 	QDate date = QDate::fromString( obj["aired_on"].toString(), Qt::ISODate );
-    map["Year"] = date.year();
+    map[Year] = date.year();
 	//map["Season"] = obj["Season"].toInt();
 	
 	QJsonArray studiosArray = obj["studios"].toArray();
 	QJsonObject studioObj = studiosArray.at(0).toObject();
-	map["Studio"] = studioObj["name"].toString();
+    map[Studios] = studioObj["name"].toString();
 
-	map["Type"] = obj["kind"].toString();
+    /// \todo Fix hardcode field names
+    map["Type"] = obj["kind"].toString();
     map["Series"] = obj["episodes"].toInt();
 		
 	QJsonArray tagArray = obj["genres"].toArray();
@@ -75,33 +123,46 @@ QMap<QString,QVariant> shikimoriApi::jsonParse_animeData(QByteArray data)
 			tags += tagObj["name"].toString();
 		}
 	}
-	map["Tags"] = tags;
-	map["Description"] = obj["description_html"].toString();
-	map["URL"] = "http://shikimori.org" + obj["url"].toString();
-    map["ImagePath"] = ( obj["image"].toObject() )["original"].toString();
+    map[Tags] = tags;
+    map[Description] = obj["description_html"].toString();
+    map[Url] = "http://shikimori.org" + obj["url"].toString();
+    map[ImagePath] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
 }
 
-QMap<QString,QVariant> shikimoriApi::jsonParse_mangaData(QByteArray data)
+/*! \~russian
+ * \brief Разбот JSON ответа от сайта, на поиск конкретной манги
+ * \param data - JSON данные принятые с сайта
+ * \return QMap<QString,QVariant> - разобраные данные <Ключ-Значение> принятые с сайта
+ * \todo Исправить хардкод obj["russian"]
+ */
+/*! \~english
+ * \brief Parsing answer JSON from the site, on search of a specific manga
+ * \param data - JSON data recieved from the website
+ * \return QMap<QString,QVariant> - parsed data <key-value> recieved from the website
+ * \todo Fix a hardcode obj["russian"]
+ */
+QMap<QString,QVariant> ShikimoriApi::jsonParse_mangaData(QByteArray data)
 {
     QMap<QString,QVariant> map;
 
 	QJsonDocument doc = QJsonDocument::fromJson( data );
 	QJsonObject obj = doc.object();
-	
-	map["Title"] = obj["name"].toString();
-	map["AltTitle"] = obj["russian"].toString();
+
+    using namespace Tables::Manga::Fields;
+    map[Title] = obj["name"].toString();
+    map[AltTitle] = obj["russian"].toString();
 	
 	//map["director"] = obj["director"].toString();
 	//map["PostScoring"] = obj["PostScoring"].toString();
 	
 	QDate date = QDate::fromString( obj["aired_on"].toString(), Qt::ISODate );
-	map["Year"] = date.year();
+    map[Year] = date.year();
 	//map["Season"] = obj["Season"].toInt();
 	
-	map["Vol"] = obj["volumes"].toInt();
-	map["Ch"] = obj["chapters"].toInt();
+    map[Vol] = obj["volumes"].toInt();
+    map[Ch] = obj["chapters"].toInt();
 		
 	QJsonArray tagArray = obj["genres"].toArray();
 	QString tags;
@@ -118,105 +179,173 @@ QMap<QString,QVariant> shikimoriApi::jsonParse_mangaData(QByteArray data)
 			tags += tagObj["name"].toString();
 		}
 	}
-	map["Tags"] = tags;
-	map["Description"] = obj["description_html"].toString();
-	map["URL"] = "http://shikimori.org" + obj["url"].toString();
-    map["ImagePath"] = ( obj["image"].toObject() )["original"].toString();
+    map[Tags] = tags;
+    map[Description] = obj["description_html"].toString();
+    map[Url] = "http://shikimori.org" + obj["url"].toString();
+    map[ImagePath] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
 }
 
-void shikimoriApi::searchAnime(QString title, short limit)
+/*! \~russian
+ * \brief Метод для поиска аниме по названию
+ * \param title - искомое название
+ * \param limit - ограничение на количество получаемых данных
+ */
+/*! \~english
+ * \brief Search of anime on the website by title
+ * \param title - searching title
+ * \param limit - is a limit of the response
+ */
+void ShikimoriApi::searchAnime(QString title, short limit)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished,
-            this,    &shikimoriApi::replyAnimeSearch);
+            this,    &ShikimoriApi::replyAnimeSearch);
 
     QUrl url = "http://shikimori.org/api/animes?search=" + title + "&limit=" + QString::number(limit);
     manager->get( QNetworkRequest( url ) );
 }
 
-void shikimoriApi::searchManga(QString title, short limit)
+/*! \~russian
+ * \brief Метод для поиска манги по названию
+ * \param title - искомое название
+ * \param limit - ограничение на количество получаемых данных
+ */
+/*! \~english
+ * \brief Search of manga on the website by title
+ * \param title - searching title
+ * \param limit - is a limit of the response
+ */
+void ShikimoriApi::searchManga(QString title, short limit)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished,
-            this,    &shikimoriApi::replyMangaSearch);
+            this,    &ShikimoriApi::replyMangaSearch);
 
     QUrl url = "http://shikimori.org/api/mangas?search=" + title + "&limit=" + QString::number(limit);
     manager->get( QNetworkRequest( url ) );
 }
 
-void shikimoriApi::getAnimeId(QString title)
+/*! \~russian
+ * \brief Метод для получения id аниме на сайте, по полному названию
+ * \param title - искомое название
+ * \return результат приходит в слот ShikimoriApi::replyGetAnimeId
+ * который излучает сигнал dataRecived_animeId(quint64 id)
+ */
+/*! \~english
+* \brief the Method for receiving id of an anime on the site, according to the full name
+ * \param title - the required name
+ * \return the result comes to ShikimoriApi slot:: replyGetAnimeId
+ * which radiates a signal of dataRecived_animeId(quint64 id)
+ */
+void ShikimoriApi::getAnimeId(QString title)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished,
-            this,    &shikimoriApi::replyGetAnimeId);
+            this,    &ShikimoriApi::replyGetAnimeId);
 
     QUrl url = "http://shikimori.org/api/animes?search=" + title + "&limit=1";
     manager->get( QNetworkRequest( url ) );
 }
 
-void shikimoriApi::getMangaId(QString title)
+/*! \~russian
+ * \brief Метод для получения id манги на сайте, по полному названию
+ * \param title - искомое название
+ * \return результат приходит в слот ShikimoriApi::replyGetMangaId
+ * который излучает сигнал dataRecived_mangaId(quint64 id)
+ */
+/*! \~english
+* \brief the Method for receiving id of an manga on the website, according to the full name
+ * \param title - the required name
+ * \return the result comes to ShikimoriApi slot:: replyGetMangaId
+ * which radiates a signal of dataRecived_mangaId(quint64 id)
+ */
+void ShikimoriApi::getMangaId(QString title)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished,
-            this,    &shikimoriApi::replyGetMangaId);
+            this,    &ShikimoriApi::replyGetMangaId);
 
     QUrl url = "http://shikimori.org/api/mangas?search=" + title + "&limit=1";
     manager->get( QNetworkRequest( url ) );
 }
 
-void shikimoriApi::pullAnimeData(quint64 id)
+/*! \~russian
+ * \brief Метод для получения данных об аниме по его id
+ * \param id - идентификатор требуемого аниме
+ * \return результат приходит в слот ShikimoriApi::replyAnimeData
+ * который излучает сигнал ShikimoriApi::dataRecived_animeData(QMap<QString,QVariant> data)
+ */
+/*! \~english
+* \brief the Method for data acquisition about an anime on its id
+ * \param id - the identifier of the requirement anime
+ * \return the result comes to ShikimoriApi slot::replyAnimeData
+ * which radiates signal ShikimoriApi::dataRecived_animeData(QMap<QString,QVariant> data)
+ */
+void ShikimoriApi::pullAnimeData(quint64 id)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished,
-            this,    &shikimoriApi::replyAnimeData);
+            this,    &ShikimoriApi::replyAnimeData);
 
     QUrl url = "http://shikimori.org/api/animes/" + QString::number(id);
     manager->get( QNetworkRequest( url ) );
 }
 
-void shikimoriApi::pullMangaData(quint64 id)
+/*! \~russian
+ * \brief Метод для получения данных об аниме по его id
+ * \param id - идентификатор требуемого аниме
+ * \return результат приходит в слот ShikimoriApi::replyAnimeData
+ * который излучает сигнал ShikimoriApi::dataRecived_animeData(QMap<QString,QVariant> data)
+ */
+/*! \~english
+* \brief the Method for data acquisition about an manga on its id
+ * \param id - the identifier of the requirement manga
+ * \return the result comes to ShikimoriApi slot::replyMangaData
+ * which radiates signal ShikimoriApi::dataRecived_mangaData(QMap<QString,QVariant> data)
+ */
+void ShikimoriApi::pullMangaData(quint64 id)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished,
-            this,    &shikimoriApi::replyMangaData);
+            this,    &ShikimoriApi::replyMangaData);
 
     QUrl url = "http://shikimori.org/api/mangas/" + QString::number(id);
     manager->get( QNetworkRequest( url ) );
 }
 
-void shikimoriApi::replyAnimeSearch(QNetworkReply* reply)
+void ShikimoriApi::replyAnimeSearch(QNetworkReply* reply)
 {
     emit dataRecived_animeSearch( jsonParse_search( reply->readAll() ) );
     reply->deleteLater();
 }
 
-void shikimoriApi::replyMangaSearch(QNetworkReply* reply)
+void ShikimoriApi::replyMangaSearch(QNetworkReply* reply)
 {
     emit dataRecived_mangaSearch( jsonParse_search( reply->readAll() ) );
     reply->deleteLater();
 }
 
-void shikimoriApi::replyGetAnimeId(QNetworkReply* reply)
+void ShikimoriApi::replyGetAnimeId(QNetworkReply* reply)
 {
     emit dataRecived_animeId( jsonParse_getId( reply->readAll() ) );
     reply->deleteLater();
 }
 
-void shikimoriApi::replyGetMangaId(QNetworkReply* reply)
+void ShikimoriApi::replyGetMangaId(QNetworkReply* reply)
 {
     emit dataRecived_mangaId( jsonParse_getId( reply->readAll() ) );
     reply->deleteLater();
 }
 
-void shikimoriApi::replyAnimeData(QNetworkReply* reply)
+void ShikimoriApi::replyAnimeData(QNetworkReply* reply)
 {
     emit dataRecived_animeData( jsonParse_animeData( reply->readAll() ) );
     reply->deleteLater();
 }
 
-void shikimoriApi::replyMangaData(QNetworkReply* reply)
+void ShikimoriApi::replyMangaData(QNetworkReply* reply)
 {
     emit dataRecived_mangaData( jsonParse_mangaData( reply->readAll() ) );
     reply->deleteLater();

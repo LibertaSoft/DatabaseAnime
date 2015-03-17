@@ -26,11 +26,11 @@ void DialogAddAnime::initTitleCompleter()
     TitleCompliter->setCaseSensitivity(Qt::CaseInsensitive);
     TitleCompliter->setCompletionMode(QCompleter::UnfilteredPopupCompletion); // PopupCompletion
     ui->LineEdit_Title->setCompleter( TitleCompliter );
-    connect(&api, &shikimoriApi::dataRecived_animeSearch,
+    connect(&api, &ShikimoriApi::dataRecived_animeSearch,
             &_titleCompliterModel, &QStringListModel::setStringList );
-    connect(&api, &shikimoriApi::dataRecived_animeId,
-            &api, &shikimoriApi::pullAnimeData);
-    connect(&api, &shikimoriApi::dataRecived_animeData,
+    connect(&api, &ShikimoriApi::dataRecived_animeId,
+            &api, &ShikimoriApi::pullAnimeData);
+    connect(&api, &ShikimoriApi::dataRecived_animeData,
             this, &DialogAddAnime::setRecivedData);
 }
 

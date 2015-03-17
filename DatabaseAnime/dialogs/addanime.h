@@ -20,7 +20,7 @@ class DialogAddAnime : public QDialog
 private:
     Ui::DialogAddAnime *ui;
     QSqlQueryModel* model;
-    shikimoriApi api;
+    ShikimoriApi api;
 
 
     bool _isEditRole;

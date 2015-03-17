@@ -20,7 +20,7 @@ class DialogAddManga : public QDialog
 private:
     Ui::DialogAddManga *ui;
     QSqlQueryModel* model;
-    shikimoriApi api;
+    ShikimoriApi api;
 
     bool _isEditRole;
     unsigned long long _recordId;
