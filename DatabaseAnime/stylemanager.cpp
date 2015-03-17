@@ -6,6 +6,20 @@
 #include <QRgb>
 #include <QSettings>
 
+/*! \~russian
+ * \brief Метод для получения доступных стилей
+ * \return QSet<QString> - список доступных стилей
+ *
+ * Метод читает директории со стилями и ищет .ini файле стилей
+ * после чего возвращает список найденных файлов без расширения.
+ */
+/*! \~english
+* \brief The method for obtaining available styles
+ * \return QSet<QString> - the list of available styles
+ *
+ * The method reads directories with styles and looks for .ini the file of styles
+ * then returns the list of the found files without expansion.
+ */
 QSet<QString> StyleManager::getExistsStyles()
 {
     QSet<QString> styles;
@@ -23,6 +37,16 @@ QSet<QString> StyleManager::getExistsStyles()
     return styles;
 }
 
+/*! \~russian
+ * \brief Метод для получения палитры указанного стиля
+ * \param styleName - имя стиля, палитру которого требуется получить
+ * \return QPalette - палитра
+ */
+/*! \~english
+* \brief the Method for receiving a palette of the specified style
+ * \param styleName - a style name, which palette is required to be received
+ * \return QPalette - a palette
+ */
 QPalette StyleManager::getPaletteOfStyle(QString styleName)
 {
     QString fileName = DefinesPath::styleLocation() + QDir::separator() + styleName + ".ini";
@@ -66,6 +90,18 @@ QPalette StyleManager::getPaletteOfStyle(QString styleName)
     return palette;
 }
 
+/*! \~russian
+ * \brief Метод для сохранения стиля, в пользовательскую директорию со стилями
+ * \param styleName - имя сохраняемого стиля
+ * \param palette - палитра для сохранения
+ * \return bool - успех операции, false - если переданное имя пустое.
+ */
+/*! \~english
+* \brief the Method for style preservation, in the user directory with styles
+* \param styleName - a name of the kept style
+* \param palette - a palette for preservation
+* \return bool - success of operation, false - if the transferred name empty.
+*/
 bool StyleManager::saveStyle(QString styleName, QPalette palette)
 {
     if( styleName.isEmpty() )
@@ -91,6 +127,16 @@ bool StyleManager::saveStyle(QString styleName, QPalette palette)
     return true;
 }
 
+/*! \~russian
+ * \brief Метод для удаления стиля
+ * \param styleName - имя стиля который требуется удалить (без расширения)
+ * \return bool - успех операции.
+ */
+/*! \~english
+ * \brief the Method for remove of style
+ * \param styleName - a name of style which is required to be removed (without expansion)
+ * \return bool - success of operation.
+ */
 bool StyleManager::removeStyle(QString styleName)
 {
     if( styleName.isEmpty() )

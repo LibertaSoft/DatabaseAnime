@@ -4,6 +4,12 @@
 #include <QStringList>
 #include <QSet>
 
+/*! \~russian
+ * \brief Класс управления стилями приложения
+ */
+/*! \~english
+ * \brief Class for management of application styles
+ */
 class StyleManager
 {
 public:
