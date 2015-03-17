@@ -117,39 +117,39 @@
         <translation>Перетащите изображение сюда или сделайте двойной клик для выбора</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="176"/>
-        <location filename="dialogs/addamv.cpp" line="181"/>
+        <location filename="dialogs/addamv.cpp" line="173"/>
+        <location filename="dialogs/addamv.cpp" line="178"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="176"/>
+        <location filename="dialogs/addamv.cpp" line="173"/>
         <source>Cannot insert data.</source>
         <translation>Невозможно добавить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="181"/>
+        <location filename="dialogs/addamv.cpp" line="178"/>
         <source>Cannot update data.</source>
         <translation>Невозможно обновить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="192"/>
-        <location filename="dialogs/addamv.cpp" line="199"/>
+        <location filename="dialogs/addamv.cpp" line="189"/>
+        <location filename="dialogs/addamv.cpp" line="196"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="192"/>
+        <location filename="dialogs/addamv.cpp" line="189"/>
         <source>The field &apos;File&apos; is uncorrect</source>
         <translation>Поле &apos;Файл&apos; не корректно</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="199"/>
+        <location filename="dialogs/addamv.cpp" line="196"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>Не заполнено поле &apos;Название&apos;</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="213"/>
+        <location filename="dialogs/addamv.cpp" line="210"/>
         <source>Choose a video file</source>
         <translation>Выберете видео файл</translation>
     </message>
@@ -321,54 +321,54 @@
         <translation>Перетащите изображение сюда или сделайте двойной клик для выбора</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="54"/>
+        <location filename="dialogs/addanime.cpp" line="53"/>
         <source>Alternative title</source>
         <translation>Альтернативное название</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="61"/>
+        <location filename="dialogs/addanime.cpp" line="60"/>
         <source>Director</source>
         <translation>Режиссёр</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="68"/>
+        <location filename="dialogs/addanime.cpp" line="67"/>
         <source>Postscoring</source>
         <translation>Озвучивание</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="325"/>
-        <location filename="dialogs/addanime.cpp" line="330"/>
+        <location filename="dialogs/addanime.cpp" line="322"/>
+        <location filename="dialogs/addanime.cpp" line="327"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="325"/>
+        <location filename="dialogs/addanime.cpp" line="322"/>
         <source>Cannot insert data.</source>
         <translation>Невозможно добавить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="330"/>
+        <location filename="dialogs/addanime.cpp" line="327"/>
         <source>Cannot update data.</source>
         <translation>Невозможно обновить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="341"/>
-        <location filename="dialogs/addanime.cpp" line="348"/>
+        <location filename="dialogs/addanime.cpp" line="338"/>
+        <location filename="dialogs/addanime.cpp" line="345"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="341"/>
+        <location filename="dialogs/addanime.cpp" line="338"/>
         <source>The field &apos;Directory&apos; is uncorrect</source>
         <translation>Поле &apos;Директория&apos; не корректно</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="348"/>
+        <location filename="dialogs/addanime.cpp" line="345"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>Не заполнено поле &apos;Название&apos;</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="387"/>
+        <location filename="dialogs/addanime.cpp" line="384"/>
         <source>Choose a directory with video files</source>
         <translation>Выберете директорию с видео файлами</translation>
     </message>
@@ -519,49 +519,49 @@
         <translation>Перетащите изображение сюда или сделайте двойной клик для выбора</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="29"/>
+        <location filename="dialogs/adddorama.cpp" line="28"/>
         <source>Alternative title</source>
         <translation>Альтернативное название</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="36"/>
+        <location filename="dialogs/adddorama.cpp" line="35"/>
         <source>Director</source>
         <translation>Режиссёр</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="257"/>
-        <location filename="dialogs/adddorama.cpp" line="262"/>
+        <location filename="dialogs/adddorama.cpp" line="254"/>
+        <location filename="dialogs/adddorama.cpp" line="259"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="257"/>
+        <location filename="dialogs/adddorama.cpp" line="254"/>
         <source>Cannot insert data.</source>
         <translation>Невозможно добавить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="262"/>
+        <location filename="dialogs/adddorama.cpp" line="259"/>
         <source>Cannot update data.</source>
         <translation>Невозможно обновить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="273"/>
-        <location filename="dialogs/adddorama.cpp" line="280"/>
+        <location filename="dialogs/adddorama.cpp" line="270"/>
+        <location filename="dialogs/adddorama.cpp" line="277"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="273"/>
+        <location filename="dialogs/adddorama.cpp" line="270"/>
         <source>The field &apos;Directory&apos; is uncorrect</source>
         <translation>Поле &apos;Директория&apos; не корректно</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="280"/>
+        <location filename="dialogs/adddorama.cpp" line="277"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>Не заполнено поле &apos;Название&apos;</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="309"/>
+        <location filename="dialogs/adddorama.cpp" line="306"/>
         <source>Choose a directory with video files</source>
         <translation>Выберете директорию с видео файлами</translation>
     </message>
@@ -609,162 +609,186 @@
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="123"/>
+        <location filename="addmanga.ui" line="126"/>
         <source>If this checkbox isn&apos;t active - year won&apos;t be displayed</source>
         <translation>Если данный флажок не активен - год не будет отображаться</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="126"/>
+        <location filename="addmanga.ui" line="129"/>
         <source>Year:</source>
         <translation>Год:</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="133"/>
-        <location filename="addmanga.ui" line="229"/>
-        <location filename="addmanga.ui" line="236"/>
-        <location filename="addmanga.ui" line="243"/>
-        <location filename="addmanga.ui" line="278"/>
-        <location filename="addmanga.ui" line="288"/>
-        <location filename="addmanga.ui" line="298"/>
+        <location filename="addmanga.ui" line="136"/>
+        <location filename="addmanga.ui" line="241"/>
+        <location filename="addmanga.ui" line="248"/>
+        <location filename="addmanga.ui" line="255"/>
+        <location filename="addmanga.ui" line="299"/>
+        <location filename="addmanga.ui" line="309"/>
+        <location filename="addmanga.ui" line="319"/>
         <source>You can use a mouse wheel for value change</source>
         <translation>Вы можете использовать колёсико мыши для изменения значения</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="177"/>
-        <location filename="addmanga.ui" line="312"/>
+        <location filename="addmanga.ui" line="180"/>
+        <location filename="addmanga.ui" line="333"/>
         <source>You can use a mouse wheel for switching on tabs</source>
         <translation>Вы можете использовать колёсико мыши для переключения по вкладкам</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="184"/>
+        <location filename="addmanga.ui" line="187"/>
         <source>Total books</source>
         <translation>Всего книг</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="196"/>
+        <location filename="addmanga.ui" line="199"/>
+        <source>&amp;Volumes</source>
+        <translation>&amp;Тома</translation>
+    </message>
+    <message>
+        <location filename="addmanga.ui" line="215"/>
+        <source>&amp;Charapters</source>
+        <translation>&amp;Главы</translation>
+    </message>
+    <message>
+        <location filename="addmanga.ui" line="231"/>
+        <source>&amp;Pages</source>
+        <translation>&amp;Страницы</translation>
+    </message>
+    <message>
+        <location filename="addmanga.ui" line="269"/>
+        <source>&amp;Volume</source>
+        <translation>&amp;Том</translation>
+    </message>
+    <message>
+        <location filename="addmanga.ui" line="279"/>
+        <source>&amp;Charapter</source>
+        <translation>&amp;Глава</translation>
+    </message>
+    <message>
+        <location filename="addmanga.ui" line="289"/>
+        <source>&amp;Page</source>
+        <translation>&amp;Страница</translation>
+    </message>
+    <message>
         <source>Volumes</source>
-        <translation>Тома</translation>
+        <translation type="vanished">Тома</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="209"/>
         <source>Charapters</source>
-        <translation>Главы</translation>
+        <translation type="vanished">Главы</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="222"/>
         <source>Pages</source>
-        <translation>Страницы</translation>
+        <translation type="vanished">Страницы</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="251"/>
+        <location filename="addmanga.ui" line="263"/>
         <source>Read</source>
         <translation>Прочтено</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="257"/>
         <source>Volume</source>
-        <translation>Том</translation>
+        <translation type="vanished">Том</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="264"/>
         <source>Charapter</source>
-        <translation>Глава</translation>
+        <translation type="vanished">Глава</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="271"/>
         <source>Page</source>
-        <translation>Страница</translation>
+        <translation type="vanished">Страница</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="319"/>
+        <location filename="addmanga.ui" line="340"/>
         <source>Genres</source>
         <translation>Жанры</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="334"/>
+        <location filename="addmanga.ui" line="355"/>
         <source>Enter through a comma, or choose from the list lower</source>
         <translation>Введите через запятую или выберете из списка ниже</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="382"/>
-        <location filename="addmanga.ui" line="388"/>
+        <location filename="addmanga.ui" line="403"/>
+        <location filename="addmanga.ui" line="409"/>
         <source>Description</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="396"/>
+        <location filename="addmanga.ui" line="417"/>
         <source>Media</source>
         <translation>Медиа</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="407"/>
+        <location filename="addmanga.ui" line="431"/>
         <source>Directory</source>
         <translation>Директория</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="417"/>
+        <location filename="addmanga.ui" line="444"/>
         <source>*</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="433"/>
+        <location filename="addmanga.ui" line="463"/>
         <source>URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="addmanga.ui" line="486"/>
+        <location filename="addmanga.ui" line="516"/>
         <source>Drop image here, or a double click for a file choice</source>
         <translation>Перетащите изображение сюда или сделайте двойной клик для выбора</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="117"/>
+        <location filename="dialogs/addmanga.cpp" line="94"/>
         <source>Alternative title</source>
         <translation>Альтернативное название</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="124"/>
+        <location filename="dialogs/addmanga.cpp" line="101"/>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="131"/>
+        <location filename="dialogs/addmanga.cpp" line="108"/>
         <source>Translation</source>
         <translation>Переводчик</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="338"/>
-        <location filename="dialogs/addmanga.cpp" line="343"/>
+        <location filename="dialogs/addmanga.cpp" line="315"/>
+        <location filename="dialogs/addmanga.cpp" line="320"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="338"/>
+        <location filename="dialogs/addmanga.cpp" line="315"/>
         <source>Cannot insert data</source>
         <translation>Невозможно добавить запись</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="343"/>
+        <location filename="dialogs/addmanga.cpp" line="320"/>
         <source>Cannot update data</source>
         <translation>Невозможно обновить запись</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="354"/>
-        <location filename="dialogs/addmanga.cpp" line="361"/>
+        <location filename="dialogs/addmanga.cpp" line="331"/>
+        <location filename="dialogs/addmanga.cpp" line="338"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="354"/>
+        <location filename="dialogs/addmanga.cpp" line="331"/>
         <source>The field &apos;Directory&apos; is uncorrect</source>
         <translation>Поле &apos;Директория&apos; не корректно</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="361"/>
+        <location filename="dialogs/addmanga.cpp" line="338"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>Не заполнено поле &apos;Название&apos;</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="399"/>
+        <location filename="dialogs/addmanga.cpp" line="376"/>
         <source>Choose a directory with picture files</source>
         <translation>Выберете директорию с мангой</translation>
     </message>
@@ -1110,6 +1134,12 @@
         <translation>Дизайнер:</translation>
     </message>
     <message>
+        <location filename="mainwindow.ui" line="520"/>
+        <source>Maxx Volny</source>
+        <extracomment>Label Value Design Author</extracomment>
+        <translation>Макс Вольный</translation>
+    </message>
+    <message>
         <location filename="mainwindow.ui" line="527"/>
         <source>Version:</source>
         <translation>Версия:</translation>
@@ -1125,9 +1155,9 @@
         <translation>Устаревшая версия</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="238"/>
-        <location filename="mainwindow.cpp" line="247"/>
-        <location filename="mainwindow.cpp" line="292"/>
+        <location filename="mainwindow.cpp" line="225"/>
+        <location filename="mainwindow.cpp" line="234"/>
+        <location filename="mainwindow.cpp" line="263"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
@@ -1136,211 +1166,211 @@
         <translation type="vanished">Элемент не выбран</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="238"/>
-        <location filename="mainwindow.cpp" line="292"/>
+        <location filename="mainwindow.cpp" line="225"/>
+        <location filename="mainwindow.cpp" line="263"/>
         <source>Item isn&apos;t selected</source>
         <translation>Элемент не выбран</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="248"/>
+        <location filename="mainwindow.cpp" line="235"/>
         <source>&lt;b&gt;Delete&lt;/b&gt; selected item?</source>
         <translation>&lt;b&gt;Удалить&lt;/b&gt; выбранный пункт?</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="283"/>
+        <location filename="mainwindow.cpp" line="254"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="283"/>
+        <location filename="mainwindow.cpp" line="254"/>
         <source>It was not succeeded to remove record</source>
         <translation>Не удалось удалить запись</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="383"/>
+        <location filename="mainwindow.cpp" line="352"/>
         <source>Main</source>
         <translation>Главная</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="386"/>
+        <location filename="mainwindow.cpp" line="355"/>
         <source>Anime</source>
         <translation>Аниме</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="392"/>
+        <location filename="mainwindow.cpp" line="361"/>
         <source>Manga</source>
         <translation>Манга</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="398"/>
+        <location filename="mainwindow.cpp" line="367"/>
         <source>AMV</source>
         <translation>AMV</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="404"/>
+        <location filename="mainwindow.cpp" line="373"/>
         <source>Dorama</source>
         <translation>Дорама</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="412"/>
-        <location filename="mainwindow.cpp" line="432"/>
-        <location filename="mainwindow.cpp" line="440"/>
-        <location filename="mainwindow.cpp" line="446"/>
+        <location filename="mainwindow.cpp" line="381"/>
+        <location filename="mainwindow.cpp" line="401"/>
+        <location filename="mainwindow.cpp" line="409"/>
+        <location filename="mainwindow.cpp" line="415"/>
         <source>All</source>
         <translation>Все</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="414"/>
-        <location filename="mainwindow.cpp" line="434"/>
-        <location filename="mainwindow.cpp" line="442"/>
-        <location filename="mainwindow.cpp" line="448"/>
+        <location filename="mainwindow.cpp" line="383"/>
+        <location filename="mainwindow.cpp" line="403"/>
+        <location filename="mainwindow.cpp" line="411"/>
+        <location filename="mainwindow.cpp" line="417"/>
         <source>Editing</source>
         <translation>Редактируемые</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="416"/>
-        <location filename="mainwindow.cpp" line="450"/>
+        <location filename="mainwindow.cpp" line="385"/>
+        <location filename="mainwindow.cpp" line="419"/>
         <source>Want to look</source>
         <translation>Хочу посмотреть</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="418"/>
-        <location filename="mainwindow.cpp" line="452"/>
+        <location filename="mainwindow.cpp" line="387"/>
+        <location filename="mainwindow.cpp" line="421"/>
         <source>Looked</source>
         <translation>Просмотрено</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="420"/>
-        <location filename="mainwindow.cpp" line="454"/>
+        <location filename="mainwindow.cpp" line="389"/>
+        <location filename="mainwindow.cpp" line="423"/>
         <source>TV</source>
         <translation>TV</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="422"/>
+        <location filename="mainwindow.cpp" line="391"/>
         <source>OVA</source>
         <translation>OVA</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="424"/>
+        <location filename="mainwindow.cpp" line="393"/>
         <source>ONA</source>
         <translation>ONA</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="426"/>
-        <location filename="mainwindow.cpp" line="456"/>
+        <location filename="mainwindow.cpp" line="395"/>
+        <location filename="mainwindow.cpp" line="425"/>
         <source>Special</source>
         <translation>Special</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="428"/>
-        <location filename="mainwindow.cpp" line="458"/>
+        <location filename="mainwindow.cpp" line="397"/>
+        <location filename="mainwindow.cpp" line="427"/>
         <source>Movie</source>
         <translation>Movie</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="436"/>
+        <location filename="mainwindow.cpp" line="405"/>
         <source>Want to read</source>
         <translation>Хочу прочесть</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="592"/>
-        <location filename="mainwindow.cpp" line="744"/>
-        <location filename="mainwindow.cpp" line="854"/>
-        <location filename="mainwindow.cpp" line="1004"/>
+        <location filename="mainwindow.cpp" line="541"/>
+        <location filename="mainwindow.cpp" line="667"/>
+        <location filename="mainwindow.cpp" line="749"/>
+        <location filename="mainwindow.cpp" line="873"/>
         <source>Title:</source>
         <translation>Название:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="596"/>
-        <location filename="mainwindow.cpp" line="748"/>
-        <location filename="mainwindow.cpp" line="1008"/>
+        <location filename="mainwindow.cpp" line="545"/>
+        <location filename="mainwindow.cpp" line="671"/>
+        <location filename="mainwindow.cpp" line="877"/>
         <source>Alt title:</source>
         <translation>Альт. Название:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="601"/>
-        <location filename="mainwindow.cpp" line="753"/>
-        <location filename="mainwindow.cpp" line="1013"/>
+        <location filename="mainwindow.cpp" line="550"/>
+        <location filename="mainwindow.cpp" line="676"/>
+        <location filename="mainwindow.cpp" line="882"/>
         <source>Director:</source>
         <translation>Режиссёр:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="606"/>
+        <location filename="mainwindow.cpp" line="555"/>
+        <location filename="mainwindow.cpp" line="686"/>
         <location filename="mainwindow.cpp" line="763"/>
-        <location filename="mainwindow.cpp" line="868"/>
-        <location filename="mainwindow.cpp" line="1018"/>
+        <location filename="mainwindow.cpp" line="887"/>
         <source>Year:</source>
         <translation>Год:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="611"/>
-        <location filename="mainwindow.cpp" line="1023"/>
+        <location filename="mainwindow.cpp" line="560"/>
+        <location filename="mainwindow.cpp" line="892"/>
         <source>Season:</source>
         <translation>Сезон:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="616"/>
-        <location filename="mainwindow.cpp" line="1028"/>
+        <location filename="mainwindow.cpp" line="565"/>
+        <location filename="mainwindow.cpp" line="897"/>
         <source>Postscoring:</source>
         <translation>Озвучивание:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="621"/>
+        <location filename="mainwindow.cpp" line="570"/>
         <source>Studio:</source>
         <translation>Студия:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="626"/>
+        <location filename="mainwindow.cpp" line="575"/>
+        <location filename="mainwindow.cpp" line="691"/>
         <location filename="mainwindow.cpp" line="768"/>
-        <location filename="mainwindow.cpp" line="873"/>
-        <location filename="mainwindow.cpp" line="1033"/>
+        <location filename="mainwindow.cpp" line="902"/>
         <source>Ganres:</source>
         <translation>Жанры:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="630"/>
-        <location filename="mainwindow.cpp" line="772"/>
-        <location filename="mainwindow.cpp" line="1044"/>
+        <location filename="mainwindow.cpp" line="579"/>
+        <location filename="mainwindow.cpp" line="695"/>
+        <location filename="mainwindow.cpp" line="913"/>
         <source>Description:</source>
         <translation>Описание:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="758"/>
+        <location filename="mainwindow.cpp" line="681"/>
         <source>Translator:</source>
         <translation>Переводчик:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="858"/>
+        <location filename="mainwindow.cpp" line="753"/>
         <source>Author:</source>
         <translation>Автор:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="863"/>
+        <location filename="mainwindow.cpp" line="758"/>
         <source>Сontestant:</source>
         <translation>Конкурсант:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="877"/>
+        <location filename="mainwindow.cpp" line="772"/>
         <source>Author comment:</source>
         <translation>Комментарий автора:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="885"/>
+        <location filename="mainwindow.cpp" line="780"/>
         <source>Containing music:</source>
         <translation>Используемая музыка:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="893"/>
+        <location filename="mainwindow.cpp" line="788"/>
         <source>Containing anime:</source>
         <translation>Используемое аниме:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="914"/>
+        <location filename="mainwindow.cpp" line="805"/>
         <source>Play</source>
         <translation>Воспроизвести</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="1037"/>
+        <location filename="mainwindow.cpp" line="906"/>
         <source>In roles:</source>
         <translation>В ролях:</translation>
     </message>
@@ -1348,7 +1378,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="main.cpp" line="44"/>
+        <location filename="main.cpp" line="72"/>
         <source>Database Anime</source>
         <translation>Database Anime</translation>
     </message>
@@ -1369,578 +1399,578 @@
         <translation>Не удалось создать директорию для базы данных.</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="952"/>
-        <location filename="mngrquerys.cpp" line="972"/>
-        <location filename="mngrquerys.cpp" line="992"/>
+        <location filename="mngrquerys.cpp" line="378"/>
+        <location filename="mngrquerys.cpp" line="398"/>
+        <location filename="mngrquerys.cpp" line="418"/>
         <source>Action</source>
         <translation>Экшен</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="952"/>
-        <location filename="mngrquerys.cpp" line="972"/>
+        <location filename="mngrquerys.cpp" line="378"/>
+        <location filename="mngrquerys.cpp" line="398"/>
         <source>Futunari</source>
         <translation>Футунари</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="952"/>
-        <location filename="mngrquerys.cpp" line="972"/>
+        <location filename="mngrquerys.cpp" line="378"/>
+        <location filename="mngrquerys.cpp" line="398"/>
         <source>Music</source>
         <translation>Музыкальный</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="952"/>
-        <location filename="mngrquerys.cpp" line="972"/>
+        <location filename="mngrquerys.cpp" line="378"/>
+        <location filename="mngrquerys.cpp" line="398"/>
         <source>Shounen</source>
         <translation>Сёнэн</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="953"/>
-        <location filename="mngrquerys.cpp" line="973"/>
-        <location filename="mngrquerys.cpp" line="1002"/>
+        <location filename="mngrquerys.cpp" line="379"/>
+        <location filename="mngrquerys.cpp" line="399"/>
+        <location filename="mngrquerys.cpp" line="428"/>
         <source>Adventure</source>
         <translation>Приключение</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="953"/>
-        <location filename="mngrquerys.cpp" line="973"/>
-        <location filename="mngrquerys.cpp" line="1003"/>
+        <location filename="mngrquerys.cpp" line="379"/>
+        <location filename="mngrquerys.cpp" line="399"/>
+        <location filename="mngrquerys.cpp" line="429"/>
         <source>Game</source>
         <translation>Игра</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="953"/>
-        <location filename="mngrquerys.cpp" line="973"/>
+        <location filename="mngrquerys.cpp" line="379"/>
+        <location filename="mngrquerys.cpp" line="399"/>
         <source>Mystery</source>
         <translation>Мистика</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="953"/>
-        <location filename="mngrquerys.cpp" line="973"/>
+        <location filename="mngrquerys.cpp" line="379"/>
+        <location filename="mngrquerys.cpp" line="399"/>
         <source>Shounen-ai (Yaoi)</source>
         <translation>Сёнэн-Ай (Яой)</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="954"/>
-        <location filename="mngrquerys.cpp" line="974"/>
+        <location filename="mngrquerys.cpp" line="380"/>
+        <location filename="mngrquerys.cpp" line="400"/>
         <source>Bara</source>
         <translation>Бара</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="954"/>
-        <location filename="mngrquerys.cpp" line="974"/>
-        <location filename="mngrquerys.cpp" line="1005"/>
+        <location filename="mngrquerys.cpp" line="380"/>
+        <location filename="mngrquerys.cpp" line="400"/>
+        <location filename="mngrquerys.cpp" line="431"/>
         <source>Gender intrigue</source>
         <translation>Гендерная интрига</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="954"/>
-        <location filename="mngrquerys.cpp" line="974"/>
-        <location filename="mngrquerys.cpp" line="1016"/>
+        <location filename="mngrquerys.cpp" line="380"/>
+        <location filename="mngrquerys.cpp" line="400"/>
+        <location filename="mngrquerys.cpp" line="442"/>
         <source>Parody</source>
         <translation>Пародия</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="954"/>
-        <location filename="mngrquerys.cpp" line="974"/>
+        <location filename="mngrquerys.cpp" line="380"/>
+        <location filename="mngrquerys.cpp" line="400"/>
         <source>Space</source>
         <translation>Космос</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="955"/>
-        <location filename="mngrquerys.cpp" line="975"/>
-        <location filename="mngrquerys.cpp" line="1006"/>
+        <location filename="mngrquerys.cpp" line="381"/>
+        <location filename="mngrquerys.cpp" line="401"/>
+        <location filename="mngrquerys.cpp" line="432"/>
         <source>Comedy</source>
         <translation>Комедия</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="955"/>
-        <location filename="mngrquerys.cpp" line="975"/>
+        <location filename="mngrquerys.cpp" line="381"/>
+        <location filename="mngrquerys.cpp" line="401"/>
         <source>Guro</source>
         <translation>Гуро</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="955"/>
-        <location filename="mngrquerys.cpp" line="975"/>
+        <location filename="mngrquerys.cpp" line="381"/>
+        <location filename="mngrquerys.cpp" line="401"/>
         <source>Philosophy</source>
         <translation>Философия</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="955"/>
-        <location filename="mngrquerys.cpp" line="975"/>
-        <location filename="mngrquerys.cpp" line="1009"/>
+        <location filename="mngrquerys.cpp" line="381"/>
+        <location filename="mngrquerys.cpp" line="401"/>
+        <location filename="mngrquerys.cpp" line="435"/>
         <source>Sport</source>
         <translation>Спорт</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="956"/>
-        <location filename="mngrquerys.cpp" line="976"/>
+        <location filename="mngrquerys.cpp" line="382"/>
+        <location filename="mngrquerys.cpp" line="402"/>
         <source>Cooking</source>
         <translation>Кулинария</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="956"/>
-        <location filename="mngrquerys.cpp" line="976"/>
+        <location filename="mngrquerys.cpp" line="382"/>
+        <location filename="mngrquerys.cpp" line="402"/>
         <source>Harem</source>
         <translation>Гарем</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="956"/>
-        <location filename="mngrquerys.cpp" line="976"/>
+        <location filename="mngrquerys.cpp" line="382"/>
+        <location filename="mngrquerys.cpp" line="402"/>
         <source>Police</source>
         <translation>Полиция</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="956"/>
-        <location filename="mngrquerys.cpp" line="976"/>
+        <location filename="mngrquerys.cpp" line="382"/>
+        <location filename="mngrquerys.cpp" line="402"/>
         <source>Steampunk</source>
         <translation>Стимпанк</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="957"/>
-        <location filename="mngrquerys.cpp" line="977"/>
+        <location filename="mngrquerys.cpp" line="383"/>
+        <location filename="mngrquerys.cpp" line="403"/>
         <source>Cyberpunk</source>
         <translation>Киберпанк</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="957"/>
-        <location filename="mngrquerys.cpp" line="977"/>
+        <location filename="mngrquerys.cpp" line="383"/>
+        <location filename="mngrquerys.cpp" line="403"/>
         <source>Hentai</source>
         <translation>Хентай</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="957"/>
-        <location filename="mngrquerys.cpp" line="977"/>
+        <location filename="mngrquerys.cpp" line="383"/>
+        <location filename="mngrquerys.cpp" line="403"/>
         <source>Post-apocalyptic</source>
         <translation>Постапокалиптика</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="957"/>
-        <location filename="mngrquerys.cpp" line="977"/>
+        <location filename="mngrquerys.cpp" line="383"/>
+        <location filename="mngrquerys.cpp" line="403"/>
         <source>Supernatural</source>
         <translation>Сверхъестественное</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="958"/>
-        <location filename="mngrquerys.cpp" line="978"/>
-        <location filename="mngrquerys.cpp" line="1008"/>
+        <location filename="mngrquerys.cpp" line="384"/>
+        <location filename="mngrquerys.cpp" line="404"/>
+        <location filename="mngrquerys.cpp" line="434"/>
         <source>Daily occurrence</source>
         <translation>Повседневность</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="958"/>
-        <location filename="mngrquerys.cpp" line="978"/>
-        <location filename="mngrquerys.cpp" line="1006"/>
+        <location filename="mngrquerys.cpp" line="384"/>
+        <location filename="mngrquerys.cpp" line="404"/>
+        <location filename="mngrquerys.cpp" line="432"/>
         <source>Historical</source>
         <translation>История</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="958"/>
-        <location filename="mngrquerys.cpp" line="978"/>
-        <location filename="mngrquerys.cpp" line="1003"/>
+        <location filename="mngrquerys.cpp" line="384"/>
+        <location filename="mngrquerys.cpp" line="404"/>
+        <location filename="mngrquerys.cpp" line="429"/>
         <source>Psychology</source>
         <translation>Психологический</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="958"/>
-        <location filename="mngrquerys.cpp" line="978"/>
-        <location filename="mngrquerys.cpp" line="1012"/>
+        <location filename="mngrquerys.cpp" line="384"/>
+        <location filename="mngrquerys.cpp" line="404"/>
+        <location filename="mngrquerys.cpp" line="438"/>
         <source>Tale</source>
         <translation>Сказка</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="959"/>
-        <location filename="mngrquerys.cpp" line="979"/>
+        <location filename="mngrquerys.cpp" line="385"/>
+        <location filename="mngrquerys.cpp" line="405"/>
         <source>Demons</source>
         <translation>Демоны</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="959"/>
-        <location filename="mngrquerys.cpp" line="979"/>
-        <location filename="mngrquerys.cpp" line="995"/>
-        <location filename="mngrquerys.cpp" line="1007"/>
+        <location filename="mngrquerys.cpp" line="385"/>
+        <location filename="mngrquerys.cpp" line="405"/>
+        <location filename="mngrquerys.cpp" line="421"/>
+        <location filename="mngrquerys.cpp" line="433"/>
         <source>Horror</source>
         <translation>Ужасы</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="959"/>
-        <location filename="mngrquerys.cpp" line="979"/>
+        <location filename="mngrquerys.cpp" line="385"/>
+        <location filename="mngrquerys.cpp" line="405"/>
         <source>Ranobe</source>
         <translation>Ранобэ</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="959"/>
-        <location filename="mngrquerys.cpp" line="979"/>
+        <location filename="mngrquerys.cpp" line="385"/>
+        <location filename="mngrquerys.cpp" line="405"/>
         <source>Tentacles</source>
         <translation>Тентакли</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="960"/>
-        <location filename="mngrquerys.cpp" line="980"/>
-        <location filename="mngrquerys.cpp" line="1009"/>
+        <location filename="mngrquerys.cpp" line="386"/>
+        <location filename="mngrquerys.cpp" line="406"/>
+        <location filename="mngrquerys.cpp" line="435"/>
         <source>Detective</source>
         <translation>Детектив</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="960"/>
-        <location filename="mngrquerys.cpp" line="980"/>
+        <location filename="mngrquerys.cpp" line="386"/>
+        <location filename="mngrquerys.cpp" line="406"/>
         <source>Josei</source>
         <translation>Дзёсэй</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="960"/>
-        <location filename="mngrquerys.cpp" line="980"/>
+        <location filename="mngrquerys.cpp" line="386"/>
+        <location filename="mngrquerys.cpp" line="406"/>
         <source>Romantic</source>
         <translation>Романтика</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="960"/>
-        <location filename="mngrquerys.cpp" line="980"/>
+        <location filename="mngrquerys.cpp" line="386"/>
+        <location filename="mngrquerys.cpp" line="406"/>
         <source>The children&apos;s</source>
         <translation>Детское</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="961"/>
-        <location filename="mngrquerys.cpp" line="981"/>
-        <location filename="mngrquerys.cpp" line="992"/>
-        <location filename="mngrquerys.cpp" line="1011"/>
+        <location filename="mngrquerys.cpp" line="387"/>
+        <location filename="mngrquerys.cpp" line="407"/>
+        <location filename="mngrquerys.cpp" line="418"/>
+        <location filename="mngrquerys.cpp" line="437"/>
         <source>Drama</source>
         <translation>Драма</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="961"/>
-        <location filename="mngrquerys.cpp" line="981"/>
+        <location filename="mngrquerys.cpp" line="387"/>
+        <location filename="mngrquerys.cpp" line="407"/>
         <source>Kodomo</source>
         <translation>Кодомо</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="961"/>
-        <location filename="mngrquerys.cpp" line="981"/>
+        <location filename="mngrquerys.cpp" line="387"/>
+        <location filename="mngrquerys.cpp" line="407"/>
         <source>Samurai</source>
         <translation>Самураи</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="961"/>
-        <location filename="mngrquerys.cpp" line="981"/>
-        <location filename="mngrquerys.cpp" line="1013"/>
+        <location filename="mngrquerys.cpp" line="387"/>
+        <location filename="mngrquerys.cpp" line="407"/>
+        <location filename="mngrquerys.cpp" line="439"/>
         <source>Thriller</source>
         <translation>Триллер</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="962"/>
-        <location filename="mngrquerys.cpp" line="982"/>
-        <location filename="mngrquerys.cpp" line="993"/>
+        <location filename="mngrquerys.cpp" line="388"/>
+        <location filename="mngrquerys.cpp" line="408"/>
+        <location filename="mngrquerys.cpp" line="419"/>
         <source>Ecchi</source>
         <translation>Этти</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="962"/>
-        <location filename="mngrquerys.cpp" line="982"/>
+        <location filename="mngrquerys.cpp" line="388"/>
+        <location filename="mngrquerys.cpp" line="408"/>
         <source>Madness</source>
         <translation>Безумие</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="962"/>
-        <location filename="mngrquerys.cpp" line="982"/>
-        <location filename="mngrquerys.cpp" line="1006"/>
+        <location filename="mngrquerys.cpp" line="388"/>
+        <location filename="mngrquerys.cpp" line="408"/>
+        <location filename="mngrquerys.cpp" line="432"/>
         <source>School</source>
         <translation>Школа</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="962"/>
-        <location filename="mngrquerys.cpp" line="982"/>
-        <location filename="mngrquerys.cpp" line="1015"/>
+        <location filename="mngrquerys.cpp" line="388"/>
+        <location filename="mngrquerys.cpp" line="408"/>
+        <location filename="mngrquerys.cpp" line="441"/>
         <source>Tragedy</source>
         <translation>Трагедия</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="963"/>
-        <location filename="mngrquerys.cpp" line="983"/>
-        <location filename="mngrquerys.cpp" line="1013"/>
+        <location filename="mngrquerys.cpp" line="389"/>
+        <location filename="mngrquerys.cpp" line="409"/>
+        <location filename="mngrquerys.cpp" line="439"/>
         <source>Family</source>
         <translation>Семейный</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="963"/>
-        <location filename="mngrquerys.cpp" line="983"/>
+        <location filename="mngrquerys.cpp" line="389"/>
+        <location filename="mngrquerys.cpp" line="409"/>
         <source>Magic</source>
         <translation>Магия</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="963"/>
-        <location filename="mngrquerys.cpp" line="983"/>
+        <location filename="mngrquerys.cpp" line="389"/>
+        <location filename="mngrquerys.cpp" line="409"/>
         <source>Science Fiction</source>
         <translation>Научная фантастика</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="963"/>
-        <location filename="mngrquerys.cpp" line="983"/>
-        <location filename="mngrquerys.cpp" line="1002"/>
+        <location filename="mngrquerys.cpp" line="389"/>
+        <location filename="mngrquerys.cpp" line="409"/>
+        <location filename="mngrquerys.cpp" line="428"/>
         <source>Vampires</source>
         <translation>Вампиры</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="964"/>
-        <location filename="mngrquerys.cpp" line="984"/>
-        <location filename="mngrquerys.cpp" line="1014"/>
+        <location filename="mngrquerys.cpp" line="390"/>
+        <location filename="mngrquerys.cpp" line="410"/>
+        <location filename="mngrquerys.cpp" line="440"/>
         <source>Fantastic</source>
         <translation>Фанстастика</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="964"/>
-        <location filename="mngrquerys.cpp" line="984"/>
+        <location filename="mngrquerys.cpp" line="390"/>
+        <location filename="mngrquerys.cpp" line="410"/>
         <source>Magical girl</source>
         <translation>Махо-сёдзё</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="964"/>
-        <location filename="mngrquerys.cpp" line="984"/>
+        <location filename="mngrquerys.cpp" line="390"/>
+        <location filename="mngrquerys.cpp" line="410"/>
         <source>Seinen</source>
         <translation>Сёйнэн</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="964"/>
-        <location filename="mngrquerys.cpp" line="984"/>
+        <location filename="mngrquerys.cpp" line="390"/>
+        <location filename="mngrquerys.cpp" line="410"/>
         <source>War</source>
         <translation>Война</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="965"/>
-        <location filename="mngrquerys.cpp" line="985"/>
-        <location filename="mngrquerys.cpp" line="1015"/>
+        <location filename="mngrquerys.cpp" line="391"/>
+        <location filename="mngrquerys.cpp" line="411"/>
+        <location filename="mngrquerys.cpp" line="441"/>
         <source>Fantasy</source>
         <translation>Фэнтези</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="965"/>
-        <location filename="mngrquerys.cpp" line="985"/>
-        <location filename="mngrquerys.cpp" line="1010"/>
+        <location filename="mngrquerys.cpp" line="391"/>
+        <location filename="mngrquerys.cpp" line="411"/>
+        <location filename="mngrquerys.cpp" line="436"/>
         <source>Martial Arts</source>
         <translation>Боевые искусства</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="965"/>
-        <location filename="mngrquerys.cpp" line="985"/>
+        <location filename="mngrquerys.cpp" line="391"/>
+        <location filename="mngrquerys.cpp" line="411"/>
         <source>Shojo</source>
         <translation>Сёдзё</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="965"/>
-        <location filename="mngrquerys.cpp" line="985"/>
+        <location filename="mngrquerys.cpp" line="391"/>
+        <location filename="mngrquerys.cpp" line="411"/>
         <source>Yonkoma</source>
         <translation>Ёнкома</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="966"/>
-        <location filename="mngrquerys.cpp" line="986"/>
-        <location filename="mngrquerys.cpp" line="1016"/>
+        <location filename="mngrquerys.cpp" line="392"/>
+        <location filename="mngrquerys.cpp" line="412"/>
+        <location filename="mngrquerys.cpp" line="442"/>
         <source>Fighter</source>
         <translation>Боевик</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="966"/>
-        <location filename="mngrquerys.cpp" line="986"/>
+        <location filename="mngrquerys.cpp" line="392"/>
+        <location filename="mngrquerys.cpp" line="412"/>
         <source>Mech</source>
         <translation>Меха</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="966"/>
-        <location filename="mngrquerys.cpp" line="986"/>
+        <location filename="mngrquerys.cpp" line="392"/>
+        <location filename="mngrquerys.cpp" line="412"/>
         <source>Shojo-ai (Yuri)</source>
         <translation>Сёдзё-Ай (Юри)</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="992"/>
+        <location filename="mngrquerys.cpp" line="418"/>
         <source>M@D</source>
         <translation>M@D</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="992"/>
-        <location filename="mngrquerys.cpp" line="1005"/>
+        <location filename="mngrquerys.cpp" line="418"/>
+        <location filename="mngrquerys.cpp" line="431"/>
         <source>Romance</source>
         <translation>Романтика</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="993"/>
+        <location filename="mngrquerys.cpp" line="419"/>
         <source>Character Profile</source>
         <translation>История персонажа</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="993"/>
+        <location filename="mngrquerys.cpp" line="419"/>
         <source>MEP</source>
         <translation>MEP</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="993"/>
+        <location filename="mngrquerys.cpp" line="419"/>
         <source>Sentimental</source>
         <translation>Сентиментальность</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="994"/>
+        <location filename="mngrquerys.cpp" line="420"/>
         <source>Comedy (Fun)</source>
         <translation>Комедия (Фан)</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="994"/>
+        <location filename="mngrquerys.cpp" line="420"/>
         <source>GMV</source>
         <translation>GMV</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="994"/>
+        <location filename="mngrquerys.cpp" line="420"/>
         <source>MMV</source>
         <translation>MMV</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="994"/>
+        <location filename="mngrquerys.cpp" line="420"/>
         <source>Story</source>
         <translation>История</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="995"/>
+        <location filename="mngrquerys.cpp" line="421"/>
         <source>Cross-Over</source>
         <translation>Альтернативная история</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="995"/>
+        <location filename="mngrquerys.cpp" line="421"/>
         <source>Original Animation</source>
         <translation>Оригинальная анимация</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="995"/>
+        <location filename="mngrquerys.cpp" line="421"/>
         <source>Trailer</source>
         <translation>Трэйлер</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="996"/>
+        <location filename="mngrquerys.cpp" line="422"/>
         <source>Dance</source>
         <translation>Танцы</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="996"/>
+        <location filename="mngrquerys.cpp" line="422"/>
         <source>Instrumental</source>
         <translation>Инструментальный</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="996"/>
+        <location filename="mngrquerys.cpp" line="422"/>
         <source>Psychedelic</source>
         <translation>Психоделика</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1002"/>
+        <location filename="mngrquerys.cpp" line="428"/>
         <source>Friendship</source>
         <translation>Дружба</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1002"/>
+        <location filename="mngrquerys.cpp" line="428"/>
         <source>Policy</source>
         <translation>Политика</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1003"/>
+        <location filename="mngrquerys.cpp" line="429"/>
         <source>Art-house</source>
         <translation>Арт-хаус</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1003"/>
+        <location filename="mngrquerys.cpp" line="429"/>
         <source>Western</source>
         <translation>Вестерн</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1004"/>
+        <location filename="mngrquerys.cpp" line="430"/>
         <source>Biography</source>
         <translation>Биография</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1004"/>
+        <location filename="mngrquerys.cpp" line="430"/>
         <source>Gay theme</source>
         <translation>Гей тема</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1004"/>
+        <location filename="mngrquerys.cpp" line="430"/>
         <source>Relationship</source>
         <translation>Отношения</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1005"/>
+        <location filename="mngrquerys.cpp" line="431"/>
         <source>Business</source>
         <translation>Бизнес</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1007"/>
+        <location filename="mngrquerys.cpp" line="433"/>
         <source>Crime</source>
         <translation>Криминал</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1007"/>
+        <location filename="mngrquerys.cpp" line="433"/>
         <source>Sci-Fi</source>
         <translation>Научная фантастика</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1008"/>
+        <location filename="mngrquerys.cpp" line="434"/>
         <source>Lesbian theme</source>
         <translation>Лесбийская тема</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1008"/>
+        <location filename="mngrquerys.cpp" line="434"/>
         <source>Sitcom</source>
         <translation>Ситком</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1009"/>
+        <location filename="mngrquerys.cpp" line="435"/>
         <source>Live-action</source>
         <translation>Лайв-Экшен</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1010"/>
+        <location filename="mngrquerys.cpp" line="436"/>
         <source>Documentary</source>
         <translation>Документальный</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1010"/>
+        <location filename="mngrquerys.cpp" line="436"/>
         <source>Suspense</source>
         <translation>Cаспенс</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1011"/>
+        <location filename="mngrquerys.cpp" line="437"/>
         <source>Medicine</source>
         <translation>Медицина</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1011"/>
+        <location filename="mngrquerys.cpp" line="437"/>
         <source>Taiga</source>
         <translation>Тайга</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1012"/>
+        <location filename="mngrquerys.cpp" line="438"/>
         <source>Erotic</source>
         <translation>Эротика</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1012"/>
+        <location filename="mngrquerys.cpp" line="438"/>
         <source>Melodrama</source>
         <translation>Мелодрама</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1013"/>
+        <location filename="mngrquerys.cpp" line="439"/>
         <source>Military</source>
         <translation>Военный</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1014"/>
+        <location filename="mngrquerys.cpp" line="440"/>
         <source>Musical</source>
         <translation>Мюзикл</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1014"/>
+        <location filename="mngrquerys.cpp" line="440"/>
         <source>Tokusatsu</source>
         <translation>Токусацу</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1015"/>
+        <location filename="mngrquerys.cpp" line="441"/>
         <source>Mysticism</source>
         <translation>Мистика</translation>
     </message>
     <message>
-        <location filename="mngrquerys.cpp" line="1016"/>
+        <location filename="mngrquerys.cpp" line="442"/>
         <source>TV Show</source>
         <translation>TV Шоу</translation>
     </message>
@@ -1953,350 +1983,493 @@
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="44"/>
+        <location filename="settings.ui" line="47"/>
         <source>General</source>
         <translation>Основные</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="56"/>
+        <location filename="settings.ui" line="59"/>
         <source>Optional fields</source>
         <translation>Опциональные поля</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="68"/>
-        <location filename="dialogs/settings.cpp" line="550"/>
-        <location filename="dialogs/settings.cpp" line="554"/>
+        <location filename="settings.ui" line="71"/>
+        <location filename="dialogs/settings.cpp" line="627"/>
+        <location filename="dialogs/settings.cpp" line="631"/>
         <source>Import</source>
         <translation>Импорт</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="80"/>
-        <location filename="settings.ui" line="744"/>
-        <location filename="dialogs/settings.cpp" line="507"/>
+        <location filename="settings.ui" line="83"/>
+        <location filename="settings.ui" line="773"/>
+        <location filename="dialogs/settings.cpp" line="584"/>
         <source>Export</source>
         <translation>Экспорт</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="151"/>
+        <location filename="settings.ui" line="95"/>
+        <source>Style</source>
+        <translation>Стиль</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="159"/>
         <source>Global:</source>
         <translation>Глобальные:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="160"/>
+        <location filename="settings.ui" line="168"/>
         <source>Language:</source>
         <translation>Язык:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="173"/>
+        <location filename="settings.ui" line="181"/>
         <source>Network:</source>
         <oldsource>Network</oldsource>
         <translation>Сеть:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="179"/>
         <source>Check for update</source>
-        <translation>Проверять наличие обновлений</translation>
+        <translation type="vanished">Проверять наличие обновлений</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="186"/>
         <source>Auto search on shikimori</source>
-        <translation>Живой поиск на shikimori</translation>
+        <translation type="vanished">Живой поиск на shikimori</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="202"/>
+        <location filename="settings.ui" line="210"/>
         <source>Active sections:</source>
         <translation>Активные секции:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="208"/>
-        <location filename="settings.ui" line="530"/>
-        <location filename="settings.ui" line="691"/>
+        <location filename="settings.ui" line="216"/>
+        <location filename="settings.ui" line="552"/>
+        <location filename="settings.ui" line="720"/>
         <source>Anime</source>
         <translation>Аниме</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="215"/>
-        <location filename="settings.ui" line="540"/>
-        <location filename="settings.ui" line="701"/>
+        <location filename="settings.ui" line="223"/>
+        <location filename="settings.ui" line="562"/>
+        <location filename="settings.ui" line="730"/>
         <source>Manga</source>
         <translation>Манга</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="222"/>
-        <location filename="settings.ui" line="550"/>
-        <location filename="settings.ui" line="711"/>
+        <location filename="settings.ui" line="230"/>
+        <location filename="settings.ui" line="572"/>
+        <location filename="settings.ui" line="740"/>
         <source>Amv</source>
         <translation>AMV</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="229"/>
-        <location filename="settings.ui" line="560"/>
-        <location filename="settings.ui" line="721"/>
+        <location filename="settings.ui" line="237"/>
+        <location filename="settings.ui" line="582"/>
+        <location filename="settings.ui" line="750"/>
         <source>Dorama</source>
         <translation>Дорама</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="239"/>
         <source>Item list:</source>
+        <translation type="vanished">Список:</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="187"/>
+        <source>Checking updates</source>
+        <translation>Проверять обновления</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="194"/>
+        <source>Live search on shikimori</source>
+        <translation>Живой поиск на shikimori</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="247"/>
+        <source>Item list:</source>
+        <comment>Current active element</comment>
         <translation>Список:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="245"/>
+        <location filename="settings.ui" line="253"/>
         <source>Sorting:</source>
         <translation>Сортировка:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="255"/>
+        <location filename="settings.ui" line="263"/>
         <source>Displayed field:</source>
         <translation>Отображаемое поле:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="272"/>
+        <location filename="settings.ui" line="280"/>
         <source>Active item:</source>
         <translation>Активный элемент:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="278"/>
+        <location filename="settings.ui" line="286"/>
         <source>Switch cover/directory</source>
         <translation>Переключение обложка/директория</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="288"/>
+        <location filename="settings.ui" line="296"/>
         <source>Work directory:</source>
         <translation>Рабочая директория:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="372"/>
+        <location filename="settings.ui" line="387"/>
         <source>Anime:</source>
         <translation>Аниме:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="378"/>
-        <location filename="settings.ui" line="408"/>
-        <location filename="settings.ui" line="438"/>
+        <location filename="settings.ui" line="393"/>
+        <location filename="settings.ui" line="423"/>
+        <location filename="settings.ui" line="453"/>
         <source>Alt title</source>
         <translation>Альт. Название</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="385"/>
-        <location filename="settings.ui" line="445"/>
+        <location filename="settings.ui" line="400"/>
+        <location filename="settings.ui" line="460"/>
         <source>Director</source>
         <translation>Режиссёр</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="392"/>
+        <location filename="settings.ui" line="407"/>
         <source>Postscoring</source>
         <translation>Озвучивание</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="402"/>
+        <location filename="settings.ui" line="417"/>
         <source>Manga:</source>
         <translation>Манга:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="415"/>
+        <location filename="settings.ui" line="430"/>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="422"/>
+        <location filename="settings.ui" line="437"/>
         <source>Translation</source>
         <translation>Переводчик</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="432"/>
+        <location filename="settings.ui" line="447"/>
         <source>Dorama:</source>
         <translation>Дорама:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="524"/>
+        <location filename="settings.ui" line="546"/>
         <source>Import sections:</source>
         <translation>Импортируемые разделы:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="573"/>
+        <location filename="settings.ui" line="595"/>
         <source>Import images</source>
         <translation>Импортировать изображения</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="585"/>
+        <location filename="settings.ui" line="607"/>
         <source>Append</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="596"/>
+        <location filename="settings.ui" line="618"/>
         <source>Replace</source>
         <translation>Заменить</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="685"/>
+        <location filename="settings.ui" line="714"/>
         <source>Export sections:</source>
         <translation>Экспортируемые разделы:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="734"/>
+        <location filename="settings.ui" line="763"/>
         <source>Export images</source>
         <translation>Экспортировать изображения</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="802"/>
-        <source>import</source>
-        <translation>импорт</translation>
+        <location filename="settings.ui" line="818"/>
+        <source>Style:</source>
+        <translation>Стиль:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="805"/>
-        <source>Append to database</source>
-        <translation>Добавить к существующей базе данных</translation>
+        <location filename="settings.ui" line="831"/>
+        <source>System</source>
+        <translation>Системный</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="815"/>
-        <source>deleteRecords</source>
+        <location filename="settings.ui" line="839"/>
+        <source>+</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="818"/>
-        <source>Delete records and images</source>
-        <translation>Удалить записи и изображения</translation>
+        <location filename="settings.ui" line="850"/>
+        <source>-</source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="823"/>
+        <location filename="settings.ui" line="863"/>
+        <source>Color settings:</source>
+        <translation>Настройки цветов:</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="869"/>
+        <source>Window:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="893"/>
+        <source>WindowText:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="917"/>
+        <source>Base:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="941"/>
+        <source>AlternateBase:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="965"/>
+        <source>ToolTipBase:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="989"/>
+        <source>ToolTipText:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="1013"/>
+        <source>Text:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="1037"/>
+        <source>Button:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="1061"/>
+        <source>ButtonText:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="1085"/>
+        <source>BrightText:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="1109"/>
+        <source>Link:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="1133"/>
+        <source>Highlight:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="1157"/>
+        <source>HighlightedText:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="1184"/>
+        <source>Save changes</source>
+        <translation>Сохранить изменения</translation>
+    </message>
+    <message>
+        <source>import</source>
+        <translation type="vanished">импорт</translation>
+    </message>
+    <message>
+        <source>Append to database</source>
+        <translation type="vanished">Добавить к существующей базе данных</translation>
+    </message>
+    <message>
+        <source>Delete records and images</source>
+        <translation type="vanished">Удалить записи и изображения</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="1206"/>
         <source>ShowImportProgressBar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="826"/>
+        <location filename="settings.ui" line="1209"/>
         <source>Switch progress bar or action buttons</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="831"/>
+        <location filename="settings.ui" line="1214"/>
         <source>ShowExportProgressBar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="834"/>
+        <location filename="settings.ui" line="1217"/>
         <source>Switch export button or progress bar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="63"/>
+        <location filename="dialogs/settings.cpp" line="100"/>
         <source>&lt;System&gt;</source>
         <translation>Системный</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="75"/>
+        <location filename="dialogs/settings.cpp" line="112"/>
         <source>None</source>
         <translation>Нет</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="76"/>
+        <location filename="dialogs/settings.cpp" line="113"/>
         <source>ASC</source>
         <translation>А-Я</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="77"/>
+        <location filename="dialogs/settings.cpp" line="114"/>
         <source>DESC</source>
         <translation>Я-А</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="78"/>
+        <location filename="dialogs/settings.cpp" line="115"/>
         <source>Year</source>
         <translation>Год</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="91"/>
+        <location filename="dialogs/settings.cpp" line="128"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="92"/>
+        <location filename="dialogs/settings.cpp" line="129"/>
         <source>Alternative title</source>
         <translation>Альтернативное название</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="246"/>
-        <location filename="dialogs/settings.cpp" line="252"/>
-        <location filename="dialogs/settings.cpp" line="538"/>
-        <location filename="dialogs/settings.cpp" line="566"/>
+        <location filename="dialogs/settings.cpp" line="321"/>
+        <location filename="dialogs/settings.cpp" line="327"/>
+        <location filename="dialogs/settings.cpp" line="615"/>
+        <location filename="dialogs/settings.cpp" line="643"/>
+        <location filename="dialogs/settings.cpp" line="1014"/>
+        <location filename="dialogs/settings.cpp" line="1048"/>
+        <location filename="dialogs/settings.cpp" line="1052"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="246"/>
+        <location filename="dialogs/settings.cpp" line="321"/>
         <source>The directory for export isn&apos;t choose</source>
         <translation>Не выбрана директория для экспорта</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="252"/>
+        <location filename="dialogs/settings.cpp" line="327"/>
         <source>The path shall be absolute</source>
         <translation>Путь должен быть абсолютным</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="298"/>
-        <location filename="dialogs/settings.cpp" line="343"/>
-        <location filename="dialogs/settings.cpp" line="382"/>
-        <location filename="dialogs/settings.cpp" line="415"/>
-        <location filename="dialogs/settings.cpp" line="602"/>
+        <location filename="dialogs/settings.cpp" line="375"/>
+        <location filename="dialogs/settings.cpp" line="420"/>
+        <location filename="dialogs/settings.cpp" line="459"/>
+        <location filename="dialogs/settings.cpp" line="492"/>
+        <location filename="dialogs/settings.cpp" line="679"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="298"/>
-        <location filename="dialogs/settings.cpp" line="343"/>
-        <location filename="dialogs/settings.cpp" line="382"/>
-        <location filename="dialogs/settings.cpp" line="415"/>
+        <location filename="dialogs/settings.cpp" line="375"/>
+        <location filename="dialogs/settings.cpp" line="420"/>
+        <location filename="dialogs/settings.cpp" line="459"/>
+        <location filename="dialogs/settings.cpp" line="492"/>
         <source>Cannot export data</source>
         <translation>Невозможно экспортировать данные</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="507"/>
+        <location filename="dialogs/settings.cpp" line="584"/>
         <source>Export is successfully finished</source>
         <translation>Экспорт успешно завершён</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="514"/>
+        <location filename="dialogs/settings.cpp" line="591"/>
         <source>Choose a directory for export file</source>
         <translation>Выберете директорию для экспортирования</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="526"/>
+        <location filename="dialogs/settings.cpp" line="603"/>
         <source>Choose a xml file for import</source>
         <translation>Выберете xml файл для импорта</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="538"/>
+        <location filename="dialogs/settings.cpp" line="615"/>
         <source>The imported file isn&apos;t selected</source>
         <translation>Не выбран импортируемый файл</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="550"/>
+        <location filename="dialogs/settings.cpp" line="627"/>
         <source>Import is successfully finished</source>
         <translation>Импорт успешно завершён</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="551"/>
+        <location filename="dialogs/settings.cpp" line="628"/>
         <source>Records it is imported:</source>
         <translation>Записей импортировано:</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="554"/>
+        <location filename="dialogs/settings.cpp" line="631"/>
         <source>Import failed</source>
         <translation>Импорт завершился неудачей</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="567"/>
+        <location filename="dialogs/settings.cpp" line="644"/>
         <source>&lt;b&gt;Delete&lt;/b&gt; your database?&lt;br&gt;&lt;i&gt;Fields marked by a checkbox will be deleted&lt;/i&gt;</source>
         <translation>&lt;b&gt;Удалить&lt;/b&gt; вышу базу данных?&lt;br&gt;&lt;i&gt;Отмеченные поля будут удалены&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="602"/>
+        <location filename="dialogs/settings.cpp" line="679"/>
         <source>File is not open</source>
         <translation>Не удалось открыть файл</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="811"/>
+        <location filename="dialogs/settings.cpp" line="699"/>
+        <source>Import of records</source>
+        <translation>Импорт записей</translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="749"/>
+        <source>Copying of covers</source>
+        <translation>Копирование обложек</translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="934"/>
         <source>Choose a directory for application data</source>
         <translation>Выберите директорию для хранения данных приложения</translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="1014"/>
+        <source>It is impossible to delete system style</source>
+        <translation>Невозможно удалить системный стиль</translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="1038"/>
+        <source>Style copying</source>
+        <translation>Копирование стиля</translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="1039"/>
+        <source>Enter name for new style:</source>
+        <translation>Введите имя для нового стиля:</translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="1048"/>
+        <source>The entered name is empty</source>
+        <translation>Введёное имя пусто</translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="1052"/>
+        <source>Style with such name already exists</source>
+        <translation>Стиль с таким именем уже существует</translation>
     </message>
 </context>
 </TS>
