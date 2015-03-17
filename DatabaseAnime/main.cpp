@@ -60,9 +60,9 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 */
 int main(int argc, char *argv[])
 {
-    #ifndef QT_DEBUG
-        qInstallMessageHandler(myMessageOutput);
-    #endif
+#ifndef QT_DEBUG
+    qInstallMessageHandler(myMessageOutput);
+#endif
 
     QApplication app(argc, argv);
     app.setOrganizationName("LibertaSoft");
