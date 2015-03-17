@@ -23,9 +23,9 @@ Test_DbaLocalization::Test_DbaLocalization()
 void Test_DbaLocalization::readExistsLocalizations()
 {
     QStringList paths;
-    paths << "../../FakeData/DbaLocalization/folder1/"; // en
-    paths << "../../FakeData/DbaLocalization/folder2/"; // ru
-    paths << "../../FakeData/DbaLocalization/folder3/"; // de
+    paths << "../../../../DatabaseAnime/DatabaseAnime/Unit-Tests/FakeData/DbaLocalization/folder1/"; // en
+    paths << "../../../../DatabaseAnime/DatabaseAnime/Unit-Tests/FakeData/DbaLocalization/folder2/"; // ru
+    paths << "../../../../DatabaseAnime/DatabaseAnime/Unit-Tests/FakeData/DbaLocalization/folder3/"; // de
 
     QMap<QLocale::Language,QString> FakeData;
     FakeData[QLocale::Russian] = "Russian";
@@ -38,9 +38,9 @@ void Test_DbaLocalization::readExistsLocalizations()
 void Test_DbaLocalization::getFileOfLocalization()
 {
     QStringList paths;
-    paths << "../../FakeData/DbaLocalization/folder1/"; // en
-    paths << "../../FakeData/DbaLocalization/folder2/"; // ru
-    paths << "../../FakeData/DbaLocalization/folder3/"; // de
+    paths << "../../../../DatabaseAnime/DatabaseAnime/Unit-Tests/FakeData/DbaLocalization/folder1/"; // en
+    paths << "../../../../DatabaseAnime/DatabaseAnime/Unit-Tests/FakeData/DbaLocalization/folder2/"; // ru
+    paths << "../../../../DatabaseAnime/DatabaseAnime/Unit-Tests/FakeData/DbaLocalization/folder3/"; // de
 
     QCOMPARE(DbaLocalization::getFileOfLocalization(QLocale::English, paths),
              paths[0] + "l10n/DatabaseAnime_en.qm");
@@ -53,9 +53,9 @@ void Test_DbaLocalization::getFileOfLocalization()
 void Test_DbaLocalization::getQtBaseFileOfLocalization()
 {
     QStringList paths;
-    paths << "../../FakeData/DbaLocalization/folder1/"; // en
-    paths << "../../FakeData/DbaLocalization/folder2/"; // ru
-    paths << "../../FakeData/DbaLocalization/folder3/"; // de
+    paths << "../../../../DatabaseAnime/DatabaseAnime/Unit-Tests/FakeData/DbaLocalization/folder1/"; // en
+    paths << "../../../../DatabaseAnime/DatabaseAnime/Unit-Tests/FakeData/DbaLocalization/folder2/"; // ru
+    paths << "../../../../DatabaseAnime/DatabaseAnime/Unit-Tests/FakeData/DbaLocalization/folder3/"; // de
 
     QCOMPARE(DbaLocalization::getQtBaseFileOfLocalization(QLocale::English, paths),
              QString("") );
