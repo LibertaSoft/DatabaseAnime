@@ -10,11 +10,11 @@
  * \brief Метод для получения доступных стилей
  * \return QSet<QString> - список доступных стилей
  *
- * Метод читает директории со стилями и ищет .ini файле стилей
+ * Метод читает директории со стилями и ищет .ini файлы стилей
  * после чего возвращает список найденных файлов без расширения.
  */
 /*! \~english
-* \brief The method for obtaining available styles
+ * \brief The method for obtaining available styles
  * \return QSet<QString> - the list of available styles
  *
  * The method reads directories with styles and looks for .ini the file of styles
@@ -43,7 +43,7 @@ QSet<QString> StyleManager::getExistsStyles()
  * \return QPalette - палитра
  */
 /*! \~english
-* \brief the Method for receiving a palette of the specified style
+ * \brief the Method for receiving a palette of the specified style
  * \param styleName - a style name, which palette is required to be received
  * \return QPalette - a palette
  */
@@ -97,11 +97,11 @@ QPalette StyleManager::getPaletteOfStyle(QString styleName)
  * \return bool - успех операции, false - если переданное имя пустое.
  */
 /*! \~english
-* \brief the Method for style preservation, in the user directory with styles
-* \param styleName - a name of the kept style
-* \param palette - a palette for preservation
-* \return bool - success of operation, false - if the transferred name empty.
-*/
+ * \brief the Method for style preservation, in the user directory with styles
+ * \param styleName - a name of the kept style
+ * \param palette - a palette for preservation
+ * \return bool - success of operation, false - if the transferred name empty.
+ */
 bool StyleManager::saveStyle(QString styleName, QPalette palette)
 {
     if( styleName.isEmpty() )

@@ -472,7 +472,6 @@ bool MngrQuerys::insertAnime(QMap<QString, QVariant> data)
 {
     QSqlQuery query;
 
-
     query.prepare( QString("INSERT INTO %1("
                   "isHaveLooked, isEditingDone, isAdult, Title,"
                   "OrigTitle, Director, PostScoring,"
@@ -490,8 +489,6 @@ bool MngrQuerys::insertAnime(QMap<QString, QVariant> data)
                   ":Tags, :Description,"
                   ":URL, :Dir, :ImagePath)"
                   ).arg( MngrQuerys::getTableName( sections::anime ) ) );
-
-
     using namespace Tables::Anime::Fields;
     query.bindValue( ":isHaveLooked",  data[isHaveLooked] );
     query.bindValue( ":isEditingDone", data[isEditingDone] );

@@ -10,7 +10,7 @@ ColorPicker::ColorPicker(QWidget *parent)
     this->setFrameStyle( QFrame::WinPanel );
 }
 
-/*! ~russian
+/*! \~russian
  * \brief Метод для получения текущего установленного цвета в ColorPicker'е
  * \return Текущий цвет ColorPicker'а
  */
