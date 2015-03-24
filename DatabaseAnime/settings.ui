@@ -116,7 +116,7 @@
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Page_General">
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -145,7 +145,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>329</width>
+             <width>486</width>
              <height>586</height>
             </rect>
            </property>
@@ -166,6 +166,9 @@
                 <widget class="QLabel" name="Label_Language">
                  <property name="text">
                   <string>Language:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>ComboBox_Language</cstring>
                  </property>
                 </widget>
                </item>
@@ -252,6 +255,9 @@
                  <property name="text">
                   <string>Sorting:</string>
                  </property>
+                 <property name="buddy">
+                  <cstring>ComboBox_ItemList_Sorting</cstring>
+                 </property>
                 </widget>
                </item>
                <item row="2" column="1">
@@ -261,6 +267,9 @@
                 <widget class="QLabel" name="Label_DisplayedField">
                  <property name="text">
                   <string>Displayed field:</string>
+                 </property>
+                 <property name="buddy">
+                  <cstring>ComboBox_ItemList_DisplayedField</cstring>
                  </property>
                 </widget>
                </item>
@@ -376,8 +385,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>314</width>
-             <height>261</height>
+             <width>500</width>
+             <height>578</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -513,8 +522,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>329</width>
-             <height>241</height>
+             <width>500</width>
+             <height>578</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -681,8 +690,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>329</width>
-             <height>239</height>
+             <width>500</width>
+             <height>578</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -868,6 +877,9 @@
              <property name="text">
               <string>Window:</string>
              </property>
+             <property name="buddy">
+              <cstring>Frame_Style_Window</cstring>
+             </property>
             </widget>
            </item>
            <item row="0" column="1">
@@ -891,6 +903,9 @@
             <widget class="QLabel" name="Lbl_WindowText">
              <property name="text">
               <string>WindowText:</string>
+             </property>
+             <property name="buddy">
+              <cstring>Frame_Style_WindowText</cstring>
              </property>
             </widget>
            </item>
@@ -916,6 +931,9 @@
              <property name="text">
               <string>Base:</string>
              </property>
+             <property name="buddy">
+              <cstring>Frame_Style_Base</cstring>
+             </property>
             </widget>
            </item>
            <item row="2" column="1">
@@ -939,6 +957,9 @@
             <widget class="QLabel" name="label_4">
              <property name="text">
               <string>AlternateBase:</string>
+             </property>
+             <property name="buddy">
+              <cstring>Frame_Style_AlternateBase</cstring>
              </property>
             </widget>
            </item>
@@ -964,6 +985,9 @@
              <property name="text">
               <string>ToolTipBase:</string>
              </property>
+             <property name="buddy">
+              <cstring>Frame_Style_ToolTipBase</cstring>
+             </property>
             </widget>
            </item>
            <item row="4" column="1">
@@ -987,6 +1011,9 @@
             <widget class="QLabel" name="label_6">
              <property name="text">
               <string>ToolTipText:</string>
+             </property>
+             <property name="buddy">
+              <cstring>Frame_Style_ToolTipText</cstring>
              </property>
             </widget>
            </item>
@@ -1012,6 +1039,9 @@
              <property name="text">
               <string>Text:</string>
              </property>
+             <property name="buddy">
+              <cstring>Frame_Style_Text</cstring>
+             </property>
             </widget>
            </item>
            <item row="6" column="1">
@@ -1035,6 +1065,9 @@
             <widget class="QLabel" name="label_8">
              <property name="text">
               <string>Button:</string>
+             </property>
+             <property name="buddy">
+              <cstring>Frame_Style_Button</cstring>
              </property>
             </widget>
            </item>
@@ -1060,6 +1093,9 @@
              <property name="text">
               <string>ButtonText:</string>
              </property>
+             <property name="buddy">
+              <cstring>Frame_Style_ButtonText</cstring>
+             </property>
             </widget>
            </item>
            <item row="8" column="1">
@@ -1083,6 +1119,9 @@
             <widget class="QLabel" name="label_13">
              <property name="text">
               <string>BrightText:</string>
+             </property>
+             <property name="buddy">
+              <cstring>Frame_Style_BrightText</cstring>
              </property>
             </widget>
            </item>
@@ -1108,6 +1147,9 @@
              <property name="text">
               <string>Link:</string>
              </property>
+             <property name="buddy">
+              <cstring>Frame_Style_Link</cstring>
+             </property>
             </widget>
            </item>
            <item row="10" column="1">
@@ -1132,6 +1174,9 @@
              <property name="text">
               <string>Highlight:</string>
              </property>
+             <property name="buddy">
+              <cstring>Frame_Style_Highlight</cstring>
+             </property>
             </widget>
            </item>
            <item row="11" column="1">
@@ -1155,6 +1200,9 @@
             <widget class="QLabel" name="label_12">
              <property name="text">
               <string>HighlightedText:</string>
+             </property>
+             <property name="buddy">
+              <cstring>Frame_Style_HighlightedText</cstring>
              </property>
             </widget>
            </item>
