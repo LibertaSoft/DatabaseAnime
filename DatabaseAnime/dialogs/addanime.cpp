@@ -454,27 +454,28 @@ void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)
 
 void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 {
+    using namespace Tables::Anime::Fields;
     btnBox_reset();
     ui->TabWidget_Info->setCurrentIndex(2);
 
-    ui->LineEdit_Title->setText( data["Title"].toString() );
+    ui->LineEdit_Title->setText( data[Title].toString() );
 
     // Optional Fields
     if( this->LineEdit_OrigTitle )
-        this->LineEdit_OrigTitle->setText( data["AltTitle"].toString() );
+        this->LineEdit_OrigTitle->setText( data[AltTitle].toString() );
     else
-        _altTitle = data["AltTitle"].toString();
+        _altTitle = data[AltTitle].toString();
 //    if( this->LineEdit_Director )
 //        this->LineEdit_Director->setText( obj["russian"].toString() );
 //    if( this->LineEdit_PostScoring )
 //        this->LineEdit_PostScoring->setText( obj["name"].toString() );
 
-    if( data["Year"].toInt() != 0 )
-        ui->SpinBox_Year->setValue( data["Year"].toInt() );
+    if( data[Year].toInt() != 0 )
+        ui->SpinBox_Year->setValue( data[Year].toInt() );
 
 //    ui->SpinBox_Season->setValue( 1 ); // on any not zero
 
-    ui->ComboBox_Studio->setCurrentText( data["Studio"].toString() );
+    ui->ComboBox_Studio->setCurrentText( data[Studios].toString() );
 
     if( data["Type"].toString() == "TV" )
         ui->SpinBox_aTV->setValue( data["Series"].toInt() );
@@ -487,18 +488,18 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
     else if( data["Type"].toString() == "Movie" )
         ui->SpinBox_aMovie->setValue( data["Series"].toInt() );
 
-    ui->LineEdit_Tags->setText( data["Tags"].toString() );
+    ui->LineEdit_Tags->setText( data[Tags].toString() );
 
-    ui->PlainTextEdit_Description->setPlainText( data["Description"].toString() );
+    ui->PlainTextEdit_Description->setPlainText( data[Description].toString() );
 
-    ui->LineEdit_URL->setText( data["URL"].toString() );
+    ui->LineEdit_URL->setText( data[Url].toString() );
 
-    QString cover = data["ImagePath"].toString();
+    QString cover = data[ImagePath].toString();
 
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(replyDownloadPictureFinished(QNetworkReply*)));
 
-    QUrl urlCover("http://shikimori.org" + cover);
+    QUrl urlCover(shikimoriUrl + cover);
     manager->get( QNetworkRequest(urlCover) );
 }

@@ -43,6 +43,9 @@
    }
  * \endcode
  */
+
+const QString shikimoriUrl("http://shikimori.org");
+
 class ShikimoriApi : public QObject {
     Q_OBJECT
 private:
