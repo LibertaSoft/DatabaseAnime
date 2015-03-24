@@ -1055,7 +1055,29 @@ void Settings::on_TButton_CopyStyle_clicked()
         return;
     }
 
-    StyleManager::saveStyle(styleName, paletteFromColorPicker() );
+
+    if( ui->ComboBox_CurrentStyle->currentIndex() == INDEX_OF_SYSTEM_STYLE ){
+        QPalette darkPalette;
+        darkPalette.setColor(QPalette::Window, QColor(53,53,53));
+        darkPalette.setColor(QPalette::WindowText, Qt::white);
+        darkPalette.setColor(QPalette::Base, QColor(25,25,25));
+        darkPalette.setColor(QPalette::AlternateBase, QColor(53,53,53));
+        darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
+        darkPalette.setColor(QPalette::ToolTipText, Qt::white);
+        darkPalette.setColor(QPalette::Text, Qt::white);
+        darkPalette.setColor(QPalette::Button, QColor(53,53,53));
+        darkPalette.setColor(QPalette::ButtonText, Qt::white);
+        darkPalette.setColor(QPalette::BrightText, Qt::red);
+        darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
+
+        darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+        darkPalette.setColor(QPalette::HighlightedText, Qt::black);
+
+        StyleManager::saveStyle(styleName, darkPalette );
+    }else{
+        StyleManager::saveStyle(styleName, paletteFromColorPicker() );
+    }
+
     ui->ComboBox_CurrentStyle->addItem(styleName);
     ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText(styleName) );
     ui->PButton_Style_SaveChanges->setVisible( false );
