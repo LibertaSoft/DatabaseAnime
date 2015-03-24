@@ -93,8 +93,6 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     ui->ChBox_SwitchCoverOrDir->setChecked( SwitchCoverOrDir );
     ui->ChBox_SearchOnShikimori->setChecked( searchOnShikimori );
 
-    ui->ComboBox_CurrentStyle->setCurrentIndex( settings.value(Options::Style::CurrentStyle, 0).toInt() );
-
     QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( Options::General::Language, QLocale::English ).toInt());
 
     ui->ComboBox_Language->addItem( tr("<System>"), 0 );
@@ -107,7 +105,7 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
         if( set_language == langList.key(langName) )
             ui->ComboBox_Language->setCurrentIndex(i);
     }
-    // Sorting
+
     {  // Sorting
         ui->ComboBox_ItemList_Sorting->addItem(tr("None"), Sort::none);
         ui->ComboBox_ItemList_Sorting->addItem(tr("ASC"),  Sort::asc);
@@ -120,7 +118,6 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     // Work dir
     ui->LineEdit_WorkDir->setText( QDir::toNativeSeparators( DefinesPath::appData() ) );
 
-    // Displayed field
     {   // Displayed field
         Tables::UniformField::field displayedField =
                 static_cast<Tables::UniformField::field>(
@@ -134,13 +131,21 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     }
 
     { // Style
+        using namespace Options::Style;
+
         ui->ComboBox_CurrentStyle->addItems( StyleManager::getExistsStyles().toList() );
-        QString currentStyleName = settings.value( Options::Style::CurrentStyleName, "System" ).toString();
-        ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText( currentStyleName ) );
+        QString currentStyleName = settings.value( Options::Style::CurrentStyleName, tr("System") ).toString();
+        int currentStyleIndex = settings.value( Options::Style::CurrentStyle, INDEX_OF_SYSTEM_STYLE ).toInt();
+        if( currentStyleIndex > INDEX_OF_SYSTEM_STYLE )
+            ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText( currentStyleName ) );
+        else
+            ui->ComboBox_CurrentStyle->setCurrentIndex( INDEX_OF_SYSTEM_STYLE );
+
         stylePalette = StyleManager::getPaletteOfStyle( ui->ComboBox_CurrentStyle->currentText() );
         initColorPickers( stylePalette );
-
         connectColorPicker();
+        ui->GroupBox_Style_Colors->setEnabled( currentStyleIndex != INDEX_OF_SYSTEM_STYLE );
+
         ui->PButton_Style_SaveChanges->setVisible( false );
     }
 }
@@ -251,9 +256,13 @@ void Settings::on_BtnBox_accepted()
         settings.setValue( CheckUpdates, ui->ChBox_CheckForUpdate->isChecked() );
         settings.setValue( AutoSearchOnShikimori, ui->ChBox_SearchOnShikimori->isChecked() );
     }
-    {
+    { // Style
         using namespace Options::Style;
         settings.setValue( CurrentStyle, ui->ComboBox_CurrentStyle->currentIndex() );
+        settings.setValue( CurrentStyleName, ui->ComboBox_CurrentStyle->currentText() );
+
+        if( ui->ComboBox_CurrentStyle->currentIndex () != INDEX_OF_SYSTEM_STYLE )
+            StyleManager::saveStyle( ui->ComboBox_CurrentStyle->currentText(), paletteFromColorPicker() );
     }
 
     settings.setValue( Options::General::SwitchCoverOrDir, ui->ChBox_SwitchCoverOrDir->isChecked() );
@@ -268,13 +277,6 @@ void Settings::on_BtnBox_accepted()
         settings.setValue( Options::General::DisplayedField, displayedField );
     }
 
-    { // Style
-        settings.setValue( Options::Style::CurrentStyle, ui->ComboBox_CurrentStyle->currentIndex() );
-        settings.setValue( Options::Style::CurrentStyleName, ui->ComboBox_CurrentStyle->currentText() );
-
-        if( ui->ComboBox_CurrentStyle->currentIndex () != INDEX_OF_SYSTEM_STYLE )
-            StyleManager::saveStyle( ui->ComboBox_CurrentStyle->currentText(), paletteFromColorPicker() );
-    }
 }
 
 void Settings::BtnBox_resetDefaults()
