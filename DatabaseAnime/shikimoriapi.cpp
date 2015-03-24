@@ -125,7 +125,7 @@ QMap<QString,QVariant> ShikimoriApi::jsonParse_animeData(QByteArray data)
 	}
     map[Tags] = tags;
     map[Description] = obj["description_html"].toString();
-    map[Url] = "http://shikimori.org" + obj["url"].toString();
+    map[Url] = shikimoriUrl + obj["url"].toString();
     map[ImagePath] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
@@ -181,7 +181,7 @@ QMap<QString,QVariant> ShikimoriApi::jsonParse_mangaData(QByteArray data)
 	}
     map[Tags] = tags;
     map[Description] = obj["description_html"].toString();
-    map[Url] = "http://shikimori.org" + obj["url"].toString();
+    map[Url] = shikimoriUrl + obj["url"].toString();
     map[ImagePath] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
@@ -203,7 +203,7 @@ void ShikimoriApi::searchAnime(QString title, short limit)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyAnimeSearch);
 
-    QUrl url = "http://shikimori.org/api/animes?search=" + title + "&limit=" + QString::number(limit);
+    QUrl url = shikimoriUrl + "/api/animes?search=" + title + "&limit=" + QString::number(limit);
     manager->get( QNetworkRequest( url ) );
 }
 
@@ -223,7 +223,7 @@ void ShikimoriApi::searchManga(QString title, short limit)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyMangaSearch);
 
-    QUrl url = "http://shikimori.org/api/mangas?search=" + title + "&limit=" + QString::number(limit);
+    QUrl url = shikimoriUrl + "/api/mangas?search=" + title + "&limit=" + QString::number(limit);
     manager->get( QNetworkRequest( url ) );
 }
 
@@ -245,7 +245,7 @@ void ShikimoriApi::getAnimeId(QString title)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyGetAnimeId);
 
-    QUrl url = "http://shikimori.org/api/animes?search=" + title + "&limit=1";
+    QUrl url = shikimoriUrl + "/api/animes?search=" + title + "&limit=1";
     manager->get( QNetworkRequest( url ) );
 }
 
@@ -267,7 +267,7 @@ void ShikimoriApi::getMangaId(QString title)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyGetMangaId);
 
-    QUrl url = "http://shikimori.org/api/mangas?search=" + title + "&limit=1";
+    QUrl url = shikimoriUrl + "/api/mangas?search=" + title + "&limit=1";
     manager->get( QNetworkRequest( url ) );
 }
 
@@ -289,7 +289,7 @@ void ShikimoriApi::pullAnimeData(quint64 id)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyAnimeData);
 
-    QUrl url = "http://shikimori.org/api/animes/" + QString::number(id);
+    QUrl url = shikimoriUrl + "/api/animes/" + QString::number(id);
     manager->get( QNetworkRequest( url ) );
 }
 
@@ -311,7 +311,7 @@ void ShikimoriApi::pullMangaData(quint64 id)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyMangaData);
 
-    QUrl url = "http://shikimori.org/api/mangas/" + QString::number(id);
+    QUrl url = shikimoriUrl + "/api/mangas/" + QString::number(id);
     manager->get( QNetworkRequest( url ) );
 }
 
