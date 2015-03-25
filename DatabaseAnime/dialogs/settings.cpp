@@ -1087,4 +1087,5 @@ void Settings::on_PButton_Style_SaveChanges_clicked()
 {
     if( ui->ComboBox_CurrentStyle->currentIndex() != INDEX_OF_SYSTEM_STYLE )
         StyleManager::saveStyle(ui->ComboBox_CurrentStyle->currentText(), paletteFromColorPicker() );
+    ui->PButton_Style_SaveChanges->setVisible( false );
 }
