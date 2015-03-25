@@ -1017,11 +1017,11 @@ void Settings::on_TButton_RemoveStyle_clicked()
         return;
     }
 
-    QMessageBox::StandardButton button
+    QMessageBox::StandardButton pressedButton
             = QMessageBox::question(this, tr("Question"),
                                     tr("You really want to remove the current style?"));
 
-    if( button == QMessageBox::Yes ){
+    if( pressedButton == QMessageBox::Yes ){
         StyleManager::removeStyle( ui->ComboBox_CurrentStyle->currentText() );
         ui->ComboBox_CurrentStyle->removeItem( ui->ComboBox_CurrentStyle->currentIndex() );
     }
