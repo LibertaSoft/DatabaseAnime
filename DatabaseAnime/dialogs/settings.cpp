@@ -1007,8 +1007,8 @@ void Settings::on_ComboBox_CurrentStyle_currentIndexChanged(int index)
  * завершает выполнение функции.
  *
  * Иначе - удаляет выбранный пункт из выпадаюзего списка.
+ * Запрашивает подтверждение у пользователя.
  * Удаляет файл с таким именем, содержащий этот стиль.
- * \todo Запрашивает подтверждение у пользователя.
  */
 void Settings::on_TButton_RemoveStyle_clicked()
 {
@@ -1017,8 +1017,14 @@ void Settings::on_TButton_RemoveStyle_clicked()
         return;
     }
 
-    StyleManager::removeStyle( ui->ComboBox_CurrentStyle->currentText() );
-    ui->ComboBox_CurrentStyle->removeItem( ui->ComboBox_CurrentStyle->currentIndex() );
+    QMessageBox::StandardButton button
+            = QMessageBox::question(this, tr("Question"),
+                                    tr("You really want to remove the current style?"));
+
+    if( button == QMessageBox::Yes ){
+        StyleManager::removeStyle( ui->ComboBox_CurrentStyle->currentText() );
+        ui->ComboBox_CurrentStyle->removeItem( ui->ComboBox_CurrentStyle->currentIndex() );
+    }
 }
 
 /*! \~russian
