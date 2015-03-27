@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 
     {
         QSettings settings;
-        int currentStyle = settings.value(Options::Style::CurrentStyle, 0).toInt();
+        int currentStyle = settings.value(Options::Style::CurrentStyleIndex, 0).toInt();
         QString currentStyleName = settings.value(Options::Style::CurrentStyleName, "").toString();
         if( (currentStyle > 0 ) && ( ! currentStyleName.isEmpty() ) ){
             app.setStyle( QStyleFactory::create("Fusion") );

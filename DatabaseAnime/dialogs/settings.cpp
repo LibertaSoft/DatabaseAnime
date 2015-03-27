@@ -135,7 +135,7 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
 
         ui->ComboBox_CurrentStyle->addItems( StyleManager::getExistsStyles().toList() );
         QString currentStyleName = settings.value( Options::Style::CurrentStyleName, "System" ).toString();
-        int currentStyleIndex = settings.value( Options::Style::CurrentStyle, INDEX_OF_SYSTEM_STYLE ).toInt();
+        int currentStyleIndex = settings.value( Options::Style::CurrentStyleIndex, INDEX_OF_SYSTEM_STYLE ).toInt();
         if( currentStyleIndex != INDEX_OF_SYSTEM_STYLE )
             ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText( currentStyleName ) );
         else
@@ -258,7 +258,7 @@ void Settings::on_BtnBox_accepted()
     }
     { // Style
         using namespace Options::Style;
-        settings.setValue( CurrentStyle, ui->ComboBox_CurrentStyle->currentIndex() );
+        settings.setValue( CurrentStyleIndex, ui->ComboBox_CurrentStyle->currentIndex() );
         settings.setValue( CurrentStyleName, ui->ComboBox_CurrentStyle->currentText() );
 
         if( ui->ComboBox_CurrentStyle->currentIndex () != INDEX_OF_SYSTEM_STYLE )
