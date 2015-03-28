@@ -1040,8 +1040,14 @@ void Settings::on_TButton_RemoveStyle_clicked()
                                     tr("You really want to remove the current style?"));
 
     if( pressedButton == QMessageBox::Yes ){
-        StyleManager::removeStyle( ui->ComboBox_CurrentStyle->currentText() );
-        ui->ComboBox_CurrentStyle->removeItem( ui->ComboBox_CurrentStyle->currentIndex() );
+        bool successRemoved = StyleManager::removeStyle( ui->ComboBox_CurrentStyle->currentText() );
+
+        if( ! successRemoved ){
+            /// \todo Set here the normal text
+            QMessageBox::information(this, tr("Warning"), tr("Impossible to remove this style. Maybe your not accesss to removed."));
+        }else{
+            ui->ComboBox_CurrentStyle->removeItem( ui->ComboBox_CurrentStyle->currentIndex() );
+        }
     }
 }
 
