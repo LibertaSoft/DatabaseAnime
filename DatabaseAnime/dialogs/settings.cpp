@@ -126,10 +126,13 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
                     settings.value( Options::General::DisplayedField, Tables::UniformField::Title ).toInt() );
         ui->ComboBox_ItemList_DisplayedField->addItem(tr("Title"), Tables::UniformField::Title);
         ui->ComboBox_ItemList_DisplayedField->addItem(tr("Alternative title"), Tables::UniformField::AltTitle);
-        if( displayedField == Tables::UniformField::Title )
-            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( 0 );
-        else
-            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( 1 );
+        if( displayedField == Tables::UniformField::Title ){
+            const int TITLE_INDEX = 0;
+            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( TITLE_INDEX );
+        }else{
+            const int ALT_TITLE_INDEX = 1;
+            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( ALT_TITLE_INDEX );
+        }
     }
 
     { // Style
@@ -310,8 +313,9 @@ void Settings::BtnBox_resetDefaults()
     ui->ChBox_OptField_Dorama_AltTitle->setChecked( false );
     ui->ChBox_OptField_Dorama_Director->setChecked( false );
 
-    ui->ComboBox_Language->setCurrentIndex(0);
-    ui->ComboBox_ItemList_Sorting->setCurrentIndex(1);
+    const int SYSTEM_LANGUAGE = 0;
+    ui->ComboBox_Language->setCurrentIndex( SYSTEM_LANGUAGE );
+    ui->ComboBox_ItemList_Sorting->setCurrentIndex( Sort::asc );
 
     ui->ChBox_CheckForUpdate->setChecked( true );
     ui->ChBox_SwitchCoverOrDir->setChecked( true );
