@@ -38,6 +38,32 @@ QSet<QString> StyleManager::getExistsStyles()
 }
 
 /*! \~russian
+ * \brief Метод для получения пути к первома найденному файлу со стилем.
+ * \param styleName - имя стиля, путь к которому нужно найти.
+ * \return QString - путь к файлу со стилем. QString::null - если файл не найден.
+ */
+/*! \~english
+ * \brief Method for receiving a way to a pervom to the found file with style.
+ * \param styleName - the style name, way to which needs to be found.
+ * \return QString - a way to the file with style. QString::null - if the file isn't found.
+ */
+QString StyleManager::getFilePath(QString styleName)
+{
+    QString styleFileName = styleName + ".ini";
+    QStringList paths = DefinesPath::share();
+
+    foreach (QString path, paths) {
+        QString styleFolder = QDir(path).path() + QDir::separator() + "Style" + QDir::separator();
+        foreach(QString fileName, QDir(styleFolder).entryList(QStringList() << "*.ini") ){
+            if( styleFileName == fileName )
+                return styleFolder + fileName;
+        }
+    }
+
+    return QString::null;
+}
+
+/*! \~russian
  * \brief Метод для получения палитры указанного стиля
  * \param styleName - имя стиля, палитру которого требуется получить
  * \return QPalette - палитра
@@ -49,9 +75,8 @@ QSet<QString> StyleManager::getExistsStyles()
  */
 QPalette StyleManager::getPaletteOfStyle(QString styleName)
 {
-    /// \bug Read only writable locations
-    QString fileName = DefinesPath::styleLocation() + styleName + ".ini";
-    QSettings ini(fileName, QSettings::IniFormat);
+    QString filePath = getFilePath(styleName);
+    QSettings ini(filePath, QSettings::IniFormat);
 
     QPalette palette;
 
@@ -74,18 +99,18 @@ QPalette StyleManager::getPaletteOfStyle(QString styleName)
     Highlight.setNamedColor(       ini.value("Highlight",       "#2a82da" ).toString() );
     HighlightedText.setNamedColor( ini.value("HighlightedText", "#000000" ).toString() );
 
-    palette.setColor(QPalette::Window, Window);
-    palette.setColor(QPalette::WindowText, WindowText);
-    palette.setColor(QPalette::Base, Base);
-    palette.setColor(QPalette::AlternateBase, AlternateBase);
-    palette.setColor(QPalette::ToolTipBase, ToolTipBase);
-    palette.setColor(QPalette::ToolTipText, ToolTipText);
-    palette.setColor(QPalette::Text, Text);
-    palette.setColor(QPalette::Button, Button);
-    palette.setColor(QPalette::ButtonText, ButtonText);
-    palette.setColor(QPalette::BrightText, BrightText);
-    palette.setColor(QPalette::Link, Link);
-    palette.setColor(QPalette::Highlight, Highlight);
+    palette.setColor(QPalette::Window,          Window);
+    palette.setColor(QPalette::WindowText,      WindowText);
+    palette.setColor(QPalette::Base,            Base);
+    palette.setColor(QPalette::AlternateBase,   AlternateBase);
+    palette.setColor(QPalette::ToolTipBase,     ToolTipBase);
+    palette.setColor(QPalette::ToolTipText,     ToolTipText);
+    palette.setColor(QPalette::Text,            Text);
+    palette.setColor(QPalette::Button,          Button);
+    palette.setColor(QPalette::ButtonText,      ButtonText);
+    palette.setColor(QPalette::BrightText,      BrightText);
+    palette.setColor(QPalette::Link,            Link);
+    palette.setColor(QPalette::Highlight,       Highlight);
     palette.setColor(QPalette::HighlightedText, HighlightedText);
 
     return palette;
