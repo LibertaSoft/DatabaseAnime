@@ -49,7 +49,8 @@ QSet<QString> StyleManager::getExistsStyles()
  */
 QPalette StyleManager::getPaletteOfStyle(QString styleName)
 {
-    QString fileName = DefinesPath::styleLocation() + QDir::separator() + styleName + ".ini";
+    /// \bug Read only writable locations
+    QString fileName = DefinesPath::styleLocation() + styleName + ".ini";
     QSettings ini(fileName, QSettings::IniFormat);
 
     QPalette palette;
@@ -59,18 +60,18 @@ QPalette StyleManager::getPaletteOfStyle(QString styleName)
             Link, Highlight, HighlightedText;
 
 
-    Window.setNamedColor( ini.value("Window", "#000000" ).toString() );
-    WindowText.setNamedColor( ini.value("WindowText", "#000000" ).toString() );
-    Base.setNamedColor( ini.value("Base", "#000000" ).toString() );
-    AlternateBase.setNamedColor( ini.value("AlternateBase", "#000000" ).toString() );
-    ToolTipBase.setNamedColor( ini.value("ToolTipBase", "#000000" ).toString() );
-    ToolTipText.setNamedColor( ini.value("ToolTipText", "#000000" ).toString() );
-    Text.setNamedColor( ini.value("Text", "#000000" ).toString() );
-    Button.setNamedColor( ini.value("Button", "#000000" ).toString() );
-    ButtonText.setNamedColor( ini.value("ButtonText", "#000000" ).toString() );
-    BrightText.setNamedColor( ini.value("BrightText", "#000000" ).toString() );
-    Link.setNamedColor( ini.value("Link", "#000000" ).toString() );
-    Highlight.setNamedColor( ini.value("Highlight", "#000000" ).toString() );
+    Window.setNamedColor(          ini.value("Window",          "#353535" ).toString() );
+    WindowText.setNamedColor(      ini.value("WindowText",      "#ffffff" ).toString() );
+    Base.setNamedColor(            ini.value("Base",            "#191919" ).toString() );
+    AlternateBase.setNamedColor(   ini.value("AlternateBase",   "#353535" ).toString() );
+    ToolTipBase.setNamedColor(     ini.value("ToolTipBase",     "#ffffff" ).toString() );
+    ToolTipText.setNamedColor(     ini.value("ToolTipText",     "#000000" ).toString() );
+    Text.setNamedColor(            ini.value("Text",            "#ffffff" ).toString() );
+    Button.setNamedColor(          ini.value("Button",          "#353535" ).toString() );
+    ButtonText.setNamedColor(      ini.value("ButtonText",      "#ffffff" ).toString() );
+    BrightText.setNamedColor(      ini.value("BrightText",      "#ff0000" ).toString() );
+    Link.setNamedColor(            ini.value("Link",            "#2a82da" ).toString() );
+    Highlight.setNamedColor(       ini.value("Highlight",       "#2a82da" ).toString() );
     HighlightedText.setNamedColor( ini.value("HighlightedText", "#000000" ).toString() );
 
     palette.setColor(QPalette::Window, Window);
