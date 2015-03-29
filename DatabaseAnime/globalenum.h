@@ -42,8 +42,8 @@ namespace Options{
     }
     namespace Style{
         const QString SectionPrefix("Style/");
-        const QString CurrentStyleIndex(SectionPrefix+"CurrentIndex");
-        const QString CurrentStyleName(SectionPrefix+"CurrentTitle");
+        const QString SystemStyle(SectionPrefix+"ActiveIsSystem");
+        const QString CurrentStyleName(SectionPrefix+"ActiveStyleName");
     }
     namespace OptionalFields{
         const QString SectionPrefix("OptionalFields/");
