@@ -1994,15 +1994,15 @@
     </message>
     <message>
         <location filename="settings.ui" line="71"/>
-        <location filename="dialogs/settings.cpp" line="629"/>
-        <location filename="dialogs/settings.cpp" line="633"/>
+        <location filename="dialogs/settings.cpp" line="647"/>
+        <location filename="dialogs/settings.cpp" line="651"/>
         <source>Import</source>
         <translation>Импорт</translation>
     </message>
     <message>
         <location filename="settings.ui" line="83"/>
         <location filename="settings.ui" line="782"/>
-        <location filename="dialogs/settings.cpp" line="586"/>
+        <location filename="dialogs/settings.cpp" line="604"/>
         <source>Export</source>
         <translation>Экспорт</translation>
     </message>
@@ -2193,6 +2193,7 @@
     </message>
     <message>
         <location filename="settings.ui" line="840"/>
+        <location filename="dialogs/settings.cpp" line="98"/>
         <source>System</source>
         <translation>Системный</translation>
     </message>
@@ -2314,170 +2315,172 @@
         <translation></translation>
     </message>
     <message>
+        <location filename="settings.ui" line="840"/>
         <location filename="dialogs/settings.cpp" line="98"/>
-        <source>&lt;System&gt;</source>
-        <translation>Системный</translation>
+        <source>System</source>
+        <oldsource>&lt;System&gt;</oldsource>
+        <translation type="unfinished">Системный</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="110"/>
+        <location filename="dialogs/settings.cpp" line="112"/>
         <source>None</source>
         <translation>Нет</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="111"/>
+        <location filename="dialogs/settings.cpp" line="113"/>
         <source>ASC</source>
         <translation>А-Я</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="112"/>
+        <location filename="dialogs/settings.cpp" line="114"/>
         <source>DESC</source>
         <translation>Я-А</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="113"/>
+        <location filename="dialogs/settings.cpp" line="115"/>
         <source>Year</source>
         <translation>Год</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="125"/>
+        <location filename="dialogs/settings.cpp" line="127"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="126"/>
+        <location filename="dialogs/settings.cpp" line="128"/>
         <source>Alternative title</source>
         <translation>Альтернативное название</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="323"/>
-        <location filename="dialogs/settings.cpp" line="329"/>
-        <location filename="dialogs/settings.cpp" line="617"/>
-        <location filename="dialogs/settings.cpp" line="645"/>
-        <location filename="dialogs/settings.cpp" line="1016"/>
-        <location filename="dialogs/settings.cpp" line="1056"/>
-        <location filename="dialogs/settings.cpp" line="1060"/>
+        <location filename="dialogs/settings.cpp" line="341"/>
+        <location filename="dialogs/settings.cpp" line="347"/>
+        <location filename="dialogs/settings.cpp" line="635"/>
+        <location filename="dialogs/settings.cpp" line="663"/>
+        <location filename="dialogs/settings.cpp" line="1034"/>
+        <location filename="dialogs/settings.cpp" line="1075"/>
+        <location filename="dialogs/settings.cpp" line="1079"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="323"/>
+        <location filename="dialogs/settings.cpp" line="341"/>
         <source>The directory for export isn&apos;t choose</source>
         <translation>Не выбрана директория для экспорта</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="329"/>
+        <location filename="dialogs/settings.cpp" line="347"/>
         <source>The path shall be absolute</source>
         <translation>Путь должен быть абсолютным</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="377"/>
-        <location filename="dialogs/settings.cpp" line="422"/>
-        <location filename="dialogs/settings.cpp" line="461"/>
-        <location filename="dialogs/settings.cpp" line="494"/>
-        <location filename="dialogs/settings.cpp" line="681"/>
+        <location filename="dialogs/settings.cpp" line="395"/>
+        <location filename="dialogs/settings.cpp" line="440"/>
+        <location filename="dialogs/settings.cpp" line="479"/>
+        <location filename="dialogs/settings.cpp" line="512"/>
+        <location filename="dialogs/settings.cpp" line="699"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="377"/>
-        <location filename="dialogs/settings.cpp" line="422"/>
-        <location filename="dialogs/settings.cpp" line="461"/>
-        <location filename="dialogs/settings.cpp" line="494"/>
+        <location filename="dialogs/settings.cpp" line="395"/>
+        <location filename="dialogs/settings.cpp" line="440"/>
+        <location filename="dialogs/settings.cpp" line="479"/>
+        <location filename="dialogs/settings.cpp" line="512"/>
         <source>Cannot export data</source>
         <translation>Невозможно экспортировать данные</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="586"/>
+        <location filename="dialogs/settings.cpp" line="604"/>
         <source>Export is successfully finished</source>
         <translation>Экспорт успешно завершён</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="593"/>
+        <location filename="dialogs/settings.cpp" line="611"/>
         <source>Choose a directory for export file</source>
         <translation>Выберете директорию для экспортирования</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="605"/>
+        <location filename="dialogs/settings.cpp" line="623"/>
         <source>Choose a xml file for import</source>
         <translation>Выберете xml файл для импорта</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="617"/>
+        <location filename="dialogs/settings.cpp" line="635"/>
         <source>The imported file isn&apos;t selected</source>
         <translation>Не выбран импортируемый файл</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="629"/>
+        <location filename="dialogs/settings.cpp" line="647"/>
         <source>Import is successfully finished</source>
         <translation>Импорт успешно завершён</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="630"/>
+        <location filename="dialogs/settings.cpp" line="648"/>
         <source>Records it is imported:</source>
         <translation>Записей импортировано:</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="633"/>
+        <location filename="dialogs/settings.cpp" line="651"/>
         <source>Import failed</source>
         <translation>Импорт завершился неудачей</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="646"/>
+        <location filename="dialogs/settings.cpp" line="664"/>
         <source>&lt;b&gt;Delete&lt;/b&gt; your database?&lt;br&gt;&lt;i&gt;Fields marked by a checkbox will be deleted&lt;/i&gt;</source>
         <translation>&lt;b&gt;Удалить&lt;/b&gt; вышу базу данных?&lt;br&gt;&lt;i&gt;Отмеченные поля будут удалены&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="681"/>
+        <location filename="dialogs/settings.cpp" line="699"/>
         <source>File is not open</source>
         <translation>Не удалось открыть файл</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="701"/>
+        <location filename="dialogs/settings.cpp" line="719"/>
         <source>Import of records</source>
         <translation>Импорт записей</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="751"/>
+        <location filename="dialogs/settings.cpp" line="769"/>
         <source>Copying of covers</source>
         <translation>Копирование обложек</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="936"/>
+        <location filename="dialogs/settings.cpp" line="954"/>
         <source>Choose a directory for application data</source>
         <translation>Выберите директорию для хранения данных приложения</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1016"/>
+        <location filename="dialogs/settings.cpp" line="1034"/>
         <source>It is impossible to delete system style</source>
         <translation>Невозможно удалить системный стиль</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1021"/>
+        <location filename="dialogs/settings.cpp" line="1039"/>
         <source>Question</source>
         <translation>Вопрос</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1022"/>
+        <location filename="dialogs/settings.cpp" line="1040"/>
         <source>You really want to remove the current style?</source>
         <translation>Вы действительно хотите удалить текущий стиль?</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1046"/>
+        <location filename="dialogs/settings.cpp" line="1065"/>
         <source>Style copying</source>
         <translation>Копирование стиля</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1047"/>
+        <location filename="dialogs/settings.cpp" line="1066"/>
         <source>Enter name for new style:</source>
         <translation>Введите имя для нового стиля:</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1056"/>
+        <location filename="dialogs/settings.cpp" line="1075"/>
         <source>The entered name is empty</source>
         <translation>Введёное имя пусто</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1060"/>
+        <location filename="dialogs/settings.cpp" line="1079"/>
         <source>Style with such name already exists</source>
         <translation>Стиль с таким именем уже существует</translation>
     </message>

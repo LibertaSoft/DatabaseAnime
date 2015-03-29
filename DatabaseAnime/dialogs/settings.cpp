@@ -63,7 +63,7 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
 
     bool m1 = settings.value( Options::OptionalFields::Manga::AltTitle,    false ).toBool();
     bool m2 = settings.value( Options::OptionalFields::Manga::Author,      false ).toBool();
-    bool m3 = settings.value( Options::OptionalFields::Manga::Translator, false ).toBool();
+    bool m3 = settings.value( Options::OptionalFields::Manga::Translator,  false ).toBool();
 
     bool d1 = settings.value( Options::OptionalFields::Dorama::AltTitle, false ).toBool();
     bool d2 = settings.value( Options::OptionalFields::Dorama::Director, false ).toBool();
@@ -95,8 +95,10 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
 
     QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( Options::General::Language, QLocale::English ).toInt());
 
-    ui->ComboBox_Language->addItem( tr("<System>"), 0 );
+    ui->ComboBox_Language->addItem( tr("System"), 0 );
 
+    /// \~russian
+    /// \todo Использовать поиск языка по имени, а не по индексу, на каждой проверке.
     QMap<QLocale::Language,QString> langList = DbaLocalization::readExistsLocalizations( DefinesPath::share() );
     int i(0);
     foreach (QString langName, langList) {
@@ -124,27 +126,34 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
                     settings.value( Options::General::DisplayedField, Tables::UniformField::Title ).toInt() );
         ui->ComboBox_ItemList_DisplayedField->addItem(tr("Title"), Tables::UniformField::Title);
         ui->ComboBox_ItemList_DisplayedField->addItem(tr("Alternative title"), Tables::UniformField::AltTitle);
-        if( displayedField == Tables::UniformField::Title )
-            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( 0 );
-        else
-            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( 1 );
+        if( displayedField == Tables::UniformField::Title ){
+            const int TITLE_INDEX = 0;
+            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( TITLE_INDEX );
+        }else{
+            const int ALT_TITLE_INDEX = 1;
+            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( ALT_TITLE_INDEX );
+        }
     }
 
     { // Style
         using namespace Options::Style;
 
-        ui->ComboBox_CurrentStyle->addItems( StyleManager::getExistsStyles().toList() );
-        QString currentStyleName = settings.value( Options::Style::CurrentStyleName, "System" ).toString();
-        int currentStyleIndex = settings.value( Options::Style::CurrentStyle, INDEX_OF_SYSTEM_STYLE ).toInt();
-        if( currentStyleIndex != INDEX_OF_SYSTEM_STYLE )
-            ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText( currentStyleName ) );
-        else
-            ui->ComboBox_CurrentStyle->setCurrentIndex( INDEX_OF_SYSTEM_STYLE );
+        QString styleName = settings.value( CurrentStyleName, "System" ).toString();
+        bool    isSystemStyle    = settings.value( SystemStyle, true ).toBool();
 
-        stylePalette = StyleManager::getPaletteOfStyle( ui->ComboBox_CurrentStyle->currentText() );
+        QSet<QString> styles = StyleManager::getExistsStyles();
+        ui->ComboBox_CurrentStyle->addItems( styles.toList() );
+
+        if( ( ! isSystemStyle) && styles.contains( styleName ) ){
+            ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText( styleName ) );
+            stylePalette = StyleManager::getPaletteOfStyle( styleName );
+        }else{
+            ui->ComboBox_CurrentStyle->setCurrentIndex( INDEX_OF_SYSTEM_STYLE );
+        }
+
         initColorPickers( stylePalette );
         connectColorPicker();
-        ui->GroupBox_Style_Colors->setEnabled( currentStyleIndex != INDEX_OF_SYSTEM_STYLE );
+        ui->GroupBox_Style_Colors->setEnabled( ! isSystemStyle );
 
         ui->PButton_Style_SaveChanges->setVisible( false );
     }
@@ -152,11 +161,12 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
 
 Settings::~Settings()
 {
+    using namespace Options::Dialogs::Config;
     QSettings settings;
-    settings.setValue(Options::Dialogs::Config::Geometry, this->saveGeometry() );
+    settings.setValue(Geometry, this->saveGeometry() );
 
-    settings.setValue(Options::Dialogs::Config::Splitter::Geometry, ui->splitter->saveGeometry() );
-    settings.setValue(Options::Dialogs::Config::Splitter::State,    ui->splitter->saveState() );
+    settings.setValue(Splitter::Geometry, ui->splitter->saveGeometry() );
+    settings.setValue(Splitter::State,    ui->splitter->saveState() );
     delete ui;
 }
 
@@ -239,7 +249,7 @@ void Settings::on_BtnBox_accepted()
         using namespace Options::OptionalFields::Manga;
         settings.setValue( AltTitle,    ui->ChBox_OptField_Manga_AltTitle->isChecked() );
         settings.setValue( Author,      ui->ChBox_OptField_Manga_Author->isChecked() );
-        settings.setValue( Translator, ui->ChBox_OptField_Manga_Translation->isChecked() );
+        settings.setValue( Translator,  ui->ChBox_OptField_Manga_Translation->isChecked() );
     }
     {
         using namespace Options::OptionalFields::Dorama;
@@ -249,31 +259,36 @@ void Settings::on_BtnBox_accepted()
     {
         using namespace Options::General;
         settings.setValue( Language, ui->ComboBox_Language->currentData() );
-        settings.setValue( Sorting, ui->ComboBox_ItemList_Sorting->currentIndex() );
+        settings.setValue( Sorting,  ui->ComboBox_ItemList_Sorting->currentIndex() );
     }
     {
         using namespace Options::Network;
-        settings.setValue( CheckUpdates, ui->ChBox_CheckForUpdate->isChecked() );
+        settings.setValue( CheckUpdates,          ui->ChBox_CheckForUpdate->isChecked() );
         settings.setValue( AutoSearchOnShikimori, ui->ChBox_SearchOnShikimori->isChecked() );
     }
     { // Style
         using namespace Options::Style;
-        settings.setValue( CurrentStyle, ui->ComboBox_CurrentStyle->currentIndex() );
-        settings.setValue( CurrentStyleName, ui->ComboBox_CurrentStyle->currentText() );
+        bool isSystemStyle = ui->ComboBox_CurrentStyle->currentIndex() == INDEX_OF_SYSTEM_STYLE;
+        QString styleName  = ui->ComboBox_CurrentStyle->currentText();
 
-        if( ui->ComboBox_CurrentStyle->currentIndex () != INDEX_OF_SYSTEM_STYLE )
-            StyleManager::saveStyle( ui->ComboBox_CurrentStyle->currentText(), paletteFromColorPicker() );
+        settings.setValue( SystemStyle, isSystemStyle );
+        settings.setValue( CurrentStyleName, styleName );
+
+        if( ! isSystemStyle )
+            StyleManager::saveStyle( styleName, paletteFromColorPicker() );
     }
 
     settings.setValue( Options::General::SwitchCoverOrDir, ui->ChBox_SwitchCoverOrDir->isChecked() );
 
     if( QDir::isAbsolutePath( ui->LineEdit_WorkDir->text() ) )
-        settings.setValue( Options::General::WorkDirectory, QDir(ui->LineEdit_WorkDir->text()).path() );
+        settings.setValue( Options::General::WorkDirectory, QDir( ui->LineEdit_WorkDir->text() ).path() );
     else
         settings.remove(Options::General::WorkDirectory);
 
     { // Displayed field
-        Tables::UniformField::field displayedField = static_cast<Tables::UniformField::field>( ui->ComboBox_ItemList_DisplayedField->currentData().toInt() );
+        int displayedFieldId = ui->ComboBox_ItemList_DisplayedField->currentData().toInt();
+        Tables::UniformField::field displayedField
+                = static_cast<Tables::UniformField::field>( displayedFieldId );
         settings.setValue( Options::General::DisplayedField, displayedField );
     }
 
@@ -298,14 +313,17 @@ void Settings::BtnBox_resetDefaults()
     ui->ChBox_OptField_Dorama_AltTitle->setChecked( false );
     ui->ChBox_OptField_Dorama_Director->setChecked( false );
 
-    ui->ComboBox_Language->setCurrentIndex(0);
-    ui->ComboBox_ItemList_Sorting->setCurrentIndex(1);
+    const int SYSTEM_LANGUAGE = 0;
+    ui->ComboBox_Language->setCurrentIndex( SYSTEM_LANGUAGE );
+    ui->ComboBox_ItemList_Sorting->setCurrentIndex( Sort::asc );
 
     ui->ChBox_CheckForUpdate->setChecked( true );
     ui->ChBox_SwitchCoverOrDir->setChecked( true );
     ui->ChBox_SearchOnShikimori->setChecked( true );
 
     ui->LineEdit_WorkDir->setText( DefinesPath::appData(true) );
+
+    /// \todo Add reset other options here
 }
 
 void Settings::on_PBtn_Action_Export_clicked()
@@ -1022,8 +1040,14 @@ void Settings::on_TButton_RemoveStyle_clicked()
                                     tr("You really want to remove the current style?"));
 
     if( pressedButton == QMessageBox::Yes ){
-        StyleManager::removeStyle( ui->ComboBox_CurrentStyle->currentText() );
-        ui->ComboBox_CurrentStyle->removeItem( ui->ComboBox_CurrentStyle->currentIndex() );
+        bool successRemoved = StyleManager::removeStyle( ui->ComboBox_CurrentStyle->currentText() );
+
+        if( ! successRemoved ){
+            /// \todo Set here the normal text
+            QMessageBox::information(this, tr("Warning"), tr("Impossible to remove this style. Maybe your not accesss to removed."));
+        }else{
+            ui->ComboBox_CurrentStyle->removeItem( ui->ComboBox_CurrentStyle->currentIndex() );
+        }
     }
 }
 
@@ -1042,7 +1066,8 @@ void Settings::on_TButton_RemoveStyle_clicked()
  */
 void Settings::on_TButton_CopyStyle_clicked()
 {
-    bool ok;
+    bool ok = false;
+
     QString styleName = QInputDialog::getText(this, tr("Style copying"),
                                          tr("Enter name for new style:"), QLineEdit::Normal,
                                          ui->ComboBox_CurrentStyle->currentText(), &ok);
@@ -1061,28 +1086,7 @@ void Settings::on_TButton_CopyStyle_clicked()
         return;
     }
 
-
-    if( ui->ComboBox_CurrentStyle->currentIndex() == INDEX_OF_SYSTEM_STYLE ){
-        QPalette darkPalette;
-        darkPalette.setColor(QPalette::Window, QColor(53,53,53));
-        darkPalette.setColor(QPalette::WindowText, Qt::white);
-        darkPalette.setColor(QPalette::Base, QColor(25,25,25));
-        darkPalette.setColor(QPalette::AlternateBase, QColor(53,53,53));
-        darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
-        darkPalette.setColor(QPalette::ToolTipText, Qt::white);
-        darkPalette.setColor(QPalette::Text, Qt::white);
-        darkPalette.setColor(QPalette::Button, QColor(53,53,53));
-        darkPalette.setColor(QPalette::ButtonText, Qt::white);
-        darkPalette.setColor(QPalette::BrightText, Qt::red);
-        darkPalette.setColor(QPalette::Link, QColor(42, 130, 218));
-
-        darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
-        darkPalette.setColor(QPalette::HighlightedText, Qt::black);
-
-        StyleManager::saveStyle(styleName, darkPalette );
-    }else{
-        StyleManager::saveStyle(styleName, paletteFromColorPicker() );
-    }
+    StyleManager::saveStyle(styleName, paletteFromColorPicker() );
 
     ui->ComboBox_CurrentStyle->addItem(styleName);
     ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText(styleName) );
@@ -1091,7 +1095,11 @@ void Settings::on_TButton_CopyStyle_clicked()
 
 void Settings::on_PButton_Style_SaveChanges_clicked()
 {
-    if( ui->ComboBox_CurrentStyle->currentIndex() != INDEX_OF_SYSTEM_STYLE )
-        StyleManager::saveStyle(ui->ComboBox_CurrentStyle->currentText(), paletteFromColorPicker() );
+    QString styleName  = ui->ComboBox_CurrentStyle->currentText();
+    int     styleIndex = ui->ComboBox_CurrentStyle->currentIndex();
+
+    if( styleIndex != INDEX_OF_SYSTEM_STYLE )
+        StyleManager::saveStyle( styleName, paletteFromColorPicker() );
+
     ui->PButton_Style_SaveChanges->setVisible( false );
 }
