@@ -12,23 +12,23 @@ class BasicData
     QString _localDir;
     QString _coverPath;
     QString _year;
-    BasicData(quint64 id, QString &title);
-public:
 
+public:
+    BasicData(quint64 id, QString &title);
     quint64 getId() const;
-    void setId(const quint64 &value);
+    void setId(const quint64 &id);
     QString getTitle() const;
-    void setTitle(const QString &value);
+    void setTitle(const QString &title);
     QString getAltTitle() const;
-    void setAltTitle(const QString &value);
+    void setAltTitle(const QString &altTitle);
     QString getUrl() const;
-    void setUrl(const QString &value);
+    void setUrl(const QString &url);
     QString getLocalDir() const;
-    void setLocalDir(const QString &value);
+    void setLocalDir(const QString &localDir);
     QString getCoverPath() const;
-    void setCoverPath(const QString &value);
+    void setCoverPath(const QString &coverPath);
     QString getYear() const;
-    void setYear(const QString &value);
+    void setYear(const QString &year);
 };
 
 #endif // DATA_H

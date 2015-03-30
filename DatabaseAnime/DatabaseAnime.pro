@@ -42,7 +42,8 @@ HEADERS += \
     db/managerquerys.h \
     db/mngrconnection.h \
     data/basicdata.h \
-    data/animedata.h
+    data/animedata.h \
+    data/seriesrange.h
 
 SOURCES += \
     main.cpp \
@@ -66,7 +67,8 @@ SOURCES += \
     db/managerquerys.cpp \
     db/mngrconnection.cpp \
     data/basicdata.cpp \
-    data/animedata.cpp
+    data/animedata.cpp \
+    data/seriesrange.cpp
 
 FORMS += \
     mainwindow.ui \

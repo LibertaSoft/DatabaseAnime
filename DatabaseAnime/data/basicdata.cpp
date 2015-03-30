@@ -12,9 +12,9 @@ quint64 BasicData::getId() const
     return _id;
 }
 
-void BasicData::setId(const quint64 &value)
+void BasicData::setId(const quint64 &id)
 {
-    _id = value;
+    _id = id;
 }
 
 QString BasicData::getTitle() const
@@ -22,9 +22,9 @@ QString BasicData::getTitle() const
     return _title;
 }
 
-void BasicData::setTitle(const QString &value)
+void BasicData::setTitle(const QString &title)
 {
-    _title = value;
+    _title = title;
 }
 
 QString BasicData::getAltTitle() const
@@ -32,9 +32,9 @@ QString BasicData::getAltTitle() const
     return _altTitle;
 }
 
-void BasicData::setAltTitle(const QString &value)
+void BasicData::setAltTitle(const QString &altTitle)
 {
-    _altTitle = value;
+    _altTitle = altTitle;
 }
 
 QString BasicData::getUrl() const
@@ -42,9 +42,9 @@ QString BasicData::getUrl() const
     return _url;
 }
 
-void BasicData::setUrl(const QString &value)
+void BasicData::setUrl(const QString &url)
 {
-    _url = value;
+    _url = url;
 }
 
 QString BasicData::getLocalDir() const
@@ -52,9 +52,9 @@ QString BasicData::getLocalDir() const
     return _localDir;
 }
 
-void BasicData::setLocalDir(const QString &value)
+void BasicData::setLocalDir(const QString &localDir)
 {
-    _localDir = value;
+    _localDir = localDir;
 }
 
 QString BasicData::getCoverPath() const
@@ -62,9 +62,9 @@ QString BasicData::getCoverPath() const
     return _coverPath;
 }
 
-void BasicData::setCoverPath(const QString &value)
+void BasicData::setCoverPath(const QString &coverPath)
 {
-    _coverPath = value;
+    _coverPath = coverPath;
 }
 
 QString BasicData::getYear() const
@@ -72,7 +72,7 @@ QString BasicData::getYear() const
     return _year;
 }
 
-void BasicData::setYear(const QString &value)
+void BasicData::setYear(const QString &year)
 {
-    _year = value;
+    _year = year;
 }
