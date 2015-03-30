@@ -22,7 +22,6 @@ QMAKE_TARGET_COPYRIGHT = (CopyLeft) LibertaSoft
 
 HEADERS += \
     mainwindow.h \
-    mngrconnection.h \
     mngrquerys.h \
     dialogs/addamv.h \
     dialogs/addanime.h \
@@ -40,12 +39,12 @@ HEADERS += \
     shikimoriapi.h \
     widgets/colorpicker.h \
     stylemanager.h \
-    db/managerquerys.h
+    db/managerquerys.h \
+    db/mngrconnection.h
 
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    mngrconnection.cpp \
     mngrquerys.cpp \
     dialogs/addamv.cpp \
     dialogs/addanime.cpp \
@@ -62,7 +61,8 @@ SOURCES += \
     shikimoriapi.cpp \
     widgets/colorpicker.cpp \
     stylemanager.cpp \
-    db/managerquerys.cpp
+    db/managerquerys.cpp \
+    db/mngrconnection.cpp
 
 FORMS += \
     mainwindow.ui \
@@ -82,3 +82,6 @@ RESOURCES += \
 TRANSLATIONS += \
     DatabaseAnime_ru.ts \
     DatabaseAnime_en.ts
+
+DISTFILES += \
+    db

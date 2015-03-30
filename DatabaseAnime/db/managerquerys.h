@@ -13,6 +13,12 @@
 
 typedef QMap<QString,QString>  Fields;
 
+/*! \~russian
+ * \brief Класс управления запросами к базе данных
+ */
+/*! \~english
+ * \brief Class for control of database queryes
+ */
 class ManagerQuerys
 {
     ManagerQuerys();
@@ -25,12 +31,13 @@ public:
     static bool insertRecord(const QString& tableName, const QSqlRecord& record);
     static bool deleteRecord(const QString& tableName, const quint64 id);
     static bool updateRecord(const QString& tableName, const quint64 id, const QSqlRecord& record);
+    static bool updateRecord(const QString& tableName, const quint64 id, const QSqlField&  field);
 
     static quint64 count(const QString& tableName);
     static QSqlQuery selectRecords(const QString& tableName, const quint64 first = 0, const long limit = 10000);
 
     static QSqlRecord selectRecord(const QString& tableName, const quint64 id);
-    static QString getCoverPath(   const QString& tableName, const quint64 id);
+    static QSqlField  selectField( const QString& tableName, const quint64 id, const QString& fieldName);
     static void modelSelect(QSqlQueryModel&      model,
                             const QString&       tableName,
                             const QString&       field,

@@ -4,7 +4,7 @@
 #include <QDialog>
 #include "definespath.h"
 #include "dbalocalization.h"
-#include "mngrconnection.h"
+#include "db/mngrconnection.h"
 #include "mngrquerys.h"
 
 #include "share/xml/xmldbareader.h"

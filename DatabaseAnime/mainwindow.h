@@ -3,7 +3,7 @@
 
 #include "widgets/lookprogressbar.h"
 #include "dialogs/settings.h"
-#include "mngrconnection.h"
+#include "db/mngrconnection.h"
 #include "mngrquerys.h"
 
 #include <QMainWindow>
