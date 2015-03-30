@@ -40,7 +40,9 @@ HEADERS += \
     widgets/colorpicker.h \
     stylemanager.h \
     db/managerquerys.h \
-    db/mngrconnection.h
+    db/mngrconnection.h \
+    data/basicdata.h \
+    data/animedata.h
 
 SOURCES += \
     main.cpp \
@@ -62,7 +64,9 @@ SOURCES += \
     widgets/colorpicker.cpp \
     stylemanager.cpp \
     db/managerquerys.cpp \
-    db/mngrconnection.cpp
+    db/mngrconnection.cpp \
+    data/basicdata.cpp \
+    data/animedata.cpp
 
 FORMS += \
     mainwindow.ui \
