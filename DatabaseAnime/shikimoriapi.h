@@ -11,6 +11,8 @@
 #include <QDate>
 #include <QMap>
 
+const QString shikimoriUrl("http://shikimori.org");
+
 /*! \~russian
  * \brief Класс взаимодействия с API сайта shikimori.org
  *
@@ -43,13 +45,11 @@
    }
  * \endcode
  */
-
-const QString shikimoriUrl("http://shikimori.org");
-
 class ShikimoriApi : public QObject {
     Q_OBJECT
 private:
     QString _lang;
+    QNetworkRequest request( QUrl& url );
 
     QStringList jsonParse_search(QByteArray data);
     quint64 jsonParse_getId(QByteArray data);
