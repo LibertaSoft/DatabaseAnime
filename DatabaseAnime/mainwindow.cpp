@@ -145,11 +145,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_PButton_Options_clicked()
 {
+//    QMenu *m = new QMenu("Options cm",0);
+//    QAction* a1 = new QAction( QIcon("://images/list-add.png"), tr("&Choose image"),this);
+//    QAction* a2 = new QAction( QIcon("://images/list-remove.png"), tr("Clea&n image"),this);
+//    m->addAction(a1);
+//    m->addAction(a2);
+//    m->exec( {ui->PButton_Options->geometry().left()+this->pos().x(), ui->PButton_Options->geometry().bottom()+this->pos().y()} );
+
+//    return;
+
     sections::section currentSection = static_cast<sections::section>(ui->CB_Section->currentData().toInt());
     QSettings settings;
     settings.setValue(Options::General::ActiveSection, currentSection);
 
-    Settings formSettings(mngrConnection, this);
+    Settings formSettings(this);
     formSettings.setModal(true);
     formSettings.exec();
 
@@ -1029,4 +1038,84 @@ void MainWindow::on_PBtn_url_vk_clicked()
 void MainWindow::on_PBtn_url_github_clicked()
 {
     QDesktopServices::openUrl( QUrl("https://github.com/LibertaSoft/DatabaseAnime") );
+}
+
+void MainWindow::on_actionASC_triggered()
+{
+    QSettings settings;
+    using namespace Options::General;
+    _sort = Sort::asc;
+    settings.setValue( Sorting,  Sort::asc );
+
+    on_CB_Filter_currentIndexChanged();
+}
+
+void MainWindow::on_actionDESC_triggered()
+{
+    QSettings settings;
+    using namespace Options::General;
+    _sort = Sort::desc;
+    settings.setValue( Sorting,  Sort::desc );
+
+    on_CB_Filter_currentIndexChanged();
+}
+
+void MainWindow::on_actionNone_triggered()
+{
+    QSettings settings;
+    using namespace Options::General;
+    _sort = Sort::none;
+    settings.setValue( Sorting,  Sort::none );
+
+    on_CB_Filter_currentIndexChanged();
+}
+
+void MainWindow::on_actionYear_triggered()
+{
+    QSettings settings;
+    using namespace Options::General;
+    _sort = Sort::year;
+    settings.setValue( Sorting,  Sort::year );
+
+    on_CB_Filter_currentIndexChanged();
+}
+
+void MainWindow::on_actionAdd_triggered()
+{
+    on_TButton_Add_clicked();
+}
+
+void MainWindow::on_actionEdit_triggered()
+{
+    on_TButton_Edit_clicked();
+}
+
+void MainWindow::on_actionRemove_triggered()
+{
+    on_TButton_Delete_clicked();
+}
+
+void MainWindow::on_actionOptions_triggered()
+{
+    on_PButton_Options_clicked();
+}
+
+void MainWindow::on_actionImport_triggered()
+{
+    Share shareDialog(mngrConnection, this);
+
+    shareDialog.setModal(true);
+    shareDialog.setTab( Share::Tabs::Import );
+
+    shareDialog.exec();
+}
+
+void MainWindow::on_actionExport_triggered()
+{
+    Share shareDialog(mngrConnection, this);
+
+    shareDialog.setModal(true);
+    shareDialog.setTab( Share::Tabs::Export );
+
+    shareDialog.exec();
 }

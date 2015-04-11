@@ -13,6 +13,8 @@
 #include <QScrollArea>
 #include <QNetworkReply>
 
+#include "share.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -86,6 +88,16 @@ private slots:
     void on_PBtn_url_vk_clicked();
     void on_PBtn_url_github_clicked();
     void replyVersionVerificationFinished(QNetworkReply*);
+    void on_actionASC_triggered();
+    void on_actionDESC_triggered();
+    void on_actionNone_triggered();
+    void on_actionYear_triggered();
+    void on_actionAdd_triggered();
+    void on_actionEdit_triggered();
+    void on_actionRemove_triggered();
+    void on_actionOptions_triggered();
+    void on_actionImport_triggered();
+    void on_actionExport_triggered();
 };
 
 #endif // MAINWINDOW_H

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Share</class>
+ <widget class="QDialog" name="Share">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>510</width>
+    <height>292</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab_import">
+      <attribute name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/images/import.png</normaloff>:/images/import.png</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>Import</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLineEdit" name="LineEdit_ImportFile">
+           <property name="placeholderText">
+            <string>Import file</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="TButton_ChooseImportFile">
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="GroupBox_ImportSections">
+         <property name="title">
+          <string>Import sections:</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QCheckBox" name="ChBox_Import_Anime">
+            <property name="text">
+             <string>Anime</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="ChBox_Import_Manga">
+            <property name="text">
+             <string>Manga</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="ChBox_Import_Amv">
+            <property name="text">
+             <string>Amv</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="ChBox_Import_Dorama">
+            <property name="text">
+             <string>Dorama</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="ChBox_Import_Images">
+         <property name="text">
+          <string>Import images</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="HLay_Import_Actions">
+         <item>
+          <widget class="QPushButton" name="PBtn_Import_Append">
+           <property name="text">
+            <string>Append</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="PBtn_Import_Replace">
+           <property name="text">
+            <string>Replace</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/images/refresh.png</normaloff>:/images/refresh.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="ProgressBar_Import">
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_export">
+      <attribute name="icon">
+       <iconset resource="resource.qrc">
+        <normaloff>:/images/export.png</normaloff>:/images/export.png</iconset>
+      </attribute>
+      <attribute name="title">
+       <string>Export</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QLineEdit" name="LineEdit_ExportFolder">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="placeholderText">
+            <string>Export folder</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QToolButton" name="TButton_ChooseExportFolder">
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="resource.qrc">
+             <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="GroupBox_ExportSections">
+         <property name="title">
+          <string>Export sections:</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QCheckBox" name="ChBox_Export_Anime">
+            <property name="text">
+             <string>Anime</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="ChBox_Export_Manga">
+            <property name="text">
+             <string>Manga</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="ChBox_Export_Amv">
+            <property name="text">
+             <string>Amv</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="ChBox_Export_Dorama">
+            <property name="text">
+             <string>Dorama</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="ChBox_Export_Images">
+         <property name="text">
+          <string>Export images</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="PBtn_Action_Export">
+         <property name="text">
+          <string>Export</string>
+         </property>
+         <property name="icon">
+          <iconset resource="resource.qrc">
+           <normaloff>:/images/export.png</normaloff>:/images/export.png</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QProgressBar" name="ProgressBar_Export">
+         <property name="value">
+          <number>0</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+  <action name="actionShowExportProgressBar">
+   <property name="text">
+    <string>ShowExportProgressBar</string>
+   </property>
+   <property name="toolTip">
+    <string>Switch export button or progress bar</string>
+   </property>
+  </action>
+  <action name="actionShowImportProgressBar">
+   <property name="text">
+    <string>ShowImportProgressBar</string>
+   </property>
+   <property name="toolTip">
+    <string>Switch progress bar or action buttons</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
+ <connections/>
+</ui>

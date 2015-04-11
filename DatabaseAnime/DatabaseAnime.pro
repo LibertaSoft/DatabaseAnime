@@ -39,7 +39,8 @@ HEADERS += \
     dbalocalization.h \
     shikimoriapi.h \
     widgets/colorpicker.h \
-    stylemanager.h
+    stylemanager.h \
+    share.h
 
 SOURCES += \
     main.cpp \
@@ -60,7 +61,8 @@ SOURCES += \
     dbalocalization.cpp \
     shikimoriapi.cpp \
     widgets/colorpicker.cpp \
-    stylemanager.cpp
+    stylemanager.cpp \
+    share.cpp
 
 FORMS += \
     mainwindow.ui \
@@ -69,6 +71,7 @@ FORMS += \
     adddorama.ui \
     addmanga.ui \
     settings.ui \
+    share.ui
 
 OTHER_FILES += \
     ToDo.md \
