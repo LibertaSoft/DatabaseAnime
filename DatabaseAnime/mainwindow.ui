@@ -857,7 +857,9 @@
   </action>
   <action name="actionExit">
    <property name="icon">
-    <iconset theme="exit"/>
+    <iconset theme="exit">
+     <normaloff/>
+    </iconset>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -868,9 +870,8 @@
   </action>
   <action name="actionAdd">
    <property name="icon">
-    <iconset theme="list-add">
-     <normaloff/>
-    </iconset>
+    <iconset theme="list-add" resource="resource.qrc">
+     <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
    </property>
    <property name="text">
     <string>Add</string>
