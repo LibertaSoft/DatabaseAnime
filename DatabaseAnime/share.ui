@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>510</width>
+    <width>506</width>
     <height>292</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Import / Export</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -32,8 +32,14 @@
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="QLineEdit" name="LineEdit_ImportFile">
+           <property name="dragEnabled">
+            <bool>true</bool>
+           </property>
            <property name="placeholderText">
             <string>Import file</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -110,6 +116,19 @@
         </widget>
        </item>
        <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="HLay_Import_Actions">
          <item>
           <widget class="QPushButton" name="PBtn_Import_Append">
@@ -145,19 +164,6 @@
          </property>
         </widget>
        </item>
-       <item>
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab_export">
@@ -176,8 +182,14 @@
            <property name="text">
             <string/>
            </property>
+           <property name="dragEnabled">
+            <bool>true</bool>
+           </property>
            <property name="placeholderText">
             <string>Export folder</string>
+           </property>
+           <property name="clearButtonEnabled">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -254,6 +266,19 @@
         </widget>
        </item>
        <item>
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QPushButton" name="PBtn_Action_Export">
          <property name="text">
           <string>Export</string>
@@ -273,19 +298,6 @@
           <set>Qt::AlignCenter</set>
          </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>

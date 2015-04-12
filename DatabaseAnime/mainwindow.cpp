@@ -1045,6 +1045,10 @@ void MainWindow::on_actionASC_triggered()
     QSettings settings;
     using namespace Options::General;
     _sort = Sort::asc;
+    ui->actionDESC->setChecked( false );
+    ui->actionNone->setChecked( false );
+    ui->actionYear->setChecked( false );
+    ui->actionASC->setChecked( true );
     settings.setValue( Sorting,  Sort::asc );
 
     on_CB_Filter_currentIndexChanged();
@@ -1055,6 +1059,10 @@ void MainWindow::on_actionDESC_triggered()
     QSettings settings;
     using namespace Options::General;
     _sort = Sort::desc;
+    ui->actionASC->setChecked( false );
+    ui->actionNone->setChecked( false );
+    ui->actionYear->setChecked( false );
+    ui->actionDESC->setChecked( true );
     settings.setValue( Sorting,  Sort::desc );
 
     on_CB_Filter_currentIndexChanged();
@@ -1065,6 +1073,10 @@ void MainWindow::on_actionNone_triggered()
     QSettings settings;
     using namespace Options::General;
     _sort = Sort::none;
+    ui->actionDESC->setChecked( false );
+    ui->actionASC->setChecked( false );
+    ui->actionYear->setChecked( false );
+    ui->actionNone->setChecked( true );
     settings.setValue( Sorting,  Sort::none );
 
     on_CB_Filter_currentIndexChanged();
@@ -1075,6 +1087,10 @@ void MainWindow::on_actionYear_triggered()
     QSettings settings;
     using namespace Options::General;
     _sort = Sort::year;
+    ui->actionDESC->setChecked( false );
+    ui->actionNone->setChecked( false );
+    ui->actionASC->setChecked( false );
+    ui->actionYear->setChecked( true );
     settings.setValue( Sorting,  Sort::year );
 
     on_CB_Filter_currentIndexChanged();
@@ -1118,4 +1134,11 @@ void MainWindow::on_actionExport_triggered()
     shareDialog.setTab( Share::Tabs::Export );
 
     shareDialog.exec();
+
+    ui->menuBar->setVisible( false );
+}
+
+void MainWindow::on_actionExit_triggered()
+{
+    qApp->exit(0);
 }

@@ -7,6 +7,9 @@ Share::Share(MngrConnection &MngrCon, QWidget *parent) :
 
     ui.ProgressBar_Export->setVisible(false);
     ui.ProgressBar_Import->setVisible(false);
+
+    ui.LineEdit_ExportFolder->setText( QDir::homePath() );
+    ui.LineEdit_ImportFile->setText( QDir::homePath() );
 }
 
 void Share::setTab(Share::Tabs tab)

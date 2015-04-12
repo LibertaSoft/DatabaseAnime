@@ -26,6 +26,8 @@ private:
     QTranslator qtTr;
     QTranslator dbaTr;
 
+    QMenu *listMenu;
+
     Ui::MainWindow *ui;
     MngrConnection mngrConnection;
 
@@ -98,6 +100,7 @@ private slots:
     void on_actionOptions_triggered();
     void on_actionImport_triggered();
     void on_actionExport_triggered();
+    void on_actionExit_triggered();
 };
 
 #endif // MAINWINDOW_H
