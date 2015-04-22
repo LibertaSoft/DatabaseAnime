@@ -52,6 +52,12 @@ DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned long long record_id) :
 {
     ui->setupUi(this);
     QSettings settings;
+    QFont font;
+    font.setFamily( settings.value( Options::Fonts::FontFamily, this->font().defaultFamily() ).toString() );
+    font.setPointSize( settings.value( Options::Fonts::FontSize, this->font().pointSize() ).toInt() );
+    font.setBold( settings.value( Options::Fonts::FontBold, false ).toBool() );
+    font.setItalic( settings.value( Options::Fonts::FontItalic, false ).toBool() );
+    this->setFont( font );
     this->restoreGeometry( settings.value(Options::Dialogs::Amv::Geometry).toByteArray() );
 
     ui->TabWidget_Info->setCurrentIndex(0);
@@ -67,6 +73,12 @@ DialogAddAmv::DialogAddAmv(QWidget *parent):
 {
     ui->setupUi(this);
     QSettings settings;
+    QFont font;
+    font.setFamily( settings.value( Options::Fonts::FontFamily, this->font().defaultFamily() ).toString() );
+    font.setPointSize( settings.value( Options::Fonts::FontSize, this->font().pointSize() ).toInt() );
+    font.setBold( settings.value( Options::Fonts::FontBold, false ).toBool() );
+    font.setItalic( settings.value( Options::Fonts::FontItalic, false ).toBool() );
+    this->setFont( font );
     this->restoreGeometry( settings.value(Options::Dialogs::Amv::Geometry).toByteArray() );
 
     ui->TabWidget_Info->setCurrentIndex(0);

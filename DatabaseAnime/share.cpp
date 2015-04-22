@@ -4,6 +4,13 @@ Share::Share(MngrConnection &MngrCon, QWidget *parent) :
     QDialog(parent), MngrConnect(MngrCon)
 {
     ui.setupUi(this);
+    QSettings settings;
+    QFont font;
+    font.setFamily( settings.value( Options::Fonts::FontFamily, this->font().defaultFamily() ).toString() );
+    font.setPointSize( settings.value( Options::Fonts::FontSize, this->font().pointSize() ).toInt() );
+    font.setBold( settings.value( Options::Fonts::FontBold, false ).toBool() );
+    font.setItalic( settings.value( Options::Fonts::FontItalic, false ).toBool() );
+    this->setFont( font );
 
     ui.ProgressBar_Export->setVisible(false);
     ui.ProgressBar_Import->setVisible(false);

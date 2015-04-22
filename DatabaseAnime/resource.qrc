@@ -32,5 +32,11 @@
         <file>images/git.png</file>
         <file>images/vk.png</file>
         <file>fonts/URWChanceryL-MediItal.ttf</file>
+        <file>images/icon-sort/sort-none.png</file>
+        <file>images/icon-sort/sort-year.png</file>
+        <file>images/icon-sort/sort-asc.png</file>
+        <file>images/icon-sort/sord-desc.png</file>
+        <file>images/format-text/format-text-italic.png</file>
+        <file>images/format-text/format-text-bold.png</file>
     </qresource>
 </RCC>

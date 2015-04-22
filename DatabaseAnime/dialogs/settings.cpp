@@ -131,6 +131,29 @@ Settings::Settings(QWidget *parent) :
         }
     }
 
+    { //Fonts
+        using namespace Options::Fonts;
+        QString fontFamily = settings.value( FontFamily, this->font().family() ).toString();
+        QFont fontFace = QFont( fontFamily );
+        ui->FontComboBox->setCurrentFont( fontFace );
+        ui->SpinBox_FontSize->setValue( settings.value( FontSize, this->font().pointSize() ).toInt() ); // or pixel
+        ui->TButton_Font_Bold->setChecked( settings.value( FontBold, false ).toBool() );
+        ui->TButton_Font_Italic->setChecked( settings.value( FontItalic, false ).toBool() );
+
+        QFont font;
+
+        font.setFamily( settings.value( Options::Fonts::FontFamily, this->font().defaultFamily() ).toString() );
+        font.setPointSize( settings.value( Options::Fonts::FontSize, this->font().pointSize() ).toInt() );
+        font.setBold( settings.value( Options::Fonts::FontBold, false ).toBool() );
+        font.setItalic( settings.value( Options::Fonts::FontItalic, false ).toBool() );
+
+        this->setFont( font );
+    }
+    { // Interface
+        using namespace Options::Interface;
+        ui->ChBox_MainMenu->setChecked( settings.value( MainMenu, false ).toBool() );
+        ui->ChBox_Toolbar->setChecked( settings.value( Toolbar, false ).toBool() );
+    }
     { // Style
         using namespace Options::Style;
 
@@ -261,6 +284,19 @@ void Settings::on_BtnBox_accepted()
         using namespace Options::Network;
         settings.setValue( CheckUpdates,          ui->ChBox_CheckForUpdate->isChecked() );
         settings.setValue( AutoSearchOnShikimori, ui->ChBox_SearchOnShikimori->isChecked() );
+    }
+    { //Fonts
+        using namespace Options::Fonts;
+
+        settings.setValue( FontFamily, ui->FontComboBox->currentFont().family() );
+        settings.setValue( FontSize,   ui->SpinBox_FontSize->value() );
+        settings.setValue( FontBold,   ui->TButton_Font_Bold->isChecked() );
+        settings.setValue( FontItalic, ui->TButton_Font_Italic->isChecked() );
+    }
+    { // Interface
+        using namespace Options::Interface;
+        settings.setValue( MainMenu, ui->ChBox_MainMenu->isChecked() );
+        settings.setValue( Toolbar,  ui->ChBox_Toolbar->isChecked() );
     }
     { // Style
         using namespace Options::Style;

@@ -31,29 +31,30 @@ MainWindow::MainWindow(QWidget *parent) :
     pbTV(nullptr), pbOVA(nullptr), pbONA(nullptr), pbSpecial(nullptr), pbMovie(nullptr),
     ListWidget_Dir(nullptr), _btnPlay(nullptr), _ScrArea_propertyes(nullptr), _restoreDefSettings(false)
 {
-    QSettings settings;
-    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Options::General::Language, QLocale::English ).toInt());
-    if( language == 0 ){
-        language = QLocale::system().language();
-    }
-    qtTr.load( DbaLocalization::getQtBaseFileOfLocalization( language, DefinesPath::share() ) );
-    dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
-    qApp->installTranslator(&qtTr);
-    qApp->installTranslator(&dbaTr);
+    loadSettings_language();
     ui->setupUi(this);
+
+    QSettings settings;
+    this->restoreGeometry( settings.value(Options::Dialogs::MainWindow::Geometry).toByteArray() );
+    this->restoreState( settings.value(Options::Dialogs::MainWindow::State).toByteArray() );
+    ui->splitter->restoreGeometry( settings.value(Options::Dialogs::MainWindow::Splitter::Geometry).toByteArray() );
+    ui->splitter->restoreState( settings.value(Options::Dialogs::MainWindow::Splitter::State).toByteArray() );
 
     ui->stackedWidget->setCurrentIndex(0);
     ui->StackWgt_CoverOrDir->setCurrentIndex(0);
     ui->lbl_AppTitle->setText( qApp->applicationDisplayName() );
+    ui->Lbl_VVersion->setText( qApp->applicationVersion() );
+    ui->lineEdit_Search->setFocus();
+
+    QueryModel_ListItemsSection = new QSqlQueryModel(this);
+    ui->TreeView_List->setModel(QueryModel_ListItemsSection);
 
     int font_id = QFontDatabase::addApplicationFont("://fonts/URWChanceryL-MediItal.ttf");
     if(font_id >= 0)
         ui->lbl_AppTitle->setFont( QFont( QFontDatabase::applicationFontFamilies(font_id).first(), 30 ) );
 
-    ui->Lbl_VVersion->setText( qApp->applicationVersion() );
 
-    _displayedField = static_cast<Tables::UniformField::field>( settings.value( Options::General::DisplayedField, Tables::UniformField::Title ).toInt() );
-
+    loadSettings();
 //    [svg logo]
 //    ui->Lbl_logo->setVisible( false );
 //    QSvgWidget *logo = new QSvgWidget("/tmp/DBA_logo.svg");
@@ -70,23 +71,11 @@ MainWindow::MainWindow(QWidget *parent) :
         manager->get( QNetworkRequest(url) );
     }
 
-    this->restoreGeometry( settings.value(Options::Dialogs::MainWindow::Geometry).toByteArray() );
-    this->restoreState( settings.value(Options::Dialogs::MainWindow::State).toByteArray() );
-    ui->splitter->restoreGeometry( settings.value(Options::Dialogs::MainWindow::Splitter::Geometry).toByteArray() );
-    ui->splitter->restoreState( settings.value(Options::Dialogs::MainWindow::Splitter::State).toByteArray() );
-    _sort = static_cast<Sort::sort>( settings.value(Options::General::Sorting, Sort::asc).toInt() );
-    bool c1 = settings.value( Options::General::SwitchCoverOrDir, true ).toBool();
-    ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
-
     mngrConnection.open();
     MngrQuerys::createTable_Anime();
     MngrQuerys::createTable_Manga();
     MngrQuerys::createTable_Amv();
     MngrQuerys::createTable_Dorama();
-
-    ui->lineEdit_Search->setFocus();
-    QueryModel_ListItemsSection = new QSqlQueryModel(this);
-    ui->TreeView_List->setModel(QueryModel_ListItemsSection);
 
     reloadSectionsList();
     reloadFiltersList();
@@ -145,15 +134,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_PButton_Options_clicked()
 {
-//    QMenu *m = new QMenu("Options cm",0);
-//    QAction* a1 = new QAction( QIcon("://images/list-add.png"), tr("&Choose image"),this);
-//    QAction* a2 = new QAction( QIcon("://images/list-remove.png"), tr("Clea&n image"),this);
-//    m->addAction(a1);
-//    m->addAction(a2);
-//    m->exec( {ui->PButton_Options->geometry().left()+this->pos().x(), ui->PButton_Options->geometry().bottom()+this->pos().y()} );
-
-//    return;
-
     sections::section currentSection = static_cast<sections::section>(ui->CB_Section->currentData().toInt());
     QSettings settings;
     settings.setValue(Options::General::ActiveSection, currentSection);
@@ -169,11 +149,10 @@ void MainWindow::on_PButton_Options_clicked()
     dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
     ui->retranslateUi(this);
 
-    _sort = formSettings.getSort();
-    _displayedField = formSettings.getDisplaydField();
     ui->StackWgt_CoverOrDir->setOptSwitch( formSettings.getSwitchToDir() );
     _restoreDefSettings = formSettings.getRestoreDefault();
 
+    loadSettings();
     reloadSectionsList();
 }
 
@@ -981,6 +960,49 @@ void MainWindow::deleteLookProgressBars()
     }
 }
 
+void MainWindow::loadSettings()
+{
+    QSettings settings;
+
+    _displayedField = static_cast<Tables::UniformField::field>( settings.value( Options::General::DisplayedField, Tables::UniformField::Title ).toInt() );
+    _sort = static_cast<Sort::sort>( settings.value(Options::General::Sorting, Sort::asc).toInt() );
+
+    loadSettings_Interface();
+}
+
+void MainWindow::loadSettings_language()
+{
+    QSettings settings;
+    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Options::General::Language, QLocale::English ).toInt());
+    if( language == 0 ){
+        language = QLocale::system().language();
+    }
+    qtTr.load( DbaLocalization::getQtBaseFileOfLocalization( language, DefinesPath::share() ) );
+    dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
+    qApp->installTranslator(&qtTr);
+    qApp->installTranslator(&dbaTr);
+}
+
+void MainWindow::loadSettings_Interface()
+{
+    QSettings settings;
+
+    bool c1 = settings.value( Options::General::SwitchCoverOrDir, true ).toBool();
+    ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
+
+    ui->MainMenuBar->setVisible( settings.value( Options::Interface::MainMenu, false ).toBool() );
+    ui->ToolBar->setVisible( settings.value( Options::Interface::Toolbar, false ).toBool() );
+
+    QFont font;
+
+    font.setFamily( settings.value( Options::Fonts::FontFamily, this->font().defaultFamily() ).toString() );
+    font.setPointSize( settings.value( Options::Fonts::FontSize, this->font().pointSize() ).toInt() );
+    font.setBold( settings.value( Options::Fonts::FontBold, false ).toBool() );
+    font.setItalic( settings.value( Options::Fonts::FontItalic, false ).toBool() );
+
+    this->setFont( font );
+}
+
 void MainWindow::on_TreeView_List_clicked(const QModelIndex &index)
 {
     on_TreeView_List_activated(index);
@@ -1134,8 +1156,6 @@ void MainWindow::on_actionExport_triggered()
     shareDialog.setTab( Share::Tabs::Export );
 
     shareDialog.exec();
-
-    ui->menuBar->setVisible( false );
 }
 
 void MainWindow::on_actionExit_triggered()

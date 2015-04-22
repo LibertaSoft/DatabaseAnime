@@ -67,6 +67,9 @@ private:
     void execOptionsDialog();
     void deleteLookProgressBars();
 
+    void loadSettings();
+    void loadSettings_language();
+    void loadSettings_Interface();
 public:
     explicit MainWindow(QWidget *parent = 0);
     void closeEvent(QCloseEvent *);
@@ -79,7 +82,6 @@ private slots:
     void on_TButton_Delete_clicked();
     void on_TreeView_List_activated(const QModelIndex &index);
     void saveLookValueChanges(int, QString);
-//    void saveLookValueChanges(int, int, QString, QString);
     void openFileClicked();
     void openFile(QString&);
     void on_lineEdit_Search_textChanged(const QString &arg1);

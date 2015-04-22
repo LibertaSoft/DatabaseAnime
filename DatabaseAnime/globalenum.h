@@ -28,6 +28,18 @@ namespace Options{
         const QString WorkDirectory("WorkDirectory");
         const QString ActiveSection("ActiveSection");
     }
+    namespace Fonts{
+        const QString SectionPrefix("Fonts/");
+        const QString FontFamily(SectionPrefix+"FontFamily");
+        const QString FontSize(SectionPrefix+"Size");
+        const QString FontBold(SectionPrefix+"Bold");
+        const QString FontItalic(SectionPrefix+"Italic");
+    }
+    namespace Interface{
+        const QString SectionPrefix("Interface/");
+        const QString MainMenu(SectionPrefix+"MainMenu");
+        const QString Toolbar(SectionPrefix+"Toolbar");
+    }
     namespace ActiveSections{
         const QString SectionPrefix("ActiveSections/");
         const QString Anime(SectionPrefix+"Anime");

@@ -793,7 +793,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menuBar">
+  <widget class="QMenuBar" name="MainMenuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -829,7 +829,7 @@
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
   </widget>
-  <widget class="QToolBar" name="toolBar">
+  <widget class="QToolBar" name="ToolBar">
    <property name="windowTitle">
     <string>Main ToolBar</string>
    </property>
@@ -842,6 +842,11 @@
    <addaction name="actionAdd"/>
    <addaction name="actionEdit"/>
    <addaction name="actionRemove"/>
+   <addaction name="separator"/>
+   <addaction name="actionASC"/>
+   <addaction name="actionDESC"/>
+   <addaction name="actionNone"/>
+   <addaction name="actionYear"/>
    <addaction name="separator"/>
    <addaction name="actionOptions"/>
   </widget>
@@ -908,6 +913,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset theme="view-sort-ascending" resource="resource.qrc">
+     <normaloff>:/images/icon-sort/sort-asc.png</normaloff>:/images/icon-sort/sort-asc.png</iconset>
+   </property>
    <property name="text">
     <string>ASC</string>
    </property>
@@ -915,6 +924,10 @@
   <action name="actionDESC">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="view-sort-descending" resource="resource.qrc">
+     <normaloff>:/images/icon-sort/sord-desc.png</normaloff>:/images/icon-sort/sord-desc.png</iconset>
    </property>
    <property name="text">
     <string>DESC</string>
@@ -924,6 +937,10 @@
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/images/icon-sort/sort-none.png</normaloff>:/images/icon-sort/sort-none.png</iconset>
+   </property>
    <property name="text">
     <string>None</string>
    </property>
@@ -931,6 +948,10 @@
   <action name="actionYear">
    <property name="checkable">
     <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resource.qrc">
+     <normaloff>:/images/icon-sort/sort-year.png</normaloff>:/images/icon-sort/sort-year.png</iconset>
    </property>
    <property name="text">
     <string>Year</string>
