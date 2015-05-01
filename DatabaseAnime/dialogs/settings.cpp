@@ -754,6 +754,7 @@ quint64 Settings::import()
             progress++;
             break;
         default:
+            /// \todo : HEY! this is writing the digit!!!
             qCritical() << "[FormSettings::importAppend] uncorrect section: " << reader.currentSection();
         }
         ui->ProgressBar_Import->setValue(progress);
@@ -879,6 +880,7 @@ void Settings::setApplicationStyle(QPalette palette)
 {
     qApp->setStyle( QStyleFactory::create("Fusion") );
     qApp->setPalette( palette );
+    /// \todo : may be this don't need here
     qApp->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
 }
 
