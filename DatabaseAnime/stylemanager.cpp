@@ -85,33 +85,33 @@ QPalette StyleManager::getPaletteOfStyle(QString styleName)
             Link, Highlight, HighlightedText;
 
 
-    Window.setNamedColor(          ini.value("Window",          "#353535" ).toString() );
-    WindowText.setNamedColor(      ini.value("WindowText",      "#ffffff" ).toString() );
-    Base.setNamedColor(            ini.value("Base",            "#191919" ).toString() );
-    AlternateBase.setNamedColor(   ini.value("AlternateBase",   "#353535" ).toString() );
-    ToolTipBase.setNamedColor(     ini.value("ToolTipBase",     "#ffffff" ).toString() );
-    ToolTipText.setNamedColor(     ini.value("ToolTipText",     "#000000" ).toString() );
-    Text.setNamedColor(            ini.value("Text",            "#ffffff" ).toString() );
-    Button.setNamedColor(          ini.value("Button",          "#353535" ).toString() );
-    ButtonText.setNamedColor(      ini.value("ButtonText",      "#ffffff" ).toString() );
-    BrightText.setNamedColor(      ini.value("BrightText",      "#ff0000" ).toString() );
-    Link.setNamedColor(            ini.value("Link",            "#2a82da" ).toString() );
-    Highlight.setNamedColor(       ini.value("Highlight",       "#2a82da" ).toString() );
-    HighlightedText.setNamedColor( ini.value("HighlightedText", "#000000" ).toString() );
+             Window.setNamedColor( ini.value("Window"          , "#353535" ).toString() );
+         WindowText.setNamedColor( ini.value("WindowText"      , "#ffffff" ).toString() );
+               Base.setNamedColor( ini.value("Base"            , "#191920" ).toString() );
+      AlternateBase.setNamedColor( ini.value("AlternateBase"   , "#353535" ).toString() );
+        ToolTipBase.setNamedColor( ini.value("ToolTipBase"     , "#ffffff" ).toString() );
+        ToolTipText.setNamedColor( ini.value("ToolTipText"     , "#000000" ).toString() );
+               Text.setNamedColor( ini.value("Text"            , "#ffffff" ).toString() );
+             Button.setNamedColor( ini.value("Button"          , "#353535" ).toString() );
+         ButtonText.setNamedColor( ini.value("ButtonText"      , "#ffffff" ).toString() );
+         BrightText.setNamedColor( ini.value("BrightText"      , "#ff0000" ).toString() );
+               Link.setNamedColor( ini.value("Link"            , "#2a82da" ).toString() );
+          Highlight.setNamedColor( ini.value("Highlight"       , "#2a82da" ).toString() );
+    HighlightedText.setNamedColor( ini.value("HighlightedText" , "#000000" ).toString() );
 
-    palette.setColor(QPalette::Window,          Window);
-    palette.setColor(QPalette::WindowText,      WindowText);
-    palette.setColor(QPalette::Base,            Base);
-    palette.setColor(QPalette::AlternateBase,   AlternateBase);
-    palette.setColor(QPalette::ToolTipBase,     ToolTipBase);
-    palette.setColor(QPalette::ToolTipText,     ToolTipText);
-    palette.setColor(QPalette::Text,            Text);
-    palette.setColor(QPalette::Button,          Button);
-    palette.setColor(QPalette::ButtonText,      ButtonText);
-    palette.setColor(QPalette::BrightText,      BrightText);
-    palette.setColor(QPalette::Link,            Link);
-    palette.setColor(QPalette::Highlight,       Highlight);
-    palette.setColor(QPalette::HighlightedText, HighlightedText);
+    palette.setColor(QPalette::Window          , Window);
+    palette.setColor(QPalette::WindowText      , WindowText);
+    palette.setColor(QPalette::Base            , Base);
+    palette.setColor(QPalette::AlternateBase   , AlternateBase);
+    palette.setColor(QPalette::ToolTipBase     , ToolTipBase);
+    palette.setColor(QPalette::ToolTipText     , ToolTipText);
+    palette.setColor(QPalette::Text            , Text);
+    palette.setColor(QPalette::Button          , Button);
+    palette.setColor(QPalette::ButtonText      , ButtonText);
+    palette.setColor(QPalette::BrightText      , BrightText);
+    palette.setColor(QPalette::Link            , Link);
+    palette.setColor(QPalette::Highlight       , Highlight);
+    palette.setColor(QPalette::HighlightedText , HighlightedText);
 
     return palette;
 }
@@ -136,19 +136,19 @@ bool StyleManager::saveStyle(QString styleName, QPalette palette)
     QString fileName = DefinesPath::styleLocation() + QDir::separator() + styleName + ".ini";
     QSettings ini(fileName, QSettings::IniFormat);
 
-    ini.setValue("Window", 			palette.window().color().name() );
-    ini.setValue("WindowText",		palette.windowText().color().name() );
-    ini.setValue("Base", 			palette.base().color().name() );
-    ini.setValue("AlternateBase", 	palette.alternateBase().color().name() );
-    ini.setValue("ToolTipBase", 	palette.toolTipBase().color().name() );
-    ini.setValue("ToolTipText", 	palette.toolTipText().color().name() );
-    ini.setValue("Text", 			palette.text().color().name() );
-    ini.setValue("Button", 			palette.button().color().name() );
-    ini.setValue("ButtonText", 		palette.buttonText().color().name() );
-    ini.setValue("BrightText", 		palette.brightText().color().name() );
-    ini.setValue("Link", 			palette.link().color().name() );
-    ini.setValue("Highlight", 		palette.highlight().color().name() );
-    ini.setValue("HighlightedText", palette.highlightedText().color().name() );
+    ini.setValue("Window" 			, palette.window().color().name() );
+    ini.setValue("WindowText"		, palette.windowText().color().name() );
+    ini.setValue("Base" 			, palette.base().color().name() );
+    ini.setValue("AlternateBase" 	, palette.alternateBase().color().name() );
+    ini.setValue("ToolTipBase" 	    , palette.toolTipBase().color().name() );
+    ini.setValue("ToolTipText" 	    , palette.toolTipText().color().name() );
+    ini.setValue("Text" 			, palette.text().color().name() );
+    ini.setValue("Button" 			, palette.button().color().name() );
+    ini.setValue("ButtonText" 		, palette.buttonText().color().name() );
+    ini.setValue("BrightText" 		, palette.brightText().color().name() );
+    ini.setValue("Link" 			, palette.link().color().name() );
+    ini.setValue("Highlight" 		, palette.highlight().color().name() );
+    ini.setValue("HighlightedText" , palette.highlightedText().color().name() );
 
     return true;
 }
