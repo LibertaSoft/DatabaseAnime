@@ -799,7 +799,7 @@
      <x>0</x>
      <y>0</y>
      <width>937</width>
-     <height>27</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -826,8 +826,15 @@
     </widget>
     <addaction name="menuSorting"/>
    </widget>
+   <widget class="QMenu" name="menuPrint">
+    <property name="title">
+     <string>Print</string>
+    </property>
+    <addaction name="actionPrint"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
+   <addaction name="menuPrint"/>
   </widget>
   <widget class="QToolBar" name="ToolBar">
    <property name="windowTitle">
@@ -967,6 +974,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionPrint">
+   <property name="text">
+    <string>Print</string>
    </property>
   </action>
  </widget>

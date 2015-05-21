@@ -103,6 +103,7 @@ private slots:
     void on_actionImport_triggered();
     void on_actionExport_triggered();
     void on_actionExit_triggered();
+    void on_actionPrint_triggered();
 };
 
 #endif // MAINWINDOW_H

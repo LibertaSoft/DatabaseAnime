@@ -23,6 +23,8 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
+#include <QtPrintSupport/QPrinter>
+
 //#include <QSvgWidget>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -1161,4 +1163,18 @@ void MainWindow::on_actionExport_triggered()
 void MainWindow::on_actionExit_triggered()
 {
     qApp->exit(0);
+}
+
+void MainWindow::on_actionPrint_triggered()
+{
+    QPrinter printer;
+
+    QPrintDialog printDialog(&printer, this);
+
+   if( printDialog.exec() ){
+      QTextDocument textDocument;
+      textDocument.setHtml("<h1>Hello world</h1>");
+      //textDocument.setDefaultFont(QFont("Times", 10, QFont::Bold));
+      textDocument.print(&printer);
+   }
 }
