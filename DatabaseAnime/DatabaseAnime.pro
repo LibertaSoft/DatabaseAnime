@@ -1,4 +1,4 @@
-QT       += core gui widgets sql xml network
+QT       += core gui widgets sql xml network printsupport
 
 TARGET = DatabaseAnime
 TEMPLATE = app

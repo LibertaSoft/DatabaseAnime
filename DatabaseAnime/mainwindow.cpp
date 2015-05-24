@@ -23,7 +23,9 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
-#include <QtPrintSupport/QPrinter>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QTextDocument>
 
 //#include <QSvgWidget>
 
@@ -57,12 +59,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     loadSettings();
-//    [svg logo]
-//    ui->Lbl_logo->setVisible( false );
-//    QSvgWidget *logo = new QSvgWidget("/tmp/DBA_logo.svg");
-//    logo->setFixedSize(600,500);
-//    ui->VLay_logoSvg->addWidget( logo );
-//    ui->VLay_logoSvg->setAlignment(logo, Qt::AlignCenter);
+    //    [svg logo]
+    //    ui->Lbl_logo->setVisible( false );
+    //    QSvgWidget *logo = new QSvgWidget("/tmp/DBA_logo.svg");
+    //    logo->setFixedSize(600,500);
+    //    ui->VLay_logoSvg->addWidget( logo );
+    //    ui->VLay_logoSvg->setAlignment(logo, Qt::AlignCenter);
 
     // Verification of the new version
     if( settings.value(Options::Network::CheckUpdates, true).toBool() ){
@@ -220,11 +222,11 @@ void MainWindow::on_TButton_Delete_clicked()
 {
     if( ui->TreeView_List->selectionModel()->selectedIndexes().isEmpty() == false ){
         QMessageBox* pmbx =
-        new QMessageBox(QMessageBox::Question,
-            tr("Warning"),
-            tr("<b>Delete</b> selected item?"),
-            QMessageBox::Yes | QMessageBox::No
-        );
+                new QMessageBox(QMessageBox::Question,
+                                tr("Warning"),
+                                tr("<b>Delete</b> selected item?"),
+                                QMessageBox::Yes | QMessageBox::No
+                                );
         int n = pmbx->exec();
         delete pmbx;
         if (n == QMessageBox::No) {
@@ -308,7 +310,7 @@ void MainWindow::on_lineEdit_Search_textChanged(const QString &strSearch)
 {
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     MngrQuerys::selectSection(QueryModel_ListItemsSection, getActiveTable(),
-                                   _displayedField, filter, _sort, strSearch);
+                              _displayedField, filter, _sort, strSearch);
 }
 
 QString MainWindow::getActiveTableName() const
@@ -336,7 +338,7 @@ void MainWindow::reloadSectionsList()
 
     sections::section set_select
             = static_cast<sections::section>(
-                settings.value(Options::General::ActiveSection, sections::none).toInt() );
+                  settings.value(Options::General::ActiveSection, sections::none).toInt() );
     ui->CB_Section->clear();
     ui->CB_Section->addItem( QIcon("://images/icon-section/Main.png"),
                              tr("Main"), sections::none );
@@ -422,21 +424,21 @@ void MainWindow::reloadFiltersList()
     ui->CB_Filter->blockSignals( true );
     ui->CB_Filter->clear();
     switch ( getActiveTable() ) {
-    case sections::anime :
-        loadAnimeFilters();
-        break;
-    case sections::manga :
-        loadMangaFilters();
-        break;
-    case sections::amv :
-        loadAmvFilters();
-        break;
-    case sections::dorama :
-        loadDoramaFilters();
-        break;
-    case sections::none :
-    default:
-        break;
+        case sections::anime :
+            loadAnimeFilters();
+            break;
+        case sections::manga :
+            loadMangaFilters();
+            break;
+        case sections::amv :
+            loadAmvFilters();
+            break;
+        case sections::dorama :
+            loadDoramaFilters();
+            break;
+        case sections::none :
+        default:
+            break;
     }
     ui->CB_Filter->blockSignals( false );
 }
@@ -521,11 +523,11 @@ void MainWindow::selectAnimeData()
 
     // Title
     QLabel *lblTitle = new QLabel(
-                "<a href='"
-                + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", QString::number(record.value("vSeriesTV").toInt()+1)).replace("%m", record.value("SeriesTV").toString())
-                + "'>"
-                + record.value("Title").toString()
-                + "</a>", _ScrArea_propertyes);
+                           "<a href='"
+                           + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", QString::number(record.value("vSeriesTV").toInt()+1)).replace("%m", record.value("SeriesTV").toString())
+                           + "'>"
+                           + record.value("Title").toString()
+                           + "</a>", _ScrArea_propertyes);
     lblTitle->setWordWrap( true );
     lblTitle->setOpenExternalLinks( true );
     FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
@@ -586,7 +588,7 @@ void MainWindow::selectAnimeData()
     else
         ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
     QDirModel *dirModel = new QDirModel( _ScrArea_propertyes );
-//    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
+    //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
     ui->TreeView_Dir->setModel( dirModel );
@@ -647,11 +649,11 @@ void MainWindow::selectMangaData()
 
     // Title
     QLabel *lblTitle = new QLabel(
-                "<a href='"
-                + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", record.value("vVol").toString()).replace("%m", record.value("Vol").toString())
-                + "'>"
-                + record.value("Title").toString()
-                + "</a>", _ScrArea_propertyes);
+                           "<a href='"
+                           + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", record.value("vVol").toString()).replace("%m", record.value("Vol").toString())
+                           + "'>"
+                           + record.value("Title").toString()
+                           + "</a>", _ScrArea_propertyes);
     lblTitle->setWordWrap( true );
     lblTitle->setOpenExternalLinks( true );
     FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
@@ -702,7 +704,7 @@ void MainWindow::selectMangaData()
     else
         ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
     QDirModel *dirModel = new QDirModel(_ScrArea_propertyes);
-//    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
+    //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
     ui->TreeView_Dir->setModel( dirModel );
@@ -729,11 +731,11 @@ void MainWindow::selectAmvData()
 
     // Title
     QLabel *lblTitle = new QLabel(
-                "<a href='"
-                + record.value("URL").toString()
-                + "'>"
-                + record.value("Title").toString()
-                + "</a>", _ScrArea_propertyes);
+                           "<a href='"
+                           + record.value("URL").toString()
+                           + "'>"
+                           + record.value("Title").toString()
+                           + "</a>", _ScrArea_propertyes);
     lblTitle->setWordWrap( true );
     lblTitle->setOpenExternalLinks( true );
     FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
@@ -853,11 +855,11 @@ void MainWindow::selectDoramaData()
 
     // Title
     QLabel *lblTitle = new QLabel(
-                "<a href='"
-                + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", record.value("vSeriesTV").toString()).replace("%m", record.value("SeriesTV").toString())
-                + "'>"
-                + record.value("Title").toString()
-                + "</a>", _ScrArea_propertyes);
+                           "<a href='"
+                           + record.value("URL").toString().replace("%v", record.value("vSeriesTV").toString()).replace("%n", record.value("vSeriesTV").toString()).replace("%m", record.value("SeriesTV").toString())
+                           + "'>"
+                           + record.value("Title").toString()
+                           + "</a>", _ScrArea_propertyes);
     lblTitle->setWordWrap( true );
     lblTitle->setOpenExternalLinks( true );
     FLay_propertyes->addRow( "<b>" + tr("Title:") + "</b>", lblTitle);
@@ -920,7 +922,7 @@ void MainWindow::selectDoramaData()
     else
         ui->StackWgt_CoverOrDir->setDisabledSwitch( true );
     QDirModel *dirModel = new QDirModel(_ScrArea_propertyes);
-//    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
+    //    dirModel->setNameFilters( QStringList() << "*ona*" << "*ova*" << "*special*" << "*tv*" );
     dirModel->setSorting( QDir::DirsFirst | QDir::Type | QDir::Name );
 
     ui->TreeView_Dir->setModel( dirModel );
@@ -1019,13 +1021,13 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
     MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
     ui->TreeView_List->hideColumn(0);
-//    Show column 'Year'
-//    if( _sort != Sort::year ){
-//        ui->TreeView_List->hideColumn(2);
-//    }else{
-//        ui->TreeView_List->setColumnWidth(2, 50);
-//        ui->TreeView_List->showColumn(2);
-//    }
+    //    Show column 'Year'
+    //    if( _sort != Sort::year ){
+    //        ui->TreeView_List->hideColumn(2);
+    //    }else{
+    //        ui->TreeView_List->setColumnWidth(2, 50);
+    //        ui->TreeView_List->showColumn(2);
+    //    }
     bool enableButtons(true);
     if(sec == sections::none){
         enableButtons = false;
@@ -1171,10 +1173,33 @@ void MainWindow::on_actionPrint_triggered()
 
     QPrintDialog printDialog(&printer, this);
 
-   if( printDialog.exec() ){
-      QTextDocument textDocument;
-      textDocument.setHtml("<h1>Hello world</h1>");
-      //textDocument.setDefaultFont(QFont("Times", 10, QFont::Bold));
-      textDocument.print(&printer);
-   }
+    QString htmlHead,
+            htmlBody,
+            htmlFooter;
+
+    htmlHead   = "<table width='80%'>";
+    htmlFooter = "</table>";
+
+    if( printDialog.exec() ){
+        QStringList list = MngrQuerys::selectUnWatched(_activeTable);
+        qDebug() << list;
+
+        for(int i = 0; i < list.count(); ++i){
+            htmlBody +=   "<tr>"
+                          + "<td>"
+                            + list.at(i);
+                          + "</td>"
+                        + "</tr>";
+        }
+
+
+        QTextDocument textDocument;
+        textDocument.setHtml( htmlHead + htmlBody + htmlFooter );
+
+
+        //textDocument.setDefaultFont(QFont("Times", 10, QFont::Bold));
+
+
+        textDocument.print(&printer);
+    }
 }

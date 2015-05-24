@@ -155,7 +155,8 @@ public:
     static QStringList getAmvTags();
     static QStringList getDoramaTags();
 
-    static QSqlRecord selectData(sections::section table, quint64 id);
+    static QSqlRecord  selectData(sections::section table, quint64 id);
+    static QStringList selectUnWatched(sections::section table);
 
     static bool updateRecord(sections::section table, quint64 recoord_id, QString field, QString newValue);
 

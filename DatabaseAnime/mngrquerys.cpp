@@ -452,6 +452,46 @@ QSqlRecord MngrQuerys::selectData(sections::section table, quint64 id)
     return query.record();
 }
 
+QStringList MngrQuerys::selectUnWatched(sections::section table)
+{
+    QSqlQuery query;
+    QString field = fieldToString(Tables::UniformField::Title, table);
+    QString tableName = getTableName(table);
+    QString where;
+    switch (table) {
+        case sections::anime:
+            where = Tables::Anime::Fields::SeriesTV + ">" + Tables::Anime::Fields::vSeriesTV;
+            break;
+        case sections::manga:
+            where = Tables::Manga::Fields::Ch + ">" + Tables::Manga::Fields::vCh;
+            break;
+        case sections::amv:
+            where = "0=1";
+            break;
+        case sections::dorama:
+            where = "0=1";
+            break;
+        default:
+            where = "0=1";
+            break;
+    }
+    QString sql("SELECT " + field + " FROM " + tableName + " WHERE " + where);
+    qDebug() << sql;
+
+    if( ! query.exec(sql) ){
+        qCritical() << query.lastError().text();
+        return QStringList();
+    }
+
+    QStringList result;
+    while( query.next() ){
+        result.append( query.value( query.record().indexOf(field) ).toString() );
+    }
+
+    qDebug() << result;
+    return result;
+}
+
 bool MngrQuerys::updateRecord(sections::section table, quint64 recoord_id, QString field, QString newValue)
 {
     QSqlQuery query;
