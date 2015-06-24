@@ -117,39 +117,39 @@
         <translation>Drop image here, or a double click for a file choice</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="173"/>
-        <location filename="dialogs/addamv.cpp" line="178"/>
+        <location filename="dialogs/addamv.cpp" line="185"/>
+        <location filename="dialogs/addamv.cpp" line="190"/>
         <source>Critical</source>
         <translation>Critical error</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="173"/>
+        <location filename="dialogs/addamv.cpp" line="185"/>
         <source>Cannot insert data.</source>
         <translation>Cannot insert data.</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="178"/>
+        <location filename="dialogs/addamv.cpp" line="190"/>
         <source>Cannot update data.</source>
         <translation>Cannot update data.</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="189"/>
-        <location filename="dialogs/addamv.cpp" line="196"/>
+        <location filename="dialogs/addamv.cpp" line="201"/>
+        <location filename="dialogs/addamv.cpp" line="208"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="189"/>
+        <location filename="dialogs/addamv.cpp" line="201"/>
         <source>The field &apos;File&apos; is uncorrect</source>
         <translation>The field &apos;File&apos; is uncorrect</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="196"/>
+        <location filename="dialogs/addamv.cpp" line="208"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>The field &apos;Title&apos; is not filled</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="210"/>
+        <location filename="dialogs/addamv.cpp" line="222"/>
         <source>Choose a video file</source>
         <translation>Choose a video file</translation>
     </message>
@@ -336,39 +336,39 @@
         <translation>Postscoring</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="322"/>
-        <location filename="dialogs/addanime.cpp" line="327"/>
+        <location filename="dialogs/addanime.cpp" line="334"/>
+        <location filename="dialogs/addanime.cpp" line="339"/>
         <source>Critical</source>
         <translation>Critical error</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="322"/>
+        <location filename="dialogs/addanime.cpp" line="334"/>
         <source>Cannot insert data.</source>
         <translation>Cannot insert data.</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="327"/>
+        <location filename="dialogs/addanime.cpp" line="339"/>
         <source>Cannot update data.</source>
         <translation>Cannot update data.</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="338"/>
-        <location filename="dialogs/addanime.cpp" line="345"/>
+        <location filename="dialogs/addanime.cpp" line="350"/>
+        <location filename="dialogs/addanime.cpp" line="357"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="338"/>
+        <location filename="dialogs/addanime.cpp" line="350"/>
         <source>The field &apos;Directory&apos; is uncorrect</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="345"/>
+        <location filename="dialogs/addanime.cpp" line="357"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>The field &apos;Title&apos; is not filled</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="384"/>
+        <location filename="dialogs/addanime.cpp" line="396"/>
         <source>Choose a directory with video files</source>
         <translation>Choose a directory with video files</translation>
     </message>
@@ -529,39 +529,39 @@
         <translation>Director</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="254"/>
-        <location filename="dialogs/adddorama.cpp" line="259"/>
+        <location filename="dialogs/adddorama.cpp" line="266"/>
+        <location filename="dialogs/adddorama.cpp" line="271"/>
         <source>Critical</source>
         <translation>Critical error</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="254"/>
+        <location filename="dialogs/adddorama.cpp" line="266"/>
         <source>Cannot insert data.</source>
         <translation>Cannot insert data.</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="259"/>
+        <location filename="dialogs/adddorama.cpp" line="271"/>
         <source>Cannot update data.</source>
         <translation>Cannot update data.</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="270"/>
-        <location filename="dialogs/adddorama.cpp" line="277"/>
+        <location filename="dialogs/adddorama.cpp" line="282"/>
+        <location filename="dialogs/adddorama.cpp" line="289"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="270"/>
+        <location filename="dialogs/adddorama.cpp" line="282"/>
         <source>The field &apos;Directory&apos; is uncorrect</source>
         <translation>The field &apos;Directory&apos; is uncorrect</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="277"/>
+        <location filename="dialogs/adddorama.cpp" line="289"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>The field &apos;Title&apos; is not filled</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="306"/>
+        <location filename="dialogs/adddorama.cpp" line="318"/>
         <source>Choose a directory with video files</source>
         <translation>Choose a directory with video files</translation>
     </message>
@@ -756,39 +756,39 @@
         <translation>Translator</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="315"/>
-        <location filename="dialogs/addmanga.cpp" line="320"/>
+        <location filename="dialogs/addmanga.cpp" line="328"/>
+        <location filename="dialogs/addmanga.cpp" line="333"/>
         <source>Critical</source>
         <translation>Critical error</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="315"/>
+        <location filename="dialogs/addmanga.cpp" line="328"/>
         <source>Cannot insert data</source>
         <translation>Cannot insert data</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="320"/>
+        <location filename="dialogs/addmanga.cpp" line="333"/>
         <source>Cannot update data</source>
         <translation>Cannot update data</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="331"/>
-        <location filename="dialogs/addmanga.cpp" line="338"/>
+        <location filename="dialogs/addmanga.cpp" line="344"/>
+        <location filename="dialogs/addmanga.cpp" line="351"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="331"/>
+        <location filename="dialogs/addmanga.cpp" line="344"/>
         <source>The field &apos;Directory&apos; is uncorrect</source>
         <translation>The field &apos;Directory&apos; is uncorrect</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="338"/>
+        <location filename="dialogs/addmanga.cpp" line="351"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>The field &apos;Title&apos; is not filled</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="376"/>
+        <location filename="dialogs/addmanga.cpp" line="389"/>
         <source>Choose a directory with picture files</source>
         <translation>Choose a directory with a manga</translation>
     </message>
@@ -1069,83 +1069,185 @@
         <translation>Search</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="116"/>
+        <location filename="mainwindow.ui" line="119"/>
+        <location filename="mainwindow.ui" line="899"/>
         <source>Add</source>
         <extracomment>Hint(toolTip) Button Add</extracomment>
         <translation>To add in the current section</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="126"/>
+        <location filename="mainwindow.ui" line="129"/>
+        <location filename="mainwindow.ui" line="902"/>
         <source>Ctrl+A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="155"/>
+        <location filename="mainwindow.ui" line="158"/>
+        <location filename="mainwindow.ui" line="911"/>
         <source>Edit</source>
         <extracomment>Hint(toolTip) Button Edit</extracomment>
         <translation>To edit the selected</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="165"/>
+        <location filename="mainwindow.ui" line="168"/>
+        <location filename="mainwindow.ui" line="914"/>
         <source>Ctrl+E</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="194"/>
+        <location filename="mainwindow.ui" line="197"/>
         <source>Delete</source>
         <extracomment>Hint(toolTip) Button Delete</extracomment>
         <translation>To delete the selected</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="204"/>
+        <location filename="mainwindow.ui" line="207"/>
+        <location filename="mainwindow.ui" line="926"/>
         <source>Ctrl+D</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="275"/>
+        <location filename="mainwindow.ui" line="278"/>
         <source>&amp;Options</source>
         <translation>&amp;Options</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="282"/>
+        <location filename="mainwindow.ui" line="285"/>
+        <location filename="mainwindow.ui" line="986"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="493"/>
+        <location filename="mainwindow.ui" line="496"/>
         <source>Developer:</source>
         <translation>Developer:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="513"/>
+        <location filename="mainwindow.ui" line="516"/>
         <source>Designer:</source>
         <translation>Designer:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="520"/>
+        <location filename="mainwindow.ui" line="523"/>
         <source>Maxx Volny</source>
         <extracomment>Label Value Design Author</extracomment>
         <translation>Maxx Volny</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="527"/>
+        <location filename="mainwindow.ui" line="530"/>
         <source>Version:</source>
         <translation>Version:</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="541"/>
+        <location filename="mainwindow.ui" line="544"/>
         <source>License:</source>
         <translation>License:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="115"/>
+        <location filename="mainwindow.ui" line="810"/>
+        <source>File</source>
+        <translation>File</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="819"/>
+        <source>View</source>
+        <translation>View</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="823"/>
+        <source>Sorting</source>
+        <translation>Sorting</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="834"/>
+        <location filename="mainwindow.ui" line="995"/>
+        <source>Print</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="840"/>
+        <source>Help</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="851"/>
+        <source>Main ToolBar</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="872"/>
+        <source>Export</source>
+        <translation>Export</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="877"/>
+        <source>Import</source>
+        <translation>Import</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="887"/>
+        <source>Exit</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="890"/>
+        <source>Ctrl+Q</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="923"/>
+        <source>Remove</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="938"/>
+        <source>ASC</source>
+        <translation>A-Z</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="950"/>
+        <source>DESC</source>
+        <translation>Z-A</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="962"/>
+        <source>None</source>
+        <translation>None</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="974"/>
+        <source>Year</source>
+        <translation>Year</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="983"/>
+        <source>Options</source>
+        <translation>Options</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="998"/>
+        <source>Ctrl+P</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="1007"/>
+        <source>Run video-help</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="1010"/>
+        <source>F1</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="121"/>
         <source>Older version</source>
         <translation>Outdated version</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="225"/>
-        <location filename="mainwindow.cpp" line="234"/>
-        <location filename="mainwindow.cpp" line="263"/>
+        <location filename="mainwindow.cpp" line="230"/>
+        <location filename="mainwindow.cpp" line="239"/>
+        <location filename="mainwindow.cpp" line="268"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
@@ -1154,213 +1256,233 @@
         <translation type="vanished">Item isn&apos;t selected</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="225"/>
-        <location filename="mainwindow.cpp" line="263"/>
+        <location filename="mainwindow.cpp" line="89"/>
+        <source>&amp;Rename</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="90"/>
+        <source>Re&amp;move</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="230"/>
+        <location filename="mainwindow.cpp" line="268"/>
         <source>Item isn&apos;t selected</source>
         <translation>Item isn&apos;t selected</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="235"/>
+        <location filename="mainwindow.cpp" line="240"/>
         <source>&lt;b&gt;Delete&lt;/b&gt; selected item?</source>
         <translation>&lt;b&gt;Delete&lt;/b&gt; selected item?</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="254"/>
+        <location filename="mainwindow.cpp" line="259"/>
         <source>Critical</source>
         <translation>Critical error</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="254"/>
+        <location filename="mainwindow.cpp" line="259"/>
         <source>It was not succeeded to remove record</source>
         <translation>It was not succeeded to remove record</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="352"/>
+        <location filename="mainwindow.cpp" line="357"/>
         <source>Main</source>
         <translation>Main</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="355"/>
+        <location filename="mainwindow.cpp" line="360"/>
         <source>Anime</source>
         <translation>Anime</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="361"/>
+        <location filename="mainwindow.cpp" line="366"/>
         <source>Manga</source>
         <translation>Manga</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="367"/>
+        <location filename="mainwindow.cpp" line="372"/>
         <source>AMV</source>
         <translation>AMV</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="373"/>
+        <location filename="mainwindow.cpp" line="378"/>
         <source>Dorama</source>
         <translation>Dorama</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="381"/>
-        <location filename="mainwindow.cpp" line="401"/>
-        <location filename="mainwindow.cpp" line="409"/>
-        <location filename="mainwindow.cpp" line="415"/>
+        <location filename="mainwindow.cpp" line="386"/>
+        <location filename="mainwindow.cpp" line="406"/>
+        <location filename="mainwindow.cpp" line="414"/>
+        <location filename="mainwindow.cpp" line="420"/>
         <source>All</source>
         <translation>All</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="383"/>
-        <location filename="mainwindow.cpp" line="403"/>
-        <location filename="mainwindow.cpp" line="411"/>
-        <location filename="mainwindow.cpp" line="417"/>
+        <location filename="mainwindow.cpp" line="388"/>
+        <location filename="mainwindow.cpp" line="408"/>
+        <location filename="mainwindow.cpp" line="416"/>
+        <location filename="mainwindow.cpp" line="422"/>
         <source>Editing</source>
         <translation>Editing</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="385"/>
-        <location filename="mainwindow.cpp" line="419"/>
+        <location filename="mainwindow.cpp" line="390"/>
+        <location filename="mainwindow.cpp" line="424"/>
         <source>Want to look</source>
         <translation>Want to look</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="387"/>
-        <location filename="mainwindow.cpp" line="421"/>
+        <location filename="mainwindow.cpp" line="392"/>
+        <location filename="mainwindow.cpp" line="426"/>
         <source>Looked</source>
         <translation>Looked</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="389"/>
-        <location filename="mainwindow.cpp" line="423"/>
+        <location filename="mainwindow.cpp" line="394"/>
+        <location filename="mainwindow.cpp" line="428"/>
         <source>TV</source>
         <translation>TV</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="391"/>
+        <location filename="mainwindow.cpp" line="396"/>
         <source>OVA</source>
         <translation>OVA</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="393"/>
+        <location filename="mainwindow.cpp" line="398"/>
         <source>ONA</source>
         <translation>ONA</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="395"/>
-        <location filename="mainwindow.cpp" line="425"/>
+        <location filename="mainwindow.cpp" line="400"/>
+        <location filename="mainwindow.cpp" line="430"/>
         <source>Special</source>
         <translation>Special</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="397"/>
-        <location filename="mainwindow.cpp" line="427"/>
+        <location filename="mainwindow.cpp" line="402"/>
+        <location filename="mainwindow.cpp" line="432"/>
         <source>Movie</source>
         <translation>Movie</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="405"/>
+        <location filename="mainwindow.cpp" line="410"/>
         <source>Want to read</source>
         <translation>Want to read</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="541"/>
-        <location filename="mainwindow.cpp" line="667"/>
-        <location filename="mainwindow.cpp" line="749"/>
-        <location filename="mainwindow.cpp" line="873"/>
+        <location filename="mainwindow.cpp" line="546"/>
+        <location filename="mainwindow.cpp" line="672"/>
+        <location filename="mainwindow.cpp" line="754"/>
+        <location filename="mainwindow.cpp" line="878"/>
         <source>Title:</source>
         <translation>Title:</translation>
-    </message>
-    <message>
-        <location filename="mainwindow.cpp" line="545"/>
-        <location filename="mainwindow.cpp" line="671"/>
-        <location filename="mainwindow.cpp" line="877"/>
-        <source>Alt title:</source>
-        <translation>Alt title:</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="550"/>
         <location filename="mainwindow.cpp" line="676"/>
         <location filename="mainwindow.cpp" line="882"/>
+        <source>Alt title:</source>
+        <translation>Alt title:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="555"/>
+        <location filename="mainwindow.cpp" line="681"/>
+        <location filename="mainwindow.cpp" line="887"/>
         <source>Director:</source>
         <translation>Director:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="555"/>
-        <location filename="mainwindow.cpp" line="686"/>
-        <location filename="mainwindow.cpp" line="763"/>
-        <location filename="mainwindow.cpp" line="887"/>
+        <location filename="mainwindow.cpp" line="560"/>
+        <location filename="mainwindow.cpp" line="691"/>
+        <location filename="mainwindow.cpp" line="768"/>
+        <location filename="mainwindow.cpp" line="892"/>
         <source>Year:</source>
         <translation>Year:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="560"/>
-        <location filename="mainwindow.cpp" line="892"/>
+        <location filename="mainwindow.cpp" line="565"/>
+        <location filename="mainwindow.cpp" line="897"/>
         <source>Season:</source>
         <translation>Season:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="565"/>
-        <location filename="mainwindow.cpp" line="897"/>
+        <location filename="mainwindow.cpp" line="570"/>
+        <location filename="mainwindow.cpp" line="902"/>
         <source>Postscoring:</source>
         <translation>Postscoring:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="570"/>
+        <location filename="mainwindow.cpp" line="575"/>
         <source>Studio:</source>
         <translation>Studio:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="575"/>
-        <location filename="mainwindow.cpp" line="691"/>
-        <location filename="mainwindow.cpp" line="768"/>
-        <location filename="mainwindow.cpp" line="902"/>
+        <location filename="mainwindow.cpp" line="580"/>
+        <location filename="mainwindow.cpp" line="696"/>
+        <location filename="mainwindow.cpp" line="773"/>
+        <location filename="mainwindow.cpp" line="907"/>
         <source>Ganres:</source>
         <translation>Ganres:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="579"/>
-        <location filename="mainwindow.cpp" line="695"/>
-        <location filename="mainwindow.cpp" line="913"/>
+        <location filename="mainwindow.cpp" line="584"/>
+        <location filename="mainwindow.cpp" line="700"/>
+        <location filename="mainwindow.cpp" line="918"/>
         <source>Description:</source>
         <translation>Description:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="681"/>
+        <location filename="mainwindow.cpp" line="686"/>
         <source>Translator:</source>
         <translation>Translator:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="753"/>
+        <location filename="mainwindow.cpp" line="758"/>
         <source>Author:</source>
         <translation>Author:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="758"/>
+        <location filename="mainwindow.cpp" line="763"/>
         <source>Сontestant:</source>
         <translation>Contestant:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="772"/>
+        <location filename="mainwindow.cpp" line="777"/>
         <source>Author comment:</source>
         <translation>Author comment:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="780"/>
+        <location filename="mainwindow.cpp" line="785"/>
         <source>Containing music:</source>
         <translation>Containing music:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="788"/>
+        <location filename="mainwindow.cpp" line="793"/>
         <source>Containing anime:</source>
         <translation>Containing anime:</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="805"/>
+        <location filename="mainwindow.cpp" line="810"/>
         <source>Play</source>
         <translation>Play</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="906"/>
+        <location filename="mainwindow.cpp" line="911"/>
         <source>In roles:</source>
         <translation>In roles:</translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="1033"/>
+        <source>Rename</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.cpp" line="1034"/>
+        <source>Enter new name for record:</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1981,36 +2103,60 @@
         <translation>Optional fields</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="71"/>
-        <location filename="dialogs/settings.cpp" line="647"/>
-        <location filename="dialogs/settings.cpp" line="651"/>
         <source>Import</source>
-        <translation>Import</translation>
+        <translation type="vanished">Import</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="83"/>
-        <location filename="settings.ui" line="782"/>
-        <location filename="dialogs/settings.cpp" line="604"/>
         <source>Export</source>
-        <translation>Export</translation>
+        <translation type="vanished">Export</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="95"/>
+        <location filename="settings.ui" line="71"/>
         <source>Style</source>
         <translation>Style</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="159"/>
+        <location filename="settings.ui" line="135"/>
         <source>Global:</source>
         <translation>Global:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="168"/>
+        <location filename="settings.ui" line="144"/>
         <source>Language:</source>
         <translation>Language:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="184"/>
+        <location filename="settings.ui" line="160"/>
+        <source>Fonts:</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="181"/>
+        <source>B</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="195"/>
+        <source>i</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="214"/>
+        <source>Interface</source>
+        <translation>Interface:</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="220"/>
+        <source>Main menu</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="227"/>
+        <source>Toolbar</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="237"/>
         <source>Network:</source>
         <oldsource>Network</oldsource>
         <translation>Network:</translation>
@@ -2024,35 +2170,27 @@
         <translation type="vanished">Auto search on shikimori</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="213"/>
+        <location filename="settings.ui" line="266"/>
         <source>Active sections:</source>
         <translation>Active sections:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="219"/>
-        <location filename="settings.ui" line="561"/>
-        <location filename="settings.ui" line="729"/>
+        <location filename="settings.ui" line="272"/>
         <source>Anime</source>
         <translation>Anime</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="226"/>
-        <location filename="settings.ui" line="571"/>
-        <location filename="settings.ui" line="739"/>
+        <location filename="settings.ui" line="279"/>
         <source>Manga</source>
         <translation>Manga</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="233"/>
-        <location filename="settings.ui" line="581"/>
-        <location filename="settings.ui" line="749"/>
+        <location filename="settings.ui" line="286"/>
         <source>Amv</source>
         <translation>AMV</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="240"/>
-        <location filename="settings.ui" line="591"/>
-        <location filename="settings.ui" line="759"/>
+        <location filename="settings.ui" line="293"/>
         <source>Dorama</source>
         <translation>Dorama</translation>
     </message>
@@ -2061,212 +2199,206 @@
         <translation type="vanished">Item list:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="190"/>
+        <location filename="settings.ui" line="243"/>
         <source>Checking updates</source>
         <translation>Checking updates</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="197"/>
+        <location filename="settings.ui" line="250"/>
         <source>Live search on shikimori</source>
         <translation>Live search on shikimori</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="250"/>
+        <location filename="settings.ui" line="303"/>
         <source>Item list:</source>
         <comment>Current active element</comment>
         <translation>Item list:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="256"/>
+        <location filename="settings.ui" line="309"/>
         <source>Sorting:</source>
         <translation>Sorting:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="269"/>
+        <location filename="settings.ui" line="322"/>
         <source>Displayed field:</source>
         <translation>Displayed field:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="289"/>
+        <location filename="settings.ui" line="342"/>
         <source>Active item:</source>
         <translation>Active item:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="295"/>
+        <location filename="settings.ui" line="348"/>
         <source>Switch cover/directory</source>
         <translation>Switch cover/directory</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="305"/>
+        <location filename="settings.ui" line="358"/>
         <source>Work directory:</source>
         <translation>Work directory:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="396"/>
+        <location filename="settings.ui" line="449"/>
         <source>Anime:</source>
         <translation>Anime:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="402"/>
-        <location filename="settings.ui" line="432"/>
-        <location filename="settings.ui" line="462"/>
+        <location filename="settings.ui" line="455"/>
+        <location filename="settings.ui" line="485"/>
+        <location filename="settings.ui" line="515"/>
         <source>Alt title</source>
         <translation>Alt title</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="409"/>
-        <location filename="settings.ui" line="469"/>
+        <location filename="settings.ui" line="462"/>
+        <location filename="settings.ui" line="522"/>
         <source>Director</source>
         <translation>Director</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="416"/>
+        <location filename="settings.ui" line="469"/>
         <source>Postscoring</source>
         <translation>Postscoring</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="426"/>
+        <location filename="settings.ui" line="479"/>
         <source>Manga:</source>
         <translation>Manga:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="439"/>
+        <location filename="settings.ui" line="492"/>
         <source>Author</source>
         <translation>Author</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="446"/>
+        <location filename="settings.ui" line="499"/>
         <source>Translation</source>
         <translation>Translator</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="456"/>
+        <location filename="settings.ui" line="509"/>
         <source>Dorama:</source>
         <translation>Dorama:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="555"/>
         <source>Import sections:</source>
-        <translation>Import sections:</translation>
+        <translation type="vanished">Import sections:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="604"/>
         <source>Import images</source>
-        <translation>Import images</translation>
+        <translation type="vanished">Import images</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="616"/>
         <source>Append</source>
-        <translation>Append</translation>
+        <translation type="vanished">Append</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="627"/>
         <source>Replace</source>
-        <translation>Replace</translation>
+        <translation type="vanished">Replace</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="723"/>
         <source>Export sections:</source>
-        <translation>Export sections:</translation>
+        <translation type="vanished">Export sections:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="772"/>
         <source>Export images</source>
-        <translation>Export images</translation>
+        <translation type="vanished">Export images</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="827"/>
+        <location filename="settings.ui" line="559"/>
         <source>Style:</source>
         <translation>Style:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="840"/>
-        <location filename="dialogs/settings.cpp" line="98"/>
+        <location filename="settings.ui" line="572"/>
+        <location filename="dialogs/settings.cpp" line="94"/>
         <source>System</source>
         <translation>System</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="848"/>
+        <location filename="settings.ui" line="580"/>
         <source>+</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="859"/>
+        <location filename="settings.ui" line="591"/>
         <source>-</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="872"/>
+        <location filename="settings.ui" line="604"/>
         <source>Color settings:</source>
         <translation>Color settings:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="878"/>
+        <location filename="settings.ui" line="610"/>
         <source>Window:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="905"/>
+        <location filename="settings.ui" line="637"/>
         <source>WindowText:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="932"/>
+        <location filename="settings.ui" line="664"/>
         <source>Base:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="959"/>
+        <location filename="settings.ui" line="691"/>
         <source>AlternateBase:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="986"/>
+        <location filename="settings.ui" line="718"/>
         <source>ToolTipBase:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1013"/>
+        <location filename="settings.ui" line="745"/>
         <source>ToolTipText:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1040"/>
+        <location filename="settings.ui" line="772"/>
         <source>Text:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1067"/>
+        <location filename="settings.ui" line="799"/>
         <source>Button:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1094"/>
+        <location filename="settings.ui" line="826"/>
         <source>ButtonText:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1121"/>
+        <location filename="settings.ui" line="853"/>
         <source>BrightText:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1148"/>
+        <location filename="settings.ui" line="880"/>
         <source>Link:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1175"/>
+        <location filename="settings.ui" line="907"/>
         <source>Highlight:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1202"/>
+        <location filename="settings.ui" line="934"/>
         <source>HighlightedText:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1232"/>
+        <location filename="settings.ui" line="964"/>
         <source>Save changes</source>
         <translation>Save changes</translation>
     </message>
@@ -2283,194 +2415,349 @@
         <translation type="vanished">Delete records and images</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1254"/>
-        <source>ShowImportProgressBar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="settings.ui" line="1257"/>
-        <source>Switch progress bar or action buttons</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="settings.ui" line="1262"/>
-        <source>ShowExportProgressBar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="settings.ui" line="1265"/>
-        <source>Switch export button or progress bar</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="settings.ui" line="840"/>
-        <location filename="dialogs/settings.cpp" line="98"/>
-        <source>System</source>
-        <oldsource>&lt;System&gt;</oldsource>
-        <translation type="unfinished">System</translation>
-    </message>
-    <message>
-        <location filename="dialogs/settings.cpp" line="112"/>
+        <location filename="dialogs/settings.cpp" line="108"/>
         <source>None</source>
         <translation>None</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="113"/>
+        <location filename="dialogs/settings.cpp" line="109"/>
         <source>ASC</source>
         <translation>A-Z</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="114"/>
+        <location filename="dialogs/settings.cpp" line="110"/>
         <source>DESC</source>
         <translation>Z-A</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="115"/>
+        <location filename="dialogs/settings.cpp" line="111"/>
         <source>Year</source>
         <translation>Year</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="127"/>
+        <location filename="dialogs/settings.cpp" line="123"/>
         <source>Title</source>
         <translation>Title</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="128"/>
+        <location filename="dialogs/settings.cpp" line="124"/>
         <source>Alternative title</source>
         <translation>Alternative title</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="341"/>
-        <location filename="dialogs/settings.cpp" line="347"/>
-        <location filename="dialogs/settings.cpp" line="635"/>
-        <location filename="dialogs/settings.cpp" line="663"/>
-        <location filename="dialogs/settings.cpp" line="1034"/>
-        <location filename="dialogs/settings.cpp" line="1075"/>
-        <location filename="dialogs/settings.cpp" line="1079"/>
+        <location filename="dialogs/settings.cpp" line="493"/>
+        <location filename="dialogs/settings.cpp" line="506"/>
+        <location filename="dialogs/settings.cpp" line="540"/>
+        <location filename="dialogs/settings.cpp" line="544"/>
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="341"/>
         <source>The directory for export isn&apos;t choose</source>
-        <translation>The directory for export isn&apos;t choose</translation>
+        <translation type="vanished">The directory for export isn&apos;t choose</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="347"/>
         <source>The path shall be absolute</source>
-        <translation>The path shall be absolute</translation>
+        <translation type="vanished">The path shall be absolute</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="395"/>
-        <location filename="dialogs/settings.cpp" line="440"/>
-        <location filename="dialogs/settings.cpp" line="479"/>
-        <location filename="dialogs/settings.cpp" line="512"/>
-        <location filename="dialogs/settings.cpp" line="699"/>
         <source>Critical</source>
-        <translation>Critical error</translation>
+        <translation type="vanished">Critical error</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="395"/>
-        <location filename="dialogs/settings.cpp" line="440"/>
-        <location filename="dialogs/settings.cpp" line="479"/>
-        <location filename="dialogs/settings.cpp" line="512"/>
         <source>Cannot export data</source>
-        <translation>Cannot export data</translation>
+        <translation type="vanished">Cannot export data</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="604"/>
         <source>Export is successfully finished</source>
-        <translation>Export is successfully finished</translation>
+        <translation type="vanished">Export is successfully finished</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="611"/>
         <source>Choose a directory for export file</source>
-        <translation>Choose a directory for export file</translation>
+        <translation type="vanished">Choose a directory for export file</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="623"/>
         <source>Choose a xml file for import</source>
-        <translation>Choose a xml file for import</translation>
+        <translation type="vanished">Choose a xml file for import</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="635"/>
         <source>The imported file isn&apos;t selected</source>
-        <translation>The imported file isn&apos;t selected</translation>
+        <translation type="vanished">The imported file isn&apos;t selected</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="647"/>
         <source>Import is successfully finished</source>
-        <translation>Import is successfully finished</translation>
+        <translation type="vanished">Import is successfully finished</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="648"/>
         <source>Records it is imported:</source>
-        <translation>Records it is imported:</translation>
+        <translation type="vanished">Records it is imported:</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="651"/>
         <source>Import failed</source>
-        <translation>Import failed</translation>
+        <translation type="vanished">Import failed</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="664"/>
         <source>&lt;b&gt;Delete&lt;/b&gt; your database?&lt;br&gt;&lt;i&gt;Fields marked by a checkbox will be deleted&lt;/i&gt;</source>
-        <translation>&lt;b&gt;Delete&lt;/b&gt; your database?&lt;br&gt;&lt;i&gt;Fields marked by a checkbox will be deleted&lt;/i&gt;</translation>
+        <translation type="vanished">&lt;b&gt;Delete&lt;/b&gt; your database?&lt;br&gt;&lt;i&gt;Fields marked by a checkbox will be deleted&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="699"/>
         <source>File is not open</source>
-        <translation>Cannot open file</translation>
+        <translation type="vanished">Cannot open file</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="719"/>
         <source>Import of records</source>
-        <translation>Import of records</translation>
+        <translation type="vanished">Import of records</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="769"/>
         <source>Copying of covers</source>
-        <translation>Copying of covers</translation>
+        <translation type="vanished">Copying of covers</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="954"/>
+        <location filename="dialogs/settings.cpp" line="447"/>
         <source>Choose a directory for application data</source>
         <translation>Choose a directory for application data</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1034"/>
+        <location filename="dialogs/settings.cpp" line="493"/>
         <source>It is impossible to delete system style</source>
         <translation>It is impossible to delete system style</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1039"/>
+        <location filename="dialogs/settings.cpp" line="498"/>
         <source>Question</source>
         <translation>Question</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1040"/>
+        <location filename="dialogs/settings.cpp" line="499"/>
         <source>You really want to remove the current style?</source>
         <translation>You really want to remove the current style?</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1065"/>
+        <location filename="dialogs/settings.cpp" line="506"/>
+        <source>Impossible to remove this style. Maybe your not accesss to removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="530"/>
         <source>Style copying</source>
         <translation>Style copying</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1066"/>
+        <location filename="dialogs/settings.cpp" line="531"/>
         <source>Enter name for new style:</source>
         <translation>Enter name for new style:</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1075"/>
+        <location filename="dialogs/settings.cpp" line="540"/>
         <source>The entered name is empty</source>
         <translation>The entered name is empty</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1079"/>
+        <location filename="dialogs/settings.cpp" line="544"/>
         <source>Style with such name already exists</source>
         <translation>Style with such name already exists</translation>
+    </message>
+</context>
+<context>
+    <name>Share</name>
+    <message>
+        <location filename="share.ui" line="14"/>
+        <source>Import / Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="28"/>
+        <location filename="share.cpp" line="345"/>
+        <location filename="share.cpp" line="349"/>
+        <source>Import</source>
+        <translation type="unfinished">Import</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="39"/>
+        <source>Import file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="49"/>
+        <location filename="share.ui" line="199"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="62"/>
+        <source>Import sections:</source>
+        <translation type="unfinished">Import sections:</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="68"/>
+        <location filename="share.ui" line="218"/>
+        <source>Anime</source>
+        <translation type="unfinished">Anime</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="78"/>
+        <location filename="share.ui" line="228"/>
+        <source>Manga</source>
+        <translation type="unfinished">Manga</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="88"/>
+        <location filename="share.ui" line="238"/>
+        <source>Amv</source>
+        <translation type="unfinished">AMV</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="98"/>
+        <location filename="share.ui" line="248"/>
+        <source>Dorama</source>
+        <translation type="unfinished">Dorama</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="111"/>
+        <source>Import images</source>
+        <translation type="unfinished">Import images</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="136"/>
+        <source>Append</source>
+        <translation type="unfinished">Append</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="147"/>
+        <source>Replace</source>
+        <translation type="unfinished">Replace</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="175"/>
+        <location filename="share.ui" line="284"/>
+        <location filename="share.cpp" line="302"/>
+        <source>Export</source>
+        <translation type="unfinished">Export</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="189"/>
+        <source>Export folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="212"/>
+        <source>Export sections:</source>
+        <translation type="unfinished">Export sections:</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="261"/>
+        <source>Export images</source>
+        <translation type="unfinished">Export images</translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="309"/>
+        <source>ShowExportProgressBar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="312"/>
+        <source>Switch export button or progress bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="317"/>
+        <source>ShowImportProgressBar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="share.ui" line="320"/>
+        <source>Switch progress bar or action buttons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="39"/>
+        <location filename="share.cpp" line="45"/>
+        <location filename="share.cpp" line="333"/>
+        <location filename="share.cpp" line="361"/>
+        <source>Warning</source>
+        <translation type="unfinished">Warning</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="39"/>
+        <source>The directory for export isn&apos;t choose</source>
+        <translation type="unfinished">The directory for export isn&apos;t choose</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="45"/>
+        <source>The path shall be absolute</source>
+        <translation type="unfinished">The path shall be absolute</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="93"/>
+        <location filename="share.cpp" line="138"/>
+        <location filename="share.cpp" line="177"/>
+        <location filename="share.cpp" line="210"/>
+        <location filename="share.cpp" line="397"/>
+        <source>Critical</source>
+        <translation type="unfinished">Critical error</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="93"/>
+        <location filename="share.cpp" line="138"/>
+        <location filename="share.cpp" line="177"/>
+        <location filename="share.cpp" line="210"/>
+        <source>Cannot export data</source>
+        <translation type="unfinished">Cannot export data</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="302"/>
+        <source>Export is successfully finished</source>
+        <translation type="unfinished">Export is successfully finished</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="309"/>
+        <source>Choose a directory for export file</source>
+        <translation type="unfinished">Choose a directory for export file</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="321"/>
+        <source>Choose a xml file for import</source>
+        <translation type="unfinished">Choose a xml file for import</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="333"/>
+        <source>The imported file isn&apos;t selected</source>
+        <translation type="unfinished">The imported file isn&apos;t selected</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="345"/>
+        <source>Import is successfully finished</source>
+        <translation type="unfinished">Import is successfully finished</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="346"/>
+        <source>Records it is imported:</source>
+        <translation type="unfinished">Records it is imported:</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="349"/>
+        <source>Import failed</source>
+        <translation type="unfinished">Import failed</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="362"/>
+        <source>&lt;b&gt;Delete&lt;/b&gt; your database?&lt;br&gt;&lt;i&gt;Fields marked by a checkbox will be deleted&lt;/i&gt;</source>
+        <translation type="unfinished">&lt;b&gt;Delete&lt;/b&gt; your database?&lt;br&gt;&lt;i&gt;Fields marked by a checkbox will be deleted&lt;/i&gt;</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="397"/>
+        <source>File is not open</source>
+        <translation type="unfinished">Cannot open file</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="417"/>
+        <source>Import of records</source>
+        <translation type="unfinished">Import of records</translation>
+    </message>
+    <message>
+        <location filename="share.cpp" line="467"/>
+        <source>Copying of covers</source>
+        <translation type="unfinished">Copying of covers</translation>
     </message>
 </context>
 </TS>

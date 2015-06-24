@@ -38,5 +38,7 @@
         <file>images/icon-sort/sord-desc.png</file>
         <file>images/format-text/format-text-italic.png</file>
         <file>images/format-text/format-text-bold.png</file>
+        <file>images/icon-sort/help.png</file>
+        <file>images/icon-sort/print.png</file>
     </qresource>
 </RCC>

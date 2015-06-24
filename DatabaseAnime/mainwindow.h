@@ -12,6 +12,7 @@
 #include <QTreeWidgetItem>
 #include <QScrollArea>
 #include <QNetworkReply>
+#include <QMenu>
 
 #include "share.h"
 
@@ -70,12 +71,18 @@ private:
     void loadSettings();
     void loadSettings_language();
     void loadSettings_Interface();
+
+    QMenu   _cMenu;
+    QAction *_rename;
+    QAction *_remove;
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     void closeEvent(QCloseEvent *);
     ~MainWindow();
 
 private slots:
+    void renameSelected();
     void on_PButton_Options_clicked();
     void on_TButton_Add_clicked();
     void on_TButton_Edit_clicked();
@@ -104,6 +111,8 @@ private slots:
     void on_actionExport_triggered();
     void on_actionExit_triggered();
     void on_actionPrint_triggered();
+    void on_TreeView_List_customContextMenuRequested(const QPoint &pos);
+    void on_actionRun_video_help_triggered();
 };
 
 #endif // MAINWINDOW_H

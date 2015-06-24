@@ -94,6 +94,9 @@
         </item>
         <item>
          <widget class="QTreeView" name="TreeView_List">
+          <property name="contextMenuPolicy">
+           <enum>Qt::CustomContextMenu</enum>
+          </property>
           <attribute name="headerVisible">
            <bool>false</bool>
           </attribute>
@@ -832,9 +835,16 @@
     </property>
     <addaction name="actionPrint"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionRun_video_help"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuView"/>
    <addaction name="menuPrint"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="ToolBar">
    <property name="windowTitle">
@@ -977,8 +987,27 @@
    </property>
   </action>
   <action name="actionPrint">
+   <property name="icon">
+    <iconset theme="printer" resource="resource.qrc">
+     <normaloff>:/images/icon-sort/print.png</normaloff>:/images/icon-sort/print.png</iconset>
+   </property>
    <property name="text">
     <string>Print</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
+  </action>
+  <action name="actionRun_video_help">
+   <property name="icon">
+    <iconset theme="help" resource="resource.qrc">
+     <normaloff>:/images/icon-sort/help.png</normaloff>:/images/icon-sort/help.png</iconset>
+   </property>
+   <property name="text">
+    <string>Run video-help</string>
+   </property>
+   <property name="shortcut">
+    <string>F1</string>
    </property>
   </action>
  </widget>

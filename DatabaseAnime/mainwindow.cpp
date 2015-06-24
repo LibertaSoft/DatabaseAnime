@@ -26,6 +26,7 @@
 #include <QPrinter>
 #include <QPrintDialog>
 #include <QTextDocument>
+#include <QInputDialog>
 
 //#include <QSvgWidget>
 
@@ -83,6 +84,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     reloadSectionsList();
     reloadFiltersList();
+
+    //----
+    _rename = new QAction( QIcon("://images/edit.png"), tr("&Rename"),this);
+    _remove = new QAction( QIcon("://images/list-remove.png"), tr("Re&move"),this);
+
+    _cMenu.addAction(_rename);
+    _cMenu.addAction(_remove);
+
+    connect( _remove, SIGNAL(triggered(bool)),
+             this, SLOT(on_TButton_Delete_clicked()) );
+    connect( _rename, SIGNAL(triggered(bool)),
+             this, SLOT(renameSelected()) );
 }
 
 void MainWindow::replyVersionVerificationFinished(QNetworkReply* r){
@@ -1007,6 +1020,24 @@ void MainWindow::loadSettings_Interface()
     this->setFont( font );
 }
 
+void MainWindow::renameSelected()
+{
+    if( ui->TreeView_List->selectionModel()->selectedIndexes().isEmpty() == false ){
+        quint64 tmpId = ui->TreeView_List->selectionModel()->selectedIndexes().at(0).data().toULongLong();
+
+        QSqlRecord r = MngrQuerys::selectData(_activeTable, tmpId);
+        QString oldTitle = r.value( MngrQuerys::fieldToString(Tables::UniformField::Title, _activeTable) ).toString();
+
+        bool ok;
+
+        QString title = QInputDialog::getText(this, tr("Rename"),
+                                             tr("Enter new name for record:"), QLineEdit::Normal,
+                                             oldTitle, &ok);
+        MngrQuerys::updateRecord(_activeTable, tmpId, MngrQuerys::fieldToString(Tables::UniformField::Title, _activeTable), title);
+        reloadSectionsList();
+    }
+}
+
 void MainWindow::on_TreeView_List_clicked(const QModelIndex &index)
 {
     on_TreeView_List_activated(index);
@@ -1186,10 +1217,10 @@ void MainWindow::on_actionPrint_triggered()
 
         for(int i = 0; i < list.count(); ++i){
             htmlBody +=   "<tr>"
-                          + "<td>"
-                            + list.at(i);
-                          + "</td>"
-                        + "</tr>";
+                            "<td>"
+                              + list.at(i) +
+                            "</td>"
+                          "</tr>";
         }
 
 
@@ -1202,4 +1233,18 @@ void MainWindow::on_actionPrint_triggered()
 
         textDocument.print(&printer);
     }
+}
+
+void MainWindow::on_TreeView_List_customContextMenuRequested(const QPoint &pos)
+{
+    int margins = 32;
+    QPoint p = mapToGlobal(pos);
+    p.ry() += ui->TreeView_List->geometry().top() + margins;
+
+    _cMenu.exec( p );
+}
+
+void MainWindow::on_actionRun_video_help_triggered()
+{
+    QDesktopServices::openUrl( QUrl( QDir::currentPath() + QDir::separator() + "videohelp.mp4" ) );
 }
