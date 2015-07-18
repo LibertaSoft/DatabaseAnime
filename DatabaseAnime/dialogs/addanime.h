@@ -14,6 +14,8 @@ namespace Ui {
 class DialogAddAnime;
 }
 
+enum Kind{TV, OVA, ONA, Special, Movie};
+
 class DialogAddAnime : public QDialog
 {
     Q_OBJECT
@@ -45,6 +47,7 @@ private:
     void initOptionalFields();
     void setDataInField();
     void setTabOrders();
+    int  kindOf(const QString &kind);
 
 public:
     explicit DialogAddAnime(QWidget *parent, unsigned long long id);

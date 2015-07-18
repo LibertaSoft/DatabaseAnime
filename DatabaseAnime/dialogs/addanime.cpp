@@ -144,6 +144,29 @@ void DialogAddAnime::setTabOrders()
     }
 }
 
+int DialogAddAnime::kindOf(const QString &kind)
+{
+    const QString TV("TV");
+    const QString OVA("OVA");
+    const QString ONA("ONA");
+    const QString SPECIAL("SPECIAL");
+    const QString MOVIE("MOVIE");
+
+    QString _kind = kind.toUpper();
+    if( _kind == TV )
+        return Kind::TV;
+    if( _kind == OVA )
+        return Kind::OVA;
+    if( _kind == ONA )
+        return Kind::ONA;
+    if( _kind == SPECIAL )
+        return Kind::Special;
+    if( _kind == MOVIE )
+        return Kind::Movie;
+
+    return Kind::TV;
+}
+
 DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     QDialog(parent), ui(new Ui::DialogAddAnime), _isEditRole(true), _recordId(record_id),
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
@@ -477,16 +500,29 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 
     ui->ComboBox_Studio->setCurrentText( data[Studios].toString() );
 
-    if( data["Type"].toString() == "TV" )
-        ui->SpinBox_aTV->setValue( data["Series"].toInt() );
-    else if( data["Type"].toString() == "OVA" )
-        ui->SpinBox_aOVA->setValue( data["Series"].toInt() );
-    else if( data["Type"].toString() == "ONA" )
-        ui->SpinBox_aONA->setValue( data["Series"].toInt() );
-    else if( data["Type"].toString() == "Special" )
-        ui->SpinBox_aSpec->setValue( data["Series"].toInt() );
-    else if( data["Type"].toString() == "Movie" )
-        ui->SpinBox_aMovie->setValue( data["Series"].toInt() );
+
+    {
+        int type = kindOf( data["Type"].toString() );
+        switch (type) {
+            case Kind::TV :
+                ui->SpinBox_aTV->setValue( data["Series"].toInt() );
+                break;
+            case Kind::OVA :
+                ui->SpinBox_aOVA->setValue( data["Series"].toInt() );
+                break;
+            case Kind::ONA :
+                ui->SpinBox_aONA->setValue( data["Series"].toInt() );
+                break;
+            case Kind::Special :
+                ui->SpinBox_aSpec->setValue( data["Series"].toInt() );
+                break;
+            case Kind::Movie :
+                ui->SpinBox_aMovie->setValue( data["Series"].toInt() );
+                break;
+            default:
+                break;
+        }
+    }
 
     ui->LineEdit_Tags->setText( data[Tags].toString() );
 
