@@ -18,6 +18,8 @@ namespace Ui {
 class Settings;
 }
 
+enum SearchOutputIndex{ MIXED, RUSSIAN, ENGLISH  };
+
 class Settings : public QDialog
 {
     Q_OBJECT
@@ -37,6 +39,9 @@ private:
     QPalette paletteFromColorPicker();
     bool duplicateStyleName(QString name);
     void setApplicationStyle(QPalette palette);
+
+    void loadSettings();
+    void saveSettings();
 public:
     explicit Settings(MngrConnection &MngrCon, QWidget *parent = 0);
     ~Settings();

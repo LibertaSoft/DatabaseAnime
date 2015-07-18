@@ -175,7 +175,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     QSettings settings;
     this->restoreGeometry( settings.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::LIVE_SEARCH, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -197,7 +197,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     QSettings settings;
     this->restoreGeometry( settings.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::LIVE_SEARCH, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -440,7 +440,10 @@ void DialogAddAnime::on_LineEdit_Title_textEdited(const QString &title)
         if( name.toUpper().contains( title.toUpper() ) )
             return;
     }
-    api.searchAnime( title );
+    short searchLimit = 0;
+    QSettings cfg;
+//    cfg.value( Options::Network:: )
+    api.searchAnime( title, searchLimit );
 }
 
 void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)

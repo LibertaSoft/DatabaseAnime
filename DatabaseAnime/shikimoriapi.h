@@ -53,16 +53,16 @@ private:
 
     QStringList jsonParse_search(QByteArray data);
     quint64 jsonParse_getId(QByteArray data);
-	
+
     QMap<QString,QVariant> jsonParse_animeData(QByteArray data);
-	QMap<QString,QVariant> jsonParse_mangaData(QByteArray data);
+    QMap<QString,QVariant> jsonParse_mangaData(QByteArray data);
 
 public:
     explicit ShikimoriApi(QString lang = "en", QObject* parent = 0);
     void setLang(QString lang);
 
-    void searchAnime(QString title, short limit = 5);
-    void searchManga(QString title, short limit = 5);
+    void searchAnime(QString title, short limit = 25);
+    void searchManga(QString title, short limit = 25);
 
     void getAnimeId(QString title);
     void getMangaId(QString title);
@@ -76,7 +76,7 @@ signals:
 
     void dataRecived_animeId(quint64 id);
     void dataRecived_mangaId(quint64 id);
-    
+
     void dataRecived_animeData(QMap<QString,QVariant> data);
     void dataRecived_mangaData(QMap<QString,QVariant> data);
 

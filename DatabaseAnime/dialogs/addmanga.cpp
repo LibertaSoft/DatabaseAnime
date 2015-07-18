@@ -161,7 +161,7 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     QSettings settings;
     this->restoreGeometry( settings.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::LIVE_SEARCH, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -183,7 +183,7 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     QSettings settings;
     this->restoreGeometry( settings.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = settings.value( Options::Network::LIVE_SEARCH, true ).toBool();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
