@@ -51,7 +51,11 @@ private:
     QString _lang;
     QNetworkRequest request( QUrl& url );
 
-    QStringList jsonParse_search(QByteArray data);
+    struct TitleLists{
+        QStringList eng;
+        QStringList rus;
+    };
+    TitleLists jsonParse_search(QByteArray data);
     quint64 jsonParse_getId(QByteArray data);
 
     QMap<QString,QVariant> jsonParse_animeData(QByteArray data);
@@ -61,8 +65,8 @@ public:
     explicit ShikimoriApi(QString lang = "en", QObject* parent = 0);
     void setLang(QString lang);
 
-    void searchAnime(QString title, short limit = 25);
-    void searchManga(QString title, short limit = 25);
+    void searchAnime(QString title, short limit = 10);
+    void searchManga(QString title, short limit = 10);
 
     void getAnimeId(QString title);
     void getMangaId(QString title);
@@ -71,8 +75,10 @@ public:
     void pullMangaData(quint64 id);
 
 signals:
-    void dataRecived_animeSearch(QStringList animeList);
-    void dataRecived_mangaSearch(QStringList mangaList);
+//    void dataRecived_animeSearch(QStringList eng);
+    void dataRecived_animeSearch(QStringList eng, QStringList rus);
+//    void dataRecived_mangaSearch(QStringList eng);
+    void dataRecived_mangaSearch(QStringList eng, QStringList rus);
 
     void dataRecived_animeId(quint64 id);
     void dataRecived_mangaId(quint64 id);

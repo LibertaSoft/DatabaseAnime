@@ -27,7 +27,7 @@ void DialogAddAnime::initTitleCompleter()
     TitleCompliter->setCompletionMode(QCompleter::UnfilteredPopupCompletion); // PopupCompletion
     ui->LineEdit_Title->setCompleter( TitleCompliter );
     connect(&api, &ShikimoriApi::dataRecived_animeSearch,
-            &_titleCompliterModel, &QStringListModel::setStringList );
+            this, &DialogAddAnime::setCompletionModel );
     connect(&api, &ShikimoriApi::dataRecived_animeId,
             &api, &ShikimoriApi::pullAnimeData);
     connect(&api, &ShikimoriApi::dataRecived_animeData,
@@ -172,10 +172,13 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value(Options::Dialogs::Anime::Geometry).toByteArray() );
+    QSettings cfg;
+    this->restoreGeometry( cfg.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::LIVE_SEARCH, true ).toBool();
+    _autoSearchOnShikimori = cfg.value( Options::Network::LIVE_SEARCH, true ).toBool();
+    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() );
+    int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
+    setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -194,10 +197,13 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value(Options::Dialogs::Anime::Geometry).toByteArray() );
+    QSettings cfg;
+    this->restoreGeometry( cfg.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::LIVE_SEARCH, true ).toBool();
+    _autoSearchOnShikimori = cfg.value( Options::Network::LIVE_SEARCH, true ).toBool();
+    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() );
+    int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
+    setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -440,10 +446,8 @@ void DialogAddAnime::on_LineEdit_Title_textEdited(const QString &title)
         if( name.toUpper().contains( title.toUpper() ) )
             return;
     }
-    short searchLimit = 0;
-    QSettings cfg;
-//    cfg.value( Options::Network:: )
-    api.searchAnime( title, searchLimit );
+
+    api.searchAnime( title, _searchLimit );
 }
 
 void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)
@@ -453,10 +457,10 @@ void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)
     if (r->error() == QNetworkReply::NoError)
         imageReader.read(&image);
     else
-        qDebug() << "network error";
+        qCritical() << "network error";
 
     if( image.isNull() )
-        qDebug() << "image is null";
+        qCritical() << "image is null";
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QString tmpImagePath( QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() );
@@ -541,4 +545,39 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 
     QUrl urlCover(shikimoriUrl + cover);
     manager->get( QNetworkRequest(urlCover) );
+}
+
+bool DialogAddAnime::setSearchLimit(const int limit)
+{
+    if(limit > 0){
+        _searchLimit = limit;
+        return true;
+    } else {
+        _searchLimit = 10; /// \note default value 10
+        return false;
+    }
+}
+
+void DialogAddAnime::setSearchOutput(SearchOutput outputType)
+{
+    _searchOutput = outputType;
+}
+
+void DialogAddAnime::setCompletionModel(QStringList eng, QStringList rus)
+{
+    QStringList model;
+
+    switch( _searchOutput ){
+        case SearchOutput::ENG :
+            model = eng;
+            break;
+        case SearchOutput::RUS :
+            model = rus;
+            break;
+        case SearchOutput::MIX :
+        default:
+            model = eng + rus;
+    }
+
+    _titleCompliterModel.setStringList( model );
 }

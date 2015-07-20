@@ -8,6 +8,7 @@
 #include <QStringListModel>
 #include <QNetworkAccessManager>
 #include <QCompleter>
+#include "globalenum.h"
 #include "shikimoriapi.h"
 
 namespace Ui {
@@ -24,6 +25,8 @@ private:
     QSqlQueryModel* model;
     ShikimoriApi api;
 
+    int _searchLimit = 10;
+    SearchOutput _searchOutput = SearchOutput::MIX;
 
     bool _isEditRole;
     unsigned long long _recordId;
@@ -74,6 +77,9 @@ private slots:
     void on_LineEdit_Title_textEdited(const QString&title);
 
     void setRecivedData(QMap<QString,QVariant>);
+    bool setSearchLimit(const int limit);
+    void setSearchOutput(SearchOutput outputType);
+    void setCompletionModel(QStringList eng, QStringList rus);
 };
 
 #endif // DialogAddAnime_H

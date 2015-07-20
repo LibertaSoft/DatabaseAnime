@@ -747,11 +747,16 @@ void Settings::loadSettings()
     {
         using namespace Options::Network;
 
-        ui->ChBox_CheckForUpdate   ->setChecked( cfg.value( CHECK_UPDATES         , true ).toBool() );
-        ui->ChBox_SearchOnShikimori->setChecked( cfg.value( LIVE_SEARCH, true ).toBool() );
+        ui->ChBox_CheckForUpdate   ->setChecked( cfg.value( CHECK_UPDATES, true ).toBool() );
+        ui->ChBox_SearchOnShikimori->setChecked( cfg.value( LIVE_SEARCH  , true ).toBool() );
         /// \todo DefaultValues
+        {
+            ui->ComboBox_SearchOutput->addItem( tr("English"), SearchOutput::ENG );
+            ui->ComboBox_SearchOutput->addItem( tr("Russian"), SearchOutput::RUS );
+            ui->ComboBox_SearchOutput->addItem( tr("Mixed")  , SearchOutput::MIX );
+        }
         ui->SpinBox_SearchLimit->setValue( cfg.value( SEARCH_LIMIT, 10 ).toInt() );
-        ui->ComboBox_SearchOutput->setCurrentIndex( cfg.value( SEARCH_OUTPUT, SearchOutputIndex::MIXED ).toInt() );
+        ui->ComboBox_SearchOutput->setCurrentIndex( cfg.value( SEARCH_OUTPUT, SearchOutput::MIX ).toInt() );
     }
     {
         using namespace Options::General;

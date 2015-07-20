@@ -14,7 +14,7 @@
    <string>Settings</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="resource.qrc">
     <normaloff>:/images/config.png</normaloff>:/images/config.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -225,23 +225,7 @@
                   </widget>
                  </item>
                  <item row="1" column="1">
-                  <widget class="QComboBox" name="ComboBox_SearchOutput">
-                   <item>
-                    <property name="text">
-                     <string>Russian</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>English</string>
-                    </property>
-                   </item>
-                   <item>
-                    <property name="text">
-                     <string>Mixed</string>
-                    </property>
-                   </item>
-                  </widget>
+                  <widget class="QComboBox" name="ComboBox_SearchOutput"/>
                  </item>
                  <item row="0" column="1">
                   <layout class="QHBoxLayout" name="HLay_SearchLimit">
@@ -415,7 +399,7 @@
                     <string/>
                    </property>
                    <property name="icon">
-                    <iconset>
+                    <iconset resource="resource.qrc">
                      <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
                    </property>
                   </widget>
@@ -628,7 +612,7 @@
               <item>
                <widget class="QToolButton" name="TBtn_Import_Path_Choose">
                 <property name="icon">
-                 <iconset>
+                 <iconset resource="resource.qrc">
                   <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
                 </property>
                </widget>
@@ -702,7 +686,7 @@
                  <string>Append</string>
                 </property>
                 <property name="icon">
-                 <iconset>
+                 <iconset resource="resource.qrc">
                   <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
                 </property>
                </widget>
@@ -713,7 +697,7 @@
                  <string>Replace</string>
                 </property>
                 <property name="icon">
-                 <iconset>
+                 <iconset resource="resource.qrc">
                   <normaloff>:/images/refresh.png</normaloff>:/images/refresh.png</iconset>
                 </property>
                </widget>
@@ -796,7 +780,7 @@
               <item>
                <widget class="QToolButton" name="TBtn_Export_Path_Choose">
                 <property name="icon">
-                 <iconset>
+                 <iconset resource="resource.qrc">
                   <normaloff>:/images/folder.png</normaloff>:/images/folder.png</iconset>
                 </property>
                </widget>
@@ -868,7 +852,7 @@
                <string>Export</string>
               </property>
               <property name="icon">
-               <iconset>
+               <iconset resource="resource.qrc">
                 <normaloff>:/images/export.png</normaloff>:/images/export.png</iconset>
               </property>
              </widget>
@@ -934,7 +918,7 @@
              <string>+</string>
             </property>
             <property name="icon">
-             <iconset theme="list-add">
+             <iconset theme="list-add" resource="resource.qrc">
               <normaloff>:/images/list-add.png</normaloff>:/images/list-add.png</iconset>
             </property>
            </widget>
@@ -945,7 +929,7 @@
              <string>-</string>
             </property>
             <property name="icon">
-             <iconset theme="list-remove">
+             <iconset theme="list-remove" resource="resource.qrc">
               <normaloff>:/images/list-remove.png</normaloff>:/images/list-remove.png</iconset>
             </property>
            </widget>
@@ -1360,7 +1344,9 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>BtnBox</sender>

@@ -25,7 +25,7 @@ void DialogAddManga::initTitleCompleter()
     TitleCompliter->setCompletionMode(QCompleter::UnfilteredPopupCompletion); // PopupCompletion
     ui->LineEdit_Title->setCompleter( TitleCompliter );
     connect(&api, &ShikimoriApi::dataRecived_mangaSearch,
-            &_titleCompliterModel, &QStringListModel::setStringList );
+            this, &DialogAddManga::setCompletionModel );
     connect(&api, &ShikimoriApi::dataRecived_mangaId,
             &api, &ShikimoriApi::pullMangaData);
     connect(&api, &ShikimoriApi::dataRecived_mangaData,
@@ -158,10 +158,14 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value(Options::Dialogs::Manga::Geometry).toByteArray() );
+    QSettings cfg;
+    this->restoreGeometry( cfg.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::LIVE_SEARCH, true ).toBool();
+    _autoSearchOnShikimori = cfg.value( Options::Network::LIVE_SEARCH, true ).toBool();
+
+    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() );
+    int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
+    setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -180,10 +184,14 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value(Options::Dialogs::Manga::Geometry).toByteArray() );
+    QSettings cfg;
+    this->restoreGeometry( cfg.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::LIVE_SEARCH, true ).toBool();
+    _autoSearchOnShikimori = cfg.value( Options::Network::LIVE_SEARCH, true ).toBool();
+
+    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() );
+    int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
+    setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -393,7 +401,8 @@ void DialogAddManga::on_LineEdit_Title_textEdited(const QString &title)
         if( name.toUpper().contains( title.toUpper() ) )
             return;
     }
-    api.searchManga( title );
+
+    api.searchManga( title, _searchLimit );
 }
 
 void DialogAddManga::replyDownloadPictureFinished(QNetworkReply *r)
@@ -472,4 +481,39 @@ void DialogAddManga::setRecivedData(QMap<QString, QVariant> data)
 
     QUrl urlCover(shikimoriUrl + cover);
     manager->get( QNetworkRequest(urlCover) );
+}
+
+bool DialogAddManga::setSearchLimit(const int limit)
+{
+    if(limit > 0){
+        _searchLimit = limit;
+        return true;
+    } else {
+        _searchLimit = 10; /// \note default value 10
+        return false;
+    }
+}
+
+void DialogAddManga::setSearchOutput(const SearchOutput outType)
+{
+    _searchOutput = outType;
+}
+
+void DialogAddManga::setCompletionModel(QStringList eng, QStringList rus)
+{
+    QStringList model;
+
+    switch ( _searchOutput ) {
+        case SearchOutput::ENG :
+            model = eng;
+            break;
+        case SearchOutput::RUS :
+            model = rus;
+            break;
+        case SearchOutput::MIX :
+        default:
+            model = eng+rus;
+    }
+
+    _titleCompliterModel.setStringList( model );
 }

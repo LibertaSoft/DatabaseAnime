@@ -19,6 +19,8 @@ namespace Sort{
     enum sort{none = 0, asc, desc, year};
 }
 
+enum SearchOutput{ENG, RUS, MIX};
+
 namespace Options{
     namespace General{
         const QString DISPLAYED_FIELD("DisplayedField");

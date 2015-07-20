@@ -8,6 +8,7 @@
 #include <QStringListModel>
 #include <QNetworkAccessManager>
 #include <QCompleter>
+#include "globalenum.h"
 #include "shikimoriapi.h"
 
 namespace Ui {
@@ -21,6 +22,9 @@ private:
     Ui::DialogAddManga *ui;
     QSqlQueryModel* model;
     ShikimoriApi api;
+
+    int _searchLimit = 10;
+    SearchOutput _searchOutput = SearchOutput::MIX;
 
     bool _isEditRole;
     unsigned long long _recordId;
@@ -68,6 +72,9 @@ private slots:
     void on_LineEdit_Title_textEdited(const QString &title);
     void on_TBtn_Search_clicked();
     void setRecivedData(QMap<QString,QVariant> data);
+    bool setSearchLimit(const int limit);
+    void setSearchOutput(const SearchOutput outType);
+    void setCompletionModel(QStringList eng, QStringList rus);
 };
 
 #endif // DIALOGADDMANGA_H

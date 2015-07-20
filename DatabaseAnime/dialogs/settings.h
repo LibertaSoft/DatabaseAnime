@@ -6,6 +6,7 @@
 #include "dbalocalization.h"
 #include "mngrconnection.h"
 #include "mngrquerys.h"
+#include "globalenum.h"
 
 #include "share/xml/xmldbareader.h"
 #include "share/xml/xmldbawriter.h"
@@ -17,8 +18,6 @@
 namespace Ui {
 class Settings;
 }
-
-enum SearchOutputIndex{ MIXED, RUSSIAN, ENGLISH  };
 
 class Settings : public QDialog
 {
