@@ -10,6 +10,7 @@
 #include <QCompleter>
 #include "globalenum.h"
 #include "shikimoriapi.h"
+#include "imageloader.h"
 
 namespace Ui {
 class DialogAddAnime;
@@ -24,6 +25,7 @@ private:
     Ui::DialogAddAnime *ui;
     QSqlQueryModel* model;
     ShikimoriApi api;
+    ImageLoader _imageLoader;
 
     int _searchLimit = 10;
     SearchOutput _searchOutput = SearchOutput::MIX;
@@ -73,7 +75,7 @@ private slots:
     void on_SpinBox_Year_valueChanged(int value);
     void on_TBtn_Search_clicked();
 
-    void replyDownloadPictureFinished(QNetworkReply*);
+    void coverLoaded(QImage image);
     void on_LineEdit_Title_textEdited(const QString&title);
 
     void setRecivedData(QMap<QString,QVariant>);

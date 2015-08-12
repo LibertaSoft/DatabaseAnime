@@ -180,6 +180,9 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
     setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
+    connect( & _imageLoader, SIGNAL(imageLoaded(QImage)),
+             this,           SLOT(coverLoaded(QImage)) );
+
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
@@ -204,6 +207,9 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() ); /// \todo default value
     int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
     setSearchOutput( static_cast<SearchOutput>(searchOutType) );
+
+    connect( & _imageLoader, SIGNAL(imageLoaded(QImage)),
+             this,           SLOT(coverLoaded(QImage)) );
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -450,15 +456,8 @@ void DialogAddAnime::on_LineEdit_Title_textEdited(const QString &title)
     api.searchAnime( title, _searchLimit );
 }
 
-void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)
+void DialogAddAnime::coverLoaded(QImage image)
 {
-    QImageReader imageReader(r);
-    QImage image;
-    if (r->error() == QNetworkReply::NoError)
-        imageReader.read(&image);
-    else
-        qCritical() << "network error";
-
     if( image.isNull() )
         qCritical() << "image is null";
 
@@ -471,15 +470,13 @@ void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)
                     << tmpImagePath + coverName;
 
     QPixmap pm( tmpImagePath + coverName );
-    if( !pm.isNull() ){
+    if( ! pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
         ui->Lbl_ImageCover->setImagePath( tmpImagePath + coverName );
     }else{
         ui->Lbl_ImageCover->noImage();
         qCritical() << "Pixmap is null";
     }
-
-    r->deleteLater();
 }
 
 void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
@@ -537,14 +534,13 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 
     ui->LineEdit_URL->setText( data[Url].toString() );
 
-    QString cover = data[ImagePath].toString();
+    QSettings cfg;
 
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyDownloadPictureFinished(QNetworkReply*)));
-
-    QUrl urlCover(shikimoriUrl + cover);
-    manager->get( QNetworkRequest(urlCover) );
+    if( cfg.value( Options::Network::DOWNLOAD_COVERS, true ).toBool() ){
+        QString cover = data[ImagePath].toString();
+        QUrl urlCover(shikimoriUrl + cover);
+        _imageLoader.getImage( urlCover );
+    }
 }
 
 bool DialogAddAnime::setSearchLimit(const int limit)

@@ -43,6 +43,7 @@ namespace Options{
         const QString LIVE_SEARCH(SectionPrefix+"AutoSearchOnShikimori");
         const QString SEARCH_LIMIT(SectionPrefix+"SearchLimit");
         const QString SEARCH_OUTPUT(SectionPrefix+"SearchOutput");
+        const QString DOWNLOAD_COVERS(SectionPrefix+"DownloadCovers");
     }
     namespace Style{
         const QString SectionPrefix("Style/");

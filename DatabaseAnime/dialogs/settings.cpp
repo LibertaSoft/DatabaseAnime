@@ -155,9 +155,14 @@ void Settings::BtnBox_resetDefaults()
     ui->ComboBox_Language->setCurrentIndex( SYSTEM_LANGUAGE );
     ui->ComboBox_ItemList_Sorting->setCurrentIndex( Sort::asc );
 
-    ui->ChBox_CheckForUpdate->setChecked( true );
+
     ui->ChBox_SwitchCoverOrDir->setChecked( true );
+
+    ui->ChBox_CheckForUpdate->setChecked( true );
     ui->ChBox_SearchOnShikimori->setChecked( true );
+    ui->ChBox_DownloadCovers->setChecked( true );
+    ui->ComboBox_SearchOutput->setCurrentIndex( SearchOutput::MIX );
+    ui->SpinBox_SearchLimit->setValue( 10 );
 
     ui->LineEdit_WorkDir->setText( DefinesPath::appData(true) );
 
@@ -757,6 +762,7 @@ void Settings::loadSettings()
         }
         ui->SpinBox_SearchLimit->setValue( cfg.value( SEARCH_LIMIT, 10 ).toInt() );
         ui->ComboBox_SearchOutput->setCurrentIndex( cfg.value( SEARCH_OUTPUT, SearchOutput::MIX ).toInt() );
+        ui->ChBox_DownloadCovers->setChecked( cfg.value( DOWNLOAD_COVERS, true ).toBool() );
     }
     {
         using namespace Options::General;
@@ -869,6 +875,7 @@ void Settings::saveSettings()
         cfg.setValue( LIVE_SEARCH  , ui->ChBox_SearchOnShikimori->isChecked() );
         cfg.setValue( SEARCH_OUTPUT, ui->ComboBox_SearchOutput->currentData().toInt() );
         cfg.setValue( SEARCH_LIMIT , ui->SpinBox_SearchLimit->value() );
+        cfg.setValue( DOWNLOAD_COVERS, ui->ChBox_DownloadCovers->isChecked() );
     }
     { // Style
         using namespace Options::Style;

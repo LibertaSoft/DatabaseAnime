@@ -167,6 +167,9 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
     setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
+    connect( & _imageLoader, SIGNAL(imageLoaded(QImage)),
+             this,           SLOT(coverLoaded(QImage)) );
+
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
     ui->TabWidget_Info->setCurrentIndex(0);
@@ -192,6 +195,9 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() ); /// \todo default value
     int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
     setSearchOutput( static_cast<SearchOutput>(searchOutType) );
+
+    connect( & _imageLoader, SIGNAL(imageLoaded(QImage)),
+             this,           SLOT(coverLoaded(QImage)) );
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -405,15 +411,8 @@ void DialogAddManga::on_LineEdit_Title_textEdited(const QString &title)
     api.searchManga( title, _searchLimit );
 }
 
-void DialogAddManga::replyDownloadPictureFinished(QNetworkReply *r)
+void DialogAddManga::coverLoaded(QImage image)
 {
-    QImageReader imageReader(r);
-    QImage image;
-    if (r->error() == QNetworkReply::NoError)
-        imageReader.read(&image);
-    else
-        qDebug() << "network error";
-
     if( image.isNull() )
         qDebug() << "image is null";
 
@@ -421,20 +420,18 @@ void DialogAddManga::replyDownloadPictureFinished(QNetworkReply *r)
     QString tmpImagePath( QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() );
 
     bool okSave = image.save( tmpImagePath + coverName, "png" );
-    if( !okSave )
+    if( ! okSave )
         qCritical() << "Image is not save as: "
                     << tmpImagePath + coverName;
 
     QPixmap pm( tmpImagePath + coverName );
-    if( !pm.isNull() ){
+    if( ! pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
         ui->Lbl_ImageCover->setImagePath( tmpImagePath + coverName );
     }else{
         ui->Lbl_ImageCover->noImage();
         qCritical() << "Pixmap is null";
     }
-
-    r->deleteLater();
 }
 
 void DialogAddManga::on_TBtn_Search_clicked()
@@ -473,14 +470,13 @@ void DialogAddManga::setRecivedData(QMap<QString, QVariant> data)
 
     ui->LineEdit_URL->setText( data[Url].toString() );
 
-    QString cover = data[ImagePath].toString();
+    QSettings cfg;
+    if( cfg.value( Options::Network::DOWNLOAD_COVERS, true ).toBool() ){
+        QString cover = data[ImagePath].toString();
+        QUrl urlCover(shikimoriUrl + cover);
 
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyDownloadPictureFinished(QNetworkReply*)));
-
-    QUrl urlCover(shikimoriUrl + cover);
-    manager->get( QNetworkRequest(urlCover) );
+        _imageLoader.getImage( urlCover );
+    }
 }
 
 bool DialogAddManga::setSearchLimit(const int limit)
