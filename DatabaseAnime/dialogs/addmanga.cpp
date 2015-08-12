@@ -163,7 +163,7 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     api.setLang("ru");
     _autoSearchOnShikimori = cfg.value( Options::Network::LIVE_SEARCH, true ).toBool();
 
-    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() );
+    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() ); /// \todo default value
     int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
     setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
@@ -189,7 +189,7 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     api.setLang("ru");
     _autoSearchOnShikimori = cfg.value( Options::Network::LIVE_SEARCH, true ).toBool();
 
-    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() );
+    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() ); /// \todo default value
     int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
     setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
