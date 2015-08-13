@@ -108,6 +108,7 @@ void DialogAddAnime::setDataInField()
     ui->LineEdit_URL->setText( record.value( Tables::Anime::Fields::Url ).toString() );
 
     _oldCover = record.value( Tables::Anime::Fields::ImagePath ).toString();
+    _urlCover = _oldCover;
 
     QPixmap pm( DefinesPath::animeCovers() + _oldCover );
 
@@ -180,8 +181,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
     setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
-    connect( & _imageLoader, SIGNAL(imageLoaded(QImage)),
-             this,           SLOT(coverLoaded(QImage)) );
+    connectSlots();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -193,6 +193,14 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     initOptionalFields();
     setTabOrders();
     setDataInField();
+}
+
+void DialogAddAnime::connectSlots()
+{
+    connect( & _imageLoader, SIGNAL(imageLoaded(QImage)),
+             this,           SLOT(coverLoaded(QImage)) );
+    connect( ui->Lbl_ImageCover, SIGNAL( reloadCover() ),
+             this,               SLOT( reloadCover() ) );
 }
 
 DialogAddAnime::DialogAddAnime(QWidget *parent):
@@ -208,8 +216,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
     setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
-    connect( & _imageLoader, SIGNAL(imageLoaded(QImage)),
-             this,           SLOT(coverLoaded(QImage)) );
+    connectSlots();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -229,7 +236,7 @@ DialogAddAnime::~DialogAddAnime()
     delete ui;
 }
 
-void DialogAddAnime::btnBox_reset()
+void DialogAddAnime::btnBox_reset( bool clearImage = true )
 {
     ui->CheckBox_LookLater->setChecked( false );
     ui->CheckBox_Editing->setChecked( false );
@@ -268,7 +275,8 @@ void DialogAddAnime::btnBox_reset()
     ui->LineEdit_Dir->clear();
     ui->LineEdit_URL->clear();
 
-    ui->Lbl_ImageCover->noImage();
+    if( clearImage )
+        ui->Lbl_ImageCover->noImage();
 }
 
 void DialogAddAnime::on_BtnBox_clicked(QAbstractButton *button)
@@ -479,10 +487,16 @@ void DialogAddAnime::coverLoaded(QImage image)
     }
 }
 
+void DialogAddAnime::reloadCover()
+{
+    _imageLoader.getImage( _urlCover );
+    qDebug() << _urlCover;
+}
+
 void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 {
     using namespace Tables::Anime::Fields;
-    btnBox_reset();
+    btnBox_reset(false);
     ui->TabWidget_Info->setCurrentIndex(2);
 
     ui->LineEdit_Title->setText( data[Title].toString() );
@@ -534,12 +548,16 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 
     ui->LineEdit_URL->setText( data[Url].toString() );
 
-    QSettings cfg;
+    QString cover = data[ImagePath].toString();
+    _urlCover = QUrl(shikimoriUrl + cover);
+    ui->Lbl_ImageCover->enableReloadButton( ! _urlCover.isEmpty() );
 
-    if( cfg.value( Options::Network::DOWNLOAD_COVERS, true ).toBool() ){
-        QString cover = data[ImagePath].toString();
-        QUrl urlCover(shikimoriUrl + cover);
-        _imageLoader.getImage( urlCover );
+    QSettings cfg;
+    bool hasLoadImage = ui->Lbl_ImageCover->isNullImage()
+                        || (cfg.value( Options::Network::RELOAD_COVERS, true ).toBool());
+
+    if( hasLoadImage ){
+        _imageLoader.getImage( _urlCover );
     }
 }
 

@@ -36,6 +36,7 @@ private:
     QStringListModel _tags;
     int _animeId;
     QString _altTitle;
+    QUrl _urlCover;
 
     QLineEdit* LineEdit_OrigTitle;
     QLineEdit* LineEdit_Director;
@@ -59,6 +60,7 @@ public:
     explicit DialogAddAnime(QWidget *parent);
     ~DialogAddAnime();
 
+    void connectSlots();
 private slots:
     void on_BtnBox_clicked(QAbstractButton *button);
     void on_BtnBox_accepted();
@@ -70,12 +72,13 @@ private slots:
     void on_SpinBox_aMovie_valueChanged(int value);
     void on_toolButton_clicked();
     bool insert_Anime();
-    void btnBox_reset();
+    void btnBox_reset(bool clearImage);
     void on_LineEdit_Dir_textChanged(const QString &value);
     void on_SpinBox_Year_valueChanged(int value);
     void on_TBtn_Search_clicked();
 
     void coverLoaded(QImage image);
+    void reloadCover();
     void on_LineEdit_Title_textEdited(const QString&title);
 
     void setRecivedData(QMap<QString,QVariant>);

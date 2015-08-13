@@ -27,6 +27,7 @@ private:
 
     int _searchLimit = 10;
     SearchOutput _searchOutput = SearchOutput::MIX;
+    QUrl _urlCover;
 
     bool _isEditRole;
     unsigned long long _recordId;
@@ -52,6 +53,7 @@ private:
     void createOptionalFields();
     bool insert_Manga();
     void setTabOrders();
+    void connectSlots();
 
 public:
     explicit DialogAddManga(QWidget *parent, unsigned long long record_id);
@@ -69,6 +71,7 @@ private slots:
     void btnBox_reset();
     void on_TBtn_ChooseDir_clicked();
     void on_SpinBox_Year_valueChanged(int);
+    void reloadCover();
 
     void coverLoaded(QImage image);
     void on_LineEdit_Title_textEdited(const QString &title);

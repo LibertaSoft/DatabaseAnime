@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>728</width>
-    <height>637</height>
+    <width>838</width>
+    <height>727</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -145,8 +145,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>486</width>
-             <height>663</height>
+             <width>610</width>
+             <height>668</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -269,7 +269,7 @@
                  <item row="0" column="0">
                   <widget class="QCheckBox" name="ChBox_DownloadCovers">
                    <property name="text">
-                    <string>Download covers</string>
+                    <string>Reload covers</string>
                    </property>
                   </widget>
                  </item>

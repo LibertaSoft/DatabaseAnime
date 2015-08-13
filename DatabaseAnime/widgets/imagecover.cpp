@@ -21,13 +21,16 @@ ImageCover::ImageCover(QWidget *parent) :
 
     actionChooseImage = new QAction( QIcon("://images/list-add.png"), tr("&Choose image"),this);
     actionSetNoImage  = new QAction( QIcon("://images/list-remove.png"), tr("Clea&n image"),this);
+    actionReloadCover = new QAction( QIcon("://images/refresh.png"), tr("&Reload image"),this);
     cMenu.addAction(actionChooseImage);
     cMenu.addAction(actionSetNoImage);
 
     QObject::connect(actionChooseImage, &QAction::triggered,
                     this, &ImageCover::chooseImage  );
-    QObject::connect(actionSetNoImage, &QAction::triggered,
+    QObject::connect(actionSetNoImage,  &QAction::triggered,
                     this, &ImageCover::noImage  );
+    QObject::connect(actionReloadCover, &QAction::triggered,
+                    this, &ImageCover::slotReloadCover  );
 
     noImage();
 }
@@ -44,11 +47,18 @@ QSize ImageCover::sizeHint() const
     return QSize( 194 , 582 );
 }
 
+bool ImageCover::isNullImage()
+{
+    return _emptyImage;
+}
+
 void ImageCover::chooseImage()
 {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open picture"), QStandardPaths::writableLocation( QStandardPaths::PicturesLocation ),
                                                     tr("Images")+" (*.png *.PNG *.jpg *.JPG *.jpeg *.JPEG)");
-    if( !fileName.isEmpty() ){
+
+    if( ! fileName.isEmpty() ){
+        _emptyImage = false;
         setImagePath( fileName );
         setPixmap( QPixmap( fileName ) );
     }
@@ -59,6 +69,22 @@ void ImageCover::noImage()
     imagePath.clear();
     QPixmap p( "://images/DropHere.png" );
     this->setPixmap(p);
+    _emptyImage = true;
+}
+
+void ImageCover::setPixmap(const QPixmap &pixmap)
+{
+    QLabel::setPixmap( pixmap );
+    _emptyImage = false;
+}
+
+void ImageCover::enableReloadButton(const bool enable)
+{
+    if( enable ){
+        cMenu.addAction( actionReloadCover );
+    } else {
+        cMenu.removeAction( actionReloadCover );
+    }
 }
 
 /*virtual*/ void ImageCover::dragEnterEvent(QDragEnterEvent* pe)
@@ -75,6 +101,7 @@ void ImageCover::noImage()
     if( !pix.isNull() ){
         this->setPixmap( pix );
         setImagePath( urlList.at(0).toLocalFile() );
+        _emptyImage = false;
     }else{
         QMessageBox::warning( this, tr("Warning"), tr("It was not succeeded to load the picture") );
     }
@@ -94,5 +121,10 @@ void ImageCover::resizeEvent(QResizeEvent *)
 {
 //    e->oldSize()
 //    QMessageBox::information(this, windowTitle(), QString::number(this->height()) );
-//    resize( height()/3, height() );
+    //    resize( height()/3, height() );
+}
+
+void ImageCover::slotReloadCover()
+{
+    emit reloadCover();
 }

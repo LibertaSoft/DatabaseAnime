@@ -153,6 +153,14 @@ void DialogAddManga::setTabOrders()
     setTabOrder(ui->SpinBox_vCh,    ui->SpinBox_vPages);
 }
 
+void DialogAddManga::connectSlots()
+{
+    connect( & _imageLoader, SIGNAL( imageLoaded(QImage) ),
+             this,           SLOT( coverLoaded(QImage) ) );
+    connect( ui->Lbl_ImageCover, SIGNAL( reloadCover() ),
+             this,               SLOT( reloadCover() ) );
+}
+
 DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     QDialog(parent), ui(new Ui::DialogAddManga), _isEditRole( true ), _recordId( record_id ),
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
@@ -167,8 +175,7 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
     setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
-    connect( & _imageLoader, SIGNAL(imageLoaded(QImage)),
-             this,           SLOT(coverLoaded(QImage)) );
+    connectSlots();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -196,8 +203,7 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
     setSearchOutput( static_cast<SearchOutput>(searchOutType) );
 
-    connect( & _imageLoader, SIGNAL(imageLoaded(QImage)),
-             this,           SLOT(coverLoaded(QImage)) );
+    connectSlots();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -397,6 +403,11 @@ void DialogAddManga::on_SpinBox_Year_valueChanged(int = 0)
     ui->CBox_Year->setChecked( true );
 }
 
+void DialogAddManga::reloadCover()
+{
+    _imageLoader.getImage( _urlCover );
+}
+
 void DialogAddManga::on_LineEdit_Title_textEdited(const QString &title)
 {
     if( _autoSearchOnShikimori == false )
@@ -470,12 +481,17 @@ void DialogAddManga::setRecivedData(QMap<QString, QVariant> data)
 
     ui->LineEdit_URL->setText( data[Url].toString() );
 
-    QSettings cfg;
-    if( cfg.value( Options::Network::DOWNLOAD_COVERS, true ).toBool() ){
-        QString cover = data[ImagePath].toString();
-        QUrl urlCover(shikimoriUrl + cover);
+    QString cover = data[ImagePath].toString();
+    _urlCover = QUrl(shikimoriUrl + cover);
+    ui->Lbl_ImageCover->enableReloadButton( ! _urlCover.isEmpty() );
 
-        _imageLoader.getImage( urlCover );
+    QSettings cfg;
+    bool hasLoadImage = ui->Lbl_ImageCover->isNullImage()
+                        || (cfg.value( Options::Network::RELOAD_COVERS, true ).toBool());
+
+    if( hasLoadImage ){
+        _imageLoader.getImage( _urlCover );
+
     }
 }
 

@@ -762,7 +762,7 @@ void Settings::loadSettings()
         }
         ui->SpinBox_SearchLimit->setValue( cfg.value( SEARCH_LIMIT, 10 ).toInt() );
         ui->ComboBox_SearchOutput->setCurrentIndex( cfg.value( SEARCH_OUTPUT, SearchOutput::MIX ).toInt() );
-        ui->ChBox_DownloadCovers->setChecked( cfg.value( DOWNLOAD_COVERS, true ).toBool() );
+        ui->ChBox_DownloadCovers->setChecked( cfg.value( RELOAD_COVERS, true ).toBool() );
     }
     {
         using namespace Options::General;
@@ -875,7 +875,7 @@ void Settings::saveSettings()
         cfg.setValue( LIVE_SEARCH  , ui->ChBox_SearchOnShikimori->isChecked() );
         cfg.setValue( SEARCH_OUTPUT, ui->ComboBox_SearchOutput->currentData().toInt() );
         cfg.setValue( SEARCH_LIMIT , ui->SpinBox_SearchLimit->value() );
-        cfg.setValue( DOWNLOAD_COVERS, ui->ChBox_DownloadCovers->isChecked() );
+        cfg.setValue( RELOAD_COVERS, ui->ChBox_DownloadCovers->isChecked() );
     }
     { // Style
         using namespace Options::Style;
