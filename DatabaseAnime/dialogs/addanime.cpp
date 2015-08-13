@@ -173,6 +173,7 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
+    setWindowTitle( tr("Editing anime") );
     QSettings cfg;
     this->restoreGeometry( cfg.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");

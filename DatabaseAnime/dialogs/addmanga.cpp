@@ -166,6 +166,7 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
+    setWindowTitle( tr("Editing manga") );
     QSettings cfg;
     this->restoreGeometry( cfg.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
