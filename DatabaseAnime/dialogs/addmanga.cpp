@@ -76,7 +76,8 @@ void DialogAddManga::setDataInFields()
 
     _oldCover = record.value( Tables::Manga::Fields::ImagePath ).toString();
     QPixmap pm( DefinesPath::mangaCovers() + _oldCover );
-    if( !pm.isNull() ){
+
+    if( ! pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
         ui->Lbl_ImageCover->setImagePath( DefinesPath::mangaCovers() + _oldCover );
     }else{
@@ -224,7 +225,7 @@ DialogAddManga::~DialogAddManga()
     delete ui;
 }
 
-void DialogAddManga::btnBox_reset()
+void DialogAddManga::btnBox_reset(bool clearImage = true)
 {
     ui->CheckBox_LookLater->setChecked( false );
     ui->CheckBox_Editing->setChecked( false );
@@ -255,7 +256,8 @@ void DialogAddManga::btnBox_reset()
     ui->LineEdit_Dir->clear();
     ui->LineEdit_URL->clear();
 
-    ui->Lbl_ImageCover->noImage();
+    if( clearImage )
+        ui->Lbl_ImageCover->noImage();
 }
 
 void DialogAddManga::on_BtnBox_clicked(QAbstractButton *button)
@@ -454,8 +456,9 @@ void DialogAddManga::on_TBtn_Search_clicked()
 
 void DialogAddManga::setRecivedData(QMap<QString, QVariant> data)
 {
+
     using namespace Tables::Manga::Fields;
-    btnBox_reset();
+    btnBox_reset(false);
     ui->TabWidget_Info->setCurrentIndex(2);
 
     ui->LineEdit_Title->setText( data[Title].toString() );
@@ -488,11 +491,16 @@ void DialogAddManga::setRecivedData(QMap<QString, QVariant> data)
 
     QSettings cfg;
     bool hasLoadImage = ui->Lbl_ImageCover->isNullImage()
+                        || ( ! _isEditRole )
                         || (cfg.value( Options::Network::RELOAD_COVERS, true ).toBool());
+
+    qDebug() << "hasLoadImage:"
+             << ui->Lbl_ImageCover->isNullImage()
+             << ( ! _isEditRole )
+             << (cfg.value( Options::Network::RELOAD_COVERS, true ).toBool());
 
     if( hasLoadImage ){
         _imageLoader.getImage( _urlCover );
-
     }
 }
 

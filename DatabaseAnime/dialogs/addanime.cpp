@@ -108,11 +108,9 @@ void DialogAddAnime::setDataInField()
     ui->LineEdit_URL->setText( record.value( Tables::Anime::Fields::Url ).toString() );
 
     _oldCover = record.value( Tables::Anime::Fields::ImagePath ).toString();
-    _urlCover = _oldCover;
-
     QPixmap pm( DefinesPath::animeCovers() + _oldCover );
 
-    if( !pm.isNull() ){
+    if( ! pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
         ui->Lbl_ImageCover->setImagePath( DefinesPath::animeCovers() + _oldCover );
     }else{
@@ -555,7 +553,13 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 
     QSettings cfg;
     bool hasLoadImage = ui->Lbl_ImageCover->isNullImage()
+                        || ( ! _isEditRole )
                         || (cfg.value( Options::Network::RELOAD_COVERS, true ).toBool());
+
+    qDebug() << "hasLoadImage:"
+             << ui->Lbl_ImageCover->isNullImage()
+             << ( ! _isEditRole )
+             << (cfg.value( Options::Network::RELOAD_COVERS, true ).toBool());
 
     if( hasLoadImage ){
         _imageLoader.getImage( _urlCover );
