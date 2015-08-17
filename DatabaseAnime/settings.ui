@@ -145,8 +145,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>610</width>
-             <height>668</height>
+             <width>608</width>
+             <height>666</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -266,10 +266,10 @@
                    </item>
                   </layout>
                  </item>
-                 <item row="0" column="0">
+                 <item row="0" column="0" colspan="2">
                   <widget class="QCheckBox" name="ChBox_DownloadCovers">
                    <property name="text">
-                    <string>Reload covers</string>
+                    <string>Reload covers on update</string>
                    </property>
                   </widget>
                  </item>
@@ -462,8 +462,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>311</width>
-             <height>261</height>
+             <width>325</width>
+             <height>222</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -599,8 +599,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>327</width>
-             <height>241</height>
+             <width>345</width>
+             <height>236</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -767,8 +767,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>327</width>
-             <height>239</height>
+             <width>345</width>
+             <height>234</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
