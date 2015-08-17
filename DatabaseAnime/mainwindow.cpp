@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ListWidget_Dir(nullptr), _btnPlay(nullptr), _ScrArea_propertyes(nullptr), _restoreDefSettings(false)
 {
     QSettings settings;
-    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Options::General::Language, QLocale::English ).toInt());
+    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Options::General::LANGUAGE, QLocale::English ).toInt());
     if( language == 0 ){
         language = QLocale::system().language();
     }
@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->Lbl_VVersion->setText( qApp->applicationVersion() );
 
-    _displayedField = static_cast<Tables::UniformField::field>( settings.value( Options::General::DisplayedField, Tables::UniformField::Title ).toInt() );
+    _displayedField = static_cast<Tables::UniformField::field>( settings.value( Options::General::DISPLAYED_FIELD, Tables::UniformField::TITLE ).toInt() );
 
 //    [svg logo]
 //    ui->Lbl_logo->setVisible( false );
@@ -62,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    ui->VLay_logoSvg->setAlignment(logo, Qt::AlignCenter);
 
     // Verification of the new version
-    if( settings.value(Options::Network::CheckUpdates, true).toBool() ){
+    if( settings.value(Options::Network::CHECK_UPDATES, true).toBool() ){
         QUrl url("https://api.github.com/repos/LibertaSoft/DatabaseAnime/releases");
         QNetworkAccessManager *manager = new QNetworkAccessManager(this);
         connect(manager, &QNetworkAccessManager::finished,
@@ -74,7 +74,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->restoreState( settings.value(Options::Dialogs::MainWindow::State).toByteArray() );
     ui->splitter->restoreGeometry( settings.value(Options::Dialogs::MainWindow::Splitter::Geometry).toByteArray() );
     ui->splitter->restoreState( settings.value(Options::Dialogs::MainWindow::Splitter::State).toByteArray() );
-    _sort = static_cast<Sort::sort>( settings.value(Options::General::Sorting, Sort::asc).toInt() );
+    _sort = static_cast<Sort::sort>( settings.value(Options::General::SORTING, Sort::asc).toInt() );
     bool c1 = settings.value( Options::General::SwitchCoverOrDir, true ).toBool();
     ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 
@@ -339,10 +339,10 @@ sections::section MainWindow::getActiveTable()
 void MainWindow::reloadSectionsList()
 {
     QSettings settings;
-    bool set_enableBtnAnime  = settings.value(Options::ActiveSections::Anime,   true).toBool();
-    bool set_enableBtnManga  = settings.value(Options::ActiveSections::Manga,  false).toBool();
-    bool set_enableBtnAMV    = settings.value(Options::ActiveSections::Amv,    false).toBool();
-    bool set_enableBtnDorama = settings.value(Options::ActiveSections::Dorama, false).toBool();
+    bool set_enableBtnAnime  = settings.value(Options::ActiveSections::ANIME,   true).toBool();
+    bool set_enableBtnManga  = settings.value(Options::ActiveSections::MANGA,  false).toBool();
+    bool set_enableBtnAMV    = settings.value(Options::ActiveSections::AMV,    false).toBool();
+    bool set_enableBtnDorama = settings.value(Options::ActiveSections::DORAMA, false).toBool();
 
     sections::section set_select
             = static_cast<sections::section>(

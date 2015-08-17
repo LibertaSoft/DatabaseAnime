@@ -8,7 +8,7 @@
 
 namespace Tables{
     namespace UniformField{
-        enum field{All, id, Title, AltTitle, Url, Dir, ImagePath};
+        enum field{All, id, TITLE, ALT_TITLE, Url, Dir, ImagePath};
     }
     namespace Anime{
         const QString TableName("animeSerials");

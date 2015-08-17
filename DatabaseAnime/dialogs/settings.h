@@ -6,6 +6,7 @@
 #include "dbalocalization.h"
 #include "mngrconnection.h"
 #include "mngrquerys.h"
+#include "globalenum.h"
 
 #include "share/xml/xmldbareader.h"
 #include "share/xml/xmldbawriter.h"
@@ -37,6 +38,9 @@ private:
     QPalette paletteFromColorPicker();
     bool duplicateStyleName(QString name);
     void setApplicationStyle(QPalette palette);
+
+    void loadSettings();
+    void saveSettings();
 public:
     explicit Settings(MngrConnection &MngrCon, QWidget *parent = 0);
     ~Settings();

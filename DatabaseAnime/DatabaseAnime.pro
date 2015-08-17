@@ -39,7 +39,8 @@ HEADERS += \
     dbalocalization.h \
     shikimoriapi.h \
     widgets/colorpicker.h \
-    stylemanager.h
+    stylemanager.h \
+    imageloader.h
 
 SOURCES += \
     main.cpp \
@@ -60,7 +61,8 @@ SOURCES += \
     dbalocalization.cpp \
     shikimoriapi.cpp \
     widgets/colorpicker.cpp \
-    stylemanager.cpp
+    stylemanager.cpp \
+    imageloader.cpp
 
 FORMS += \
     mainwindow.ui \

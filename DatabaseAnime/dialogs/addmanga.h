@@ -8,7 +8,9 @@
 #include <QStringListModel>
 #include <QNetworkAccessManager>
 #include <QCompleter>
+#include "globalenum.h"
 #include "shikimoriapi.h"
+#include "imageloader.h"
 
 namespace Ui {
 class DialogAddManga;
@@ -21,6 +23,11 @@ private:
     Ui::DialogAddManga *ui;
     QSqlQueryModel* model;
     ShikimoriApi api;
+    ImageLoader _imageLoader;
+
+    int _searchLimit = 10;
+    SearchOutput _searchOutput = SearchOutput::MIX;
+    QUrl _urlCover;
 
     bool _isEditRole;
     unsigned long long _recordId;
@@ -46,6 +53,7 @@ private:
     void createOptionalFields();
     bool insert_Manga();
     void setTabOrders();
+    void connectSlots();
 
 public:
     explicit DialogAddManga(QWidget *parent, unsigned long long record_id);
@@ -60,14 +68,18 @@ private slots:
     void on_SpinBox_aCh_valueChanged(int);
     void on_SpinBox_aPages_valueChanged(int);
     void on_LineEdit_Dir_textChanged(const QString&);
-    void btnBox_reset();
+    void btnBox_reset(bool clearImage);
     void on_TBtn_ChooseDir_clicked();
     void on_SpinBox_Year_valueChanged(int);
+    void reloadCover();
 
-    void replyDownloadPictureFinished(QNetworkReply*);
+    void coverLoaded(QImage image);
     void on_LineEdit_Title_textEdited(const QString &title);
     void on_TBtn_Search_clicked();
     void setRecivedData(QMap<QString,QVariant> data);
+    bool setSearchLimit(const int limit);
+    void setSearchOutput(const SearchOutput outType);
+    void setCompletionModel(QStringList eng, QStringList rus);
 };
 
 #endif // DIALOGADDMANGA_H
