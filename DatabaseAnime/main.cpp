@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");
     app.setApplicationName("DatabaseAnime");
-    app.setApplicationVersion("1.4.1");
+    app.setApplicationVersion("1.4.2");
     app.setApplicationDisplayName( QObject::tr("Database Anime") );
     app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
 
