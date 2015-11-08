@@ -6,7 +6,7 @@ TEMPLATE = app
 CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
 
-VERSION = 1.3.2.4
+VERSION = 1.4.2.4
 #Last digit:
 # 0 - Pre-Alpha
 # 1 - Alpha
@@ -39,7 +39,8 @@ HEADERS += \
     dbalocalization.h \
     shikimoriapi.h \
     widgets/colorpicker.h \
-    stylemanager.h
+    stylemanager.h \
+    imageloader.h
 
 SOURCES += \
     main.cpp \
@@ -60,7 +61,8 @@ SOURCES += \
     dbalocalization.cpp \
     shikimoriapi.cpp \
     widgets/colorpicker.cpp \
-    stylemanager.cpp
+    stylemanager.cpp \
+    imageloader.cpp
 
 FORMS += \
     mainwindow.ui \

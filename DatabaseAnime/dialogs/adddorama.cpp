@@ -107,6 +107,7 @@ DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned long long record_id) 
     LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {
     ui->setupUi(this);
+    setWindowTitle( tr("Editing dorama") );
     QSettings settings;
     this->restoreGeometry( settings.value(Options::Dialogs::Dorama::Geometry).toByteArray() );
 

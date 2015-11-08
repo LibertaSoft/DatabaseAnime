@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>728</width>
-    <height>637</height>
+    <width>838</width>
+    <height>727</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -116,7 +116,7 @@
        <enum>QFrame::Sunken</enum>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="Page_General">
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -145,8 +145,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>486</width>
-             <height>586</height>
+             <width>608</width>
+             <height>666</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -183,20 +183,97 @@
               <property name="title">
                <string>Network:</string>
               </property>
-              <layout class="QGridLayout" name="gridLayout">
-               <item row="0" column="0">
-                <widget class="QCheckBox" name="ChBox_CheckForUpdate">
-                 <property name="text">
-                  <string>Checking updates</string>
+              <layout class="QVBoxLayout" name="verticalLayout_8">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_23">
+                 <property name="topMargin">
+                  <number>0</number>
                  </property>
-                </widget>
+                 <item>
+                  <widget class="QCheckBox" name="ChBox_SearchOnShikimori">
+                   <property name="text">
+                    <string>Live search on shikimori</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="ChBox_CheckForUpdate">
+                   <property name="text">
+                    <string>Checking updates</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
-               <item row="1" column="0">
-                <widget class="QCheckBox" name="ChBox_SearchOnShikimori">
-                 <property name="text">
-                  <string>Live search on shikimori</string>
+               <item>
+                <layout class="QFormLayout" name="formLayout_7">
+                 <property name="topMargin">
+                  <number>0</number>
                  </property>
-                </widget>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="Label_SearchLimit">
+                   <property name="text">
+                    <string>Limit of search results:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QLabel" name="Label_SearchOutput">
+                   <property name="text">
+                    <string>Search output:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="1">
+                  <widget class="QComboBox" name="ComboBox_SearchOutput"/>
+                 </item>
+                 <item row="1" column="1">
+                  <layout class="QHBoxLayout" name="HLay_SearchLimit">
+                   <item>
+                    <widget class="QSlider" name="HSlider_SearchLimit">
+                     <property name="minimum">
+                      <number>1</number>
+                     </property>
+                     <property name="maximum">
+                      <number>100</number>
+                     </property>
+                     <property name="value">
+                      <number>10</number>
+                     </property>
+                     <property name="orientation">
+                      <enum>Qt::Horizontal</enum>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QSpinBox" name="SpinBox_SearchLimit">
+                     <property name="correctionMode">
+                      <enum>QAbstractSpinBox::CorrectToPreviousValue</enum>
+                     </property>
+                     <property name="showGroupSeparator" stdset="0">
+                      <bool>false</bool>
+                     </property>
+                     <property name="minimum">
+                      <number>1</number>
+                     </property>
+                     <property name="maximum">
+                      <number>100</number>
+                     </property>
+                     <property name="value">
+                      <number>10</number>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="0" column="0" colspan="2">
+                  <widget class="QCheckBox" name="ChBox_DownloadCovers">
+                   <property name="text">
+                    <string>Reload covers on update</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
                </item>
               </layout>
              </widget>
@@ -385,8 +462,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>500</width>
-             <height>578</height>
+             <width>325</width>
+             <height>222</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -522,8 +599,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>500</width>
-             <height>578</height>
+             <width>345</width>
+             <height>236</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -690,8 +767,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>500</width>
-             <height>578</height>
+             <width>345</width>
+             <height>234</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -1307,6 +1384,38 @@
     <hint type="destinationlabel">
      <x>286</x>
      <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>HSlider_SearchLimit</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SpinBox_SearchLimit</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>503</x>
+     <y>191</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>647</x>
+     <y>191</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>SpinBox_SearchLimit</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>HSlider_SearchLimit</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>647</x>
+     <y>191</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>191</y>
     </hint>
    </hints>
   </connection>

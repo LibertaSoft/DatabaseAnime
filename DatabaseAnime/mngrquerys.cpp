@@ -11,7 +11,7 @@ QString MngrQuerys::fieldToString(Tables::UniformField::field field, sections::s
         case id :
             // "id"
             return Tables::Anime::Fields::id;
-        case Title :
+        case TITLE :
             switch(section){
                 case sections::anime :
                     return Tables::Anime::Fields::Title;
@@ -24,7 +24,7 @@ QString MngrQuerys::fieldToString(Tables::UniformField::field field, sections::s
                 case sections::none :
                     return QString::null;
             }
-        case AltTitle :
+        case ALT_TITLE :
             switch(section){
                 case sections::anime :
                     return Tables::Anime::Fields::AltTitle;

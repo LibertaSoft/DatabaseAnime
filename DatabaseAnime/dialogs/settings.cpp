@@ -51,112 +51,10 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     ui->LineEdit_Export_FilePath->setText( DefinesPath::home() );
     ui->LineEdit_Import_FilePath->setText( DefinesPath::home() );
 
-    bool b1 = settings.value( Options::ActiveSections::Anime,   true ).toBool();
-    bool b2 = settings.value( Options::ActiveSections::Manga,  false ).toBool();
-    bool b3 = settings.value( Options::ActiveSections::Amv,    false ).toBool();
-    bool b4 = settings.value( Options::ActiveSections::Dorama, false ).toBool();
-
-
-    bool a1 = settings.value( Options::OptionalFields::Anime::AltTitle,    false ).toBool();
-    bool a2 = settings.value( Options::OptionalFields::Anime::Director,    false ).toBool();
-    bool a3 = settings.value( Options::OptionalFields::Anime::Postscoring, false ).toBool();
-
-    bool m1 = settings.value( Options::OptionalFields::Manga::AltTitle,    false ).toBool();
-    bool m2 = settings.value( Options::OptionalFields::Manga::Author,      false ).toBool();
-    bool m3 = settings.value( Options::OptionalFields::Manga::Translator,  false ).toBool();
-
-    bool d1 = settings.value( Options::OptionalFields::Dorama::AltTitle, false ).toBool();
-    bool d2 = settings.value( Options::OptionalFields::Dorama::Director, false ).toBool();
-
-    bool checkUpdates      = settings.value(Options::Network::CheckUpdates,          true).toBool();
-    bool searchOnShikimori = settings.value(Options::Network::AutoSearchOnShikimori, true).toBool();
-
-    bool SwitchCoverOrDir = settings.value( Options::General::SwitchCoverOrDir, true ).toBool();
-
-    ui->ChBox_AS_Anime->setChecked( b1 );
-    ui->ChBox_AS_Manga->setChecked( b2 );
-    ui->ChBox_AS_Amv->setChecked( b3 );
-    ui->ChBox_AS_Dorama->setChecked( b4 );
-
-    ui->ChBox_OptField_Anime_AltTitle->setChecked( a1 );
-    ui->ChBox_OptField_Anime_Director->setChecked( a2 );
-    ui->ChBox_OptField_Anime_Postscoring->setChecked( a3 );
-
-    ui->ChBox_OptField_Manga_AltTitle->setChecked( m1 );
-    ui->ChBox_OptField_Manga_Author->setChecked( m2 );
-    ui->ChBox_OptField_Manga_Translation->setChecked( m3 );
-
-    ui->ChBox_OptField_Dorama_AltTitle->setChecked( d1 );
-    ui->ChBox_OptField_Dorama_Director->setChecked( d2 );
-
-    ui->ChBox_CheckForUpdate->setChecked( checkUpdates );
-    ui->ChBox_SwitchCoverOrDir->setChecked( SwitchCoverOrDir );
-    ui->ChBox_SearchOnShikimori->setChecked( searchOnShikimori );
-
-    QLocale::Language set_language = static_cast<QLocale::Language>(settings.value( Options::General::Language, QLocale::English ).toInt());
-
-    ui->ComboBox_Language->addItem( tr("System"), 0 );
-
-    /// \~russian
-    /// \todo Использовать поиск языка по имени, а не по индексу, на каждой проверке.
-    QMap<QLocale::Language,QString> langList = DbaLocalization::readExistsLocalizations( DefinesPath::share() );
-    int i(0);
-    foreach (QString langName, langList) {
-        ++i;
-        ui->ComboBox_Language->addItem(langName, langList.key(langName));
-        if( set_language == langList.key(langName) )
-            ui->ComboBox_Language->setCurrentIndex(i);
-    }
-
-    {  // Sorting
-        ui->ComboBox_ItemList_Sorting->addItem(tr("None"), Sort::none);
-        ui->ComboBox_ItemList_Sorting->addItem(tr("ASC"),  Sort::asc);
-        ui->ComboBox_ItemList_Sorting->addItem(tr("DESC"), Sort::desc);
-        ui->ComboBox_ItemList_Sorting->addItem(tr("Year"), Sort::year);
-
-        Sort::sort sort = static_cast<Sort::sort>( settings.value( Options::General::Sorting, Sort::asc ).toInt() );
-        ui->ComboBox_ItemList_Sorting->setCurrentIndex( sort );
-    }
     // Work dir
     ui->LineEdit_WorkDir->setText( QDir::toNativeSeparators( DefinesPath::appData() ) );
 
-    {   // Displayed field
-        Tables::UniformField::field displayedField =
-                static_cast<Tables::UniformField::field>(
-                    settings.value( Options::General::DisplayedField, Tables::UniformField::Title ).toInt() );
-        ui->ComboBox_ItemList_DisplayedField->addItem(tr("Title"), Tables::UniformField::Title);
-        ui->ComboBox_ItemList_DisplayedField->addItem(tr("Alternative title"), Tables::UniformField::AltTitle);
-        if( displayedField == Tables::UniformField::Title ){
-            const int TITLE_INDEX = 0;
-            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( TITLE_INDEX );
-        }else{
-            const int ALT_TITLE_INDEX = 1;
-            ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( ALT_TITLE_INDEX );
-        }
-    }
-
-    { // Style
-        using namespace Options::Style;
-
-        QString styleName = settings.value( CurrentStyleName, "System" ).toString();
-        bool    isSystemStyle    = settings.value( SystemStyle, true ).toBool();
-
-        QSet<QString> styles = StyleManager::getExistsStyles();
-        ui->ComboBox_CurrentStyle->addItems( styles.toList() );
-
-        if( ( ! isSystemStyle) && styles.contains( styleName ) ){
-            ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText( styleName ) );
-            stylePalette = StyleManager::getPaletteOfStyle( styleName );
-        }else{
-            ui->ComboBox_CurrentStyle->setCurrentIndex( INDEX_OF_SYSTEM_STYLE );
-        }
-
-        initColorPickers( stylePalette );
-        connectColorPicker();
-        ui->GroupBox_Style_Colors->setEnabled( ! isSystemStyle );
-
-        ui->PButton_Style_SaveChanges->setVisible( false );
-    }
+    loadSettings();
 }
 
 Settings::~Settings()
@@ -231,67 +129,7 @@ void Settings::on_BtnBox_clicked(QAbstractButton *button)
 
 void Settings::on_BtnBox_accepted()
 {
-    QSettings settings;
-    {
-        using namespace Options::ActiveSections;
-        settings.setValue( Anime,  ui->ChBox_AS_Anime->isChecked() );
-        settings.setValue( Manga,  ui->ChBox_AS_Manga->isChecked() );
-        settings.setValue( Amv,    ui->ChBox_AS_Amv->isChecked() );
-        settings.setValue( Dorama, ui->ChBox_AS_Dorama->isChecked() );
-    }
-    {
-        using namespace Options::OptionalFields::Anime;
-        settings.setValue( AltTitle,   ui->ChBox_OptField_Anime_AltTitle->isChecked() );
-        settings.setValue( Director,    ui->ChBox_OptField_Anime_Director->isChecked() );
-        settings.setValue( Postscoring, ui->ChBox_OptField_Anime_Postscoring->isChecked() );
-    }
-    {
-        using namespace Options::OptionalFields::Manga;
-        settings.setValue( AltTitle,    ui->ChBox_OptField_Manga_AltTitle->isChecked() );
-        settings.setValue( Author,      ui->ChBox_OptField_Manga_Author->isChecked() );
-        settings.setValue( Translator,  ui->ChBox_OptField_Manga_Translation->isChecked() );
-    }
-    {
-        using namespace Options::OptionalFields::Dorama;
-        settings.setValue( AltTitle,   ui->ChBox_OptField_Dorama_AltTitle->isChecked() );
-        settings.setValue( Director,   ui->ChBox_OptField_Dorama_Director->isChecked() );
-    }
-    {
-        using namespace Options::General;
-        settings.setValue( Language, ui->ComboBox_Language->currentData() );
-        settings.setValue( Sorting,  ui->ComboBox_ItemList_Sorting->currentIndex() );
-    }
-    {
-        using namespace Options::Network;
-        settings.setValue( CheckUpdates,          ui->ChBox_CheckForUpdate->isChecked() );
-        settings.setValue( AutoSearchOnShikimori, ui->ChBox_SearchOnShikimori->isChecked() );
-    }
-    { // Style
-        using namespace Options::Style;
-        bool isSystemStyle = ui->ComboBox_CurrentStyle->currentIndex() == INDEX_OF_SYSTEM_STYLE;
-        QString styleName  = ui->ComboBox_CurrentStyle->currentText();
-
-        settings.setValue( SystemStyle, isSystemStyle );
-        settings.setValue( CurrentStyleName, styleName );
-
-        if( ! isSystemStyle )
-            StyleManager::saveStyle( styleName, paletteFromColorPicker() );
-    }
-
-    settings.setValue( Options::General::SwitchCoverOrDir, ui->ChBox_SwitchCoverOrDir->isChecked() );
-
-    if( QDir::isAbsolutePath( ui->LineEdit_WorkDir->text() ) )
-        settings.setValue( Options::General::WorkDirectory, QDir( ui->LineEdit_WorkDir->text() ).path() );
-    else
-        settings.remove(Options::General::WorkDirectory);
-
-    { // Displayed field
-        int displayedFieldId = ui->ComboBox_ItemList_DisplayedField->currentData().toInt();
-        Tables::UniformField::field displayedField
-                = static_cast<Tables::UniformField::field>( displayedFieldId );
-        settings.setValue( Options::General::DisplayedField, displayedField );
-    }
-
+    saveSettings();
 }
 
 void Settings::BtnBox_resetDefaults()
@@ -317,9 +155,14 @@ void Settings::BtnBox_resetDefaults()
     ui->ComboBox_Language->setCurrentIndex( SYSTEM_LANGUAGE );
     ui->ComboBox_ItemList_Sorting->setCurrentIndex( Sort::asc );
 
-    ui->ChBox_CheckForUpdate->setChecked( true );
+
     ui->ChBox_SwitchCoverOrDir->setChecked( true );
+
+    ui->ChBox_CheckForUpdate->setChecked( true );
     ui->ChBox_SearchOnShikimori->setChecked( true );
+    ui->ChBox_DownloadCovers->setChecked( true );
+    ui->ComboBox_SearchOutput->setCurrentIndex( SearchOutput::MIX );
+    ui->SpinBox_SearchLimit->setValue( 10 );
 
     ui->LineEdit_WorkDir->setText( DefinesPath::appData(true) );
 
@@ -882,6 +725,185 @@ void Settings::setApplicationStyle(QPalette palette)
     qApp->setPalette( palette );
     /// \todo : may be this don't need here
     qApp->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
+}
+
+void Settings::loadSettings()
+{
+    QSettings cfg;
+    {
+        using namespace Options::ActiveSections;
+        ui->ChBox_AS_Anime ->setChecked( cfg.value( ANIME , true  ).toBool() );
+        ui->ChBox_AS_Manga ->setChecked( cfg.value( MANGA , false ).toBool() );
+        ui->ChBox_AS_Amv   ->setChecked( cfg.value( AMV   , false ).toBool() );
+        ui->ChBox_AS_Dorama->setChecked( cfg.value( DORAMA, false ).toBool() );
+    }
+    {
+        using namespace Options::OptionalFields;
+
+        ui->ChBox_OptField_Anime_AltTitle   ->setChecked( cfg.value( Anime::AltTitle   , false ).toBool() );
+        ui->ChBox_OptField_Anime_Director   ->setChecked( cfg.value( Anime::Director   , false ).toBool() );
+        ui->ChBox_OptField_Anime_Postscoring->setChecked( cfg.value( Anime::Postscoring, false ).toBool() );
+
+        ui->ChBox_OptField_Manga_AltTitle   ->setChecked( cfg.value( Manga::AltTitle  , false ).toBool() );
+        ui->ChBox_OptField_Manga_Author     ->setChecked( cfg.value( Manga::Author    , false ).toBool() );
+        ui->ChBox_OptField_Manga_Translation->setChecked( cfg.value( Manga::Translator, false ).toBool() );
+
+        ui->ChBox_OptField_Dorama_AltTitle->setChecked( cfg.value( Dorama::AltTitle, false ).toBool() );
+        ui->ChBox_OptField_Dorama_Director->setChecked( cfg.value( Dorama::Director, false ).toBool() );
+    }
+    {
+        using namespace Options::Network;
+
+        ui->ChBox_CheckForUpdate   ->setChecked( cfg.value( CHECK_UPDATES, true ).toBool() );
+        ui->ChBox_SearchOnShikimori->setChecked( cfg.value( LIVE_SEARCH  , true ).toBool() );
+        /// \todo DefaultValues
+        {
+            ui->ComboBox_SearchOutput->addItem( tr("English"), SearchOutput::ENG );
+            ui->ComboBox_SearchOutput->addItem( tr("Russian"), SearchOutput::RUS );
+            ui->ComboBox_SearchOutput->addItem( tr("Mixed")  , SearchOutput::MIX );
+        }
+        ui->SpinBox_SearchLimit->setValue( cfg.value( SEARCH_LIMIT, 10 ).toInt() );
+        ui->ComboBox_SearchOutput->setCurrentIndex( cfg.value( SEARCH_OUTPUT, SearchOutput::MIX ).toInt() );
+        ui->ChBox_DownloadCovers->setChecked( cfg.value( RELOAD_COVERS, true ).toBool() );
+    }
+    {
+        using namespace Options::General;
+
+        ui->ChBox_SwitchCoverOrDir->setChecked(  cfg.value( SwitchCoverOrDir, true ).toBool() );
+
+        QLocale locale( cfg.value( LANGUAGE, QLocale::system().name() ).toString() );
+
+        ui->ComboBox_Language->addItem( tr("System"), QLocale::system().language() );
+
+        auto langMap = DbaLocalization::readExistsLocalizations( DefinesPath::share() );
+        for( auto it = langMap.begin(); it != langMap.end(); ++it ){
+            ui->ComboBox_Language->addItem( it.value(), it.key() );
+
+            if( locale.language() == it.key() )
+                ui->ComboBox_Language->setCurrentText( it.value() );
+        }
+    }
+    {  // Sorting
+        using namespace Options::General;
+        ui->ComboBox_ItemList_Sorting->addItem( tr("None"), Sort::none);
+        ui->ComboBox_ItemList_Sorting->addItem( tr("ASC"),  Sort::asc );
+        ui->ComboBox_ItemList_Sorting->addItem( tr("DESC"), Sort::desc);
+        ui->ComboBox_ItemList_Sorting->addItem( tr("Year"), Sort::year);
+
+        auto sort = cfg.value( SORTING, Sort::asc ).toInt();
+        ui->ComboBox_ItemList_Sorting->setCurrentIndex( sort );
+    }
+    {  // Displayed field
+        using namespace Tables::UniformField;
+        using namespace Options::General;
+
+        ui->ComboBox_ItemList_DisplayedField->addItem( tr("Title")            , TITLE    );
+        ui->ComboBox_ItemList_DisplayedField->addItem( tr("Alternative title"), ALT_TITLE);
+
+        int cfgField = cfg.value( DISPLAYED_FIELD, TITLE ).toInt();
+        auto displayedField = static_cast<Tables::UniformField::field>( cfgField );
+
+        enum IndexInComboBox{ TITLE_INDEX, ALT_TITLE_INDEX };
+
+        int indexDisplayedField = ( displayedField == TITLE )
+                                  ? TITLE_INDEX
+                                  : ALT_TITLE_INDEX;
+
+        ui->ComboBox_ItemList_DisplayedField->setCurrentIndex( indexDisplayedField );
+    }
+    {  // Style
+        using namespace Options::Style;
+
+        QString styleName     = cfg.value( CurrentStyleName, "System" ).toString();
+        bool    isSystemStyle = cfg.value( SystemStyle     , true     ).toBool();
+
+        QSet<QString> styles = StyleManager::getExistsStyles();
+        ui->ComboBox_CurrentStyle->addItems( styles.toList() );
+
+        if( ( ! isSystemStyle) && styles.contains( styleName ) ){
+            ui->ComboBox_CurrentStyle->setCurrentIndex( ui->ComboBox_CurrentStyle->findText( styleName ) );
+            stylePalette = StyleManager::getPaletteOfStyle( styleName );
+        }else{
+            ui->ComboBox_CurrentStyle->setCurrentIndex( INDEX_OF_SYSTEM_STYLE );
+        }
+
+        initColorPickers( stylePalette );
+        connectColorPicker();
+        ui->GroupBox_Style_Colors->setEnabled( ! isSystemStyle );
+
+        ui->PButton_Style_SaveChanges->setVisible( false );
+    }
+}
+
+void Settings::saveSettings()
+{
+    QSettings cfg;
+    {
+        using namespace Options::ActiveSections;
+        cfg.setValue( ANIME,  ui->ChBox_AS_Anime->isChecked() );
+        cfg.setValue( MANGA,  ui->ChBox_AS_Manga->isChecked() );
+        cfg.setValue( AMV,    ui->ChBox_AS_Amv->isChecked() );
+        cfg.setValue( DORAMA, ui->ChBox_AS_Dorama->isChecked() );
+    }
+    {
+        using namespace Options::OptionalFields::Anime;
+        cfg.setValue( AltTitle,    ui->ChBox_OptField_Anime_AltTitle->isChecked() );
+        cfg.setValue( Director,    ui->ChBox_OptField_Anime_Director->isChecked() );
+        cfg.setValue( Postscoring, ui->ChBox_OptField_Anime_Postscoring->isChecked() );
+    }
+    {
+        using namespace Options::OptionalFields::Manga;
+        cfg.setValue( AltTitle,   ui->ChBox_OptField_Manga_AltTitle->isChecked() );
+        cfg.setValue( Author,     ui->ChBox_OptField_Manga_Author->isChecked() );
+        cfg.setValue( Translator, ui->ChBox_OptField_Manga_Translation->isChecked() );
+    }
+    {
+        using namespace Options::OptionalFields::Dorama;
+        cfg.setValue( AltTitle, ui->ChBox_OptField_Dorama_AltTitle->isChecked() );
+        cfg.setValue( Director, ui->ChBox_OptField_Dorama_Director->isChecked() );
+    }
+    {
+        using namespace Options::General;
+
+        int lang = ui->ComboBox_Language->currentData().toInt();
+        QLocale locale = QLocale( QLocale::Language(lang) );
+
+        cfg.setValue( LANGUAGE, locale.name() );
+        cfg.setValue( SORTING,  ui->ComboBox_ItemList_Sorting->currentIndex() );
+    }
+    {
+        using namespace Options::Network;
+        cfg.setValue( CHECK_UPDATES, ui->ChBox_CheckForUpdate->isChecked() );
+        cfg.setValue( LIVE_SEARCH  , ui->ChBox_SearchOnShikimori->isChecked() );
+        cfg.setValue( SEARCH_OUTPUT, ui->ComboBox_SearchOutput->currentData().toInt() );
+        cfg.setValue( SEARCH_LIMIT , ui->SpinBox_SearchLimit->value() );
+        cfg.setValue( RELOAD_COVERS, ui->ChBox_DownloadCovers->isChecked() );
+    }
+    { // Style
+        using namespace Options::Style;
+        bool isSystemStyle = ui->ComboBox_CurrentStyle->currentIndex() == INDEX_OF_SYSTEM_STYLE;
+        QString styleName  = ui->ComboBox_CurrentStyle->currentText();
+
+        cfg.setValue( SystemStyle, isSystemStyle );
+        cfg.setValue( CurrentStyleName, styleName );
+
+        if( ! isSystemStyle )
+            StyleManager::saveStyle( styleName, paletteFromColorPicker() );
+    }
+
+    cfg.setValue( Options::General::SwitchCoverOrDir, ui->ChBox_SwitchCoverOrDir->isChecked() );
+
+    if( QDir::isAbsolutePath( ui->LineEdit_WorkDir->text() ) )
+        cfg.setValue( Options::General::WorkDirectory, QDir( ui->LineEdit_WorkDir->text() ).path() );
+    else
+        cfg.remove(Options::General::WorkDirectory);
+
+    { // Displayed field
+        int displayedFieldId = ui->ComboBox_ItemList_DisplayedField->currentData().toInt();
+        Tables::UniformField::field displayedField
+                = static_cast<Tables::UniformField::field>( displayedFieldId );
+        cfg.setValue( Options::General::DISPLAYED_FIELD, displayedField );
+    }
 }
 
 bool Settings::deleteRecords()

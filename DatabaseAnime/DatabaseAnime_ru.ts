@@ -117,39 +117,44 @@
         <translation>Перетащите изображение сюда или сделайте двойной клик для выбора</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="173"/>
-        <location filename="dialogs/addamv.cpp" line="178"/>
+        <location filename="dialogs/addamv.cpp" line="54"/>
+        <source>Editing AMV</source>
+        <translation>Редактирование AMV</translation>
+    </message>
+    <message>
+        <location filename="dialogs/addamv.cpp" line="174"/>
+        <location filename="dialogs/addamv.cpp" line="179"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="173"/>
+        <location filename="dialogs/addamv.cpp" line="174"/>
         <source>Cannot insert data.</source>
         <translation>Невозможно добавить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="178"/>
+        <location filename="dialogs/addamv.cpp" line="179"/>
         <source>Cannot update data.</source>
         <translation>Невозможно обновить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="189"/>
-        <location filename="dialogs/addamv.cpp" line="196"/>
+        <location filename="dialogs/addamv.cpp" line="190"/>
+        <location filename="dialogs/addamv.cpp" line="197"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="189"/>
+        <location filename="dialogs/addamv.cpp" line="190"/>
         <source>The field &apos;File&apos; is uncorrect</source>
         <translation>Поле &apos;Файл&apos; не корректно</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="196"/>
+        <location filename="dialogs/addamv.cpp" line="197"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>Не заполнено поле &apos;Название&apos;</translation>
     </message>
     <message>
-        <location filename="dialogs/addamv.cpp" line="210"/>
+        <location filename="dialogs/addamv.cpp" line="211"/>
         <source>Choose a video file</source>
         <translation>Выберете видео файл</translation>
     </message>
@@ -336,39 +341,44 @@
         <translation>Озвучивание</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="322"/>
-        <location filename="dialogs/addanime.cpp" line="327"/>
+        <location filename="dialogs/addanime.cpp" line="174"/>
+        <source>Editing anime</source>
+        <translation>Редактирование аниме</translation>
+    </message>
+    <message>
+        <location filename="dialogs/addanime.cpp" line="364"/>
+        <location filename="dialogs/addanime.cpp" line="369"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="322"/>
+        <location filename="dialogs/addanime.cpp" line="364"/>
         <source>Cannot insert data.</source>
         <translation>Невозможно добавить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="327"/>
+        <location filename="dialogs/addanime.cpp" line="369"/>
         <source>Cannot update data.</source>
         <translation>Невозможно обновить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="338"/>
-        <location filename="dialogs/addanime.cpp" line="345"/>
+        <location filename="dialogs/addanime.cpp" line="380"/>
+        <location filename="dialogs/addanime.cpp" line="387"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="338"/>
+        <location filename="dialogs/addanime.cpp" line="380"/>
         <source>The field &apos;Directory&apos; is uncorrect</source>
         <translation>Поле &apos;Директория&apos; не корректно</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="345"/>
+        <location filename="dialogs/addanime.cpp" line="387"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>Не заполнено поле &apos;Название&apos;</translation>
     </message>
     <message>
-        <location filename="dialogs/addanime.cpp" line="384"/>
+        <location filename="dialogs/addanime.cpp" line="426"/>
         <source>Choose a directory with video files</source>
         <translation>Выберете директорию с видео файлами</translation>
     </message>
@@ -529,39 +539,44 @@
         <translation>Режиссёр</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="254"/>
-        <location filename="dialogs/adddorama.cpp" line="259"/>
+        <location filename="dialogs/adddorama.cpp" line="110"/>
+        <source>Editing dorama</source>
+        <translation>Редактирование дорамы</translation>
+    </message>
+    <message>
+        <location filename="dialogs/adddorama.cpp" line="255"/>
+        <location filename="dialogs/adddorama.cpp" line="260"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="254"/>
+        <location filename="dialogs/adddorama.cpp" line="255"/>
         <source>Cannot insert data.</source>
         <translation>Невозможно добавить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="259"/>
+        <location filename="dialogs/adddorama.cpp" line="260"/>
         <source>Cannot update data.</source>
         <translation>Невозможно обновить запись.</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="270"/>
-        <location filename="dialogs/adddorama.cpp" line="277"/>
+        <location filename="dialogs/adddorama.cpp" line="271"/>
+        <location filename="dialogs/adddorama.cpp" line="278"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="270"/>
+        <location filename="dialogs/adddorama.cpp" line="271"/>
         <source>The field &apos;Directory&apos; is uncorrect</source>
         <translation>Поле &apos;Директория&apos; не корректно</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="277"/>
+        <location filename="dialogs/adddorama.cpp" line="278"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>Не заполнено поле &apos;Название&apos;</translation>
     </message>
     <message>
-        <location filename="dialogs/adddorama.cpp" line="306"/>
+        <location filename="dialogs/adddorama.cpp" line="307"/>
         <source>Choose a directory with video files</source>
         <translation>Выберете директорию с видео файлами</translation>
     </message>
@@ -741,54 +756,59 @@
         <translation>Перетащите изображение сюда или сделайте двойной клик для выбора</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="94"/>
+        <location filename="dialogs/addmanga.cpp" line="95"/>
         <source>Alternative title</source>
         <translation>Альтернативное название</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="101"/>
+        <location filename="dialogs/addmanga.cpp" line="102"/>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="108"/>
+        <location filename="dialogs/addmanga.cpp" line="109"/>
         <source>Translation</source>
         <translation>Переводчик</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="315"/>
-        <location filename="dialogs/addmanga.cpp" line="320"/>
+        <location filename="dialogs/addmanga.cpp" line="170"/>
+        <source>Editing manga</source>
+        <translation>Редактированеи манги</translation>
+    </message>
+    <message>
+        <location filename="dialogs/addmanga.cpp" line="338"/>
+        <location filename="dialogs/addmanga.cpp" line="343"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="315"/>
+        <location filename="dialogs/addmanga.cpp" line="338"/>
         <source>Cannot insert data</source>
         <translation>Невозможно добавить запись</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="320"/>
+        <location filename="dialogs/addmanga.cpp" line="343"/>
         <source>Cannot update data</source>
         <translation>Невозможно обновить запись</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="331"/>
-        <location filename="dialogs/addmanga.cpp" line="338"/>
+        <location filename="dialogs/addmanga.cpp" line="354"/>
+        <location filename="dialogs/addmanga.cpp" line="361"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="331"/>
+        <location filename="dialogs/addmanga.cpp" line="354"/>
         <source>The field &apos;Directory&apos; is uncorrect</source>
         <translation>Поле &apos;Директория&apos; не корректно</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="338"/>
+        <location filename="dialogs/addmanga.cpp" line="361"/>
         <source>The field &apos;Title&apos; is not filled</source>
         <translation>Не заполнено поле &apos;Название&apos;</translation>
     </message>
     <message>
-        <location filename="dialogs/addmanga.cpp" line="376"/>
+        <location filename="dialogs/addmanga.cpp" line="399"/>
         <source>Choose a directory with picture files</source>
         <translation>Выберете директорию с мангой</translation>
     </message>
@@ -1039,32 +1059,37 @@
 <context>
     <name>ImageCover</name>
     <message>
-        <location filename="widgets/imagecover.cpp" line="22"/>
+        <location filename="widgets/imagecover.cpp" line="23"/>
         <source>&amp;Choose image</source>
         <translation>&amp;Выбрать изображение</translation>
     </message>
     <message>
-        <location filename="widgets/imagecover.cpp" line="23"/>
+        <location filename="widgets/imagecover.cpp" line="24"/>
         <source>Clea&amp;n image</source>
         <translation>&amp;Убрать изображение</translation>
     </message>
     <message>
-        <location filename="widgets/imagecover.cpp" line="49"/>
+        <location filename="widgets/imagecover.cpp" line="25"/>
+        <source>&amp;Reload image</source>
+        <translation>&amp;Перезагрузить изображение</translation>
+    </message>
+    <message>
+        <location filename="widgets/imagecover.cpp" line="58"/>
         <source>Open picture</source>
         <translation>Выбрать изображение</translation>
     </message>
     <message>
-        <location filename="widgets/imagecover.cpp" line="50"/>
+        <location filename="widgets/imagecover.cpp" line="59"/>
         <source>Images</source>
         <translation>Изображения</translation>
     </message>
     <message>
-        <location filename="widgets/imagecover.cpp" line="79"/>
+        <location filename="widgets/imagecover.cpp" line="111"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="widgets/imagecover.cpp" line="79"/>
+        <location filename="widgets/imagecover.cpp" line="111"/>
         <source>It was not succeeded to load the picture</source>
         <translation>Не удалось загрузить изображение</translation>
     </message>
@@ -1994,15 +2019,15 @@
     </message>
     <message>
         <location filename="settings.ui" line="71"/>
-        <location filename="dialogs/settings.cpp" line="647"/>
-        <location filename="dialogs/settings.cpp" line="651"/>
+        <location filename="dialogs/settings.cpp" line="490"/>
+        <location filename="dialogs/settings.cpp" line="494"/>
         <source>Import</source>
         <translation>Импорт</translation>
     </message>
     <message>
         <location filename="settings.ui" line="83"/>
-        <location filename="settings.ui" line="782"/>
-        <location filename="dialogs/settings.cpp" line="604"/>
+        <location filename="settings.ui" line="859"/>
+        <location filename="dialogs/settings.cpp" line="447"/>
         <source>Export</source>
         <translation>Экспорт</translation>
     </message>
@@ -2036,35 +2061,35 @@
         <translation type="vanished">Живой поиск на shikimori</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="213"/>
+        <location filename="settings.ui" line="290"/>
         <source>Active sections:</source>
         <translation>Активные секции:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="219"/>
-        <location filename="settings.ui" line="561"/>
-        <location filename="settings.ui" line="729"/>
+        <location filename="settings.ui" line="296"/>
+        <location filename="settings.ui" line="638"/>
+        <location filename="settings.ui" line="806"/>
         <source>Anime</source>
         <translation>Аниме</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="226"/>
-        <location filename="settings.ui" line="571"/>
-        <location filename="settings.ui" line="739"/>
+        <location filename="settings.ui" line="303"/>
+        <location filename="settings.ui" line="648"/>
+        <location filename="settings.ui" line="816"/>
         <source>Manga</source>
         <translation>Манга</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="233"/>
-        <location filename="settings.ui" line="581"/>
-        <location filename="settings.ui" line="749"/>
+        <location filename="settings.ui" line="310"/>
+        <location filename="settings.ui" line="658"/>
+        <location filename="settings.ui" line="826"/>
         <source>Amv</source>
         <translation>AMV</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="240"/>
-        <location filename="settings.ui" line="591"/>
-        <location filename="settings.ui" line="759"/>
+        <location filename="settings.ui" line="317"/>
+        <location filename="settings.ui" line="668"/>
+        <location filename="settings.ui" line="836"/>
         <source>Dorama</source>
         <translation>Дорама</translation>
     </message>
@@ -2073,212 +2098,227 @@
         <translation type="vanished">Список:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="190"/>
+        <location filename="settings.ui" line="202"/>
         <source>Checking updates</source>
         <translation>Проверять обновления</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="197"/>
+        <location filename="settings.ui" line="195"/>
         <source>Live search on shikimori</source>
         <translation>Живой поиск на shikimori</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="250"/>
+        <location filename="settings.ui" line="216"/>
+        <source>Limit of search results:</source>
+        <translation>Ограничение поисковой выдачи:</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="223"/>
+        <source>Search output:</source>
+        <translation>Поисковая выдача:</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="272"/>
+        <source>Reload covers on update</source>
+        <translation>Перезагружать обложки при обновлении</translation>
+    </message>
+    <message>
+        <location filename="settings.ui" line="327"/>
         <source>Item list:</source>
         <comment>Current active element</comment>
         <translation>Список:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="256"/>
+        <location filename="settings.ui" line="333"/>
         <source>Sorting:</source>
         <translation>Сортировка:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="269"/>
+        <location filename="settings.ui" line="346"/>
         <source>Displayed field:</source>
         <translation>Отображаемое поле:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="289"/>
+        <location filename="settings.ui" line="366"/>
         <source>Active item:</source>
         <translation>Активный элемент:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="295"/>
+        <location filename="settings.ui" line="372"/>
         <source>Switch cover/directory</source>
         <translation>Переключение обложка/директория</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="305"/>
+        <location filename="settings.ui" line="382"/>
         <source>Work directory:</source>
         <translation>Рабочая директория:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="396"/>
+        <location filename="settings.ui" line="473"/>
         <source>Anime:</source>
         <translation>Аниме:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="402"/>
-        <location filename="settings.ui" line="432"/>
-        <location filename="settings.ui" line="462"/>
+        <location filename="settings.ui" line="479"/>
+        <location filename="settings.ui" line="509"/>
+        <location filename="settings.ui" line="539"/>
         <source>Alt title</source>
         <translation>Альт. Название</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="409"/>
-        <location filename="settings.ui" line="469"/>
+        <location filename="settings.ui" line="486"/>
+        <location filename="settings.ui" line="546"/>
         <source>Director</source>
         <translation>Режиссёр</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="416"/>
+        <location filename="settings.ui" line="493"/>
         <source>Postscoring</source>
         <translation>Озвучивание</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="426"/>
+        <location filename="settings.ui" line="503"/>
         <source>Manga:</source>
         <translation>Манга:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="439"/>
+        <location filename="settings.ui" line="516"/>
         <source>Author</source>
         <translation>Автор</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="446"/>
+        <location filename="settings.ui" line="523"/>
         <source>Translation</source>
         <translation>Переводчик</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="456"/>
+        <location filename="settings.ui" line="533"/>
         <source>Dorama:</source>
         <translation>Дорама:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="555"/>
+        <location filename="settings.ui" line="632"/>
         <source>Import sections:</source>
         <translation>Импортируемые разделы:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="604"/>
+        <location filename="settings.ui" line="681"/>
         <source>Import images</source>
         <translation>Импортировать изображения</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="616"/>
+        <location filename="settings.ui" line="693"/>
         <source>Append</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="627"/>
+        <location filename="settings.ui" line="704"/>
         <source>Replace</source>
         <translation>Заменить</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="723"/>
+        <location filename="settings.ui" line="800"/>
         <source>Export sections:</source>
         <translation>Экспортируемые разделы:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="772"/>
+        <location filename="settings.ui" line="849"/>
         <source>Export images</source>
         <translation>Экспортировать изображения</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="827"/>
+        <location filename="settings.ui" line="904"/>
         <source>Style:</source>
         <translation>Стиль:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="840"/>
-        <location filename="dialogs/settings.cpp" line="98"/>
+        <location filename="settings.ui" line="917"/>
+        <location filename="dialogs/settings.cpp" line="774"/>
         <source>System</source>
         <translation>Системный</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="848"/>
+        <location filename="settings.ui" line="925"/>
         <source>+</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="859"/>
+        <location filename="settings.ui" line="936"/>
         <source>-</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="872"/>
+        <location filename="settings.ui" line="949"/>
         <source>Color settings:</source>
         <translation>Настройки цветов:</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="878"/>
+        <location filename="settings.ui" line="955"/>
         <source>Window:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="905"/>
+        <location filename="settings.ui" line="982"/>
         <source>WindowText:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="932"/>
+        <location filename="settings.ui" line="1009"/>
         <source>Base:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="959"/>
+        <location filename="settings.ui" line="1036"/>
         <source>AlternateBase:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="986"/>
+        <location filename="settings.ui" line="1063"/>
         <source>ToolTipBase:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1013"/>
+        <location filename="settings.ui" line="1090"/>
         <source>ToolTipText:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1040"/>
+        <location filename="settings.ui" line="1117"/>
         <source>Text:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1067"/>
+        <location filename="settings.ui" line="1144"/>
         <source>Button:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1094"/>
+        <location filename="settings.ui" line="1171"/>
         <source>ButtonText:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1121"/>
+        <location filename="settings.ui" line="1198"/>
         <source>BrightText:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1148"/>
+        <location filename="settings.ui" line="1225"/>
         <source>Link:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1175"/>
+        <location filename="settings.ui" line="1252"/>
         <source>Highlight:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1202"/>
+        <location filename="settings.ui" line="1279"/>
         <source>HighlightedText:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1232"/>
+        <location filename="settings.ui" line="1309"/>
         <source>Save changes</source>
         <translation>Сохранить изменения</translation>
     </message>
@@ -2295,192 +2335,206 @@
         <translation type="vanished">Удалить записи и изображения</translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1254"/>
+        <location filename="settings.ui" line="1331"/>
         <source>ShowImportProgressBar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1257"/>
+        <location filename="settings.ui" line="1334"/>
         <source>Switch progress bar or action buttons</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1262"/>
+        <location filename="settings.ui" line="1339"/>
         <source>ShowExportProgressBar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="1265"/>
+        <location filename="settings.ui" line="1342"/>
         <source>Switch export button or progress bar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="settings.ui" line="840"/>
-        <location filename="dialogs/settings.cpp" line="98"/>
-        <source>System</source>
-        <oldsource>&lt;System&gt;</oldsource>
-        <translation type="unfinished">Системный</translation>
-    </message>
-    <message>
-        <location filename="dialogs/settings.cpp" line="112"/>
+        <location filename="dialogs/settings.cpp" line="786"/>
         <source>None</source>
         <translation>Нет</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="113"/>
+        <location filename="dialogs/settings.cpp" line="787"/>
         <source>ASC</source>
         <translation>А-Я</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="114"/>
+        <location filename="dialogs/settings.cpp" line="788"/>
         <source>DESC</source>
         <translation>Я-А</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="115"/>
+        <location filename="dialogs/settings.cpp" line="789"/>
         <source>Year</source>
         <translation>Год</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="127"/>
+        <location filename="dialogs/settings.cpp" line="798"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="128"/>
+        <location filename="dialogs/settings.cpp" line="799"/>
         <source>Alternative title</source>
         <translation>Альтернативное название</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="341"/>
-        <location filename="dialogs/settings.cpp" line="347"/>
-        <location filename="dialogs/settings.cpp" line="635"/>
-        <location filename="dialogs/settings.cpp" line="663"/>
-        <location filename="dialogs/settings.cpp" line="1034"/>
-        <location filename="dialogs/settings.cpp" line="1075"/>
-        <location filename="dialogs/settings.cpp" line="1079"/>
+        <location filename="dialogs/settings.cpp" line="184"/>
+        <location filename="dialogs/settings.cpp" line="190"/>
+        <location filename="dialogs/settings.cpp" line="478"/>
+        <location filename="dialogs/settings.cpp" line="506"/>
+        <location filename="dialogs/settings.cpp" line="1056"/>
+        <location filename="dialogs/settings.cpp" line="1069"/>
+        <location filename="dialogs/settings.cpp" line="1103"/>
+        <location filename="dialogs/settings.cpp" line="1107"/>
         <source>Warning</source>
         <translation>Внимание</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="341"/>
+        <location filename="dialogs/settings.cpp" line="184"/>
         <source>The directory for export isn&apos;t choose</source>
         <translation>Не выбрана директория для экспорта</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="347"/>
+        <location filename="dialogs/settings.cpp" line="190"/>
         <source>The path shall be absolute</source>
         <translation>Путь должен быть абсолютным</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="395"/>
-        <location filename="dialogs/settings.cpp" line="440"/>
-        <location filename="dialogs/settings.cpp" line="479"/>
-        <location filename="dialogs/settings.cpp" line="512"/>
-        <location filename="dialogs/settings.cpp" line="699"/>
+        <location filename="dialogs/settings.cpp" line="238"/>
+        <location filename="dialogs/settings.cpp" line="283"/>
+        <location filename="dialogs/settings.cpp" line="322"/>
+        <location filename="dialogs/settings.cpp" line="355"/>
+        <location filename="dialogs/settings.cpp" line="542"/>
         <source>Critical</source>
         <translation>Критическая ошибка</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="395"/>
-        <location filename="dialogs/settings.cpp" line="440"/>
-        <location filename="dialogs/settings.cpp" line="479"/>
-        <location filename="dialogs/settings.cpp" line="512"/>
+        <location filename="dialogs/settings.cpp" line="238"/>
+        <location filename="dialogs/settings.cpp" line="283"/>
+        <location filename="dialogs/settings.cpp" line="322"/>
+        <location filename="dialogs/settings.cpp" line="355"/>
         <source>Cannot export data</source>
         <translation>Невозможно экспортировать данные</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="604"/>
+        <location filename="dialogs/settings.cpp" line="447"/>
         <source>Export is successfully finished</source>
         <translation>Экспорт успешно завершён</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="611"/>
+        <location filename="dialogs/settings.cpp" line="454"/>
         <source>Choose a directory for export file</source>
         <translation>Выберете директорию для экспортирования</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="623"/>
+        <location filename="dialogs/settings.cpp" line="466"/>
         <source>Choose a xml file for import</source>
         <translation>Выберете xml файл для импорта</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="635"/>
+        <location filename="dialogs/settings.cpp" line="478"/>
         <source>The imported file isn&apos;t selected</source>
         <translation>Не выбран импортируемый файл</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="647"/>
+        <location filename="dialogs/settings.cpp" line="490"/>
         <source>Import is successfully finished</source>
         <translation>Импорт успешно завершён</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="648"/>
+        <location filename="dialogs/settings.cpp" line="491"/>
         <source>Records it is imported:</source>
         <translation>Записей импортировано:</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="651"/>
+        <location filename="dialogs/settings.cpp" line="494"/>
         <source>Import failed</source>
         <translation>Импорт завершился неудачей</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="664"/>
+        <location filename="dialogs/settings.cpp" line="507"/>
         <source>&lt;b&gt;Delete&lt;/b&gt; your database?&lt;br&gt;&lt;i&gt;Fields marked by a checkbox will be deleted&lt;/i&gt;</source>
         <translation>&lt;b&gt;Удалить&lt;/b&gt; вышу базу данных?&lt;br&gt;&lt;i&gt;Отмеченные поля будут удалены&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="699"/>
+        <location filename="dialogs/settings.cpp" line="542"/>
         <source>File is not open</source>
         <translation>Не удалось открыть файл</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="719"/>
+        <location filename="dialogs/settings.cpp" line="562"/>
         <source>Import of records</source>
         <translation>Импорт записей</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="769"/>
+        <location filename="dialogs/settings.cpp" line="612"/>
         <source>Copying of covers</source>
         <translation>Копирование обложек</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="954"/>
+        <location filename="dialogs/settings.cpp" line="759"/>
+        <source>English</source>
+        <translation>Английская</translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="760"/>
+        <source>Russian</source>
+        <translation>Русская</translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="761"/>
+        <source>Mixed</source>
+        <translation>Смешанная</translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="976"/>
         <source>Choose a directory for application data</source>
         <translation>Выберите директорию для хранения данных приложения</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1034"/>
+        <location filename="dialogs/settings.cpp" line="1056"/>
         <source>It is impossible to delete system style</source>
         <translation>Невозможно удалить системный стиль</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1039"/>
+        <location filename="dialogs/settings.cpp" line="1061"/>
         <source>Question</source>
         <translation>Вопрос</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1040"/>
+        <location filename="dialogs/settings.cpp" line="1062"/>
         <source>You really want to remove the current style?</source>
         <translation>Вы действительно хотите удалить текущий стиль?</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1065"/>
+        <location filename="dialogs/settings.cpp" line="1069"/>
+        <source>Impossible to remove this style. Maybe your not accesss to removed.</source>
+        <translation>Невозможно удалить данный стиль. Возможно у вас нет прав на удаление.</translation>
+    </message>
+    <message>
+        <location filename="dialogs/settings.cpp" line="1093"/>
         <source>Style copying</source>
         <translation>Копирование стиля</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1066"/>
+        <location filename="dialogs/settings.cpp" line="1094"/>
         <source>Enter name for new style:</source>
         <translation>Введите имя для нового стиля:</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1075"/>
+        <location filename="dialogs/settings.cpp" line="1103"/>
         <source>The entered name is empty</source>
         <translation>Введёное имя пусто</translation>
     </message>
     <message>
-        <location filename="dialogs/settings.cpp" line="1079"/>
+        <location filename="dialogs/settings.cpp" line="1107"/>
         <source>Style with such name already exists</source>
         <translation>Стиль с таким именем уже существует</translation>
     </message>

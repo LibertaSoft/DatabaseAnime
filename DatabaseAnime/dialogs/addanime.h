@@ -8,11 +8,15 @@
 #include <QStringListModel>
 #include <QNetworkAccessManager>
 #include <QCompleter>
+#include "globalenum.h"
 #include "shikimoriapi.h"
+#include "imageloader.h"
 
 namespace Ui {
 class DialogAddAnime;
 }
+
+enum Kind{TV, OVA, ONA, Special, Movie};
 
 class DialogAddAnime : public QDialog
 {
@@ -21,7 +25,10 @@ private:
     Ui::DialogAddAnime *ui;
     QSqlQueryModel* model;
     ShikimoriApi api;
+    ImageLoader _imageLoader;
 
+    int _searchLimit = 10;
+    SearchOutput _searchOutput = SearchOutput::MIX;
 
     bool _isEditRole;
     unsigned long long _recordId;
@@ -29,6 +36,7 @@ private:
     QStringListModel _tags;
     int _animeId;
     QString _altTitle;
+    QUrl _urlCover;
 
     QLineEdit* LineEdit_OrigTitle;
     QLineEdit* LineEdit_Director;
@@ -45,12 +53,14 @@ private:
     void initOptionalFields();
     void setDataInField();
     void setTabOrders();
+    int  kindOf(const QString &kind);
 
 public:
     explicit DialogAddAnime(QWidget *parent, unsigned long long id);
     explicit DialogAddAnime(QWidget *parent);
     ~DialogAddAnime();
 
+    void connectSlots();
 private slots:
     void on_BtnBox_clicked(QAbstractButton *button);
     void on_BtnBox_accepted();
@@ -62,15 +72,19 @@ private slots:
     void on_SpinBox_aMovie_valueChanged(int value);
     void on_toolButton_clicked();
     bool insert_Anime();
-    void btnBox_reset();
+    void btnBox_reset(bool clearImage);
     void on_LineEdit_Dir_textChanged(const QString &value);
     void on_SpinBox_Year_valueChanged(int value);
     void on_TBtn_Search_clicked();
 
-    void replyDownloadPictureFinished(QNetworkReply*);
+    void coverLoaded(QImage image);
+    void reloadCover();
     void on_LineEdit_Title_textEdited(const QString&title);
 
     void setRecivedData(QMap<QString,QVariant>);
+    bool setSearchLimit(const int limit);
+    void setSearchOutput(SearchOutput outputType);
+    void setCompletionModel(QStringList eng, QStringList rus);
 };
 
 #endif // DialogAddAnime_H
