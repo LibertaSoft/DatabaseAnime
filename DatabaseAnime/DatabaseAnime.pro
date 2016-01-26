@@ -40,7 +40,9 @@ HEADERS += \
     shikimoriapi.h \
     widgets/colorpicker.h \
     stylemanager.h \
-    imageloader.h
+    imageloader.h \
+    core/models/basemodel.h \
+    models/animemodel.h
 
 SOURCES += \
     main.cpp \
@@ -62,7 +64,9 @@ SOURCES += \
     shikimoriapi.cpp \
     widgets/colorpicker.cpp \
     stylemanager.cpp \
-    imageloader.cpp
+    imageloader.cpp \
+    core/models/basemodel.cpp \
+    models/animemodel.cpp
 
 FORMS += \
     mainwindow.ui \

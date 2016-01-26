@@ -12,6 +12,9 @@
 #include "shikimoriapi.h"
 #include "imageloader.h"
 
+
+#include "models/animemodel.h"
+
 namespace Ui {
 class DialogAddAnime;
 }
@@ -23,6 +26,8 @@ class DialogAddAnime : public QDialog
     Q_OBJECT
 private:
     Ui::DialogAddAnime *ui;
+    AnimeModel *_model;
+
     QSqlQueryModel* model;
     ShikimoriApi api;
     ImageLoader _imageLoader;

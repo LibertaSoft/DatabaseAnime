@@ -71,6 +71,7 @@ void DialogAddAnime::initOptionalFields()
 
 void DialogAddAnime::setDataInField()
 {
+    /*
     QSqlRecord record = MngrQuerys::selectData( sections::anime, _recordId );
 
     ui->CheckBox_LookLater->setChecked( record.value( Tables::Anime::Fields::isHaveLooked ).toBool() == false );
@@ -108,6 +109,52 @@ void DialogAddAnime::setDataInField()
     ui->LineEdit_URL->setText( record.value( Tables::Anime::Fields::Url ).toString() );
 
     _oldCover = record.value( Tables::Anime::Fields::ImagePath ).toString();
+    QPixmap pm( DefinesPath::animeCovers() + _oldCover );
+
+    if( ! pm.isNull() ){
+        ui->Lbl_ImageCover->setPixmap( pm );
+        ui->Lbl_ImageCover->setImagePath( DefinesPath::animeCovers() + _oldCover );
+    }else{
+        ui->Lbl_ImageCover->noImage();
+    }
+    */
+    QSqlRecord record = MngrQuerys::selectData( sections::anime, _recordId );
+
+    ui->CheckBox_LookLater->setChecked( _model->wantToLook() );
+    ui->CheckBox_Editing->setChecked( _model->editing() );
+
+    ui->LineEdit_Title->setText( _model->title() );
+
+    // Optional Fields
+    if( this->LineEdit_OrigTitle )
+        this->LineEdit_OrigTitle->setText( _model->altTitle() );
+    if( this->LineEdit_Director )
+        this->LineEdit_Director->setText( _model->director() );
+    if( this->LineEdit_PostScoring )
+        this->LineEdit_PostScoring->setText( _model->postScoring() );
+    if( record.value("Year").toInt() != 0 )
+        ui->SpinBox_Year->setValue( _model->date().year() );
+    ui->SpinBox_Season->setValue( _model->seasone() );
+    ui->ComboBox_Studio->setCurrentText( _model->studio() );
+
+    ui->SpinBox_aTV->setValue(    _model->series_total_tv() );
+    ui->SpinBox_aOVA->setValue(   _model->series_total_ova() );
+    ui->SpinBox_aONA->setValue(   _model->series_total_ona() );
+    ui->SpinBox_aSpec->setValue(  _model->series_total_special() );
+    ui->SpinBox_aMovie->setValue( _model->series_total_movie() );
+
+    ui->SpinBox_vTV->setValue(    _model->series_viewed_tv() );
+    ui->SpinBox_vOVA->setValue(   _model->series_viewed_ova() );
+    ui->SpinBox_vONA->setValue(   _model->series_viewed_ona() );
+    ui->SpinBox_vSpec->setValue(  _model->series_viewed_special() );
+    ui->SpinBox_vMovie->setValue( _model->series_viewed_movie() );
+
+    ui->LineEdit_Tags->setText( _model->ganres().join(", ") );
+    ui->PlainTextEdit_Description->setPlainText( _model->description() );
+    ui->LineEdit_Dir->setText( _model->localPath() );
+    ui->LineEdit_URL->setText( _model->url() );
+
+    _oldCover = _model->cover();
     QPixmap pm( DefinesPath::animeCovers() + _oldCover );
 
     if( ! pm.isNull() ){
@@ -171,6 +218,8 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
+    _model = new AnimeModel( QString::number(record_id) );
+
     setWindowTitle( tr("Editing anime") );
     QSettings cfg;
     this->restoreGeometry( cfg.value(Options::Dialogs::Anime::Geometry).toByteArray() );
