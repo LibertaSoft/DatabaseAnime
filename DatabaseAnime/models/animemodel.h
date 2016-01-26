@@ -6,7 +6,9 @@
 class AnimeModel : public BaseModel
 {
 private:
+    bool    _isAdult = false;
     int     _seasone = 0;
+    int     _score = 0;
     QString _studio;
     QString _director;
     QString _postScoring;
@@ -27,11 +29,17 @@ private:
 
     bool _wantToLook = false;
     bool _editing = false;
+public: // static
+    static QStringList getGanresList();
 public:
     AnimeModel();
     AnimeModel(const QString id);
 
+    bool save(const bool update);
+
     bool loadFromDatabase();
+    KeyValue toKeyValue();
+    bool fromKeyValue(const KeyValue &data);
 
     // get/set
     int seasone() const;
@@ -68,6 +76,10 @@ public:
     void setDirector(const QString &director);
     QString postScoring() const;
     void setPostScoring(const QString &postScoring);
+    bool getIsAdult() const;
+    void setIsAdult(bool isAdult);
+    int getScore() const;
+    void setScore(int score);
 };
 
 #endif // ANIMEMODEL_H

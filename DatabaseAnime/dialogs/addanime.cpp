@@ -1,6 +1,6 @@
 #include "dialogs/addanime.h"
 #include "ui_addanime.h"
-#include "mngrquerys.h"
+//#include "mngrquerys.h"
 #include "definespath.h"
 
 #include <QFileDialog>
@@ -16,6 +16,7 @@
 #include <QCompleter>
 #include <QMessageBox>
 #include <QDebug>
+#include <QSettings>
 
 
 void DialogAddAnime::initTitleCompleter()
@@ -36,7 +37,7 @@ void DialogAddAnime::initTitleCompleter()
 
 void DialogAddAnime::initTags()
 {
-    _tags.setStringList( MngrQuerys::getAnimeTags() );
+    _tags.setStringList( AnimeModel::getGanresList() );
     _tags.sort(1, Qt::AscendingOrder);
     ui->ListView_Tags->setModel( &_tags );
     ui->ListView_Tags->setWrapping( true );
@@ -71,55 +72,6 @@ void DialogAddAnime::initOptionalFields()
 
 void DialogAddAnime::setDataInField()
 {
-    /*
-    QSqlRecord record = MngrQuerys::selectData( sections::anime, _recordId );
-
-    ui->CheckBox_LookLater->setChecked( record.value( Tables::Anime::Fields::isHaveLooked ).toBool() == false );
-    ui->CheckBox_Editing->setChecked( record.value( Tables::Anime::Fields::isEditingDone ).toBool() == false );
-
-    ui->LineEdit_Title->setText( record.value( Tables::Anime::Fields::Title ).toString() );
-
-    // Optional Fields
-    if( this->LineEdit_OrigTitle )
-        this->LineEdit_OrigTitle->setText( record.value( Tables::Anime::Fields::AltTitle ).toString() );
-    if( this->LineEdit_Director )
-        this->LineEdit_Director->setText( record.value( Tables::Anime::Fields::Director ).toString() );
-    if( this->LineEdit_PostScoring )
-        this->LineEdit_PostScoring->setText( record.value( Tables::Anime::Fields::PostScoring ).toString() );
-    if( record.value("Year").toInt() != 0 )
-        ui->SpinBox_Year->setValue( record.value( Tables::Anime::Fields::Year ).toInt() );
-    ui->SpinBox_Season->setValue( record.value( Tables::Anime::Fields::Season ).toInt() );
-    ui->ComboBox_Studio->setCurrentText( record.value( Tables::Anime::Fields::Studios ).toString() );
-
-    ui->SpinBox_aTV->setValue(    record.value( Tables::Anime::Fields::SeriesTV      ).toInt() );
-    ui->SpinBox_aOVA->setValue(   record.value( Tables::Anime::Fields::SeriesOVA     ).toInt() );
-    ui->SpinBox_aONA->setValue(   record.value( Tables::Anime::Fields::SeriesONA     ).toInt() );
-    ui->SpinBox_aSpec->setValue(  record.value( Tables::Anime::Fields::SeriesSpecial ).toInt() );
-    ui->SpinBox_aMovie->setValue( record.value( Tables::Anime::Fields::SeriesMovie   ).toInt() );
-
-    ui->SpinBox_vTV->setValue(    record.value( Tables::Anime::Fields::vSeriesTV      ).toInt() );
-    ui->SpinBox_vOVA->setValue(   record.value( Tables::Anime::Fields::vSeriesOVA     ).toInt() );
-    ui->SpinBox_vONA->setValue(   record.value( Tables::Anime::Fields::vSeriesONA     ).toInt() );
-    ui->SpinBox_vSpec->setValue(  record.value( Tables::Anime::Fields::vSeriesSpecial ).toInt() );
-    ui->SpinBox_vMovie->setValue( record.value( Tables::Anime::Fields::vSeriesMovie   ).toInt() );
-
-    ui->LineEdit_Tags->setText( record.value( Tables::Anime::Fields::Tags ).toString() );
-    ui->PlainTextEdit_Description->setPlainText( record.value( Tables::Anime::Fields::Description ).toString() );
-    ui->LineEdit_Dir->setText( record.value( Tables::Anime::Fields::Dir ).toString() );
-    ui->LineEdit_URL->setText( record.value( Tables::Anime::Fields::Url ).toString() );
-
-    _oldCover = record.value( Tables::Anime::Fields::ImagePath ).toString();
-    QPixmap pm( DefinesPath::animeCovers() + _oldCover );
-
-    if( ! pm.isNull() ){
-        ui->Lbl_ImageCover->setPixmap( pm );
-        ui->Lbl_ImageCover->setImagePath( DefinesPath::animeCovers() + _oldCover );
-    }else{
-        ui->Lbl_ImageCover->noImage();
-    }
-    */
-    QSqlRecord record = MngrQuerys::selectData( sections::anime, _recordId );
-
     ui->CheckBox_LookLater->setChecked( _model->wantToLook() );
     ui->CheckBox_Editing->setChecked( _model->editing() );
 
@@ -132,7 +84,7 @@ void DialogAddAnime::setDataInField()
         this->LineEdit_Director->setText( _model->director() );
     if( this->LineEdit_PostScoring )
         this->LineEdit_PostScoring->setText( _model->postScoring() );
-    if( record.value("Year").toInt() != 0 )
+    if( _model->date().year() != 0 )
         ui->SpinBox_Year->setValue( _model->date().year() );
     ui->SpinBox_Season->setValue( _model->seasone() );
     ui->ComboBox_Studio->setCurrentText( _model->studio() );
@@ -256,6 +208,8 @@ DialogAddAnime::DialogAddAnime(QWidget *parent):
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
+    _model = new AnimeModel();
+
     QSettings cfg;
     this->restoreGeometry( cfg.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");
@@ -342,6 +296,7 @@ void DialogAddAnime::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddAnime::insert_Anime(){
+    /*
     using namespace Tables::Anime::Fields;
     QMap<QString, QVariant> data;
 
@@ -395,6 +350,48 @@ bool DialogAddAnime::insert_Anime(){
     data[Description] = ui->PlainTextEdit_Description->toPlainText();
     data[Url]         = ui->LineEdit_URL->text();
     data[Dir]         = ui->LineEdit_Dir->text();
+    */
+    _model->setWantToLook( ! ui->CheckBox_LookLater->isChecked() );
+    _model->setEditing( ! ui->CheckBox_Editing->isChecked() );
+    _model->setId( QString::number( _recordId ) ); /// \todo
+    _model->setTitle( ui->LineEdit_Title->text() );
+    _model->setDirector( (LineEdit_Director)? this->LineEdit_Director->text() : "" );
+    _model->setPostScoring( (LineEdit_PostScoring)?this->LineEdit_PostScoring->text() : "" );
+
+    _model->setSeries_total_tv( ui->SpinBox_aTV->value() );
+    _model->setSeries_total_ova( ui->SpinBox_aOVA->value() );
+    _model->setSeries_total_ona( ui->SpinBox_aONA->value() );
+    _model->setSeries_total_special( ui->SpinBox_aSpec->value() );
+    _model->setSeries_total_movie( ui->SpinBox_aMovie->value() );
+
+    _model->setSeries_viewed_tv( ui->SpinBox_vTV->value() );
+    _model->setSeries_viewed_ova( ui->SpinBox_vOVA->value() );
+    _model->setSeries_viewed_ona( ui->SpinBox_vONA->value() );
+    _model->setSeries_viewed_special( ui->SpinBox_vSpec->value() );
+    _model->setSeries_viewed_movie( ui->SpinBox_vMovie->value() );
+
+    _model->setDate( QDate( (ui->CBox_Year->isChecked() ) ? ui->SpinBox_Year->value() : 0, 1, 1) );
+    _model->setSeasone( ui->SpinBox_Season->value() );
+    _model->setStudio( ui->ComboBox_Studio->currentText() );
+    _model->setDescription( ui->PlainTextEdit_Description->toPlainText() );
+    _model->setUrl( ui->LineEdit_URL->text() );
+    _model->setLocalPath( ui->LineEdit_Dir->text() );
+
+    {
+        QStringList list;
+        QModelIndexList mlist = ui->ListView_Tags->selectionModel()->selectedIndexes();
+        for(int i = 0;i < mlist.count();i++){
+            list.append(mlist.at(i).data(Qt::DisplayRole).toString());
+        }
+        QString tagsList = ui->LineEdit_Tags->text();
+        list.append( tagsList.split(",") );
+        _model->setGanres( list );
+    }
+
+    QString altTitle = (LineEdit_OrigTitle  )? this->LineEdit_OrigTitle->text() : _altTitle;
+    if( altTitle.isEmpty() )
+        altTitle = ui->LineEdit_Title->text();
+    _model->setAltTitle( altTitle );
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
@@ -405,16 +402,18 @@ bool DialogAddAnime::insert_Anime(){
     if( _isEditRole && !_oldCover.isEmpty() ){
             dir.remove( DefinesPath::animeCovers() + _oldCover );
     }
-
+    /*
     data[ImagePath] = coverName;
+    */
+    _model->setCover( coverName );
 
     if( ! _isEditRole ){
-        if( MngrQuerys::insertAnime(data) == false ){
+        if( _model->save(false) == false ){
             QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data."));
             return false;
         }
     }else{
-        if( MngrQuerys::updateAnime(data) == false ){
+        if( _model->save(true) == false ){
             QMessageBox::critical(this, tr("Critical"), tr("Cannot update data."));
             return false;
         }
@@ -541,30 +540,30 @@ void DialogAddAnime::reloadCover()
     qDebug() << _urlCover;
 }
 
-void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
+void DialogAddAnime::setRecivedData(KeyValue data)
 {
-    using namespace Tables::Anime::Fields;
+    _model->fromKeyValue( data );
     btnBox_reset(false);
     ui->TabWidget_Info->setCurrentIndex(2);
 
-    ui->LineEdit_Title->setText( data[Title].toString() );
+    ui->LineEdit_Title->setText( _model->title() );
 
     // Optional Fields
     if( this->LineEdit_OrigTitle )
-        this->LineEdit_OrigTitle->setText( data[AltTitle].toString() );
+        this->LineEdit_OrigTitle->setText( _model->altTitle() );
     else
-        _altTitle = data[AltTitle].toString();
+        _altTitle = _model->altTitle();
 //    if( this->LineEdit_Director )
 //        this->LineEdit_Director->setText( obj["russian"].toString() );
 //    if( this->LineEdit_PostScoring )
 //        this->LineEdit_PostScoring->setText( obj["name"].toString() );
 
-    if( data[Year].toInt() != 0 )
-        ui->SpinBox_Year->setValue( data[Year].toInt() );
+    if( _model->date().year() != 0 ) /// \todo \fixme
+        ui->SpinBox_Year->setValue( _model->date().year() );
 
 //    ui->SpinBox_Season->setValue( 1 ); // on any not zero
 
-    ui->ComboBox_Studio->setCurrentText( data[Studios].toString() );
+    ui->ComboBox_Studio->setCurrentText( _model->studio() );
 
 
     {
@@ -590,13 +589,13 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
         }
     }
 
-    ui->LineEdit_Tags->setText( data[Tags].toString() );
+    ui->LineEdit_Tags->setText( _model->ganres().join(", ") );
 
-    ui->PlainTextEdit_Description->setPlainText( data[Description].toString() );
+    ui->PlainTextEdit_Description->setPlainText( _model->description() );
 
-    ui->LineEdit_URL->setText( data[Url].toString() );
+    ui->LineEdit_URL->setText( _model->url() );
 
-    QString cover = data[ImagePath].toString();
+    QString cover = _model->cover();
     _urlCover = QUrl(shikimoriUrl + cover);
     ui->Lbl_ImageCover->enableReloadButton( ! _urlCover.isEmpty() );
 

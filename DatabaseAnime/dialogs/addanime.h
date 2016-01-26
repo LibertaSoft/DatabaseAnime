@@ -86,7 +86,7 @@ private slots:
     void reloadCover();
     void on_LineEdit_Title_textEdited(const QString&title);
 
-    void setRecivedData(QMap<QString,QVariant>);
+    void setRecivedData(KeyValue);
     bool setSearchLimit(const int limit);
     void setSearchOutput(SearchOutput outputType);
     void setCompletionModel(QStringList eng, QStringList rus);

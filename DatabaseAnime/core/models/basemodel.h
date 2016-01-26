@@ -3,8 +3,10 @@
 
 #include <QDate>
 #include <QString>
+#include <QMap>
+#include <QVariant>
 
-
+typedef QMap<QString,QVariant> KeyValue;
 
 class BaseModel
 {
@@ -19,6 +21,9 @@ private:
     QString _description;
 public:
     BaseModel();
+    virtual KeyValue toKeyValue() = 0;
+    virtual bool fromKeyValue(const KeyValue &data) = 0;
+
     QString id() const;
     void setId(const QString &id);
     QString title() const;

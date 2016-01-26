@@ -17,7 +17,10 @@ QString BaseModel::title() const
 
 void BaseModel::setTitle(const QString &title)
 {
-    _title = title;
+    QString tmp = title;
+    QRegExp rx("<.*>");
+    rx.setMinimal(true);
+    _title = tmp.remove(rx);
 }
 
 QString BaseModel::altTitle() const
