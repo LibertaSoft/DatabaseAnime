@@ -297,7 +297,7 @@ KeyValue AnimeModel::toKeyValue()
     data[Year]           = date().year();
     data[Season]         = seasone();
     data[Studios]        = studio();
-    data[Tags]           = ganres();
+    data[Tags]           = ganres().join(",");
     data[Description]    = description();
     data[Url]            = url();
     data[Dir]            = localPath();
@@ -336,7 +336,8 @@ bool AnimeModel::fromKeyValue(const KeyValue &data)
     setDate( QDate(data[Year].toInt(), 1, 1) );
     setSeasone( data[Season].toInt() );
     setStudio( data[Studios].toString() );
-    setGanres( data[Tags].toStringList() ); /// \fixme \todo
+    QString tags = data[Tags].toString();
+    setGanres( tags.split(", ") );
     setDescription( data[Description].toString() );
     setUrl( data[Url].toString() );
     setLocalPath( data[Dir].toString() );
