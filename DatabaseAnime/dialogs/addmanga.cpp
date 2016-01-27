@@ -1,6 +1,6 @@
 #include "dialogs/addmanga.h"
 #include "ui_addmanga.h"
-#include "mngrquerys.h"
+//#include "mngrquerys.h"
 #include "definespath.h"
 
 #include <QFileDialog>
@@ -15,6 +15,7 @@
 
 #include <QMessageBox>
 #include <QDebug>
+#include <QSettings>
 
 void DialogAddManga::initTitleCompleter()
 {
@@ -34,7 +35,7 @@ void DialogAddManga::initTitleCompleter()
 
 void DialogAddManga::initTags()
 {
-    _tags.setStringList( MngrQuerys::getMangaTags() );
+    _tags.setStringList( MangaModel::getGanresList() );
     _tags.sort(1, Qt::AscendingOrder);
     ui->ListView_Tags->setModel( &_tags );
     ui->ListView_Tags->setWrapping( true );
@@ -43,38 +44,39 @@ void DialogAddManga::initTags()
 
 void DialogAddManga::setDataInFields()
 {
-    QSqlRecord record = MngrQuerys::selectData( sections::manga, _recordId );
+    _model->setId( QString::number( _recordId ) );
+    _model->loadFromDatabase();
 
-    ui->CheckBox_LookLater->setChecked( record.value( Tables::Manga::Fields::isHaveLooked ).toBool()  == false );
-    ui->CheckBox_Editing->setChecked(   record.value( Tables::Manga::Fields::isEditingDone ).toBool() == false );
+    ui->CheckBox_LookLater->setChecked( _model->wantToLook() == false );
+    ui->CheckBox_Editing->setChecked( _model->editing() == false );
 
-    ui->LineEdit_Title->setText( record.value( Tables::Manga::Fields::Title ).toString() );
+    ui->LineEdit_Title->setText( _model->title() );
 
     // Optional Fields
     if( this->LineEdit_AltTitle )
-        this->LineEdit_AltTitle->setText( record.value( Tables::Manga::Fields::AltTitle ).toString() );
+        this->LineEdit_AltTitle->setText( _model->altTitle() );
     if( this->LineEdit_Author )
-        this->LineEdit_Author->setText( record.value( Tables::Manga::Fields::Author ).toString() );
+        this->LineEdit_Author->setText( _model->author() );
     if( this->LineEdit_Translation )
-        this->LineEdit_Translation->setText( record.value( Tables::Manga::Fields::Translation ).toString() );
+        this->LineEdit_Translation->setText( _model->translator() );
 
-    if( record.value( Tables::Manga::Fields::Year ).toInt() != 0 )
-        ui->SpinBox_Year->setValue( record.value( Tables::Manga::Fields::Year ).toInt() );
+    if( _model->date().year() != 0 )
+        ui->SpinBox_Year->setValue( _model->date().year() );
 
-    ui->SpinBox_aVol->setValue( record.value( Tables::Manga::Fields::Vol ).toInt() );
-    ui->SpinBox_aCh->setValue( record.value( Tables::Manga::Fields::Ch ).toInt() );
-    ui->SpinBox_aPages->setValue( record.value( Tables::Manga::Fields::Pages ).toInt() );
+    ui->SpinBox_aVol->setValue( _model->series_total_volumes() );
+    ui->SpinBox_aCh->setValue( _model->series_total_charapters() );
+    ui->SpinBox_aPages->setValue( _model->series_total_pages() );
 
-    ui->SpinBox_vVol->setValue( record.value( Tables::Manga::Fields::vVol ).toInt() );
-    ui->SpinBox_vCh->setValue( record.value( Tables::Manga::Fields::vCh ).toInt() );
-    ui->SpinBox_vPages->setValue( record.value( Tables::Manga::Fields::vPages ).toInt() );
+    ui->SpinBox_vVol->setValue( _model->series_viewed_volumes() );
+    ui->SpinBox_vCh->setValue( _model->series_viewed_charapters() );
+    ui->SpinBox_vPages->setValue( _model->series_viewed_pages() );
 
-    ui->LineEdit_Tags->setText( record.value( Tables::Manga::Fields::Tags ).toString() );
-    ui->PlainTextEdit_Description->setPlainText( record.value( Tables::Manga::Fields::Description ).toString() );
-    ui->LineEdit_Dir->setText( record.value( Tables::Manga::Fields::Dir ).toString() );
-    ui->LineEdit_URL->setText( record.value( Tables::Manga::Fields::Url ).toString() );
+    ui->LineEdit_Tags->setText( _model->ganres().join(",") );
+    ui->PlainTextEdit_Description->setPlainText( _model->description() );
+    ui->LineEdit_Dir->setText( _model->localPath() );
+    ui->LineEdit_URL->setText( _model->url() );
 
-    _oldCover = record.value( Tables::Manga::Fields::ImagePath ).toString();
+    _oldCover = _model->cover();
     QPixmap pm( DefinesPath::mangaCovers() + _oldCover );
 
     if( ! pm.isNull() ){
@@ -167,6 +169,8 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
+    _model = new MangaModel( QString::number( record_id ) );
+
     setWindowTitle( tr("Editing manga") );
     QSettings cfg;
     this->restoreGeometry( cfg.value(Options::Dialogs::Manga::Geometry).toByteArray() );
@@ -193,9 +197,11 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
 
 DialogAddManga::DialogAddManga(QWidget *parent):
     QDialog(parent), ui(new Ui::DialogAddManga), _isEditRole( false ),
-    LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
+    LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL), _model( new MangaModel )
 {
     ui->setupUi(this);
+//    _model = new MangaModel;
+
     QSettings cfg;
     this->restoreGeometry( cfg.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
@@ -275,76 +281,64 @@ void DialogAddManga::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddManga::insert_Manga(){
-    using namespace Tables::Manga::Fields;
-    QMap<QString, QVariant> data;
 
-    data[isHaveLooked]  = !ui->CheckBox_LookLater->isChecked();
-    data[isEditingDone] = !ui->CheckBox_Editing->isChecked();
-    data[id]            = _recordId;
+    _model->setWantToLook( ! ui->CheckBox_LookLater->isChecked() );
+    _model->setEditing( ! ui->CheckBox_Editing->isChecked() );
+    _model->setId( QString::number(_recordId) );
+    _model->setTitle( ui->LineEdit_Title->text() );
 
-    QRegExp rx("<.*>"); rx.setMinimal(true);
-    data[Title]          = ui->LineEdit_Title->text().remove(rx);
+    _model->setAltTitle( (LineEdit_AltTitle) ? LineEdit_AltTitle->text() : _altTitle );
+    if( _model->altTitle().isEmpty() )
+        _model->setAltTitle( ui->LineEdit_Title->text() );
+    _model->setAuthor( (LineEdit_Author) ? LineEdit_Author->text() : "" );
+    _model->setTranslator( (LineEdit_Translation) ? LineEdit_Translation->text() : "" );
 
-    data[AltTitle]      = (LineEdit_AltTitle   ) ?    LineEdit_AltTitle->text() : _altTitle;
-    if( data[AltTitle].toString().isEmpty() )
-        data[AltTitle]  = ui->LineEdit_Title->text();
-    data[Author]        = (LineEdit_Author     ) ?      LineEdit_Author->text() : "";
-    data[Translation]   = (LineEdit_Translation) ? LineEdit_Translation->text() : "";
+    _model->setSeries_total_volumes( ui->SpinBox_aVol->value() );
+    _model->setSeries_total_charapters( ui->SpinBox_aCh->value() );
+    _model->setSeries_total_pages( ui->SpinBox_aPages->value() );
 
-    data[Vol]    = ui->SpinBox_aVol->value();
-    data[Ch]     = ui->SpinBox_aCh->value();
-    data[Pages]  = ui->SpinBox_aPages->value();
-    data[vVol]   = ui->SpinBox_vVol->value();
-    data[vCh]    = ui->SpinBox_vCh->value();
-    data[vPages] = ui->SpinBox_vPages->value();
-    data[Year]   = (ui->CBox_Year->isChecked()) ? ui->SpinBox_Year->value() : 0 ;
+    _model->setSeries_viewed_volumes( ui->SpinBox_vVol->value() );
+    _model->setSeries_viewed_charapters( ui->SpinBox_vCh->value() );
+    _model->setSeries_viewed_pages( ui->SpinBox_vPages->value() );
 
-    QString tagsList;
-    QStringList list;
-    QModelIndexList mlist = ui->ListView_Tags->selectionModel()->selectedIndexes();
-    for(int i = 0;i < mlist.count();i++){
-        list.append(mlist.at(i).data(Qt::DisplayRole).toString());
-    }
+    _model->setDate( QDate((ui->CBox_Year->isChecked()) ? ui->SpinBox_Year->value() : 0, 1, 1) );
 
-    for(int i = 0; i < list.count();i++){
-        if( i != 0 ){
-            tagsList += ", ";
+    {
+        QStringList list;
+        QModelIndexList mlist = ui->ListView_Tags->selectionModel()->selectedIndexes();
+        for(int i = 0;i < mlist.count();i++){
+            list.append(mlist.at(i).data(Qt::DisplayRole).toString());
         }
-        tagsList += list.at(i);
-    }
-    if( !ui->LineEdit_Tags->text().isEmpty() && !tagsList.isEmpty() ){
-        tagsList += ", ";
-    }
-    tagsList += ui->LineEdit_Tags->text();
 
-    data[Tags]         = tagsList;
-    data[Description]  = ui->PlainTextEdit_Description->toPlainText();
-    data[Url]          = ui->LineEdit_URL->text();
-    data[Dir]          = ui->LineEdit_Dir->text();
-
-    QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
-    QDir dir;
-    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( DefinesPath::mangaCovers() ) ){
-        QFile f;
-        f.setFileName( ui->Lbl_ImageCover->getImagePath() );
-        f.copy( DefinesPath::mangaCovers() + coverName );
+        _model->setGanres( list + ui->LineEdit_Tags->text().split(",") );
     }
-    if( _isEditRole && !_oldCover.isEmpty() )
-        dir.remove( DefinesPath::mangaCovers() + _oldCover );
-    data[ImagePath] = coverName;
+    _model->setDescription( ui->PlainTextEdit_Description->toPlainText() );
+    _model->setUrl( ui->LineEdit_URL->text() );
+    _model->setLocalPath( ui->LineEdit_Dir->text() );
 
-    if( !_isEditRole ){
-        if( MngrQuerys::insertManga(data) == false ){
-            QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data"));
-            return false;
+    {
+        QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
+        QDir dir;
+        if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( DefinesPath::mangaCovers() ) ){
+            QFile f;
+            f.setFileName( ui->Lbl_ImageCover->getImagePath() );
+            f.copy( DefinesPath::mangaCovers() + coverName );
         }
-    }else{
-        if( MngrQuerys::updateManga(data) == false ){
-            QMessageBox::critical(this, tr("Critical"), tr("Cannot update data"));
-            return false;
-        }
+        if( _isEditRole && !_oldCover.isEmpty() )
+            dir.remove( DefinesPath::mangaCovers() + _oldCover );
+
+        _model->setCover( coverName );
     }
-    return true;
+
+    /// \todo rewraite to use logger
+    bool success = _model->save( _isEditRole );
+    if( ( ! success ) && ( ! _isEditRole ) ){
+        QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data"));
+    }
+    if( ! success ){
+        QMessageBox::critical(this, tr("Critical"), tr("Cannot update data"));
+    }
+    return success;
 }
 
 void DialogAddManga::on_BtnBox_accepted()
@@ -454,38 +448,39 @@ void DialogAddManga::on_TBtn_Search_clicked()
     api.getMangaId( title );
 }
 
-void DialogAddManga::setRecivedData(QMap<QString, QVariant> data)
+/// \todo this is need use &data
+void DialogAddManga::setRecivedData(KeyValue data)
 {
+    _model->fromKeyValue( data );
 
-    using namespace Tables::Manga::Fields;
     btnBox_reset(false);
     ui->TabWidget_Info->setCurrentIndex(2);
 
-    ui->LineEdit_Title->setText( data[Title].toString() );
+    ui->LineEdit_Title->setText( _model->title() );
 
     // Optional Fields
     if( this->LineEdit_AltTitle )
-        this->LineEdit_AltTitle->setText( data[AltTitle].toString() );
+        this->LineEdit_AltTitle->setText( _model->altTitle() );
     else
-        _altTitle = data[AltTitle].toString();
-//    if( this->LineEdit_Director )
-//        this->LineEdit_Director->setText( obj["russian"].toString() );
-//    if( this->LineEdit_PostScoring )
-//        this->LineEdit_PostScoring->setText( obj["name"].toString() );
+        _altTitle = _model->altTitle();
+//    if( this->LineEdit_Author )
+//        this->LineEdit_Author->setText( obj["russian"].toString() );
+//    if( this->LineEdit_Translator )
+//        this->LineEdit_Translator->setText( obj["name"].toString() );
 
-    if( data[Year].toInt() != 0 )
-        ui->SpinBox_Year->setValue( data[Year].toInt() );
+    if( _model->date().year() != 0 )
+        ui->SpinBox_Year->setValue( _model->date().year() );
 
-    ui->SpinBox_aVol->setValue( data[Vol].toInt() );
-    ui->SpinBox_aCh->setValue( data[Ch].toInt() );
+    ui->SpinBox_aVol->setValue( _model->series_total_volumes() );
+    ui->SpinBox_aCh->setValue( _model->series_total_charapters() );
 
-    ui->LineEdit_Tags->setText( data[Tags].toString() );
+    ui->LineEdit_Tags->setText( _model->ganres().join(",") );
 
-    ui->PlainTextEdit_Description->setPlainText( data[Description].toString() );
+    ui->PlainTextEdit_Description->setPlainText( _model->description() );
 
-    ui->LineEdit_URL->setText( data[Url].toString() );
+    ui->LineEdit_URL->setText( _model->url() );
 
-    QString cover = data[ImagePath].toString();
+    QString cover = _model->cover();
     _urlCover = QUrl(shikimoriUrl + cover);
     ui->Lbl_ImageCover->enableReloadButton( ! _urlCover.isEmpty() );
 

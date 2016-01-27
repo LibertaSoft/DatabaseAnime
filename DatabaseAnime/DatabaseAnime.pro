@@ -42,7 +42,8 @@ HEADERS += \
     stylemanager.h \
     imageloader.h \
     core/models/basemodel.h \
-    models/animemodel.h
+    models/animemodel.h \
+    models/mangamodel.h
 
 SOURCES += \
     main.cpp \
@@ -66,7 +67,8 @@ SOURCES += \
     stylemanager.cpp \
     imageloader.cpp \
     core/models/basemodel.cpp \
-    models/animemodel.cpp
+    models/animemodel.cpp \
+    models/mangamodel.cpp
 
 FORMS += \
     mainwindow.ui \

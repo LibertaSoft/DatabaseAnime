@@ -12,6 +12,8 @@
 #include "shikimoriapi.h"
 #include "imageloader.h"
 
+#include "models/mangamodel.h"
+
 namespace Ui {
 class DialogAddManga;
 }
@@ -21,6 +23,8 @@ class DialogAddManga : public QDialog
     Q_OBJECT
 private:
     Ui::DialogAddManga *ui;
+    MangaModel *_model;
+
     QSqlQueryModel* model;
     ShikimoriApi api;
     ImageLoader _imageLoader;
@@ -76,7 +80,7 @@ private slots:
     void coverLoaded(QImage image);
     void on_LineEdit_Title_textEdited(const QString &title);
     void on_TBtn_Search_clicked();
-    void setRecivedData(QMap<QString,QVariant> data);
+    void setRecivedData(KeyValue data);
     bool setSearchLimit(const int limit);
     void setSearchOutput(const SearchOutput outType);
     void setCompletionModel(QStringList eng, QStringList rus);

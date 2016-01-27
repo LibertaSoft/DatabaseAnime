@@ -19,6 +19,7 @@ private:
     QString _localPath;
     QString _url;
     QString _description;
+
 public:
     BaseModel();
     virtual KeyValue toKeyValue() = 0;
