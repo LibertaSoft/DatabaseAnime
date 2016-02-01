@@ -1,6 +1,6 @@
 #include "dialogs/addamv.h"
 #include "ui_addamv.h"
-#include "mngrquerys.h"
+//#include "mngrquerys.h"
 #include "definespath.h"
 
 #include <QFileDialog>
@@ -8,10 +8,11 @@
 
 #include <QMessageBox>
 #include <QDebug>
+#include <QSettings>
 
 void DialogAddAmv::initTags()
 {
-    _tags.setStringList( MngrQuerys::getAmvTags() );
+    _tags.setStringList( AmvModel::getTagsList() );
     _tags.sort(1, Qt::AscendingOrder);
     ui->LView_Tags->setModel( &_tags );
     ui->LView_Tags->setWrapping( true );
@@ -20,22 +21,20 @@ void DialogAddAmv::initTags()
 
 void DialogAddAmv::setDataInField()
 {
-    QSqlRecord record = MngrQuerys::selectData( sections::amv, _recordId );
+    ui->CheckBox_Editing->setChecked( _model->editing() == false );
+    ui->LineEdit_Title->setText( _model->title() );
+    ui->LineEdit_Author->setText( _model->author() );
+    ui->LineEdit_Contestant->setText( _model->contestant() );
+    if( _model->date().year() != 0 )
+        ui->SpinBox_Year->setValue( _model->date().year() );
+    ui->LineEdit_Tags->setText( _model->tags().join(",") );
+    ui->PlainTextEdit_AuthorComment->setPlainText( _model->authorComment() );
+    ui->plainTextEdit_ContAnime->setPlainText( _model->sourceVideo() );
+    ui->plainTextEdit_ContMusic->setPlainText( _model->sourceMusic() );
+    ui->LineEdit_Dir->setText( _model->localPath() );
+    ui->LineEdit_URL->setText( _model->url() );
 
-    ui->CheckBox_Editing->setChecked( record.value( Tables::Amv::Fields::isEditingDone ).toBool() == false );
-    ui->LineEdit_Title->setText( record.value( Tables::Amv::Fields::Title ).toString() );
-    ui->LineEdit_Author->setText( record.value( Tables::Amv::Fields::Author ).toString() );
-    ui->LineEdit_Contestant->setText( record.value( Tables::Amv::Fields::Contestant ).toString() );
-    if( record.value( Tables::Amv::Fields::Year ).toInt() != 0 )
-        ui->SpinBox_Year->setValue( record.value( Tables::Amv::Fields::Year ).toInt() );
-    ui->LineEdit_Tags->setText( record.value( Tables::Amv::Fields::Tags ).toString() );
-    ui->PlainTextEdit_AuthorComment->setPlainText( record.value( Tables::Amv::Fields::AuthorComment ).toString() );
-    ui->plainTextEdit_ContAnime->setPlainText( record.value( Tables::Amv::Fields::ContainingAnime ).toString() );
-    ui->plainTextEdit_ContMusic->setPlainText( record.value( Tables::Amv::Fields::ContainingMusic ).toString() );
-    ui->LineEdit_Dir->setText( record.value( Tables::Amv::Fields::Dir ).toString() );
-    ui->LineEdit_URL->setText( record.value( Tables::Amv::Fields::Url ).toString() );
-
-    _oldCover = record.value( Tables::Amv::Fields::ImagePath ).toString();
+    _oldCover = _model->cover();
 
     QPixmap pm( DefinesPath::amvCovers() + _oldCover );
     if( !pm.isNull() ){
@@ -51,6 +50,8 @@ DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned long long record_id) :
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {
     ui->setupUi(this);
+    _model = new AmvModel( QString::number( record_id ) );
+
     setWindowTitle( tr("Editing AMV") );
     QSettings settings;
     this->restoreGeometry( settings.value(Options::Dialogs::Amv::Geometry).toByteArray() );
@@ -67,6 +68,8 @@ DialogAddAmv::DialogAddAmv(QWidget *parent):
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {
     ui->setupUi(this);
+    _model = new AmvModel();
+
     QSettings settings;
     this->restoreGeometry( settings.value(Options::Dialogs::Amv::Geometry).toByteArray() );
 
@@ -117,46 +120,28 @@ void DialogAddAmv::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddAmv::insert_Amv(){
-    using namespace Tables::Amv::Fields;
-    QMap<QString, QVariant> data;
+    _model->setId( QString::number( _recordId ) );
+    _model->setEditing( ! ui->CheckBox_Editing->isChecked() );
+    _model->setTitle( ui->LineEdit_Title->text() );
+    _model->setAuthor( ui->LineEdit_Author->text() );
+    _model->setContestant( ui->LineEdit_Contestant->text() );
+    _model->setScore( 0 );
+    _model->setDate( QDate((ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0, 1, 1) );
 
-    data[id]            = _recordId;
-    data[isEditingDone] = !ui->CheckBox_Editing->isChecked();
-    data[isAdult]       =  false;
-
-    QRegExp rx("<.*>"); rx.setMinimal(true);
-    data[Title]          = ui->LineEdit_Title->text().remove(rx);
-
-    data[Author]        =  ui->LineEdit_Author->text();
-    data[Contestant]    =  ui->LineEdit_Contestant->text();
-    data[Score]         =  0;
-    data[Year]          = (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0;
-
-    QString tagsList;
-    QStringList list;
-    QModelIndexList mlist = ui->LView_Tags->selectionModel()->selectedIndexes();
-    for(int i = 0; i < mlist.count(); i++){
-        list.append(mlist.at(i).data(Qt::DisplayRole).toString());
-    }
-
-    for(int i = 0; i < list.count();i++){
-        if( i != 0 ){
-            tagsList += ", ";
+    {
+        QStringList list;
+        QModelIndexList mlist = ui->LView_Tags->selectionModel()->selectedIndexes();
+        for(int i = 0; i < mlist.count(); i++){
+            list.append(mlist.at(i).data(Qt::DisplayRole).toString());
         }
-        tagsList += list.at(i);
+        _model->setTags( list + ui->LineEdit_Tags->text().split(",") );
     }
-    if( !ui->LineEdit_Tags->text().isEmpty() && !tagsList.isEmpty() ){
-        tagsList += ", ";
-    }
-    tagsList += ui->LineEdit_Tags->text();
 
-    data[Tags]            = tagsList;
-    data[ContainingMusic] = ui->plainTextEdit_ContMusic->toPlainText();
-    data[ContainingAnime] = ui->plainTextEdit_ContAnime->toPlainText();
-    data[AuthorComment]   = ui->PlainTextEdit_AuthorComment->toPlainText();
-
-    data[Url] = ui->LineEdit_URL->text();
-    data[Dir] = ui->LineEdit_Dir->text();
+    _model->setSourceMusic( ui->plainTextEdit_ContMusic->toPlainText() );
+    _model->setSourceVideo( ui->plainTextEdit_ContAnime->toPlainText() );
+    _model->setAuthorComment( ui->PlainTextEdit_AuthorComment->toPlainText() );
+    _model->setUrl( ui->LineEdit_URL->text() );
+    _model->setLocalPath( ui->LineEdit_Dir->text() );
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QDir dir;
@@ -167,20 +152,13 @@ bool DialogAddAmv::insert_Amv(){
     if( _isEditRole && !_oldCover.isEmpty() ){
             dir.remove( DefinesPath::amvCovers() + _oldCover );
     }
-    data[ImagePath] = coverName;
+    _model->setCover( coverName );
 
-    if( !_isEditRole ){
-        if( MngrQuerys::insertAmv(data) == false ){
-            QMessageBox::critical( this, tr("Critical"), tr("Cannot insert data.") );
-            return false;
-        }
-    }else{
-        if( MngrQuerys::updateAmv(data) == false ){
-            QMessageBox::critical( this, tr("Critical"), tr("Cannot update data.") );
-            return false;
-        }
+    bool success = _model->save( ! _isEditRole );
+    if( ! success ){
+        QMessageBox::critical( this, tr("Critical"), tr("Cannot insert data.") );
     }
-    return true;
+    return success;
 }
 
 void DialogAddAmv::on_BtnBox_accepted()

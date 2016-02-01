@@ -7,6 +7,8 @@
 #include <QSqlQueryModel>
 #include <QStringListModel>
 
+#include "models/doramamodel.h"
+
 namespace Ui {
 class DialogAddDorama;
 }
@@ -16,6 +18,8 @@ class DialogAddDorama : public QDialog
     Q_OBJECT
 private:
     Ui::DialogAddDorama *ui;
+    DoramaModel *_model;
+
     QSqlQueryModel* model;
 
     bool _isEditRole;

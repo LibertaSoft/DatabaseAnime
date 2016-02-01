@@ -1,6 +1,6 @@
 #include "dialogs/adddorama.h"
 #include "ui_adddorama.h"
-#include "mngrquerys.h"
+//#include "mngrquerys.h"
 #include "definespath.h"
 
 #include <QFileDialog>
@@ -8,10 +8,11 @@
 
 #include <QMessageBox>
 #include <QDebug>
+#include <QSettings>
 
 void DialogAddDorama::initTags()
 {
-    _tags.setStringList( MngrQuerys::getDoramaTags() );
+    _tags.setStringList( DoramaModel::getGanresList() );
     _tags.sort(1, Qt::AscendingOrder);
     ui->ListView_Tags->setModel( &_tags );
     ui->ListView_Tags->setWrapping( true );
@@ -39,38 +40,36 @@ void DialogAddDorama::initOptionalFields()
 
 void DialogAddDorama::setDataInField()
 {
-    QSqlRecord record = MngrQuerys::selectData( sections::dorama, _recordId );
+    ui->CheckBox_LookLater->setChecked( _model->wantToLook() == false );
+    ui->CheckBox_Editing->setChecked( _model->editing() == false );
 
-    ui->CheckBox_LookLater->setChecked( record.value( Tables::Dorama::Fields::isHaveLooked ).toBool() == false );
-    ui->CheckBox_Editing->setChecked(  record.value( Tables::Dorama::Fields::isEditingDone ).toBool() == false );
-
-    ui->LineEdit_Title->setText( record.value("Title").toString() );
+    ui->LineEdit_Title->setText( _model->title() );
 
     // Optional Fields
     if( this->LineEdit_AltTitle )
-        this->LineEdit_AltTitle->setText( record.value( Tables::Dorama::Fields::AltTitle ).toString() );
+        this->LineEdit_AltTitle->setText( _model->altTitle() );
     if( this->LineEdit_Director )
-        this->LineEdit_Director->setText( record.value( Tables::Dorama::Fields::Director ).toString() );
+        this->LineEdit_Director->setText( _model->director() );
 
-    if( record.value( Tables::Dorama::Fields::Year ).toInt() != 0 )
-        ui->SpinBox_Year->setValue(record.value( Tables::Dorama::Fields::Year ).toInt() );
-    ui->SpinBox_Season->setValue( record.value( Tables::Dorama::Fields::Season ).toInt() );
+    if( _model->date().year() != 0 )
+        ui->SpinBox_Year->setValue( _model->date().year() );
+    ui->SpinBox_Season->setValue( _model->season() );
 
-    ui->SpinBox_aTV->setValue( record.value( Tables::Dorama::Fields::SeriesTV ).toInt() );
-    ui->SpinBox_aSpec->setValue( record.value( Tables::Dorama::Fields::SeriesSpecial ).toInt() );
-    ui->SpinBox_aMovie->setValue( record.value( Tables::Dorama::Fields::SeriesMovie ).toInt() );
+    ui->SpinBox_aTV->setValue( _model->series_all_tv() );
+    ui->SpinBox_aSpec->setValue( _model->series_all_special() );
+    ui->SpinBox_aMovie->setValue( _model->series_all_movie() );
 
-    ui->SpinBox_vTV->setValue( record.value( Tables::Dorama::Fields::vSeriesTV ).toInt() );
-    ui->SpinBox_vSpec->setValue( record.value( Tables::Dorama::Fields::vSeriesSpecial ).toInt() );
-    ui->SpinBox_vMovie->setValue( record.value( Tables::Dorama::Fields::vSeriesMovie ).toInt() );
+    ui->SpinBox_vTV->setValue( _model->series_viewed_tv() );
+    ui->SpinBox_vSpec->setValue( _model->series_viewed_special() );
+    ui->SpinBox_vMovie->setValue( _model->series_viewed_movie() );
 
-    ui->LineEdit_Tags->setText( record.value( Tables::Dorama::Fields::Tags ).toString() );
-    ui->PlainTextEdit_Description->setPlainText( record.value( Tables::Dorama::Fields::Description ).toString() );
-    ui->PlainTextEdit_Actors->setPlainText( record.value( Tables::Dorama::Fields::Actors ).toString() );
-    ui->LineEdit_Dir->setText( record.value( Tables::Dorama::Fields::Dir ).toString() );
-    ui->LineEdit_URL->setText( record.value( Tables::Dorama::Fields::Url ).toString() );
+    ui->LineEdit_Tags->setText( _model->ganres().join(",") );
+    ui->PlainTextEdit_Description->setPlainText( _model->description() );
+    ui->PlainTextEdit_Actors->setPlainText( _model->roles() );
+    ui->LineEdit_Dir->setText( _model->localPath() );
+    ui->LineEdit_URL->setText( _model->url() );
 
-    _oldCover = record.value( Tables::Dorama::Fields::ImagePath ).toString();
+    _oldCover = _model->cover();
 
     QPixmap pm( DefinesPath::doramaCovers() + _oldCover );
     if( !pm.isNull() ){
@@ -107,6 +106,8 @@ DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned long long record_id) 
     LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {
     ui->setupUi(this);
+    _model = new DoramaModel( QString::number( record_id ) );
+
     setWindowTitle( tr("Editing dorama") );
     QSettings settings;
     this->restoreGeometry( settings.value(Options::Dialogs::Dorama::Geometry).toByteArray() );
@@ -125,6 +126,8 @@ DialogAddDorama::DialogAddDorama(QWidget *parent):
     LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
 {
     ui->setupUi(this);
+    _model = new DoramaModel();
+
     QSettings settings;
     this->restoreGeometry( settings.value(Options::Dialogs::Dorama::Geometry).toByteArray() );
 
@@ -192,74 +195,53 @@ void DialogAddDorama::on_BtnBox_clicked(QAbstractButton *button)
 }
 
 bool DialogAddDorama::insert_Dorama(){
-    using namespace Tables::Dorama::Fields;
-    QMap<QString, QVariant> data;
+    _model->setWantToLook( ! ui->CheckBox_LookLater->isChecked() );
+    _model->setEditing( ! ui->CheckBox_Editing->isChecked() );
+    _model->setTitle( ui->LineEdit_Title->text() );
+    _model->setAltTitle( (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():ui->LineEdit_Title->text() );
+    _model->setDirector( (LineEdit_Director)?this->LineEdit_Director->text():"" );
+    _model->setSeries_all_tv( ui->SpinBox_aTV->value() );
+    _model->setSeries_all_special( ui->SpinBox_aSpec->value() );
+    _model->setSeries_all_movie( ui->SpinBox_aMovie->value() );
+    _model->setSeries_viewed_tv( ui->SpinBox_vTV->value() );
+    _model->setSeries_viewed_special( ui->SpinBox_vSpec->value() );
+    _model->setSeries_viewed_movie( ui->SpinBox_vMovie->value() );
+    _model->setScore( 0 );
+    _model->setDate( QDate((ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0, 1, 1) );
+    _model->setSeason( ui->SpinBox_Season->value() );
 
-    data[isHaveLooked]   = !ui->CheckBox_LookLater->isChecked();
-    data[isEditingDone]  = !ui->CheckBox_Editing->isChecked();
-    data[isAdult]        = false;
-    data[id]             = _recordId;
-
-    QRegExp rx("<.*>"); rx.setMinimal(true);
-    data[Title]          = ui->LineEdit_Title->text().remove(rx);
-
-    data[AltTitle]       = (LineEdit_AltTitle)?this->LineEdit_AltTitle->text():ui->LineEdit_Title->text();
-    data[Director]       = (LineEdit_Director)?this->LineEdit_Director->text():"";
-    data[SeriesTV]       = ui->SpinBox_aTV->value()   ;
-    data[SeriesSpecial]  = ui->SpinBox_aSpec->value() ;
-    data[SeriesMovie]    = ui->SpinBox_aMovie->value();
-    data[vSeriesTV]      = ui->SpinBox_vTV->value()   ;
-    data[vSeriesSpecial] = ui->SpinBox_vSpec->value() ;
-    data[vSeriesMovie]   = ui->SpinBox_vMovie->value();
-    data[Score]          = 0;
-    data[Year]           = (ui->CBox_Year->isChecked())? ui->SpinBox_Year->value() : 0;
-    data[Season]         = ui->SpinBox_Season->value();
-
-    QString tagsList;
-    QStringList list;
-    QModelIndexList mlist = ui->ListView_Tags->selectionModel()->selectedIndexes();
-    for(int i = 0;i < mlist.count();i++){
-        list.append(mlist.at(i).data(Qt::DisplayRole).toString());
-    }
-
-    for(int i = 0; i < list.count();i++){
-        if( i != 0 ){
-            tagsList += ", ";
+    {
+        QStringList list;
+        QModelIndexList mlist = ui->ListView_Tags->selectionModel()->selectedIndexes();
+        for(int i = 0;i < mlist.count();i++){
+            list.append(mlist.at(i).data(Qt::DisplayRole).toString());
         }
-        tagsList += list.at(i);
-    }
-    if( !ui->LineEdit_Tags->text().isEmpty() && !tagsList.isEmpty() ){
-        tagsList += ", ";
-    }
-    tagsList += ui->LineEdit_Tags->text();
 
-    data[Tags]         = tagsList;
-    data[Description]  = ui->PlainTextEdit_Description->toPlainText();
-    data[Actors]       = ui->PlainTextEdit_Actors->toPlainText();
-    data[Url]          = ui->LineEdit_URL->text();
-    data[Dir]          = ui->LineEdit_Dir->text();
-
-    QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
-    QDir dir;
-    if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( DefinesPath::doramaCovers() ) ){
-        QFile f( ui->Lbl_ImageCover->getImagePath() );
-        f.copy( DefinesPath::doramaCovers() + coverName );
+        _model->setGanres( list + ui->LineEdit_Tags->text().split(",") );
     }
-    if( _isEditRole && !_oldCover.isEmpty() ){
-            dir.remove( DefinesPath::doramaCovers() + _oldCover );
-    }
-    data[ImagePath] = coverName;
 
-    if( !_isEditRole ){
-        if( MngrQuerys::insertDorama(data) == false ){
-            QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data."));
-            return false;
+    _model->setDescription( ui->PlainTextEdit_Description->toPlainText() );
+    _model->setRoles( ui->PlainTextEdit_Actors->toPlainText() );
+    _model->setUrl( ui->LineEdit_URL->text() );
+    _model->setLocalPath( ui->LineEdit_Dir->text() );
+
+    {
+        QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
+        QDir dir;
+        if( !ui->Lbl_ImageCover->getImagePath().isEmpty() && dir.mkpath( DefinesPath::doramaCovers() ) ){
+            QFile f( ui->Lbl_ImageCover->getImagePath() );
+            f.copy( DefinesPath::doramaCovers() + coverName );
         }
-    }else{
-        if( MngrQuerys::updateDorama(data) == false ){
-            QMessageBox::critical(this, tr("Critical"), tr("Cannot update data."));
-            return false;
+        if( _isEditRole && !_oldCover.isEmpty() ){
+                dir.remove( DefinesPath::doramaCovers() + _oldCover );
         }
+
+        _model->setCover( coverName );
+    }
+
+    if( ! _model->save( _isEditRole ) ){
+        QMessageBox::critical(this, tr("Critical"), tr("Cannot insert data."));
+        return false;
     }
     return true;
 }

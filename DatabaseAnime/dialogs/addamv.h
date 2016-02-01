@@ -7,6 +7,8 @@
 #include <QSqlQueryModel>
 #include <QStringListModel>
 
+#include "models/amvmodel.h"
+
 namespace Ui {
 class DialogAddAmv;
 }
@@ -17,15 +19,14 @@ class DialogAddAmv;
  * Диалог добавления и/или редактирования AMV записей.
  * \todo Делает слишком много. В планах, разбиение задач
  * чтобы у диалога осталась только задача редактирования.
- *
- *
- *
  */
 class DialogAddAmv : public QDialog
 {
     Q_OBJECT
 private:
     Ui::DialogAddAmv *ui;
+    AmvModel *_model;
+
     QSqlQueryModel* model;
 
     bool _isEditRole;

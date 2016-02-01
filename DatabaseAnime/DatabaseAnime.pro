@@ -43,7 +43,9 @@ HEADERS += \
     imageloader.h \
     core/models/basemodel.h \
     models/animemodel.h \
-    models/mangamodel.h
+    models/mangamodel.h \
+    models/amvmodel.h \
+    models/doramamodel.h
 
 SOURCES += \
     main.cpp \
@@ -68,7 +70,9 @@ SOURCES += \
     imageloader.cpp \
     core/models/basemodel.cpp \
     models/animemodel.cpp \
-    models/mangamodel.cpp
+    models/mangamodel.cpp \
+    models/amvmodel.cpp \
+    models/doramamodel.cpp
 
 FORMS += \
     mainwindow.ui \
