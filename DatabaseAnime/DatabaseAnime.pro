@@ -6,6 +6,14 @@ TEMPLATE = app
 CONFIG += c++11
 QMAKE_CXXFLAGS += -std=c++11
 
+
+# TODO :
+# class DbaApplication {
+#    Language
+#    Settings
+#
+# }
+
 VERSION = 1.4.2.4
 #Last digit:
 # 0 - Pre-Alpha
@@ -45,7 +53,11 @@ HEADERS += \
     models/animemodel.h \
     models/mangamodel.h \
     models/amvmodel.h \
-    models/doramamodel.h
+    models/doramamodel.h \
+    core/istorage.h \
+    core/keyvalue.h \
+    core/dbaapplication.h \
+    core/utils/logger.h
 
 SOURCES += \
     main.cpp \
@@ -72,7 +84,9 @@ SOURCES += \
     models/animemodel.cpp \
     models/mangamodel.cpp \
     models/amvmodel.cpp \
-    models/doramamodel.cpp
+    models/doramamodel.cpp \
+    core/dbaapplication.cpp \
+    core/utils/logger.cpp
 
 FORMS += \
     mainwindow.ui \

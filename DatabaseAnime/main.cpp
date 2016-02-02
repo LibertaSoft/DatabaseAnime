@@ -7,6 +7,8 @@
 
 #include "stylemanager.h"
 
+#include "core/dbaapplication.h"
+
 /// Output to log-file
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
@@ -64,13 +66,7 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(myMessageOutput);
 #endif
 
-    QApplication app(argc, argv);
-    app.setOrganizationName("LibertaSoft");
-    app.setOrganizationDomain("https://github.com/LibertaSoft");
-    app.setApplicationName("DatabaseAnime");
-    app.setApplicationVersion("1.4.2");
-    app.setApplicationDisplayName( QObject::tr("Database Anime") );
-    app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
+    DbaApplication app(argc, argv);
 
     {
         QSettings settings;

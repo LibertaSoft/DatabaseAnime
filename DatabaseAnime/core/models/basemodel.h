@@ -6,7 +6,7 @@
 #include <QMap>
 #include <QVariant>
 
-typedef QMap<QString,QVariant> KeyValue;
+#include "core/keyvalue.h"
 
 class BaseModel
 {
