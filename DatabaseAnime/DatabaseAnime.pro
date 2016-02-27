@@ -57,7 +57,9 @@ HEADERS += \
     core/istorage.h \
     core/keyvalue.h \
     core/dbaapplication.h \
-    core/utils/logger.h
+    core/utils/logger.h \
+    core/searchoutputtype.h \
+    core/sorttype.h
 
 SOURCES += \
     main.cpp \

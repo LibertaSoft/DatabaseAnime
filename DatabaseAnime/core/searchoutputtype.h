@@ -1,0 +1,6 @@
+#ifndef SEARCHOUTPUTTYPE_H
+#define SEARCHOUTPUTTYPE_H
+
+enum SearchOutput{ENG, RUS, MIX};
+
+#endif // SEARCHOUTPUTTYPE_H

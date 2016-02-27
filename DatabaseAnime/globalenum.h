@@ -2,6 +2,8 @@
 #define GLOBALENUM_H
 
 #include <QString>
+#include "core/searchoutputtype.h"
+#include "core/sorttype.h"
 /*#include <QMetaType>*/
 
 namespace sections {
@@ -14,12 +16,6 @@ namespace sections {
 namespace Filter {
     enum filter{all = 0, editing, wanttolook, tv, ova, ona, special, movie, looked};
 }
-
-namespace Sort{
-    enum sort{none = 0, asc, desc, year};
-}
-
-enum SearchOutput{ENG, RUS, MIX};
 
 namespace Options{
     namespace General{

@@ -8,6 +8,7 @@
 #include "dialogs/addmanga.h"
 #include "dialogs/addamv.h"
 #include "dialogs/adddorama.h"
+#include "dialogs/settings.h"
 
 #include <QDesktopServices>
 #include <QScrollArea>
@@ -32,14 +33,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ListWidget_Dir(nullptr), _btnPlay(nullptr), _ScrArea_propertyes(nullptr), _restoreDefSettings(false)
 {
     QSettings settings;
-    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Options::General::LANGUAGE, QLocale::English ).toInt());
-    if( language == 0 ){
-        language = QLocale::system().language();
-    }
-    qtTr.load( DbaLocalization::getQtBaseFileOfLocalization( language, DefinesPath::share() ) );
-    dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
-    qApp->installTranslator(&qtTr);
-    qApp->installTranslator(&dbaTr);
+//    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Options::General::LANGUAGE, QLocale::English ).toInt());
+//    if( language == 0 ){
+//        language = QLocale::system().language();
+//    }
+//    qtTr.load( DbaLocalization::getQtBaseFileOfLocalization( language, DefinesPath::share() ) );
+//    dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
+//    qApp->installTranslator(&qtTr);
+//    qApp->installTranslator(&dbaTr);
     ui->setupUi(this);
 
     ui->stackedWidget->setCurrentIndex(0);
