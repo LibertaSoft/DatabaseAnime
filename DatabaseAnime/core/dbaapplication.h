@@ -12,13 +12,13 @@ class DbaApplication : public QApplication
 {
 private:
     QLocale _locale;
-    Logger *_logger = nullptr;
+    Logger* _logger = nullptr;
     QTranslator _qtBaseTranslator;
     QTranslator _appTranslator;
-    QSettings *_settings = nullptr;
+    QSettings* _settings = nullptr;
 
     void setProgramInfo();
-    void loadLocalization();
+    QLocale loadLocalization();
 
 public:
     DbaApplication(int &argc, char **argv);
@@ -29,6 +29,6 @@ public: // set/get
     QLocale getLocale();
 
     void setLogger( Logger *logger );
-    Logger* logger();
-    QSettings* settings();
+    Logger& logger();
+    QSettings& settings();
 };

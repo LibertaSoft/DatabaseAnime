@@ -11,18 +11,26 @@ void DbaApplication::setProgramInfo()
     setOrganizationDomain("https://github.com/LibertaSoft");
     setApplicationName("DatabaseAnime");
     setApplicationVersion("1.4.2");
-    setApplicationDisplayName( QObject::tr("Database Anime") );
+    setApplicationDisplayName( tr("Database Anime") );
     setWindowIcon( QIcon("://images/DBA_Icon.png") );
 }
 
-void DbaApplication::loadLocalization()
+/*! \~russian
+ * \brief Метод для загрузки локализации и установки QTranslator. Локализация берется из настроек приложения.
+ */
+/*! \~english
+ * \brief Method for load localization and set translators. Localization was loaded from application settings.
+ */
+QLocale DbaApplication::loadLocalization()
 {
-    QLocale locale = settings()->value("Global/Locale").toLocale();
+    QLocale locale = settings().value("Global/Locale", QLocale::system()).toLocale();
 
     _qtBaseTranslator.load( DbaLocalization::getQtBaseFileOfLocalization( locale.language(), DefinesPath::share() ) );
     _appTranslator.load( DbaLocalization::getFileOfLocalization( locale.language(), DefinesPath::share() ) );
     installTranslator( & _qtBaseTranslator );
     installTranslator( & _appTranslator );
+
+    return locale;
 }
 
 DbaApplication::DbaApplication(int &argc, char **argv)
@@ -31,8 +39,7 @@ DbaApplication::DbaApplication(int &argc, char **argv)
     setProgramInfo();
     _settings = new QSettings;
     setLogger( new Logger );
-    setLocale( QLocale::system() ); /// \todo read locale from settings
-    loadLocalization();
+    setLocale( loadLocalization() );
 }
 
 DbaApplication::~DbaApplication()
@@ -65,17 +72,17 @@ void DbaApplication::setLogger(Logger *logger)
     _logger = logger;
 }
 
-Logger* DbaApplication::logger()
+Logger& DbaApplication::logger()
 {
     if( ! _logger )
         _logger = new Logger;
-    return _logger;
+    return *_logger;
 }
 
-QSettings* DbaApplication::settings()
+QSettings& DbaApplication::settings()
 {
     if( ! _settings )
         _settings = new QSettings;
 
-    return _settings;
+    return *_settings;
 }

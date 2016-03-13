@@ -1,6 +1,5 @@
 #include "dialogs/addamv.h"
 #include "ui_addamv.h"
-//#include "mngrquerys.h"
 #include "definespath.h"
 
 #include <QFileDialog>
