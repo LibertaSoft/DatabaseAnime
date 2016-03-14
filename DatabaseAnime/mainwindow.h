@@ -5,6 +5,7 @@
 #include "dialogs/settings.h"
 #include "mngrconnection.h"
 #include "mngrquerys.h"
+#include "core/storage/sqlitestorage.h"
 
 #include <QMainWindow>
 #include <QPushButton>
@@ -25,7 +26,8 @@ private:
     QTranslator dbaTr;
 
     Ui::MainWindow *ui;
-    MngrConnection mngrConnection;
+    SqliteStorage *_storage;
+//    MngrConnection mngrConnection;
 
     LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbMovie;
 

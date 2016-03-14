@@ -4,11 +4,12 @@
 #include <QString>
 #include "core/searchoutputtype.h"
 #include "core/sorttype.h"
+#include "core/section.h"
 /*#include <QMetaType>*/
 
-namespace sections {
-    enum section{none = 0, anime, manga, amv, dorama};
-}
+//namespace sections {
+//    enum section{none = 0, anime, manga, amv, dorama};
+//}
 /* #Note : Problems with QVariant */
 /*enum class Section : int {None, Anime, Manga, Amv, Dorama};*/
 /*Q_DECLARE_METATYPE(Section)*/

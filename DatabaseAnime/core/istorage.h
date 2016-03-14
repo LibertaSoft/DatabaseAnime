@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/keyvalue.h"
+#include "core/section.h"
 
 template <class T>
 class QList;
@@ -10,6 +11,9 @@ class QAbstractTableModel;
 class IStorage
 {
 public:
-    virtual KeyValue getByPk(const QString &pk) = 0;
-    virtual QAbstractTableModel getByTitle(const QString &title) = 0;
+    virtual KeyValue getByPk(const sections::section section, const QString &pk) = 0;
+    virtual QAbstractTableModel* getTableModel(const sections::section section) = 0;
+
+    virtual bool save(const sections::section section, const KeyValue &data) = 0;
+    virtual bool save(const sections::section section, const QList<KeyValue> &data) = 0;
 };

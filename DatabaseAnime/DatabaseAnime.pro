@@ -59,7 +59,9 @@ HEADERS += \
     core/dbaapplication.h \
     core/utils/logger.h \
     core/searchoutputtype.h \
-    core/sorttype.h
+    core/sorttype.h \
+    core/section.h \
+    core/storage/sqlitestorage.h
 
 SOURCES += \
     main.cpp \
@@ -88,7 +90,8 @@ SOURCES += \
     models/amvmodel.cpp \
     models/doramamodel.cpp \
     core/dbaapplication.cpp \
-    core/utils/logger.cpp
+    core/utils/logger.cpp \
+    core/storage/sqlitestorage.cpp
 
 FORMS += \
     mainwindow.ui \

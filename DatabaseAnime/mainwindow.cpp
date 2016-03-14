@@ -79,11 +79,14 @@ MainWindow::MainWindow(QWidget *parent) :
     bool c1 = settings.value( Options::General::SwitchCoverOrDir, true ).toBool();
     ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 
+    _storage = new SqliteStorage();
+    /* #todo : old
     mngrConnection.open();
     MngrQuerys::createTable_Anime();
     MngrQuerys::createTable_Manga();
     MngrQuerys::createTable_Amv();
     MngrQuerys::createTable_Dorama();
+    // */
 
     ui->lineEdit_Search->setFocus();
     QueryModel_ListItemsSection = new QSqlQueryModel(this);
@@ -120,8 +123,9 @@ void MainWindow::replyVersionVerificationFinished(QNetworkReply* r){
 }
 
 void MainWindow::closeEvent(QCloseEvent *e){
-    mngrConnection.commit();
-    mngrConnection.close();
+//    mngrConnection.commit();
+//    mngrConnection.close();
+    delete _storage;
 
     QSettings settings;
     if( !_restoreDefSettings ){
@@ -150,7 +154,7 @@ void MainWindow::on_PButton_Options_clicked()
     QSettings settings;
     settings.setValue(Options::General::ActiveSection, currentSection);
 
-    Settings formSettings(mngrConnection, this);
+    Settings formSettings(*_storage->getConnection(), this);
     formSettings.setModal(true);
     formSettings.exec();
 
@@ -459,8 +463,10 @@ void MainWindow::setActiveTable(sections::section table)
 
 void MainWindow::selectAnimeData()
 {
-    mngrConnection.commit();
-    mngrConnection.transaction();
+//    mngrConnection.commit();
+//    mngrConnection.transaction();
+    _storage->commit();
+    _storage->transaction();
 
     QSqlRecord record = MngrQuerys::selectData(_activeTable, _currentItemId);
 
@@ -609,8 +615,10 @@ void MainWindow::selectAnimeData()
 
 void MainWindow::selectMangaData()
 {
-    mngrConnection.commit();
-    mngrConnection.transaction();
+//    mngrConnection.commit();
+//    mngrConnection.transaction();
+    _storage->commit();
+    _storage->transaction();
 
     QSqlRecord record = MngrQuerys::selectData(_activeTable, _currentItemId);
 
@@ -725,8 +733,10 @@ void MainWindow::selectMangaData()
 
 void MainWindow::selectAmvData()
 {
-    mngrConnection.commit();
-    mngrConnection.transaction();
+//    mngrConnection.commit();
+//    mngrConnection.transaction();
+    _storage->commit();
+    _storage->transaction();
 
     QSqlRecord record = MngrQuerys::selectData(_activeTable, _currentItemId);
 
@@ -814,8 +824,10 @@ void MainWindow::selectAmvData()
 
 void MainWindow::selectDoramaData()
 {
-    mngrConnection.commit();
-    mngrConnection.transaction();
+//    mngrConnection.commit();
+//    mngrConnection.transaction();
+    _storage->commit();
+    _storage->transaction();
 
     QSqlRecord record = MngrQuerys::selectData(_activeTable, _currentItemId);
 
