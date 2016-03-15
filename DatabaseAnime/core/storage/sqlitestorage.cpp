@@ -38,7 +38,9 @@ KeyValue SqliteStorage::getByPk(const sections::section section, const QString &
 
 QAbstractTableModel *SqliteStorage::getTableModel(const sections::section section)
 {
-
+    QSqlQueryModel *model = new QSqlQueryModel;
+    MngrQuerys::selectSection( model, section, Tables::UniformField::TITLE, Filter::all, Sort::none );
+    return model;
 }
 
 bool SqliteStorage::save(const sections::section section, const KeyValue &data)

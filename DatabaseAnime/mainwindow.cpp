@@ -89,8 +89,16 @@ MainWindow::MainWindow(QWidget *parent) :
     // */
 
     ui->lineEdit_Search->setFocus();
-    QueryModel_ListItemsSection = new QSqlQueryModel(this);
-    ui->TreeView_List->setModel(QueryModel_ListItemsSection);
+//    QueryModel_ListItemsSection = new QSqlQueryModel(this); /// \todo : must delete
+//    ui->TreeView_List->setModel( QueryModel_ListItemsSection );
+    _animesProxyModel = new QSortFilterProxyModel;
+    setAnimesModel( _storage->getTableModel( sections::anime ) );
+    _animesProxyModel->setSourceModel( getAnimesModel() );
+    ui->TreeView_List->setModel( _animesProxyModel );
+    ui->TreeView_List->hideColumn(0);
+
+
+//    _animesProxyModel->setFilterFixedString("ar");
 
     reloadSectionsList();
     reloadFiltersList();
@@ -199,7 +207,7 @@ void MainWindow::on_TButton_Add_clicked()
     }
     dialog->setModal(true);
     dialog->exec();
-    QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
+//    QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
 }
 
 void MainWindow::on_TButton_Edit_clicked()
@@ -225,7 +233,7 @@ void MainWindow::on_TButton_Edit_clicked()
         }
         dialog->setModal(true);
         dialog->exec();
-        QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
+//        QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
     }else{
         QMessageBox::information(this, tr("Warning"), tr("Item isn't selected"));
     }
@@ -261,7 +269,7 @@ void MainWindow::on_TButton_Delete_clicked()
             if( coverPath.isNull() == false ){
                 QDir().remove( coverPath );
             }
-            QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
+//            QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
             ui->stackedWidget->setCurrentIndex(0);
         }
     }else{
@@ -321,9 +329,26 @@ void MainWindow::openFile(QString &file)
 
 void MainWindow::on_lineEdit_Search_textChanged(const QString &strSearch)
 {
-    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
-    MngrQuerys::selectSection(QueryModel_ListItemsSection, getActiveTable(),
-                                   _displayedField, filter, _sort, strSearch);
+    /// \todo : filter must by working by proxy model
+//    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
+//    MngrQuerys::selectSection(QueryModel_ListItemsSection, getActiveTable(),
+//                                   _displayedField, filter, _sort, strSearch);
+}
+
+QAbstractTableModel *MainWindow::getAnimesModel() const
+{
+    return _animesModel;
+}
+
+void MainWindow::setAnimesModel(QAbstractTableModel *animesModel)
+{
+    delete _animesModel;
+    _animesModel = animesModel;
+}
+
+void MainWindow::changeSection()
+{
+
 }
 
 QString MainWindow::getActiveTableName() const
@@ -996,8 +1021,12 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
     setActiveTable( sec );
     reloadFiltersList();
 
-    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
-    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
+    /// \todo filter, sort, displayed_field
+//    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
+//    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
+    setAnimesModel( _storage->getTableModel( getActiveTable() ) );
+//    ui->TreeView_List->setModel( getAnimesModel() );
+    ui->TreeView_List->setModel( _animesProxyModel );
     ui->TreeView_List->hideColumn(0);
 //    Show column 'Year'
 //    if( _sort != Sort::year ){
@@ -1022,8 +1051,9 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
 
 void MainWindow::on_CB_Filter_currentIndexChanged(int = 0)
 {
-    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
-    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
+    /// \todo change filter in proxy_model
+//    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
+//    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
 }
 
 void MainWindow::on_TreeView_Dir_activated(const QModelIndex &index)

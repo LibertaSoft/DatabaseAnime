@@ -45,6 +45,8 @@ private:
     QString _currentItemDir;
 
     QSqlQueryModel* QueryModel_ListItemsSection;
+    QAbstractTableModel* _animesModel = nullptr;
+    QSortFilterProxyModel* _animesProxyModel = nullptr;
 
     QString getActiveTableName() const;
     QString getTableName( sections::section ) const;
@@ -70,6 +72,10 @@ public:
     void closeEvent(QCloseEvent *);
     ~MainWindow();
 
+    QAbstractTableModel *getAnimesModel() const;
+    void setAnimesModel(QAbstractTableModel *animesModel);
+private slots:
+    void changeSection();
 private slots:
     void on_PButton_Options_clicked();
     void on_TButton_Add_clicked();
