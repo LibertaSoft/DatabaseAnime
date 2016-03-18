@@ -101,7 +101,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    _animesProxyModel->setFilterFixedString("ar");
 
     reloadSectionsList();
-    reloadFiltersList();
+//    reloadFiltersList();
 }
 
 void MainWindow::replyVersionVerificationFinished(QNetworkReply* r){
@@ -329,10 +329,11 @@ void MainWindow::openFile(QString &file)
 
 void MainWindow::on_lineEdit_Search_textChanged(const QString &strSearch)
 {
-    /// \todo : filter must by working by proxy model
-//    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
-//    MngrQuerys::selectSection(QueryModel_ListItemsSection, getActiveTable(),
-//                                   _displayedField, filter, _sort, strSearch);
+    /// \todo hardcode column
+    /// \todo filter settings
+    _animesProxyModel->setFilterFixedString( strSearch );
+    _animesProxyModel->setFilterKeyColumn(1);
+    _animesProxyModel->setFilterCaseSensitivity( Qt::CaseInsensitive );
 }
 
 QAbstractTableModel *MainWindow::getAnimesModel() const
@@ -344,6 +345,8 @@ void MainWindow::setAnimesModel(QAbstractTableModel *animesModel)
 {
     delete _animesModel;
     _animesModel = animesModel;
+    _animesProxyModel->setSourceModel( animesModel );
+    ui->TreeView_List->hideColumn(0);
 }
 
 void MainWindow::changeSection()
@@ -1026,8 +1029,8 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
 //    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
     setAnimesModel( _storage->getTableModel( getActiveTable() ) );
 //    ui->TreeView_List->setModel( getAnimesModel() );
-    ui->TreeView_List->setModel( _animesProxyModel );
-    ui->TreeView_List->hideColumn(0);
+//    ui->TreeView_List->setModel( _animesProxyModel );
+
 //    Show column 'Year'
 //    if( _sort != Sort::year ){
 //        ui->TreeView_List->hideColumn(2);
