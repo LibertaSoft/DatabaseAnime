@@ -151,11 +151,6 @@ void MainWindow::on_PButton_Options_clicked()
     formSettings.setModal(true);
     formSettings.exec();
 
-//    QLocale::Language language = formSettings.getLanguage();
-//    if( language == 0 )
-//        language = QLocale::system().language();
-//    qtTr.load( DbaLocalization::getQtBaseFileOfLocalization( language, DefinesPath::share() ) );
-//    dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
     app.loadLocalization();
     ui->retranslateUi(this);
 
@@ -165,6 +160,7 @@ void MainWindow::on_PButton_Options_clicked()
     _restoreDefSettings = formSettings.getRestoreDefault();
 
     reloadSectionsList();
+//    reloadFiltersList(); /// \todo reload filters list
 }
 
 void MainWindow::on_TButton_Add_clicked()
@@ -227,6 +223,7 @@ void MainWindow::on_TButton_Edit_clicked()
 
 void MainWindow::on_TButton_Delete_clicked()
 {
+    /// \todo settings option for confirm delete
     if( ui->TreeView_List->selectionModel()->selectedIndexes().isEmpty() == false ){
         QMessageBox* pmbx =
         new QMessageBox(QMessageBox::Question,
@@ -256,7 +253,7 @@ void MainWindow::on_TButton_Delete_clicked()
                 QDir().remove( coverPath );
             }
 //            QueryModel_ListItemsSection->setQuery( QueryModel_ListItemsSection->query().executedQuery() );
-            ui->stackedWidget->setCurrentIndex(0);
+            ui->stackedWidget->setCurrentIndex(0); /// \todo setPage( Pages::Main )
         }
     }else{
         QMessageBox::information(this, tr("Warning"), tr("Item isn't selected"));
@@ -265,8 +262,9 @@ void MainWindow::on_TButton_Delete_clicked()
 
 void MainWindow::on_TreeView_List_activated(const QModelIndex&)
 {
+    /// \todo controller.changeActiveItem( _currentItemId );
     _currentItemId = ui->TreeView_List->selectionModel()->selectedIndexes().at(0).data().toULongLong();
-    ui->stackedWidget->setCurrentIndex(1);
+    ui->stackedWidget->setCurrentIndex(1);  /// \todo setPage( Pages::Info )
     switch( getActiveTable() ){
         case sections::anime :
             selectAnimeData();
