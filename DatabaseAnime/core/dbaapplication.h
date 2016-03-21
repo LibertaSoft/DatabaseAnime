@@ -18,11 +18,12 @@ private:
     QSettings* _settings = nullptr;
 
     void setProgramInfo();
-    QLocale loadLocalization();
 
 public:
     DbaApplication(int &argc, char **argv);
     ~DbaApplication();
+
+    QLocale loadLocalization();
 
 public: // set/get
     void setLocale(const QLocale &locale);

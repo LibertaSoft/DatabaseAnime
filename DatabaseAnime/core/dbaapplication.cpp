@@ -23,7 +23,7 @@ void DbaApplication::setProgramInfo()
  */
 QLocale DbaApplication::loadLocalization()
 {
-    QLocale locale = settings().value("Global/Locale", QLocale::system()).toLocale();
+    QLocale locale = settings().value(Options::General::LOCALE, QLocale::system()).toLocale();
 
     _qtBaseTranslator.load( DbaLocalization::getQtBaseFileOfLocalization( locale.language(), DefinesPath::share() ) );
     _appTranslator.load( DbaLocalization::getFileOfLocalization( locale.language(), DefinesPath::share() ) );

@@ -38,16 +38,18 @@ void Settings::connectColorPicker()
 
 Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::Settings), MngrConnect(MngrCon)
+    ui(new Ui::Settings),
+    app(*static_cast<DbaApplication*>(qApp)),
+    MngrConnect(MngrCon)
 {
     ui->setupUi(this);
     ui->ProgressBar_Export->setVisible(false);
     ui->ProgressBar_Import->setVisible(false);
 
-    QSettings settings;
-    this->restoreGeometry( settings.value(Options::Dialogs::Config::Geometry).toByteArray() );
-    ui->splitter->restoreGeometry( settings.value(Options::Dialogs::Config::Splitter::Geometry).toByteArray() );
-    ui->splitter->restoreState( settings.value(Options::Dialogs::Config::Splitter::State).toByteArray() );
+    QSettings &cfg = app.settings();
+    this->restoreGeometry( cfg.value(Options::Dialogs::Config::Geometry).toByteArray() );
+    ui->splitter->restoreGeometry( cfg.value(Options::Dialogs::Config::Splitter::Geometry).toByteArray() );
+    ui->splitter->restoreState( cfg.value(Options::Dialogs::Config::Splitter::State).toByteArray() );
     ui->LineEdit_Export_FilePath->setText( DefinesPath::home() );
     ui->LineEdit_Import_FilePath->setText( DefinesPath::home() );
 
@@ -60,11 +62,11 @@ Settings::Settings(MngrConnection &MngrCon, QWidget *parent) :
 Settings::~Settings()
 {
     using namespace Options::Dialogs::Config;
-    QSettings settings;
-    settings.setValue(Geometry, this->saveGeometry() );
+    QSettings &cfg = app.settings();
+    cfg.setValue(Geometry, this->saveGeometry() );
 
-    settings.setValue(Splitter::Geometry, ui->splitter->saveGeometry() );
-    settings.setValue(Splitter::State,    ui->splitter->saveState() );
+    cfg.setValue(Splitter::Geometry, ui->splitter->saveGeometry() );
+    cfg.setValue(Splitter::State,    ui->splitter->saveState() );
     delete ui;
 }
 
@@ -769,7 +771,7 @@ void Settings::loadSettings()
 
         ui->ChBox_SwitchCoverOrDir->setChecked(  cfg.value( SwitchCoverOrDir, true ).toBool() );
 
-        QLocale locale( cfg.value( LANGUAGE, QLocale::system().name() ).toString() );
+        QLocale locale = cfg.value( LOCALE, QLocale::system() ).toLocale();
 
         ui->ComboBox_Language->addItem( tr("System"), QLocale::system().language() );
 
@@ -835,7 +837,7 @@ void Settings::loadSettings()
 
 void Settings::saveSettings()
 {
-    QSettings cfg;
+    QSettings &cfg = app.settings();
     {
         using namespace Options::ActiveSections;
         cfg.setValue( ANIME,  ui->ChBox_AS_Anime->isChecked() );
@@ -862,12 +864,8 @@ void Settings::saveSettings()
     }
     {
         using namespace Options::General;
-
-        int lang = ui->ComboBox_Language->currentData().toInt();
-        QLocale locale = QLocale( QLocale::Language(lang) );
-
-        cfg.setValue( LANGUAGE, locale.name() );
-        cfg.setValue( SORTING,  ui->ComboBox_ItemList_Sorting->currentIndex() );
+        cfg.setValue( LOCALE, QLocale( getLanguage() ) );
+        cfg.setValue( SORTING,  getSort() );
     }
     {
         using namespace Options::Network;

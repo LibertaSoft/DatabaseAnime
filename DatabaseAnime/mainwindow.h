@@ -14,6 +14,8 @@
 #include <QScrollArea>
 #include <QNetworkReply>
 
+#include "core/dbaapplication.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -22,12 +24,10 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private:
-    QTranslator qtTr;
-    QTranslator dbaTr;
+    DbaApplication &app;
 
     Ui::MainWindow *ui;
     SqliteStorage *_storage;
-//    MngrConnection mngrConnection;
 
     LookProgressBar *pbTV, *pbOVA, *pbONA, *pbSpecial, *pbMovie;
 
@@ -67,6 +67,7 @@ private:
     void execOptionsDialog();
     void deleteLookProgressBars();
 
+    void setInitialState();
 public:
     explicit MainWindow(QWidget *parent = 0);
     void closeEvent(QCloseEvent *);

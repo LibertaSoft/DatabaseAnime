@@ -22,6 +22,7 @@ namespace Options{
     namespace General{
         const QString DISPLAYED_FIELD("DisplayedField");
         const QString LANGUAGE("Language");
+        const QString LOCALE("Locale");
         const QString SORTING("Sorting");
         const QString SwitchCoverOrDir("SwitchCoverOrDir");
         const QString WorkDirectory("WorkDirectory");

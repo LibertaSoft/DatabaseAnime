@@ -15,6 +15,8 @@
 #include <QDir>
 #include <QFileDialog>
 
+#include "core/dbaapplication.h"
+
 namespace Ui {
 class Settings;
 }
@@ -24,6 +26,8 @@ class Settings : public QDialog
     Q_OBJECT
 private:
     Ui::Settings *ui;
+    DbaApplication &app;
+
     bool restoreDefault;
     QPalette stylePalette;
     MngrConnection MngrConnect;

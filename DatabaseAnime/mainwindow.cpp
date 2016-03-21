@@ -24,34 +24,19 @@
 #include <QJsonArray>
 #include <QJsonObject>
 
+#include "core/dbaapplication.h"
+
 //#include <QSvgWidget>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
+    app(*static_cast<DbaApplication*>(qApp)),
     ui(new Ui::MainWindow),
     pbTV(nullptr), pbOVA(nullptr), pbONA(nullptr), pbSpecial(nullptr), pbMovie(nullptr),
     ListWidget_Dir(nullptr), _btnPlay(nullptr), _ScrArea_propertyes(nullptr), _restoreDefSettings(false)
 {
     QSettings settings;
-//    QLocale::Language language = static_cast<QLocale::Language>(settings.value( Options::General::LANGUAGE, QLocale::English ).toInt());
-//    if( language == 0 ){
-//        language = QLocale::system().language();
-//    }
-//    qtTr.load( DbaLocalization::getQtBaseFileOfLocalization( language, DefinesPath::share() ) );
-//    dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
-//    qApp->installTranslator(&qtTr);
-//    qApp->installTranslator(&dbaTr);
-    ui->setupUi(this);
-
-    ui->stackedWidget->setCurrentIndex(0);
-    ui->StackWgt_CoverOrDir->setCurrentIndex(0);
-    ui->lbl_AppTitle->setText( qApp->applicationDisplayName() );
-
-    int font_id = QFontDatabase::addApplicationFont("://fonts/URWChanceryL-MediItal.ttf");
-    if(font_id >= 0)
-        ui->lbl_AppTitle->setFont( QFont( QFontDatabase::applicationFontFamilies(font_id).first(), 30 ) );
-
-    ui->Lbl_VVersion->setText( qApp->applicationVersion() );
+    setInitialState();
 
     _displayedField = static_cast<Tables::UniformField::field>( settings.value( Options::General::DISPLAYED_FIELD, Tables::UniformField::TITLE ).toInt() );
 
@@ -101,7 +86,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    _animesProxyModel->setFilterFixedString("ar");
 
     reloadSectionsList();
-//    reloadFiltersList();
+    reloadFiltersList();
 }
 
 void MainWindow::replyVersionVerificationFinished(QNetworkReply* r){
@@ -166,11 +151,12 @@ void MainWindow::on_PButton_Options_clicked()
     formSettings.setModal(true);
     formSettings.exec();
 
-    QLocale::Language language = formSettings.getLanguage();
-    if( language == 0 )
-        language = QLocale::system().language();
-    qtTr.load( DbaLocalization::getQtBaseFileOfLocalization( language, DefinesPath::share() ) );
-    dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
+//    QLocale::Language language = formSettings.getLanguage();
+//    if( language == 0 )
+//        language = QLocale::system().language();
+//    qtTr.load( DbaLocalization::getQtBaseFileOfLocalization( language, DefinesPath::share() ) );
+//    dbaTr.load( DbaLocalization::getFileOfLocalization( language, DefinesPath::share() ) );
+    app.loadLocalization();
     ui->retranslateUi(this);
 
     _sort = formSettings.getSort();
@@ -1013,6 +999,21 @@ void MainWindow::deleteLookProgressBars()
     }
 }
 
+void MainWindow::setInitialState()
+{
+    ui->setupUi(this);
+
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->StackWgt_CoverOrDir->setCurrentIndex(0);
+    ui->lbl_AppTitle->setText( qApp->applicationDisplayName() );
+
+    int font_id = QFontDatabase::addApplicationFont("://fonts/URWChanceryL-MediItal.ttf");
+    if(font_id >= 0)
+        ui->lbl_AppTitle->setFont( QFont( QFontDatabase::applicationFontFamilies(font_id).first(), 30 ) );
+
+    ui->Lbl_VVersion->setText( qApp->applicationVersion() );
+}
+
 void MainWindow::on_TreeView_List_clicked(const QModelIndex &index)
 {
     on_TreeView_List_activated(index);
@@ -1022,12 +1023,13 @@ void MainWindow::on_CB_Section_currentIndexChanged(int = 0)
 {
     sections::section sec = static_cast<sections::section>( ui->CB_Section->currentData().toInt() );
     setActiveTable( sec );
+    setAnimesModel( _storage->getTableModel( getActiveTable() ) );
     reloadFiltersList();
 
     /// \todo filter, sort, displayed_field
 //    Filter::filter filter = static_cast<Filter::filter>( ui->CB_Filter->currentData().toInt() );
 //    MngrQuerys::selectSection( QueryModel_ListItemsSection, getActiveTable(), _displayedField, filter, _sort );
-    setAnimesModel( _storage->getTableModel( getActiveTable() ) );
+
 //    ui->TreeView_List->setModel( getAnimesModel() );
 //    ui->TreeView_List->setModel( _animesProxyModel );
 
