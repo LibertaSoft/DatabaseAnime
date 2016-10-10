@@ -11,7 +11,7 @@
 #include <QDate>
 #include <QMap>
 
-const QString shikimoriUrl("http://shikimori.org");
+const QString shikimoriUrl("https://shikimori.org");
 
 /*! \~russian
  * \brief Класс взаимодействия с API сайта shikimori.org
