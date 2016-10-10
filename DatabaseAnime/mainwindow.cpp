@@ -316,8 +316,9 @@ void MainWindow::on_lineEdit_Search_textChanged(const QString &strSearch)
     /// \todo hardcode column
     /// \todo filter settings
     _animesProxyModel->setFilterFixedString( strSearch );
-    _animesProxyModel->setFilterKeyColumn(1);
+    _animesProxyModel->setFilterKeyColumn(1);// qqq 4
     _animesProxyModel->setFilterCaseSensitivity( Qt::CaseInsensitive );
+//    _animesModel->
 }
 
 QAbstractTableModel *MainWindow::getAnimesModel() const
@@ -331,6 +332,31 @@ void MainWindow::setAnimesModel(QAbstractTableModel *animesModel)
     _animesModel = animesModel;
     _animesProxyModel->setSourceModel( animesModel );
     ui->TreeView_List->hideColumn(0);
+//    ui->TreeView_List->hideColumn(1);
+//    ui->TreeView_List->hideColumn(2);
+//    ui->TreeView_List->hideColumn(3);
+//    ui->TreeView_List->hideColumn(5);
+//    ui->TreeView_List->hideColumn(6);
+//    ui->TreeView_List->hideColumn(7);
+//    ui->TreeView_List->hideColumn(8);
+//    ui->TreeView_List->hideColumn(9);
+//    ui->TreeView_List->hideColumn(10);
+//    ui->TreeView_List->hideColumn(11);
+//    ui->TreeView_List->hideColumn(12);
+//    ui->TreeView_List->hideColumn(13);
+//    ui->TreeView_List->hideColumn(14);
+//    ui->TreeView_List->hideColumn(15);
+//    ui->TreeView_List->hideColumn(16);
+//    ui->TreeView_List->hideColumn(17);
+//    ui->TreeView_List->hideColumn(18);
+//    ui->TreeView_List->hideColumn(19);
+//    ui->TreeView_List->hideColumn(20);
+//    ui->TreeView_List->hideColumn(21);
+//    ui->TreeView_List->hideColumn(22);
+//    ui->TreeView_List->hideColumn(23);
+//    ui->TreeView_List->hideColumn(24);
+//    ui->TreeView_List->hideColumn(25);
+//    ui->TreeView_List->hideColumn(26);
 }
 
 void MainWindow::changeSection()

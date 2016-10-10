@@ -1,5 +1,6 @@
 #include "sqlitestorage.h"
 #include "mngrquerys.h"
+#include <QSqlTableModel>
 
 SqliteStorage::SqliteStorage()
 {
@@ -40,6 +41,12 @@ QAbstractTableModel *SqliteStorage::getTableModel(const sections::section sectio
 {
     QSqlQueryModel *model = new QSqlQueryModel;
     MngrQuerys::selectSection( model, section, Tables::UniformField::TITLE, Filter::all, Sort::none );
+
+//    QSqlTableModel *model = new QSqlTableModel;
+//    model->setTable( MngrQuerys::getTableName( section ) );
+//    model->select();
+//    model->setFilter("any");
+
     return model;
 }
 

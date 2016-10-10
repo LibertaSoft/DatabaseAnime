@@ -11,6 +11,7 @@ class QAbstractTableModel;
 class IStorage
 {
 public:
+//    virtual ~IStorage() = 0;
     virtual KeyValue getByPk(const sections::section section, const QString &pk) = 0;
     virtual QAbstractTableModel* getTableModel(const sections::section section) = 0;
 
