@@ -145,8 +145,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>608</width>
-             <height>666</height>
+             <width>610</width>
+             <height>669</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -193,6 +193,16 @@
                   <widget class="QCheckBox" name="ChBox_SearchOnShikimori">
                    <property name="text">
                     <string>Live search on shikimori</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="ChBox_https">
+                   <property name="text">
+                    <string>Use HTTPS</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
@@ -462,8 +472,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>325</width>
-             <height>222</height>
+             <width>306</width>
+             <height>255</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -599,8 +609,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>345</width>
-             <height>236</height>
+             <width>322</width>
+             <height>235</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -767,8 +777,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>345</width>
-             <height>234</height>
+             <width>322</width>
+             <height>233</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">

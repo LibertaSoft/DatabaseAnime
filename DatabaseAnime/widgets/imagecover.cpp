@@ -60,7 +60,6 @@ void ImageCover::chooseImage()
 
     if( ! fileName.isEmpty() ){
         _emptyImage = false;
-        qDebug() << "set " << _emptyImage;
         setImagePath( fileName );
         setPixmap( QPixmap( fileName ) );
     }
@@ -72,14 +71,12 @@ void ImageCover::noImage()
     QPixmap p( "://images/DropHere.png" );
     this->setPixmap(p);
     _emptyImage = true;
-    qDebug() << "set " << _emptyImage;
 }
 
 void ImageCover::setPixmap(const QPixmap &pixmap)
 {
     QLabel::setPixmap( pixmap );
     _emptyImage = false;
-    qDebug() << "set " << _emptyImage;
 }
 
 void ImageCover::enableReloadButton(const bool enable)
@@ -106,7 +103,6 @@ void ImageCover::enableReloadButton(const bool enable)
         this->setPixmap( pix );
         setImagePath( urlList.at(0).toLocalFile() );
         _emptyImage = false;
-        qDebug() << "set " << _emptyImage;
     }else{
         QMessageBox::warning( this, tr("Warning"), tr("It was not succeeded to load the picture") );
     }

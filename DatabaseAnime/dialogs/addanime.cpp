@@ -548,7 +548,7 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
     ui->LineEdit_URL->setText( data[Url].toString() );
 
     QString cover = data[ImagePath].toString();
-    _urlCover = QUrl(shikimoriUrl + cover);
+    _urlCover = QUrl(ShikimoriApi::getShikimoriUrl() + cover);
     ui->Lbl_ImageCover->enableReloadButton( ! _urlCover.isEmpty() );
 
     QSettings cfg;
