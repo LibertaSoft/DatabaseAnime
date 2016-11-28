@@ -11,7 +11,7 @@
 #include <QDate>
 #include <QMap>
 
-const QString shikimoriUrl("https://shikimori.org");
+//const QString shikimoriUrl("https://shikimori.org");
 
 /*! \~russian
  * \brief Класс взаимодействия с API сайта shikimori.org
@@ -64,6 +64,7 @@ private:
 public:
     explicit ShikimoriApi(QString lang = "en", QObject* parent = 0);
     void setLang(QString lang);
+    static QString getShikimoriUrl();
 
     void searchAnime(QString title, short limit = 10);
     void searchManga(QString title, short limit = 10);
