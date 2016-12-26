@@ -10,7 +10,7 @@ void DbaApplication::setProgramInfo()
     setOrganizationName("LibertaSoft");
     setOrganizationDomain("https://github.com/LibertaSoft");
     setApplicationName("DatabaseAnime");
-    setApplicationVersion("1.4.2");
+    setApplicationVersion("1.4.4");
     setApplicationDisplayName( tr("Database Anime") );
     setWindowIcon( QIcon("://images/DBA_Icon.png") );
 }

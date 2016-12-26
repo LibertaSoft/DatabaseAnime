@@ -599,6 +599,7 @@ quint64 Settings::import()
             progress++;
             break;
         default:
+            /// \todo : HEY! this is writing the digit!!!
             qCritical() << "[FormSettings::importAppend] uncorrect section: " << reader.currentSection();
         }
         ui->ProgressBar_Import->setValue(progress);
@@ -724,6 +725,7 @@ void Settings::setApplicationStyle(QPalette palette)
 {
     qApp->setStyle( QStyleFactory::create("Fusion") );
     qApp->setPalette( palette );
+    /// \todo : may be this don't need here
     qApp->setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");
 }
 
@@ -765,6 +767,7 @@ void Settings::loadSettings()
         ui->SpinBox_SearchLimit->setValue( cfg.value( SEARCH_LIMIT, 10 ).toInt() );
         ui->ComboBox_SearchOutput->setCurrentIndex( cfg.value( SEARCH_OUTPUT, SearchOutput::MIX ).toInt() );
         ui->ChBox_DownloadCovers->setChecked( cfg.value( RELOAD_COVERS, true ).toBool() );
+        ui->ChBox_https->setChecked( cfg.value( USE_SSL  , true ).toBool() );
     }
     {
         using namespace Options::General;
@@ -874,6 +877,7 @@ void Settings::saveSettings()
         cfg.setValue( SEARCH_OUTPUT, ui->ComboBox_SearchOutput->currentData().toInt() );
         cfg.setValue( SEARCH_LIMIT , ui->SpinBox_SearchLimit->value() );
         cfg.setValue( RELOAD_COVERS, ui->ChBox_DownloadCovers->isChecked() );
+        cfg.setValue( USE_SSL,       ui->ChBox_https->isChecked() );
     }
     { // Style
         using namespace Options::Style;

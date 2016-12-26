@@ -23,6 +23,16 @@ void ShikimoriApi::setLang(QString lang)
     _lang = lang;
 }
 
+QString ShikimoriApi::getShikimoriUrl()
+{
+    QSettings cfg;
+    if( cfg.value( Options::Network::USE_SSL, true ) == true ) {
+        return "https://shikimori.org";
+    } else {
+        return "http://shikimori.org";
+    }
+}
+
 /*! \~russian
  * \brief Формирует запрос на указанный url
  * \param url - адрес запроса
@@ -149,7 +159,7 @@ QMap<QString,QVariant> ShikimoriApi::jsonParse_animeData(QByteArray data)
     }
     map[Tags] = tags;
     map[Description] = obj["description_html"].toString();
-    map[Url] = shikimoriUrl + obj["url"].toString();
+    map[Url] = ShikimoriApi::getShikimoriUrl() + obj["url"].toString();
     map[ImagePath] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
@@ -205,7 +215,7 @@ QMap<QString,QVariant> ShikimoriApi::jsonParse_mangaData(QByteArray data)
     }
     map[Tags] = tags;
     map[Description] = obj["description_html"].toString();
-    map[Url] = shikimoriUrl + obj["url"].toString();
+    map[Url] = ShikimoriApi::getShikimoriUrl() + obj["url"].toString();
     map[ImagePath] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
@@ -227,7 +237,7 @@ void ShikimoriApi::searchAnime(QString title, short limit)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyAnimeSearch);
 
-    QUrl url = shikimoriUrl + "/api/animes?search=" + title + "&limit=" + QString::number(limit);
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/animes?search=" + title + "&limit=" + QString::number(limit);
 
     manager->get( request(url) );
 }
@@ -248,7 +258,7 @@ void ShikimoriApi::searchManga(QString title, short limit)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyMangaSearch);
 
-    QUrl url = shikimoriUrl + "/api/mangas?search=" + title + "&limit=" + QString::number(limit);
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/mangas?search=" + title + "&limit=" + QString::number(limit);
 
     manager->get( request(url) );
 }
@@ -271,7 +281,7 @@ void ShikimoriApi::getAnimeId(QString title)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyGetAnimeId);
 
-    QUrl url = shikimoriUrl + "/api/animes?search=" + title + "&limit=1";
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/animes?search=" + title + "&limit=1";
 
     manager->get( request(url) );
 }
@@ -294,7 +304,7 @@ void ShikimoriApi::getMangaId(QString title)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyGetMangaId);
 
-    QUrl url = shikimoriUrl + "/api/mangas?search=" + title + "&limit=1";
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/mangas?search=" + title + "&limit=1";
 
     manager->get( request(url) );
 }
@@ -317,7 +327,7 @@ void ShikimoriApi::pullAnimeData(quint64 id)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyAnimeData);
 
-    QUrl url = shikimoriUrl + "/api/animes/" + QString::number(id);
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/animes/" + QString::number(id);
 
     manager->get( request(url) );
 }
@@ -340,15 +350,18 @@ void ShikimoriApi::pullMangaData(quint64 id)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyMangaData);
 
-    QUrl url = shikimoriUrl + "/api/mangas/" + QString::number(id);
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/mangas/" + QString::number(id);
 
     manager->get( request(url) );
 }
 
 void ShikimoriApi::replyAnimeSearch(QNetworkReply* reply)
 {
+//    Redirect ???
+//    QVariant redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+//    QUrl newUrl = redirectionTarget.toUrl();
+
     TitleLists lists = jsonParse_search( reply->readAll() );
-//    emit dataRecived_animeSearch( lists.eng );
     emit dataRecived_animeSearch( lists.eng, lists.rus );
     reply->deleteLater();
 }
@@ -356,7 +369,6 @@ void ShikimoriApi::replyAnimeSearch(QNetworkReply* reply)
 void ShikimoriApi::replyMangaSearch(QNetworkReply* reply)
 {
     TitleLists lists = jsonParse_search( reply->readAll() );
-//    emit dataRecived_mangaSearch( lists.eng );
     emit dataRecived_mangaSearch( lists.eng, lists.rus );
     reply->deleteLater();
 }
