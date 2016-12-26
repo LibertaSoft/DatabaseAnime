@@ -4,6 +4,7 @@
 #include <QString>
 #include "core/searchoutputtype.h"
 #include "core/sorttype.h"
+#include "core/filtertype.h"
 #include "core/section.h"
 /*#include <QMetaType>*/
 
@@ -14,9 +15,7 @@
 /*enum class Section : int {None, Anime, Manga, Amv, Dorama};*/
 /*Q_DECLARE_METATYPE(Section)*/
 
-namespace Filter {
-    enum filter{all = 0, editing, wanttolook, tv, ova, ona, special, movie, looked};
-}
+
 
 namespace Options{
     namespace General{

@@ -65,13 +65,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->StackWgt_CoverOrDir->setOptSwitch( c1 );
 
     _storage = new SqliteStorage();
-    /* #todo : old
-    mngrConnection.open();
-    MngrQuerys::createTable_Anime();
-    MngrQuerys::createTable_Manga();
-    MngrQuerys::createTable_Amv();
-    MngrQuerys::createTable_Dorama();
-    // */
 
     ui->lineEdit_Search->setFocus();
 //    QueryModel_ListItemsSection = new QSqlQueryModel(this); /// \todo : must delete
@@ -237,12 +230,18 @@ void MainWindow::on_TButton_Delete_clicked()
             return;
         }
 
+        /// \todo Вынести удаление в модель или ещё куда
+        /// а тут должен остаться только вызов метода для удаления
+
         QString coverFolder = DefinesPath::getCoversFolder(_activeTable);
         if( coverFolder == QString::null )
             return;
 
         QString coverPath( coverFolder + MngrQuerys::getImagePath(_activeTable, _currentItemId) );
 
+        /// \todo От id стоит избавиться в пользу внутреннего свойства _currentModel
+        /// а затем у модели можно вызвать метод удаления
+        /// Выбор _currentModel должен происходить ранее, на этапе клика на item списка
         quint64 tmpId = ui->TreeView_List->selectionModel()->selectedIndexes().at(0).data().toULongLong();
 
 
@@ -332,31 +331,6 @@ void MainWindow::setAnimesModel(QAbstractTableModel *animesModel)
     _animesModel = animesModel;
     _animesProxyModel->setSourceModel( animesModel );
     ui->TreeView_List->hideColumn(0);
-//    ui->TreeView_List->hideColumn(1);
-//    ui->TreeView_List->hideColumn(2);
-//    ui->TreeView_List->hideColumn(3);
-//    ui->TreeView_List->hideColumn(5);
-//    ui->TreeView_List->hideColumn(6);
-//    ui->TreeView_List->hideColumn(7);
-//    ui->TreeView_List->hideColumn(8);
-//    ui->TreeView_List->hideColumn(9);
-//    ui->TreeView_List->hideColumn(10);
-//    ui->TreeView_List->hideColumn(11);
-//    ui->TreeView_List->hideColumn(12);
-//    ui->TreeView_List->hideColumn(13);
-//    ui->TreeView_List->hideColumn(14);
-//    ui->TreeView_List->hideColumn(15);
-//    ui->TreeView_List->hideColumn(16);
-//    ui->TreeView_List->hideColumn(17);
-//    ui->TreeView_List->hideColumn(18);
-//    ui->TreeView_List->hideColumn(19);
-//    ui->TreeView_List->hideColumn(20);
-//    ui->TreeView_List->hideColumn(21);
-//    ui->TreeView_List->hideColumn(22);
-//    ui->TreeView_List->hideColumn(23);
-//    ui->TreeView_List->hideColumn(24);
-//    ui->TreeView_List->hideColumn(25);
-//    ui->TreeView_List->hideColumn(26);
 }
 
 void MainWindow::changeSection()

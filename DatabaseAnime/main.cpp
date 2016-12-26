@@ -1,12 +1,9 @@
-#include "mainwindow.h"
 #include <QApplication>
-
 #include <QStyleFactory>
-
 #include <QDebug>
 
+#include "mainwindow.h"
 #include "stylemanager.h"
-
 #include "core/dbaapplication.h"
 
 /// Output to log-file

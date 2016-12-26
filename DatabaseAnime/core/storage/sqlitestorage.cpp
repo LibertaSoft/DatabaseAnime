@@ -5,6 +5,7 @@
 SqliteStorage::SqliteStorage()
 {
     _connection.open();
+    /// \todo : Export from here
     MngrQuerys::createTable_Anime();
     MngrQuerys::createTable_Manga();
     MngrQuerys::createTable_Amv();
@@ -37,10 +38,10 @@ KeyValue SqliteStorage::getByPk(const sections::section section, const QString &
 
 }
 
-QAbstractTableModel *SqliteStorage::getTableModel(const sections::section section)
+QAbstractTableModel *SqliteStorage::getTableModel(const sections::section section, const Filter::filter filter)
 {
     QSqlQueryModel *model = new QSqlQueryModel;
-    MngrQuerys::selectSection( model, section, Tables::UniformField::TITLE, Filter::all, Sort::none );
+    MngrQuerys::selectSection( model, section, Tables::UniformField::TITLE, filter, Sort::none );
 
 //    QSqlTableModel *model = new QSqlTableModel;
 //    model->setTable( MngrQuerys::getTableName( section ) );

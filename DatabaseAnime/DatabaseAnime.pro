@@ -60,7 +60,8 @@ HEADERS += \
     core/searchoutputtype.h \
     core/sorttype.h \
     core/section.h \
-    core/storage/sqlitestorage.h
+    core/storage/sqlitestorage.h \
+    core/filtertype.h
 
 SOURCES += \
     main.cpp \
