@@ -764,6 +764,7 @@ void Settings::loadSettings()
         ui->ComboBox_SearchOutput->setCurrentIndex( cfg.value( SEARCH_OUTPUT, SearchOutput::MIX ).toInt() );
         ui->ChBox_DownloadCovers->setChecked( cfg.value( RELOAD_COVERS, true ).toBool() );
         ui->ChBox_https->setChecked( cfg.value( USE_SSL  , true ).toBool() );
+        ui->LineEdit_ShikimiriApiURL->setText( cfg.value(SHIKIMORI_API_URL, "").toString() );
     }
     {
         using namespace Options::General;
@@ -872,12 +873,13 @@ void Settings::saveSettings()
     }
     {
         using namespace Options::Network;
-        cfg.setValue( CHECK_UPDATES, ui->ChBox_CheckForUpdate->isChecked() );
-        cfg.setValue( LIVE_SEARCH  , ui->ChBox_SearchOnShikimori->isChecked() );
-        cfg.setValue( SEARCH_OUTPUT, ui->ComboBox_SearchOutput->currentData().toInt() );
-        cfg.setValue( SEARCH_LIMIT , ui->SpinBox_SearchLimit->value() );
-        cfg.setValue( RELOAD_COVERS, ui->ChBox_DownloadCovers->isChecked() );
-        cfg.setValue( USE_SSL,       ui->ChBox_https->isChecked() );
+        cfg.setValue( CHECK_UPDATES,     ui->ChBox_CheckForUpdate->isChecked() );
+        cfg.setValue( LIVE_SEARCH  ,     ui->ChBox_SearchOnShikimori->isChecked() );
+        cfg.setValue( SEARCH_OUTPUT,     ui->ComboBox_SearchOutput->currentData().toInt() );
+        cfg.setValue( SEARCH_LIMIT ,     ui->SpinBox_SearchLimit->value() );
+        cfg.setValue( RELOAD_COVERS,     ui->ChBox_DownloadCovers->isChecked() );
+        cfg.setValue( USE_SSL,           ui->ChBox_https->isChecked() );
+        cfg.setValue( SHIKIMORI_API_URL, ui->LineEdit_ShikimiriApiURL->text() );
     }
     { // Style
         using namespace Options::Style;

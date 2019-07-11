@@ -274,6 +274,10 @@
         <source>Choose a directory with video files</source>
         <translation type="vanished">Choose a directory with video files</translation>
     </message>
+    <message>
+        <source>The field &apos;Directory&apos; is uncorrect</source>
+        <translation type="obsolete">The field &apos;Directory&apos; is uncorrect</translation>
+    </message>
 </context>
 <context>
     <name>DialogAddDorama</name>
