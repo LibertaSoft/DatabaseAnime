@@ -168,7 +168,7 @@ int DialogAddAnime::kindOf(const QString &kind)
 
 DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     QDialog(parent), ui(new Ui::DialogAddAnime), _isEditRole(true), _recordId(record_id),
-    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
+    LineEdit_OrigTitle(nullptr), LineEdit_Director(nullptr), LineEdit_PostScoring(nullptr), TitleCompliter(nullptr)
 {
     ui->setupUi(this);
     setWindowTitle( tr("Editing anime") );
@@ -204,7 +204,7 @@ void DialogAddAnime::connectSlots()
 
 DialogAddAnime::DialogAddAnime(QWidget *parent):
     QDialog(parent), ui(new Ui::DialogAddAnime), _isEditRole(false),
-    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
+    LineEdit_OrigTitle(nullptr), LineEdit_Director(nullptr), LineEdit_PostScoring(nullptr), TitleCompliter(nullptr)
 {
     ui->setupUi(this);
     QSettings cfg;

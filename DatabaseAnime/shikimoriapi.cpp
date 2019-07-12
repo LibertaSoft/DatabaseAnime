@@ -98,15 +98,14 @@ ShikimoriApi::TitleLists ShikimoriApi::jsonParse_search(QByteArray data)
 /*! \~english
  * \brief Parsing answer JSON from website, on search of an title
  * \param data - is a data recieved from website (JSON)
- * \return - quing64 - id of record on the website
+ * \return - quint64 - id of record on the website
  */
 quint64 ShikimoriApi::jsonParse_getId(QByteArray data)
 {
     QJsonDocument doc = QJsonDocument::fromJson( data );
     QJsonArray arr = doc.array();
     QJsonObject obj = arr.at(0).toObject();
-    return obj["id"].toInt();
-    #pragma int2ulonglong;
+    return quint64(obj["id"].toDouble());
 }
 
 /*! \~russian
@@ -236,7 +235,7 @@ QMap<QString,QVariant> ShikimoriApi::jsonParse_mangaData(QByteArray data)
  * \param title - searching title
  * \param limit - is a limit of the response
  */
-void ShikimoriApi::searchAnime(QString title, short limit)
+void ShikimoriApi::searchAnime(QString title, int limit)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished,
@@ -257,7 +256,7 @@ void ShikimoriApi::searchAnime(QString title, short limit)
  * \param title - searching title
  * \param limit - is a limit of the response
  */
-void ShikimoriApi::searchManga(QString title, short limit)
+void ShikimoriApi::searchManga(QString title, int limit)
 {
     QNetworkAccessManager* manager = new QNetworkAccessManager(this);
     connect(manager, &QNetworkAccessManager::finished,

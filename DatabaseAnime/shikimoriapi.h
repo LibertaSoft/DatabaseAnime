@@ -66,8 +66,8 @@ public:
     void setLang(QString lang);
     static QString getShikimoriUrl();
 
-    void searchAnime(QString title, short limit = 10);
-    void searchManga(QString title, short limit = 10);
+    void searchAnime(QString title, int limit = 10);
+    void searchManga(QString title, int limit = 10);
 
     void getAnimeId(QString title);
     void getMangaId(QString title);
