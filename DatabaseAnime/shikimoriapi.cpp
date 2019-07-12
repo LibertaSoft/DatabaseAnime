@@ -23,6 +23,44 @@ void ShikimoriApi::setLang(QString lang)
     _lang = lang;
 }
 
+QString ShikimoriApi::getShikimoriUrl()
+{
+    QSettings cfg;
+    QVariant url = cfg.value( Options::Network::SHIKIMORI_API_URL );
+    if ( url.isValid() && (! url.toString().isEmpty()) ) {
+        return url.toString();
+    }
+
+    if( cfg.value( Options::Network::USE_SSL, true ) == true ) {
+        return "https://shikimori.org";
+    } else {
+        return "http://shikimori.org";
+    }
+}
+
+/*! \~russian
+ * \brief Формирует запрос на указанный url
+ * \param url - адрес запроса
+ * \return QNetworkRequest - сформированый запрос
+ * Формирует QNetworkRequest на указанный url адрес
+ * и добавляет заголовок User-Agent.
+ */
+/*! \~english
+ * \brief Creates request for the specified url
+ * \param url - request address
+ * \return QNetworkRequest - the created request
+ * Creates QNetworkRequest to the address specified to url
+ * also adds User-Agent header.
+ */
+QNetworkRequest ShikimoriApi::request(QUrl &url)
+{
+    QNetworkRequest request;
+    request.setUrl( url );
+    request.setHeader( QNetworkRequest::UserAgentHeader, qApp->applicationName() +" "+ qApp->applicationVersion() );
+
+    return request;
+}
+
 /*! \~russian
  * \brief Разбот JSON ответа от сайта, на поиск имеющихся названий
  * \param data - данные пришедшие в ответе от сайта (JSON)
@@ -35,20 +73,21 @@ void ShikimoriApi::setLang(QString lang)
  * \return QStringList - List of names of an anime/manga
  * \todo Fix a hardcode obj["russian"]
  */
-QStringList ShikimoriApi::jsonParse_search(QByteArray data)
+ShikimoriApi::TitleLists ShikimoriApi::jsonParse_search(QByteArray data)
 {
     QJsonDocument doc = QJsonDocument::fromJson( data );
     QJsonArray arr = doc.array();
 
-    QStringList animeList;
+    TitleLists lists;
+
     foreach(QJsonValue val, arr){
         QJsonObject obj = val.toObject();
-        animeList.append( obj["name"].toString() );
+        lists.eng.append( obj["name"].toString() );
         if( obj["russian"].toString().isEmpty() == false )
-            animeList.append( obj["russian"].toString() );
+            lists.rus.append( obj["russian"].toString() );
     }
 
-    return animeList;
+    return lists;
 }
 
 /*! \~russian
@@ -86,46 +125,46 @@ QMap<QString,QVariant> ShikimoriApi::jsonParse_animeData(QByteArray data)
 {
     QMap<QString,QVariant> map;
 
-	QJsonDocument doc = QJsonDocument::fromJson( data );
-	QJsonObject obj = doc.object();
+    QJsonDocument doc = QJsonDocument::fromJson( data );
+    QJsonObject obj = doc.object();
 
     using namespace Tables::Anime::Fields;
     map[Title] = obj["name"].toString();
     map[AltTitle] = obj["russian"].toString();
-	
-	//map["director"] = obj["director"].toString();
-	//map["PostScoring"] = obj["PostScoring"].toString();
-	
-	QDate date = QDate::fromString( obj["aired_on"].toString(), Qt::ISODate );
+
+    //map["director"] = obj["director"].toString();
+    //map["PostScoring"] = obj["PostScoring"].toString();
+
+    QDate date = QDate::fromString( obj["aired_on"].toString(), Qt::ISODate );
     map[Year] = date.year();
-	//map["Season"] = obj["Season"].toInt();
-	
-	QJsonArray studiosArray = obj["studios"].toArray();
-	QJsonObject studioObj = studiosArray.at(0).toObject();
+    //map["Season"] = obj["Season"].toInt();
+
+    QJsonArray studiosArray = obj["studios"].toArray();
+    QJsonObject studioObj = studiosArray.at(0).toObject();
     map[Studios] = studioObj["name"].toString();
 
     /// \todo Fix hardcode field names
     map["Type"] = obj["kind"].toString();
     map["Series"] = obj["episodes"].toInt();
-		
-	QJsonArray tagArray = obj["genres"].toArray();
-	QString tags;
 
-	bool ruLang = (_lang == "ru")? true : false;
-	for( int i = 0; i < tagArray.size(); ++i ){
-		QJsonObject tagObj = tagArray.at(i).toObject();
-		if( i > 0)
-			tags += ", ";
-			
-		if( ruLang ){
-			tags += tagObj["russian"].toString();
-		}else{
-			tags += tagObj["name"].toString();
-		}
-	}
+    QJsonArray tagArray = obj["genres"].toArray();
+    QString tags;
+
+    bool ruLang = (_lang == "ru")? true : false;
+    for( int i = 0; i < tagArray.size(); ++i ){
+        QJsonObject tagObj = tagArray.at(i).toObject();
+        if( i > 0)
+            tags += ", ";
+
+        if( ruLang ){
+            tags += tagObj["russian"].toString();
+        }else{
+            tags += tagObj["name"].toString();
+        }
+    }
     map[Tags] = tags;
     map[Description] = obj["description_html"].toString();
-    map[Url] = shikimoriUrl + obj["url"].toString();
+    map[Url] = ShikimoriApi::getShikimoriUrl() + obj["url"].toString();
     map[ImagePath] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
@@ -147,41 +186,41 @@ QMap<QString,QVariant> ShikimoriApi::jsonParse_mangaData(QByteArray data)
 {
     QMap<QString,QVariant> map;
 
-	QJsonDocument doc = QJsonDocument::fromJson( data );
-	QJsonObject obj = doc.object();
+    QJsonDocument doc = QJsonDocument::fromJson( data );
+    QJsonObject obj = doc.object();
 
     using namespace Tables::Manga::Fields;
     map[Title] = obj["name"].toString();
     map[AltTitle] = obj["russian"].toString();
-	
-	//map["director"] = obj["director"].toString();
-	//map["PostScoring"] = obj["PostScoring"].toString();
-	
-	QDate date = QDate::fromString( obj["aired_on"].toString(), Qt::ISODate );
+
+    //map["director"] = obj["director"].toString();
+    //map["PostScoring"] = obj["PostScoring"].toString();
+
+    QDate date = QDate::fromString( obj["aired_on"].toString(), Qt::ISODate );
     map[Year] = date.year();
-	//map["Season"] = obj["Season"].toInt();
-	
+    //map["Season"] = obj["Season"].toInt();
+
     map[Vol] = obj["volumes"].toInt();
     map[Ch] = obj["chapters"].toInt();
-		
-	QJsonArray tagArray = obj["genres"].toArray();
-	QString tags;
 
-	bool ruLang = (_lang == "ru")? true : false;
-	for( int i = 0; i < tagArray.size(); ++i ){
-		QJsonObject tagObj = tagArray.at(i).toObject();
-		if( i > 0)
-			tags += ", ";
-			
-		if( ruLang ){
-			tags += tagObj["russian"].toString();
-		}else{
-			tags += tagObj["name"].toString();
-		}
-	}
+    QJsonArray tagArray = obj["genres"].toArray();
+    QString tags;
+
+    bool ruLang = (_lang == "ru")? true : false;
+    for( int i = 0; i < tagArray.size(); ++i ){
+        QJsonObject tagObj = tagArray.at(i).toObject();
+        if( i > 0)
+            tags += ", ";
+
+        if( ruLang ){
+            tags += tagObj["russian"].toString();
+        }else{
+            tags += tagObj["name"].toString();
+        }
+    }
     map[Tags] = tags;
     map[Description] = obj["description_html"].toString();
-    map[Url] = shikimoriUrl + obj["url"].toString();
+    map[Url] = ShikimoriApi::getShikimoriUrl() + obj["url"].toString();
     map[ImagePath] = ( obj["image"].toObject() )["original"].toString();
 
     return map;
@@ -203,8 +242,9 @@ void ShikimoriApi::searchAnime(QString title, short limit)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyAnimeSearch);
 
-    QUrl url = shikimoriUrl + "/api/animes?search=" + title + "&limit=" + QString::number(limit);
-    manager->get( QNetworkRequest( url ) );
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/animes?search=" + title + "&limit=" + QString::number(limit);
+
+    manager->get( request(url) );
 }
 
 /*! \~russian
@@ -223,8 +263,9 @@ void ShikimoriApi::searchManga(QString title, short limit)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyMangaSearch);
 
-    QUrl url = shikimoriUrl + "/api/mangas?search=" + title + "&limit=" + QString::number(limit);
-    manager->get( QNetworkRequest( url ) );
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/mangas?search=" + title + "&limit=" + QString::number(limit);
+
+    manager->get( request(url) );
 }
 
 /*! \~russian
@@ -245,8 +286,9 @@ void ShikimoriApi::getAnimeId(QString title)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyGetAnimeId);
 
-    QUrl url = shikimoriUrl + "/api/animes?search=" + title + "&limit=1";
-    manager->get( QNetworkRequest( url ) );
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/animes?search=" + title + "&limit=1";
+
+    manager->get( request(url) );
 }
 
 /*! \~russian
@@ -267,8 +309,9 @@ void ShikimoriApi::getMangaId(QString title)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyGetMangaId);
 
-    QUrl url = shikimoriUrl + "/api/mangas?search=" + title + "&limit=1";
-    manager->get( QNetworkRequest( url ) );
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/mangas?search=" + title + "&limit=1";
+
+    manager->get( request(url) );
 }
 
 /*! \~russian
@@ -289,8 +332,9 @@ void ShikimoriApi::pullAnimeData(quint64 id)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyAnimeData);
 
-    QUrl url = shikimoriUrl + "/api/animes/" + QString::number(id);
-    manager->get( QNetworkRequest( url ) );
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/animes/" + QString::number(id);
+
+    manager->get( request(url) );
 }
 
 /*! \~russian
@@ -311,19 +355,26 @@ void ShikimoriApi::pullMangaData(quint64 id)
     connect(manager, &QNetworkAccessManager::finished,
             this,    &ShikimoriApi::replyMangaData);
 
-    QUrl url = shikimoriUrl + "/api/mangas/" + QString::number(id);
-    manager->get( QNetworkRequest( url ) );
+    QUrl url = ShikimoriApi::getShikimoriUrl() + "/api/mangas/" + QString::number(id);
+
+    manager->get( request(url) );
 }
 
 void ShikimoriApi::replyAnimeSearch(QNetworkReply* reply)
 {
-    emit dataRecived_animeSearch( jsonParse_search( reply->readAll() ) );
+//    Redirect ???
+//    QVariant redirectionTarget = reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+//    QUrl newUrl = redirectionTarget.toUrl();
+
+    TitleLists lists = jsonParse_search( reply->readAll() );
+    emit dataRecived_animeSearch( lists.eng, lists.rus );
     reply->deleteLater();
 }
 
 void ShikimoriApi::replyMangaSearch(QNetworkReply* reply)
 {
-    emit dataRecived_mangaSearch( jsonParse_search( reply->readAll() ) );
+    TitleLists lists = jsonParse_search( reply->readAll() );
+    emit dataRecived_mangaSearch( lists.eng, lists.rus );
     reply->deleteLater();
 }
 

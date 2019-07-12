@@ -14,6 +14,7 @@ class StyleManager
 {
 public:
     static QSet<QString> getExistsStyles();
+    static QString getFilePath(QString styleName);
     static QPalette getPaletteOfStyle(QString styleName);
     static bool saveStyle(QString styleName, QPalette palette);
     static bool removeStyle(QString styleName);

@@ -68,15 +68,17 @@ int main(int argc, char *argv[])
     app.setOrganizationName("LibertaSoft");
     app.setOrganizationDomain("https://github.com/LibertaSoft");
     app.setApplicationName("DatabaseAnime");
-    app.setApplicationVersion("1.3.1");
+    app.setApplicationVersion("1.4.4");
     app.setApplicationDisplayName( QObject::tr("Database Anime") );
     app.setWindowIcon( QIcon("://images/DBA_Icon.png") );
 
     {
         QSettings settings;
-        int currentStyle = settings.value(Options::Style::CurrentStyle, 0).toInt();
-        QString currentStyleName = settings.value(Options::Style::CurrentStyleName, "").toString();
-        if( (currentStyle > 0 ) && ( ! currentStyleName.isEmpty() ) ){
+        bool    isSystemStyle    = settings.value(Options::Style::SystemStyle, true).toBool();
+        QString currentStyleName = settings.value(Options::Style::CurrentStyleName, "System").toString();
+
+        QSet<QString> styles = StyleManager::getExistsStyles();
+        if( ( ! isSystemStyle) && styles.contains( currentStyleName ) ){
             app.setStyle( QStyleFactory::create("Fusion") );
             app.setPalette( StyleManager::getPaletteOfStyle( currentStyleName ) );
             app.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }");

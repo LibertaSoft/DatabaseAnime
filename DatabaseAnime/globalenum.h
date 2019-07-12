@@ -19,31 +19,38 @@ namespace Sort{
     enum sort{none = 0, asc, desc, year};
 }
 
+enum SearchOutput{ENG, RUS, MIX};
+
 namespace Options{
     namespace General{
-        const QString DisplayedField("DisplayedField");
-        const QString Language("Language");
-        const QString Sorting("Sorting");
+        const QString DISPLAYED_FIELD("DisplayedField");
+        const QString LANGUAGE("Language");
+        const QString SORTING("Sorting");
         const QString SwitchCoverOrDir("SwitchCoverOrDir");
         const QString WorkDirectory("WorkDirectory");
         const QString ActiveSection("ActiveSection");
     }
     namespace ActiveSections{
         const QString SectionPrefix("ActiveSections/");
-        const QString Anime(SectionPrefix+"Anime");
-        const QString Manga(SectionPrefix+"Manga");
-        const QString Amv(SectionPrefix+"Amv");
-        const QString Dorama(SectionPrefix+"Dorama");
+        const QString ANIME(SectionPrefix+"Anime");
+        const QString MANGA(SectionPrefix+"Manga");
+        const QString AMV(SectionPrefix+"Amv");
+        const QString DORAMA(SectionPrefix+"Dorama");
     }
     namespace Network{
         const QString SectionPrefix("Network/");
-        const QString CheckUpdates(SectionPrefix+"CheckUpdates");
-        const QString AutoSearchOnShikimori(SectionPrefix+"AutoSearchOnShikimori");
+        const QString CHECK_UPDATES(SectionPrefix+"CheckUpdates");
+        const QString USE_SSL(SectionPrefix+"USE_SSL");
+        const QString SHIKIMORI_API_URL(SectionPrefix+"SHIKIMORI_API_URL");
+        const QString LIVE_SEARCH(SectionPrefix+"AutoSearchOnShikimori");
+        const QString SEARCH_LIMIT(SectionPrefix+"SearchLimit");
+        const QString SEARCH_OUTPUT(SectionPrefix+"SearchOutput");
+        const QString RELOAD_COVERS(SectionPrefix+"DownloadCovers");
     }
     namespace Style{
         const QString SectionPrefix("Style/");
-        const QString CurrentStyleIndex(SectionPrefix+"CurrentIndex");
-        const QString CurrentStyleName(SectionPrefix+"CurrentTitle");
+        const QString SystemStyle(SectionPrefix+"ActiveIsSystem");
+        const QString CurrentStyleName(SectionPrefix+"ActiveStyleName");
     }
     namespace OptionalFields{
         const QString SectionPrefix("OptionalFields/");

@@ -25,7 +25,7 @@ void DialogAddManga::initTitleCompleter()
     TitleCompliter->setCompletionMode(QCompleter::UnfilteredPopupCompletion); // PopupCompletion
     ui->LineEdit_Title->setCompleter( TitleCompliter );
     connect(&api, &ShikimoriApi::dataRecived_mangaSearch,
-            &_titleCompliterModel, &QStringListModel::setStringList );
+            this, &DialogAddManga::setCompletionModel );
     connect(&api, &ShikimoriApi::dataRecived_mangaId,
             &api, &ShikimoriApi::pullMangaData);
     connect(&api, &ShikimoriApi::dataRecived_mangaData,
@@ -76,7 +76,8 @@ void DialogAddManga::setDataInFields()
 
     _oldCover = record.value( Tables::Manga::Fields::ImagePath ).toString();
     QPixmap pm( DefinesPath::mangaCovers() + _oldCover );
-    if( !pm.isNull() ){
+
+    if( ! pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
         ui->Lbl_ImageCover->setImagePath( DefinesPath::mangaCovers() + _oldCover );
     }else{
@@ -153,15 +154,30 @@ void DialogAddManga::setTabOrders()
     setTabOrder(ui->SpinBox_vCh,    ui->SpinBox_vPages);
 }
 
+void DialogAddManga::connectSlots()
+{
+    connect( & _imageLoader, SIGNAL( imageLoaded(QImage) ),
+             this,           SLOT( coverLoaded(QImage) ) );
+    connect( ui->Lbl_ImageCover, SIGNAL( reloadCover() ),
+             this,               SLOT( reloadCover() ) );
+}
+
 DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     QDialog(parent), ui(new Ui::DialogAddManga), _isEditRole( true ), _recordId( record_id ),
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value(Options::Dialogs::Manga::Geometry).toByteArray() );
+    setWindowTitle( tr("Editing manga") );
+    QSettings cfg;
+    this->restoreGeometry( cfg.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = cfg.value( Options::Network::LIVE_SEARCH, true ).toBool();
+
+    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() ); /// \todo default value
+    int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
+    setSearchOutput( static_cast<SearchOutput>(searchOutType) );
+
+    connectSlots();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -180,10 +196,16 @@ DialogAddManga::DialogAddManga(QWidget *parent):
     LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value(Options::Dialogs::Manga::Geometry).toByteArray() );
+    QSettings cfg;
+    this->restoreGeometry( cfg.value(Options::Dialogs::Manga::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = cfg.value( Options::Network::LIVE_SEARCH, true ).toBool();
+
+    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() ); /// \todo default value
+    int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
+    setSearchOutput( static_cast<SearchOutput>(searchOutType) );
+
+    connectSlots();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -203,7 +225,7 @@ DialogAddManga::~DialogAddManga()
     delete ui;
 }
 
-void DialogAddManga::btnBox_reset()
+void DialogAddManga::btnBox_reset(bool clearImage = true)
 {
     ui->CheckBox_LookLater->setChecked( false );
     ui->CheckBox_Editing->setChecked( false );
@@ -234,7 +256,8 @@ void DialogAddManga::btnBox_reset()
     ui->LineEdit_Dir->clear();
     ui->LineEdit_URL->clear();
 
-    ui->Lbl_ImageCover->noImage();
+    if( clearImage )
+        ui->Lbl_ImageCover->noImage();
 }
 
 void DialogAddManga::on_BtnBox_clicked(QAbstractButton *button)
@@ -383,6 +406,11 @@ void DialogAddManga::on_SpinBox_Year_valueChanged(int = 0)
     ui->CBox_Year->setChecked( true );
 }
 
+void DialogAddManga::reloadCover()
+{
+    _imageLoader.getImage( _urlCover );
+}
+
 void DialogAddManga::on_LineEdit_Title_textEdited(const QString &title)
 {
     if( _autoSearchOnShikimori == false )
@@ -393,18 +421,12 @@ void DialogAddManga::on_LineEdit_Title_textEdited(const QString &title)
         if( name.toUpper().contains( title.toUpper() ) )
             return;
     }
-    api.searchManga( title );
+
+    api.searchManga( title, _searchLimit );
 }
 
-void DialogAddManga::replyDownloadPictureFinished(QNetworkReply *r)
+void DialogAddManga::coverLoaded(QImage image)
 {
-    QImageReader imageReader(r);
-    QImage image;
-    if (r->error() == QNetworkReply::NoError)
-        imageReader.read(&image);
-    else
-        qDebug() << "network error";
-
     if( image.isNull() )
         qDebug() << "image is null";
 
@@ -412,20 +434,18 @@ void DialogAddManga::replyDownloadPictureFinished(QNetworkReply *r)
     QString tmpImagePath( QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() );
 
     bool okSave = image.save( tmpImagePath + coverName, "png" );
-    if( !okSave )
+    if( ! okSave )
         qCritical() << "Image is not save as: "
                     << tmpImagePath + coverName;
 
     QPixmap pm( tmpImagePath + coverName );
-    if( !pm.isNull() ){
+    if( ! pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
         ui->Lbl_ImageCover->setImagePath( tmpImagePath + coverName );
     }else{
         ui->Lbl_ImageCover->noImage();
         qCritical() << "Pixmap is null";
     }
-
-    r->deleteLater();
 }
 
 void DialogAddManga::on_TBtn_Search_clicked()
@@ -436,8 +456,9 @@ void DialogAddManga::on_TBtn_Search_clicked()
 
 void DialogAddManga::setRecivedData(QMap<QString, QVariant> data)
 {
+
     using namespace Tables::Manga::Fields;
-    btnBox_reset();
+    btnBox_reset(false);
     ui->TabWidget_Info->setCurrentIndex(2);
 
     ui->LineEdit_Title->setText( data[Title].toString() );
@@ -465,11 +486,55 @@ void DialogAddManga::setRecivedData(QMap<QString, QVariant> data)
     ui->LineEdit_URL->setText( data[Url].toString() );
 
     QString cover = data[ImagePath].toString();
+    _urlCover = QUrl(ShikimoriApi::getShikimoriUrl() + cover);
+    ui->Lbl_ImageCover->enableReloadButton( ! _urlCover.isEmpty() );
 
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyDownloadPictureFinished(QNetworkReply*)));
+    QSettings cfg;
+    bool hasLoadImage = ui->Lbl_ImageCover->isNullImage()
+                        || ( ! _isEditRole )
+                        || (cfg.value( Options::Network::RELOAD_COVERS, true ).toBool());
 
-    QUrl urlCover(shikimoriUrl + cover);
-    manager->get( QNetworkRequest(urlCover) );
+    qDebug() << "hasLoadImage:"
+             << ui->Lbl_ImageCover->isNullImage()
+             << ( ! _isEditRole )
+             << (cfg.value( Options::Network::RELOAD_COVERS, true ).toBool());
+
+    if( hasLoadImage ){
+        _imageLoader.getImage( _urlCover );
+    }
+}
+
+bool DialogAddManga::setSearchLimit(const int limit)
+{
+    if(limit > 0){
+        _searchLimit = limit;
+        return true;
+    } else {
+        _searchLimit = 10; /// \note default value 10
+        return false;
+    }
+}
+
+void DialogAddManga::setSearchOutput(const SearchOutput outType)
+{
+    _searchOutput = outType;
+}
+
+void DialogAddManga::setCompletionModel(QStringList eng, QStringList rus)
+{
+    QStringList model;
+
+    switch ( _searchOutput ) {
+        case SearchOutput::ENG :
+            model = eng;
+            break;
+        case SearchOutput::RUS :
+            model = rus;
+            break;
+        case SearchOutput::MIX :
+        default:
+            model = eng+rus;
+    }
+
+    _titleCompliterModel.setStringList( model );
 }

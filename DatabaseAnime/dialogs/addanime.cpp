@@ -27,7 +27,7 @@ void DialogAddAnime::initTitleCompleter()
     TitleCompliter->setCompletionMode(QCompleter::UnfilteredPopupCompletion); // PopupCompletion
     ui->LineEdit_Title->setCompleter( TitleCompliter );
     connect(&api, &ShikimoriApi::dataRecived_animeSearch,
-            &_titleCompliterModel, &QStringListModel::setStringList );
+            this, &DialogAddAnime::setCompletionModel );
     connect(&api, &ShikimoriApi::dataRecived_animeId,
             &api, &ShikimoriApi::pullAnimeData);
     connect(&api, &ShikimoriApi::dataRecived_animeData,
@@ -108,10 +108,9 @@ void DialogAddAnime::setDataInField()
     ui->LineEdit_URL->setText( record.value( Tables::Anime::Fields::Url ).toString() );
 
     _oldCover = record.value( Tables::Anime::Fields::ImagePath ).toString();
-
     QPixmap pm( DefinesPath::animeCovers() + _oldCover );
 
-    if( !pm.isNull() ){
+    if( ! pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
         ui->Lbl_ImageCover->setImagePath( DefinesPath::animeCovers() + _oldCover );
     }else{
@@ -144,15 +143,44 @@ void DialogAddAnime::setTabOrders()
     }
 }
 
+int DialogAddAnime::kindOf(const QString &kind)
+{
+    const QString TV("TV");
+    const QString OVA("OVA");
+    const QString ONA("ONA");
+    const QString SPECIAL("SPECIAL");
+    const QString MOVIE("MOVIE");
+
+    QString _kind = kind.toUpper();
+    if( _kind == TV )
+        return Kind::TV;
+    if( _kind == OVA )
+        return Kind::OVA;
+    if( _kind == ONA )
+        return Kind::ONA;
+    if( _kind == SPECIAL )
+        return Kind::Special;
+    if( _kind == MOVIE )
+        return Kind::Movie;
+
+    return Kind::TV;
+}
+
 DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     QDialog(parent), ui(new Ui::DialogAddAnime), _isEditRole(true), _recordId(record_id),
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value(Options::Dialogs::Anime::Geometry).toByteArray() );
+    setWindowTitle( tr("Editing anime") );
+    QSettings cfg;
+    this->restoreGeometry( cfg.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = cfg.value( Options::Network::LIVE_SEARCH, true ).toBool();
+    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() ); /// \todo default value
+    int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
+    setSearchOutput( static_cast<SearchOutput>(searchOutType) );
+
+    connectSlots();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -166,15 +194,28 @@ DialogAddAnime::DialogAddAnime(QWidget *parent, unsigned long long record_id) :
     setDataInField();
 }
 
+void DialogAddAnime::connectSlots()
+{
+    connect( & _imageLoader, SIGNAL(imageLoaded(QImage)),
+             this,           SLOT(coverLoaded(QImage)) );
+    connect( ui->Lbl_ImageCover, SIGNAL( reloadCover() ),
+             this,               SLOT( reloadCover() ) );
+}
+
 DialogAddAnime::DialogAddAnime(QWidget *parent):
     QDialog(parent), ui(new Ui::DialogAddAnime), _isEditRole(false),
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL), TitleCompliter(NULL)
 {
     ui->setupUi(this);
-    QSettings settings;
-    this->restoreGeometry( settings.value(Options::Dialogs::Anime::Geometry).toByteArray() );
+    QSettings cfg;
+    this->restoreGeometry( cfg.value(Options::Dialogs::Anime::Geometry).toByteArray() );
     api.setLang("ru");
-    _autoSearchOnShikimori = settings.value( Options::Network::AutoSearchOnShikimori, true ).toBool();
+    _autoSearchOnShikimori = cfg.value( Options::Network::LIVE_SEARCH, true ).toBool();
+    setSearchLimit( cfg.value( Options::Network::SEARCH_LIMIT, 10 ).toInt() ); /// \todo default value
+    int searchOutType = cfg.value( Options::Network::SEARCH_OUTPUT, SearchOutput::MIX ).toInt();
+    setSearchOutput( static_cast<SearchOutput>(searchOutType) );
+
+    connectSlots();
 
     // Reset tabs
     ui->TabWidget_Series->setCurrentIndex(0);
@@ -194,7 +235,7 @@ DialogAddAnime::~DialogAddAnime()
     delete ui;
 }
 
-void DialogAddAnime::btnBox_reset()
+void DialogAddAnime::btnBox_reset( bool clearImage = true )
 {
     ui->CheckBox_LookLater->setChecked( false );
     ui->CheckBox_Editing->setChecked( false );
@@ -233,7 +274,8 @@ void DialogAddAnime::btnBox_reset()
     ui->LineEdit_Dir->clear();
     ui->LineEdit_URL->clear();
 
-    ui->Lbl_ImageCover->noImage();
+    if( clearImage )
+        ui->Lbl_ImageCover->noImage();
 }
 
 void DialogAddAnime::on_BtnBox_clicked(QAbstractButton *button)
@@ -417,20 +459,14 @@ void DialogAddAnime::on_LineEdit_Title_textEdited(const QString &title)
         if( name.toUpper().contains( title.toUpper() ) )
             return;
     }
-    api.searchAnime( title );
+
+    api.searchAnime( title, _searchLimit );
 }
 
-void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)
+void DialogAddAnime::coverLoaded(QImage image)
 {
-    QImageReader imageReader(r);
-    QImage image;
-    if (r->error() == QNetworkReply::NoError)
-        imageReader.read(&image);
-    else
-        qDebug() << "network error";
-
     if( image.isNull() )
-        qDebug() << "image is null";
+        qCritical() << "image is null";
 
     QString coverName( QString::number( QDateTime::currentMSecsSinceEpoch() ) );
     QString tmpImagePath( QStandardPaths::writableLocation(QStandardPaths::TempLocation) + QDir::separator() );
@@ -441,21 +477,25 @@ void DialogAddAnime::replyDownloadPictureFinished(QNetworkReply *r)
                     << tmpImagePath + coverName;
 
     QPixmap pm( tmpImagePath + coverName );
-    if( !pm.isNull() ){
+    if( ! pm.isNull() ){
         ui->Lbl_ImageCover->setPixmap( pm );
         ui->Lbl_ImageCover->setImagePath( tmpImagePath + coverName );
     }else{
         ui->Lbl_ImageCover->noImage();
         qCritical() << "Pixmap is null";
     }
+}
 
-    r->deleteLater();
+void DialogAddAnime::reloadCover()
+{
+    _imageLoader.getImage( _urlCover );
+    qDebug() << _urlCover;
 }
 
 void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 {
     using namespace Tables::Anime::Fields;
-    btnBox_reset();
+    btnBox_reset(false);
     ui->TabWidget_Info->setCurrentIndex(2);
 
     ui->LineEdit_Title->setText( data[Title].toString() );
@@ -477,16 +517,29 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
 
     ui->ComboBox_Studio->setCurrentText( data[Studios].toString() );
 
-    if( data["Type"].toString() == "TV" )
-        ui->SpinBox_aTV->setValue( data["Series"].toInt() );
-    else if( data["Type"].toString() == "OVA" )
-        ui->SpinBox_aOVA->setValue( data["Series"].toInt() );
-    else if( data["Type"].toString() == "ONA" )
-        ui->SpinBox_aONA->setValue( data["Series"].toInt() );
-    else if( data["Type"].toString() == "Special" )
-        ui->SpinBox_aSpec->setValue( data["Series"].toInt() );
-    else if( data["Type"].toString() == "Movie" )
-        ui->SpinBox_aMovie->setValue( data["Series"].toInt() );
+
+    {
+        int type = kindOf( data["Type"].toString() );
+        switch (type) {
+            case Kind::TV :
+                ui->SpinBox_aTV->setValue( data["Series"].toInt() );
+                break;
+            case Kind::OVA :
+                ui->SpinBox_aOVA->setValue( data["Series"].toInt() );
+                break;
+            case Kind::ONA :
+                ui->SpinBox_aONA->setValue( data["Series"].toInt() );
+                break;
+            case Kind::Special :
+                ui->SpinBox_aSpec->setValue( data["Series"].toInt() );
+                break;
+            case Kind::Movie :
+                ui->SpinBox_aMovie->setValue( data["Series"].toInt() );
+                break;
+            default:
+                break;
+        }
+    }
 
     ui->LineEdit_Tags->setText( data[Tags].toString() );
 
@@ -495,11 +548,50 @@ void DialogAddAnime::setRecivedData(QMap<QString, QVariant> data)
     ui->LineEdit_URL->setText( data[Url].toString() );
 
     QString cover = data[ImagePath].toString();
+    _urlCover = QUrl(ShikimoriApi::getShikimoriUrl() + cover);
+    ui->Lbl_ImageCover->enableReloadButton( ! _urlCover.isEmpty() );
 
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
-    connect(manager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyDownloadPictureFinished(QNetworkReply*)));
+    QSettings cfg;
+    bool hasLoadImage = ui->Lbl_ImageCover->isNullImage()
+                        || ( ! _isEditRole )
+                        || (cfg.value( Options::Network::RELOAD_COVERS, true ).toBool());
 
-    QUrl urlCover(shikimoriUrl + cover);
-    manager->get( QNetworkRequest(urlCover) );
+    if( hasLoadImage ){
+        _imageLoader.getImage( _urlCover );
+    }
+}
+
+bool DialogAddAnime::setSearchLimit(const int limit)
+{
+    if(limit > 0){
+        _searchLimit = limit;
+        return true;
+    } else {
+        _searchLimit = 10; /// \note default value 10
+        return false;
+    }
+}
+
+void DialogAddAnime::setSearchOutput(SearchOutput outputType)
+{
+    _searchOutput = outputType;
+}
+
+void DialogAddAnime::setCompletionModel(QStringList eng, QStringList rus)
+{
+    QStringList model;
+
+    switch( _searchOutput ){
+        case SearchOutput::ENG :
+            model = eng;
+            break;
+        case SearchOutput::RUS :
+            model = rus;
+            break;
+        case SearchOutput::MIX :
+        default:
+            model = eng + rus;
+    }
+
+    _titleCompliterModel.setStringList( model );
 }

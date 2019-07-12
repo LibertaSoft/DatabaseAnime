@@ -51,6 +51,7 @@ DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned long long record_id) :
     LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
 {
     ui->setupUi(this);
+    setWindowTitle( tr("Editing AMV") );
     QSettings settings;
     this->restoreGeometry( settings.value(Options::Dialogs::Amv::Geometry).toByteArray() );
 
