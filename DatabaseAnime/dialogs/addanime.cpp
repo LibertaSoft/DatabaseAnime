@@ -605,11 +605,6 @@ void DialogAddAnime::setRecivedData(KeyValue data)
                         || ( ! _isEditRole )
                         || (cfg.value( Options::Network::RELOAD_COVERS, true ).toBool());
 
-    qDebug() << "hasLoadImage:"
-             << ui->Lbl_ImageCover->isNullImage()
-             << ( ! _isEditRole )
-             << (cfg.value( Options::Network::RELOAD_COVERS, true ).toBool());
-
     if( hasLoadImage ){
         _imageLoader.getImage( _urlCover );
     }
