@@ -8,7 +8,7 @@ MngrConnection::MngrConnection()
 
     if( !QSqlDatabase::isDriverAvailable("QSQLITE") ){
         qCritical() << "Cannot avalible QSQLITE driver";
-        QMessageBox::critical(0 , QObject::tr("Critical"),
+        QMessageBox::critical(nullptr , QObject::tr("Critical"),
                               QObject::tr("Cannot avalible database driver") );
     }
 
@@ -17,7 +17,7 @@ MngrConnection::MngrConnection()
     if( !QDir().mkpath( DefinesPath::dbPath() ) ){
         qCritical() << "Cannot createed work directory"
                     << "\nPath: " << DefinesPath::dbPath();
-        QMessageBox::critical(0 , QObject::tr("Critical"),
+        QMessageBox::critical(nullptr , QObject::tr("Critical"),
                               QObject::tr("It was not succeeded to create a directory for a database.") );
     }else{
         db.setDatabaseName( DefinesPath::dbPath(true) );

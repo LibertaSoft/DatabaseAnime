@@ -100,9 +100,10 @@ QString MngrQuerys::filterToString(Filter::filter filter)
     case Filter::looked :
         return "SeriesTV != 0 AND SeriesTV = vSeriesTV";
     case Filter::all :
-    default:
         return "0 = 0";
     }
+
+    return "0 = 0";
 }
 
 QString MngrQuerys::sortToString(Sort::sort sort)
@@ -115,7 +116,6 @@ QString MngrQuerys::sortToString(Sort::sort sort)
     case Sort::year :
         return "ORDER BY Year DESC, Title ASC";
     case Sort::none :
-    default:
         return QString::null;
     }
 }
@@ -125,18 +125,13 @@ QString MngrQuerys::getTableName(sections::section table)
     switch( table ){
         case sections::anime :
             return Tables::Anime::TableName;
-            break;
         case sections::manga :
             return Tables::Manga::TableName;
-            break;
         case sections::amv :
             return Tables::Amv::TableName;
-            break;
         case sections::dorama :
             return Tables::Dorama::TableName;
-            break;
         case sections::none :
-        default:
             return QString::null;
     }
 }

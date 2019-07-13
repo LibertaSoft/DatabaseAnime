@@ -213,12 +213,12 @@ void Settings::on_PBtn_Action_Export_clicked()
     writer.writeDTD();
     writer.startElement("DatabaseAnime");
 
-    quint64 countAnime, countManga, countAmv, countDorama, allCount;
+    quint64 countAnime, countManga, countAmv, countDorama;
     countAnime  = ( exAnime  )? MngrQuerys::count(sections::anime)  : 0;
     countManga  = ( exManga  )? MngrQuerys::count(sections::manga)  : 0;
     countAmv    = ( exAmv    )? MngrQuerys::count(sections::amv)    : 0;
     countDorama = ( exDorama )? MngrQuerys::count(sections::dorama) : 0;
-    allCount = countAnime + countManga + countAmv + countDorama;
+    quint64 allCount = countAnime + countManga + countAmv + countDorama;
 
     writer.writeAttribute("CountAnime"  , QString::number( countAnime  ) );
     writer.writeAttribute("CountManga"  , QString::number( countManga  ) );
@@ -272,7 +272,7 @@ void Settings::on_PBtn_Action_Export_clicked()
             data[ImagePath]      = query.value(ImagePath      ).toString();
 
             writer.writeNext(data);
-            ui->ProgressBar_Export->setValue( progress++ );
+            ui->ProgressBar_Export->setValue( ++progress );
             QCoreApplication::processEvents();
         }
         writer.endSection(/*Anime*/);
@@ -311,7 +311,7 @@ void Settings::on_PBtn_Action_Export_clicked()
             data[ImagePath]       = query.value(ImagePath       ).toString();
 
             writer.writeNext(data);
-            ui->ProgressBar_Export->setValue( progress++ );
+            ui->ProgressBar_Export->setValue( ++progress );
             QCoreApplication::processEvents();
         }
         writer.endSection(/*Manga*/);
@@ -344,7 +344,7 @@ void Settings::on_PBtn_Action_Export_clicked()
             data[ImagePath]       = query.value(ImagePath      ).toString();
 
             writer.writeNext(data);
-            ui->ProgressBar_Export->setValue( progress++ );
+            ui->ProgressBar_Export->setValue( ++progress );
             QCoreApplication::processEvents();
         }
         writer.endSection(/*Amv*/);
@@ -384,7 +384,7 @@ void Settings::on_PBtn_Action_Export_clicked()
             data[ImagePath]       = query.value(ImagePath      ).toString();
 
             writer.writeNext(data);
-            ui->ProgressBar_Export->setValue( progress++ );
+            ui->ProgressBar_Export->setValue( ++progress );
             QCoreApplication::processEvents();
         }
         writer.endSection(/*Dorama*/);
@@ -485,7 +485,7 @@ void Settings::on_PBtn_Import_Append_clicked()
     on_actionShowImportProgressBar_triggered(true);
     this->setDisabled(true);
 
-    int countImportRecords = import();
+    quint64 countImportRecords = import();
     if( countImportRecords > 0 ){
         QMessageBox::information(this, tr("Import"),"<b>" + tr("Import is successfully finished") + "</b><br>"
                                                     + tr("Records it is imported:")+ " " + QString::number(countImportRecords) + "   "

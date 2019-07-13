@@ -9,7 +9,7 @@ class ColorPicker : public QFrame
 private:
     QColor _color;
 public:
-    explicit ColorPicker(QWidget* parent = 0);
+    explicit ColorPicker(QWidget* parent = nullptr);
     QColor color();
     QSize sizeHint() const;
 protected:

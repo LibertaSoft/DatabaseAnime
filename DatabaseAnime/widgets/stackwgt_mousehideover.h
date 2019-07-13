@@ -12,7 +12,7 @@ private:
     bool disabledSwitch;
     bool hover;
 public:
-    explicit StackWgt_MouseHideOver(QWidget *parent = 0);
+    explicit StackWgt_MouseHideOver(QWidget *parent = nullptr);
     void setOptSwitch(bool);
     void setDisabledSwitch(bool);
 signals:

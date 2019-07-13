@@ -2,6 +2,7 @@
 #define STYLEMANAGER_H
 
 #include <QStringList>
+#include <QPalette>
 #include <QSet>
 
 /*! \~russian

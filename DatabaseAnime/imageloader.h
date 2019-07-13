@@ -14,7 +14,7 @@ class ImageLoader : public QObject
 {
     Q_OBJECT
 public:
-    explicit ImageLoader(QObject *parent = 0);
+    explicit ImageLoader(QObject *parent = nullptr);
 
 signals:
     void imageLoaded( QImage image );

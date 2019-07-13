@@ -189,7 +189,6 @@ void MainWindow::on_TButton_Add_clicked()
             break;
         }
         case sections::none :
-        default:
             return;
     }
     dialog->setModal(true);
@@ -215,7 +214,6 @@ void MainWindow::on_TButton_Edit_clicked()
                 dialog = new DialogAddDorama(this, _currentItemId);
                 break;
             case sections::none :
-            default:
                 return;
         }
         dialog->setModal(true);
@@ -282,7 +280,6 @@ void MainWindow::on_TreeView_List_activated(const QModelIndex&)
             selectDoramaData();
             break;
         case sections::none :
-        default:
             return;
     }
 }
@@ -445,7 +442,6 @@ void MainWindow::reloadFiltersList()
         loadDoramaFilters();
         break;
     case sections::none :
-    default:
         break;
     }
     ui->CB_Filter->blockSignals( false );
@@ -1015,7 +1011,7 @@ void MainWindow::on_CB_Filter_currentIndexChanged(int = 0)
 
 void MainWindow::on_TreeView_Dir_activated(const QModelIndex &index)
 {
-    QDirModel *m = (QDirModel*)index.model();
+    const QDirModel *m = qobject_cast<const QDirModel*>(index.model());
     QDesktopServices::openUrl( QUrl::fromLocalFile( m->fileInfo(index).absolutePath()
                                                     + QDir::separator() + index.data().toString()
                                                     )  );

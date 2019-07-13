@@ -48,7 +48,7 @@ void DialogAddAmv::setDataInField()
 
 DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned long long record_id) :
     QDialog(parent), ui(new Ui::DialogAddAmv), _isEditRole(true), _recordId(record_id),
-    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+    LineEdit_OrigTitle(nullptr), LineEdit_Director(nullptr), LineEdit_PostScoring(nullptr)
 {
     ui->setupUi(this);
     setWindowTitle( tr("Editing AMV") );
@@ -64,7 +64,7 @@ DialogAddAmv::DialogAddAmv(QWidget *parent, unsigned long long record_id) :
 
 DialogAddAmv::DialogAddAmv(QWidget *parent):
     QDialog(parent), ui(new Ui::DialogAddAmv), _isEditRole(false),
-    LineEdit_OrigTitle(NULL), LineEdit_Director(NULL), LineEdit_PostScoring(NULL)
+    LineEdit_OrigTitle(nullptr), LineEdit_Director(nullptr), LineEdit_PostScoring(nullptr)
 {
     ui->setupUi(this);
     QSettings settings;

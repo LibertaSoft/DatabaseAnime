@@ -62,7 +62,7 @@ private:
     QMap<QString,QVariant> jsonParse_mangaData(QByteArray data);
 
 public:
-    explicit ShikimoriApi(QString lang = "en", QObject* parent = 0);
+    explicit ShikimoriApi(QString lang = "en", QObject* parent = nullptr);
     void setLang(QString lang);
     static QString getShikimoriUrl();
 

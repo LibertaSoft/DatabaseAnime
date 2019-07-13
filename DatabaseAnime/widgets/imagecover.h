@@ -14,7 +14,7 @@ private:
 
     bool _emptyImage = true;
 public:
-    explicit ImageCover(QWidget *parent = 0);
+    explicit ImageCover(QWidget *parent = nullptr);
     QString getImagePath() const;
     void setImagePath(QString);
     QSize sizeHint() const;

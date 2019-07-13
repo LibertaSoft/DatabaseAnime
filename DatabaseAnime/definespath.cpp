@@ -138,8 +138,7 @@ QString DefinesPath::getCoversFolder(const sections::section section, const QStr
             return amvCovers(prefix);
         case sections::dorama:
             return doramaCovers(prefix);
-        case sections::none :
-        default:
+        case sections::none:
             return QString::null;
     }
 }

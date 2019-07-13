@@ -164,7 +164,7 @@ void DialogAddManga::connectSlots()
 
 DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
     QDialog(parent), ui(new Ui::DialogAddManga), _isEditRole( true ), _recordId( record_id ),
-    LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
+    LineEdit_AltTitle(nullptr), LineEdit_Author(nullptr), LineEdit_Translation(nullptr)
 {
     ui->setupUi(this);
     setWindowTitle( tr("Editing manga") );
@@ -193,7 +193,7 @@ DialogAddManga::DialogAddManga(QWidget *parent, unsigned long long record_id ) :
 
 DialogAddManga::DialogAddManga(QWidget *parent):
     QDialog(parent), ui(new Ui::DialogAddManga), _isEditRole( false ),
-    LineEdit_AltTitle(NULL), LineEdit_Author(NULL), LineEdit_Translation(NULL)
+    LineEdit_AltTitle(nullptr), LineEdit_Author(nullptr), LineEdit_Translation(nullptr)
 {
     ui->setupUi(this);
     QSettings cfg;
@@ -532,8 +532,7 @@ void DialogAddManga::setCompletionModel(QStringList eng, QStringList rus)
             model = rus;
             break;
         case SearchOutput::MIX :
-        default:
-            model = eng+rus;
+            model = eng + rus;
     }
 
     _titleCompliterModel.setStringList( model );

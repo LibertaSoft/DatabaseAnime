@@ -589,7 +589,6 @@ void DialogAddAnime::setCompletionModel(QStringList eng, QStringList rus)
             model = rus;
             break;
         case SearchOutput::MIX :
-        default:
             model = eng + rus;
     }
 

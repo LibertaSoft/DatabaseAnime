@@ -29,9 +29,9 @@ private:
     void initCreate();  // First!
     void initConnect(); // Second!
 public:
-    explicit LookProgressBar(QWidget *parent = 0);
-    explicit LookProgressBar(int minimum, int value, int maximum, QWidget *parent = 0);
-    explicit LookProgressBar(int minimum, int value, int maximum, QString format, QString targetField, QWidget *parent = 0);
+    explicit LookProgressBar(QWidget *parent = nullptr);
+    explicit LookProgressBar(int minimum, int value, int maximum, QWidget *parent = nullptr);
+    explicit LookProgressBar(int minimum, int value, int maximum, QString format, QString targetField, QWidget *parent = nullptr);
 
     void setValue(int);
     void setMaximum(int);

@@ -104,7 +104,7 @@ void DialogAddDorama::setTabOrders()
 
 DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned long long record_id) :
     QDialog(parent), ui(new Ui::DialogAddDorama), _isEditRole(true), _recordId(record_id),
-    LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
+    LineEdit_AltTitle(nullptr), LineEdit_Director(nullptr)
 {
     ui->setupUi(this);
     setWindowTitle( tr("Editing dorama") );
@@ -122,7 +122,7 @@ DialogAddDorama::DialogAddDorama(QWidget *parent, unsigned long long record_id) 
 
 DialogAddDorama::DialogAddDorama(QWidget *parent):
     QDialog(parent), ui(new Ui::DialogAddDorama), _isEditRole(false),
-    LineEdit_AltTitle(NULL), LineEdit_Director(NULL)
+    LineEdit_AltTitle(nullptr), LineEdit_Director(nullptr)
 {
     ui->setupUi(this);
     QSettings settings;
