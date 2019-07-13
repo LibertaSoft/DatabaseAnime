@@ -763,8 +763,7 @@ void Settings::loadSettings()
         ui->SpinBox_SearchLimit->setValue( cfg.value( SEARCH_LIMIT, 10 ).toInt() );
         ui->ComboBox_SearchOutput->setCurrentIndex( cfg.value( SEARCH_OUTPUT, SearchOutput::MIX ).toInt() );
         ui->ChBox_DownloadCovers->setChecked( cfg.value( RELOAD_COVERS, true ).toBool() );
-        ui->ChBox_https->setChecked( cfg.value( USE_SSL  , true ).toBool() );
-        ui->LineEdit_ShikimiriApiURL->setText( cfg.value(SHIKIMORI_API_URL, "").toString() );
+        ui->LineEdit_ShikimiriApiURL->setText( cfg.value(SHIKIMORI_API_URL, "https://shikimori.org").toString() );
     }
     {
         using namespace Options::General;
@@ -878,8 +877,11 @@ void Settings::saveSettings()
         cfg.setValue( SEARCH_OUTPUT,     ui->ComboBox_SearchOutput->currentData().toInt() );
         cfg.setValue( SEARCH_LIMIT ,     ui->SpinBox_SearchLimit->value() );
         cfg.setValue( RELOAD_COVERS,     ui->ChBox_DownloadCovers->isChecked() );
-        cfg.setValue( USE_SSL,           ui->ChBox_https->isChecked() );
-        cfg.setValue( SHIKIMORI_API_URL, ui->LineEdit_ShikimiriApiURL->text() );
+        if (ui->LineEdit_ShikimiriApiURL->text().isEmpty()) {
+            cfg.setValue( SHIKIMORI_API_URL, "https://shikimori.org" );
+        } else {
+            cfg.setValue( SHIKIMORI_API_URL, ui->LineEdit_ShikimiriApiURL->text() );
+        }
     }
     { // Style
         using namespace Options::Style;

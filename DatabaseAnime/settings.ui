@@ -197,16 +197,6 @@
                   </widget>
                  </item>
                  <item>
-                  <widget class="QCheckBox" name="ChBox_https">
-                   <property name="text">
-                    <string>Use HTTPS</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
                   <widget class="QCheckBox" name="ChBox_CheckForUpdate">
                    <property name="text">
                     <string>Checking updates</string>
@@ -479,8 +469,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>610</width>
-             <height>672</height>
+             <width>318</width>
+             <height>237</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -616,8 +606,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>610</width>
-             <height>672</height>
+             <width>335</width>
+             <height>217</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -784,8 +774,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>610</width>
-             <height>672</height>
+             <width>335</width>
+             <height>215</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">

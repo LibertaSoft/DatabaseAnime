@@ -40,7 +40,6 @@ namespace Options{
     namespace Network{
         const QString SectionPrefix("Network/");
         const QString CHECK_UPDATES(SectionPrefix+"CheckUpdates");
-        const QString USE_SSL(SectionPrefix+"USE_SSL");
         const QString SHIKIMORI_API_URL(SectionPrefix+"SHIKIMORI_API_URL");
         const QString LIVE_SEARCH(SectionPrefix+"AutoSearchOnShikimori");
         const QString SEARCH_LIMIT(SectionPrefix+"SearchLimit");
